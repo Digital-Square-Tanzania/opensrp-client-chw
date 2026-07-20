@@ -231,7 +231,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }
@@ -248,7 +248,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }
@@ -268,7 +268,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }
@@ -279,6 +279,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "save_n_refer",
         "type": "button",
+        "hidden": "true",
         "hint": "Save and Refer to Health Facility",
         "btn_bg_color": "#CF0800",
         "action": {
@@ -287,7 +288,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_hv_danger_signs_relevance.yml"
+              "rules-file": "child_hv_danger_sign_relevance.yml"
             }
           }
         }

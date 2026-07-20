@@ -37,3 +37,27 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = helper.addDuration(step1_last_menstrual_period,'280d')"
+
+---
+name: step1_parity_value
+description: Auto set parity when first pregnancy
+priority: 1
+condition: "step1_no_prev_preg == 1"
+actions:
+  - "calculation = '0'"
+---
+name: step1_first_clinic_visit_gest_age
+description: First Clinic Visit Gestational age calculated
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (helper.getDifferenceDays(step1_first_clinic_visit_date,step1_last_menstrual_period)) /7"
+#  - "calculation = (helper.getDifferenceDays(step1_edd != '' ? helper.subtractDuration(step1_edd,'280d')  : step1_last_menstrual_period)-helper.getDifferenceDays(helper.getDateToday())) /7"
+
+---
+name: step1_first_clinic_visit_age_note
+description: First Clinic Gestational age calculated
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_first_clinic_visit_gest_age"

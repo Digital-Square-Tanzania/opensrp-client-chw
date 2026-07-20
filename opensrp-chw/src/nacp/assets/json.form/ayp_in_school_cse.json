@@ -89,6 +89,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "topics_covered",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Comprehensive Sexuality Education Topics Covered:",
         "v_required": {
           "value": true,

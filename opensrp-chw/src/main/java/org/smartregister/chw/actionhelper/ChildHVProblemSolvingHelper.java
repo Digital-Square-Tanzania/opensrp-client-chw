@@ -50,12 +50,10 @@ public class ChildHVProblemSolvingHelper extends HomeVisitActionHelper {
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
         if (StringUtils.isBlank(child_playing_challenge)) {
             return BaseAncHomeVisitAction.Status.PENDING;
-        }
-
-        if (StringUtils.isNotBlank(child_playing_challenge)) {
-            return BaseAncHomeVisitAction.Status.COMPLETED;
-        } else {
+        } else if (child_playing_challenge.equalsIgnoreCase("Yes") || child_playing_challenge.equalsIgnoreCase("Ndiyo")) {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+        } else {
+            return BaseAncHomeVisitAction.Status.COMPLETED;
         }
     }
 }

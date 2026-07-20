@@ -1,0 +1,889 @@
+{
+  "count": "4",
+  "encounter_type": "Diabetes and Hypertension Screening",
+  "skip_blank_steps": true,
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Client consent",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "consent_message",
+        "type": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "We are here today to conduct a health screening for high blood pressure and diabetes. This screening is free, and does not involve injections or drawing blood. It is aimed at early detection of preventable health problems.",
+        "toaster_type": "info",
+        "text_color": "#1199F9"
+      },
+      {
+        "key": "agree_with_screening_procedure",
+        "type": "spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "agree_with_screening_procedure",
+        "openmrs_data_type": "select one",
+        "hint": "Do you agree with proceedings?",
+        "keys": ["Yes", "No"],
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        }
+      },
+      {
+        "key": "reasons_for_declining",
+        "type": "check_box",
+        "label": "Reasons for declining",
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_declining",
+        "openmrs_entity_parent": "",
+        "exclusive": [],
+        "options": [
+          {
+            "key": "not_well_not_prepared",
+            "text": "The person is not feeling well or is not yet prepared for the screening",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_well_not_prepared"
+          },
+          {
+            "key": "in_hurry",
+            "text": "They do not have time to participate at the moment.",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "in_hurry"
+          },
+          {
+            "key": "privacy_trust",
+            "text": "Fear that health information may be misused, or concern that the application records too much personal information",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "privacy_trust"
+          },
+          {
+            "key": "feel_healthy",
+            "text": "The client feels they are healthy and do not see the need for screening",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "feel_healthy"
+          },
+          {
+            "key": "fear_anxiety",
+            "text": "Worry about being diagnosed with a disease",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fear_anxiety"
+          },
+          {
+            "key": "other_reason",
+            "text": "Other, please specify.",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please provide the reason(s) for declining"
+        },
+        "relevance": {
+          "step1:agree_with_screening_procedure": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_for_declining",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_for_declining",
+        "type": "edit_text",
+        "hint": "Please specify other reason for declining",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the other reason for declining"
+        },
+        "relevance": {
+          "step1:reasons_for_declining": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other_reason"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Self-reported Medical History",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "diagnosed_diabetes",
+        "type": "spinner",
+        "hint": "Are you diagnosed with diabetes?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnosed_diabetes",
+        "keys": ["Yes", "No"],
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you are diagnosed with diabetes"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "screened_diabetes_12m",
+        "type": "spinner",
+        "hint": "Have you been screened for diabetes in the last 12 months?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "screened_diabetes_12m",
+        "keys": ["Yes", "No"],
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "step2:diagnosed_diabetes": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "diagnosed_hypertension",
+        "type": "spinner",
+        "hint": "Are you diagnosed with hypertension?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnosed_hypertension",
+        "values": ["Yes", "No"],
+        "keys": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you are diagnosed with hypertension"
+        },
+        "relevance": {
+          "step2:screened_diabetes_12m": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "screened_hypertension_last12m",
+        "type": "spinner",
+        "hint": "Have you been screened for hypertension in the last 12 months?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "screened_hypertension_last12m",
+        "keys": ["Yes", "No"],
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "step2:diagnosed_hypertension": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "routine_clinic_visits",
+        "type": "spinner",
+        "hint": "Are you attending or enrolled in a routine clinic for diabetes and high blood pressure follow-ups?",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "routine_clinic_visits",
+        "keys": ["Yes", "No"],
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "step2:screened_hypertension_last12m": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Diabetes and Hypertension Screening",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "age",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age",
+        "openmrs_entity_parent": ""
+      },
+      {
+        "key": "family_history_diabetes",
+        "type": "spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_history_diabetes",
+        "openmrs_data_type": "select one",
+        "label_info_title": "About family history of diabetes",
+        "label_info_text": "What it means: Whether any of the client's first-degree blood relatives has been diagnosed with diabetes.\n\nFirst-degree blood relatives: biological parents, biological brothers and sisters (full siblings), and biological children.\n\nWhy it matters: Family history raises the client's own risk through shared genetics and often shared diet and lifestyle. The risk is higher when more than one close relative is affected, or when relatives were diagnosed at a younger age.\n\nDoes NOT count: aunts, uncles, cousins, grandparents, in-laws, or step-relatives.\n\nIf unsure: ask the client to confirm with their family before answering. If they remain uncertain, answer No.",
+        "hint": "Family history of diabetes?",
+        "keys": ["Yes", "No"],
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "waist_circumference",
+        "type": "edit_text",
+        "hint": "Waist Circumference (cm)",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "waist_circumference",
+        "openmrs_entity_parent": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the temperature"
+        },
+        "v_min": {
+          "value": "30",
+          "err": "This waist circumference is very small, waist circumference can not be lower than 30"
+        },
+        "v_max": {
+          "value": "300",
+          "err": "The waist circumference can not be greater than 300"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "systolic_bp",
+        "type": "edit_text",
+        "hint": "Systolic blood pressure (mmHg)",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "systolic_bp",
+        "openmrs_entity_parent": "",
+        "label_info_title": "About the top number (systolic)",
+        "label_info_text": "What it is: The TOP number when you measure blood pressure. It shows how hard the blood pushes when the heart is beating.\n\nNormal: less than 120.\nA bit high: 120 to 139 — talk to the client about healthy habits (less salt, more exercise, less alcohol, no smoking) and check again next visit.\nHigh: 140 or more.\n\nHow to measure well:\n- Let the client sit quietly for at least 5 minutes before you start.\n- Feet on the floor, back resting on the chair, arm resting on a table at the same level as the heart.\n- The cuff should fit the arm — not too tight, not too loose. Place it on bare skin.\n- The client should not have smoked, drunk coffee or tea, or done exercise in the last 30 minutes.\n- Take TWO readings, 1-2 minutes apart, and use the average. If the two readings are very different (more than 10 apart), take a third reading.\n\nWrite down the number exactly as you see it on the machine.",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the systolic value"
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Systolic value must be equal or greater than 50"
+        },
+        "v_max": {
+          "value": "320",
+          "err": "Systolic value must be equal or less than 320"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diastolic_bp",
+        "type": "edit_text",
+        "hint": "Diastolic blood pressure (mmHg)",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diastolic_bp",
+        "openmrs_entity_parent": "",
+        "label_info_title": "About the bottom number (diastolic)",
+        "label_info_text": "What it is: The BOTTOM number when you measure blood pressure. It shows the pressure when the heart is resting between beats.\n\nNormal: less than 80.\nA bit high: 80 to 89 — talk to the client about healthy habits and check again next visit.\nHigh: 90 or more.\n\nImportant: The bottom number must always be smaller than the top number. If the bottom number is the same as or bigger than the top number, check that the cuff is on the right way and measure again.\n\nUse the same steps as for the top number: client sits quietly for 5 minutes, arm at heart level, the right cuff on bare skin, no smoking or coffee or exercise in the last 30 minutes.",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the diastolic value"
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Diastolic value must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Diastolic value must be equal or less than 200"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select whether you agree with the screening"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step3:systolic_bp)",
+            "err": "The diastolic value must be less than the systolic value"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Facility Referral",
+    "fields": [
+      {
+        "key": "diabetes_risk_score_output",
+        "type": "edit_text",
+        "hint": "Patient risk",
+        "read_only": true,
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diabetes_risk_score_output",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "risk_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Initial screening suggests a potential risk for {condition}. This does not mean you have the condition; however, we recommend that you visit a health facility for further testing.",
+        "text_color": "#000000",
+        "toaster_type": "problem",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_refused_assessment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "This client does not consent on diabetes assessment, please proceed with the visit.",
+        "text_color": "#000000",
+        "toaster_type": "warning",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prescreening_client_has_condition_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "According to the information you have provided, you have already been diagnosed, recently screened, or enrolled in routine care for diabetes or hypertension. Therefore, you are not eligible for another screening today. Please continue with regular check-ups and follow your healthcare provider’s advice.",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_risk_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The patient neither a risk for diabetes nor hypertension, advice them on the importance of maintaining a good and health life style.",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_emergency_case",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_emergency_case",
+        "type": "spinner",
+        "openmrs_data_type": "select one",
+        "hint": "Is this an emergency case?",
+        "keys": ["Yes", "No"],
+        "values": ["Yes", "No"],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please indicate whether this is an emergency case"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "service_before_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_before_referral",
+        "type": "check_box",
+        "label": "Pre-referral management given.",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "no"
+        ],
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "service_provided_details",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provided_details",
+        "type": "edit_text",
+        "hint": "Details of the service provided",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the details of the service provided"
+        },
+        "relevance": {
+          "step4:service_before_referral": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "yes"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "has_treatment_supporter",
+        "type": "spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_treatment_supporter",
+        "openmrs_data_type": "select one",
+        "hint": "Do you have a caregiver/Treatment supporter?",
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_supporter_name",
+        "type": "edit_text",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_supporter_name",
+        "hint": "Name of Treatment Supporter/Caregiver",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the treatment supporter name"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_supporter_phone",
+        "type": "edit_text",
+        "edit_type": "number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_supporter_phone",
+        "hint": "Treatment Supporter Phone Number",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "treatment_supporter_relationship",
+        "type": "spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment_supporter_relationship",
+        "openmrs_data_type": "select one",
+        "hint": "Relationship to Client",
+        "keys": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Son",
+          "Daughter",
+          "Work Colleague",
+          "Brother in Law",
+          "Sister in Law",
+          "Wife",
+          "Husband"
+        ],
+        "values": [
+          "Mother",
+          "Father",
+          "Brother",
+          "Sister",
+          "Grandfather",
+          "Grandmother",
+          "Friend",
+          "Uncle",
+          "Aunt",
+          "Police",
+          "Guardian",
+          "Son",
+          "Daughter",
+          "Work Colleague",
+          "Brother in Law",
+          "Sister in Law",
+          "Wife",
+          "Husband"
+        ],
+        "openmrs_choice_ids": {
+          "Mother": "Mother",
+          "Father": "Father",
+          "Brother": "Brother",
+          "Sister": "Sister",
+          "Grandfather": "Grandfather",
+          "Grandmother": "Grandmother",
+          "Friend": "Friend",
+          "Uncle": "Uncle",
+          "Aunt": "Aunt",
+          "Police": "Police",
+          "Guardian": "Guardian",
+          "Son": "Son",
+          "Daughter": "Daughter",
+          "Work Colleague": "Work Colleague",
+          "Brother in Law": "Brother in Law",
+          "Sister in Law": "Sister in Law",
+          "Wife": "Wife",
+          "Husband": "Husband"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select the relationship"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chw_referral_hf",
+        "type": "spinner",
+        "searchable": true,
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_referral_hf",
+        "openmrs_data_type": "select one",
+        "openmrs_entity_parent": "",
+        "hint": "Select which facility to send the referral to",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_appointment_date",
+        "type": "date_picker",
+        "hint": "Please specify the appointment date",
+        "expanded": false,
+        "min_date": "today",
+        "max_date": "today+30d",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter date"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20dp"
+      },
+      {
+        "key": "db_save_n_refer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "button",
+        "hint": "Save and Refer to Health Facility",
+        "btn_bg_color": "#FF840952",
+        "action": {
+          "behaviour": "finish_form"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "save",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "button",
+        "hint": "Save",
+        "btn_bg_color": "#3596c0",
+        "action": {
+          "behaviour": "finish_form"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "diabetes_hypertension_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

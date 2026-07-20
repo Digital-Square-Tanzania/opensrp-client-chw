@@ -14,6 +14,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
@@ -162,11 +163,24 @@ public class ChwRepositoryFlv {
                     break;
                 case 41:
                     upgradeToVersion41(db);
+                    break;
                 case 42:
                     upgradeToVersion42(db);
                     break;
                 case 43:
                     upgradeToVersion43(db);
+                    break;
+                case 44:
+                    upgradeToVersion44(db);
+                    break;
+                case 45:
+                    upgradeToVersion45(db);
+                    break;
+                case 46:
+                    upgradeToVersion46(db);
+                    break;
+                case 47:
+                    upgradeToVersion47(db);
                     break;
                 default:
                     break;
@@ -772,6 +786,20 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion38");
         }
+
+        try {
+            db.execSQL("ALTER TABLE ec_close_referral ADD COLUMN outcomes VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion38-add-column");
+        }
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList("ec_facility_to_community_linkage")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion38-create-table");
+        }
     }
 
     private static void upgradeToVersion39(SQLiteDatabase db) {
@@ -781,6 +809,21 @@ public class ChwRepositoryFlv {
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion39-add-sober-house-uic-id");
+        }
+
+        // setup ecd reporting
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/ecd-monthly-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion39");
+        }
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db, new HashSet<>(Collections.singletonList("ec_ecd_activities")), ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion39");
         }
     }
 
@@ -924,6 +967,98 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion43(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN caregiver_relationship VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion43-add-caregiver-relationship");
+        }
+
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList(Constants.TABLES.NCD_ENROLLMENT,
+                            Constants.TABLES.DIABETES_HYPERTENSION_FOLLOWUP,
+                            Constants.TABLES.DIABETES_HYPERTENSION_CONFIRMATION,
+                            org.smartregister.chw.util.Constants.TableName.NCD_CASE_MANAGEMENT_FOLLOWUP)
+                    ),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion43");
+        }
+    }
+
+    private static void upgradeToVersion44(SQLiteDatabase db) {
+        try {
+            if (!columnExists(db, org.smartregister.chw.util.Constants.TableName.NCD_CASE_MANAGEMENT_FOLLOWUP,
+                    "medication_side_effects")) {
+                db.execSQL("ALTER TABLE ec_ncd_case_management_followup ADD COLUMN medication_side_effects VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion44-add-medication-side-effects");
+        }
+
+        try {
+            db.execSQL(RepositoryUtils.EC_REFERRAL_ADD_IS_EMERGENCY_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion44");
+        }
+    }
+
+    /**
+     * Adds the caregiver_relationship column captured at client registration so it
+     * can be pulled to pre-populate referral forms. Idempotent: the ALTER fails
+     * harmlessly if the column was already added on the merging-apks-ncd line
+     * (where it ships as part of upgradeToVersion43).
+     */
+    private static void upgradeToVersion45(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN caregiver_relationship VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion45-add-caregiver-relationship");
+        }
+
+        try {
+            db.execSQL("ALTER TABLE ec_referral ADD COLUMN is_emergency_case VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion45-add-is_emergency_case");
+        }
+    }
+
+    private static void upgradeToVersion46(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_register", "hiv_status");
+        addColumnIfMissing(db, "ec_kvp_prep_register", "ctc_number");
+        addColumnIfMissing(db, "ec_kvp_prep_register", "hiv_positive");
+
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_positive");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_tested_within_last_3_months");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_result_recent");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "ctc_number_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "on_prep");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep_recent");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "referred_for_hiv_test");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "tested_for_hiv");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "testing_location");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "facility_name");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "test_date");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_result");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "ctc_number_b");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_follow_up");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility_b");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep");
+    }
+
+    private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
+        try {
+            if (!columnExists(db, tableName, columnName)) {
+                db.execSQL("ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion46-add-" + tableName + "-" + columnName);
+        }
+    }
+
+
+    private static void upgradeToVersion47(SQLiteDatabase db) {
         addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services_provided");
         addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services");
         addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services_specify");
@@ -933,7 +1068,7 @@ public class ChwRepositoryFlv {
             reportingLibrary.readConfigFile("config/harm-reduction-monthly-report.yml", db);
             reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion43-config");
+            Timber.e(e, "upgradeToVersion47-config");
         }
     }
 
@@ -943,7 +1078,7 @@ public class ChwRepositoryFlv {
                 db.execSQL("ALTER TABLE ec_harm_reduction_followup_visit ADD COLUMN " + columnName + " VARCHAR;");
             }
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion43-add-" + columnName);
+            Timber.e(e, "upgradeToVersion47-add-" + columnName);
         }
     }
 

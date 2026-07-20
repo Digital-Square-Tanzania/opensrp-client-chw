@@ -44,3 +44,11 @@ priority: 1
 condition: "step1_no_prev_preg >= 2"
 actions:
   - "isRelevant = true"
+
+---
+name: step1_parity
+description: parity relevance
+priority: 1
+condition: "step1_no_prev_preg > 1"
+actions:
+  - "isRelevant = true"

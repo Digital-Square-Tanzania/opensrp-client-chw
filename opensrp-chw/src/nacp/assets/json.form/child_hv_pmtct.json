@@ -1,0 +1,386 @@
+{
+  "count": "1",
+  "encounter_type": "Child Visit PMTCT",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Prevention of Mother to Child transmission of HIV (PMTCT)",
+    "fields": [
+      {
+        "key": "comfortable_disclosing_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Are you comfortable with disclosing your HIV status?",
+        "exclusive": [
+          "chk_hiv_disclosing_status_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_disclosing_status_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_disclosing_status_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This value is required"
+        }
+      },
+      {
+        "key": "hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Enter HIV status",
+        "exclusive": [
+          "chk_hiv_test_positive"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_test_positive",
+            "text": "HIV-positive",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_test_negative",
+            "text": "HIV-negative",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "This value is required"
+        }
+      },
+      {
+        "key": "test_hiv_past_three_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Has the mother been tested for HIV in the past 3 months?",
+        "exclusive": [
+          "chk_hiv_test_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_test_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_test_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This value is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "advice_hiv_test_soon",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Advice the mother to go for a HIV test as soon as possible at the nearest Health facility",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "advice_mother_next_checkup",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHW Information: Advice the mother to go for the next HIV testing: <br> 3 months after giving birth, <br> 6 months after giving birth and, ,br> 18 months after giving birth",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info"
+      },
+      {
+        "key": "safe_sex_practices",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHW Information: Remind mother/caregiver of the importance of safe sex practices, and ensuring both she and her partner are tested and know their status so they can protect themselves and their unborn children.",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info"
+      },
+      {
+        "key": "already_taking_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Are you already taking AntiRetroviralTheraphy (ART)?",
+        "exclusive": [
+          "chk_taking_art_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_taking_art_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_taking_art_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "This value is required"
+        }
+      },
+      {
+        "key": "encourage_mother_continue_treatment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Encourage the mother to continue with her treatment.",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "nearest_ctc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Encourage mother/caregiver to go to the nearest Care, Treatment, and Counselling (CTC) /PMCTC clinic.",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "stop_breastfeeding",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHW to remind HIV Positive mother: Remember to stop breastfeeding when your child turns one year old.<br> Take your child for additional confirmatory tests when the child is 15 months and the final one when the child 18 months old",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "comfortable_sharing_child_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Are you comfortable with sharing your child's HIV status",
+        "exclusive": [
+          "chk_hiv_disclosing_status_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_disclosing_status_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_disclosing_status_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "This value is required"
+        },
+        "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "child_hv_pmtct_relevance.yml"
+          }
+        }
+      }
+      },
+      {
+        "key": "childs_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Enter child's HIV status?",
+        "exclusive": [
+          "chk_hiv_test_positive"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_test_positive",
+            "text": "HIV-positive",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_test_negative",
+            "text": "HIV-negative",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "This value is required"
+        }
+      },
+      {
+        "key": "mother_visits_pmtct_clinic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHW Reminder to mother: To ensure that she visits the PMTCT clinic and that the child remains on ART <br> CHW: Say, Mother remember to go through your child's growth monitoring booklet (ANC clinic  card) on page number 27and 29 so as to continue learning on Nutrition and other important information",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

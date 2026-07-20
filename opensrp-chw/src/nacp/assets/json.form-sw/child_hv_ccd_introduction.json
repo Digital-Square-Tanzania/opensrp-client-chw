@@ -1,0 +1,89 @@
+{
+  "count": "1",
+  "encounter_type": "Care for child development (CCD): Introduction",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Malezi, Makuzi na Maendeleo ya mtoto (MMMM)",
+    "fields": [
+      {
+        "key": "ccd_introduction_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_introduction_module",
+        "value": true,
+        "type": "hidden"
+      },
+      {
+        "key": "child_development_intro_note1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_development_intro_note1",
+        "type": "toaster_notes",
+        "text": "<b>Taarifa kwa MJA:</> SOMA KWA MZAZI/MLEZI IKIWA HILI NDIO TEMBELEO LAKO LA KWANZA LA MTOTO KWENYE HII KAYA<br><br><b>Sema:</b><br>\u2022 Miaka 3 ya mwanzo ya  Ukuaji wa watoto ni muhimu sana, huathiri jinsi mtoto anavyofanya vizuri shuleni, ubora wa tabia ya mtoto na mafanikio yake ya baadae. Huu ni wakati muhimu katika maisha yao kwa sababu jinsi watakavyokua na kujifunza inategemea sana tabia ambazo wewe (na watu wengine wazima) huonyesha kwa mtoto wako.<br>\u2022 Ubongo unakua kwa haraka sana kwa wakati huu na kile kinachotokea kwa mtoto kama vile upendo, kucheza, matunzo, lishe na afya huathiri jinsi ubongo unavyokua.<br><br><i>Kwa hiyo katika wiki na miezi ijayo, tutaendelea kufanya kile tutakachofanya leo: kuzungumzia juu ya tabia na maendeleo ya mtoto wako na kufanya shughuli zinazolingana na umri wa mtoto wako. Lengo ni  wewe uendelee kufanya shughuli hizi na mtoto.</i>",
+        "toaster_type": "info"
+      },
+      {
+        "key": "child_development_intro_note2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_development_intro_note2",
+        "type": "toaster_notes",
+        "text": "<b>Taarifa kwa MJA:</b> SOMA KATIKA KILA  TEMBELEO<br><br><b>Sema: </b> <i>\"Wewe na mwenza wako/mume au wanafamilia mna mchango mkubwa katika ukuaji wa ubongo na maendeleo ya mtoto. Mtoto anapenda kuona sura za mama na baba yake (au walezi wengine muhimu), hivyo ni vyema kutazamana na mtoto wakati wote.<br><br>Mtoto mchanga anaweza kuona vitu, kuhisi , na kuitikia sauti na milio anayosikia. Mtoto anaweza kutuambia ana furaha, njaa au ana huzuni kupitia sauti anazotoa.<br><br>Kadiri tunavyowapa watoto wetu fursa za kuchunguza mazingira (kwa kucheza,kujifunza mambo mapya, kuona vitu vipya na kuiga kile ambacho wengine hufanya), ndivyo maarifa zaidi yanavyoongezeka katika ubongo wa mtoto!\"",
+        "toaster_type": "info",
+        "text_color": "#000000"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      }
+    ]
+  }
+}

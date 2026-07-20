@@ -73,7 +73,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "gps",
         "type": "gps",
-        "openmrs_data_type": "text"
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua eneo"
+        }
       }
     ]
   }

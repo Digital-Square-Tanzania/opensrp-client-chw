@@ -309,7 +309,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "disabilities",
         "type": "spinner",
-        "hint": "Ulemavu",
+        "hint": "Ulemavu wa kimwili",
         "values": [
           "Ndiyo",
           "Hapana"
@@ -334,7 +334,7 @@
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Aina ya Ulemavu",
+        "label": "Aina ya ulemavu wa kimwili",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -408,7 +408,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Tafadhali ingiza aina ya Ulemavu"
+          "err": "Tafadhali ingiza aina ya Ulemavu wa kimwili"
         }
       },
       {
@@ -464,7 +464,7 @@
         "openmrs_entity_id": "birth_regist_number",
         "type": "edit_text",
         "allowed_chars": "0123456789",
-        "hint": "Namba ya cheti cha kuzaliwa e.g. 1234567890",
+        "hint": "Namba ya cheti cha kuzaliwa cha mtoto e.g. 1234567890",
         "edit_type": "number",
         "v_max_length": {
           "value": "10",

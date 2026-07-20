@@ -11,6 +11,8 @@ import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPRO
 
 import android.content.Context;
 
+import androidx.annotation.VisibleForTesting;
+
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,17 +33,24 @@ import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.NcdAutoConfirmationHelper;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Table;
+import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.sync.ClientProcessorForJava;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -65,6 +74,13 @@ public class ChwClientProcessor extends CoreClientProcessor {
     @Override
     public void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
         currentEventType = eventType;
+
+        if (VaccineIntentService.EVENT_TYPE.equals(eventType)
+                || VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT.equals(eventType)) {
+            processVaccinationEvent(eventClient, VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT.equals(eventType));
+            return;
+        }
+
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
             switch (eventType) {
@@ -221,6 +237,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_RECORD_VISIT:
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_FOLLOW_UP_VISIT:
                 case org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.RECORD_LEPROSY_TREATMENT_START_DATE:
+                case Constants.EncounterType.NCD_MONTHLY_FOLLOWUP:
                     if (eventClient.getEvent() == null) {
                         return;
                     }
@@ -292,6 +309,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     processRemoveMember(eventClient.getClient().getBaseEntityId(), event);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     break;
+                case NcdAutoConfirmationHelper.SCREENING_EVENT_TYPE:
+                    NcdAutoConfirmationHelper.maybeAutoConfirmDiabetesHypertension(eventClient);
+                    break;
+
                 case org.smartregister.chw.ld.util.Constants.EVENT_TYPE.VOID_EVENT:
                 case DELETE_EVENT:
                     processDeleteEvent(eventClient.getEvent());
@@ -307,6 +328,150 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 Timber.e(e);
             }
         }
+    }
+
+    @VisibleForTesting
+    protected void processVaccinationEvent(EventClient eventClient, boolean outOfCatchment) {
+        try {
+            org.smartregister.immunization.domain.Vaccine vaccine = buildVaccineFromEvent(eventClient, outOfCatchment);
+            if (vaccine == null) {
+                return;
+            }
+
+            VaccineRepository vaccineRepository = ChwApplication.getInstance().vaccineRepository();
+            addVaccine(vaccineRepository, vaccine);
+        } catch (Exception e) {
+            Timber.e(e, "Process Vaccine Error");
+        }
+    }
+
+    @VisibleForTesting
+    protected org.smartregister.immunization.domain.Vaccine buildVaccineFromEvent(EventClient eventClient, boolean outOfCatchment) {
+        if (eventClient == null || eventClient.getEvent() == null) {
+            return null;
+        }
+
+        Event event = eventClient.getEvent();
+        Obs vaccineDateObs = findVaccineDateObs(event.getObs());
+        if (vaccineDateObs == null || StringUtils.isBlank(vaccineDateObs.getFormSubmissionField())) {
+            return null;
+        }
+
+        Date administeredDate = parseVaccineDate(vaccineDateObs.getValue());
+        if (administeredDate == null) {
+            return null;
+        }
+
+        org.smartregister.immunization.domain.Vaccine vaccine = new org.smartregister.immunization.domain.Vaccine();
+        vaccine.setBaseEntityId(event.getBaseEntityId());
+        vaccine.setName(vaccineDateObs.getFormSubmissionField());
+        vaccine.setCalculation(resolveVaccineCalculation(event.getObs(), vaccine.getName()));
+        vaccine.setDate(administeredDate);
+        vaccine.setAnmId(event.getProviderId());
+        vaccine.setLocationId(event.getLocationId());
+        vaccine.setSyncStatus(VaccineRepository.TYPE_Synced);
+        vaccine.setFormSubmissionId(event.getFormSubmissionId());
+        vaccine.setEventId(event.getEventId());
+        vaccine.setOutOfCatchment(outOfCatchment ? 1 : 0);
+        vaccine.setProgramClientId(getVaccineProgramClient(eventClient));
+        vaccine.setCreatedAt(event.getDateCreated() != null ? event.getDateCreated().toDate() : administeredDate);
+        vaccine.setTeam(event.getTeam());
+        vaccine.setTeamId(event.getTeamId());
+        vaccine.setChildLocationId(event.getChildLocationId());
+        return vaccine;
+    }
+
+    private Obs findVaccineDateObs(List<Obs> observations) {
+        if (observations == null) {
+            return null;
+        }
+
+        for (Obs observation : observations) {
+            if (observation == null || StringUtils.isBlank(observation.getFormSubmissionField())) {
+                continue;
+            }
+
+            if ("date".equalsIgnoreCase(observation.getFieldDataType())) {
+                return observation;
+            }
+        }
+
+        return null;
+    }
+
+    private int resolveVaccineCalculation(List<Obs> observations, String vaccineName) {
+        if (observations != null) {
+            String expectedDoseField = StringUtils.isBlank(vaccineName) ? null : vaccineName + "_dose";
+            for (Obs observation : observations) {
+                if (observation == null) {
+                    continue;
+                }
+
+                boolean isDoseObs = "calculate".equalsIgnoreCase(observation.getFieldDataType())
+                        || StringUtils.equalsIgnoreCase(expectedDoseField, observation.getFormSubmissionField());
+                if (!isDoseObs) {
+                    continue;
+                }
+
+                Integer calculation = parseInteger(observation.getValue());
+                if (calculation != null) {
+                    return calculation;
+                }
+            }
+        }
+
+        return getDoseFromVaccineName(vaccineName);
+    }
+
+    private Integer parseInteger(Object value) {
+        if (value == null) {
+            return null;
+        }
+
+        try {
+            return Integer.valueOf(String.valueOf(value));
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    private int getDoseFromVaccineName(String vaccineName) {
+        if (StringUtils.isBlank(vaccineName)) {
+            return 0;
+        }
+
+        for (int index = vaccineName.length() - 1; index >= 0; index--) {
+            if (!Character.isDigit(vaccineName.charAt(index))) {
+                if (index == vaccineName.length() - 1) {
+                    return 0;
+                }
+
+                return Integer.parseInt(vaccineName.substring(index + 1));
+            }
+        }
+
+        return Integer.parseInt(vaccineName);
+    }
+
+    private Date parseVaccineDate(Object value) {
+        if (value == null) {
+            return null;
+        }
+
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(String.valueOf(value));
+        } catch (ParseException e) {
+            Timber.e(e);
+            return null;
+        }
+    }
+
+    private String getVaccineProgramClient(EventClient eventClient) {
+        if (eventClient == null || eventClient.getEvent() == null || eventClient.getEvent().getDetails() == null) {
+            return null;
+        }
+
+        return eventClient.getEvent().getDetails().get("program_client_id");
     }
 
     private String getFormValue(Event event, String key) {
@@ -441,7 +606,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
     @Override
     public void processDeleteEvent(Event event) {
         try {
-            List<String> followupTables = Arrays.asList("ec_cecap_visit");
+            List<String> followupTables = Arrays.asList("ec_cecap_visit","ec_hps_client_services");
             if (event.getDetails().containsKey(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID)) {
                 // delete from vaccine table
                 EventDao.deleteVaccineByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));

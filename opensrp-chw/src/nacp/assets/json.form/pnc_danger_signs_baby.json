@@ -145,6 +145,48 @@
             "openmrs_entity_id": "chk_lethargy"
           },
           {
+            "key": "chk_hypothermia",
+            "text": "Feels cold or Low temperature (hypothermia)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hypothermia"
+          },
+          {
+            "key": "chk_sensory_stimulus",
+            "text": "Non-response to sensory stimulus",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_sensory_stimulus"
+          },
+          {
+            "key": "chk_chest_drawing",
+            "text": "Lower chest wall in-drawing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_chest_drawing"
+          },
+          {
+            "key": "chk_cyanosis",
+            "text": "Cyanosis (blueness of lips)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_cyanosis"
+          },
+          {
+            "key": "chk_pass_urine_stool",
+            "text": "Failure to pass urine or stool for a day",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pass_urine_stool"
+          },
+          {
+            "key": "chk_bulging_anterior_fontanel",
+            "text": "Bulging anterior fontanel",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bulging_anterior_fontanel"
+          },
+          {
+            "key": "chk_excessive_vomiting",
+            "text": "Excessive vomiting",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_excessive_vomiting"
+          },
+          {
             "key": "chk_none",
             "text": "None",
             "openmrs_entity": "concept",
@@ -179,9 +221,17 @@
                   "chk_convulsions",
                   "chk_skin_rashes",
                   "chk_pale",
+                  "chk_eye_discharge",
                   "chk_severe_abdominal_pain",
                   "chk_lethargy",
-                  "chk_urination"
+                  "chk_urination",
+                  "chk_hypothermia",
+                  "chk_sensory_stimulus",
+                  "chk_chest_drawing",
+                  "chk_cyanosis",
+                  "chk_pass_urine_stool",
+                  "chk_bulging_anterior_fontanel",
+                  "chk_excessive_vomiting"
                 ]
               }
             ]
@@ -225,9 +275,17 @@
                   "chk_convulsions",
                   "chk_skin_rashes",
                   "chk_pale",
+                  "chk_eye_discharge",
                   "chk_severe_abdominal_pain",
                   "chk_lethargy",
-                  "chk_urination"
+                  "chk_urination",
+                  "chk_hypothermia",
+                  "chk_sensory_stimulus",
+                  "chk_chest_drawing",
+                  "chk_cyanosis",
+                  "chk_pass_urine_stool",
+                  "chk_bulging_anterior_fontanel",
+                  "chk_excessive_vomiting"
                 ]
               }
             ]

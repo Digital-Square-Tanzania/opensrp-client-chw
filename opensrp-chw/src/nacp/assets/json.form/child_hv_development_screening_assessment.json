@@ -1,0 +1,202 @@
+{
+  "count": "1",
+  "encounter_type": "Development Screening and Assessment",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Child development screening assessment",
+    "fields": [
+      {
+        "key": "ccd_development_screening_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_development_screening_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
+        "key": "visit_3_visit_16",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "visit_8_visit_10_visit_16",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "child_development_issues",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_development_issues",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "I want to ask you some other specific questions about your child’s development.\nDoes your child appear to have any of the following?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_hearing_delay",
+            "text": "Delay in hearing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hearing_delay"
+          },
+          {
+            "key": "chk_speech_delay",
+            "text": "Delays in speech",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_speech_delay"
+          },
+          {
+            "key": "chk_walking_delay",
+            "text": "Delay in walking/crawling/stiffness around arms or legs, or is weak",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_walking_delay"
+          },
+          {
+            "key": "chk_has_fits",
+            "text": "Has fits, becomes rigid, or lose consciousness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_has_fits"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "child_developmental_delays_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Having a child with delays in development can make you feel indifferent. They may require more assistance in stimulation activities such as play and communication. Spending more time playing and communicating with children with developmental delays will help them reach their developmental goals. Thank you for talking about this issues with me today. I noticed a concern that I would advise you see a doctor for. I am going to refer you to the nearest health facility so you can ask them about this concern.",
+        "text_color": "#F91A00",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_development_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "spacer_delays_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_development_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "developmental_milestone_info",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "developmental_milestone_info",
+        "type": "label",
+        "text": "CHW information: Say, \"I would show you now the Developmental Milestones which are age-specific tasks or skills that most children can do at certain ages. Remember that if baby is a little ahead or a little behind at a certain age - this is normal. Every infant is different. Check in with your pediatrician about questions or concerns you have\". ",
+        "text_color": "#2D2E2D",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "bango_kitita_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "Please refer to the KUJUA MAENDELEO YA AWALI YA MTOTO page in Bango Kitita.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_development_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "clinic_card_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "toaster_type": "info",
+        "text": "<i><b>CHW Information:</b></i> Say to mother/caregiver to remember to refer to Child's growth monitoring booklet (Childs clinic card) page number <b>30, 31,32 and 33</b> for more information "
+      }
+    ]
+  }
+}

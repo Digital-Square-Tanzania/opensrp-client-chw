@@ -29,6 +29,15 @@
           },
           {
             "field": "eventType",
+            "field_value": "PNC No Mother Child Registration",
+            "creates_case": [
+              "ec_child",
+              "ec_family_member",
+              "ec_child_no_mother"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "PNC Child Registration",
             "creates_case": [
               "ec_child",
@@ -90,7 +99,8 @@
             "field_value": "Child Home Visit",
             "creates_case": [
               "ec_child",
-              "ec_child_activity"
+              "ec_child_activity",
+              "ec_ecd_activities"
             ]
           },
           {
@@ -843,6 +853,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "PNC Home Visit",
+            "creates_case": [
+              "ec_ecd_activities"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "CECAP Community Enrollment",
             "creates_case": [
               "ec_cecap_register"
@@ -875,6 +892,41 @@
             "creates_case": [
               "ec_asrh_register",
               "ec_asrh_follow_up_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Diabetes and Hypertension Screening",
+            "creates_case": [
+              "ec_ncd_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Diabetes and Hypertension Screening Confirmation",
+            "creates_case": [
+              "ec_diabetes_hypertension_confirmation"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Diabetes and Hypertension Screening Followup",
+            "creates_case": [
+              "ec_diabetes_hypertension_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "NCD Monthly Follow-Up",
+            "creates_case": [
+              "ec_ncd_case_management_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "NCD Case Management Close",
+            "closes_case": [
+              "ec_ncd_register"
             ]
           },
           {

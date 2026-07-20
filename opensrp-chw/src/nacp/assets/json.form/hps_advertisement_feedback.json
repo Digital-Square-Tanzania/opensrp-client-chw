@@ -717,7 +717,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "channel_watched",
         "type": "check_box",
-        "combine_checkbox_option_values": true,
+        "combine_checkbox_option_values": "true",
         "label": "Which channel do you watch ?",
         "hint": "Which channel do you watch ?",
         "options": [

@@ -1,0 +1,386 @@
+{
+  "count": "1",
+  "encounter_type": "Child Visit PMTCT",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Kuzuia maambukizi ya Virusi vya Ukimwi kutoka kwa mama kwenda kwa mtoto",
+    "fields": [
+      {
+        "key": "comfortable_disclosing_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Upo tayari kunijulisha/kuniambia hali yako ya VVU?",
+        "exclusive": [
+          "chk_hiv_disclosing_status_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_disclosing_status_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_disclosing_status_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Ingiza hali ya VVU",
+        "exclusive": [
+          "chk_hiv_test_positive"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_test_positive",
+            "text": "Ana VVU",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_test_negative",
+            "text": "Hana VVU",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "test_hiv_past_three_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Je, mama amepima VVU ndani ya miezi 3 iliopita",
+        "exclusive": [
+          "chk_hiv_test_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_test_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_test_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "advice_hiv_test_soon",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa kwa MJA: Mshauri mama kwenda kupima VVU mapema katika kituo cha kutolea huduma za afya kilichopo karibu na yeye.",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "advice_mother_next_checkup",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa kwa MJA: Mshauri mama kwenda kufanya vipimo tena:<br> miezi 3 baada ya kujifungua, <br> miezi 6 baada ya kujifungua na, <br> miezi 18 baada ya kujifungua",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info"
+      },
+      {
+        "key": "safe_sex_practices",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa kwa MJA: Mkumbushe mama kuhusu umuhimu wa ngono salama, na uhakikishe kuwa yeye na mwenzi wake wamepimwa na kujua hali zao ili waweze kujilinda wao wenyewe na mtoto wao ambaye hajazaliwa.",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info"
+      },
+      {
+        "key": "already_taking_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Je, unafata matibabu ya kufubaza virusi vya ukimwi?",
+        "exclusive": [
+          "chk_taking_art_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_taking_art_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_taking_art_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "encourage_mother_continue_treatment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mhamasishe mama kuendelea na matibabu",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "nearest_ctc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mhamasishe mama/mlezi kwenda kwenye kituo kilichopo karibu cha matibabu na ushauri (CTC)",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "stop_breastfeeding",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa ya MJA kwa mama ambaye ampepima na kuonekana kuwa na  VVU: Kumbuka kusitisha kumyonyesha mtoto wako akifikisha mwaka mmoja.<br> Mpeleke mtoto wako kupata vipimo vya ziada vya hali yake pale atakapofika umri wa miezi 15 na kipimo cha mwisho cha uthibitisho akifika miezi 18.",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "comfortable_sharing_child_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Je, upo tayari kuniambia hali ya VVU ya mtoto wako?",
+        "exclusive": [
+          "chk_hiv_disclosing_status_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_disclosing_status_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_disclosing_status_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "childs_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Ingiza hali ya VVU ya Mtoto",
+        "exclusive": [
+          "chk_hiv_test_positive"
+        ],
+        "options": [
+          {
+            "key": "chk_hiv_test_positive",
+            "text": "Ana VVU",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_hiv_test_negative",
+            "text": "Hana VVU",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Jibu linahitajika"
+        }
+      },
+      {
+        "key": "mother_visits_pmtct_clinic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Taarifa ya MJA kwa mama: Mkumbushe mama kuhakikisha anaenda kituo cha CTC na kuhakikisha mtoto anaendelea kutumia dawa za ARV. <br> Taarifa kwa MJA: Sema, Mama Kumbuka kurejea kitabu cha Afya ya mtoto (kadi ya kliniki) ukurasa namba 27 kwa ajili ya maswala ya lishe na ukurasa wa 29 kwa taarifa zaidi",
+        "text_color": "#2D2E2D",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_hv_pmtct_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

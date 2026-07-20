@@ -50,6 +50,31 @@
     "title": "Kuzuia  maambukizi katika jamii",
     "fields": [
       {
+        "key": "is_hand_washing_facilities_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_hand_washing_facilities_present",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je! kaya yako inasehemu za kunawia mikono kwa maji tiririka na sabuni?",
+        "values": [
+          "Ndio",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "yes",
+          "No": "no"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu."
+        }
+      },
+      {
         "key": "environment_hygiene_note_one",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -79,16 +104,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "defecation_location",
-        "type": "edit_text",
-        "hint": "Mtoto wako anajisaidia wapi?"
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Mtoto wako anajisaidia wapi?"
       },
       {
         "key": "feces_disposal",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "feces_disposal",
-        "type": "edit_text",
-        "hint": "Unatupa kinyesi cha mtoto wako wapi? (Mpe mama nafasi ya kujibu)"
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Unatupa kinyesi cha mtoto wako wapi? (Mpe mama nafasi ya kujibu)"
       },
       {
         "key": "is_latrine_present",
@@ -163,6 +190,24 @@
             }
           }
         }
+      },
+      {
+        "key": "explain_danger_stool_disposal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "explain_danger_stool_disposal",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Mfafanulie mama hatari ya kinyesi cha mtoto na utupaji salama:\n\nNjia salama zaidi ya kutupa kinyesi cha mtoto ni kumfundisha mtoto kutumia choo au poti, kwa watoto wadogo sana, kuweka au kutupa kinyesi chao kwenye choo.\nKuna ushahidi kwamba kinyesi cha watoto kinaweza kuwa hatari zaidi kuliko kinyesi cha watu wazima.\nKinyesi cha watoto kinapaswa kuthibitiwa kwa umakini sawa na kinyesi cha watu wazima kwa kutumia njia salama zinazohakikisha kinatupwa chooni.\""
+      },
+      {
+        "key": "bango_kitita_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "explain_danger_stool_disposal",
+        "type": "label",
+        "label_text_style": "italic",
+        "text": "Tafadhali fungua kitendea kazi namba 24 kwenye bango kitita ili kuendelea na majidiliano."
       }
     ]
   }

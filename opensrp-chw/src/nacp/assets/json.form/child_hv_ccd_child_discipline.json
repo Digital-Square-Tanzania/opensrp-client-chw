@@ -1,0 +1,326 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - CCD Child Discipline",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Child Discipline Assessment and Counselling",
+    "fields": [
+      {
+        "key": "ccd_discipline_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_discipline_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
+        "key": "caregiver_child_correction_observe",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_child_correction_observe",
+        "type": "label",
+        "text": "CHW information: Say, \"I want to discuss with you ways to correct the child when they are acting/doing an unwanted behavior. For example, maybe the child is trying to take a very hot cup of chai. This is bad, because the child might spill the cup and get burnt. Can you tell me how you would correct the child in this situation?\"",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "caregiver_child_correction",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_child_correction",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "CHW information: How did the mother/caregiver explain how she corrected the child?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_distracts_child"
+        ],
+        "options": [
+          {
+            "key": "chk_distracts_child",
+            "text": "Distracts child from unwanted actions with appropriate toy or activity",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_distracts_child"
+          },
+          {
+            "key": "chk_scolds_child",
+            "text": "Scolds child or responds harshly to child",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_scolds_child"
+          },
+          {
+            "key": "chk_no_respond_child",
+            "text": "Does not respond in any way",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no_respond_child"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value is required"
+        }
+      },
+      {
+        "key": "caregiver_child_correction_distract_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_child_correction_distract_note",
+        "type": "toaster_notes",
+        "toaster_type": "positive",
+        "text": "CHW information: Say, \"That is a good way to distract the child from unwanted behavior. In addition, I want to add that it is always good to draw/shift your child's attention to something positive. This is better for child development than scolding or hitting them. If a child does a good behavior, praise them so that they continue to do the good behavior\"",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:caregiver_child_correction": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_distracts_child"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "caregiver_child_correction_scolds_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_child_correction_scolds_note",
+        "type": "toaster_notes",
+        "toaster_type": "problem",
+        "text": "\"ADVISE FOR CONCERN: \"It is not best to distract the child from unwanted behavior by scolding or hitting them. It is always good to draw/shift your child's attention to something positive. This is better for child development than scolding or hitting them. If a child does a good behavior, praise them so that they continue to do the good behavior.\"",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:caregiver_child_correction": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_scolds_child"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "child_treated_harshly",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_treated_harshly",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "CHW information: During the visit, did you have any concerns that child is being treated harshly?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_yes"
+          },
+          {
+            "key": "chk_no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Value is required"
+        }
+      },
+      {
+        "key": "abuse_child_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "abuse_child_experienced",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select the type of abuse that the child experienced",
+        "label_text_style": "normal",
+        "options": [
+          {
+            "key": "chk_baby_sex_violence",
+            "text": "Sexual violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_sex_violence"
+          },
+          {
+            "key": "chk_baby_physical_violence",
+            "text": "Physical violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_baby_physical_violence"
+          },
+          {
+            "key": "chk_baby_negligence",
+            "text": "Negligence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_play_with_baby"
+          },
+          {
+            "key": "chk_physiological_violence",
+            "text": "Physiological violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_physiological_violence"
+          }
+        ],
+        "relevance": {
+          "step1:child_treated_harshly": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_yes"
+                ]
+              }
+            ]
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "child_treated_harshly_counselling_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_treated_harshly_counselling_note",
+        "type": "toaster_notes",
+        "toaster_type": "warning",
+        "text": "CHW information: Say, \"Harsh child discipline will not support healthy development. Correcting and teaching the child in a positive manner is more effectivePraise the child for good behavior. Give the child choices about what to do, instead of saying \"don't\"",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:child_treated_harshly": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_yes"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "concerns_child_safety",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "concerns_child_safety",
+        "type": "toaster_notes",
+        "toaster_type": "problem",
+        "text": "CHW information: If you have concerns that child is not safe due to harsh or physical discipline, refer immediately to the Village Executive officer, who will help you contact appropriate authorities.",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:child_treated_harshly": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_yes"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "household_enviro_harsh_counselling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "household_enviro_harsh_counselling",
+        "type": "toaster_notes",
+        "toaster_type": "warning",
+        "text": "CHW information: Say, \"Children take their cues from parents. Try to control your own stress and anger: Keep children out of the argument\".",
+        "text_color": "#000000"
+      }
+
+    ]
+  }
+}

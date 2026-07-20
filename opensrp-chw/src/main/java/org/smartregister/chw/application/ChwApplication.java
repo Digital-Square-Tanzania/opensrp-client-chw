@@ -54,6 +54,7 @@ import org.smartregister.chw.activity.LTFURegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.activity.MotherChampionRegisterActivity;
+import org.smartregister.chw.activity.NcdRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.SbcMonthlySocialMediaReportRegisterActivity;
@@ -76,6 +77,7 @@ import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
+import org.smartregister.chw.event.LocationSyncCompleteEvent;
 import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.hivst.HivstLibrary;
@@ -85,6 +87,7 @@ import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.kvp.KvpLibrary;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
+import org.smartregister.chw.ncd.NcdLibrary;
 import org.smartregister.chw.pmtct.PmtctLibrary;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.provider.ChwAllClientsRegisterQueryProvider;
@@ -100,6 +103,8 @@ import org.smartregister.chw.util.ChwLocationBasedClassifier;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.LocationUtils;
+import org.smartregister.chw.util.NavigationDrawerRefreshUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -374,6 +379,7 @@ public class ChwApplication extends CoreChwApplication {
 
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEBUG ? BuildConfig.DEFAULT_LOCATION_DEBUG : BuildConfig.DEFAULT_LOCATION);
 
+        NcdLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
 
@@ -461,6 +467,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CECAP_REGISTER_ACTIVITY, CecapRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ADDO_LINKAGE_ACTIVITY, AddoLinkageRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HPS_REGISTER_ACTIVITY, HpsRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.NCD_REGISTER_ACTIVITY, NcdRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -501,8 +508,8 @@ public class ChwApplication extends CoreChwApplication {
         return flavor.hasTB();
     }
 
-    public boolean hasADDO(){
-        return flavor.hasADDO();
+    public boolean hasADDO() {
+        return LocationUtils.hasADDO();
     }
 
 
@@ -521,6 +528,11 @@ public class ChwApplication extends CoreChwApplication {
 
             ChildAlertService.updateAlerts(visit.getBaseEntityId());
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationSyncComplete(LocationSyncCompleteEvent event) {
+        NavigationDrawerRefreshUtils.refreshNavigationDrawer();
     }
 
     public AppExecutors getAppExecutors() {
@@ -676,6 +688,8 @@ public class ChwApplication extends CoreChwApplication {
         Map<String, String[]> getFTSSearchMap();
 
         Map<String, String[]> getFTSSortMap();
+
+        boolean hasNCD();
     }
 
 }

@@ -1,0 +1,326 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - CCD Child Discipline",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Ushauri juu ya namna ya kujenga nidhamu kwa mtoto",
+    "fields": [
+      {
+        "key": "ccd_discipline_assessment_module",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ccd_discipline_assessment_module",
+        "type": "hidden",
+        "value": true
+      },
+      {
+        "key": "caregiver_child_correction_observe",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_child_correction_observe",
+        "type": "label",
+        "text": "Taarifa kwa MJA: Sema: \"Naomba kujadiliana na wewe njia mzuri ya kuwarekebisha watoto wakiwa wamefanya makosa, kwa mfano jaalia mtoto anataka kuchukua kikombe cha chai moto, hili ni kosa, kwasababu huenda chai ikamwagikia akaungua. Unaeza kuniambia jinsi utakavyomrekebisha mtoto kwenye hii hali?\"",
+        "text_color": "#000000",
+        "label_text_style": "italic",
+        "has_bg": true
+      },
+      {
+        "key": "caregiver_child_correction",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_child_correction",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Taarifa kwa MJA: Mama/mlezi alielezea vipi jinsi anavyomrekebisha mtoto akikosea?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_distracts_child"
+        ],
+        "options": [
+          {
+            "key": "chk_distracts_child",
+            "text": "Anamkataza na kumueleza madhara, na kumpa shughuli au kifaa mbadala cha kuchezea",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_distracts_child"
+          },
+          {
+            "key": "chk_scolds_child",
+            "text": "Anamgombeza/kumpiga",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_scolds_child"
+          },
+          {
+            "key": "chk_no_respond_child",
+            "text": "Anamuacha bila kufanya chochote",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no_respond_child"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Hitilafu! Jawabu linahitajika"
+        }
+      },
+      {
+        "key": "caregiver_child_correction_distract_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_child_correction_distract_note",
+        "type": "toaster_notes",
+        "toaster_type": "positive",
+        "text": "Taarifa kwa CHW: Sema, \"Hiyo ni njia nzuri ya kumuondoa mtoto kutoka kwenye shughuli isiyofaa. Pia ni vizuri kila wakati kuhamisha umakini wa mtoto kwa kitu chanya. Hii ni bora kwa ukuaji wa mtoto kuliko kukemea au kuwapiga. Mtoto akifanya tabia njema, msifie ili aendelee na tabia hiyo njema”.",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:caregiver_child_correction": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_distracts_child"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "caregiver_child_correction_scolds_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "caregiver_child_correction_scolds_note",
+        "type": "toaster_notes",
+        "toaster_type": "problem",
+        "text": "USHAURI KWA KUHUSIKA: Sio vizuri kumrekebisha mtoto kutoka kwenye tabia isiyofaa kwa kumgombeza au kumpiga. Ni vizuri kuhamisha umakini wa mtoto wako kwa kitu chanya. Hii ni bora kwa ukuaji wa mtoto kuliko kumkemea au kumpiga. Ikiwa mtoto ana tabia nzuri, msifu ili aendelee kufanya tabia nzuri.",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:caregiver_child_correction": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_scolds_child"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "child_treated_harshly",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_treated_harshly",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Taarifa za CHW: Wakati wa ziara, ulikuwa na wasiwasi wowote kwamba mtoto anatendewa ukatili?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_yes"
+        ],
+        "options": [
+          {
+            "key": "chk_yes",
+            "text": "Ndio",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_yes"
+          },
+          {
+            "key": "chk_no",
+            "text": "Hapana",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Hitilafu! Jawabu linahitajika"
+        }
+      },
+      {
+        "key": "abuse_child_experienced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "abuse_child_experienced",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "TAARIFA KWA MJA (USIMSOMEE MLEZI!)\nChagua aina ya ukatili anaofanyiwa mtoto",
+        "label_text_style": "normal",
+        "options": [
+          {
+            "key": "chk_baby_sex_violence",
+            "text": "Ukatili wa Kingono",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_sex_violence"
+          },
+          {
+            "key": "chk_baby_physical_violence",
+            "text": "Ukatili wa kimwili (mfano kupigwa)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_baby_physical_violence"
+          },
+          {
+            "key": "chk_baby_negligence",
+            "text": "Kutelekezwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_play_with_baby"
+          },
+          {
+            "key": "chk_physiological_violence",
+            "text": "Ukatili wa kisaikolojia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_physiological_violence"
+          }
+        ],
+        "relevance": {
+          "step1:child_treated_harshly": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_yes"
+                ]
+              }
+            ]
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "child_treated_harshly_counselling_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_treated_harshly_counselling_note",
+        "type": "toaster_notes",
+        "toaster_type": "warning",
+        "text": "Taarifa kwa MJA: Sema, \"Nidhamu kali ya mtoto haiwezi kusaidia ukuaji wa afya. Kurekebisha na kumfundisha mtoto kwa njia nzuri kuna ufanisi zaidi. Mama/baba au mlezi ampongeze mtoto kwa tabia nzuri. \nMama/baba au mlezi ampe mtoto chaguo kuhusu nini cha kufanya, badala ya kusema \"usifanye\" .",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:child_treated_harshly": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_yes"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "concerns_child_safety",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "concerns_child_safety",
+        "type": "toaster_notes",
+        "toaster_type": "problem",
+        "text": "Taarifa kwa MJA: Ikiwa umeona kuwa mtoto yuko katika hatari ya kutendewa ukatili, hakikisha unatoa taarifa kwenye mamlaka husika",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:child_treated_harshly": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_yes"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "household_enviro_harsh_counselling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "household_enviro_harsh_counselling",
+        "type": "toaster_notes",
+        "toaster_type": "warning",
+        "text": "Taarifa kwa MJA: Sema, \"Mtoto huiga tabia kutoka kwa wazazi na watu wanaomzunguka. Ni muhimu kwa mzazi na wengine wanaomzunguka mtoto kudhibiti msongo wa mawazo na hasira zao wenyewe.\nWeka watoto nje ya mabishano.\nWahakikishie watoto wako kwamba kubishana si kosa lao na kwamba unawapenda.”",
+        "text_color": "#000000"
+      }
+
+    ]
+  }
+}
