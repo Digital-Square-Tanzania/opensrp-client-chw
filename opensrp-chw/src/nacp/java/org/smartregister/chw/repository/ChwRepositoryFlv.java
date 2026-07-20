@@ -1048,12 +1048,6 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility_b");
         addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep");
     }
-  
-  
-    private static void upgradeToVersion47(SQLiteDatabase db) {
-        addColumnIfMissing(db, "ec_harm_reduction_risk_assessment", "nickname");
-    }
-
 
     private static void upgradeToVersion48(SQLiteDatabase db) {
         String tableName = "ec_harm_reduction_sober_house_services";
@@ -1082,6 +1076,7 @@ public class ChwRepositoryFlv {
         addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services_provided");
         addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services");
         addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services_specify");
+        addColumnIfMissing(db, "ec_harm_reduction_risk_assessment", "nickname");
 
         try {
             ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
