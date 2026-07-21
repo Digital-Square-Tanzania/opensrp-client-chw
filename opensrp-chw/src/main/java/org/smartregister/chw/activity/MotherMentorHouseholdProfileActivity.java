@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
@@ -74,6 +75,15 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.textview_record_mothermentor) {
+            openRecordClientVisit();
+            return;
+        }
+        super.onClick(view);
+    }
+
+    @Override
     public void setProfileViewWithData() {
         if (memberObject == null) {
             return;
@@ -90,17 +100,17 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void openRecordClientVisit() {
-        MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
+        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void openFollowupVisit() {
-        MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
+        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void openRecordTbContactVisit() {
-        MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
+        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
@@ -129,7 +139,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void openTbContactFollowUpVisit() {
-        MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
+        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override

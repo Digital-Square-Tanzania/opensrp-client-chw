@@ -1,0 +1,161 @@
+{
+  "count": "1",
+  "skip_blank_steps": true,
+  "encounter_type": "Mother Mentor Household Visit Topics Taught",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "global": {},
+  "step1": {
+    "title": "Topics Taught",
+    "fields": [
+      {
+        "key": "topics_taught",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "topics_taught",
+        "type": "check_box",
+        "label": "Select the topics taught",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [],
+        "options": [
+          {
+            "key": "medication_adherence",
+            "text": "Ufuasi wa dawa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "medication_adherence"
+          },
+          {
+            "key": "health_status_disclosure",
+            "text": "Kuweka wazi hali ya afya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "health_status_disclosure"
+          },
+          {
+            "key": "infant_feeding",
+            "text": "Ulishaji wa watoto wachanga",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "infant_feeding"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nutrition"
+          },
+          {
+            "key": "tuberculosis",
+            "text": "Kifua Kikuu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tuberculosis"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Ukatili wa kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "mental_health",
+            "text": "Afya ya akili",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mental_health"
+          },
+          {
+            "key": "viral_load",
+            "text": "Wingi wa virusi (Viral Load)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "viral_load"
+          },
+          {
+            "key": "other",
+            "text": "Nyinginezo (Taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one topic"
+        }
+      },
+      {
+        "key": "other_topic",
+        "type": "edit_text",
+        "hint": "Taja Nyinginezo",
+        "openmrs_entity_id": "other_topic",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other topic"
+        },
+        "relevance": {
+          "step1:topics_taught": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
