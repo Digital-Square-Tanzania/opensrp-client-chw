@@ -11,6 +11,7 @@ import androidx.loader.content.Loader;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.activity.FamilyProfileActivity;
+import org.smartregister.chw.activity.MotherMentorHouseholdProfileActivity;
 import org.smartregister.chw.activity.MotherMentorProfileActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.model.MotherMentorHouseholdRegisterFragmentModel;
@@ -97,7 +98,7 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
 
     @Override
     protected void openProfile(String baseEntityId) {
-        MotherMentorProfileActivity.startMe(requireActivity(), baseEntityId);
+        MotherMentorHouseholdProfileActivity.startMe(requireActivity(), baseEntityId);
     }
 
     @Override
@@ -107,13 +108,25 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
         }
 
         CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-        openHouseholdProfile(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
+        openHouseholdProfile(getHouseholdBaseEntityId(client));
     }
 
     private void openHouseholdProfile(String familyBaseEntityId) {
-        Intent intent = new Intent(requireActivity(), FamilyProfileActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyBaseEntityId);
-        startActivity(intent);
+        MotherMentorHouseholdProfileActivity.startMe(requireActivity(), familyBaseEntityId);
+    }
+
+    private String getHouseholdBaseEntityId(CommonPersonObjectClient client) {
+        String baseEntityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+        if (StringUtils.isNotBlank(baseEntityId)) {
+            return baseEntityId;
+        }
+
+        baseEntityId = Utils.getValue(client.getColumnmaps(), "family_base_entity_id", false);
+        if (StringUtils.isNotBlank(baseEntityId)) {
+            return baseEntityId;
+        }
+
+        return client.getCaseId();
     }
 
     @Override

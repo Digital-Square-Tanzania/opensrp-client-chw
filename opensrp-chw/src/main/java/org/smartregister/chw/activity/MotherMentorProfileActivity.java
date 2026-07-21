@@ -27,6 +27,10 @@ import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,6 +47,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
     private static final String FORM_MOTHERMENTOR_ENROLL_PARTNER = "mothermentor_enroll_partner";
     private static final String FORM_MOTHERMENTOR_ENROLL_CHILD_EID = "mothermentor_enroll_child_eid";
+    private static final String HOUSEHOLD_RECORD_LABEL = "Utoaji wa huduma za mama kinara kwa jamii";
     private static final String ATTENDANCE_TYPE = "attendance_type";
     private static final String PSYCHOSOCIAL_GROUP_LINKAGE = "has_been_linked_to_psychosocial_support_group";
     private static final String IGA_GROUP_LINKAGE = "has_been_linked_to_iga_group";
@@ -82,7 +87,47 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             return memberObject;
         }
 
+        memberObject = getHouseholdMember(baseEntityId);
+        if (memberObject != null) {
+            return memberObject;
+        }
+
         return getSecondaryEnrollmentMember(baseEntityId);
+    }
+
+    private MemberObject getHouseholdMember(String baseEntityId) {
+        if (TextUtils.isEmpty(baseEntityId)) {
+            return null;
+        }
+
+        try {
+            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyRegister.tableName);
+            if (commonRepository == null) {
+                return null;
+            }
+
+            CommonPersonObject personObject = commonRepository.findByBaseEntityId(baseEntityId);
+            if (personObject != null) {
+                return commonPersonObjectToHouseholdMember(personObject);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "Unable to load Mother Mentor household profile");
+        }
+        return null;
+    }
+
+    private MemberObject commonPersonObjectToHouseholdMember(CommonPersonObject personObject) {
+        MemberObject memberObject = new MemberObject();
+        memberObject.setBaseEntityId(personObject.getCaseId());
+        memberObject.setFamilyBaseEntityId(personObject.getCaseId());
+        memberObject.setFirstName(Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false));
+        memberObject.setLastName(Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.LAST_NAME, false));
+        memberObject.setUniqueId(Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+        memberObject.setAddress(Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
+        memberObject.setPrimaryCareGiver(Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false));
+        memberObject.setFamilyHead(Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
+        memberObject.setPhoneNumber(Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, false));
+        return memberObject;
     }
 
     private MemberObject getSecondaryEnrollmentMember(String baseEntityId) {
@@ -365,7 +410,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         super.setupButtons();
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
-            textViewRecordMotherMentor.setText(org.smartregister.chw.mothermentor.R.string.record_mothermentor);
+            if (memberObject != null && TextUtils.equals(memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId())) {
+                textViewRecordMotherMentor.setText(HOUSEHOLD_RECORD_LABEL);
+            } else {
+                textViewRecordMotherMentor.setText(org.smartregister.chw.mothermentor.R.string.record_mothermentor);
+            }
         }
         if (textViewRegisterMotherMentorContact != null) {
             textViewRegisterMotherMentorContact.setVisibility(View.VISIBLE);

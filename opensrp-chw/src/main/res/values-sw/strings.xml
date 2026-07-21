@@ -3,6 +3,7 @@
     <string name="logo">Nembo</string>
 
     <string name="title_family_detail">Taarifa za kaya</string>
+    <string name="mothermentor_household_record">Utoaji wa huduma za mama kinara kwa jamii</string>
     <string name="mama_kinara_household_already_enrolled">Kaya hii tayari imeunganishwa kwenye Mama Kinara</string>
     <string name="mama_kinara_household_enrolled">Kaya imeunganishwa kwenye huduma za Mama Kinara</string>
     <string name="mama_kinara_household_no_consent">Kaya haijaunganishwa - haijatoa kibali</string>
