@@ -6,9 +6,13 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
@@ -19,9 +23,22 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+
 import timber.log.Timber;
 
 public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfileActivity {
+    private static final Set<String> REQUIRED_HOUSEHOLD_SERVICE_FIELDS = new HashSet<>();
+
+    static {
+        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add("purpose_of_visit");
+        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add("participants");
+        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add("topics_taught");
+        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add("comments");
+    }
+
     public static void startMe(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MotherMentorHouseholdProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
@@ -72,6 +89,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
             textViewRecordMotherMentor.setVisibility(android.view.View.VISIBLE);
             textViewRecordMotherMentor.setText(R.string.mothermentor_household_record);
         }
+        enforceProcessVisitVisibility();
     }
 
     @Override
@@ -131,6 +149,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void continueService() {
+        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(this, memberObject.getBaseEntityId(), true);
     }
 
     @Override
@@ -162,5 +181,108 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupViews();
+        fetchProfileData();
+        profilePresenter.refreshProfileBottom();
+        memberObject = getMemberObject(getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID));
+    }
+
+    private void enforceProcessVisitVisibility() {
+        Visit latestVisit = getServiceVisit();
+        if (latestVisit == null) {
+            manualProcessVisit.setVisibility(View.GONE);
+            mothermentorServiceInProgress.setVisibility(View.GONE);
+            if (textViewContinueMotherMentorService != null) {
+                textViewContinueMotherMentorService.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        if (!Boolean.TRUE.equals(latestVisit.getProcessed())) {
+            textViewRecordMotherMentor.setVisibility(View.GONE);
+            mothermentorServiceInProgress.setVisibility(View.VISIBLE);
+            if (textViewContinueMotherMentorService != null) {
+                textViewContinueMotherMentorService.setVisibility(View.VISIBLE);
+            }
+        } else {
+            mothermentorServiceInProgress.setVisibility(View.GONE);
+            if (textViewContinueMotherMentorService != null) {
+                textViewContinueMotherMentorService.setVisibility(View.GONE);
+            }
+        }
+
+        boolean shouldShowProcessVisit =
+                !Boolean.TRUE.equals(latestVisit.getProcessed()) &&
+                        hasCompletedHouseholdServiceSections(latestVisit);
+
+        manualProcessVisit.setVisibility(shouldShowProcessVisit ? View.VISIBLE : View.GONE);
+        if (shouldShowProcessVisit) {
+            manualProcessVisit.setOnClickListener(view -> {
+                try {
+                    MotherMentorVisitsUtil.manualProcessVisit(latestVisit);
+                    Toast.makeText(this, R.string.mothermentor_visit_conducted, Toast.LENGTH_SHORT).show();
+                    setupViews();
+                    refreshMedicalHistory(true);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            });
+        }
+    }
+
+    protected Visit getServiceVisit() {
+        return MotherMentorLibrary.getInstance().visitRepository()
+                .getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+    }
+
+    protected boolean isVisitOnProgress(Visit visit) {
+        return visit != null && TextUtils.isEmpty(visit.getVisitId());
+    }
+
+    private boolean hasCompletedHouseholdServiceSections(Visit visit) {
+        if (visit == null || TextUtils.isEmpty(visit.getJson())) {
+            return false;
+        }
+
+        try {
+            JSONArray obsArray = new JSONObject(visit.getJson()).optJSONArray("obs");
+            return obsArray != null && getCompletedHouseholdServiceFields(obsArray)
+                    .containsAll(REQUIRED_HOUSEHOLD_SERVICE_FIELDS);
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
+    }
+
+    private Set<String> getCompletedHouseholdServiceFields(JSONArray obsArray) {
+        Set<String> completedFields = new HashSet<>();
+        for (int i = 0; i < obsArray.length(); i++) {
+            JSONObject obs = obsArray.optJSONObject(i);
+            if (!hasRequiredFieldValue(obs)) {
+                continue;
+            }
+
+            String fieldCode = obs.optString("fieldCode").toLowerCase(Locale.US);
+            if (REQUIRED_HOUSEHOLD_SERVICE_FIELDS.contains(fieldCode)) {
+                completedFields.add(fieldCode);
+            }
+        }
+        return completedFields;
+    }
+
+    private boolean hasRequiredFieldValue(JSONObject obs) {
+        if (obs == null) {
+            return false;
+        }
+
+        JSONArray values = obs.optJSONArray("values");
+        return values != null
+                && values.length() > 0
+                && !TextUtils.isEmpty(values.optString(0));
     }
 }
