@@ -250,6 +250,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                     startClientProcessing();
                     if (!hasConsent) {
                         finish();
+                    } else {
+                        openHouseholdTab();
                     }
                     return;
                 }
@@ -369,6 +371,14 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             bottomNavigationView.setSelectedItemId(R.id.action_mothermentor_secondary_enrollments);
         } else {
             switchToFragment(3);
+        }
+    }
+
+    private void openHouseholdTab() {
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setSelectedItemId(org.smartregister.chw.mothermentor.R.id.action_contact);
+        } else {
+            switchToFragment(1);
         }
     }
 

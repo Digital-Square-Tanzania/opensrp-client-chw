@@ -1087,6 +1087,13 @@
             "creates_case": [
               "ec_mothermentor_mobilization"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "mama_kinara_household_enrolment",
+            "creates_case": [
+              "ec_mothermentor_household_enrolment"
+            ]
           }
         ]
       }
