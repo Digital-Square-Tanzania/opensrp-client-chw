@@ -33,6 +33,14 @@ import timber.log.Timber;
 
 public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
     private static final String[] VISIT_PARAMS = {
+            "step1:purpose_of_visit",
+            "step1:participants",
+            "step1:topics_taught",
+            "step1:comments",
+            "purpose_of_visit",
+            "participants",
+            "topics_taught",
+            "comments",
             "attendance_type",
             "follow_up_status",
             "has_been_linked_to_psychosocial_support_group",
@@ -42,8 +50,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             "topics_being_provided",
             "referral_given",
             "type_of_referral_given",
-            "next_appointment_date",
-            "comments"
+            "next_appointment_date"
     };
 
     private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
@@ -142,9 +149,9 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
                 visitDetailTv.setPadding(dpAsPixels, 0, 0, 0);
                 visitDetailsLayout.addView(visitDetailTv);
 
-                int titleResource = context.getResources().getIdentifier("mothermentor_history_" + entry.getKey(), "string", context.getPackageName());
-                evaluateView(context, vals, visitDetailTv, entry.getKey(), titleResource);
-            }
+            int titleResource = context.getResources().getIdentifier("mothermentor_history_" + normalizeHistoryKey(entry.getKey()), "string", context.getPackageName());
+            evaluateView(context, vals, visitDetailTv, entry.getKey(), titleResource);
+        }
             linearLayoutHealthFacilityVisitDetails.addView(view, 0);
             x++;
         }
@@ -203,6 +210,13 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             Timber.e(e);
             return value;
         }
+    }
+
+    private String normalizeHistoryKey(String key) {
+        if (key == null) {
+            return "";
+        }
+        return key.replace("step1:", "");
     }
 
     private String normalizeResourceName(String value) {

@@ -203,6 +203,10 @@
     <string name="visits_history_profile_title">Visits History</string>
     <string name="view_visits_history">View Visits History</string>
     <string name="visits_history">Visits History</string>
+    <string name="mothermentor_history_purpose_of_visit">Visit Purpose</string>
+    <string name="mothermentor_history_participants">Household received Counselling</string>
+    <string name="mothermentor_history_topics_taught">Topics Taught</string>
+    <string name="mothermentor_history_comments">Comment</string>
     <string name="mother_champion_visit">Mother Champion Visits</string>
     <string name="cbhs_visit_less_than_twenty_four">Last visit was conducted less than 24 hours ago</string>
     <string name="cbhs_last_visit_n_days_ago">Last visit was  %1$s days ago</string>
