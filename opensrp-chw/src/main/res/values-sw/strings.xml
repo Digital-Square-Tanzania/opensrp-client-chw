@@ -4,6 +4,10 @@
 
     <string name="title_family_detail">Taarifa za kaya</string>
     <string name="mothermentor_household_record">Utoaji wa huduma za mama kinara kwa jamii</string>
+    <string name="mothermentor_household_visit_kusudi_la_ziara">Kusudi la Ziara</string>
+    <string name="mothermentor_household_visit_wanakaya_waliopewa_ushauri">Wanakaya waliopewa ushauri</string>
+    <string name="mothermentor_household_visit_mada_zilizofundishwa">Mada zilizofundishwa</string>
+    <string name="mothermentor_household_visit_maoni">Maoni</string>
     <string name="mama_kinara_household_already_enrolled">Kaya hii tayari imeunganishwa kwenye Mama Kinara</string>
     <string name="mama_kinara_household_enrolled">Kaya imeunganishwa kwenye huduma za Mama Kinara</string>
     <string name="mama_kinara_household_no_consent">Kaya haijaunganishwa - haijatoa kibali</string>

@@ -6,6 +6,10 @@
     <string name="title_family_detail">Family Detail</string>
     <string name="mother_mentor_registration">Mother Mentor Registration</string>
     <string name="mothermentor_household_record">Provision of Mother Champion Services to the Community</string>
+    <string name="mothermentor_household_visit_kusudi_la_ziara">Visit Purpose</string>
+    <string name="mothermentor_household_visit_wanakaya_waliopewa_ushauri">Household received Counselling</string>
+    <string name="mothermentor_household_visit_mada_zilizofundishwa">Topics Taught</string>
+    <string name="mothermentor_household_visit_maoni">Comment</string>
     <string name="mama_kinara_household_already_enrolled">This household is already linked to Mama Kinara</string>
     <string name="mama_kinara_household_enrolled">Household linked to Mama Kinara services</string>
     <string name="mama_kinara_household_no_consent">Household not linked - consent not given</string>

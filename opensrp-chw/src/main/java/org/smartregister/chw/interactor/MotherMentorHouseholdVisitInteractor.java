@@ -19,10 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MotherMentorHouseholdVisitInteractor extends BaseMotherMentorServiceVisitInteractor {
-    private static final String ACTION_KUSUDI_LA_ZIARA = "Kusudi la Ziara";
-    private static final String ACTION_WANAKAYA_WALIOPEWA_USHAURI = "Wanakaya waliopewa ushauri";
-    private static final String ACTION_MADA_ZILIZOFUNDISHWA = "Mada zilizofundishwa";
-    private static final String ACTION_MAONI = "Maoni";
 
     private static final String FORM_KUSUDI_LA_ZIARA = "mothermentor_household_visit_purpose";
     private static final String FORM_WANAKAYA_WALIOPEWA_USHAURI = "mother_mentor_household_members_who_received_counselling";
@@ -54,10 +50,10 @@ public class MotherMentorHouseholdVisitInteractor extends BaseMotherMentorServic
         final Runnable runnable = () -> {
             householdVisitActions.clear();
             try {
-                addVisitAction(ACTION_KUSUDI_LA_ZIARA, FORM_KUSUDI_LA_ZIARA);
-                addVisitAction(ACTION_WANAKAYA_WALIOPEWA_USHAURI, FORM_WANAKAYA_WALIOPEWA_USHAURI);
-                addVisitAction(ACTION_MADA_ZILIZOFUNDISHWA, FORM_MADA_ZILIZOFUNDISHWA);
-                addVisitAction(ACTION_MAONI, FORM_MAONI);
+                addVisitAction(context.getString(org.smartregister.chw.R.string.mothermentor_household_visit_kusudi_la_ziara), FORM_KUSUDI_LA_ZIARA);
+                addVisitAction(context.getString(org.smartregister.chw.R.string.mothermentor_household_visit_wanakaya_waliopewa_ushauri), FORM_WANAKAYA_WALIOPEWA_USHAURI);
+                addVisitAction(context.getString(org.smartregister.chw.R.string.mothermentor_household_visit_mada_zilizofundishwa), FORM_MADA_ZILIZOFUNDISHWA);
+                addVisitAction(context.getString(org.smartregister.chw.R.string.mothermentor_household_visit_maoni), FORM_MAONI);
             } catch (BaseMotherMentorVisitAction.ValidationException e) {
                 e.printStackTrace();
             }
