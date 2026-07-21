@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -90,6 +91,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
             textViewRecordMotherMentor.setText(R.string.mothermentor_household_record);
         }
         enforceProcessVisitVisibility();
+        refreshMedicalHistory(true);
     }
 
     @Override
@@ -163,6 +165,24 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void openMedicalHistory() {
+        MotherMentorMedicalHistoryActivity.startMe(this, memberObject);
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        boolean showHistory = hasProcessedHouseholdVisitHistory();
+        if (showHistory) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+            view_last_visit_row.setVisibility(View.VISIBLE);
+            findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(org.smartregister.chw.mothermentor.R.id.ivViewHistoryArrow))
+                    .setText(getString(R.string.view_visits_history));
+            rlLastVisit.setOnClickListener(view -> openMedicalHistory());
+            ivViewHistoryArrow.setOnClickListener(view -> openMedicalHistory());
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+            view_last_visit_row.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -242,6 +262,17 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     protected boolean isVisitOnProgress(Visit visit) {
         return visit != null && TextUtils.isEmpty(visit.getVisitId());
+    }
+
+    private boolean hasProcessedHouseholdVisitHistory() {
+        try {
+            return !MotherMentorLibrary.getInstance().visitRepository()
+                    .getAllVisitsProcessed(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES, memberObject.getBaseEntityId())
+                    .isEmpty();
+        } catch (Exception e) {
+            Timber.e(e);
+            return false;
+        }
     }
 
     private boolean hasCompletedHouseholdServiceSections(Visit visit) {
