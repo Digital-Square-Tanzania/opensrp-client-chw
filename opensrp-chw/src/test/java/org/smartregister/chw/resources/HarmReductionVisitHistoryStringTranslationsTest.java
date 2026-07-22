@@ -104,6 +104,8 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_health_education_other_specify", "Specify other health education provided");
         values.put("harm_reduction_health_education_provided", "Health education provided");
         values.put("harm_reduction_health_services_advocacy", "Health services advocacy");
+        values.put("harm_reduction_sober_house_health_reasons", "Health reasons");
+        values.put("harm_reduction_sober_house_misconduct", "Misconduct");
         values.put("harm_reduction_hepatitis_bc", "Hepatitis B/C");
         values.put("harm_reduction_hepatitis_b_screening", "Hepatitis B Screening");
         values.put("harm_reduction_hepatitis_bc_screening", "Hepatitis B/C Screening");
@@ -304,6 +306,8 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_health_education_other_specify", "Bainisha elimu nyingine ya afya iliyotolewa");
         values.put("harm_reduction_health_education_provided", "Elimu ya afya iliyotolewa");
         values.put("harm_reduction_health_services_advocacy", "Uhamasishaji wa huduma za Afya");
+        values.put("harm_reduction_sober_house_health_reasons", "Sababu za kiafya");
+        values.put("harm_reduction_sober_house_misconduct", "Utovu wa nidhamu");
         values.put("harm_reduction_hepatitis_bc", "Homa ya Ini");
         values.put("harm_reduction_hepatitis_b_screening", "Uchunguzi wa Homa ya Ini B");
         values.put("harm_reduction_hepatitis_bc_screening", "Uchunguzi wa Homa ya Ini B/C");
@@ -312,7 +316,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_hiv_aids", "VVU na UKIMWI");
         values.put("harm_reduction_hiv_results", "Matokeo ya kipimo cha VVU");
         values.put("harm_reduction_hiv_test_location", "Upimaji ulipofanyika");
-        values.put("harm_reduction_hiv_tested", "Je, mpokea huduma amewahi kupima VVU?");
+        values.put("harm_reduction_hiv_tested", "Je, mpokea huduma amepima VVU?");
         values.put("harm_reduction_hiv_testing", "Upimaji wa VVU");
         values.put("harm_reduction_home", "Nyumbani");
         values.put("harm_reduction_iec_communicable_diseases", "Magonjwa ya kuambukiza");
