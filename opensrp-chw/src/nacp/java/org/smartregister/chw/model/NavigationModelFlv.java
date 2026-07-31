@@ -91,7 +91,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8, op9));
                         break;
                     case "AYP_OUT_OF_SCHOOL":
-                        navigationOptions.addAll(Arrays.asList(op10, op28, op9, op8));
+                        navigationOptions.addAll(Arrays.asList(op10, op28, op16, op9, op8));
                         break;
                     default:
                         navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
