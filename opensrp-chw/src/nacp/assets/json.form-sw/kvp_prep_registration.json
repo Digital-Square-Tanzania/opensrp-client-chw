@@ -382,10 +382,10 @@
           "is_fixed_size": "true",
           "err": "Tafadhali ingiza namba sahihi ya CTC"
         },
-      "v_required": {
-        "value": true,
-        "err": "Tafadhali ingiza namba sahihi ya CTC"
-      },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza namba sahihi ya CTC"
+        },
         "relevance": {
           "step1:hiv_status": {
             "type": "string",

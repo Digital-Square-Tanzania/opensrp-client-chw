@@ -382,10 +382,10 @@
           "is_fixed_size": "true",
           "err": "Please enter a valid CTC ID"
         },
-      "v_required": {
-        "value": true,
-        "err": "Please enter a valid CTC ID"
-      },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid CTC ID"
+        },
         "relevance": {
           "step1:hiv_status": {
             "type": "string",
