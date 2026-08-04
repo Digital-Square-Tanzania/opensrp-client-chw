@@ -383,7 +383,7 @@
           "err": "Tafadhali ingiza namba sahihi ya CTC"
         },
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "Tafadhali ingiza namba sahihi ya CTC"
         },
         "relevance": {
