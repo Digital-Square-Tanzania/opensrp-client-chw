@@ -184,6 +184,10 @@ public class ChwRepositoryFlv {
                     break;
                 case 48:
                     upgradeToVersion48(db);
+                    break;
+                case 49:
+                    upgradeToVersion49(db);
+                    break;
                 default:
                     break;
             }
@@ -1059,6 +1063,28 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, tableName, "diabetes_treatment_after_screening");
         addColumnIfMissing(db, tableName, "other_conditions_result");
         addColumnIfMissing(db, tableName, "other_conditions_treatment_after_screening");
+    }
+
+    private static void upgradeToVersion49(SQLiteDatabase db) {
+        String tableName = "ec_ayp_out_school_client_followup_visits";
+        addColumnIfMissing(db, tableName, "hiv_positive");
+        addColumnIfMissing(db, tableName, "client_hiv_status");
+        addColumnIfMissing(db, tableName, "ctc_number");
+        addColumnIfMissing(db, tableName, "hiv_tested_within_last_3_months");
+        addColumnIfMissing(db, tableName, "hiv_result_recent");
+        addColumnIfMissing(db, tableName, "ctc_number_a");
+        addColumnIfMissing(db, tableName, "on_prep");
+        addColumnIfMissing(db, tableName, "prep_facility_a");
+        addColumnIfMissing(db, tableName, "linked_to_prep_recent");
+        addColumnIfMissing(db, tableName, "tested_for_hiv");
+        addColumnIfMissing(db, tableName, "testing_location");
+        addColumnIfMissing(db, tableName, "facility_name");
+        addColumnIfMissing(db, tableName, "test_date");
+        addColumnIfMissing(db, tableName, "hiv_result");
+        addColumnIfMissing(db, tableName, "ctc_number_b");
+        addColumnIfMissing(db, tableName, "prep_follow_up");
+        addColumnIfMissing(db, tableName, "prep_facility_b");
+        addColumnIfMissing(db, tableName, "linked_to_prep");
     }
   
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
