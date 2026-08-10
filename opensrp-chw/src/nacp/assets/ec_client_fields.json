@@ -2321,6 +2321,78 @@
             "field": "obs.fieldCode",
             "concept": "chw_followup_date"
           }
+        },
+        {
+          "column_name": "referral_task_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_task_id"
+          }
+        },
+        {
+          "column_name": "client_attended_referral",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_attended_referral"
+          }
+        },
+        {
+          "column_name": "reason_not_attended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reason_not_attended"
+          }
+        },
+        {
+          "column_name": "attended_assigned_facility",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "attended_assigned_facility"
+          }
+        },
+        {
+          "column_name": "reason_different_facility",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reason_different_facility"
+          }
+        },
+        {
+          "column_name": "facility_attended",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_attended"
+          }
+        },
+        {
+          "column_name": "services_received",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "services_received"
+          }
+        },
+        {
+          "column_name": "client_condition",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_condition"
+          }
+        },
+        {
+          "column_name": "client_satisfied",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_satisfied"
+          }
         }
       ]
     },

@@ -67,6 +67,7 @@ public class Constants extends CoreConstants {
         public static final String LINKAGE_FOLLOWUP = "Linkage Followup";
         public static final String NCD_MONTHLY_FOLLOWUP = "NCD Monthly Follow-Up";
         public static final String NCD_CASE_MANAGEMENT_CLOSE = "NCD Case Management Close";
+        public static final String REFERRAL_FOLLOWUP = "Referral Followup Registration";
     }
 
     public static class ScheduleType {
@@ -179,6 +180,7 @@ public class Constants extends CoreConstants {
         public static final String NCD_FOLLOWUP_PSYCHOSOCIAL = "ncd_followup_psychosocial";
         public static final String NCD_REFERRAL_FORM = "ncd_referral_form";
         public static final String NCD_CASE_MANAGEMENT_CLOSE = "ncd_case_management_close";
+        public static final String REFERRAL_FOLLOWUP_FORM = "referral_followup_form";
 
         public static final String CHILD_SAFETY_FORM = "child_hv_child_safety";
 
@@ -193,6 +195,10 @@ public class Constants extends CoreConstants {
 
         public static String getNcdReferralForm() {
             return NCD_REFERRAL_FORM;
+        }
+
+        public static String getReferralFollowUpForm() {
+            return REFERRAL_FOLLOWUP_FORM;
         }
 
         public static String getDiabetesScreeningForm() {
@@ -374,6 +380,7 @@ public class Constants extends CoreConstants {
         public static final String CBHS_REGISTER = "ec_cbhs_register";
         public static final String CHILD_NO_MOTHER = "ec_child_no_mother";
         public static final String NCD_CASE_MANAGEMENT_FOLLOWUP = "ec_ncd_case_management_followup";
+        public static final String REFERRAL_FOLLOWUP = "ec_referral_followup";
     }
 
     public static class DBConstants{

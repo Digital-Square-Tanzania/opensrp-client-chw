@@ -29,6 +29,7 @@ import org.smartregister.chw.fragment.ReferralRegisterFragment;
 import org.smartregister.chw.malaria.util.MalariaJsonFormUtils;
 import org.smartregister.chw.referral.activity.BaseReferralRegisterActivity;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.ReferralFollowUpUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 
 import java.util.Collections;
@@ -114,7 +115,9 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity imple
                 JSONArray fields = registrationFormParams.getRight();
                 String encounter_type = jsonForm.optString(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
-                if (org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT.equals(encounter_type)) {
+                if (Constants.EncounterType.REFERRAL_FOLLOWUP.equals(encounter_type)) {
+                    saveReferralFollowUp(jsonString, jsonForm, fields);
+                } else if (org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT.equals(encounter_type)) {
                     JSONObject fever_still_object = getFieldJSONObject(fields, "fever_still");
                     if (fever_still_object != null && "Yes".equalsIgnoreCase(fever_still_object.optString(VALUE))) {
                         ReferralRegisterActivity.startReferralRegistrationActivity(this, jsonForm.optString(ENTITY_ID));
@@ -130,6 +133,31 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity imple
             finish();
         }
 
+    }
+
+    /**
+     * Persists the manual referral follow-up answers and closes the referral they were recorded
+     * against. A client who still exhibits danger signs is referred again, which has to happen after
+     * the original task is closed because an open referral blocks a new one.
+     */
+    private void saveReferralFollowUp(String jsonString, JSONObject jsonForm, JSONArray fields) {
+        String baseEntityId = jsonForm.optString(ENTITY_ID);
+        String taskId = ReferralFollowUpUtils.getFieldValue(fields, ReferralFollowUpUtils.REFERRAL_TASK_ID);
+
+        try {
+            ReferralFollowUpUtils.saveReferralFollowUp(jsonString, baseEntityId);
+        } catch (Exception e) {
+            Timber.e(e, "Could not save the referral follow-up for %s", baseEntityId);
+            return;
+        }
+
+        boolean closed = ReferralFollowUpUtils.completeReferralTask(taskId);
+
+        if (closed && ReferralFollowUpUtils.exhibitsDangerSigns(fields)) {
+            ReferralRegisterActivity.startReferralRegistrationActivity(this, baseEntityId);
+            return;
+        }
+        startRegisterActivity();
     }
 
     @Override

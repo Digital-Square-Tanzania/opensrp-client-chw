@@ -12,9 +12,9 @@ import androidx.loader.content.Loader;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChwReferralDetailsViewActivity;
-import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
@@ -25,6 +25,7 @@ import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.referral.fragment.BaseReferralRegisterFragment;
 import org.smartregister.chw.provider.NacpReferralRegisterProvider;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.ReferralFollowUpUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -50,10 +51,18 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
 
     @Override
     public void initializeAdapter(@Nullable Set<? extends org.smartregister.configurableviews.model.View> visibleColumns) {
-        NacpReferralRegisterProvider referralRegisterProvider = new NacpReferralRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
+        NacpReferralRegisterProvider referralRegisterProvider = new NacpReferralRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns, isFollowUpActionEnabled());
         clientAdapter = new RecyclerViewPaginatedAdapter(null, referralRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
+    }
+
+    /**
+     * Whether the manual referral follow-up action is offered on each register row. Registers that
+     * reuse this fragment without a follow-up form override this to false.
+     */
+    protected boolean isFollowUpActionEnabled() {
+        return BuildConfig.ENABLE_REFERRAL_FOLLOWUP;
     }
 
     @Override
@@ -160,9 +169,18 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
         ChwReferralDetailsViewActivity.startChwReferralDetailsViewActivity(getActivity(), new MemberObject(client), client);
     }
 
+    /**
+     * Opens the manual referral follow-up form for the client's open referral. The register row
+     * already carries the referral task id, so no extra lookup is needed to know which task the
+     * answers will close.
+     */
     @Override
     protected void openFollowUpVisit(CommonPersonObjectClient client) {
-        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(getActivity(), client.getCaseId());
+        if (getActivity() == null || client == null) {
+            return;
+        }
+        String taskId = org.smartregister.util.Utils.getValue(client.getColumnmaps(), org.smartregister.chw.referral.util.Constants.Task.Key.TASK_ID, false);
+        ReferralFollowUpUtils.startReferralFollowUpForm(getActivity(), client.getCaseId(), taskId);
     }
 
     @Override

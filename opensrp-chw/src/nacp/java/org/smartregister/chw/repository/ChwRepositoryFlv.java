@@ -184,6 +184,10 @@ public class ChwRepositoryFlv {
                     break;
                 case 48:
                     upgradeToVersion48(db);
+                    break;
+                case 49:
+                    upgradeToVersion49(db);
+                    break;
                 default:
                     break;
             }
@@ -1061,6 +1065,24 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, tableName, "other_conditions_treatment_after_screening");
     }
   
+    /**
+     * Referral follow-up (manual closure at community level) answers QN1-QN8.
+     * The ec_referral_followup table itself is created from ec_client_fields.json; only the new
+     * answer columns need adding for devices upgrading from an earlier database version.
+     */
+    private static void upgradeToVersion49(SQLiteDatabase db) {
+        String tableName = "ec_referral_followup";
+        addColumnIfMissing(db, tableName, "referral_task_id");
+        addColumnIfMissing(db, tableName, "client_attended_referral");
+        addColumnIfMissing(db, tableName, "reason_not_attended");
+        addColumnIfMissing(db, tableName, "attended_assigned_facility");
+        addColumnIfMissing(db, tableName, "reason_different_facility");
+        addColumnIfMissing(db, tableName, "facility_attended");
+        addColumnIfMissing(db, tableName, "services_received");
+        addColumnIfMissing(db, tableName, "client_condition");
+        addColumnIfMissing(db, tableName, "client_satisfied");
+    }
+
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
         try {
             if (!columnExists(db, tableName, columnName)) {

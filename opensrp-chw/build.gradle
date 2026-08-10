@@ -273,8 +273,11 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '48'
-            buildConfigField "boolean", "ENABLE_REFERRAL_FOLLOWUP", "false"
+            buildConfigField "int", "DATABASE_VERSION", '49'
+            // Gates the app-owned manual referral follow-up action in the Referral register.
+            // NOTE: the chw-referral library reads its OWN BuildConfig field of the same name;
+            // this one only controls NacpReferralRegisterProvider / ReferralRegisterFragment.
+            buildConfigField "boolean", "ENABLE_REFERRAL_FOLLOWUP", "true"
         }
     }
 
