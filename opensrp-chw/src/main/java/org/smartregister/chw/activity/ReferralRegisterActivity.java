@@ -39,6 +39,12 @@ import timber.log.Timber;
 
 public class ReferralRegisterActivity extends BaseReferralRegisterActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * Set only while the unresolved-condition referral form is open, so a Referral Registration
+     * result from any other source is not mistaken for ours.
+     */
+    private String pendingReferralBaseEntityId;
+
     public static void startReferralRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, ReferralRegisterActivity.class);
         intent.putExtra(ActivityPayload.BASE_ENTITY_ID, baseEntityID);
@@ -117,6 +123,9 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity imple
 
                 if (Constants.EncounterType.REFERRAL_FOLLOWUP.equals(encounter_type)) {
                     saveReferralFollowUp(jsonString, jsonForm, fields);
+                } else if (pendingReferralBaseEntityId != null
+                        && org.smartregister.chw.referral.util.Constants.EventType.REGISTRATION.equals(encounter_type)) {
+                    createUnresolvedConditionReferral(fields);
                 } else if (org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT.equals(encounter_type)) {
                     JSONObject fever_still_object = getFieldJSONObject(fields, "fever_still");
                     if (fever_still_object != null && "Yes".equalsIgnoreCase(fever_still_object.optString(VALUE))) {
@@ -154,8 +163,24 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity imple
         boolean closed = ReferralFollowUpUtils.completeReferralTask(taskId);
 
         if (closed && ReferralFollowUpUtils.exhibitsDangerSigns(fields)) {
-            ReferralRegisterActivity.startReferralRegistrationActivity(this, baseEntityId);
+            pendingReferralBaseEntityId = baseEntityId;
+            ReferralFollowUpUtils.startUnresolvedConditionReferralForm(this, baseEntityId);
             return;
+        }
+        startRegisterActivity();
+    }
+
+    /**
+     * Second leg of the danger-signs path: the CHW has filled the short referral form, so raise the
+     * new referral. If the form was abandoned, {@code pendingReferralBaseEntityId} is simply never
+     * consumed and the client stays closed with the follow-up on record.
+     */
+    private void createUnresolvedConditionReferral(JSONArray fields) {
+        String baseEntityId = pendingReferralBaseEntityId;
+        pendingReferralBaseEntityId = null;
+
+        if (!ReferralFollowUpUtils.createUnresolvedConditionReferral(fields, baseEntityId)) {
+            Timber.e("Could not raise the unresolved-condition referral for %s", baseEntityId);
         }
         startRegisterActivity();
     }

@@ -95,6 +95,20 @@ public class Constants extends CoreConstants {
                 "treatment_supporter_relationship";
     }
 
+    /**
+     * The referral a CHW raises when a follow-up shows the client's condition is still unresolved.
+     * The focus is what the server keys its expiry window off, so it must match the server config.
+     */
+    public static class ReferralFollowUp {
+        public static final String FOCUS_UNRESOLVED_REFERRAL = "Unresolved Referral";
+        public static final String TASK_CODE = "Referral";
+        public static final int TASK_PRIORITY = 1;
+        public static final String PROBLEM = "problem";
+        public static final String PROBLEM_OTHER = "problem_other";
+        public static final String REFERRAL_HF = "chw_referral_hf";
+        public static final String IS_EMERGENCY_CASE = "is_emergency_case";
+    }
+
     public static class ChildIllnessViewType {
         public static final int RADIO_BUTTON = 0;
         public static final int EDIT_TEXT = 1;
@@ -181,6 +195,7 @@ public class Constants extends CoreConstants {
         public static final String NCD_REFERRAL_FORM = "ncd_referral_form";
         public static final String NCD_CASE_MANAGEMENT_CLOSE = "ncd_case_management_close";
         public static final String REFERRAL_FOLLOWUP_FORM = "referral_followup_form";
+        public static final String REFERRAL_FOLLOWUP_REFERRAL_FORM = "referral_followup_referral_form";
 
         public static final String CHILD_SAFETY_FORM = "child_hv_child_safety";
 
@@ -199,6 +214,10 @@ public class Constants extends CoreConstants {
 
         public static String getReferralFollowUpForm() {
             return REFERRAL_FOLLOWUP_FORM;
+        }
+
+        public static String getReferralFollowUpReferralForm() {
+            return REFERRAL_FOLLOWUP_REFERRAL_FORM;
         }
 
         public static String getDiabetesScreeningForm() {

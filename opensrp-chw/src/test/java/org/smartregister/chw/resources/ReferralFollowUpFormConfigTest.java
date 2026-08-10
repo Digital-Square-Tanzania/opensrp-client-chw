@@ -29,6 +29,8 @@ public class ReferralFollowUpFormConfigTest {
     private static final String EC_CLIENT_CLASSIFICATION_PATH = "src/nacp/assets/ec_client_classification.json";
     private static final String FORM_PATH = "src/nacp/assets/json.form/referral_followup_form.json";
     private static final String FORM_SW_PATH = "src/nacp/assets/json.form-sw/referral_followup_form.json";
+    private static final String REFERRAL_FORM_PATH = "src/nacp/assets/json.form/referral_followup_referral_form.json";
+    private static final String REFERRAL_FORM_SW_PATH = "src/nacp/assets/json.form-sw/referral_followup_referral_form.json";
     private static final String REPOSITORY_FLV_PATH = "src/nacp/java/org/smartregister/chw/repository/ChwRepositoryFlv.java";
 
     private static final String TABLE = "ec_referral_followup";
@@ -152,6 +154,97 @@ public class ReferralFollowUpFormConfigTest {
                 "DATABASE_VERSION should be bumped so the referral follow-up migration runs",
                 extractDatabaseVersion(readText(BUILD_GRADLE_PATH)) >= 49
         );
+    }
+
+    @Test
+    public void referralFormShouldRaiseAReferralRegistration() throws Exception {
+        for (String formPath : Arrays.asList(REFERRAL_FORM_PATH, REFERRAL_FORM_SW_PATH)) {
+            JSONObject form = new JSONObject(readText(formPath));
+            Assert.assertEquals(
+                    formPath + " should emit the event type routed to ec_referral",
+                    "Referral Registration",
+                    form.getString("encounter_type")
+            );
+        }
+        Assert.assertTrue(
+                "Referral Registration should create a case in ec_referral",
+                readText(EC_CLIENT_CLASSIFICATION_PATH).contains("Referral Registration")
+        );
+    }
+
+    @Test
+    public void referralFormShouldAskReasonFacilityAndEmergency() throws Exception {
+        for (String formPath : Arrays.asList(REFERRAL_FORM_PATH, REFERRAL_FORM_SW_PATH)) {
+            JSONArray fields = fields(formPath);
+            Assert.assertEquals(
+                    formPath + " should stay short — reason, other, facility, emergency",
+                    Arrays.asList("problem", "problem_other", "chw_referral_hf", "is_emergency_case"),
+                    keys(fields)
+            );
+
+            JSONObject problem = findField(fields, "problem");
+            Assert.assertEquals("check_box", problem.getString(JsonFormConstants.TYPE));
+            Assert.assertEquals(
+                    formPath + ": the agreed reason list",
+                    Arrays.asList("condition_not_improved", "condition_worsened",
+                            "did_not_receive_services", "new_danger_signs", "other"),
+                    optionKeys(problem)
+            );
+
+            JSONObject other = findField(fields, "problem_other");
+            Assert.assertEquals(
+                    formPath + ": the free-text reason should only appear when Other is ticked",
+                    "{\"or\":[\"other\"]}",
+                    other.getJSONObject("relevance").getJSONObject("step1:problem")
+                            .getJSONArray("ex-checkbox").getJSONObject(0).toString()
+            );
+
+            JSONObject facility = findField(fields, "chw_referral_hf");
+            Assert.assertTrue(formPath + ": facility list must be searchable", facility.optBoolean("searchable"));
+            Assert.assertEquals(
+                    formPath + ": facilities are injected at runtime, so none may be hardcoded",
+                    0,
+                    facility.getJSONArray("options").length()
+            );
+
+            Assert.assertEquals(
+                    formPath + ": emergency flag uses the Yes/No keys the event builder expects",
+                    Arrays.asList("Yes", "No"),
+                    optionKeys(findField(fields, "is_emergency_case"))
+            );
+        }
+    }
+
+    @Test
+    public void referralFormSwahiliShouldMirrorEnglishStructure() throws Exception {
+        assertParity(REFERRAL_FORM_PATH, REFERRAL_FORM_SW_PATH);
+    }
+
+    private void assertParity(String englishPath, String swahiliPath) throws Exception {
+        JSONArray english = fields(englishPath);
+        JSONArray swahili = fields(swahiliPath);
+
+        Assert.assertEquals("Swahili form should have the same number of questions", english.length(), swahili.length());
+        Assert.assertEquals("Swahili form should keep the English question order", keys(english), keys(swahili));
+
+        for (int i = 0; i < english.length(); i++) {
+            JSONObject en = english.getJSONObject(i);
+            JSONObject sw = swahili.getJSONObject(i);
+            String key = en.getString(JsonFormConstants.KEY);
+
+            Assert.assertEquals(key + " should keep its widget type", en.getString(JsonFormConstants.TYPE), sw.getString(JsonFormConstants.TYPE));
+            Assert.assertEquals(key + " should keep its option keys", optionKeys(en), optionKeys(sw));
+            Assert.assertEquals(key + " should keep its relevance rule", String.valueOf(en.opt("relevance")), String.valueOf(sw.opt("relevance")));
+
+            if (en.has(JsonFormConstants.LABEL)) {
+                Assert.assertTrue(key + " should carry a Swahili label", sw.has(JsonFormConstants.LABEL));
+                Assert.assertNotEquals(
+                        key + " should be translated rather than left in English",
+                        en.getString(JsonFormConstants.LABEL),
+                        sw.getString(JsonFormConstants.LABEL)
+                );
+            }
+        }
     }
 
     private void assertRelevance(String formPath, JSONArray fields, String key, String dependsOn, String value) throws Exception {
