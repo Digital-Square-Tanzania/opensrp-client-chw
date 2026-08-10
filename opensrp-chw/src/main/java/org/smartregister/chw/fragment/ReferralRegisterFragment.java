@@ -170,9 +170,9 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
     }
 
     /**
-     * Opens the manual referral follow-up form for the client's open referral. The register row
-     * already carries the referral task id, so no extra lookup is needed to know which task the
-     * answers will close.
+     * Opens the manual referral follow-up form for the client's open referral. Only the task id is
+     * passed on: this register selects {@code ec_referral.id AS _id}, so {@code client.getCaseId()}
+     * is the referral row rather than the person, and the task is what knows who it is for.
      */
     @Override
     protected void openFollowUpVisit(CommonPersonObjectClient client) {
@@ -180,7 +180,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
             return;
         }
         String taskId = org.smartregister.util.Utils.getValue(client.getColumnmaps(), org.smartregister.chw.referral.util.Constants.Task.Key.TASK_ID, false);
-        ReferralFollowUpUtils.startReferralFollowUpForm(getActivity(), client.getCaseId(), taskId);
+        ReferralFollowUpUtils.startReferralFollowUpForm(getActivity(), taskId);
     }
 
     @Override

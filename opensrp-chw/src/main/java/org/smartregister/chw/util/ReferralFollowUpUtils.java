@@ -54,10 +54,21 @@ public class ReferralFollowUpUtils {
     }
 
     /**
-     * Opens the referral follow-up form for the given client, pre-filled with the referral task
-     * that the answers will close.
+     * Opens the referral follow-up form for the referral behind the given task.
+     *
+     * <p>The client is read from the task's {@code forEntity} and NOT from the register row: the
+     * Referral register selects {@code ec_referral.id AS _id}, so {@code client.getCaseId()} is the
+     * referral row's id, not a person. Events written against that id belong to no client, so the
+     * client processor silently drops them and nothing reaches the {@code ec_} tables.
      */
-    public static void startReferralFollowUpForm(Activity activity, String baseEntityId, String taskId) {
+    public static void startReferralFollowUpForm(Activity activity, String taskId) {
+        Task task = resolveTask(taskId);
+        if (task == null || StringUtils.isBlank(task.getForEntity())) {
+            Timber.e("Referral task %s could not be resolved; not opening the follow-up form", taskId);
+            return;
+        }
+        String baseEntityId = task.getForEntity();
+
         try {
             JSONObject form = new FormUtils().getFormJsonFromRepositoryOrAssets(
                     activity, Constants.JsonForm.getReferralFollowUpForm()
@@ -124,17 +135,21 @@ public class ReferralFollowUpUtils {
      * no longer be resolved so the caller can leave the referral open rather than silently drop it.
      */
     public static boolean completeReferralTask(String taskId) {
-        if (StringUtils.isBlank(taskId)) {
-            Timber.e("Referral follow-up submitted without a referral task id");
-            return false;
-        }
-        Task task = ChwApplication.getInstance().getTaskRepository().getTaskByIdentifier(taskId);
+        Task task = resolveTask(taskId);
         if (task == null) {
             Timber.e("Referral task %s could not be resolved, leaving the referral open", taskId);
             return false;
         }
         CoreReferralUtils.completeTask(task, true);
         return true;
+    }
+
+    private static Task resolveTask(String taskId) {
+        if (StringUtils.isBlank(taskId)) {
+            Timber.e("Referral follow-up attempted without a referral task id");
+            return null;
+        }
+        return ChwApplication.getInstance().getTaskRepository().getTaskByIdentifier(taskId);
     }
 
     public static String getFieldValue(JSONArray fields, String key) {

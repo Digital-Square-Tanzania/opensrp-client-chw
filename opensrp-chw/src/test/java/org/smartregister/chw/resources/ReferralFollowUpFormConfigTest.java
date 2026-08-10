@@ -32,6 +32,8 @@ public class ReferralFollowUpFormConfigTest {
     private static final String REFERRAL_FORM_PATH = "src/nacp/assets/json.form/referral_followup_referral_form.json";
     private static final String REFERRAL_FORM_SW_PATH = "src/nacp/assets/json.form-sw/referral_followup_referral_form.json";
     private static final String REPOSITORY_FLV_PATH = "src/nacp/java/org/smartregister/chw/repository/ChwRepositoryFlv.java";
+    private static final String REGISTER_MODEL_PATH = "src/main/java/org/smartregister/chw/model/ReferralRegisterFragmentModel.java";
+    private static final String REGISTER_FRAGMENT_PATH = "src/main/java/org/smartregister/chw/fragment/ReferralRegisterFragment.java";
 
     private static final String TABLE = "ec_referral_followup";
     private static final String ENCOUNTER_TYPE = "Referral Followup Registration";
@@ -153,6 +155,28 @@ public class ReferralFollowUpFormConfigTest {
         Assert.assertTrue(
                 "DATABASE_VERSION should be bumped so the referral follow-up migration runs",
                 extractDatabaseVersion(readText(BUILD_GRADLE_PATH)) >= 49
+        );
+    }
+
+    /**
+     * The follow-up action resolves both the referral to close and the client it is for from the
+     * task id on the register row. The register selects {@code ec_referral.id AS _id}, so the row's
+     * caseId is a referral, not a person — without this column there is no way back to the client.
+     */
+    @Test
+    public void referralRegisterShouldCarryTheTaskId() throws Exception {
+        String model = readText(REGISTER_MODEL_PATH);
+        Assert.assertTrue(
+                "the Referral register must select the task id the follow-up action depends on",
+                model.contains("TABLE_NAME.TASK+ \"._id\" + \" AS \"+ org.smartregister.chw.referral.util.Constants.Task.Key.TASK_ID")
+                        || model.contains("\"._id\" + \" AS \"")
+        );
+
+        String fragment = readText(REGISTER_FRAGMENT_PATH);
+        Assert.assertFalse(
+                "openFollowUpVisit must not pass client.getCaseId() — on this register that is the "
+                        + "referral row id, and events written against it belong to no client",
+                fragment.contains("startReferralFollowUpForm(getActivity(), client.getCaseId()")
         );
     }
 
