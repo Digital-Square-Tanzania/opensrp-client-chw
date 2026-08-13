@@ -7,6 +7,7 @@ import static org.smartregister.client.utils.constants.JsonFormConstants.KEY;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.actionhelper.KvpPrEPNextVisitDateActionHelper;
 import org.smartregister.chw.actionhelper.KvpPrEPPreventiveServicesActionHelper;
 import org.smartregister.chw.actionhelper.KvpPrEPReferralServicesActionHelper;
 import org.smartregister.chw.actionhelper.KvpPrEPSbccServicesActionHelper;
@@ -28,6 +29,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
+    static final String NEXT_VISIT_DATE_FORM = "kvp_prep_next_visit_date";
     private BaseKvpVisitContract.InteractorCallBack callBack;
     private final Map<String, String> visitState = new HashMap<>();
 
@@ -41,6 +43,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 evaluatePreventiveServices(details);
                 evaluateStructuralServices(details);
                 evaluateReferralServices(details, null);
+                evaluateNextVisitDate(details);
             } catch (BaseKvpVisitAction.ValidationException e) {
                 Timber.e(e);
             }
@@ -59,10 +62,12 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 actionList.remove(context.getString(R.string.kvp_prep_referral_services));
                 actionList.remove(context.getString(R.string.kvp_prep_preventive_services));
                 actionList.remove(context.getString(R.string.kvp_prep_structural_services));
+                actionList.remove(context.getString(R.string.kvp_prep_next_visit_date));
                 try {
                     evaluatePreventiveServices(details);
                     evaluateStructuralServices(details);
                     evaluateReferralServices(details, visitType);
+                    evaluateNextVisitDate(details);
                 } catch (BaseKvpVisitAction.ValidationException e) {
                     throw new RuntimeException(e);
                 }
@@ -158,6 +163,18 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 .build();
 
         actionList.put(context.getString(R.string.kvp_prep_referral_services), action);
+    }
+
+    private void evaluateNextVisitDate(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
+        KvpPrEPNextVisitDateActionHelper actionHelper = new KvpPrEPNextVisitDateActionHelper();
+        BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_next_visit_date))
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(actionHelper)
+                .withFormName(NEXT_VISIT_DATE_FORM)
+                .build();
+
+        actionList.put(context.getString(R.string.kvp_prep_next_visit_date), action);
     }
 
 }

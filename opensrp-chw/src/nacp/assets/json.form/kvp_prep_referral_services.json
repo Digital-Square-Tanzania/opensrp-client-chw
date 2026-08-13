@@ -258,21 +258,6 @@
             ]
           }
         }
-      },
-      {
-        "key": "next_visit_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "next_visit_date",
-        "type": "date_picker",
-        "label": "Select next visit date",
-        "hint": "Select next visit date",
-        "expanded": false,
-        "min_date": "today",
-        "v_required": {
-          "value": true,
-          "err": "Please select the next visit date"
-        }
       }
     ]
   }
