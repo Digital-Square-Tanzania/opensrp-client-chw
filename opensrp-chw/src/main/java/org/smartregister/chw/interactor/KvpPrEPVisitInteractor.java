@@ -59,15 +59,20 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
         KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(memberObject.getBaseEntityId(), visitState) {
             @Override
             public void processVisitType(String visitType) {
+                String nextVisitDateTitle = context.getString(R.string.kvp_prep_next_visit_date);
+                BaseKvpVisitAction nextVisitDateAction = actionList.remove(nextVisitDateTitle);
                 actionList.remove(context.getString(R.string.kvp_prep_referral_services));
                 actionList.remove(context.getString(R.string.kvp_prep_preventive_services));
                 actionList.remove(context.getString(R.string.kvp_prep_structural_services));
-                actionList.remove(context.getString(R.string.kvp_prep_next_visit_date));
                 try {
                     evaluatePreventiveServices(details);
                     evaluateStructuralServices(details);
                     evaluateReferralServices(details, visitType);
-                    evaluateNextVisitDate(details);
+                    if (nextVisitDateAction == null) {
+                        evaluateNextVisitDate(details);
+                    } else {
+                        actionList.put(nextVisitDateTitle, nextVisitDateAction);
+                    }
                 } catch (BaseKvpVisitAction.ValidationException e) {
                     throw new RuntimeException(e);
                 }
