@@ -432,6 +432,25 @@
     <string name="kvp_prep_preventive_services">Huduma Kinga</string>
     <string name="kvp_prep_structural_services">Huduma za Kimuundo</string>
     <string name="kvp_prep_referral_services">Huduma za Rufaa</string>
+    <string name="community">Kwenye jamii</string>
+    <string name="facility">Kituo cha afya</string>
+    <string name="kvp_hiv_tested_within_last_3_months">Amepima VVU ndani ya miezi 3 iliyopita:</string>
+    <string name="kvp_hiv_result_recent">Matokeo ya kipimo cha VVU:</string>
+    <string name="kvp_ctc_number_a">Kitambulisho cha CTC:</string>
+    <string name="kvp_on_prep">Anatumia PrEP kwa sasa:</string>
+    <string name="kvp_prep_facility_a">Kituo alichopata PrEP:</string>
+    <string name="kvp_linked_to_prep_recent">Ameunganishwa na huduma za PrEP:</string>
+    <string name="kvp_referred_for_hiv_test">Alipewa rufaa kwenda kupima VVU:</string>
+    <string name="kvp_tested_for_hiv">Alipima VVU:</string>
+    <string name="kvp_testing_location">Mahali alipopima VVU:</string>
+    <string name="kvp_facility_name">Jina la kituo:</string>
+    <string name="kvp_test_date">Tarehe ya kipimo:</string>
+    <string name="kvp_hiv_result">Matokeo ya kipimo cha VVU:</string>
+    <string name="kvp_ctc_number_b">Kitambulisho cha CTC:</string>
+    <string name="kvp_prep_follow_up">Anatumia PrEP kwa sasa:</string>
+    <string name="kvp_prep_facility_b">Kituo alichopata PrEP:</string>
+    <string name="kvp_linked_to_prep">Ameunganishwa na huduma za PrEP:</string>
+    <string name="kvp_next_visit_date">Tarehe ya tembeleo linalofuata:</string>
 
     <string name="last_restock_date">Last restock date on: %s</string>
     <string name="restock_history">Restock History</string>
