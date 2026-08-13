@@ -97,11 +97,11 @@
           "err": "Tafadhali ingiza namba sahihi ya CTC"
         },
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "Tafadhali ingiza namba sahihi ya CTC"
         },
         "relevance": {
-          "step1:hivStatus": {
+          "step1:hiv_result_recent": {
             "type": "string",
             "ex": "equalTo(., \"positive\")"
           }
