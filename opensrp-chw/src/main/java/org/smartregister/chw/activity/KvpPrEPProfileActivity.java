@@ -225,6 +225,10 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity implements On
 
         // Check if there is a dominant KVP group and update UI accordingly
         if (StringUtils.isNotBlank(dominantKVPGroup)) {
+            int horizontalPadding = getResources().getDimensionPixelSize(R.dimen.text_margin);
+            textViewDominantKvpGroup.setPaddingRelative(horizontalPadding,
+                    textViewDominantKvpGroup.getPaddingTop(), horizontalPadding,
+                    textViewDominantKvpGroup.getPaddingBottom());
             textViewDominantKvpGroup.setVisibility(View.VISIBLE);
             textViewDominantKvpGroup.setText(getString(org.smartregister.chw.kvp.R.string.dominant_kvp_group,
                     readStringResourcesWithPrefix(Arrays.asList(dominantKVPGroup), "kvp_")));
