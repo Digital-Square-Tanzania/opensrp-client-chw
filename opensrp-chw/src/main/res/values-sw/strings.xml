@@ -626,7 +626,18 @@
     <string name="kvp_friendly_services">Huduma rafiki kwa makundi maalum</string>
     <string name="sti_referral">Magonjwa ya ngono</string>
     <string name="view_visit_history">Angalia Tembeleo Lililopita</string>
+    <string name="dominant_kvp_group">Kundi kuu la KVP: %1$s</string>
+    <string name="kvp_fsw">Mwanamke aliye katika hatari zaidi</string>
+    <string name="kvp_msm">Mwanaume aliye katika hatari zaidi</string>
+    <string name="kvp_pwid">Mjidunga dawa za kulevya</string>
+    <string name="kvp_prisoners">Mfungwa</string>
+    <string name="kvp_inmate">Mahabusu</string>
+    <string name="kvp_agyw">Msichana rika balehe na mwanamke kijana</string>
     <string name="kvp_discordant_couples">Mwenza mwenye majibu kinzani</string>
+    <string name="kvp_fisherman">Wavuvi</string>
+    <string name="kvp_truck_drivers">Dereva wa lori</string>
+    <string name="kvp_miners">Mchimbaji Madini</string>
+    <string name="kvp_other">Makundi Mengine hatarishi</string>
 
     <string name="child_danger_signs_baby">Dalili za hatari</string>
     <string name="child_danger_signs_baby_task">Dalili za hatari </string>

@@ -917,7 +917,14 @@
     <string name="kvp_discordant_couples">Discordant Couples</string>
     <string name="kvp_fsw">WHR</string>
     <string name="kvp_msm">MHR</string>
+    <string name="kvp_pwid">PWID</string>
+    <string name="kvp_prisoners">Prisoners</string>
+    <string name="kvp_inmate">Inmate</string>
     <string name="kvp_agyw">vAGYW</string>
+    <string name="kvp_fisherman">Fisherman</string>
+    <string name="kvp_truck_drivers">Truck drivers</string>
+    <string name="kvp_miners">Miners</string>
+    <string name="kvp_other">Other Groups</string>
 
     <string name="last_appointment_date">Last Appointment date</string>
 
