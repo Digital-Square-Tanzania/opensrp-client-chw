@@ -558,6 +558,7 @@
     <string name="kvp_prep_preventive_services">Huduma Kinga</string>
     <string name="kvp_prep_structural_services">Huduma za Kimuundo</string>
     <string name="kvp_prep_referral_services">Huduma za Rufaa</string>
+    <string name="kvp_prep_next_visit_date">Tarehe ya Tembeleo Linalofuata</string>
     <string name="new_visit">Mteja Mpya</string>
     <string name="followup">Anaendelea na Huduma</string>
     <string name="positive">Chanya</string>
