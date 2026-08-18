@@ -97,7 +97,7 @@
           "err": "Please enter a valid CTC ID"
         },
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "Please enter a valid CTC ID"
         },
         "relevance": {
