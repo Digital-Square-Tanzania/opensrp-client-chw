@@ -1512,7 +1512,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "kits_distributed",
-        "label": "Vitepe vya JIPIME vilivyotolewa?",
+        "label": "Je, vitepe vya JIPIME vilitolewa?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

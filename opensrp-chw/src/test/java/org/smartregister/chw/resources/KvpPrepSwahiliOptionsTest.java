@@ -34,6 +34,14 @@ public class KvpPrepSwahiliOptionsTest {
         }
     }
 
+    @Test
+    public void kitsDistributedUsesCanonicalSwahiliQuestion() throws Exception {
+        JSONArray fields = form().getJSONObject("step1").getJSONArray("fields");
+
+        assertEquals("Je, vitepe vya JIPIME vilitolewa?",
+                getField(fields, "kits_distributed").getString("label"));
+    }
+
     private JSONObject form() throws Exception {
         return new JSONObject(new String(Files.readAllBytes(resolvePath(FORM_PATH)),
                 StandardCharsets.UTF_8));

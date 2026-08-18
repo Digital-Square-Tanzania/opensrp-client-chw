@@ -536,7 +536,7 @@
     <string name="kvp_number_of_alcohol_swabs_distributed">Number of Sterile Water for injection Distributed:</string>
     <string name="kvp_number_of_disposable_safety_boxes_distributed">Number of Disposable Safety Boxes Distributed:</string>
     <string name="kvp_number_of_plasters_distributed">Number of Plasters Distributed:</string>
-    <string name="kvp_kits_distributed">Number of HIVST Kits Distributed:</string>
+    <string name="kvp_kits_distributed">HIVST kits distributed:</string>
     <string name="kvp_number_of_coupons_distributed_for_social_network">Number of Coupons Distributed for social network:</string>
     <string name="male_condoms">Male Condoms</string>
     <string name="female_condoms">Female Condoms</string>
