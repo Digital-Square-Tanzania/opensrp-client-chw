@@ -46,6 +46,15 @@ public class KvpPrEPMedicalHistoryActivity extends CoreAncMedicalHistoryActivity
             "prep_follow_up", "prep_facility_b", "linked_to_prep"
     };
     static final String[] SCHEDULE_HISTORY_FIELDS = {"next_visit_date"};
+    static final String[] PROTECTIVE_SERVICES_HISTORY_FIELDS = {
+            "condoms_given", "type_of_issued_condoms", "number_of_male_condoms_issued",
+            "number_of_female_condoms_issued", "number_of_iec_distributed",
+            "number_of_needles_and_syringes_distributed",
+            "number_of_sterile_water_for_injection_distributed",
+            "number_of_alcohol_swabs_distributed",
+            "number_of_disposable_safety_boxes_distributed", "number_of_plasters_distributed",
+            "kits_distributed", "number_of_coupons_distributed_for_social_network"
+    };
     private static MemberObject kvpMemberObject;
     private final Flavor flavor = new KvpPrEPMedicalHistoryActivityFlv();
     private ProgressBar progressBar;
@@ -126,8 +135,7 @@ public class KvpPrEPMedicalHistoryActivity extends CoreAncMedicalHistoryActivity
 
                     extractVisitDetails(visits, HIV_PREP_HISTORY_FIELDS, visitDetails, x, context);
 
-                    String[] protectiveServicesParams = {"condoms_given", "type_of_issued_condoms", "number_of_male_condoms_issued", "number_of_female_condoms_issued", "number_of_iec_distributed", "number_of_needles_and_syringes_distributed", "number_of_sterile_water_for_injection_distributed", "number_of_alcohol_swabs_distributed", "number_of_disposable_safety_boxes_distributed", "number_of_plasters_distributed", "kits_distributed", "number_of_coupons_distributed_for_social_network"};
-                    extractVisitDetails(visits, protectiveServicesParams, visitDetails, x, context);
+                    extractVisitDetails(visits, PROTECTIVE_SERVICES_HISTORY_FIELDS, visitDetails, x, context);
 
                     String[] referralServicesParams = {"referral_to_structural_services", "other_referral_to_structural_services", "referrals_completed_to_structural_services", "other_referrals_completed_to_structural_services"};
                     extractVisitDetails(visits, referralServicesParams, visitDetails, x, context);

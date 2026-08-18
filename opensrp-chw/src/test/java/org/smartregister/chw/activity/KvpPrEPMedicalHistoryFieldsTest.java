@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,6 +42,20 @@ public class KvpPrEPMedicalHistoryFieldsTest {
         }
         assertHasLabel(english, "next_visit_date");
         assertHasLabel(swahili, "next_visit_date");
+    }
+
+    @Test
+    public void hivstDistributionAppearsOnceWithBooleanHistoryLabels() throws Exception {
+        assertEquals(1, Collections.frequency(
+                Arrays.asList(KvpPrEPMedicalHistoryActivity.PROTECTIVE_SERVICES_HISTORY_FIELDS),
+                "kits_distributed"));
+
+        String english = readText("src/nacp/res/values/strings.xml");
+        String swahili = readText("src/main/res/values-sw/strings.xml");
+        assertTrue(english.contains(
+                "<string name=\"kvp_kits_distributed\">HIVST kits distributed:</string>"));
+        assertTrue(swahili.contains(
+                "<string name=\"kvp_kits_distributed\">Vitepe vya JIPIME vilitolewa:</string>"));
     }
 
     private void assertHasLabel(String stringsXml, String field) {
