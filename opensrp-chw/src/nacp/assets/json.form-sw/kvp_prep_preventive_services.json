@@ -249,7 +249,7 @@
         "label": "Tarehe ya kipimo",
         "hint": "Tarehe ya kipimo",
         "expanded": false,
-        "max_date": "today",
+        "max_date": "today-90d",
         "v_required": {"value": "true", "err": "Tafadhali ingiza tarehe ya kipimo"},
         "relevance": {
           "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}
