@@ -40,9 +40,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "prep_facility_b",
             "linked_to_prep",
             "linked_to_prep_prompt",
-            "received_prep_last_facility",
-            "kits_distributed",
-            "prompt_for_hivst"
+            "received_prep_last_facility"
     };
 
     private static final String[] BRANCH_A_FIELDS = {

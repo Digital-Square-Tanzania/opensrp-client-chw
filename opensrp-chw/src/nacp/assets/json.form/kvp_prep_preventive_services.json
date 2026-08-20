@@ -97,7 +97,7 @@
           "err": "Please enter a valid CTC ID"
         },
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "Please enter a valid CTC ID"
         },
         "relevance": {
@@ -246,7 +246,7 @@
         "label": "Date the test was conducted",
         "hint": "Date the test was conducted",
         "expanded": false,
-        "max_date": "today",
+        "max_date": "today-90d",
         "v_required": {"value": "true", "err": "Please enter the test date"},
         "relevance": {
           "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}

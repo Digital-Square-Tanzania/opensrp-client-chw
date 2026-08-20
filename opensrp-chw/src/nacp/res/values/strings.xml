@@ -507,6 +507,25 @@
     <string name="positive">Positive</string>
     <string name="negative">Negative</string>
     <string name="unknown">Unknown</string>
+    <string name="community">Community</string>
+    <string name="facility">Health facility</string>
+    <string name="kvp_hiv_tested_within_last_3_months">Tested for HIV in the last 3 months:</string>
+    <string name="kvp_hiv_result_recent">Recent HIV test result:</string>
+    <string name="kvp_ctc_number_a">CTC ID:</string>
+    <string name="kvp_on_prep">Currently using PrEP:</string>
+    <string name="kvp_prep_facility_a">PrEP facility:</string>
+    <string name="kvp_linked_to_prep_recent">Linked to PrEP services:</string>
+    <string name="kvp_referred_for_hiv_test">Referred for HIV testing:</string>
+    <string name="kvp_tested_for_hiv">Tested for HIV:</string>
+    <string name="kvp_testing_location">HIV testing location:</string>
+    <string name="kvp_facility_name">HIV testing facility:</string>
+    <string name="kvp_test_date">HIV test date:</string>
+    <string name="kvp_hiv_result">HIV test result:</string>
+    <string name="kvp_ctc_number_b">CTC ID:</string>
+    <string name="kvp_prep_follow_up">Currently using PrEP:</string>
+    <string name="kvp_prep_facility_b">PrEP facility:</string>
+    <string name="kvp_linked_to_prep">Linked to PrEP services:</string>
+    <string name="kvp_next_visit_date">Next visit date:</string>
     <string name="kvp_condoms_given">Was the client given condoms:</string>
     <string name="kvp_type_of_issued_condoms">Types of condoms issued:</string>
     <string name="kvp_number_of_male_condoms_issued">Number of Male condoms issued:</string>
@@ -517,7 +536,7 @@
     <string name="kvp_number_of_alcohol_swabs_distributed">Number of Sterile Water for injection Distributed:</string>
     <string name="kvp_number_of_disposable_safety_boxes_distributed">Number of Disposable Safety Boxes Distributed:</string>
     <string name="kvp_number_of_plasters_distributed">Number of Plasters Distributed:</string>
-    <string name="kvp_kits_distributed">Number of HIVST Kits Distributed:</string>
+    <string name="kvp_kits_distributed">HIVST kits distributed:</string>
     <string name="kvp_number_of_coupons_distributed_for_social_network">Number of Coupons Distributed for social network:</string>
     <string name="male_condoms">Male Condoms</string>
     <string name="female_condoms">Female Condoms</string>
@@ -898,7 +917,14 @@
     <string name="kvp_discordant_couples">Discordant Couples</string>
     <string name="kvp_fsw">WHR</string>
     <string name="kvp_msm">MHR</string>
+    <string name="kvp_pwid">PWID</string>
+    <string name="kvp_prisoners">Prisoners</string>
+    <string name="kvp_inmate">Inmate</string>
     <string name="kvp_agyw">vAGYW</string>
+    <string name="kvp_fisherman">Fisherman</string>
+    <string name="kvp_truck_drivers">Truck drivers</string>
+    <string name="kvp_miners">Miners</string>
+    <string name="kvp_other">Other Groups</string>
 
     <string name="last_appointment_date">Last Appointment date</string>
 

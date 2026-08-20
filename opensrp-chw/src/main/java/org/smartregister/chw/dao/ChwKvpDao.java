@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.kvp.dao.KvpDao;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ChwKvpDao extends KvpDao {
@@ -130,6 +131,12 @@ public class ChwKvpDao extends KvpDao {
         Calendar threeMonthsAgo = Calendar.getInstance();
         threeMonthsAgo.add(Calendar.MONTH, -3);
         return latestFollowupDate <= threeMonthsAgo.getTimeInMillis();
+    }
+
+    public static Date getLatestProcessedFollowupDate(String baseEntityId) {
+        Long latestFollowupDate = getLatestLastInteractedWith(
+                "ec_kvp_prep_followup", "entity_id", baseEntityId);
+        return latestFollowupDate == null ? null : new Date(latestFollowupDate);
     }
 
     private static String sanitizeDetail(String detail) {

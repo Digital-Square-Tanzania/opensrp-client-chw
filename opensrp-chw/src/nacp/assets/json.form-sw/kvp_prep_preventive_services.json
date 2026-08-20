@@ -54,7 +54,7 @@
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
-          {"key": "yes", "text": "Ndio", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
           {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
         ],
         "v_required": {"value": "true", "err": "Tafadhali chagua jibu"}
@@ -97,11 +97,11 @@
           "err": "Tafadhali ingiza namba sahihi ya CTC"
         },
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "Tafadhali ingiza namba sahihi ya CTC"
         },
         "relevance": {
-          "step1:hivStatus": {
+          "step1:hiv_result_recent": {
             "type": "string",
             "ex": "equalTo(., \"positive\")"
           }
@@ -116,7 +116,7 @@
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
-          {"key": "yes", "text": "Ndio", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
           {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
         ],
         "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
@@ -174,7 +174,7 @@
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
-          {"key": "yes", "text": "Ndio", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
           {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
         ],
         "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
@@ -203,7 +203,7 @@
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
-          {"key": "yes", "text": "Ndio", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
           {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
         ],
         "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
@@ -249,7 +249,7 @@
         "label": "Tarehe ya kipimo",
         "hint": "Tarehe ya kipimo",
         "expanded": false,
-        "max_date": "today",
+        "max_date": "today-90d",
         "v_required": {"value": "true", "err": "Tafadhali ingiza tarehe ya kipimo"},
         "relevance": {
           "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}
@@ -1512,13 +1512,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "kits_distributed",
-        "label": "Vitepe vya JIPIME vilivyotolewa?",
+        "label": "Je, vitepe vya JIPIME vilitolewa?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"

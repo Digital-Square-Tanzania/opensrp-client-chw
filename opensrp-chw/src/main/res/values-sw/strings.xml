@@ -17,6 +17,10 @@
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000> imefika (%2$s)</font></b>]]></string>
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f> inakaribia (%2$s) </font> </b>]]></string>
     <string name="due_today">Zinazopaswa leo</string>
+    <string name="harm_reduction_mat_appointment_due">Miadi imefika</string>
+    <string name="harm_reduction_mat_appointment_missed">Amekosa miadi</string>
+    <string name="harm_reduction_mat_appointment_upcoming">Miadi ijayo</string>
+    <string name="harm_reduction_mat_appointment_status">%1$s\n%2$s</string>
 
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>
@@ -556,6 +560,7 @@
     <string name="kvp_prep_preventive_services">Huduma Kinga</string>
     <string name="kvp_prep_structural_services">Huduma za Kimuundo</string>
     <string name="kvp_prep_referral_services">Huduma za Rufaa</string>
+    <string name="kvp_prep_next_visit_date">Tarehe ya Tembeleo Linalofuata</string>
     <string name="new_visit">Mteja Mpya</string>
     <string name="followup">Anaendelea na Huduma</string>
     <string name="positive">Chanya</string>
@@ -571,7 +576,7 @@
     <string name="kvp_number_of_alcohol_swabs_distributed">Idadi ya pamba zilizotolewa(Alcohol swab):</string>
     <string name="kvp_number_of_disposable_safety_boxes_distributed">Idadi ya mabox yakutupia vitu vyenye ncha kali yaliotolewa:</string>
     <string name="kvp_number_of_plasters_distributed">Idadi ya plasta iliyotolewa:</string>
-    <string name="kvp_kits_distributed">Idadi ya vitepe vya JIPIME vilivyotolewa:</string>
+    <string name="kvp_kits_distributed">Vitepe vya JIPIME vilitolewa:</string>
     <string name="kvp_number_of_coupons_distributed_for_social_network">Idadi ya Kuponi za huduma ya mtandao zilizotolewa:</string>
     <string name="male_condoms">Kondomu ya kiume</string>
     <string name="female_condoms">Kondomu ya Kike</string>
@@ -623,7 +628,18 @@
     <string name="kvp_friendly_services">Huduma rafiki kwa makundi maalum</string>
     <string name="sti_referral">Magonjwa ya ngono</string>
     <string name="view_visit_history">Angalia Tembeleo Lililopita</string>
+    <string name="dominant_kvp_group">Kundi kuu la KVP: %1$s</string>
+    <string name="kvp_fsw">Mwanamke aliye katika hatari zaidi</string>
+    <string name="kvp_msm">Mwanaume aliye katika hatari zaidi</string>
+    <string name="kvp_pwid">Mjidunga dawa za kulevya</string>
+    <string name="kvp_prisoners">Mfungwa</string>
+    <string name="kvp_inmate">Mahabusu</string>
+    <string name="kvp_agyw">Msichana rika balehe na mwanamke kijana</string>
     <string name="kvp_discordant_couples">Mwenza mwenye majibu kinzani</string>
+    <string name="kvp_fisherman">Wavuvi</string>
+    <string name="kvp_truck_drivers">Dereva wa lori</string>
+    <string name="kvp_miners">Mchimbaji Madini</string>
+    <string name="kvp_other">Makundi Mengine hatarishi</string>
 
     <string name="child_danger_signs_baby">Dalili za hatari</string>
     <string name="child_danger_signs_baby_task">Dalili za hatari </string>
