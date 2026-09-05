@@ -96,43 +96,43 @@
         "options": [
           {
             "key": "hts",
-            "text": "HTS",
+            "text": "Huduma za Upimaji wa VVU na Ushauri Nasaha",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hts"
           },
           {
             "key": "gbv",
-            "text": "GBV",
+            "text": "Ukatili wa Kijinsia",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gbv"
           },
           {
             "key": "sti",
-            "text": "STI services",
+            "text": "Huduma za Magonjwa ya Zinaa (STI)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sti"
           },
           {
             "key": "prep",
-            "text": "PrEP",
+            "text": "Matumizi ya dawa Kinga (PrEP)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "prep"
           },
           {
             "key": "pep",
-            "text": "PEP",
+            "text": "Dawa ya Kuzuia Maambukizi ya VVU (PEP)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "pep"
           },
           {
             "key": "tb",
-            "text": "TB",
+            "text": "Kifua Kikuu (TB)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "tb"
           },
           {
             "key": "fp",
-            "text": "FP",
+            "text": "Huduma za Uzazi wa Mpango (FP)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fp"
           }
