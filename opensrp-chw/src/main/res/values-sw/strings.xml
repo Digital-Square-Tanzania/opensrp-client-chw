@@ -624,6 +624,7 @@
     <string name="education_on_addressing_gbv">Elimu ya ukatili wa kijinsia dhidi ya makundi maalum</string>
     <string name="provision_of_business_skills">Ujasiriamali na biashara</string>
     <string name="kvp_friendly_services">Huduma rafiki kwa makundi maalum</string>
+    <string name="ayp_friendly_services">Huduma rafiki kwa rika balehe</string>
     <string name="sti_referral">Magonjwa ya ngono</string>
     <string name="view_visit_history">Angalia Tembeleo Lililopita</string>
     <string name="dominant_kvp_group">Kundi kuu la KVP: %1$s</string>
