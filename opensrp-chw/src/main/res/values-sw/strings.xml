@@ -9,7 +9,8 @@
     <string name="not_provided">Haijatolewa</string>
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
-    <string name="add_eligible_child">Mtoto anayestahili</string>
+    <string name="add_eligible_child">Ongeza Mwanachama wa Kikundi</string>
+    <string name="add_group_member">Ongeza Mwanachama wa Kikundi</string>
     <string name="go_to_family_s_profile">Elekea kwenye taarifa binafsi za kaya</string>
     <string name="family_has_nothing_due">Muda wa huduma kwenye kaya haujafika</string>
     <string name="family_has_services_due">Muda wa huduma kwenye kaya umefika</string>
@@ -1134,11 +1135,31 @@
     <string name="ecd_client_report">Ripoti ya Mwezi MMMAM</string>
 
     <string name="ayp_out_of_school_report">Ripoti Ya Rika Balehe(Nje ya shule)</string>
+    <string name="ayp_in_school_groups_register_title">Vikundi vya AYP Shuleni</string>
     <string name="ayp_out_school_groups_register_title">Vikundi vya AYP Nje ya Shule</string>
+    <string name="return_to_ayp_groups">Rudi kwenye Vikundi vya AYP</string>
     <string name="ayp_group_type_label">Aina: %1$s</string>
-    <string name="ayp_group_age_band_label">Bendi ya Umri: %1$s</string>
+    <string name="ayp_group_age_band_label">Kundi la Umri: %1$s</string>
     <string name="ayp_group_type_title">Aina:</string>
-    <string name="ayp_group_age_band_title">Bendi ya Umri:</string>
+    <string name="ayp_group_age_band_title">Kundi la Umri:</string>
+    <string name="ayp_group_type_age_band">Kundi la Umri</string>
+    <string name="ayp_group_type_classes">Madarasa</string>
+    <string name="ayp_age_band_age_10_14">10-14</string>
+    <string name="ayp_age_band_age_10_19_enabling_dreams">10-19 (Kuwezesha DREAMS)</string>
+    <string name="ayp_age_band_age_15_19">15-19</string>
+    <string name="ayp_age_band_age_20_24">20-24</string>
+    <string name="group_members">Wanachama wa Kikundi</string>
+    <string name="less_than_five_members">Wanachama Chini ya Watano</string>
+    <string name="group_members_count">Wanachama wa Kikundi: %1$d</string>
+    <string name="group_few_members_count">Wanachama Chini ya Watano: %1$d</string>
+    <string name="ayp_group_max_members_reached">Kikundi hiki tayari kina wanachama 15</string>
+    <string name="ayp_no_eligible_members_available">Hakuna wanachama wanaostahili</string>
+    <string name="ayp_max_members_per_group">Kikundi kinaweza kuwa na wanachama 15 pekee</string>
+    <string name="ayp_member_limit_exceeded">Kiwango cha wanachama kimezidi</string>
+    <string name="filter_by_group_type">Chuja kwa aina ya kikundi</string>
+    <string name="filter_all">Zote</string>
+    <string name="filter_group_type_age_band">Kundi la Umri</string>
+    <string name="filter_group_type_classes">Madarasa</string>
 
     <string name="started_refreshing_reports">Imeanza kuchakata Ripoti Upya</string>
     <string name="refreshing_reports_progress">Uchakataji wa Ripoti Unaendelea</string>

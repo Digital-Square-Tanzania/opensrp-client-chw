@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "group_out_details",
+  "encounter_type": "group_details",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -81,6 +81,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "age_band"
+          },
+          {
+            "key": "classes",
+            "text": "Madarasa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "classes"
           }
         ],
         "v_required": {
@@ -102,6 +109,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "age_10_14"
+          },
+          {
+            "key": "age_10_19_enabling_dreams",
+            "text": "10-19 (Kuwezesha DREAMS)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age_10_19_enabling_dreams"
           },
           {
             "key": "age_15_19",

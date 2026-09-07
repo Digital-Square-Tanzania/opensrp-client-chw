@@ -1869,6 +1869,39 @@
     <string name="invalid_first_clinic_visit_date_error">Tarehe Sio Sahihi</string>
     <string name="invalid_first_clinic_visit_date_snackbar_error">Hudhurio la kwanza la ujauzito lazima liwe angalau siku 22 baada ya tarehe ya hedhi ya mwisho.</string>
 
+    <!-- AYP In-school / Out-school group labels -->
+    <string name="ayp_in_school_groups_register_title">Vikundi vya AYP Shuleni</string>
+    <string name="ayp_out_school_groups_register_title">Vikundi vya AYP Nje ya Shule</string>
+    <string name="add_group_member">Ongeza Mwanachama wa Kikundi</string>
+    <string name="return_to_ayp_groups">Rudi kwenye Vikundi vya AYP</string>
+    <string name="ayp_group_type_label">Aina: %1$s</string>
+    <string name="ayp_group_age_band_label">Kundi la Umri: %1$s</string>
+    <string name="ayp_group_type_title">Aina:</string>
+    <string name="ayp_group_age_band_title">Kundi la Umri:</string>
+    <string name="ayp_group_type_age_band">Kundi la Umri</string>
+    <string name="ayp_group_type_classes">Madarasa</string>
+    <string name="ayp_age_band_age_10_14">10-14</string>
+    <string name="ayp_age_band_age_10_19_enabling_dreams">10-19 (Kuwezesha DREAMS)</string>
+    <string name="ayp_age_band_age_15_19">15-19</string>
+    <string name="ayp_age_band_age_20_24">20-24</string>
+    <string name="group_members">Wanachama wa Kikundi</string>
+    <string name="less_than_five_members">Wanachama Chini ya Watano</string>
+    <string name="group_members_count">Wanachama wa Kikundi: %1$d</string>
+    <string name="group_few_members_count">Wanachama Chini ya Watano: %1$d</string>
+    <string name="ayp_group_max_members_reached">Kikundi hiki tayari kina wanachama 15</string>
+    <string name="ayp_no_eligible_members_available">Hakuna wanachama wanaostahili waliopo</string>
+    <string name="ayp_max_members_per_group">Kikundi hakipaswi kuzidi wanachama 15</string>
+    <string name="ayp_member_limit_exceeded">Idadi ya wanachama imezidi kiwango</string>
+    <string name="id_label">Kitambulisho: %1$s</string>
+    <string name="filter_by_group_type">Chuja kwa aina ya kikundi</string>
+    <string name="filter_all">Zote</string>
+    <string name="filter_group_type_age_band">Kundi la Umri</string>
+    <string name="filter_group_type_classes">Madarasa</string>
+    <string name="ayp_visit_history">Historia ya ziara za AYP</string>
+    <string name="ayp_visit_history_empty">Bado hakuna historia ya ziara za AYP iliyorekodiwa.</string>
+    <string name="ayp_visit_history_unknown_date">Tarehe ya ziara haipatikani</string>
+    <string name="ayp_client">mteja</string>
+
     <string name="diabetes_and_hypertension_screening_form_title">Uchunguzi wa Kisukari &amp; Shinikizo la Damu</string>
     <string name="ncd_at_risk_clients">Walio Hatarini</string>
     <string name="ncd_confirmed_clients">Wagonjwa</string>

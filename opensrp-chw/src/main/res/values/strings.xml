@@ -7,7 +7,8 @@
     <string name="not_provided">Not provided</string>
 
     <string name="child_under_five">Child under 5 years</string>
-    <string name="add_eligible_child">Eligible child</string>
+    <string name="add_eligible_child">Add Group Member</string>
+    <string name="add_group_member">Add Group Member</string>
     <string name="add_child_under_11">Add child under 11</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="view_households_with_count">Households (%1$d)</string>
@@ -177,6 +178,7 @@
     <!-- AYP In-school Groups register labels -->
     <string name="ayp_in_school_groups_register_title">AYP In-school Groups</string>
     <string name="ayp_out_school_groups_register_title">AYP Out-school Groups</string>
+    <string name="return_to_ayp_groups">Return to AYP Groups</string>
     <string name="ayp_group_type_label">Type: %1$s</string>
     <string name="ayp_group_age_band_label">Age-band: %1$s</string>
     <string name="ayp_group_type_title">Type:</string>
@@ -189,6 +191,14 @@
     <string name="ayp_age_band_age_10_19_enabling_dreams">10-19 (Enabling DREAMS)</string>
     <string name="ayp_age_band_age_15_19">15-19</string>
     <string name="ayp_age_band_age_20_24">20-24</string>
+    <string name="group_members">Group Members</string>
+    <string name="less_than_five_members">Less Than Five Members</string>
+    <string name="group_members_count">Group Members: %1$d</string>
+    <string name="group_few_members_count">Less Than Five Members: %1$d</string>
+    <string name="ayp_group_max_members_reached">This group already has 15 members</string>
+    <string name="ayp_no_eligible_members_available">No eligible members available</string>
+    <string name="ayp_max_members_per_group">Maximum 15 members per group</string>
+    <string name="ayp_member_limit_exceeded">Member limit exceeded</string>
     <string name="id_label">ID: %1$s</string>
     <string name="filter_by_group_type">Filter by group type</string>
     <string name="filter_all">All</string>
