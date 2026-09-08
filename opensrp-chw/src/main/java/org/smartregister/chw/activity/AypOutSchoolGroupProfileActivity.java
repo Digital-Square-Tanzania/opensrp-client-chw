@@ -34,6 +34,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
+import org.smartregister.util.LangUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,6 +55,12 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID, groupId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME, groupName);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        String lang = LangUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(LangUtils.setAppLocale(base, lang));
     }
 
     private Visit getVisit(String eventType) {
@@ -84,6 +91,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
             tvGroupMemberCount.setBackgroundColor(Color.TRANSPARENT);
 
             if (btnProvideDetails != null) {
+                btnProvideDetails.setText(R.string.add_group_member);
                 btnProvideDetails.setVisibility(View.VISIBLE);
             }
 
@@ -128,7 +136,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
 
             if (existingCount >= maxGroupSize) {
                 Toast.makeText(this,
-                        "This group already has 15 members",
+                        getString(R.string.ayp_group_max_members_reached),
                         Toast.LENGTH_LONG).show();
                 return;
             }
@@ -155,7 +163,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
 
             if (eligible.isEmpty()) {
                 Toast.makeText(this,
-                        "No eligible members available",
+                        getString(R.string.ayp_no_eligible_members_available),
                         Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -178,7 +186,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
             // 6. Show dialog with limit enforcement
             // -------------------------------
             new AlertDialog.Builder(this)
-                    .setTitle(R.string.add_eligible_child)
+                    .setTitle(R.string.add_group_member)
                     .setMultiChoiceItems(items, checked, (dialog, which, isChecked) -> {
 
                         int selectedCount = 0;
@@ -190,7 +198,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
                             checked[which] = false;
 
                             Toast.makeText(this,
-                                    "Maximum 15 members per group",
+                                    getString(R.string.ayp_max_members_per_group),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             checked[which] = isChecked;
@@ -207,7 +215,7 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
 
                         if (existingCount + selectedIds.size() > maxGroupSize) {
                             Toast.makeText(this,
-                                    "Member limit exceeded",
+                                    getString(R.string.ayp_member_limit_exceeded),
                                     Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -324,6 +332,10 @@ public class AypOutSchoolGroupProfileActivity extends BaseAypOutGroupProfileActi
     @Override
     public void setGroupViewWithData(GroupObject groupObject) {
         super.onGroupLoaded(groupObject);
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        if (toolbarTitle != null) {
+            toolbarTitle.setText(getString(R.string.return_to_ayp_groups));
+        }
         // Populate group name, type and age-band from repository
         try {
             TextView tvName = findViewById(R.id.textview_group_name);

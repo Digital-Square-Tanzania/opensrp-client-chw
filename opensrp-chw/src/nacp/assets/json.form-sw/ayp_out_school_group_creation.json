@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Group Details",
+    "title": "Maelezo ya Kikundi",
     "display_back_button": "true",
     "fields": [
       {
@@ -64,7 +64,7 @@
         "hint": "Jina la Kikundi",
         "v_required": {
           "value": true,
-          "err": "Please enter the group name"
+          "err": "Tafadhali ingiza jina la kikundi"
         }
       },
       {
@@ -73,11 +73,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "group_type",
         "type": "native_radio",
-        "label": "Aina ya Kikundi:",
+        "label": "Aina:",
         "options": [
           {
             "key": "age_band",
-            "text": "Kikundi cha Umri",
+            "text": "Kundi la Umri",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "age_band"
@@ -94,7 +94,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "age_band",
         "type": "native_radio",
-        "label": "Kikundi cha Umri:",
+        "label": "Kundi la Umri:",
         "options": [
           {
             "key": "age_10_14",
@@ -127,10 +127,9 @@
         },
         "v_required": {
           "value": true,
-          "err": "Tafadhali chagua kikundi cha umri"
+          "err": "Tafadhali chagua kundi la umri"
         }
       }
     ]
   }
 }
-
