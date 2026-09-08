@@ -13,6 +13,19 @@ import org.smartregister.util.Utils
 import org.smartregister.configurableviews.model.View as ConfigurableView
 import org.smartregister.view.contract.SmartRegisterClient
 
+/**
+ * Referral register provider for the NACP flavour, used by `ReferralRegisterFragment`.
+ *
+ * It exists to re-attach the manual referral follow-up action to each register row. The
+ * chw-referral library gates that action behind its own `ENABLE_REFERRAL_FOLLOWUP` BuildConfig
+ * field, which stays off, so [ReferralRegisterProvider.getView] always leaves the follow-up
+ * wrapper INVISIBLE. The follow-up is owned by the app, so the wrapper is bound here instead.
+ *
+ * @param followUpActionEnabled whether the follow-up action is offered at all. Supplied by
+ * `ReferralRegisterFragment.isFollowUpActionEnabled()`, which reads the app's own
+ * `BuildConfig.ENABLE_REFERRAL_FOLLOWUP` and can be overridden to false by registers that reuse
+ * that fragment without a follow-up form. When false the wrapper is hidden outright.
+ */
 class NacpReferralRegisterProvider @JvmOverloads constructor(
     context: Context,
     paginationClickListener: View.OnClickListener,
