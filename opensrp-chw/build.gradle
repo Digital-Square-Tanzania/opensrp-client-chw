@@ -357,7 +357,7 @@ dependencies {
     }
 
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.0-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-MOH-SNAPSHOT@aar') {
         transitive = true
         // Avoid duplicate org.smartregister.* classes from mixed OpenSRP dependency families.
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
