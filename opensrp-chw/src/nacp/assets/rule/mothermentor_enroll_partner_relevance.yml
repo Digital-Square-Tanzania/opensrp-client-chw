@@ -1,0 +1,7 @@
+---
+name: other_relationship
+description: Show other relationship field when Other is selected
+priority: 1
+condition: "step2_relationship_to_mother.equals('other')"
+actions:
+  - "isRelevant = true"

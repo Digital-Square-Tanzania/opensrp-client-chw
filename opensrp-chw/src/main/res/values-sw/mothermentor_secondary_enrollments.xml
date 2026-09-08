@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_iit">IIT</string>
+    <string name="mothermentor_partner">Mwenza</string>
+    <string name="mothermentor_child_eid">EID ya Mtoto</string>
+    <string name="mothermentor_secondary_enrollments">Ufuatiliaji</string>
+    <string name="mothermentor_follow_up">Ufuatiliaji</string>
+    <string name="mothermentor_enroll_iit">Sajili IIT</string>
+    <string name="mothermentor_enroll_partner">Sajili Mwenza</string>
+    <string name="mothermentor_enroll_child_eid">Sajili EID ya Mtoto</string>
+    <string name="mother_mentor_enroll_iit">Sajili IIT</string>
+    <string name="mother_mentor_enroll_partner">Sajili Mwenza</string>
+    <string name="mother_mentor_enroll_child_eid">Sajili EID ya Mtoto</string>
+</resources>

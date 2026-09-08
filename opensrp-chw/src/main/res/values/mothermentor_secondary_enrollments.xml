@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="action_mothermentor_enroll_iit" type="id" />
+    <item name="action_mothermentor_enroll_partner" type="id" />
+    <item name="action_mothermentor_enroll_child_eid" type="id" />
+    <item name="action_mothermentor_secondary_enrollments" type="id" />
+    <item name="action_mother_mentor_enroll_iit" type="id" />
+    <item name="action_mother_mentor_enroll_partner" type="id" />
+    <item name="action_mother_mentor_enroll_child_eid" type="id" />
+
+    <string name="mothermentor_iit">IIT</string>
+    <string name="mothermentor_partner">Partner</string>
+    <string name="mothermentor_child_eid">Child EID</string>
+    <string name="mothermentor_secondary_enrollments">Follow Up</string>
+    <string name="mothermentor_follow_up">Follow Up</string>
+    <string name="mothermentor_enroll_iit">Enroll IIT</string>
+    <string name="mothermentor_enroll_partner">Enroll Partner</string>
+    <string name="mothermentor_enroll_child_eid">Enroll Child EID</string>
+    <string name="mother_mentor_enroll_iit">Mother Mentor Enroll IIT</string>
+    <string name="mother_mentor_enroll_partner">Mother Mentor Enroll Partner</string>
+    <string name="mother_mentor_enroll_child_eid">Mother Mentor Enroll Child EID</string>
+    <string name="mothermentor_visit_history_title">Mother Mentor Visit</string>
+    <string name="mothermentor_history_attendance_type">Attendance Type</string>
+    <string name="mothermentor_history_follow_up_status">Follow-up Status</string>
+    <string name="mothermentor_history_has_been_linked_to_psychosocial_support_group">Has been linked to a psychosocial support group</string>
+    <string name="mothermentor_history_has_been_linked_to_iga_group">Has been linked to an IGA group</string>
+    <string name="mothermentor_history_education_provided">Education provided</string>
+    <string name="mothermentor_history_way_education_provided">Way education was provided</string>
+    <string name="mothermentor_history_topics_being_provided">Topics provided</string>
+    <string name="mothermentor_history_referral_given">Referral given</string>
+    <string name="mothermentor_history_type_of_referral_given">Type of referral given</string>
+    <string name="mothermentor_history_next_appointment_date">Date of next visit</string>
+    <string name="mothermentor_history_comments">Comment</string>
+    <string name="mothermentor_history_new">New</string>
+    <string name="mothermentor_history_repeat">Repeat</string>
+    <string name="mothermentor_history_continuing_services">Continuing Services</string>
+    <string name="mothermentor_history_lost_to_follow_up">Lost to Follow-up</string>
+    <string name="mothermentor_history_deceased">Deceased</string>
+    <string name="mothermentor_history_relocated">Relocated</string>
+    <string name="mothermentor_history_transferred_to_another_facility">Transferred to Another Facility</string>
+    <string name="mothermentor_history_stopped_services">Stopped Services</string>
+    <string name="mothermentor_history_not_available">Not Available</string>
+    <string name="mothermentor_history_yes">Yes</string>
+    <string name="mothermentor_history_no">No</string>
+    <string name="mothermentor_history_already_in_group">Already in a Group</string>
+    <string name="mothermentor_history_personal">Personal</string>
+    <string name="mothermentor_history_group">Group</string>
+    <string name="mothermentor_history_prevention_of_mother_to_child_hiv_transmission">Prevention of Mother-to-Child HIV Transmission</string>
+    <string name="mothermentor_history_hiv_and_aids">HIV and AIDS</string>
+    <string name="mothermentor_history_medication_adherence">Medication Adherence</string>
+    <string name="mothermentor_history_infant_and_young_child_feeding">Infant and Young Child Feeding</string>
+    <string name="mothermentor_history_family_planning">Family Planning</string>
+    <string name="mothermentor_history_gender_based_violence">Gender-Based Violence</string>
+    <string name="mothermentor_history_nutrition">Nutrition</string>
+    <string name="mothermentor_history_tb">TB</string>
+    <string name="mothermentor_history_hepatitis_b_and_c">Hepatitis B and C</string>
+    <string name="mothermentor_history_syphilis">Syphilis</string>
+    <string name="mothermentor_history_mental_health">Mental Health</string>
+    <string name="mothermentor_history_legal_issues">Legal Issues</string>
+    <string name="mothermentor_history_pre_exposure_prophylaxis_prep">Pre-Exposure Prophylaxis (PrEP)</string>
+    <string name="mothermentor_history_cervical_cancer">Cervical Cancer</string>
+    <string name="mothermentor_history_cervical_cancer_screening">Cervical Cancer Screening</string>
+    <string name="mothermentor_history_income_generating_activities">Income Generating Activities (IGA)</string>
+    <string name="mothermentor_history_legal_support">Legal Support</string>
+    <string name="mothermentor_history_psychosocial_support_group">Psychosocial Support Group</string>
+    <string name="mothermentor_history_other_specify">Other (Specify)</string>
+</resources>

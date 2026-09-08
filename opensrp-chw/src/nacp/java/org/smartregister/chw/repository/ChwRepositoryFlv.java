@@ -177,7 +177,7 @@ public class ChwRepositoryFlv {
                     upgradeToVersion45(db);
                     break;
                 case 46:
-                    upgradeToVersion46(db); 
+                    upgradeToVersion46(db);
                     break;
                 case 47:
                     upgradeToVersion47(db);
@@ -187,6 +187,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 49:
                     upgradeToVersion49(db);
+                    break;
+                case 50:
+                    upgradeToVersion50(db);
                     break;
                 default:
                     break;
@@ -1086,7 +1089,32 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, tableName, "prep_facility_b");
         addColumnIfMissing(db, tableName, "linked_to_prep");
     }
-  
+
+    private static void upgradeToVersion50(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList(
+                            "ec_mothermentor_enrollment",
+                            "ec_mothermentor_contacts",
+                            "ec_mothermentor_observation_results",
+                            "ec_mothermentor_followup_visit",
+                            "ec_mothermentor_visit",
+                            "ec_mothermentor_contact_visit",
+                            "ec_mothermentor_mobilization",
+                            "ec_mothermentor_enroll_it",
+                            "ec_mothermentor_enroll_partner",
+                            "ec_mothermentor_enroll_child_eid")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion50");
+        }
+        try {
+            db.execSQL("ALTER TABLE ec_mothermentor_contacts ADD COLUMN screening_status VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion50-add-contact-screening-status");
+        }
+    }
+
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
         try {
             if (!columnExists(db, tableName, columnName)) {

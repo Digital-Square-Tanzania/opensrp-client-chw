@@ -63,6 +63,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.TreatmentSupporterFormUtil;
+import org.smartregister.chw.util.MemberProfileUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
@@ -83,6 +84,10 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity implements OnRetrieveNotifications {
+    private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
+    private static final String FORM_MOTHERMENTOR_ENROLL_PARTNER = "mothermentor_enroll_partner";
+    private static final String FORM_MOTHERMENTOR_ENROLL_CHILD_EID = "mothermentor_enroll_child_eid";
+
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private java.util.List<org.smartregister.chw.model.FamilyDetailsModel> headedFamilies = java.util.Collections.emptyList();
@@ -119,6 +124,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
+        AllClientsUtils.addMotherMentorMenuItem(menu, baseEntityId);
+        AllClientsUtils.addMotherMentorSecondaryEnrollmentMenuItems(menu, ChwApplication.getApplicationFlavor().hasMotherMentor());
         try {
             int count = headedFamilies != null ? headedFamilies.size() : 0;
 
@@ -150,6 +157,25 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             Timber.e(e);
         }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_mother_mentor_enroll_iit) {
+            startMotherMentorEnrollIit();
+            return true;
+        } else if (itemId == R.id.action_mother_mentor_enroll_partner) {
+            startMotherMentorEnrollPartner();
+            return true;
+        } else if (itemId == R.id.action_mother_mentor_enroll_child_eid) {
+            startMotherMentorEnrollChildEid();
+            return true;
+        } else if (itemId == R.id.action_view_households) {
+            handleViewHouseholdsClick();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -236,6 +262,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startVmmcRegister() {
         // Not required
+    }
+
+    protected void startMotherMentorRegister() {
+        MemberProfileUtils.startMotherMentorRegister(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
     }
 
 
@@ -452,6 +482,33 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startAypParentalEnrollment() {
         AypParentalRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startMotherMentorEnrollment() {
+        String gender = AllClientsUtils.getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        MotherMentorRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId, gender, age);
+    }
+
+    protected void startMotherMentorEnrollIit() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
+    }
+
+    protected void startMotherMentorEnrollPartner() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_PARTNER);
+    }
+
+    protected void startMotherMentorEnrollChildEid() {
+        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_CHILD_EID);
+    }
+
+    private void startMotherMentorSecondaryEnrollment(String formName) {
+        String gender = AllClientsUtils.getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        MotherMentorRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId, gender, age, formName);
     }
 
     @Override
@@ -672,15 +729,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item != null && item.getItemId() == org.smartregister.chw.R.id.action_view_households) {
-            handleViewHouseholdsClick();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void handleViewHouseholdsClick() {
