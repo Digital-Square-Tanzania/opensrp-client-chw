@@ -21,6 +21,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
     private static final List<NavigationOption> navigationOptions = new ArrayList<>();
 
+    public static void resetNavigationOptions() {
+        navigationOptions.clear();
+    }
+
+    public static List<NavigationOption> refreshNavigationOptions() {
+        resetNavigationOptions();
+        return new NavigationModelFlv().getNavigationItems();
+    }
+
     @Override
     public List<NavigationOption> getNavigationItems() {
         if (navigationOptions.isEmpty()) {
@@ -58,7 +67,8 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op30 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tbleprosy, CoreConstants.DrawerMenu.TBLEPROSY, 0);
             NavigationOption op31 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_harm_reduction, CoreConstants.DrawerMenu.HARM_REDUCTION, 0);
             NavigationOption op32 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.harm_reduction_sober_house, CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE, 0);
-            NavigationOption op33 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.mother_mentor, CoreConstants.DrawerMenu.MOTHER_MENTOR, 0);
+            NavigationOption op33 = new NavigationOption(R.drawable.ic_ncd, R.drawable.ic_ncd_blue, R.string.nav_menu_ncd, CoreConstants.DrawerMenu.NCD, 0);
+            NavigationOption op34 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.mother_mentor, CoreConstants.DrawerMenu.MOTHER_MENTOR, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -70,7 +80,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             if (!teamRoleIdentifier.isEmpty()) {
                 switch (teamRoleIdentifier) {
                     case "mother_champion":
-                        navigationOptions.addAll(Arrays.asList(op10, op13, op8, op9, op33));
+                        navigationOptions.addAll(Arrays.asList(op10, op33, op8, op9));
                         break;
                     case "cbhs_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op9, op15));
@@ -82,10 +92,13 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         navigationOptions.addAll(Arrays.asList(op10, op1, op3, op5, op2, op25, op8, op9));
                         break;
                     case "AYP_OUT_OF_SCHOOL":
-                        navigationOptions.addAll(Arrays.asList(op10, op28, op9, op8));
+                        navigationOptions.addAll(Arrays.asList(op10, op28, op16, op9, op8));
                         break;
                     default:
                         navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                        if (ChwApplication.getApplicationFlavor().hasNCD()) {
+                            navigationOptions.add(3, op33);
+                        }
                         if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                             navigationOptions.add(op16);
                         }
@@ -114,9 +127,6 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op22);
                             navigationOptions.add(op21);
                         }
-                        if (ChwApplication.getApplicationFlavor().hasADDO()) {
-                            navigationOptions.add(op25);
-                        }
 
                         if (teamRoleIdentifier.contains("icchw") && ChwApplication.getApplicationFlavor().hasHps()) {
                             navigationOptions.add(2, op25);
@@ -135,9 +145,12 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op28);
                             navigationOptions.add(op29);
                         }
+                        if (ChwApplication.getApplicationFlavor().hasADDO()) {
+                            navigationOptions.add(op26);
+                        }
 
                         if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
-                            navigationOptions.add(op33);
+                            navigationOptions.add(op34);
                         }
 
                         navigationOptions.addAll(Arrays.asList(op8, op9, op15));
@@ -145,6 +158,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 }
             } else {
                 navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                if (ChwApplication.getApplicationFlavor().hasNCD()) {
+                    navigationOptions.add(3, op33);
+                }
                 if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                     navigationOptions.add(op16);
                 }
@@ -182,16 +198,16 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     navigationOptions.add(op29);
                 }
                 if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
-                    navigationOptions.add(op33);
+                    navigationOptions.add(op34);
                 }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
                     navigationOptions.add(op21);
                 }
-                if (ChwApplication.getApplicationFlavor().hasADDO()) {
-                    navigationOptions.add(op26);
-                }
                 if (ChwApplication.getApplicationFlavor().hasFamilyPlanning()) {
                     navigationOptions.add(op6);
+                }
+                if (ChwApplication.getApplicationFlavor().hasADDO()) {
+                    navigationOptions.add(op26);
                 }
                 navigationOptions.addAll(Arrays.asList(op8, op9, op15));
             }

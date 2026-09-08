@@ -65,13 +65,13 @@
         "options": [
           {
             "key": "chk_fever",
-            "text": "Fever",
+            "text": "Fever and being too weak to get out of bed",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_fever"
           },
           {
             "key": "chk_bleeding_vaginally",
-            "text": "Bleeding vaginally",
+            "text": "Vaginal bleeding",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_bleeding_vaginally"
           },
@@ -80,6 +80,18 @@
             "text": "Severe headache",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_server_headache"
+          },
+          {
+            "key": "chk_vaginal_liquid_leaking",
+            "text": "Liquid leaking from Vagina",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vaginal_liquid_leaking"
+          },
+          {
+            "key": "chk_pallor",
+            "text": "Pallor (palms, tongue, and conjuctiva)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_pallor"
           },
           {
             "key": "chk_blurred_vision",
@@ -92,6 +104,24 @@
             "text": "Convulsions",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_convulsions"
+          },
+          {
+            "key": "chk_fatigue",
+            "text": "Fatigue/Lethargy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fatigue"
+          },
+          {
+            "key": "chk_dizziness",
+            "text": "Dizziness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_dizziness"
+          },
+          {
+            "key": "chk_malaria_signs",
+            "text": "Signs of malaria (feeling cold, fever, vomiting)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_malaria_signs"
           },
           {
             "key": "chk_difficulty_breathing",
@@ -113,7 +143,7 @@
           },
           {
             "key": "chk_swelling",
-            "text": "Swelling of the face and/or hands",
+            "text": "Swelling of face, arms,  legs, fingers, hands and feet",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_swelling"
           },
@@ -175,6 +205,11 @@
                   "chk_difficulty_breathing",
                   "chk_severe_abdominal_pain",
                   "chk_loss_consciousness",
+                  "chk_vaginal_liquid_leaking",
+                  "chk_pallor",
+                  "chk_dizziness",
+                  "chk_malaria_signs",
+                  "chk_fatigue",
                   "chk_swelling",
                   "chk_early_labour",
                   "chk_vaginal_discharge",

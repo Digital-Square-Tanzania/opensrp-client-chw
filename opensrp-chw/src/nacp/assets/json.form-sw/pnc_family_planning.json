@@ -196,15 +196,15 @@
         "type": "spinner",
         "hint": "Njia ya uzazi wa mpango iliyochaguliwa",
         "values": [
-          "Njia ya PPIUCD",
-          "Vidonge vya POP",
-          "Vidonge vya COC",
-          "Kipandikizi",
+          "Njia ya Kitanzi (IUCD)",
+          "Njia ya Vidonge(POP)",
+          "Njia ya Vidonge(COC)",
+          "Njia ya Vipandikizi(IMPLANON)",
           "Kondomu",
-          "Njia ya LAM",
-          "Njia ya kawaida ya siku",
+          "Njia ya Uzazi Mama(ML/LA)",
+          "Njia ya Shanga",
           "Njia ya kudumu (BTL)",
-          "Njia ya kudumu  (Vasectomy)",
+          "Njia ya Uzazi Baba (NSV)",
           "Hakuna"
         ],
         "keys": [

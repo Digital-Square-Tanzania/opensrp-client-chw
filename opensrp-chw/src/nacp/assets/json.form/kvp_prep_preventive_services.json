@@ -46,6 +46,351 @@
     "title": "Preventive Service",
     "fields": [
       {
+        "key": "hiv_tested_within_last_3_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_tested_within_last_3_months",
+        "label": "Has the client been tested for HIV in the last 3 months?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"}
+      },
+      {
+        "key": "hiv_result_recent",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_result_recent",
+        "label": "What were the results of the HIV test?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "negative", "text": "Negative", "openmrs_entity": "concept", "openmrs_entity_id": "negative"},
+          {"key": "positive", "text": "Positive", "openmrs_entity": "concept", "openmrs_entity_id": "positive"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:hiv_tested_within_last_3_months": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "ctc_number_a",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ctc_number_a",
+        "type": "mask_edit_text",
+        "mask": "##-##-####-######",
+        "mask_hint": "12345678912345",
+        "allowed_chars": "0123456789",
+        "hint": "CTC ID",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
+          "err": "CTC ID should be formatted as XX-XX-XXXX-XXXXXX"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid CTC ID"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid CTC ID"
+        },
+        "relevance": {
+          "step1:hiv_result_recent": {"type": "string", "ex": "equalTo(., \"positive\")"}
+        }
+      },
+      {
+        "key": "on_prep",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "on_prep",
+        "label": "Is the client currently using PrEP?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:hiv_result_recent": {"type": "string", "ex": "equalTo(., \"negative\")"}
+        }
+      },
+      {
+        "key": "prep_facility_a",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_facility_a",
+        "type": "edit_text",
+        "hint": "Name of facility the client received PrEP",
+        "v_required": {"value": "true", "err": "Please enter the facility name"},
+        "relevance": {
+          "step1:on_prep": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "linked_to_prep_recent",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "linked_to_prep_recent",
+        "label": "Was the client linked to PrEP services?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:on_prep": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "linked_to_prep_recent_prompt",
+        "type": "toaster_notes",
+        "text": "Refer the client to PrEP services.",
+        "openmrs_entity_id": "linked_to_prep_recent_prompt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:linked_to_prep_recent": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "referred_for_hiv_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referred_for_hiv_test",
+        "label": "Was the client referred for HIV Testing?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:hiv_tested_within_last_3_months": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "referred_for_hiv_test_prompt",
+        "type": "toaster_notes",
+        "text": "Refer the client for HIV Testing.",
+        "openmrs_entity_id": "referred_for_hiv_test_prompt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:referred_for_hiv_test": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "tested_for_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tested_for_hiv",
+        "label": "Was the client tested for HIV?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:referred_for_hiv_test": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "testing_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "testing_location",
+        "label": "Where was the testing conducted?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "community", "text": "Community", "openmrs_entity": "concept", "openmrs_entity_id": "community"},
+          {"key": "facility", "text": "Facility", "openmrs_entity": "concept", "openmrs_entity_id": "facility"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:tested_for_hiv": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "facility_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "facility_name",
+        "type": "edit_text",
+        "hint": "Name of facility where the test was conducted",
+        "v_required": {"value": "true", "err": "Please enter the facility name"},
+        "relevance": {
+          "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}
+        }
+      },
+      {
+        "key": "test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "test_date",
+        "type": "date_picker",
+        "label": "Date the test was conducted",
+        "hint": "Date the test was conducted",
+        "expanded": false,
+        "max_date": "today-90d",
+        "v_required": {"value": "true", "err": "Please enter the test date"},
+        "relevance": {
+          "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}
+        }
+      },
+      {
+        "key": "hiv_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_result",
+        "label": "What was the HIV test result?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "negative", "text": "Negative", "openmrs_entity": "concept", "openmrs_entity_id": "negative"},
+          {"key": "positive", "text": "Positive", "openmrs_entity": "concept", "openmrs_entity_id": "positive"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}
+        }
+      },
+      {
+        "key": "ctc_number_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ctc_number_b",
+        "type": "mask_edit_text",
+        "mask": "##-##-####-######",
+        "mask_hint": "12345678912345",
+        "allowed_chars": "0123456789",
+        "hint": "CTC ID",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
+          "err": "CTC ID should be formatted as XX-XX-XXXX-XXXXXX"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid CTC ID"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please enter a valid CTC ID"
+        },
+        "relevance": {
+          "step1:hiv_result": {"type": "string", "ex": "equalTo(., \"positive\")"}
+        }
+      },
+      {
+        "key": "prep_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_follow_up",
+        "label": "Is the client currently using PrEP?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:hiv_result": {"type": "string", "ex": "equalTo(., \"negative\")"}
+        }
+      },
+      {
+        "key": "prep_facility_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_facility_b",
+        "type": "edit_text",
+        "hint": "Name of facility the client received PrEP",
+        "v_required": {"value": "true", "err": "Please enter the facility name"},
+        "relevance": {
+          "step1:prep_follow_up": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "linked_to_prep",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "linked_to_prep",
+        "label": "Was the client linked to PrEP services?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:prep_follow_up": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "linked_to_prep_prompt",
+        "type": "toaster_notes",
+        "text": "Refer the client to PrEP services.",
+        "openmrs_entity_id": "linked_to_prep_prompt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:linked_to_prep": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "client_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_hiv_status",
+        "type": "hidden"
+      },
+      {
+        "key": "ctc_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ctc_number",
+        "type": "hidden"
+      },
+      {
+        "key": "hiv_positive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_positive",
+        "type": "hidden"
+      },
+      {
+        "key": "hiv_test_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_test_conducted",
+        "type": "hidden"
+      },
+      {
+        "key": "hiv_test_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_test_location",
+        "type": "hidden"
+      },
+      {
         "key": "condoms_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -178,27 +523,6 @@
                 ]
               }
             ]
-          }
-        }
-      },
-      {
-        "key": "received_prep_last_facility",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "received_prep_last_facility",
-        "label": "Was the client given PrEP in their last facility visit?",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {"key": "yes", "text": "Yes", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
-          {"key": "no", "text": "No", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
-        ],
-        "v_required": {"value": "true", "err": "Please select an answer"},
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "kvp_prep_prep_last_visit_relevance.yml"
-            }
           }
         }
       },

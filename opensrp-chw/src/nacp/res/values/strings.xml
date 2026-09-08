@@ -174,6 +174,18 @@
     <string name="penta_2">Penta 2</string>
     <string name="penta_3">Penta 3</string>
 
+    <string name="congratulate_vaccine_uptodate">Congratulate the mother and remind her of the next vaccination date according to the health card. Remind her how important it is that her child takes ALL the vaccines on time</string>
+    <!--    Reasons why not vaccinated-->
+    <string name="why_no_vaccine">Why did the child not receive the vaccine?</string>
+    <string-array name="reason_no_vaccine">
+        <item>not_available: Vaccine not available</item>
+        <item>family_refused: Family refused</item>
+        <item>clinic_closed: Clinic closed</item>
+        <item>return_another_day: Asked to return another day</item>
+        <item>did_not_know: I did not know about the vaccine</item>
+        <item>could_not_take_child: I could not take the child to receive the vaccine</item>
+    </string-array>
+
     <string name="vit_a_received_label">Vitamin A received</string>
     <string name="ifa_received_label">IFA tablets received</string>
 
@@ -192,6 +204,14 @@
 
     <string name="pnc_newborn_care_introduction">Essential New Born Care: Introduction ({0})</string>
     <string name="baby_premature">Baby premature/underweight</string>
+    <string name="pnc_child_play_assessment_counselling">CCD: Play Assessment and Counselling {0}</string>
+    <string name="bango_kitita_one_page">Page %s</string>
+    <string name="bango_kitita_two_pages">Page %s and Page %s</string>
+    <string name="bango_kitita_three_pages">Page %s, Page %s and Page %s</string>
+    <string name="bango_kitita_message">Please refer to the following pages in Bango Kitita to explain the activities depending on the child\'s age</string>
+    <string name="pnc_child_development_screening_assessment">CCD: Child development screening assessment {0}</string>
+    <string name="pnc_child_communication_assessment">CCD: Communication Assessment and Counselling {0}</string>
+    <string name="pnc_cord_care">Essential Newborn Care: Cord Care ({0})</string>
 
     <!---KVP/PrEP Strings -->
     <string name="kvp_prep_visit_type">Visit Type</string>
@@ -491,6 +511,25 @@
     <string name="positive">Positive</string>
     <string name="negative">Negative</string>
     <string name="unknown">Unknown</string>
+    <string name="community">Community</string>
+    <string name="facility">Health facility</string>
+    <string name="kvp_hiv_tested_within_last_3_months">Tested for HIV in the last 3 months:</string>
+    <string name="kvp_hiv_result_recent">Recent HIV test result:</string>
+    <string name="kvp_ctc_number_a">CTC ID:</string>
+    <string name="kvp_on_prep">Currently using PrEP:</string>
+    <string name="kvp_prep_facility_a">PrEP facility:</string>
+    <string name="kvp_linked_to_prep_recent">Linked to PrEP services:</string>
+    <string name="kvp_referred_for_hiv_test">Referred for HIV testing:</string>
+    <string name="kvp_tested_for_hiv">Tested for HIV:</string>
+    <string name="kvp_testing_location">HIV testing location:</string>
+    <string name="kvp_facility_name">HIV testing facility:</string>
+    <string name="kvp_test_date">HIV test date:</string>
+    <string name="kvp_hiv_result">HIV test result:</string>
+    <string name="kvp_ctc_number_b">CTC ID:</string>
+    <string name="kvp_prep_follow_up">Currently using PrEP:</string>
+    <string name="kvp_prep_facility_b">PrEP facility:</string>
+    <string name="kvp_linked_to_prep">Linked to PrEP services:</string>
+    <string name="kvp_next_visit_date">Next visit date:</string>
     <string name="kvp_condoms_given">Was the client given condoms:</string>
     <string name="kvp_type_of_issued_condoms">Types of condoms issued:</string>
     <string name="kvp_number_of_male_condoms_issued">Number of Male condoms issued:</string>
@@ -501,7 +540,7 @@
     <string name="kvp_number_of_alcohol_swabs_distributed">Number of Sterile Water for injection Distributed:</string>
     <string name="kvp_number_of_disposable_safety_boxes_distributed">Number of Disposable Safety Boxes Distributed:</string>
     <string name="kvp_number_of_plasters_distributed">Number of Plasters Distributed:</string>
-    <string name="kvp_kits_distributed">Number of HIVST Kits Distributed:</string>
+    <string name="kvp_kits_distributed">HIVST kits distributed:</string>
     <string name="kvp_number_of_coupons_distributed_for_social_network">Number of Coupons Distributed for social network:</string>
     <string name="male_condoms">Male Condoms</string>
     <string name="female_condoms">Female Condoms</string>
@@ -692,6 +731,9 @@
     <string name="harm_reduction_qty_syringes">Number of tools - Needles and syringes</string>
     <string name="harm_reduction_referrals_other_specify">If others, specify</string>
     <string name="harm_reduction_referrals_provided">Referrals provided</string>
+    <string name="harm_reduction_linkage_to_other_services_provided">Linkage services provided</string>
+    <string name="harm_reduction_linkage_to_other_services">Linkage services</string>
+    <string name="harm_reduction_linkage_to_other_services_specify">Other linkage services (Specify)</string>
     <string name="harm_reduction_remarks_comments">Remarks/Comments</string>
     <string name="harm_reduction_reproductive_health">Reproductive health, father, mother, child and adolescents</string>
     <string name="harm_reduction_rights_vulnerable">Rights of vulnerable population</string>
@@ -742,6 +784,14 @@
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypertension">Prompt for Management of Hypertension</string>
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypotension">Prompt for Management of Hypotension</string>
     <string name="harm_reduction_sober_house_weight">Weight</string>
+    <string name="harm_reduction_sober_house_screening_tests_done">Disease Screening Performed</string>
+    <string name="harm_reduction_sober_house_other_conditions_specify">Other Diseases (Specify)</string>
+    <string name="harm_reduction_sober_house_mental_health_result">Mental Health Conditions - Results</string>
+    <string name="harm_reduction_sober_house_mental_health_treatment_after_screening">Mental Health Conditions - Treatment After Screening</string>
+    <string name="harm_reduction_sober_house_diabetes_result">Diabetes - Results</string>
+    <string name="harm_reduction_sober_house_diabetes_treatment_after_screening">Diabetes - Treatment After Screening</string>
+    <string name="harm_reduction_sober_house_other_conditions_result">Other Diseases - Results</string>
+    <string name="harm_reduction_sober_house_other_conditions_treatment_after_screening">Other Diseases - Treatment After Screening</string>
     <string name="harm_reduction_sober_house_client_current_status">Current Client Status</string>
     <string name="harm_reduction_sober_house_attended_recovery_meetings">Attended Recovery Meetings</string>
     <string name="harm_reduction_sober_house_recovery_meeting_types">Recovery Meeting Types</string>
@@ -762,6 +812,8 @@
     <string name="harm_reduction_sober_house_next_appointment_date">Next Appointment Date</string>
     <string name="harm_reduction_sober_house_aa">Alcoholics Anonymous (AA)</string>
     <string name="harm_reduction_sober_house_absconded">Absconded</string>
+    <string name="harm_reduction_sober_house_health_reasons">Health reasons</string>
+    <string name="harm_reduction_sober_house_misconduct">Misconduct</string>
     <string name="harm_reduction_sober_house_angry">Angry</string>
     <string name="harm_reduction_sober_house_anxious">Anxious</string>
     <string name="harm_reduction_sober_house_blood_pressure">Blood pressure</string>
@@ -786,6 +838,9 @@
     <string name="harm_reduction_sober_house_migrant_client">Migrant client</string>
     <string name="harm_reduction_sober_house_na">Narcotics Anonymous (NA)</string>
     <string name="harm_reduction_sober_house_new_client">New client</string>
+    <string name="harm_reduction_sober_house_mental_health_conditions">Mental health conditions</string>
+    <string name="harm_reduction_sober_house_diabetes">Diabetes</string>
+    <string name="harm_reduction_sober_house_other_conditions">Other diseases</string>
     <string name="harm_reduction_sober_house_not_done">Not done</string>
     <string name="harm_reduction_sober_house_problem_solving_decision_making">Problem solving and decision making</string>
     <string name="harm_reduction_sober_house_psychological_support">Psychological support</string>
@@ -866,12 +921,106 @@
     <string name="kvp_discordant_couples">Discordant Couples</string>
     <string name="kvp_fsw">WHR</string>
     <string name="kvp_msm">MHR</string>
+    <string name="kvp_pwid">PWID</string>
+    <string name="kvp_prisoners">Prisoners</string>
+    <string name="kvp_inmate">Inmate</string>
     <string name="kvp_agyw">vAGYW</string>
+    <string name="kvp_fisherman">Fisherman</string>
+    <string name="kvp_truck_drivers">Truck drivers</string>
+    <string name="kvp_miners">Miners</string>
+    <string name="kvp_other">Other Groups</string>
 
     <string name="last_appointment_date">Last Appointment date</string>
 
-    <string name="child_problem_solving">Problem Solving</string>
+    <string name="child_problem_solving">CCD: Problem Solving</string>
     <string name="child_problem_solving_task">Playing and Communicating challenge</string>
+    <string name="child_safety">Child Safety</string>
+    <string name="ccd_introduction_subtitle">Child behaviour and development</string>
+    <string name="ccd_introduction_title">CCD: Introduction ({0})</string>
+    <string name="ccd_caregiver_responsiveness"><b>CCD</b>: Caregiver Responsiveness to Child Behavior/Cues</string>
+    <string name="ccd_child_discipline_title">CCD: Child Discipline Assessment and Counselling ({0})</string>
+    <string name="ccd_child_discipline_subtitle">Mother corrects child</string>
+    <string name="child_home_visit_pmtct">Prevention of Mother to Child transmission of HIV (PMTCT)</string>
+    <string name="child_home_visit_history">Child home visit history</string>
+    <string name="child_visit_date">Child home visit {0}: {1}</string>
+    <string name="child_toddler_danger_signs_present">Danger signs present</string>
+    <string name="child_toddler_visited_health_facility">Taken to health facility in the past 3 days</string>
+    <string name="child_referral_facility">Referral facility</string>
+    <string name="child_toddler_referral_health_facility">Child needs referral back to health facility</string>
+    <string name="child_service_before_referral">Pre-referral management given</string>
+    <string name="child_chw_referral_hf">Referred facility</string>
+    <string name="child_referral_appointment_date">Referral appointment date</string>
+    <string name="child_fam_llin_1m5yr">Child has an LLIN</string>
+    <string name="child_llin_2days_1m5yr">Slept under LLIN last night</string>
+    <string name="child_llin_condition_1m5yr">LLIN condition</string>
+    <string name="child_couselling_pnc">Counselling provided</string>
+    <string name="child_pnc_counselling">Counselling provided</string>
+    <string name="child_nutrition_status_1m5yr">Nutrition status</string>
+    <string name="child_date_of_illness">Date of illness</string>
+    <string name="child_illness_description">Illness description</string>
+    <string name="child_action_taken_1m5yr">Action taken</string>
+    <string name="child_other_treat_1m5yr">Other treatment</string>
+    <string name="child_comp_feed_counselling_status">Complementary feeding counselling</string>
+    <string name="child_growth_booklet_present">Child health booklet present</string>
+    <string name="child_growth_monitoring">Growth monitored in booklet</string>
+    <string name="child_growth_graph">Growth graph range</string>
+    <string name="child_growth_muac">MUAC result</string>
+    <string name="child_palm_pallor">Palm pallor</string>
+    <string name="child_playing_challenge">Playing and communication challenge</string>
+    <string name="child_minor_ailment">Child minor ailment</string>
+    <string name="child_other_specify">Other reason</string>
+    <string name="child_spend_time_with">Who the child usually spends time with</string>
+    <string name="child_spend_time_with_other">Other person</string>
+    <string name="child_is_male_caregiver_present">Male caregiver present</string>
+    <string name="child_male_caregiver_present">Male caregiver who participated</string>
+    <string name="child_attend_daycare">Child attends day care</string>
+    <string name="child_practice_play">Practiced play since last visit</string>
+    <string name="child_prepare_play_materials">Prepared play materials</string>
+    <string name="child_lesson_learned_previously">Used previous visit lesson</string>
+    <string name="child_play_with_child">Caregiver plays with child</string>
+    <string name="child_demonstrate_play_child">Caregiver play demonstration</string>
+    <string name="child_challenges_child_communication">Playing or communication challenges</string>
+    <string name="child_safety_counselled">Child safety counselling provided</string>
+    <string name="child_breastfeed_current">Currently breastfeeding</string>
+    <string name="child_other_food_child_feeds">Other foods or drinks given to child</string>
+    <string name="child_times_child_breastfeeds">Breastfeeding frequency</string>
+    <string name="child_breastfeeding_position_counselling">Breastfeeding position and attachment</string>
+    <string name="child_child_suckling_well">Child suckling effectively</string>
+    <string name="child_exclusive_breast_feeding">Exclusive breastfeeding</string>
+    <string name="child_communication_with_child">Caregiver communicates with child</string>
+    <string name="child_communication_observation">Communication observation</string>
+    <string name="child_development_issues">Child development issues</string>
+    <string name="child_caregiver_interacts_with_child">Caregiver interaction with child</string>
+    <string name="child_caregiver_comfort_child">Caregiver comforts child</string>
+    <string name="child_caregiver_response_cue">Caregiver response to child cues</string>
+    <string name="child_caregiver_child_correction">How caregiver corrects child</string>
+    <string name="child_treated_harshly">Concern child is treated harshly</string>
+    <string name="child_abuse_child_experienced">Type of abuse experienced</string>
+    <string name="child_comfortable_disclosing_hiv_status">Comfortable disclosing HIV status</string>
+    <string name="child_hiv_status">HIV status</string>
+    <string name="child_test_hiv_past_three_months">Mother tested for HIV in past 3 months</string>
+    <string name="child_already_taking_art">Taking ART</string>
+    <string name="child_comfortable_sharing_child_hiv_status">Comfortable sharing child HIV status</string>
+    <string name="child_childs_hiv_status">Child HIV status</string>
+    <string name="child_skin_to_skin_counselling">Skin-to-skin counselling</string>
+    <string name="child_option_green">Green</string>
+    <string name="child_option_yellow">Yellow</string>
+    <string name="child_option_red">Red</string>
+    <string name="child_option_white">White</string>
+    <string name="child_option_grey">Grey</string>
+    <string name="child_option_top_red">Top red</string>
+    <string name="child_option_bottom_red">Bottom red</string>
+    <string name="child_option_card_not_available">Card not available</string>
+    <string name="child_option_normal_with_a_few_holes">Normal with a few holes</string>
+    <string name="child_option_other_treatment">Other treatment</string>
+    <string name="counselled_mother_for_comp_feeding">" Counselled mother for complementary feeding "</string>
+    <string name="malezi_bango_kitita_message">Please refer to the following pages in Bango Kitita Malezi III to explain the activities depending on the child age:</string>
+    <string name="choose_date_mode">Choose Date mode</string>
+    <string name="shared_date">Shared Date</string>
+    <string name="each_vaccine_its_date">Each Vaccine its date</string>
+    <string name="no_mother_children">No Mother Children</string>
+    <string name="register_no_mother_child">Register No Mother Child</string>
+    <string name="no_mother_child_reg">No Mother Child Registration</string>
 
     <string name="hivst_mobilization_session">HIVST Mobilization Session</string>
     <string name="hivst_mobilization_session_details">HIVST Mobilization Session Details</string>
@@ -1509,9 +1658,18 @@
     <string name="hps_health_education_title">Health Education</string>
     <string name="hps_childcare_growth_and_early_childhood_development">Childcare, growth, and early childhood development</string>
 
+    <!-- In-app Report-->
+    <string name="started_refreshing_reports">Started Refreshing Reports</string>
+    <string name="refreshing_reports_progress">Refreshing Reports is In-Progress</string>
+    <string name="finished_refreshing_reports">Finished Refreshing Reports</string>
+
+
     <string name="hps_was_preventive_service_provided">Were preventive services provided?</string>
     <string name="hps_preventive_service_provided">Preventive services provided</string>
+    <string name="nav_menu_ncd">NCD Clients</string>
 
+    <string name="diabetes_and_hypertension_screening_form_title">Diabetes &amp; Hypertension Screening</string>
+    <string name="record_diabetes_hypertension">Conduct Diabetes and Hypertension Visit</string>
     <string name="hps_client_criteria_below_12">Select the criteria</string>
     <string name="hps_client_criteria_above_12_male_above_15">Select the criteria</string>
     <string name="hps_client_criteria_above_12_male_below_15">Select the criteria</string>
@@ -1792,5 +1950,94 @@
     <string name="hps_mobilization_sessions_menu">Gatherings</string>
     <string name="hps_mobilization_sessions_title">iCCHW Gatherings Sessions</string>
     <string name="hps_advertisement_sessions_title">iCCHW Advertisement</string>
+
+    <!-- ANC ECD -->
+    <string name="anc_home_visit_postpartum_care_for_mother">Postpartum Care for Mother</string>
+    <string name="anc_home_visit_early_stimulation">Early Stimulation</string>
+    <string name="anc_home_visit_postpartum_danger_signs">Postpartum Danger Signs</string>
+    <string name="anc_home_visit_community_health_worker_observations">Community Health Worker Observations</string>
+    <string name="community_health_worker_observations_evaluate_sub_title">Anyone else Present: {0}</string>
+    <string name="anc_hv_clinic_attendance_sub_title">Attend the last ANC clinic visit</string>
+    <string name="anc_hv_clinic_attendance">ANC clinic visit attendance</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="anc_home_visit_immediate_newborn_care">Immediate Newborn Care</string>
+    <string name="anc_hv_nutrition_counselling">Nutrition Counselling</string>
+    <string name="foods_available">Foods available</string>
+    <string name="anc_home_visit_birth_preparedness">Birth Preparedness</string>
+    <string name="birth_preparedness_summary">
+    Location of nearest health facility: {0}\n
+    Savings preparedness: {1}\n
+    Birth companion preparedness: {2}\n
+    Family member/individual to stay home preparedness: {3}\n
+    Transportation preparedness: {4}
+    </string>
+    <string name="anc_home_visit_hiv_aids_general_information">HIV/AIDS General Information</string>
+    <string name="anc_home_visit_breast_feeding">Breastfeeding</string>
+    <string name="anc_home_visit_new_born_danger_signs">New Born Danger Signs</string>
+    <string name="partner_engagement_evaluate_sub_title">Partner presence: {0}</string>
+    <string name="anc_home_visit_partner_engagement">Partner Engagement</string>
+    <string name="anc_home_visit_lam">Lactational Amenorrhea Method</string>
+    <string name="anc_home_visit_postpartum_physiological_changes">Postpartum Physiological Changes</string>
+    <string name="anc_home_visit_hiv_exposed_infant_follow_up">Follow-Up for the HIV-Exposed Infant</string>
+    <string name="anc_home_visit_gender_issues">Gender Issues</string>
+    <string name="anc_home_visit_pmtct">Prevention of mother-to-child HIV transmission (PMTCT)</string>
+    <string name="anc_danger_signs_present">Danger signs present</string>
+    <string name="anc_danger_signs_counseling">Counselling on danger signs</string>
+    <string name="anc_service_before_referral">Pre-referral management given</string>
+    <string name="anc_chw_referral_hf">Referred facility</string>
+    <string name="anc_referral_appointment_date">Referral appointment date</string>
+    <string name="anc_problem">Reasons for linkage</string>
+    <string name="anc_problem_other">Other reasons for linkage</string>
+    <string name="anc_first_clinic_visit">Weeks pregnant at first ANC visit</string>
+    <string name="anc_hf_visit">Attended last ANC clinic visit</string>
+    <string name="anc_hf_visit_date">ANC visit date</string>
+    <string name="anc_clinic_visit_partner">Usually attends ANC with partner</string>
+    <string name="anc_reason_for_missed_visit">Reason for missed ANC visit</string>
+    <string name="anc_other_reason_missed_visit">Other reason for missed ANC visit</string>
+    <string name="anc_last_clinic_visit">Last ANC clinic visit date</string>
+    <string name="anc_services_pregnant_woman_anc_visit">Services received during ANC visit</string>
+    <string name="anc_hf_next_visit_date">Next ANC visit date</string>
+    <string name="anc_foods_available">Foods available</string>
+    <string name="anc_foods_consumed_last_week">Foods consumed in the last week</string>
+    <string name="anc_nutrition_restrictions">Nutrition restrictions during pregnancy</string>
+    <string name="anc_nutrition_restrictions_other">Other nutrition restrictions</string>
+    <string name="anc_folic_acid_tablets">Received folic acid tablets</string>
+    <string name="anc_anaemia_tablets">Received anemia prevention tablets</string>
+    <string name="anc_meals_per_day">Meals per day</string>
+    <string name="anc_location_nearest_health_facility">Knows nearest health facility</string>
+    <string name="anc_savings_preparedness">Savings preparedness</string>
+    <string name="anc_birth_companion_preparedness">Birth companion preparedness</string>
+    <string name="anc_family_member_individual_stay_home_preparedness">Home support preparedness</string>
+    <string name="anc_transportation_preparedness">Transportation preparedness</string>
+    <string name="anc_hiv_test">Tested for HIV during this pregnancy</string>
+    <string name="anc_disclose_status">Comfortable disclosing HIV status</string>
+    <string name="anc_hiv_status">HIV status</string>
+    <string name="anc_taking_art">Taking ART</string>
+    <string name="anc_malaria_protective_measures">Malaria protective measures</string>
+    <string name="anc_malaria_protective_measure_other">Other malaria protective measure</string>
+    <string name="anc_fam_llin">Has a long-lasting insecticide net (LLIN)</string>
+    <string name="anc_llin_2days">Slept under LLIN last night</string>
+    <string name="anc_llin_condition">LLIN condition</string>
+    <string name="anc_malaria_sp">Taken malaria prevention dosage (SP)</string>
+    <string name="anc_reason_for_missed_sp">Reason for not taking SP</string>
+    <string name="anc_other_reason_for_missed_sp_dosage">Other reason for not taking SP</string>
+    <string name="anc_preg_woman_other_children">Has other children</string>
+    <string name="anc_preg_woman_breastfeed">Breastfed other children</string>
+    <string name="anc_preg_woman_challenges_breastfeed">Challenges while breastfeeding</string>
+    <string name="anc_fam_planning">Advised on family planning</string>
+    <string name="anc_partner_head_of_household">Partner present during home visit</string>
+    <string name="anc_partner_head_of_household_stay_visit">Partner stayed for the entire visit</string>
+    <string name="anc_partner_head_of_households_interaction">Partner interaction during visit</string>
+    <string name="anc_anyone_else_present_during_visit">Anyone else present during visit</string>
+    <string name="anc_who_present_during_visit">Who was present during visit</string>
+    <string name="anc_counselling_given">Counselling given</string>
+    <string name="anc_date_of_illness">Date of illness</string>
+    <string name="anc_illness_description">Illness description</string>
+    <string name="anc_action_taken">Action taken</string>
+    <string name="anc_chw_comment_anc">Remarks / comments</string>
+    <string name="invalid_first_clinic_visit_date_error">Invalid Date</string>
+    <string name="invalid_first_clinic_visit_date_snackbar_error">First ANC visit must be 22+ days after LMP</string>
+
 
 </resources>

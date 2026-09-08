@@ -177,6 +177,11 @@ public class FPMemberProfileActivity extends CoreFamilyPlanningMemberProfileActi
     }
 
     @Override
+    public void onEventSaveComplete(boolean b) {
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.addTbLeprosyMenuItem(menu, fpMemberObject.getBaseEntityId());

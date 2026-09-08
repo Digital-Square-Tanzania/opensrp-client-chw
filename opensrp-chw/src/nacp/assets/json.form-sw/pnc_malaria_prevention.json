@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Malaria Prevention",
+    "title": "Kinga dhidi ya Malaria",
     "fields": [
       {
         "key": "malaria_prevention_counselling",
@@ -85,7 +85,7 @@
             "key": "chk_lasting_insecticide_net",
             "text": "Anatumia chandarua chenye dawa kwa usahihi",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_lasting_insecticide_net"
           },
           {
             "key": "chk_spraying_insecticide",
@@ -97,25 +97,25 @@
             "key": "chk_doors_and_windows",
             "text": "Kufunika milango na madirisha na nyavu",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_spraying_insecticide"
           },
           {
             "key": "chk_breeding_grounds",
             "text": "Kuharibu mazalia ya mbuu",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_breeding_grounds"
           },
           {
             "key": "chk_other",
             "text": "Nyingine",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_other"
           },
           {
             "key": "chk_none",
             "text": "Hamna",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {

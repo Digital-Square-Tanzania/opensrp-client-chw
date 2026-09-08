@@ -104,6 +104,8 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_health_education_other_specify", "Specify other health education provided");
         values.put("harm_reduction_health_education_provided", "Health education provided");
         values.put("harm_reduction_health_services_advocacy", "Health services advocacy");
+        values.put("harm_reduction_sober_house_health_reasons", "Health reasons");
+        values.put("harm_reduction_sober_house_misconduct", "Misconduct");
         values.put("harm_reduction_hepatitis_bc", "Hepatitis B/C");
         values.put("harm_reduction_hepatitis_b_screening", "Hepatitis B Screening");
         values.put("harm_reduction_hepatitis_bc_screening", "Hepatitis B/C Screening");
@@ -219,6 +221,9 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_qty_syringes", "Number of tools - Needles and syringes");
         values.put("harm_reduction_referrals_other_specify", "If others, specify");
         values.put("harm_reduction_referrals_provided", "Referrals provided");
+        values.put("harm_reduction_linkage_to_other_services_provided", "Linkage services provided");
+        values.put("harm_reduction_linkage_to_other_services", "Linkage services");
+        values.put("harm_reduction_linkage_to_other_services_specify", "Other linkage services (Specify)");
         values.put("harm_reduction_remarks_comments", "Remarks/Comments");
         values.put("harm_reduction_reproductive_health", "Reproductive health, father, mother, child and adolescents");
         values.put("harm_reduction_rights_vulnerable", "Rights of vulnerable population");
@@ -301,6 +306,8 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_health_education_other_specify", "Bainisha elimu nyingine ya afya iliyotolewa");
         values.put("harm_reduction_health_education_provided", "Elimu ya afya iliyotolewa");
         values.put("harm_reduction_health_services_advocacy", "Uhamasishaji wa huduma za Afya");
+        values.put("harm_reduction_sober_house_health_reasons", "Sababu za kiafya");
+        values.put("harm_reduction_sober_house_misconduct", "Utovu wa nidhamu");
         values.put("harm_reduction_hepatitis_bc", "Homa ya Ini");
         values.put("harm_reduction_hepatitis_b_screening", "Uchunguzi wa Homa ya Ini B");
         values.put("harm_reduction_hepatitis_bc_screening", "Uchunguzi wa Homa ya Ini B/C");
@@ -309,7 +316,7 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_hiv_aids", "VVU na UKIMWI");
         values.put("harm_reduction_hiv_results", "Matokeo ya kipimo cha VVU");
         values.put("harm_reduction_hiv_test_location", "Upimaji ulipofanyika");
-        values.put("harm_reduction_hiv_tested", "Je, mpokea huduma amewahi kupima VVU?");
+        values.put("harm_reduction_hiv_tested", "Je, mpokea huduma amepima VVU?");
         values.put("harm_reduction_hiv_testing", "Upimaji wa VVU");
         values.put("harm_reduction_home", "Nyumbani");
         values.put("harm_reduction_iec_communicable_diseases", "Magonjwa ya kuambukiza");
@@ -416,6 +423,9 @@ public class HarmReductionVisitHistoryStringTranslationsTest {
         values.put("harm_reduction_qty_syringes", "Idadi ya Bomba na sindano");
         values.put("harm_reduction_referrals_other_specify", "Ikiwa ni nyinginezo, taja");
         values.put("harm_reduction_referrals_provided", "Rufaa zilizotolewa");
+        values.put("harm_reduction_linkage_to_other_services_provided", "Huduma za muunganiko zimetolewa");
+        values.put("harm_reduction_linkage_to_other_services", "Huduma za muunganiko");
+        values.put("harm_reduction_linkage_to_other_services_specify", "Huduma nyingine za muunganiko (ainisha)");
         values.put("harm_reduction_remarks_comments", "Maoni");
         values.put("harm_reduction_reproductive_health", "Afya ya uzazi, baba, mama, mtoto na vijana");
         values.put("harm_reduction_rights_vulnerable", "Haki stahiki kwa makundi maalumu");

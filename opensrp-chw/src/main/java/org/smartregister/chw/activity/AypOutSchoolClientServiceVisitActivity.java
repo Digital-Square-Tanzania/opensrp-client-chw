@@ -10,8 +10,10 @@ import android.os.Build;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.actionhelper.AypOutSchoolMedicalServicesActionHelper;
 import org.smartregister.chw.ayp.activity.BaseAypVisitActivity;
 import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.ayp.domain.MemberObject;
@@ -63,6 +65,8 @@ public class AypOutSchoolClientServiceVisitActivity extends BaseAypVisitActivity
     public void initializeActions(LinkedHashMap<String, BaseAypVisitAction> map) {
         actionList.clear();
 
+        configureMedicalServicesAction(map);
+
         //Necessary evil to rearrange the actions according to a specific arrangement
 
         if (map.containsKey(getString(R.string.ayp_out_school_service_status))) {
@@ -97,6 +101,24 @@ public class AypOutSchoolClientServiceVisitActivity extends BaseAypVisitActivity
         displayProgressBar(false);
     }
 
+    private void configureMedicalServicesAction(LinkedHashMap<String, BaseAypVisitAction> actions) {
+        BaseAypVisitAction medicalServicesAction = actions.get(getString(R.string.ayp_out_school_medical_services));
+        if (medicalServicesAction == null || StringUtils.isBlank(medicalServicesAction.getJsonPayload())) {
+            return;
+        }
+
+        AypOutSchoolMedicalServicesActionHelper actionHelper =
+                new AypOutSchoolMedicalServicesActionHelper(this, memberObject);
+        actionHelper.onJsonFormLoaded(medicalServicesAction.getJsonPayload(), this, null);
+        String preProcessedPayload = actionHelper.getPreProcessed();
+        if (StringUtils.isNotBlank(preProcessedPayload)) {
+            actionHelper.onPayloadReceived(preProcessedPayload);
+            medicalServicesAction.setaypVisitActionHelper(actionHelper);
+            medicalServicesAction.setProcessedJsonPayload(preProcessedPayload);
+            medicalServicesAction.evaluateStatus();
+        }
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         // get language from prefs
@@ -105,4 +127,3 @@ public class AypOutSchoolClientServiceVisitActivity extends BaseAypVisitActivity
     }
 
 }
-

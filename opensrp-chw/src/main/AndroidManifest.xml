@@ -180,6 +180,23 @@
             android:name=".activity.AypParentalRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.NcdRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.NcdProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.NcdVisitActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.NcdRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.NcdCaseManagementVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar"
+            android:exported="false" />
+        <activity
             android:name=".activity.AypParentalMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -315,6 +332,9 @@
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AncJsonWizardFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -334,6 +354,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.PncMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PncNoMotherRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.MalariaRegisterActivity"
@@ -475,6 +498,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.FpMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.NcdMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.ReportsActivity"
@@ -620,8 +646,18 @@
         <activity
             android:name=".activity.IccmReportsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity android:name=".activity.PncChildNoMotherProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.IccmMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ECDReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ECDReportsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AsrhRegisterActivity"
@@ -751,6 +787,8 @@
 
         <activity android:name=".activity.LinkageFollowUpActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity android:name=".activity.NcdFormWizardActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
             android:name=".activity.AypInSchoolGroupProfileActivity"
@@ -795,6 +833,9 @@
             android:foregroundServiceType="dataSync"/>
 
         <service android:name="org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService"
+            android:foregroundServiceType="dataSync"/>
+
+        <service android:name=".sync.intent.ChwSyncLocationsByLevelAndTagsIntentService"
             android:foregroundServiceType="dataSync"/>
 
         <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService"
@@ -957,5 +998,11 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_VIDEO"
+        tools:node="remove" />
 
 </manifest>

@@ -19,6 +19,8 @@
     <color name="visit_status_ok">@android:color/holo_blue_light</color>
     <color name="visit_status_over_due">#D13F3F</color>
     <color name="visit_status_not_yet">@android:color/darker_gray</color>
+    <color name="alert_urgent_red">#B00020</color>
+    <color name="ncd_visit_subtitle_overdue">#8C1D18</color>
     <color name="pie_chart_yes_green">#99CC00</color>
     <color name="pie_chart_no_red">#FF4444</color>
     <color name="pie_chart_red">#FF5508</color>
@@ -28,4 +30,5 @@
     <color name="pie_chart_purple">#A64D79</color>
     <color name="pie_chart_orange">#E69138</color>
     <color name="pie_chart_brown">#803F04</color>
+    <color name="congratulation_color">#009688</color>
 </resources>

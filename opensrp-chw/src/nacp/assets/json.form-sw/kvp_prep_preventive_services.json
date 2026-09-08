@@ -46,6 +46,357 @@
     "title": "Huduma Kinga",
     "fields": [
       {
+        "key": "hiv_tested_within_last_3_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_tested_within_last_3_months",
+        "label": "Je, mteja amepima VVU ndani ya miezi 3 iliyopita?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"}
+      },
+      {
+        "key": "hiv_result_recent",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_result_recent",
+        "label": "Matokeo ya kipimo cha VVU yalikuwa nini?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "negative", "text": "Hasi", "openmrs_entity": "concept", "openmrs_entity_id": "negative"},
+          {"key": "positive", "text": "Chanya", "openmrs_entity": "concept", "openmrs_entity_id": "positive"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:hiv_tested_within_last_3_months": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "ctc_number_a",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ctc_number_a",
+        "type": "mask_edit_text",
+        "mask": "##-##-####-######",
+        "mask_hint": "12345678912345",
+        "allowed_chars": "0123456789",
+        "hint": "Kitambulisho cha CTC",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
+          "err": "Namba ya CTC inapaswa kuwa katika mfumo XX-XX-XXXX-XXXXXX"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi ya CTC"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza namba sahihi ya CTC"
+        },
+        "relevance": {
+          "step1:hiv_result_recent": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
+        }
+      },
+      {
+        "key": "on_prep",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "on_prep",
+        "label": "Je, mteja anatumia PrEP kwa sasa?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:hiv_result_recent": {"type": "string", "ex": "equalTo(., \"negative\")"}
+        }
+      },
+      {
+        "key": "prep_facility_a",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_facility_a",
+        "type": "edit_text",
+        "hint": "Jina la kituo ambapo mteja alipata PrEP",
+        "v_required": {"value": "true", "err": "Tafadhali ingiza jina la kituo"},
+        "relevance": {
+          "step1:on_prep": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "linked_to_prep_recent",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "linked_to_prep_recent",
+        "label": "Je, mteja ameunganishwa na huduma za PrEP?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Ndio", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:on_prep": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "linked_to_prep_recent_prompt",
+        "type": "toaster_notes",
+        "text": "Mpe rufaa mteja kwenda kwenye huduma za PrEP.",
+        "openmrs_entity_id": "linked_to_prep_recent_prompt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:linked_to_prep_recent": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "referred_for_hiv_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referred_for_hiv_test",
+        "label": "Je, mteja alipewa rufaa kwenda kupima VVU?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:hiv_tested_within_last_3_months": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "referred_for_hiv_prompt",
+        "type": "toaster_notes",
+        "text": "Mpe rufaa mteja kwenda kupima VVU.",
+        "openmrs_entity_id": "referred_for_hiv_prompt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:referred_for_hiv_test": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "tested_for_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tested_for_hiv",
+        "label": "Je, mteja alipima VVU?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:referred_for_hiv_test": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "testing_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "testing_location",
+        "label": "Kipimo kilifanyika wapi?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "community", "text": "Jamii", "openmrs_entity": "concept", "openmrs_entity_id": "community"},
+          {"key": "facility", "text": "Kituo", "openmrs_entity": "concept", "openmrs_entity_id": "facility"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:tested_for_hiv": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "facility_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "facility_name",
+        "type": "edit_text",
+        "hint": "Jina la kituo ambapo kipimo kilifanyika",
+        "v_required": {"value": "true", "err": "Tafadhali ingiza jina la kituo"},
+        "relevance": {
+          "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}
+        }
+      },
+      {
+        "key": "test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "test_date",
+        "type": "date_picker",
+        "label": "Tarehe ya kipimo",
+        "hint": "Tarehe ya kipimo",
+        "expanded": false,
+        "max_date": "today-90d",
+        "v_required": {"value": "true", "err": "Tafadhali ingiza tarehe ya kipimo"},
+        "relevance": {
+          "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}
+        }
+      },
+      {
+        "key": "hiv_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_result",
+        "label": "Matokeo ya kipimo cha VVU yalikuwa nini?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "negative", "text": "Hasi", "openmrs_entity": "concept", "openmrs_entity_id": "negative"},
+          {"key": "positive", "text": "Chanya", "openmrs_entity": "concept", "openmrs_entity_id": "positive"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:testing_location": {"type": "string", "ex": "notEqualTo(., \"\")"}
+        }
+      },
+      {
+        "key": "ctc_number_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ctc_number_b",
+        "type": "mask_edit_text",
+        "mask": "##-##-####-######",
+        "mask_hint": "12345678912345",
+        "allowed_chars": "0123456789",
+        "hint": "Kitambulisho cha CTC",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
+          "err": "Namba ya CTC inapaswa kuwa katika mfumo XX-XX-XXXX-XXXXXX"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza namba sahihi ya CTC"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Tafadhali ingiza namba sahihi ya CTC"
+        },
+        "relevance": {
+          "step1:hiv_result": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
+        }
+      },
+      {
+        "key": "prep_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_follow_up",
+        "label": "Je, mteja anatumia PrEP kwa sasa?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Ndio", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:hiv_result": {"type": "string", "ex": "equalTo(., \"negative\")"}
+        }
+      },
+      {
+        "key": "prep_facility_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_facility_b",
+        "type": "edit_text",
+        "hint": "Jina la kituo ambapo mteja alipata PrEP",
+        "v_required": {"value": "true", "err": "Tafadhali ingiza jina la kituo"},
+        "relevance": {
+          "step1:prep_follow_up": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "linked_to_prep",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "linked_to_prep",
+        "label": "Je, mteja ameunganishwa na huduma za PrEP?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "yes", "text": "Ndio", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
+          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:prep_follow_up": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "linked_to_prep_prompt",
+        "type": "toaster_notes",
+        "text": "Mpe rufaa mteja kwenda kwenye huduma za PrEP.",
+        "openmrs_entity_id": "linked_to_prep_prompt",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:linked_to_prep": {"type": "string", "ex": "equalTo(., \"no\")"}
+        }
+      },
+      {
+        "key": "client_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_hiv_status",
+        "type": "hidden"
+      },
+      {
+        "key": "ctc_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ctc_number",
+        "type": "hidden"
+      },
+      {
+        "key": "hiv_positive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_positive",
+        "type": "hidden"
+      },
+      {
+        "key": "hiv_test_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_test_conducted",
+        "type": "hidden"
+      },
+      {
+        "key": "hiv_test_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hiv_test_location",
+        "type": "hidden"
+      },
+      {
         "key": "condoms_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -179,27 +530,6 @@
                 ]
               }
             ]
-          }
-        }
-      },
-      {
-        "key": "received_prep_last_facility",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "received_prep_last_facility",
-        "label": "Je, mteja alipatiwa PrEP kwenye ziara yake ya mwisho kituoni?",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {"key": "yes", "text": "Ndiyo", "openmrs_entity": "concept", "openmrs_entity_id": "yes"},
-          {"key": "no", "text": "Hapana", "openmrs_entity": "concept", "openmrs_entity_id": "no"}
-        ],
-        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "kvp_prep_prep_last_visit_relevance.yml"
-            }
           }
         }
       },
@@ -1182,13 +1512,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "kits_distributed",
-        "label": "Vitepe vya JIPIME vilivyotolewa?",
+        "label": "Je, vitepe vya JIPIME vilitolewa?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Ndio",
+            "text": "Ndiyo",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"

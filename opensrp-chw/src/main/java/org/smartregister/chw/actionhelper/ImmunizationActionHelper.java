@@ -2,8 +2,6 @@ package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
@@ -16,6 +14,7 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.client.utils.constants.JsonFormConstants;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -36,14 +35,14 @@ import timber.log.Timber;
 public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
 
     private Context context;
-    private List<VaccineWrapper> wrappers;
+    private final List<VaccineWrapper> wrappers;
     private LocalDate dueDate;
     private AlertStatus status;
 
     private List<String> keys = new ArrayList<>();
-    private Map<String, List<String>> completedVaccines = new HashMap<>();
-    private List<String> notDoneVaccines = new ArrayList<>();
-    private Map<String, VaccineRepo.Vaccine> vaccineMap = new HashMap<>();
+    private final Map<String, List<String>> completedVaccines = new HashMap<>();
+    private final List<String> notDoneVaccines = new ArrayList<>();
+    private final Map<String, VaccineRepo.Vaccine> vaccineMap = new HashMap<>();
 
     public ImmunizationActionHelper(Context context, List<VaccineWrapper> wrappers) {
         this.context = context;
@@ -89,7 +88,6 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
         return null;
     }
 
-    @Override
     public void onPayloadReceived(String jsonPayload) {
         try {
             notDoneVaccines.clear();
@@ -173,6 +171,10 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
                 }
 
                 completedBuilder.append(getTranslatedValue(vac.toUpperCase()));
+            }
+
+            if(!entry.getKey().matches("\\d{4}-\\d{2}-\\d{2}")){
+                continue;
             }
 
             if (completedBuilder.length() > 0) {

@@ -14,6 +14,7 @@ import org.smartregister.chw.fragment.BaseHomeVisitImmunizationFragmentFlv;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,5 +61,22 @@ public class ImmunizationValidatorTest extends BaseUnitTest {
 
         Mockito.doReturn(displayMap).when(fragmentFlv).getVaccineDisplays();
         validator.addFragment(key, fragmentFlv, vaccineGroup, anchorDate);
+    }
+
+    @Test
+    public void testConstructorNormalizesAdministeredVaccineNamesForScheduleMatching() {
+        Date vaccineDate = new Date();
+        org.smartregister.immunization.domain.Vaccine vaccine = new org.smartregister.immunization.domain.Vaccine();
+        vaccine.setName("OPV 0");
+        vaccine.setDate(vaccineDate);
+
+        List<org.smartregister.immunization.domain.Vaccine> administered = new ArrayList<>();
+        administered.add(vaccine);
+
+        ImmunizationValidator immunizationValidator = new ImmunizationValidator(vaccinesGroups, specialVaccines, "child", administered);
+
+        Map<String, Date> administeredVaccines = ReflectionHelpers.getField(immunizationValidator, "administeredVaccines");
+        Assert.assertEquals(vaccineDate, administeredVaccines.get("opv0"));
+        Assert.assertFalse(administeredVaccines.containsKey("OPV 0"));
     }
 }

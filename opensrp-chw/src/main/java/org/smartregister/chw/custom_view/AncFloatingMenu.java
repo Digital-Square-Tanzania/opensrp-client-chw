@@ -20,6 +20,12 @@ public class AncFloatingMenu extends CoreAncFloatingMenu {
     protected void initUi() {
         super.initUi();
         this.referLayout.setVisibility(ChwApplication.getApplicationFlavor().hasReferrals() ? VISIBLE : GONE);
+
+        if (ChwApplication.getApplicationFlavor().hasADDO()) {
+            linkageLayout.setVisibility(VISIBLE);
+        } else {
+            linkageLayout.setVisibility(GONE);
+        }
     }
 
 }

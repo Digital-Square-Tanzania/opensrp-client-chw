@@ -1,0 +1,344 @@
+{
+  "count": "1",
+  "encounter_type": "NCD Monthly Follow-Up",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Ufuatiliaji wa Dawa na Huduma za Zahanati",
+    "fields": [
+      {
+        "key": "clinic_attendance",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "clinic_attendance",
+        "type": "native_radio",
+        "label": "Je, mteja alihudhuria kliniki mwezi uliopita?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "counseling_missed_clinic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Rufaa isiyo ya dharura\"</b><br> Mteja hakuhudhuria kliniki mwezi uliopita<br><br><font color=\"#0061A4\"><i>Bonyeza </i><b>ⓘ</b><i> kusoma zaidi</i></font>",
+        "toaster_type": "warning",
+        "toaster_info_title": "Kwa Nini Kuhudhuria Kliniki ni Muhimu",
+        "toaster_info_text": "Nakupa rufaa isiyo ya dharura kwasababu kuhudhuria kliniki kama ulivyopangiwa.\n\nKuhudhuria kliniki ni muhimu sana katika kudhibiti kisukari na shinikizo la damu. Husaidia kugundua matatizo mapema na kupunguza hatari ya maudhi yatokanayo na shinikizo la juu la damu na kisukari kama kiharusi, magonjwa ya moyo, matatizo ya figo, na matatizo ya macho.\n\nKazi ya rufaa itaundwa fomu hii inapowasilishwa.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "medication_adherence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medication_adherence",
+        "type": "native_radio",
+        "label": "Je, mteja alitumia dawa kila siku katika siku 7 zilizopita?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "no_adherence_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_adherence_reason",
+        "type": "spinner",
+        "hint": "Ni sababu gani ya kutotumia dawa?",
+        "values": [
+          "Alisahau",
+          "Alijisikia vizuri",
+          "Dawa Ziliisha Zahanati",
+          "Gharama ya Usafiri",
+          "Sababu Nyingine"
+        ],
+        "keys": [
+          "forgot",
+          "felt_better",
+          "stock_out",
+          "transport_cost",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "forgot": "forgot",
+          "felt_better": "felt_better",
+          "side_effects": "side_effects",
+          "stock_out": "stock_out",
+          "transport_cost": "transport_cost",
+          "other": "other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua sababu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "medication_side_effects",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medication_side_effects",
+        "type": "native_radio",
+        "label": "Je, mteja anapata maudhi yoyote ya dawa?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        }
+      },
+      {
+        "key": "counseling_forgot",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Ushauri\"</b><br> Msaidie mteja kutumia vikumbusho vya dawa kila siku<br><br><font color=\"#0061A4\"><i>Bonyeza </i><b>ⓘ</b><i> kusoma zaidi</i></font>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kusaidia Kufuata Dawa — Alisahau",
+        "toaster_info_text": "Kunywa dawa za kisukari na shinikizo la damu kwa usahihi kama ulivyoelekezwa ni muhimu sana ili kudhibiti sukari na shinikizo la damu.\n\nUnaweza kutumia vikumbusho kama alarm ya simu au kuhusisha muda wa dawa na ratiba zako za kila siku kama vile wakati wa kula.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_felt_better",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Ushauri\"</b><br> Dawa lazima iendelezwe hata ukijisikia vizuri<br><br><font color=\"#0061A4\"><i>Bonyeza </i><b>ⓘ</b><i> kusoma zaidi</i></font>",
+        "toaster_type": "info",
+        "toaster_info_title": "Kwa Nini Endelea na Dawa Ukijisikia Vizuri",
+        "toaster_info_text": "Ni muhimu kuendelea kutumia dawa za kisukari na shinikizo la damu kama ulivyoelekezwa, hata kama unajisikia vizuri.\n\nKuacha kutumia dawa kunaweza kusababisha sukari na shinikizo la damu kupanda tena, na kuongeza hatari ya maudhi makubwa kama kiharusi, magonjwa ya moyo, matatizo ya figo, na matatizo ya macho.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_side_effects",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Maudhi ya dawa\"</b><br> Mshauri mteja atembelee kliniki<br><br><font color=\"#0061A4\"><i>Bonyeza </i><b>ⓘ</b><i> kusoma zaidi</i></font>",
+        "toaster_type": "warning",
+        "toaster_info_title": "Kusimamia Maudhi ya Dawa",
+        "toaster_info_text": "Ni muhimu kutokuacha kutumia dawa za kisukari na shinikizo la damu bila kushauriana na mtoa huduma za afya.\n\nMaudhi ya dawa mara nyingi yanaweza kudhibitiwa kwa kurekebisha dozi au kubadilisha dawa. Tafadhali tembelea kliniki ili mtoa huduma za afya aweze kukusaidia.\n\nKazi ya rufaa itaundwa fomu hii inapowasilishwa.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_stock_out",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Ushauri\"</b><br> Msaidie mteja kupata dawa zahanati<br><br><font color=\"#0061A4\"><i>Bonyeza </i><b>ⓘ</b><i> kusoma zaidi</i></font>",
+        "toaster_type": "info",
+        "toaster_info_title": "Changamoto za Dawa Zahanati",
+        "toaster_info_text": "Ni muhimu sana kuendelea kutumia dawa za kisukari na shinikizo la damu kama ulivyoelekezwa, hata kama kituo cha afya kiko mbali.\n\nTujulishe changamoto unazokutana nazo, kunaweza kuwa na njia za kukusaidia kama kupata dawa za muda mrefu zaidi, kupata huduma katika kituo cha karibu, au ufuatiliaji wa karibu katika jamii.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseling_transport_cost",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "<b>\"Ushauri\"</b><br> Msaidie mteja kushinda vikwazo vya usafiri<br><br><font color=\"#0061A4\"><i>Bonyeza </i><b>ⓘ</b><i> kusoma zaidi</i></font>",
+        "toaster_type": "info",
+        "toaster_info_title": "Usafiri na Upatikanaji wa Dawa",
+        "toaster_info_text": "Ni muhimu sana kuendelea kutumia dawa za kisukari na shinikizo la damu kama ulivyoelekezwa, hata ukiwa hauna nauli.\n\nTujulishe changamoto unazokutana nazo, kunaweza kuwa na njia za kukusaidia kama kupata dawa za muda mrefu zaidi, kupata huduma katika kituo cha karibu, au ufuatiliaji wa karibu katika jamii.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_adherence_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_adherence_reason_other",
+        "type": "edit_text",
+        "hint": "Taja sababu nyingine...",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_yellow_alert",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_yellow_alert",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_side_effects_alert",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_side_effects_alert",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_missed_clinic_alert",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_missed_clinic_alert",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ncd_followup_clinical_adherence_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

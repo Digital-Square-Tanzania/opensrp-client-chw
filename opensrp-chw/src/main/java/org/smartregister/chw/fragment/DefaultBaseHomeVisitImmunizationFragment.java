@@ -168,7 +168,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     private void onVaccineCheckBoxStateChange(boolean isChecked) {
         if (isChecked) {
             setCheckBoxState(checkBoxNoVaccinesDone, false);
-            //checkBoxNoVaccinesDone.setEnabled(true);
+            checkBoxNoVaccinesDone.setEnabled(true);
         } else {
             // check if there are any active vaccine
             boolean enableNoVaccines = true;

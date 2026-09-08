@@ -1,0 +1,56 @@
+---
+name: step1_disclose_status
+description: Show disclose status input only when the clint confirmed they had a test
+priority: 1
+condition: "step1_hiv_test.contains('chk_hiv_test_yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_hiv_status
+description: Status of hiv for the client who wants to disclose it
+priority: 1
+condition: "step1_hiv_test.contains('chk_hiv_test_yes') && step1_disclose_status.contains('chk_disclose_status_yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_discuss_further_next_visit
+description: Discuss further next visit if the person wants to disclose their HIV status or not
+priority: 1
+condition: "step1_disclose_status.contains('chk_disclose_status_no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_safe_sex_reminder
+description: If client is HIV Negative remind safe sex
+priority: 1
+condition: "step1_hiv_status.contains('chk_hiv_status_negative')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_taking_art
+description: For hiv positive clients only capture if they are taking ARTs
+priority: 1
+condition: "step1_hiv_status.contains('chk_hiv_status_positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_encourage_client_treatment
+description: For clients who are taking ART encourage them to continue with treatment
+priority: 1
+condition: "step1_taking_art.contains('chk_taking_art_yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_encourage_client_clinic
+description: For clients not taking ART encourage them to visit a nearest ART clinic
+priority: 1
+condition: "step1_taking_art.contains('chk_taking_art_no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_hiv_positive_women_support_group_note
+description: Encourage hiv positive women to visit support group at the clinic
+priority: 1
+condition: "step1_hiv_status.contains('chk_hiv_status_positive')"
+actions:
+  - "isRelevant = true"

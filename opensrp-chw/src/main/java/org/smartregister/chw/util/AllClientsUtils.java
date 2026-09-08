@@ -405,6 +405,12 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_asrh_registration, !AsrhDao.isRegisteredForAsrh(baseEntityId) && age >= 10 && age < 25);
         }
 
+        if (age >= 30) {
+            // Handle Diabetes Risk Assessment menu item for clients aged 30 and above
+            // Disable it here because in the current implementation, we are only using it for clients who are being enrolled in HPS and not as a standalone service.
+            setMenuItemVisibility(menu, R.id.action_diabetes_risk, false);
+        }
+
         // Handle AYP menu items
         if (ChwApplication.getApplicationFlavor().hasAyp()) {
             setMenuItemVisibility(menu, R.id.action_ayp_in_school_enrollment, !AypDao.isRegisteredForAypInSchoolServices(baseEntityId) && age >= 10 && age < 25);

@@ -1,0 +1,126 @@
+---
+name: step1_spend_time_with_other
+description: Spend time with other
+priority: 1
+condition: "step1_spend_time_with.contains('chk_other_person')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_challenges_child_communication
+description: Play with child challenge
+priority: 1
+condition: "step1_play_with_child == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_interacts_with_child_note
+description: Interacts with child note
+priority: 1
+condition: "step1_demonstrate_play_child.contains('chk_move_baby_arms_legs') || step1_demonstrate_play_child.contains('chk_baby_attention_shaker_toy')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_spacer_praise
+description: Spacer praise
+priority: 1
+condition: "step1_demonstrate_play_child.contains('chk_move_baby_arms_legs') || step1_demonstrate_play_child.contains('chk_baby_attention_shaker_toy')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_spend_time_with
+description: Spend time with
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_attend_daycare
+description: Child attend daycare
+priority: 1
+condition: "step1_visit_19_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prepare_play_materials
+description: Prepare play materials
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_challenges_child_communication
+description: Challenges child communication
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_lesson_learned_previously
+description: Lesson learned previously
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_followup_safety_security
+description: Followup safety security
+priority: 1
+condition: "step1_visit_2_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_play_with_child
+description: Play with child
+priority: 1
+condition: "step1_visit_3_visit_25 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_importance_of_child_play
+description: Importance of child play
+priority: 1
+condition: "step1_visit_3_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_practice_play_demo
+description: Practice play demo
+priority: 1
+condition: "step1_visit_3_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_actual_practice_play
+description: Actual practice play
+priority: 1
+condition: "step1_visit_3_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_bango_kitita_reference
+description: Bango kitita reference
+priority: 1
+condition: "step1_bango_kitita_reference_skip_logic == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_spacer_bango_kitita
+description: Spacer bango kitita
+priority: 1
+condition: "step1_bango_kitita_reference_skip_logic == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_importance_of_child_play
+description: Interacts with child note
+priority: 1
+condition: "step1_demonstrate_play_child.contains('chk_play_with_baby')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_male_caregiver_present
+description: Play with child challenge
+priority: 1
+condition: "step1_is_male_caregiver_present == 'Yes'"
+actions:
+  - "isRelevant = true"

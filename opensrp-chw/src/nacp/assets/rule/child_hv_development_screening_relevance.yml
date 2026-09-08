@@ -1,0 +1,35 @@
+---
+name: step1_child_developmental_delays_note
+description: Child developmental delays note
+priority: 1
+condition: "step1_child_development_issues.contains('chk_hearing_delay') || step1_child_development_issues.contains('chk_speech_delay') || step1_child_development_issues.contains('chk_walking_delay') || step1_child_development_issues.contains('chk_has_fits')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_spacer_delays_note
+description: Spacer delays note
+priority: 1
+condition: "step1_child_development_issues.contains('chk_hearing_delay') || step1_child_development_issues.contains('chk_speech_delay') || step1_child_development_issues.contains('chk_walking_delay') || step1_child_development_issues.contains('chk_has_fits')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_development_issues
+description: Child development issues
+priority: 1
+condition: "step1_visit_3_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_developmental_milestone_info
+description: Developmental milestone info
+priority: 1
+condition: "step1_visit_8_visit_10_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_bango_kitita_reference
+description: Bango kitita reference
+priority: 1
+condition: "step1_visit_8_visit_10_visit_16 == 'true'"
+actions:
+  - "isRelevant = true"

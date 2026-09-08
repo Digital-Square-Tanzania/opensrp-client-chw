@@ -225,6 +225,9 @@ public class HarmReductionVisitHistoryActivity extends CoreAncMedicalHistoryActi
                 "stds_screening",
                 "referrals_provided",
                 "referrals_other_specify",
+                "linkage_to_other_services_provided",
+                "linkage_to_other_services",
+                "linkage_to_other_services_specify",
                 "remarks_comments",
                 "roc_consent_joining_mat_services"
         };

@@ -69,4 +69,11 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
             this.getView().setProfileName(famName);
         }
     }
+
+    @Override
+    public void onEventSaveComplete(boolean b) {
+        if(b) {
+            getView().hideProgressDialog();
+        }
+    }
 }

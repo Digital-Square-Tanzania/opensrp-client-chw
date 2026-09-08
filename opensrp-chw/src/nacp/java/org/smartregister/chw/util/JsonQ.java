@@ -160,8 +160,8 @@ public class JsonQ {
                 Map<String,Object>data=(Map<String,Object>)v;
                 Map<String,Object> selection=new HashMap<>();
                 for(String key:columns){
-                       data.get(key);
-                       selection.put(key,data.get("key"));
+                    data.get(key);
+                    selection.put(key,data.get("key"));
                 }
                 results.add(selection);
             }
@@ -208,6 +208,7 @@ public class JsonQ {
     }
 
     public String str() {return str("");}
+    public int getInt(String path) {return Integer.parseInt(str(path).replaceAll("\\D+", ""));}
 
     public String str(String jsonPath, Object... args) {
         return str(String.format(jsonPath, args));
@@ -239,7 +240,7 @@ public class JsonQ {
         return fromResults(results);
     }
     private String escapeRGX(String input){
-       return input.replace("\\","\\\\");
+        return input.replace("\\","\\\\");
     }
 
     private JsonQ fromResults(List<Object> results){
@@ -411,8 +412,7 @@ public class JsonQ {
         if (sliceNotation == null || list.isEmpty()) return;
 
         List<T> result = new ArrayList<>();
-        String[] slices = sliceNotation.split(",");
-        for (String slice : slices) {
+        String[] slices = sliceNotation.split(",");for (String slice : slices) {
             result.addAll(extractSlice(list, slice));
         }
 
