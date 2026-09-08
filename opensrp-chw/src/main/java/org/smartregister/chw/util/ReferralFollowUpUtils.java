@@ -275,11 +275,11 @@ public class ReferralFollowUpUtils {
                 continue;
             }
             String optionKey = option.optString("key");
-            if (selected.contains(optionKey) || "true".equalsIgnoreCase(option.optString(VALUE))) {
-                if (!keysOut.contains(optionKey)) {
-                    keysOut.add(optionKey);
-                    labelsOut.add(option.optString("text", optionKey));
-                }
+            boolean isSelected = selected.contains(optionKey)
+                    || "true".equalsIgnoreCase(option.optString(VALUE));
+            if (isSelected && !keysOut.contains(optionKey)) {
+                keysOut.add(optionKey);
+                labelsOut.add(option.optString("text", optionKey));
             }
         }
     }
