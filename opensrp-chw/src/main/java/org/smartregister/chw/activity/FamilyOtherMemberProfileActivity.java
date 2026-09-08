@@ -125,7 +125,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
         AllClientsUtils.addMotherMentorMenuItem(menu, baseEntityId);
-        AllClientsUtils.addMotherMentorSecondaryEnrollmentMenuItems(menu, org.smartregister.chw.application.ChwApplication.getApplicationFlavor().hasMotherMentor());
+        AllClientsUtils.addMotherMentorSecondaryEnrollmentMenuItems(menu, ChwApplication.getApplicationFlavor().hasMotherMentor());
         try {
             int count = headedFamilies != null ? headedFamilies.size() : 0;
 

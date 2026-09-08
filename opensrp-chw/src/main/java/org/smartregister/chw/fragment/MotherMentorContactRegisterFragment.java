@@ -102,7 +102,7 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
     }
 
     @Override
-    protected void onViewClicked(android.view.View view) {
+    protected void onViewClicked(View view) {
         if (getActivity() == null || !(view.getTag() instanceof CommonPersonObjectClient)) {
             return;
         }

@@ -62,15 +62,6 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         appExecutors.diskIO().execute(runnable);
     }
 
-    private void addVisitAction(String title, String formName) throws BaseMotherMentorVisitAction.ValidationException {
-        addVisitAction(title, formName, null);
-    }
-
-    private void addVisitAction(String title, String formName, BaseMotherMentorVisitAction.MotherMentorVisitActionHelper helper)
-            throws BaseMotherMentorVisitAction.ValidationException {
-        addVisitAction(title, formName, helper, null);
-    }
-
     private void addVisitAction(String title, String formName, BaseMotherMentorVisitAction.MotherMentorVisitActionHelper helper,
                                 BaseMotherMentorVisitAction.Validator validator)
             throws BaseMotherMentorVisitAction.ValidationException {

@@ -483,14 +483,13 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         }
 
         for (Obs obs : event.getObs()) {
-            if (!key.equals(obs.getFormSubmissionField())) {
-                continue;
+            if (key.equals(obs.getFormSubmissionField())) {
+                if (preferValues && obs.getValues() != null && !obs.getValues().isEmpty()) {
+                    return obs.getValues().toString();
+                }
+                Object value = obs.getValue();
+                return value == null ? null : String.valueOf(value);
             }
-            if (preferValues && obs.getValues() != null && !obs.getValues().isEmpty()) {
-                return obs.getValues().toString();
-            }
-            Object value = obs.getValue();
-            return value == null ? null : String.valueOf(value);
         }
         return null;
     }

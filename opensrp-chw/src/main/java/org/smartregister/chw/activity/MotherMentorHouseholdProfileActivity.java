@@ -87,7 +87,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     protected void setupButtons() {
         super.setupButtons();
         if (textViewRecordMotherMentor != null) {
-            textViewRecordMotherMentor.setVisibility(android.view.View.VISIBLE);
+            textViewRecordMotherMentor.setVisibility(View.VISIBLE);
             textViewRecordMotherMentor.setText(R.string.mothermentor_household_record);
         }
         enforceProcessVisitVisibility();
@@ -114,8 +114,8 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
         textViewGender.setText("");
         textViewLocation.setText(memberObject.getAddress());
         textViewUniqueID.setText(memberObject.getUniqueId());
-        findViewById(R.id.primary_mothermentor_caregiver).setVisibility(android.view.View.GONE);
-        findViewById(R.id.family_mothermentor_head).setVisibility(android.view.View.GONE);
+        findViewById(R.id.primary_mothermentor_caregiver).setVisibility(View.GONE);
+        findViewById(R.id.family_mothermentor_head).setVisibility(View.GONE);
     }
 
     @Override
@@ -135,18 +135,22 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void openClientObservationResults() {
+        // Individual client observation results are not available on household profiles.
     }
 
     @Override
     public void observationResults() {
+        // Individual client observation results are not available on household profiles.
     }
 
     @Override
     public void openObservationResults() {
+        // Individual client observation results are not available on household profiles.
     }
 
     @Override
     public void startServiceForm() {
+        // Household visits are started through openRecordClientVisit().
     }
 
     @Override
@@ -156,6 +160,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void continueContactVisit() {
+        // Household visits are resumed through continueService().
     }
 
     @Override
@@ -187,10 +192,12 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void openMotherMentorContactRegister() {
+        // Contact registration is not available from household profiles.
     }
 
     @Override
     public void startHivstRegistration() {
+        // HIV self-testing registration is not available from household profiles.
     }
 
     @Override

@@ -250,7 +250,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             return;
         }
 
-        ensureProfileImageTagRow(profileNameLayout);
+        ensureProfileImageTagRow();
 
         if (iitRiskTag == null) {
             iitRiskTag = new TextView(this);
@@ -279,7 +279,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         return background;
     }
 
-    private void ensureProfileImageTagRow(LinearLayout profileNameLayout) {
+    private void ensureProfileImageTagRow() {
         if (iitProfileImageRow != null) {
             return;
         }
@@ -613,25 +613,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 formName);
     }
 
-    private Visit getLatestMotherMentorVisit() {
-        Visit serviceVisit = MotherMentorLibrary.getInstance().visitRepository()
-                .getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
-        Visit contactVisit = MotherMentorLibrary.getInstance().visitRepository()
-                .getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT);
-
-        if (serviceVisit == null) {
-            return contactVisit;
-        }
-
-        if (contactVisit == null || serviceVisit.getDate().after(contactVisit.getDate())) {
-            return serviceVisit;
-        }
-
-        return contactVisit;
-    }
-
     @Override
     public void startHivstRegistration() {
-
+        // HIV self-test registration is not supported from the Mother Mentor profile.
     }
 }
