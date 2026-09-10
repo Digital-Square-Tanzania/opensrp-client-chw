@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Referral follow-up",
+    "title": "Ufuatiliaji wa rufaa",
     "fields": [
       {
         "key": "referral_task_id",
@@ -76,19 +76,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_attended_referral",
         "type": "native_radio",
-        "label": "Did client attend the referral",
+        "label": "Mteja alihudhuria rufaa?",
         "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "",
             "openmrs_entity_id": "yes",
             "openmrs_entity_parent": ""
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "",
             "openmrs_entity_id": "no",
             "openmrs_entity_parent": ""
@@ -96,7 +96,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please indicate whether the client attended the referral"
+          "err": "Tafadhali eleza kama mteja alihudhuria rufaa"
         }
       },
       {
@@ -105,62 +105,62 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_not_attended",
         "type": "check_box",
-        "label": "Why didn't the client attend the referral",
+        "label": "Kwanini mteja hakuhudhuria rufaa?",
         "label_text_style": "bold",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "did_not_understand_referral_instruction",
-            "text": "Did not understand the referral instruction",
+            "text": "Mteja hakuelewa maana ya rufaa",
             "openmrs_entity": "",
             "openmrs_entity_id": "did_not_understand_referral_instruction",
             "openmrs_entity_parent": ""
           },
           {
             "key": "no_transport_to_facility",
-            "text": "Did not have transport to reach the facility",
+            "text": "Mteja hakuwa na usafiri wa kufika kituo cha rufaa",
             "openmrs_entity": "",
             "openmrs_entity_id": "no_transport_to_facility",
             "openmrs_entity_parent": ""
           },
           {
             "key": "lack_of_financial_means",
-            "text": "Lack of financial means to attend referral",
+            "text": "Mteja hakuwa na hela ya kuhudhuria rufaa",
             "openmrs_entity": "",
             "openmrs_entity_id": "lack_of_financial_means",
             "openmrs_entity_parent": ""
           },
           {
             "key": "health_condition_did_not_allow_travel",
-            "text": "Client's health condition did not allow him/ her to travel to the facility",
+            "text": "Hali ya afya ya mteja haikumruhusu kusafiri kuelekea rufaa",
             "openmrs_entity": "",
             "openmrs_entity_id": "health_condition_did_not_allow_travel",
             "openmrs_entity_parent": ""
           },
           {
             "key": "social_cultural_reasons",
-            "text": "Social cultural reasons",
+            "text": "Sababu za kijamii",
             "openmrs_entity": "",
             "openmrs_entity_id": "social_cultural_reasons",
             "openmrs_entity_parent": ""
           },
           {
             "key": "previous_negative_experience_or_fear",
-            "text": "Previous negative experience or fear",
+            "text": "Mteja ameshakuwa na uzoefu hasi na rufaa hapo zamani",
             "openmrs_entity": "",
             "openmrs_entity_id": "previous_negative_experience_or_fear",
             "openmrs_entity_parent": ""
           },
           {
             "key": "perceived_improvement_in_condition",
-            "text": "Perceived improvement in condition",
+            "text": "Mteja alijihisi amepona",
             "openmrs_entity": "",
             "openmrs_entity_id": "perceived_improvement_in_condition",
             "openmrs_entity_parent": ""
           },
           {
             "key": "busy_with_other_commitments",
-            "text": "Busy with other commitments",
+            "text": "Mteja alizongwa na shughuli nyingine",
             "openmrs_entity": "",
             "openmrs_entity_id": "busy_with_other_commitments",
             "openmrs_entity_parent": ""
@@ -174,7 +174,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select at least one reason"
+          "err": "Tafadhali chagua angalau sababu moja"
         }
       },
       {
@@ -183,19 +183,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "attended_assigned_facility",
         "type": "native_radio",
-        "label": "Did you go to the assigned referral facility",
+        "label": "Je, mteja alienda rufaa kwenye kituo alichopangiwa?",
         "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "",
             "openmrs_entity_id": "yes",
             "openmrs_entity_parent": ""
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "",
             "openmrs_entity_id": "no",
             "openmrs_entity_parent": ""
@@ -209,7 +209,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please indicate whether the assigned facility was attended"
+          "err": "Tafadhali eleza kama mteja alienda kituo alichopangiwa"
         }
       },
       {
@@ -218,27 +218,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_different_facility",
         "type": "check_box",
-        "label": "Reason for client attending a different facility",
+        "label": "Sababu za mteja kuhudhuria rufaa kituo tofauti",
         "label_text_style": "bold",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "preferred_the_other_facility",
-            "text": "Client preferred the other facility",
+            "text": "Mteja alipenda zaidi kituo kingine",
             "openmrs_entity": "",
             "openmrs_entity_id": "preferred_the_other_facility",
             "openmrs_entity_parent": ""
           },
           {
             "key": "no_service_at_assigned_facility",
-            "text": "Client did not get service at the assigned facility",
+            "text": "Mteja alikosa huduma kwenye kituo alichoandikiwa aende",
             "openmrs_entity": "",
             "openmrs_entity_id": "no_service_at_assigned_facility",
             "openmrs_entity_parent": ""
           },
           {
             "key": "did_not_know_location_of_assigned_facility",
-            "text": "Client did not know the location of the assigned facility",
+            "text": "Mteja hakujua mahali kilipo kituo alichoandikiwa aende",
             "openmrs_entity": "",
             "openmrs_entity_id": "did_not_know_location_of_assigned_facility",
             "openmrs_entity_parent": ""
@@ -252,7 +252,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select at least one reason"
+          "err": "Tafadhali chagua angalau sababu moja"
         }
       },
       {
@@ -263,9 +263,9 @@
         "type": "spinner",
         "searchable": true,
         "openmrs_data_type": "select one",
-        "label": "Which facility did the client attend",
+        "label": "Mteja alihudhuria rufaa kituo gani?",
         "label_text_style": "bold",
-        "hint": "Select the facility the client attended",
+        "hint": "Chagua kituo mteja alichohudhuria",
         "options": [],
         "relevance": {
           "step1:attended_assigned_facility": {
@@ -275,7 +275,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select the facility the client attended"
+          "err": "Tafadhali chagua kituo mteja alichohudhuria"
         }
       },
       {
@@ -284,19 +284,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "services_received",
         "type": "native_radio",
-        "label": "Did the client receive the services they were referred for",
+        "label": "Je, mteja alipata huduma alizopelekewa rufaa?",
         "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "",
             "openmrs_entity_id": "yes",
             "openmrs_entity_parent": ""
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "",
             "openmrs_entity_id": "no",
             "openmrs_entity_parent": ""
@@ -310,7 +310,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please indicate whether the client received the services"
+          "err": "Tafadhali eleza kama mteja alipata huduma"
         }
       },
       {
@@ -319,19 +319,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_condition",
         "type": "native_radio",
-        "label": "Current condition of the client",
+        "label": "Hali ya mteja baada ya kuhudhuria rufaa",
         "label_text_style": "bold",
         "options": [
           {
             "key": "no_danger_signs",
-            "text": "No danger signs",
+            "text": "Mteja hana dalili hatarishi",
             "openmrs_entity": "",
             "openmrs_entity_id": "no_danger_signs",
             "openmrs_entity_parent": ""
           },
           {
             "key": "exhibits_danger_signs",
-            "text": "Exhibits danger signs",
+            "text": "Mteja anaonesha dalili hatarishi",
             "openmrs_entity": "",
             "openmrs_entity_id": "exhibits_danger_signs",
             "openmrs_entity_parent": ""
@@ -339,7 +339,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please record the current condition of the client"
+          "err": "Tafadhali andika hali ya mteja kwa sasa"
         }
       },
       {
@@ -348,19 +348,19 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_satisfied",
         "type": "native_radio",
-        "label": "Was the client satisfied with the care received?",
+        "label": "Je, mteja ameridhika na huduma aliyopata kwenye rufaa?",
         "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "",
             "openmrs_entity_id": "yes",
             "openmrs_entity_parent": ""
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "",
             "openmrs_entity_id": "no",
             "openmrs_entity_parent": ""
@@ -374,7 +374,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please indicate whether the client was satisfied with the care received"
+          "err": "Tafadhali eleza kama mteja ameridhika na huduma aliyopata"
         }
       }
     ]

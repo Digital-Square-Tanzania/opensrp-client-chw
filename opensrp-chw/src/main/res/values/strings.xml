@@ -374,6 +374,8 @@
     <string name="mena">MenA</string>
 
     <string name="follow_up_visit">Follow-up Visit</string>
+    <string name="referral_follow_up">Follow Up</string>
+    <string name="referral_unresolved_condition">Referral for unresolved condition</string>
 
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
  as defined in the data dictionary -->

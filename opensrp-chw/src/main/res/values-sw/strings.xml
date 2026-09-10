@@ -283,6 +283,8 @@
     <string name="mena">MenA</string>
 
     <string name="follow_up_visit">Tembeleo la marudio</string>
+    <string name="referral_follow_up">Ufuatiliaji wa rufaa</string>
+    <string name="referral_unresolved_condition">Rufaa kwa hali isiyoboreka</string>
 
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
  as defined in the data dictionary -->
