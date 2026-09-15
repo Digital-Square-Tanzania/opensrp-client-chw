@@ -345,16 +345,27 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
                 StringUtils.equalsIgnoreCase(hivResult, "positive");
         boolean negative = !positive && (StringUtils.equalsIgnoreCase(hivResultRecent, "negative") ||
                 StringUtils.equalsIgnoreCase(hivResult, "negative"));
+        String existingCtcNumber = positive ? ChwKvpDao.getCtcNumber(baseEntityId) : null;
 
         setValue(formFields, "client_hiv_status", positive ? "positive" : negative ? "negative" : "");
         setValue(formFields, "hiv_positive", Boolean.toString(positive));
-        setValue(formFields, "ctc_number", positive ? StringUtils.defaultIfBlank(ctcNumberA, ctcNumberB) : "");
+        setValue(formFields, "ctc_number", resolvePersistedCtcNumber(positive, ctcNumberA, ctcNumberB, existingCtcNumber));
         setValue(formFields, "hiv_test_conducted", getCompatHivTestConducted(tested3months, hivResultRecent, referredForHiv, testedForHiv));
         setValue(formFields, "hiv_test_location", StringUtils.equalsIgnoreCase(testedForHiv, "yes") ? testingLocation : "");
 
         if (positive) {
             visitState.put("client_hiv_status", "positive");
         }
+    }
+
+    static String resolvePersistedCtcNumber(boolean positive, String ctcNumberA, String ctcNumberB,
+                                            String existingCtcNumber) {
+        if (!positive) {
+            return "";
+        }
+
+        return StringUtils.defaultIfBlank(ctcNumberA,
+                StringUtils.defaultIfBlank(ctcNumberB, StringUtils.defaultString(existingCtcNumber)));
     }
 
     private String getCompatHivTestConducted(String tested3months, String hivResultRecent, String referredForHiv, String testedForHiv) {

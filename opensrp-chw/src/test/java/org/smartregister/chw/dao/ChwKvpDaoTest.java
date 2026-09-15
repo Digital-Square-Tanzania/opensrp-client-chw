@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -52,6 +53,18 @@ public class ChwKvpDaoTest {
     public void swahiliNegativeResultAndIsoDateAreSupported() throws Exception {
         assertTrue(ChwKvpDao.isHivRetestDue(Collections.singletonList(
                 new ChwKvpDao.HivTestRecord("2026-01-15T10:30:00.000+03:00", "Hasi")), date("15-04-2026")));
+    }
+
+    @Test
+    public void ctcNumberResolutionUsesLatestAvailableValueAndSanitizesIt() {
+        assertEquals("normalized", ChwKvpDao.resolveCtcNumber(
+                "[\"normalized\"]", "branch-a", "branch-b", "registration"));
+        assertEquals("branch-a", ChwKvpDao.resolveCtcNumber(
+                null, "branch-a", "branch-b", "registration"));
+        assertEquals("branch-b", ChwKvpDao.resolveCtcNumber(
+                null, "", "branch-b", "registration"));
+        assertEquals("registration", ChwKvpDao.resolveCtcNumber(
+                null, null, null, "registration"));
     }
 
     private Date date(String value) throws Exception {

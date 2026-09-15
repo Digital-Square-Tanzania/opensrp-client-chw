@@ -67,6 +67,22 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
         assertFalse(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(true, true, true));
     }
 
+    @Test
+    public void positiveClientCtcNumberUsesCurrentVisitBeforeStoredValue() {
+        assertEquals("current-a", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
+                true, "current-a", "current-b", "stored"));
+        assertEquals("current-b", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
+                true, "", "current-b", "stored"));
+        assertEquals("stored", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
+                true, null, null, "stored"));
+    }
+
+    @Test
+    public void nonPositiveClientDoesNotPersistCtcNumber() {
+        assertEquals("", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
+                false, "current-a", "current-b", "stored"));
+    }
+
     private JSONObject formWithFields(JSONObject... formFields) throws Exception {
         JSONArray fields = new JSONArray();
         for (JSONObject field : formFields) {

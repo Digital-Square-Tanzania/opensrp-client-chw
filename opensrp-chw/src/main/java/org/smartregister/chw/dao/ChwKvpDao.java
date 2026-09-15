@@ -81,25 +81,20 @@ public class ChwKvpDao extends KvpDao {
     }
 
     public static boolean hasCtcNumber(String baseEntityId) {
-        String ctcNumber = StringUtils.defaultIfBlank(
+        return StringUtils.isNotBlank(getCtcNumber(baseEntityId));
+    }
+
+    public static String getCtcNumber(String baseEntityId) {
+        return resolveCtcNumber(
                 getLatestFollowupDetail(baseEntityId, "ctc_number"),
-                StringUtils.defaultIfBlank(
-                        getLatestFollowupDetail(baseEntityId, "ctc_number_a"),
-                        StringUtils.defaultIfBlank(getLatestFollowupDetail(baseEntityId, "ctc_number_b"), getRegistrationCtcNumber(baseEntityId))
-                )
+                getLatestFollowupDetail(baseEntityId, "ctc_number_a"),
+                getLatestFollowupDetail(baseEntityId, "ctc_number_b"),
+                getRegistrationCtcNumber(baseEntityId)
         );
+    }
 
-        if (StringUtils.isBlank(ctcNumber)) {
-            return false;
-        }
-
-        String normalizedCtc = ctcNumber
-                .replace("[", "")
-                .replace("]", "")
-                .replace("\"", "")
-                .trim();
-
-        return StringUtils.isNotBlank(normalizedCtc);
+    static String resolveCtcNumber(String normalizedFollowup, String branchA, String branchB, String registration) {
+        return firstNonBlank(normalizedFollowup, branchA, branchB, registration);
     }
 
     public static String getLatestVisitType(String baseEntityId) {
