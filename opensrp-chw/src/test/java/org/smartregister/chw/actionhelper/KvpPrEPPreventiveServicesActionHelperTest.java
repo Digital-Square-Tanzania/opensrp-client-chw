@@ -17,6 +17,7 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
     public void hivPositiveSuppressionKeepsHivstQuestionAndPromptVisible() throws Exception {
         JSONObject form = formWithFields(
                 field("hiv_result", "native_radio", true),
+                field("test_date", "date_picker", true),
                 field("kits_distributed", "native_radio", false),
                 field("prompt_for_hivst", "toaster_notes", true));
 
@@ -29,11 +30,14 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
 
         JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
         JSONObject hivResult = fields.getJSONObject(0);
-        JSONObject kitsDistributed = fields.getJSONObject(1);
-        JSONObject hivstPrompt = fields.getJSONObject(2);
+        JSONObject recentTestDate = fields.getJSONObject(1);
+        JSONObject kitsDistributed = fields.getJSONObject(2);
+        JSONObject hivstPrompt = fields.getJSONObject(3);
 
         assertEquals("hidden", hivResult.getString("type"));
         assertFalse(hivResult.has("relevance"));
+        assertEquals("hidden", recentTestDate.getString("type"));
+        assertFalse(recentTestDate.has("relevance"));
         assertEquals("native_radio", kitsDistributed.getString("type"));
         assertEquals("toaster_notes", hivstPrompt.getString("type"));
         assertTrue(hivstPrompt.has("relevance"));

@@ -39,6 +39,20 @@ public class KvpPrepPreventiveServicesConfigTest {
                 getField(form(FORM_PATHS[1]), "hiv_tested_within_last_3_months").getString("label"));
     }
 
+    @Test
+    public void recentHivTestBranchCapturesDateUsingExistingPersistenceConcept() throws Exception {
+        for (String formPath : FORM_PATHS) {
+            JSONObject testDate = getField(form(formPath), "test_date");
+
+            assertEquals(formPath, "date_picker", testDate.getString("type"));
+            assertEquals(formPath, "test_date", testDate.getString("openmrs_entity_id"));
+            assertEquals(formPath, "today", testDate.getString("max_date"));
+            assertTrue(formPath, testDate.getJSONObject("v_required").getBoolean("value"));
+            assertEquals(formPath, "equalTo(., \"yes\")", testDate.getJSONObject("relevance")
+                    .getJSONObject("step1:hiv_tested_within_last_3_months").getString("ex"));
+        }
+    }
+
     private JSONObject form(String formPath) throws Exception {
         return new JSONObject(new String(Files.readAllBytes(resolvePath(formPath)),
                 StandardCharsets.UTF_8));

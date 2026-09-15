@@ -77,6 +77,21 @@
         }
       },
       {
+        "key": "test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "test_date",
+        "type": "date_picker",
+        "label": "Date the test was conducted",
+        "hint": "Date the test was conducted",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {"value": "true", "err": "Please enter the test date"},
+        "relevance": {
+          "step1:hiv_tested_within_last_3_months": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
         "key": "ctc_number_a",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -238,7 +253,7 @@
         }
       },
       {
-        "key": "test_date",
+        "key": "branch_b_test_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "test_date",

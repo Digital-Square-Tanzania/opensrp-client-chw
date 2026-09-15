@@ -24,6 +24,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     private static final String[] HIV_PREP_SUPPRESSED_FIELDS = {
             "hiv_tested_within_last_3_months",
             "hiv_result_recent",
+            "test_date",
             "ctc_number_a",
             "on_prep",
             "prep_facility_a",
@@ -34,7 +35,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "tested_for_hiv",
             "testing_location",
             "facility_name",
-            "test_date",
+            "branch_b_test_date",
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
@@ -46,6 +47,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
 
     private static final String[] BRANCH_A_FIELDS = {
             "hiv_result_recent",
+            "test_date",
             "ctc_number_a",
             "on_prep",
             "prep_facility_a",
@@ -57,7 +59,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "tested_for_hiv",
             "testing_location",
             "facility_name",
-            "test_date",
+            "branch_b_test_date",
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
@@ -69,7 +71,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "tested_for_hiv",
             "testing_location",
             "facility_name",
-            "test_date",
+            "branch_b_test_date",
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
@@ -80,7 +82,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     private static final String[] TESTED_FOR_HIV_DOWNSTREAM_FIELDS = {
             "testing_location",
             "facility_name",
-            "test_date",
+            "branch_b_test_date",
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",

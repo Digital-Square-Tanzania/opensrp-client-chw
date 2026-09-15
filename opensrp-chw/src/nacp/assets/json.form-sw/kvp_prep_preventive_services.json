@@ -77,6 +77,21 @@
         }
       },
       {
+        "key": "test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "test_date",
+        "type": "date_picker",
+        "label": "Tarehe ya kipimo",
+        "hint": "Tarehe ya kipimo",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {"value": "true", "err": "Tafadhali ingiza tarehe ya kipimo"},
+        "relevance": {
+          "step1:hiv_tested_within_last_3_months": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
         "key": "ctc_number_a",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -241,7 +256,7 @@
         }
       },
       {
-        "key": "test_date",
+        "key": "branch_b_test_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "test_date",
