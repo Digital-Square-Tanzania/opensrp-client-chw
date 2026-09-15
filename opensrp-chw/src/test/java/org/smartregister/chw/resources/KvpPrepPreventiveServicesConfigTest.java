@@ -40,22 +40,54 @@ public class KvpPrepPreventiveServicesConfigTest {
     }
 
     @Test
-    public void recentHivTestBranchCapturesDateUsingExistingPersistenceConcept() throws Exception {
+    public void recentHivTestBranchCapturesDateUsingDedicatedBranchConcept() throws Exception {
         for (String formPath : FORM_PATHS) {
-            JSONObject testDate = getField(form(formPath), "test_date");
+            JSONObject testDate = getField(form(formPath), "branch_a_test_date");
 
             assertEquals(formPath, "date_picker", testDate.getString("type"));
-            assertEquals(formPath, "test_date", testDate.getString("openmrs_entity_id"));
+            assertEquals(formPath, "branch_a_test_date", testDate.getString("openmrs_entity_id"));
             assertEquals(formPath, "today", testDate.getString("max_date"));
             assertTrue(formPath, testDate.getJSONObject("v_required").getBoolean("value"));
             assertEquals(formPath, "equalTo(., \"yes\")", testDate.getJSONObject("relevance")
                     .getJSONObject("step1:hiv_tested_within_last_3_months").getString("ex"));
+
+            JSONObject calculatedTestDate = getField(form(formPath), "test_date");
+            assertEquals(formPath, "hidden", calculatedTestDate.getString("type"));
+            assertEquals(formPath, "test_date", calculatedTestDate.getString("openmrs_entity_id"));
         }
     }
 
+    @Test
+    public void branchTestDatesAreMappedAndMigratedAtDatabaseVersion50() throws Exception {
+        JSONObject clientFields = new JSONObject(readText("src/nacp/assets/ec_client_fields.json"));
+        JSONArray tables = clientFields.getJSONArray("bindobjects");
+        JSONArray columns = null;
+        for (int i = 0; i < tables.length(); i++) {
+            JSONObject table = tables.getJSONObject(i);
+            if ("ec_kvp_prep_followup".equals(table.optString("name"))) {
+                columns = table.getJSONArray("columns");
+                break;
+            }
+        }
+        if (columns == null) {
+            throw new AssertionError("Missing table: ec_kvp_prep_followup");
+        }
+
+        assertEquals(1, columnCount(columns, "branch_a_test_date"));
+        assertEquals(1, columnCount(columns, "branch_b_test_date"));
+        assertEquals(1, columnCount(columns, "test_date"));
+
+        String repository = readText("src/nacp/java/org/smartregister/chw/repository/ChwRepositoryFlv.java");
+        assertTrue(repository.contains("case 50:"));
+        assertTrue(repository.contains("upgradeToVersion50(db)"));
+        assertTrue(repository.contains("addColumnIfMissing(db, \"ec_kvp_prep_followup\", \"branch_a_test_date\")"));
+        assertTrue(repository.contains("addColumnIfMissing(db, \"ec_kvp_prep_followup\", \"branch_b_test_date\")"));
+        assertTrue(readText("build.gradle").contains(
+                "buildConfigField \"int\", \"DATABASE_VERSION\", '50'"));
+    }
+
     private JSONObject form(String formPath) throws Exception {
-        return new JSONObject(new String(Files.readAllBytes(resolvePath(formPath)),
-                StandardCharsets.UTF_8));
+        return new JSONObject(readText(formPath));
     }
 
     private JSONObject getField(JSONObject form, String key) throws Exception {
@@ -81,5 +113,19 @@ public class KvpPrepPreventiveServicesConfigTest {
         }
 
         throw new AssertionError("Could not resolve path: " + relativePath);
+    }
+
+    private String readText(String relativePath) throws Exception {
+        return new String(Files.readAllBytes(resolvePath(relativePath)), StandardCharsets.UTF_8);
+    }
+
+    private int columnCount(JSONArray columns, String name) throws Exception {
+        int count = 0;
+        for (int i = 0; i < columns.length(); i++) {
+            if (name.equals(columns.getJSONObject(i).optString("column_name"))) {
+                count++;
+            }
+        }
+        return count;
     }
 }

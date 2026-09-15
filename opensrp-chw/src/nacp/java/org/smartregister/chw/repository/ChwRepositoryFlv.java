@@ -188,6 +188,9 @@ public class ChwRepositoryFlv {
                 case 49:
                     upgradeToVersion49(db);
                     break;
+                case 50:
+                    upgradeToVersion50(db);
+                    break;
                 default:
                     break;
             }
@@ -1063,6 +1066,11 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, tableName, "diabetes_treatment_after_screening");
         addColumnIfMissing(db, tableName, "other_conditions_result");
         addColumnIfMissing(db, tableName, "other_conditions_treatment_after_screening");
+    }
+
+    private static void upgradeToVersion50(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_a_test_date");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_b_test_date");
     }
 
     private static void upgradeToVersion49(SQLiteDatabase db) {

@@ -24,7 +24,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     private static final String[] HIV_PREP_SUPPRESSED_FIELDS = {
             "hiv_tested_within_last_3_months",
             "hiv_result_recent",
-            "test_date",
+            "branch_a_test_date",
             "ctc_number_a",
             "on_prep",
             "prep_facility_a",
@@ -47,7 +47,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
 
     private static final String[] BRANCH_A_FIELDS = {
             "hiv_result_recent",
-            "test_date",
+            "branch_a_test_date",
             "ctc_number_a",
             "on_prep",
             "prep_facility_a",
@@ -339,6 +339,8 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
         String hivResult = getValue(formFields, "hiv_result");
         String ctcNumberA = getValue(formFields, "ctc_number_a");
         String ctcNumberB = getValue(formFields, "ctc_number_b");
+        String testDateA = getValue(formFields, "branch_a_test_date");
+        String testDateB = getValue(formFields, "branch_b_test_date");
 
         boolean positive = ChwKvpDao.isClientHivPositive(baseEntityId) ||
                 StringUtils.equalsIgnoreCase(hivResultRecent, "positive") ||
@@ -350,6 +352,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
         setValue(formFields, "client_hiv_status", positive ? "positive" : negative ? "negative" : "");
         setValue(formFields, "hiv_positive", Boolean.toString(positive));
         setValue(formFields, "ctc_number", resolvePersistedCtcNumber(positive, ctcNumberA, ctcNumberB, existingCtcNumber));
+        setValue(formFields, "test_date", resolvePersistedTestDate(testDateA, testDateB));
         setValue(formFields, "hiv_test_conducted", getCompatHivTestConducted(tested3months, hivResultRecent, referredForHiv, testedForHiv));
         setValue(formFields, "hiv_test_location", StringUtils.equalsIgnoreCase(testedForHiv, "yes") ? testingLocation : "");
 
@@ -366,6 +369,10 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
 
         return StringUtils.defaultIfBlank(ctcNumberA,
                 StringUtils.defaultIfBlank(ctcNumberB, StringUtils.defaultString(existingCtcNumber)));
+    }
+
+    static String resolvePersistedTestDate(String testDateA, String testDateB) {
+        return StringUtils.defaultIfBlank(testDateA, StringUtils.defaultString(testDateB));
     }
 
     private String getCompatHivTestConducted(String tested3months, String hivResultRecent, String referredForHiv, String testedForHiv) {

@@ -77,10 +77,10 @@
         }
       },
       {
-        "key": "test_date",
+        "key": "branch_a_test_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "test_date",
+        "openmrs_entity_id": "branch_a_test_date",
         "type": "date_picker",
         "label": "Date the test was conducted",
         "hint": "Date the test was conducted",
@@ -256,7 +256,7 @@
         "key": "branch_b_test_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "test_date",
+        "openmrs_entity_id": "branch_b_test_date",
         "type": "date_picker",
         "label": "Date the test was conducted",
         "hint": "Date the test was conducted",
@@ -382,6 +382,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ctc_number",
+        "type": "hidden"
+      },
+      {
+        "key": "test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "test_date",
         "type": "hidden"
       },
       {

@@ -5543,6 +5543,14 @@
           }
         },
         {
+          "column_name": "branch_a_test_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "branch_a_test_date"
+          }
+        },
+        {
           "column_name": "ctc_number_a",
           "type": "Event",
           "json_mapping": {
@@ -5604,6 +5612,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "facility_name"
+          }
+        },
+        {
+          "column_name": "branch_b_test_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "branch_b_test_date"
           }
         },
         {

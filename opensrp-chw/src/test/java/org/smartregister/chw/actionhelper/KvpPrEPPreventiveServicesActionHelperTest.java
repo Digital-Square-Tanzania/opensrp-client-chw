@@ -17,7 +17,7 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
     public void hivPositiveSuppressionKeepsHivstQuestionAndPromptVisible() throws Exception {
         JSONObject form = formWithFields(
                 field("hiv_result", "native_radio", true),
-                field("test_date", "date_picker", true),
+                field("branch_a_test_date", "date_picker", true),
                 field("kits_distributed", "native_radio", false),
                 field("prompt_for_hivst", "toaster_notes", true));
 
@@ -81,6 +81,15 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
     public void nonPositiveClientDoesNotPersistCtcNumber() {
         assertEquals("", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
                 false, "current-a", "current-b", "stored"));
+    }
+
+    @Test
+    public void calculatedTestDateUsesTheActiveBranchValue() {
+        assertEquals("15-06-2026", KvpPrEPPreventiveServicesActionHelper.resolvePersistedTestDate(
+                "15-06-2026", "01-01-2026"));
+        assertEquals("01-01-2026", KvpPrEPPreventiveServicesActionHelper.resolvePersistedTestDate(
+                "", "01-01-2026"));
+        assertEquals("", KvpPrEPPreventiveServicesActionHelper.resolvePersistedTestDate(null, null));
     }
 
     private JSONObject formWithFields(JSONObject... formFields) throws Exception {

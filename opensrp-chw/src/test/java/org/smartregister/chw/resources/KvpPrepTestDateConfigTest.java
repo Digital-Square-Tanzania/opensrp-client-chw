@@ -25,7 +25,7 @@ public class KvpPrepTestDateConfigTest {
             JSONObject testDate = getField(form(formPath), "branch_b_test_date");
 
             assertEquals(formPath, "date_picker", testDate.getString("type"));
-            assertEquals(formPath, "test_date", testDate.getString("openmrs_entity_id"));
+            assertEquals(formPath, "branch_b_test_date", testDate.getString("openmrs_entity_id"));
             assertEquals(formPath, "today-90d", testDate.getString("max_date"));
             assertTrue(formPath, testDate.getJSONObject("v_required").getBoolean("value"));
         }

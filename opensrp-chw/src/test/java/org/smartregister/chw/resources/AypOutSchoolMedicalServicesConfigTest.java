@@ -96,7 +96,7 @@ public class AypOutSchoolMedicalServicesConfigTest {
         Assert.assertTrue(repository.contains("case 49:"));
         Assert.assertTrue(repository.contains("upgradeToVersion49(db)"));
         Assert.assertTrue(readText("build.gradle").contains(
-                "buildConfigField \"int\", \"DATABASE_VERSION\", '49'"));
+                "buildConfigField \"int\", \"DATABASE_VERSION\", '50'"));
     }
 
     private static JSONObject form(String directory) throws Exception {
