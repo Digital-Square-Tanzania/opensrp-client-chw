@@ -39,6 +39,30 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
         assertTrue(hivstPrompt.has("relevance"));
     }
 
+    @Test
+    public void hivRetestQuestionCanReplaceFirstVisitQuestion() throws Exception {
+        JSONObject form = formWithFields(field("hiv_tested_within_last_3_months", "native_radio", false));
+        KvpPrEPPreventiveServicesActionHelper helper =
+                new KvpPrEPPreventiveServicesActionHelper("client-id", new HashMap<>());
+        Method setQuestion = KvpPrEPPreventiveServicesActionHelper.class
+                .getDeclaredMethod("setHivTestQuestion", JSONObject.class, String.class);
+        setQuestion.setAccessible(true);
+
+        setQuestion.invoke(helper, form, "Has the client undergone a repeat HIV/AIDS test?");
+
+        assertEquals("Has the client undergone a repeat HIV/AIDS test?",
+                form.getJSONObject("step1").getJSONArray("fields").getJSONObject(0).getString("label"));
+    }
+
+    @Test
+    public void hivTestingVisibilityHonorsVisitAndRetestState() {
+        assertTrue(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(false, false, false));
+        assertTrue(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(false, true, true));
+        assertFalse(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(false, true, false));
+        assertFalse(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(true, false, false));
+        assertFalse(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(true, true, true));
+    }
+
     private JSONObject formWithFields(JSONObject... formFields) throws Exception {
         JSONArray fields = new JSONArray();
         for (JSONObject field : formFields) {

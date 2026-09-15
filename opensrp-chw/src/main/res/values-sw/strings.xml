@@ -562,6 +562,8 @@
     <string name="kvp_prep_structural_services">Huduma za Kimuundo</string>
     <string name="kvp_prep_referral_services">Huduma za Rufaa</string>
     <string name="kvp_prep_next_visit_date">Tarehe ya Tembeleo Linalofuata</string>
+    <string name="kvp_hiv_first_visit_question">Je, umepima VVU ndani ya miezi mitatu iliyopita?</string>
+    <string name="kvp_hiv_retest_question">Je, mteja amepima kipimo cha VVU/UKIMWI cha marudio?</string>
     <string name="new_visit">Mteja Mpya</string>
     <string name="followup">Anaendelea na Huduma</string>
     <string name="positive">Chanya</string>

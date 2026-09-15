@@ -31,6 +31,14 @@ public class KvpPrepPreventiveServicesConfigTest {
         }
     }
 
+    @Test
+    public void firstVisitHivQuestionUsesApprovedWording() throws Exception {
+        assertEquals("Have you been tested for HIV in the last three months?",
+                getField(form(FORM_PATHS[0]), "hiv_tested_within_last_3_months").getString("label"));
+        assertEquals("Je, umepima VVU ndani ya miezi mitatu iliyopita?",
+                getField(form(FORM_PATHS[1]), "hiv_tested_within_last_3_months").getString("label"));
+    }
+
     private JSONObject form(String formPath) throws Exception {
         return new JSONObject(new String(Files.readAllBytes(resolvePath(formPath)),
                 StandardCharsets.UTF_8));

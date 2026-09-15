@@ -50,7 +50,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "hiv_tested_within_last_3_months",
-        "label": "Je, mteja amepima VVU ndani ya miezi 3 iliyopita?",
+        "label": "Je, umepima VVU ndani ya miezi mitatu iliyopita?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
