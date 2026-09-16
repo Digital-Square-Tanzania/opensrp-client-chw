@@ -17,6 +17,7 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
     public void hivPositiveSuppressionKeepsHivstQuestionAndPromptVisible() throws Exception {
         JSONObject form = formWithFields(
                 field("hiv_result", "native_radio", true),
+                field("branch_a_test_date", "date_picker", true),
                 field("kits_distributed", "native_radio", false),
                 field("prompt_for_hivst", "toaster_notes", true));
 
@@ -29,14 +30,66 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
 
         JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
         JSONObject hivResult = fields.getJSONObject(0);
-        JSONObject kitsDistributed = fields.getJSONObject(1);
-        JSONObject hivstPrompt = fields.getJSONObject(2);
+        JSONObject recentTestDate = fields.getJSONObject(1);
+        JSONObject kitsDistributed = fields.getJSONObject(2);
+        JSONObject hivstPrompt = fields.getJSONObject(3);
 
         assertEquals("hidden", hivResult.getString("type"));
         assertFalse(hivResult.has("relevance"));
+        assertEquals("hidden", recentTestDate.getString("type"));
+        assertFalse(recentTestDate.has("relevance"));
         assertEquals("native_radio", kitsDistributed.getString("type"));
         assertEquals("toaster_notes", hivstPrompt.getString("type"));
         assertTrue(hivstPrompt.has("relevance"));
+    }
+
+    @Test
+    public void hivRetestQuestionCanReplaceFirstVisitQuestion() throws Exception {
+        JSONObject form = formWithFields(field("hiv_tested_within_last_3_months", "native_radio", false));
+        KvpPrEPPreventiveServicesActionHelper helper =
+                new KvpPrEPPreventiveServicesActionHelper("client-id", new HashMap<>());
+        Method setQuestion = KvpPrEPPreventiveServicesActionHelper.class
+                .getDeclaredMethod("setHivTestQuestion", JSONObject.class, String.class);
+        setQuestion.setAccessible(true);
+
+        setQuestion.invoke(helper, form, "Has the client undergone a repeat HIV/AIDS test?");
+
+        assertEquals("Has the client undergone a repeat HIV/AIDS test?",
+                form.getJSONObject("step1").getJSONArray("fields").getJSONObject(0).getString("label"));
+    }
+
+    @Test
+    public void hivTestingVisibilityHonorsVisitAndRetestState() {
+        assertTrue(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(false, false, false));
+        assertTrue(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(false, true, true));
+        assertFalse(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(false, true, false));
+        assertFalse(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(true, false, false));
+        assertFalse(KvpPrEPPreventiveServicesActionHelper.shouldShowHivTestingFields(true, true, true));
+    }
+
+    @Test
+    public void positiveClientCtcNumberUsesCurrentVisitBeforeStoredValue() {
+        assertEquals("current-a", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
+                true, "current-a", "current-b", "stored"));
+        assertEquals("current-b", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
+                true, "", "current-b", "stored"));
+        assertEquals("stored", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
+                true, null, null, "stored"));
+    }
+
+    @Test
+    public void nonPositiveClientDoesNotPersistCtcNumber() {
+        assertEquals("", KvpPrEPPreventiveServicesActionHelper.resolvePersistedCtcNumber(
+                false, "current-a", "current-b", "stored"));
+    }
+
+    @Test
+    public void calculatedTestDateUsesTheActiveBranchValue() {
+        assertEquals("15-06-2026", KvpPrEPPreventiveServicesActionHelper.resolvePersistedTestDate(
+                "15-06-2026", "01-01-2026"));
+        assertEquals("01-01-2026", KvpPrEPPreventiveServicesActionHelper.resolvePersistedTestDate(
+                "", "01-01-2026"));
+        assertEquals("", KvpPrEPPreventiveServicesActionHelper.resolvePersistedTestDate(null, null));
     }
 
     private JSONObject formWithFields(JSONObject... formFields) throws Exception {

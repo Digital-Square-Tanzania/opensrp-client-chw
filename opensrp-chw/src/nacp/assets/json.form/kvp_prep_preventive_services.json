@@ -50,7 +50,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "hiv_tested_within_last_3_months",
-        "label": "Has the client been tested for HIV in the last 3 months?",
+        "label": "Have you been tested for HIV in the last three months?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -72,6 +72,21 @@
           {"key": "positive", "text": "Positive", "openmrs_entity": "concept", "openmrs_entity_id": "positive"}
         ],
         "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:hiv_tested_within_last_3_months": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
+        "key": "branch_a_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "branch_a_test_date",
+        "type": "date_picker",
+        "label": "Date the test was conducted",
+        "hint": "Date the test was conducted",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {"value": "true", "err": "Please enter the test date"},
         "relevance": {
           "step1:hiv_tested_within_last_3_months": {"type": "string", "ex": "equalTo(., \"yes\")"}
         }
@@ -238,10 +253,10 @@
         }
       },
       {
-        "key": "test_date",
+        "key": "branch_b_test_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "test_date",
+        "openmrs_entity_id": "branch_b_test_date",
         "type": "date_picker",
         "label": "Date the test was conducted",
         "hint": "Date the test was conducted",
@@ -368,6 +383,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ctc_number",
+        "type": "hidden"
+      },
+      {
+        "key": "test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "test_date",
         "type": "hidden"
       },
       {

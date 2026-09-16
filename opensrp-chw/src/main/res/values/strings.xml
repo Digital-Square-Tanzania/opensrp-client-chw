@@ -599,6 +599,8 @@
     <string name="agyw_reports_subtitle">View AGYW Report</string>
     <string name="view_visit_history">View visit history</string>
     <string name="kvp_prep_next_visit_date">Next Visit Date</string>
+    <string name="kvp_hiv_first_visit_question">Have you been tested for HIV in the last three months?</string>
+    <string name="kvp_hiv_retest_question">Has the client undergone a repeat HIV/AIDS test?</string>
 
     <string name="child_danger_signs_baby">Danger signs</string>
     <string name="child_danger_signs_baby_task">Danger signs</string>
