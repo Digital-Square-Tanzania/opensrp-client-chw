@@ -1068,11 +1068,6 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, tableName, "other_conditions_treatment_after_screening");
     }
 
-    private static void upgradeToVersion50(SQLiteDatabase db) {
-        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_a_test_date");
-        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_b_test_date");
-    }
-
     private static void upgradeToVersion49(SQLiteDatabase db) {
         String tableName = "ec_ayp_out_school_client_followup_visits";
         addColumnIfMissing(db, tableName, "hiv_positive");
@@ -1100,7 +1095,10 @@ public class ChwRepositoryFlv {
      * The ec_referral_followup table itself is created from ec_client_fields.json; only the new
      * answer columns need adding for devices upgrading from an earlier database version.
      */
-    private static void upgradeToVersion49(SQLiteDatabase db) {
+    private static void upgradeToVersion50(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_a_test_date");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_b_test_date");
+
         String tableName = "ec_referral_followup";
         addColumnIfMissing(db, tableName, "referral_task_id");
         addColumnIfMissing(db, tableName, "client_attended_referral");
