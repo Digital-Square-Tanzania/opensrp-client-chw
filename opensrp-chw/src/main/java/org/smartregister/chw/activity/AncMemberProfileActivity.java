@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -106,15 +105,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
-        notificationListAdapter.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onResumption() {
+        super.onResumption();
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
                 memberObject.getBaseEntityId(), this);
@@ -123,6 +115,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     @Override
     protected void onCreation() {
         super.onCreation();
+        // SecuredActivity skips this hook when the session has expired.
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addAncReferralTypes();
         }
@@ -183,11 +178,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(baseAncFloatingMenu, linearLayoutParams);
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
     }
 
     private void addAncReferralTypes() {
