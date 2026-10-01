@@ -3,6 +3,7 @@ package org.smartregister.chw.application;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.core.utils.Utils;
 
 import java.util.Arrays;
@@ -63,6 +64,16 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean isSyncUsingPost() {
         return !BuildConfig.DEBUG && ChwApplication.getApplicationFlavor().syncUsingPost();
+    }
+
+    public List<String> getTeamIdScopedEventTypes() {
+        return Arrays.asList(
+                "Hiv Index Contact Registration",
+                "HIV Index Contact Community Followup Referral",
+                Constants.Events.LTFU_FEEDBACK,
+                "LTF Referral Registration",
+                "HIV Index Contact CHW Followup"
+        );
     }
 
     @Override
