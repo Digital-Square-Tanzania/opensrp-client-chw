@@ -274,7 +274,7 @@ public class AllClientsUtils {
 
         // Helper methods for commonly repeated logic
         int age = getPersonAge(commonPersonObject);
-        boolean isFemaleOfReproductiveAge = gender.equalsIgnoreCase("Female") && flavor.isOfReproductiveAge(commonPersonObject, "Female");
+        boolean isFemaleOfReproductiveAge = age >= 0 && gender.equalsIgnoreCase("Female") && flavor.isOfReproductiveAge(commonPersonObject, "Female");
 
         // Handle team role logic
         if (!teamRoleIdentifier.isEmpty()) {
@@ -329,7 +329,7 @@ public class AllClientsUtils {
         }
 
         // Handle Family Planning Menu items
-        if (ChwApplication.getApplicationFlavor().hasFamilyPlanning() && flavor.isOfReproductiveAge(commonPersonObject, gender)) {
+        if (age >= 0 && ChwApplication.getApplicationFlavor().hasFamilyPlanning() && flavor.isOfReproductiveAge(commonPersonObject, gender)) {
             flavor.updateFpMenuItems(baseEntityId, menu);
         } else {
             setMenuItemVisibility(menu, R.id.action_fp_initiation, false);
@@ -434,7 +434,15 @@ public class AllClientsUtils {
 
     private static int getPersonAge(CommonPersonObjectClient commonPersonObject) {
         String dob = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
-        return org.smartregister.chw.util.Utils.getAgeFromDate(dob);
+        if (StringUtils.isBlank(dob)) {
+            return -1;
+        }
+        try {
+            return org.smartregister.chw.util.Utils.getAgeFromDate(dob);
+        } catch (IllegalArgumentException e) {
+            // An unknown age must not qualify the client for an age-gated service.
+            return -1;
+        }
     }
 
     private static boolean isRegisteredForHarmReduction(String baseEntityId) {
