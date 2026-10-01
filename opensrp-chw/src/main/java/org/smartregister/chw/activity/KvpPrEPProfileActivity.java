@@ -39,6 +39,7 @@ import org.smartregister.chw.kvp.util.Constants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.KvpServiceDateUtils;
 import org.smartregister.chw.util.KvpVisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -161,6 +162,19 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity implements On
                 imageViewCross.setImageResource(org.smartregister.chw.core.R.drawable.activityrow_notvisited);
             }
         }
+        updateVisitButtonAvailability();
+    }
+
+    private void updateVisitButtonAvailability() {
+        Visit latestVisit = getVisit(org.smartregister.chw.util.Constants.Events.KVP_PREP_FOLLOWUP_VISIT);
+        boolean visitRecordedToday = KvpServiceDateUtils.hasVisitToday(
+                ChwKvpDao.getLatestProcessedFollowupDate(memberObject.getBaseEntityId()),
+                latestVisit == null ? null : latestVisit.getDate(),
+                new Date());
+
+        textViewRecordKvp.setEnabled(!visitRecordedToday);
+        textViewRecordKvp.setClickable(!visitRecordedToday);
+        textViewRecordKvp.setAlpha(visitRecordedToday ? 0.5f : 1.0f);
     }
 
     private Date truncateTimeFromDate(Date date) {
@@ -211,6 +225,10 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity implements On
 
         // Check if there is a dominant KVP group and update UI accordingly
         if (StringUtils.isNotBlank(dominantKVPGroup)) {
+            int horizontalPadding = getResources().getDimensionPixelSize(R.dimen.text_margin);
+            textViewDominantKvpGroup.setPaddingRelative(horizontalPadding,
+                    textViewDominantKvpGroup.getPaddingTop(), horizontalPadding,
+                    textViewDominantKvpGroup.getPaddingBottom());
             textViewDominantKvpGroup.setVisibility(View.VISIBLE);
             textViewDominantKvpGroup.setText(getString(org.smartregister.chw.kvp.R.string.dominant_kvp_group,
                     readStringResourcesWithPrefix(Arrays.asList(dominantKVPGroup), "kvp_")));
@@ -456,6 +474,9 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity implements On
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.textview_record_kvp && !textViewRecordKvp.isEnabled()) {
+            return;
+        }
         super.onClick(view);
         handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }

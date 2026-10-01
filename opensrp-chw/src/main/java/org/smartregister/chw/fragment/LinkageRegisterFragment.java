@@ -44,6 +44,14 @@ public class LinkageRegisterFragment extends ReferralRegisterFragment {
         ChwLinkageDetailsViewActivity.startChwLinkageDetailsViewActivity(getActivity(), new MemberObject(client), client);
     }
 
+    /**
+     * The linkage register has no follow-up form of its own, so the row action stays hidden here.
+     */
+    @Override
+    protected boolean isFollowUpActionEnabled() {
+        return false;
+    }
+
     @Override
     protected void openFollowUpVisit(CommonPersonObjectClient client) {
         //MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(getActivity(), client.getCaseId());

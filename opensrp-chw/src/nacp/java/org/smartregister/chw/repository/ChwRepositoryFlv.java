@@ -176,6 +176,21 @@ public class ChwRepositoryFlv {
                 case 45:
                     upgradeToVersion45(db);
                     break;
+                case 46:
+                    upgradeToVersion46(db); 
+                    break;
+                case 47:
+                    upgradeToVersion47(db);
+                    break;
+                case 48:
+                    upgradeToVersion48(db);
+                    break;
+                case 49:
+                    upgradeToVersion49(db);
+                    break;
+                case 50:
+                    upgradeToVersion50(db);
+                    break;
                 default:
                     break;
             }
@@ -1014,6 +1029,121 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_referral ADD COLUMN is_emergency_case VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion45-add-is_emergency_case");
+        }
+    }
+
+    private static void upgradeToVersion46(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_register", "hiv_status");
+        addColumnIfMissing(db, "ec_kvp_prep_register", "ctc_number");
+        addColumnIfMissing(db, "ec_kvp_prep_register", "hiv_positive");
+
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_positive");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_tested_within_last_3_months");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_result_recent");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "ctc_number_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "on_prep");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep_recent");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "referred_for_hiv_test");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "tested_for_hiv");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "testing_location");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "facility_name");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "test_date");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "hiv_result");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "ctc_number_b");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_follow_up");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility_b");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep");
+    }
+
+    private static void upgradeToVersion48(SQLiteDatabase db) {
+        String tableName = "ec_harm_reduction_sober_house_services";
+        addColumnIfMissing(db, tableName, "screening_tests_done");
+        addColumnIfMissing(db, tableName, "other_conditions_specify");
+        addColumnIfMissing(db, tableName, "mental_health_result");
+        addColumnIfMissing(db, tableName, "mental_health_treatment_after_screening");
+        addColumnIfMissing(db, tableName, "diabetes_result");
+        addColumnIfMissing(db, tableName, "diabetes_treatment_after_screening");
+        addColumnIfMissing(db, tableName, "other_conditions_result");
+        addColumnIfMissing(db, tableName, "other_conditions_treatment_after_screening");
+    }
+
+    private static void upgradeToVersion49(SQLiteDatabase db) {
+        String tableName = "ec_ayp_out_school_client_followup_visits";
+        addColumnIfMissing(db, tableName, "hiv_positive");
+        addColumnIfMissing(db, tableName, "client_hiv_status");
+        addColumnIfMissing(db, tableName, "ctc_number");
+        addColumnIfMissing(db, tableName, "hiv_tested_within_last_3_months");
+        addColumnIfMissing(db, tableName, "hiv_result_recent");
+        addColumnIfMissing(db, tableName, "ctc_number_a");
+        addColumnIfMissing(db, tableName, "on_prep");
+        addColumnIfMissing(db, tableName, "prep_facility_a");
+        addColumnIfMissing(db, tableName, "linked_to_prep_recent");
+        addColumnIfMissing(db, tableName, "tested_for_hiv");
+        addColumnIfMissing(db, tableName, "testing_location");
+        addColumnIfMissing(db, tableName, "facility_name");
+        addColumnIfMissing(db, tableName, "test_date");
+        addColumnIfMissing(db, tableName, "hiv_result");
+        addColumnIfMissing(db, tableName, "ctc_number_b");
+        addColumnIfMissing(db, tableName, "prep_follow_up");
+        addColumnIfMissing(db, tableName, "prep_facility_b");
+        addColumnIfMissing(db, tableName, "linked_to_prep");
+    }
+  
+    /**
+     * Referral follow-up (manual closure at community level) answers QN1-QN8.
+     * The ec_referral_followup table itself is created from ec_client_fields.json; only the new
+     * answer columns need adding for devices upgrading from an earlier database version.
+     */
+    private static void upgradeToVersion50(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_a_test_date");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_b_test_date");
+
+        String tableName = "ec_referral_followup";
+        addColumnIfMissing(db, tableName, "referral_task_id");
+        addColumnIfMissing(db, tableName, "client_attended_referral");
+        addColumnIfMissing(db, tableName, "reason_not_attended");
+        addColumnIfMissing(db, tableName, "attended_assigned_facility");
+        addColumnIfMissing(db, tableName, "reason_different_facility");
+        addColumnIfMissing(db, tableName, "facility_attended");
+        addColumnIfMissing(db, tableName, "services_received");
+        addColumnIfMissing(db, tableName, "client_condition");
+        addColumnIfMissing(db, tableName, "client_satisfied");
+    }
+
+    private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
+        try {
+            if (!columnExists(db, tableName, columnName)) {
+                db.execSQL("ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion46-add-" + tableName + "-" + columnName);
+        }
+    }
+
+
+    private static void upgradeToVersion47(SQLiteDatabase db) {
+        addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services_provided");
+        addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services");
+        addHarmReductionFollowupVisitColumn(db, "linkage_to_other_services_specify");
+        addColumnIfMissing(db, "ec_harm_reduction_risk_assessment", "nickname");
+
+        try {
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            reportingLibrary.readConfigFile("config/harm-reduction-monthly-report.yml", db);
+            reportingLibrary.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion47-config");
+        }
+    }
+
+    private static void addHarmReductionFollowupVisitColumn(SQLiteDatabase db, String columnName) {
+        try {
+            if (!columnExists(db, "ec_harm_reduction_followup_visit", columnName)) {
+                db.execSQL("ALTER TABLE ec_harm_reduction_followup_visit ADD COLUMN " + columnName + " VARCHAR;");
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion47-add-" + columnName);
         }
     }
 

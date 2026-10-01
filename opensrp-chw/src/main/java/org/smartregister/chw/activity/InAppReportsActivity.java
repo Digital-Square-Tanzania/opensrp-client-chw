@@ -169,6 +169,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                     if (ChwApplication.getApplicationFlavor().hasTbLeprosy()) {
                         tbLeprosyReports.setVisibility(View.VISIBLE);
                     }
+                    ecdReports.setVisibility(View.VISIBLE);
                     break;
             }
         } else {
@@ -223,9 +224,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             if (ChwApplication.getApplicationFlavor().hasHps()) {
                 hpsReports.setVisibility(View.VISIBLE);
             }
+            ecdReports.setVisibility(View.VISIBLE);
         }
-
-        ecdReports.setVisibility(View.VISIBLE);
 
         motherChampionReportsLayout.setOnClickListener(this);
         condomDistributionReports.setOnClickListener(this);

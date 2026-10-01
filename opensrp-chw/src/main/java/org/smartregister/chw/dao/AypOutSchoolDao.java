@@ -27,4 +27,16 @@ public class AypOutSchoolDao extends AypDao {
         }
         return false;
     }
+
+    public static boolean isClientHivPositive(String baseEntityId) {
+        String sql = "SELECT base_entity_id FROM ec_ayp_out_school_client_followup_visits " +
+                "WHERE base_entity_id = '" + baseEntityId + "' " +
+                "AND (LOWER(COALESCE(hiv_positive, '')) = 'true' " +
+                "OR LOWER(COALESCE(client_hiv_status, '')) = 'positive' " +
+                "OR LOWER(COALESCE(hiv_result_recent, '')) = 'positive' " +
+                "OR LOWER(COALESCE(hiv_result, '')) = 'positive') LIMIT 1";
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "base_entity_id");
+        List<String> results = readData(sql, dataMap);
+        return results != null && !results.isEmpty();
+    }
 }

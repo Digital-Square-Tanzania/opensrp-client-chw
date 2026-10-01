@@ -5,3 +5,10 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = global_gender.equalsIgnoreCase('male') ? step1_client_group_male : (global_age >= 10 && global_age <= 24) ? step1_client_group_female_10_24 : step1_client_group_female"
+---
+name: step1_hivPositive
+description: true when HIV status captured at registration is positive
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_hivStatus != null && step1_hivStatus.equalsIgnoreCase('positive') ? 'true' : 'false'"
