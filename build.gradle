@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
 
-    ext.kotlinVersion = '2.0.21'
+    ext.kotlinVersion = '2.3.10'
     ext.koinVersion = '2.0.1'
     ext.espressoVersion = '3.2.0'
     ext.dokkaVersion = '0.10.1'
@@ -13,7 +13,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.5.2'
+        classpath 'com.android.tools.build:gradle:8.13.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.10.2"
         classpath 'com.google.gms:google-services:4.4.2'
@@ -68,8 +68,8 @@ subprojects {
     group = 'org.smartregister'
 
     ext.androidMinSdkVersion = 22
-    ext.androidCompileSdkVersion = 35
-    ext.androidTargetSdkVersion = 35
+    ext.androidCompileSdkVersion = 36
+    ext.androidTargetSdkVersion = 36
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'

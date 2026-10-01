@@ -28,6 +28,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.util.Android16WindowInsets;
 import org.smartregister.chw.activity.AddoLinkageRegisterActivity;
 import org.smartregister.chw.activity.AgywRegisterActivity;
 import org.smartregister.chw.activity.AypInSchoolRegisterActivity;
@@ -190,6 +191,10 @@ public class ChwApplication extends CoreChwApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+            registerActivityLifecycleCallbacks(new Android16WindowInsets());
+        }
 
         mInstance = this;
         context = Context.getInstance();

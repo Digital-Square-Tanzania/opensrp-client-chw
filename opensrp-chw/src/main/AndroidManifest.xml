@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
+    <!-- Retain legacy form cancellation and onBackPressed handlers on Android 16. -->
     <application
         android:name=".application.ChwApplication"
         android:allowBackup="true"
+        android:enableOnBackInvokedCallback="false"
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
         android:usesCleartextTraffic="true"
