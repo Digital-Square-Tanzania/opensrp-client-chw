@@ -39,7 +39,8 @@ import timber.log.Timber;
 
 public class TbLeprosyObservationResultsActivity extends CoreAncMedicalHistoryActivity {
 
-    private static MemberObject memberObject;
+    private static final String EXTRA_BASE_ENTITY_ID = "history_base_entity_id";
+    private static final String EXTRA_MEMBER_NAME = "history_member_name";
 
     private final Flavor flavor = new TbLeprosyObservationResultsActivityFlv();
 
@@ -47,22 +48,31 @@ public class TbLeprosyObservationResultsActivity extends CoreAncMedicalHistoryAc
 
     public static void startMe(Activity activity, MemberObject member) {
         Intent intent = new Intent(activity, TbLeprosyObservationResultsActivity.class);
-        memberObject = member;
+        intent.putExtra(EXTRA_BASE_ENTITY_ID, member.getBaseEntityId());
+        intent.putExtra(EXTRA_MEMBER_NAME, member.getFullName());
         activity.startActivity(intent);
     }
 
     @Override
     public void initializePresenter() {
-        presenter = new BaseAncMedicalHistoryPresenter(new TbLeprosyObservationResultsInteractor(), this, memberObject.getBaseEntityId());
+        if (isFinishing() || StringUtils.isBlank(getIntent().getStringExtra(EXTRA_BASE_ENTITY_ID))) {
+            return;
+        }
+        presenter = new BaseAncMedicalHistoryPresenter(new TbLeprosyObservationResultsInteractor(), this, getIntent().getStringExtra(EXTRA_BASE_ENTITY_ID));
     }
 
     @Override
     public void setUpView() {
+        // Intent extras survive process recreation; legacy launches may have no member payload.
+        if (StringUtils.isBlank(getIntent().getStringExtra(EXTRA_BASE_ENTITY_ID))) {
+            finish();
+            return;
+        }
         linearLayout = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.linearLayoutMedicalHistory);
         progressBar = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.progressBarMedicalHistory);
 
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
-        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, memberObject.getFullName()));
+        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, getIntent().getStringExtra(EXTRA_MEMBER_NAME)));
 
         ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.tbleprosy_visit_history_title));
     }
