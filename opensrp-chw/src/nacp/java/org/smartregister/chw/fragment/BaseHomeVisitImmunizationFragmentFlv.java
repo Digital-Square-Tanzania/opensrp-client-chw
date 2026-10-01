@@ -226,20 +226,7 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
         try {
             JSONObject accepted = new JSONObject(payload);
             if (!baseEntityID.equals(accepted.optString("entity_id")) || vaccineDisplays.isEmpty()) return false;
-            JSONArray fields = accepted.getJSONObject("step1").getJSONArray("fields");
-            Map<String, Date> dates = new LinkedHashMap<>();
-            SimpleDateFormat format = new SimpleDateFormat(org.smartregister.chw.anc.util.Constants.DATE_FORMATS.DOB, Locale.getDefault());
-            format.setLenient(false);
-            for (int index = 0; index < fields.length(); index++) {
-                JSONObject field = fields.getJSONObject(index);
-                for (String key : vaccineDisplays.keySet()) {
-                    if (!NCUtils.removeSpaces(key).equals(field.optString("key"))) continue;
-                    if (dates.containsKey(key)) return false;
-                    String value = field.getString("value");
-                    dates.put(key, org.smartregister.chw.anc.util.Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equals(value)
-                            ? null : format.parse(value));
-                }
-            }
+            Map<String, Date> dates = readAcceptedDates(accepted.getJSONObject("step1").getJSONArray("fields"));
             if (dates.size() != vaccineDisplays.size()) return false;
             for (Map.Entry<String, VaccineDisplay> entry : vaccineDisplays.entrySet()) {
                 Date date = dates.get(entry.getKey());
@@ -251,6 +238,23 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
         } catch (JSONException | java.text.ParseException e) {
             return false;
         }
+    }
+
+    private Map<String, Date> readAcceptedDates(JSONArray fields) throws JSONException, java.text.ParseException {
+        Map<String, Date> dates = new LinkedHashMap<>();
+        SimpleDateFormat format = new SimpleDateFormat(org.smartregister.chw.anc.util.Constants.DATE_FORMATS.DOB, Locale.getDefault());
+        format.setLenient(false);
+        for (int index = 0; index < fields.length(); index++) {
+            JSONObject field = fields.getJSONObject(index);
+            for (String key : vaccineDisplays.keySet()) {
+                if (!NCUtils.removeSpaces(key).equals(field.optString("key"))) continue;
+                if (dates.containsKey(key)) throw new JSONException("Repeated vaccine field: " + key);
+                String value = field.getString("value");
+                dates.put(key, org.smartregister.chw.anc.util.Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equals(value)
+                        ? null : format.parse(value));
+            }
+        }
+        return dates;
     }
 
     @Override

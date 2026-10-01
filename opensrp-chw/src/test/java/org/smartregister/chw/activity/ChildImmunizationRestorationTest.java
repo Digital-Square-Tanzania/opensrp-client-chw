@@ -153,7 +153,7 @@ public class ChildImmunizationRestorationTest extends ImmunizationRestorationTes
         for (BaseAncHomeVisitAction candidate : actions.values()) {
             if (destination(candidate).getVaccineDisplays().containsKey(vaccine)) return candidate;
         }
-        java.util.Map<String, Object> visible = new java.util.LinkedHashMap<>();
+        java.util.Map<String, Object> visible = new LinkedHashMap<>();
         for (BaseAncHomeVisitAction candidate : actions.values()) visible.put(candidate.getTitle(), destination(candidate).getVaccineDisplays().keySet());
         throw new AssertionError("Missing actual child vaccine action: " + vaccine + " in " + visible);
     }
