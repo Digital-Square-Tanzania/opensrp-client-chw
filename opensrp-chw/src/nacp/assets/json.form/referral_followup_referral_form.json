@@ -1,0 +1,181 @@
+{
+  "count": "1",
+  "encounter_type": "Referral Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Referral for unresolved condition",
+    "fields": [
+      {
+        "key": "problem",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "problem",
+        "type": "check_box",
+        "label": "Why is the client being referred again?",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "condition_not_improved",
+            "text": "Condition did not improve",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "condition_not_improved",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "condition_worsened",
+            "text": "Condition has worsened",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "condition_worsened",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "did_not_receive_services",
+            "text": "Did not receive the referred services",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "did_not_receive_services",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "new_danger_signs",
+            "text": "New danger signs observed",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "new_danger_signs",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "other",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one reason for the referral"
+        }
+      },
+      {
+        "key": "problem_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "problem_other",
+        "type": "edit_text",
+        "label": "Specify the other reason",
+        "label_text_style": "bold",
+        "hint": "Other reason",
+        "relevance": {
+          "step1:problem": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other reason"
+        }
+      },
+      {
+        "key": "chw_referral_hf",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_referral_hf",
+        "type": "spinner",
+        "searchable": true,
+        "openmrs_data_type": "select one",
+        "label": "Referral facility",
+        "label_text_style": "bold",
+        "hint": "Select the facility the client is being referred to",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please select the referral facility"
+        }
+      },
+      {
+        "key": "is_emergency_case",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_emergency_case",
+        "type": "native_radio",
+        "label": "Is this an emergency?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "Yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "No",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please indicate whether this is an emergency"
+        }
+      }
+    ]
+  }
+}

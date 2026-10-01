@@ -507,6 +507,25 @@
     <string name="positive">Positive</string>
     <string name="negative">Negative</string>
     <string name="unknown">Unknown</string>
+    <string name="community">Community</string>
+    <string name="facility">Health facility</string>
+    <string name="kvp_hiv_tested_within_last_3_months">Tested for HIV in the last 3 months:</string>
+    <string name="kvp_hiv_result_recent">Recent HIV test result:</string>
+    <string name="kvp_ctc_number_a">CTC ID:</string>
+    <string name="kvp_on_prep">Currently using PrEP:</string>
+    <string name="kvp_prep_facility_a">PrEP facility:</string>
+    <string name="kvp_linked_to_prep_recent">Linked to PrEP services:</string>
+    <string name="kvp_referred_for_hiv_test">Referred for HIV testing:</string>
+    <string name="kvp_tested_for_hiv">Tested for HIV:</string>
+    <string name="kvp_testing_location">HIV testing location:</string>
+    <string name="kvp_facility_name">HIV testing facility:</string>
+    <string name="kvp_test_date">HIV test date:</string>
+    <string name="kvp_hiv_result">HIV test result:</string>
+    <string name="kvp_ctc_number_b">CTC ID:</string>
+    <string name="kvp_prep_follow_up">Currently using PrEP:</string>
+    <string name="kvp_prep_facility_b">PrEP facility:</string>
+    <string name="kvp_linked_to_prep">Linked to PrEP services:</string>
+    <string name="kvp_next_visit_date">Next visit date:</string>
     <string name="kvp_condoms_given">Was the client given condoms:</string>
     <string name="kvp_type_of_issued_condoms">Types of condoms issued:</string>
     <string name="kvp_number_of_male_condoms_issued">Number of Male condoms issued:</string>
@@ -517,7 +536,7 @@
     <string name="kvp_number_of_alcohol_swabs_distributed">Number of Sterile Water for injection Distributed:</string>
     <string name="kvp_number_of_disposable_safety_boxes_distributed">Number of Disposable Safety Boxes Distributed:</string>
     <string name="kvp_number_of_plasters_distributed">Number of Plasters Distributed:</string>
-    <string name="kvp_kits_distributed">Number of HIVST Kits Distributed:</string>
+    <string name="kvp_kits_distributed">HIVST kits distributed:</string>
     <string name="kvp_number_of_coupons_distributed_for_social_network">Number of Coupons Distributed for social network:</string>
     <string name="male_condoms">Male Condoms</string>
     <string name="female_condoms">Female Condoms</string>
@@ -708,6 +727,9 @@
     <string name="harm_reduction_qty_syringes">Number of tools - Needles and syringes</string>
     <string name="harm_reduction_referrals_other_specify">If others, specify</string>
     <string name="harm_reduction_referrals_provided">Referrals provided</string>
+    <string name="harm_reduction_linkage_to_other_services_provided">Linkage services provided</string>
+    <string name="harm_reduction_linkage_to_other_services">Linkage services</string>
+    <string name="harm_reduction_linkage_to_other_services_specify">Other linkage services (Specify)</string>
     <string name="harm_reduction_remarks_comments">Remarks/Comments</string>
     <string name="harm_reduction_reproductive_health">Reproductive health, father, mother, child and adolescents</string>
     <string name="harm_reduction_rights_vulnerable">Rights of vulnerable population</string>
@@ -758,6 +780,14 @@
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypertension">Prompt for Management of Hypertension</string>
     <string name="harm_reduction_sober_house_prompt_for_management_of_hypotension">Prompt for Management of Hypotension</string>
     <string name="harm_reduction_sober_house_weight">Weight</string>
+    <string name="harm_reduction_sober_house_screening_tests_done">Disease Screening Performed</string>
+    <string name="harm_reduction_sober_house_other_conditions_specify">Other Diseases (Specify)</string>
+    <string name="harm_reduction_sober_house_mental_health_result">Mental Health Conditions - Results</string>
+    <string name="harm_reduction_sober_house_mental_health_treatment_after_screening">Mental Health Conditions - Treatment After Screening</string>
+    <string name="harm_reduction_sober_house_diabetes_result">Diabetes - Results</string>
+    <string name="harm_reduction_sober_house_diabetes_treatment_after_screening">Diabetes - Treatment After Screening</string>
+    <string name="harm_reduction_sober_house_other_conditions_result">Other Diseases - Results</string>
+    <string name="harm_reduction_sober_house_other_conditions_treatment_after_screening">Other Diseases - Treatment After Screening</string>
     <string name="harm_reduction_sober_house_client_current_status">Current Client Status</string>
     <string name="harm_reduction_sober_house_attended_recovery_meetings">Attended Recovery Meetings</string>
     <string name="harm_reduction_sober_house_recovery_meeting_types">Recovery Meeting Types</string>
@@ -778,6 +808,8 @@
     <string name="harm_reduction_sober_house_next_appointment_date">Next Appointment Date</string>
     <string name="harm_reduction_sober_house_aa">Alcoholics Anonymous (AA)</string>
     <string name="harm_reduction_sober_house_absconded">Absconded</string>
+    <string name="harm_reduction_sober_house_health_reasons">Health reasons</string>
+    <string name="harm_reduction_sober_house_misconduct">Misconduct</string>
     <string name="harm_reduction_sober_house_angry">Angry</string>
     <string name="harm_reduction_sober_house_anxious">Anxious</string>
     <string name="harm_reduction_sober_house_blood_pressure">Blood pressure</string>
@@ -802,6 +834,9 @@
     <string name="harm_reduction_sober_house_migrant_client">Migrant client</string>
     <string name="harm_reduction_sober_house_na">Narcotics Anonymous (NA)</string>
     <string name="harm_reduction_sober_house_new_client">New client</string>
+    <string name="harm_reduction_sober_house_mental_health_conditions">Mental health conditions</string>
+    <string name="harm_reduction_sober_house_diabetes">Diabetes</string>
+    <string name="harm_reduction_sober_house_other_conditions">Other diseases</string>
     <string name="harm_reduction_sober_house_not_done">Not done</string>
     <string name="harm_reduction_sober_house_problem_solving_decision_making">Problem solving and decision making</string>
     <string name="harm_reduction_sober_house_psychological_support">Psychological support</string>
@@ -882,7 +917,14 @@
     <string name="kvp_discordant_couples">Discordant Couples</string>
     <string name="kvp_fsw">WHR</string>
     <string name="kvp_msm">MHR</string>
+    <string name="kvp_pwid">PWID</string>
+    <string name="kvp_prisoners">Prisoners</string>
+    <string name="kvp_inmate">Inmate</string>
     <string name="kvp_agyw">vAGYW</string>
+    <string name="kvp_fisherman">Fisherman</string>
+    <string name="kvp_truck_drivers">Truck drivers</string>
+    <string name="kvp_miners">Miners</string>
+    <string name="kvp_other">Other Groups</string>
 
     <string name="last_appointment_date">Last Appointment date</string>
 
@@ -1987,6 +2029,39 @@
     <string name="anc_chw_comment_anc">Remarks / comments</string>
     <string name="invalid_first_clinic_visit_date_error">Invalid Date</string>
     <string name="invalid_first_clinic_visit_date_snackbar_error">First ANC visit must be 22+ days after LMP</string>
+
+    <!-- AYP In-school / Out-school group labels -->
+    <string name="ayp_in_school_groups_register_title">AYP In-school Groups</string>
+    <string name="ayp_out_school_groups_register_title">AYP Out-school Groups</string>
+    <string name="add_group_member">Add Group Member</string>
+    <string name="return_to_ayp_groups">Return to AYP Groups</string>
+    <string name="ayp_group_type_label">Type: %1$s</string>
+    <string name="ayp_group_age_band_label">Age-band: %1$s</string>
+    <string name="ayp_group_type_title">Type:</string>
+    <string name="ayp_group_age_band_title">Age-band:</string>
+    <string name="ayp_group_type_age_band">Age band</string>
+    <string name="ayp_group_type_classes">Classes</string>
+    <string name="ayp_age_band_age_10_14">10-14</string>
+    <string name="ayp_age_band_age_10_19_enabling_dreams">10-19 (Enabling DREAMS)</string>
+    <string name="ayp_age_band_age_15_19">15-19</string>
+    <string name="ayp_age_band_age_20_24">20-24</string>
+    <string name="group_members">Group Members</string>
+    <string name="less_than_five_members">Less Than Five Members</string>
+    <string name="group_members_count">Group Members: %1$d</string>
+    <string name="group_few_members_count">Less Than Five Members: %1$d</string>
+    <string name="ayp_group_max_members_reached">This group already has 15 members</string>
+    <string name="ayp_no_eligible_members_available">No eligible members available</string>
+    <string name="ayp_max_members_per_group">Maximum 15 members per group</string>
+    <string name="ayp_member_limit_exceeded">Member limit exceeded</string>
+    <string name="id_label">ID: %1$s</string>
+    <string name="filter_by_group_type">Filter by group type</string>
+    <string name="filter_all">All</string>
+    <string name="filter_group_type_age_band">Age band</string>
+    <string name="filter_group_type_classes">Classes</string>
+    <string name="ayp_visit_history">AYP visit history</string>
+    <string name="ayp_visit_history_empty">No AYP visit history recorded yet.</string>
+    <string name="ayp_visit_history_unknown_date">Visit date unavailable</string>
+    <string name="ayp_client">client</string>
 
 
 </resources>

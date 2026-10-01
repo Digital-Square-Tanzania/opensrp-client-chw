@@ -43,6 +43,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.JsonFormUtils;
 import com.vijay.jsonwizard.utils.FormUtils;
 import org.smartregister.chw.util.AllClientsUtils;
+import org.smartregister.chw.util.AypServiceDateUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -173,9 +174,19 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity im
             }
         }
 
-        if(isAypOutSchoolServiceToday(memberObject.getBaseEntityId())) {
-            textViewRecordayp.setVisibility(View.GONE);
-        }
+        updateServiceButtonAvailability();
+    }
+
+    private void updateServiceButtonAvailability() {
+        Visit latestVisit = getAypOutSchoolVisit();
+        boolean serviceProvidedToday = AypServiceDateUtils.hasServiceToday(
+                isAypOutSchoolServiceToday(memberObject.getBaseEntityId()),
+                latestVisit == null ? null : latestVisit.getDate(),
+                new Date());
+
+        textViewRecordayp.setEnabled(!serviceProvidedToday);
+        textViewRecordayp.setClickable(!serviceProvidedToday);
+        textViewRecordayp.setAlpha(serviceProvidedToday ? 0.5f : 1.0f);
     }
 
     private void enforceProcessVisitVisibility() {
@@ -515,6 +526,10 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity im
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.textview_record_ayp
+                && !textViewRecordayp.isEnabled()) {
+            return;
+        }
         super.onClick(view);
         handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }

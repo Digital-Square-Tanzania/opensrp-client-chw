@@ -52,37 +52,331 @@
     }
   },
   "step1": {
-    "title": "Referral followup",
+    "title": "Referral follow-up",
     "fields": [
       {
-        "key": "chw_followup_feedback",
+        "key": "referral_task_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "chw_followup_feedback",
-        "type": "edit_text"
-      },
-      {
-        "key": "chw_followup_feedback_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "chw_followup_feedback_id",
-        "type": "edit_text"
-      },
-      {
-        "key": "other_followup_feedback_information",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_followup_feedback_information",
-        "type": "edit_text"
+        "openmrs_entity_id": "referral_task_id",
+        "type": "hidden",
+        "value": ""
       },
       {
         "key": "chw_followup_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chw_followup_date",
-        "type": "edit_text"
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "client_attended_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_attended_referral",
+        "type": "native_radio",
+        "label": "Did client attend the referral",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please indicate whether the client attended the referral"
+        }
+      },
+      {
+        "key": "reason_not_attended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_not_attended",
+        "type": "check_box",
+        "label": "Why didn't the client attend the referral",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "did_not_understand_referral_instruction",
+            "text": "Did not understand the referral instruction",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "did_not_understand_referral_instruction",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no_transport_to_facility",
+            "text": "Did not have transport to reach the facility",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no_transport_to_facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "lack_of_financial_means",
+            "text": "Lack of financial means to attend referral",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "lack_of_financial_means",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "health_condition_did_not_allow_travel",
+            "text": "Client's health condition did not allow him/ her to travel to the facility",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "health_condition_did_not_allow_travel",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "social_cultural_reasons",
+            "text": "Social cultural reasons",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "social_cultural_reasons",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "previous_negative_experience_or_fear",
+            "text": "Previous negative experience or fear",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "previous_negative_experience_or_fear",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "perceived_improvement_in_condition",
+            "text": "Perceived improvement in condition",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "perceived_improvement_in_condition",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "busy_with_other_commitments",
+            "text": "Busy with other commitments",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "busy_with_other_commitments",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:client_attended_referral": {
+            "type": "String",
+            "ex": "equalTo(.,\"no\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one reason"
+        }
+      },
+      {
+        "key": "attended_assigned_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "attended_assigned_facility",
+        "type": "native_radio",
+        "label": "Did you go to the assigned referral facility",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:client_attended_referral": {
+            "type": "String",
+            "ex": "equalTo(.,\"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please indicate whether the assigned facility was attended"
+        }
+      },
+      {
+        "key": "reason_different_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_different_facility",
+        "type": "check_box",
+        "label": "Reason for client attending a different facility",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "preferred_the_other_facility",
+            "text": "Client preferred the other facility",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "preferred_the_other_facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no_service_at_assigned_facility",
+            "text": "Client did not get service at the assigned facility",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no_service_at_assigned_facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "did_not_know_location_of_assigned_facility",
+            "text": "Client did not know the location of the assigned facility",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "did_not_know_location_of_assigned_facility",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:attended_assigned_facility": {
+            "type": "String",
+            "ex": "equalTo(.,\"no\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one reason"
+        }
+      },
+      {
+        "key": "facility_attended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "facility_attended",
+        "type": "spinner",
+        "searchable": true,
+        "openmrs_data_type": "select one",
+        "label": "Which facility did the client attend",
+        "label_text_style": "bold",
+        "hint": "Select the facility the client attended",
+        "options": [],
+        "relevance": {
+          "step1:attended_assigned_facility": {
+            "type": "String",
+            "ex": "equalTo(.,\"no\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select the facility the client attended"
+        }
+      },
+      {
+        "key": "services_received",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "services_received",
+        "type": "native_radio",
+        "label": "Did the client receive the services they were referred for",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:client_attended_referral": {
+            "type": "String",
+            "ex": "equalTo(.,\"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please indicate whether the client received the services"
+        }
+      },
+      {
+        "key": "client_condition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_condition",
+        "type": "native_radio",
+        "label": "Current condition of the client",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "no_danger_signs",
+            "text": "No danger signs",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no_danger_signs",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "exhibits_danger_signs",
+            "text": "Exhibits danger signs",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "exhibits_danger_signs",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please record the current condition of the client"
+        }
+      },
+      {
+        "key": "client_satisfied",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_satisfied",
+        "type": "native_radio",
+        "label": "Was the client satisfied with the care received?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:client_condition": {
+            "type": "String",
+            "ex": "equalTo(.,\"no_danger_signs\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please indicate whether the client was satisfied with the care received"
+        }
       }
-
     ]
   }
 }
