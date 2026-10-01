@@ -1168,4 +1168,5 @@
     <string name="started_refreshing_reports">Imeanza kuchakata Ripoti Upya</string>
     <string name="refreshing_reports_progress">Uchakataji wa Ripoti Unaendelea</string>
     <string name="finished_refreshing_reports">Uchakataji wa Ripoti Umemalizika</string>
+    <string name="member_removal_reason_missing">Tafadhali chagua sababu ya kumuondoa mwanakaya na ujaribu tena.</string>
 </resources>
