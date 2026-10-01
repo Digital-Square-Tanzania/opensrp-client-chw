@@ -109,7 +109,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         this.relaxedDates = relaxedDates;
     }
 
-    private void setCheckBoxState(@Nullable CheckBox checkBox, boolean state) {
+    protected void setCheckBoxState(@Nullable CheckBox checkBox, boolean state) {
         if (checkBox == null) return;
         final Handler handler = new Handler();
         handler.postDelayed(() -> checkBox.setChecked(state), 100);
@@ -146,6 +146,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
             VaccineWrapper vaccineWrapper = entry.getValue().getVaccineWrapper();
 
             View vaccinationName = inflater.inflate(R.layout.custom_vaccine_name_check, null);
+            vaccinationName.setTag(vaccineWrapper.getName());
             TextView vaccineView = vaccinationName.findViewById(R.id.vaccine);
             CheckBox checkBox = vaccinationName.findViewById(R.id.select);
             setCheckBoxState(checkBox, false);

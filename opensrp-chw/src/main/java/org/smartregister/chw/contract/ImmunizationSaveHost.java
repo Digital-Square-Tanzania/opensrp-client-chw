@@ -1,0 +1,10 @@
+package org.smartregister.chw.contract;
+
+/** Routes a vaccination draft to its original visit action, including after recreation. */
+public interface ImmunizationSaveHost {
+    boolean saveImmunization(String visitId, String actionId, String childId, String requestId, String payload);
+
+    interface Dialog {
+        void bindToVisitAction(String visitId, String actionId, String requestId, String acceptedPayload);
+    }
+}
