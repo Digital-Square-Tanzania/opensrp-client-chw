@@ -28,6 +28,8 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
+import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
+import org.smartregister.chw.contract.ImmunizationSaveHost;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
@@ -62,12 +64,12 @@ import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER
 @Config(sdk = 28)
 @LooperMode(LooperMode.Mode.PAUSED)
 public class ImmunizationRestorationTest extends BaseUnitTest {
-    private static final String ACTION = "Immunization for Test Baby";
-    private ActivityController<TestPncActivity> controller;
+    protected static final String ACTION = "Immunization for Test Baby";
+    protected ActivityController<? extends BaseAncHomeVisitActivity> controller;
     private MockedStatic<PersonDao> people;
     private MockedStatic<FormUtils> forms;
-    private BaseHomeVisitImmunizationFragmentFlv fragment;
-    private BaseAncHomeVisitAction action;
+    protected BaseHomeVisitImmunizationFragmentFlv fragment;
+    protected BaseAncHomeVisitAction action;
 
     @Before
     public void setUp() throws Exception {
@@ -85,20 +87,28 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
             }
         });
         MemberObject mother = new MemberObject();
-        mother.setBaseEntityId("test-mother");
+        mother.setBaseEntityId(ownerId());
         controller = newController(new Intent().putExtra(MEMBER_PROFILE_OBJECT, mother), null);
         initializeAction();
         controller.get().startFragment(action);
         idle();
     }
 
-    private ActivityController<TestPncActivity> newController(Intent intent, Bundle state) {
-        ActivityController<TestPncActivity> result = Robolectric.buildActivity(TestPncActivity.class, intent);
+    protected String ownerId() { return "test-mother"; }
+
+    protected Class<? extends BaseAncHomeVisitActivity> activityClass() { return TestPncActivity.class; }
+
+    protected BaseAncHomeVisitAction.ProcessingMode processingMode() { return BaseAncHomeVisitAction.ProcessingMode.SEPARATE; }
+
+    protected ImmunizationSaveHost host() { return (ImmunizationSaveHost) controller.get(); }
+
+    private ActivityController<? extends BaseAncHomeVisitActivity> newController(Intent intent, Bundle state) {
+        ActivityController<? extends BaseAncHomeVisitActivity> result = Robolectric.buildActivity(activityClass(), intent);
         result.get().setTheme(R.style.ChwTheme_NoActionBar);
         return result.create(state).start().resume().visible();
     }
 
-    private void initializeAction() throws Exception {
+    protected void initializeAction() throws Exception {
         List<VaccineDisplay> displays = new ArrayList<>();
         for (String name : new String[]{"BCG", "OPV 0", "DPT 1"}) {
             VaccineWrapper wrapper = new VaccineWrapper();
@@ -113,7 +123,7 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
                 displays, false, "at_birth");
         action = spy(new BaseAncHomeVisitAction.Builder(controller.get(), ACTION)
                 .withBaseEntityID("test-baby")
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withProcessingMode(processingMode())
                 .withDestinationFragment(fragment).build());
         LinkedHashMap<String, BaseAncHomeVisitAction> actions = new LinkedHashMap<>();
         actions.put(ACTION, action);
@@ -217,13 +227,14 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
     public void rejectsDifferentMotherChildActionRequestOrPayload() throws Exception {
         String request = fragment.getArguments().getString("request_id");
         String payload = draftPayload("test-baby").toString();
-        assertFalse(controller.get().saveImmunization("other-mother", ACTION, "test-baby", request, payload));
-        assertFalse(controller.get().saveImmunization("test-mother", ACTION, "other-baby", request, payload));
-        assertFalse(controller.get().saveImmunization("test-mother", "Other action", "test-baby", request, payload));
-        assertFalse(controller.get().saveImmunization("test-mother", ACTION, "test-baby", "stale", payload));
-        assertFalse(controller.get().saveImmunization("test-mother", ACTION, "test-baby", request,
+        assertFalse(host().saveImmunization("other-mother", ACTION, "test-baby", request, payload));
+        assertFalse(host().saveImmunization(ownerId(), ACTION, "other-baby", request, payload));
+        assertFalse(host().saveImmunization(ownerId(), "Other action", "test-baby", request, payload));
+        assertFalse(host().saveImmunization(ownerId(), ACTION, "test-baby", "stale", payload));
+        assertFalse(host().saveImmunization(ownerId(), ACTION, "test-baby", request,
                 draftPayload("other-baby").toString()));
-        assertFalse(controller.get().saveImmunization("test-mother", ACTION, "test-baby", request, "{}"));
+        assertFalse(host().saveImmunization(ownerId(), ACTION, "test-baby", request, "{}"));
+        assertFalse(host().saveImmunization(ownerId(), ACTION, "test-baby", request, payload));
         verify(action, never()).setJsonPayload(anyString());
     }
 
@@ -234,8 +245,8 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
         save.performClick();
         String payload = action.getJsonPayload();
         save.performClick();
-        assertTrue(controller.get().saveImmunization("test-mother", ACTION, "test-baby", request, payload));
-        assertFalse(controller.get().saveImmunization("test-mother", ACTION, "test-baby", request,
+        assertTrue(host().saveImmunization(ownerId(), ACTION, "test-baby", request, payload));
+        assertFalse(host().saveImmunization(ownerId(), ACTION, "test-baby", request,
                 new JSONObject(payload).put("changed", true).toString()));
         verify(action, times(1)).setJsonPayload(anyString());
         JSONArray fields = new JSONObject(payload).getJSONObject("step1").getJSONArray("fields");
@@ -256,14 +267,14 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
         recreate(true);
         assertEquals(payload, action.getJsonPayload());
         verify(action, times(1)).setJsonPayload(payload);
-        assertTrue(controller.get().saveImmunization("test-mother", ACTION, "test-baby", request, payload));
+        assertTrue(host().saveImmunization(ownerId(), ACTION, "test-baby", request, payload));
         verify(action, times(1)).setJsonPayload(payload);
         fragment = (BaseHomeVisitImmunizationFragmentFlv) action.getDestinationFragment();
         controller.get().startFragment(action);
         idle();
         assertTrue(firstReason().isChecked());
         assertEquals(2, vaccineDate("OPV 0").getDayOfMonth());
-        assertFalse(controller.get().saveImmunization("test-mother", ACTION, "test-baby", request, payload));
+        assertFalse(host().saveImmunization(ownerId(), ACTION, "test-baby", request, payload));
         vaccineDate("BCG").updateDate(2020, 8, 3);
         fragment.requireView().findViewById(R.id.save_btn).performClick();
         verify(action, times(2)).setJsonPayload(anyString());
@@ -309,7 +320,7 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
         verify(action, never()).setJsonPayload(anyString());
     }
 
-    private void recreate(boolean loadActions) throws Exception {
+    protected void recreate(boolean loadActions) throws Exception {
         Bundle state = new Bundle();
         controller.saveInstanceState(state);
         Intent intent = controller.get().getIntent();
@@ -330,7 +341,7 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
         return null;
     }
 
-    private void enterPartialVaccination() {
+    protected void enterPartialVaccination() {
         vaccine("BCG").performClick();
         vaccine("OPV 0").performClick();
         ((RadioGroup) fragment.requireView().findViewById(R.id.select_date_mode)).check(R.id.each_its_date);
@@ -339,15 +350,15 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
         firstReason().setChecked(true);
     }
 
-    private CheckBox vaccine(String key) {
+    protected CheckBox vaccine(String key) {
         return row(R.id.vaccination_name_layout, key).findViewById(R.id.select);
     }
 
-    private DatePicker vaccineDate(String key) {
+    protected DatePicker vaccineDate(String key) {
         return row(R.id.single_vaccine_add_layout, key).findViewById(R.id.earlier_date_picker);
     }
 
-    private View row(int parent, String key) {
+    protected View row(int parent, String key) {
         ViewGroup rows = fragment.requireView().findViewById(parent);
         for (int i = 0; i < rows.getChildCount(); i++) {
             if (key.equals(rows.getChildAt(i).getTag())) return rows.getChildAt(i);
@@ -355,12 +366,12 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
         throw new AssertionError("Missing vaccine row: " + key);
     }
 
-    private CheckBox firstReason() {
+    protected CheckBox firstReason() {
         ViewGroup reasons = fragment.requireView().findViewById(R.id.reasons_no_vaccines);
         return reasons.getChildAt(0).findViewById(R.id.select);
     }
 
-    private JSONObject field(JSONObject payload, String key) throws Exception {
+    protected JSONObject field(JSONObject payload, String key) throws Exception {
         JSONArray fields = payload.getJSONObject("step1").getJSONArray("fields");
         for (int i = 0; i < fields.length(); i++) {
             if (key.equals(fields.getJSONObject(i).getString("key"))) return fields.getJSONObject(i);
@@ -384,7 +395,7 @@ public class ImmunizationRestorationTest extends BaseUnitTest {
         }
     }
 
-    private void idle() {
+    protected void idle() {
         Shadows.shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(500));
     }
 

@@ -46,7 +46,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.smartregister.chw.R.id.*;
 
 
 public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitImmunizationFragment
@@ -120,12 +119,8 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
         this.requestId = requestId;
         delivered = false;
         if (!TextUtils.isEmpty(acceptedPayload)) {
-            try {
-                jsonObject = new JSONObject(acceptedPayload);
-                restoredInputs = null;
-            } catch (JSONException e) {
-                invalidRestoration = true;
-            }
+            if (!applyAcceptedPayload(acceptedPayload)) invalidRestoration = true;
+            restoredInputs = null;
         }
         setArguments(saveDialogState());
     }
@@ -163,6 +158,8 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
                 VaccineDisplay display = new VaccineDisplay();
                 display.setVaccineWrapper(wrapper);
                 display.setStartDate(new Date(definition.getLong("start_date")));
+                display.setValid(definition.getBoolean("valid"));
+                if (definition.containsKey("date_given")) display.setDateGiven(new Date(definition.getLong("date_given")));
                 if (definition.containsKey("end_date")) display.setEndDate(new Date(definition.getLong("end_date")));
                 vaccineDisplays.put(wrapper.getName(), display);
             }
@@ -208,11 +205,52 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
             definition.putString("name", display.getVaccineWrapper().getName());
             definition.putSerializable("vaccine", display.getVaccineWrapper().getVaccine());
             definition.putLong("start_date", display.getStartDate().getTime());
+            definition.putBoolean("valid", Boolean.TRUE.equals(display.getValid()));
+            if (display.getDateGiven() != null) definition.putLong("date_given", display.getDateGiven().getTime());
             if (display.getEndDate() != null) definition.putLong("end_date", display.getEndDate().getTime());
             definitions.add(definition);
         }
         state.putParcelableArrayList("vaccines", definitions);
         return state;
+    }
+
+    @Override
+    public void setVaccineDisplays(Map<String, VaccineDisplay> displays) {
+        restoredInputs = null;
+        super.setVaccineDisplays(displays);
+    }
+
+    @Override
+    public boolean applyAcceptedPayload(String payload) {
+        if (TextUtils.isEmpty(baseEntityID) || TextUtils.isEmpty(payload)) return false;
+        try {
+            JSONObject accepted = new JSONObject(payload);
+            if (!baseEntityID.equals(accepted.optString("entity_id")) || vaccineDisplays.isEmpty()) return false;
+            JSONArray fields = accepted.getJSONObject("step1").getJSONArray("fields");
+            Map<String, Date> dates = new LinkedHashMap<>();
+            SimpleDateFormat format = new SimpleDateFormat(org.smartregister.chw.anc.util.Constants.DATE_FORMATS.DOB, Locale.getDefault());
+            format.setLenient(false);
+            for (int index = 0; index < fields.length(); index++) {
+                JSONObject field = fields.getJSONObject(index);
+                for (String key : vaccineDisplays.keySet()) {
+                    if (!NCUtils.removeSpaces(key).equals(field.optString("key"))) continue;
+                    if (dates.containsKey(key)) return false;
+                    String value = field.getString("value");
+                    dates.put(key, org.smartregister.chw.anc.util.Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equals(value)
+                            ? null : format.parse(value));
+                }
+            }
+            if (dates.size() != vaccineDisplays.size()) return false;
+            for (Map.Entry<String, VaccineDisplay> entry : vaccineDisplays.entrySet()) {
+                Date date = dates.get(entry.getKey());
+                entry.getValue().setDateGiven(date);
+                entry.getValue().setValid(date != null);
+            }
+            jsonObject = accepted;
+            return true;
+        } catch (JSONException | java.text.ParseException e) {
+            return false;
+        }
     }
 
     @Override
@@ -311,7 +349,7 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
     private void createViewOptionForNoVaccines() throws JSONException {
         ViewGroup parent = root.findViewById(R.id.reasons_no_vaccines);
         Set<String> reasonsEdit = getPrevMissingReasonsForEdit();
-        hide(reasonsEdit.isEmpty(), reasons_no_vaccines, why_no_vaccine);
+        hide(reasonsEdit.isEmpty(), R.id.reasons_no_vaccines, R.id.why_no_vaccine);
 
         FnList.from(root.getResources().getStringArray(R.array.reason_no_vaccine))
                 .map(KeyValue::create)
@@ -343,21 +381,21 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
         ViewGroup reasonsView = root.findViewById(R.id.reasons_no_vaccines);
         FnList.from(reasonsView)
                 .forEachItem(v -> ((CheckBox) v.findViewById(R.id.select)).setChecked(false));
-        hide(reasons_no_vaccines, why_no_vaccine);
-        show(congratulate_has_all_vaccine, select_date_mode, select_date_mode_label, multiple_vaccine_date_pickerview, single_vaccine_add_layout, vaccination_name_layout);
+        hide(R.id.reasons_no_vaccines, R.id.why_no_vaccine);
+        show(R.id.congratulate_has_all_vaccine, R.id.select_date_mode, R.id.select_date_mode_label, R.id.multiple_vaccine_date_pickerview, R.id.single_vaccine_add_layout, R.id.vaccination_name_layout);
         datePickerHelper.showDateForSelectedVaccines();
     }
 
     private void onFewVaccineSelected() {
-        show(reasons_no_vaccines, vaccination_name_layout, why_no_vaccine, select_date_mode, select_date_mode_label, multiple_vaccine_date_pickerview, single_vaccine_add_layout);
-        hide(congratulate_has_all_vaccine);
+        show(R.id.reasons_no_vaccines, R.id.vaccination_name_layout, R.id.why_no_vaccine, R.id.select_date_mode, R.id.select_date_mode_label, R.id.multiple_vaccine_date_pickerview, R.id.single_vaccine_add_layout);
+        hide(R.id.congratulate_has_all_vaccine);
         datePickerHelper.showDateForSelectedVaccines();
     }
 
     private void onNoVaccineSelected(boolean showReasons) {
-        hide(true, congratulate_has_all_vaccine);
-        hide(showReasons, multiple_vaccine_date_pickerview, select_date_mode, select_date_mode_label, single_vaccine_add_layout, vaccination_name_layout);
-        show(showReasons, reasons_no_vaccines, why_no_vaccine);
+        hide(true, R.id.congratulate_has_all_vaccine);
+        hide(showReasons, R.id.multiple_vaccine_date_pickerview, R.id.select_date_mode, R.id.select_date_mode_label, R.id.single_vaccine_add_layout, R.id.vaccination_name_layout);
+        show(showReasons, R.id.reasons_no_vaccines, R.id.why_no_vaccine);
 
         datePickerHelper.clearDates();
         ViewGroup reasonsView = root.findViewById(R.id.reasons_no_vaccines);
@@ -631,8 +669,8 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
             RadioGroup radioGroup = base.root.findViewById(R.id.select_date_mode);
             boolean sharedMode = radioGroup.getCheckedRadioButtonId() == R.id.each_its_date;
 
-            base.hide(sharedMode, multiple_vaccine_date_pickerview);
-            base.show(sharedMode, single_vaccine_add_layout);
+            base.hide(sharedMode, R.id.multiple_vaccine_date_pickerview);
+            base.show(sharedMode, R.id.single_vaccine_add_layout);
 
             if (!sharedMode) return;
             View root = base.root;

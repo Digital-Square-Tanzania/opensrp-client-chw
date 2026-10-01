@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -19,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ImmunizationSaveHost;
+import org.smartregister.chw.util.ImmunizationDrafts;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
@@ -51,111 +51,38 @@ import java.util.Random;
 import timber.log.Timber;
 
 public class PncHomeVisitActivity extends BasePncHomeVisitActivity implements ImmunizationSaveHost {
-    private static final String IMMUNIZATION_REQUESTS = "immunization_requests";
-    private static final String IMMUNIZATION_DRAFTS = "immunization_drafts";
-    private Bundle immunizationRequests = new Bundle();
-    private Bundle immunizationDrafts = new Bundle();
+    private final ImmunizationDrafts immunizationDrafts = new ImmunizationDrafts();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            Bundle requests = savedInstanceState.getBundle(IMMUNIZATION_REQUESTS);
-            Bundle drafts = savedInstanceState.getBundle(IMMUNIZATION_DRAFTS);
-            if (requests != null) immunizationRequests = new Bundle(requests);
-            if (drafts != null) immunizationDrafts = new Bundle(drafts);
-        }
+        immunizationDrafts.restoreState(savedInstanceState);
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBundle(IMMUNIZATION_REQUESTS, new Bundle(immunizationRequests));
-        outState.putBundle(IMMUNIZATION_DRAFTS, new Bundle(immunizationDrafts));
+        immunizationDrafts.saveState(outState);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void startFragment(BaseAncHomeVisitAction action) {
-        if (action.getDestinationFragment() instanceof ImmunizationSaveHost.Dialog) {
-            if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())) {
-                displayToast(getString(R.string.immunization_save_retry));
-                return;
-            }
-            String requestId = java.util.UUID.randomUUID().toString();
-            immunizationRequests.putString(action.getTitle(), requestId);
-            ((ImmunizationSaveHost.Dialog) action.getDestinationFragment()).bindToVisitAction(
-                    memberObject.getBaseEntityId(), action.getTitle(), requestId, action.getJsonPayload());
+        if (!immunizationDrafts.bind(memberObject == null ? null : memberObject.getBaseEntityId(), action)) {
+            displayToast(getString(R.string.immunization_save_retry));
+            return;
         }
         super.startFragment(action);
     }
 
     @Override
-    public boolean saveImmunization(String visitId, String actionId, String childId,
-                                    String requestId, String payload) {
-        BaseAncHomeVisitAction action = actionList.get(actionId);
-        if (isFinishing() || isDestroyed() || !isMatchingImmunizationAction(action, visitId, childId)
-                || TextUtils.isEmpty(requestId)
-                || !requestId.equals(immunizationRequests.getString(actionId))
-                || !isImmunizationPayloadForChild(payload, childId)) {
-            return false;
-        }
-        Bundle previous = immunizationDrafts.getBundle(actionId);
-        if (previous != null && requestId.equals(previous.getString("request_id"))) {
-            return payload.equals(previous.getString("payload"));
-        }
-
-        action.setJsonPayload(payload);
-        Bundle draft = new Bundle();
-        draft.putString("visit_id", visitId);
-        draft.putString("child_id", childId);
-        draft.putString("request_id", requestId);
-        draft.putString("payload", payload);
-        immunizationDrafts.putBundle(actionId, draft);
+    public boolean saveImmunization(String visitId, String actionId, String childId, String requestId, String payload) {
+        if (isFinishing() || isDestroyed() || !immunizationDrafts.accept(
+                memberObject == null ? null : memberObject.getBaseEntityId(), actionList,
+                visitId, actionId, childId, requestId, payload)) return false;
         if (mAdapter != null) mAdapter.notifyDataSetChanged();
         redrawVisitUI();
         return true;
     }
-
-    private boolean isMatchingImmunizationAction(BaseAncHomeVisitAction action, String visitId, String childId) {
-        return memberObject != null && !TextUtils.isEmpty(visitId) && !TextUtils.isEmpty(childId)
-                && visitId.equals(memberObject.getBaseEntityId()) && action != null
-                && childId.equals(action.getBaseEntityID())
-                && action.getDestinationFragment() instanceof ImmunizationSaveHost.Dialog;
-    }
-
-    private boolean isImmunizationPayloadForChild(String payload, String childId) {
-        if (TextUtils.isEmpty(payload) || TextUtils.isEmpty(childId)) return false;
-        try {
-            JSONObject form = new JSONObject(payload);
-            if (!childId.equals(form.optString("entity_id"))) return false;
-            JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
-            int missingReasonsFields = 0;
-            for (int index = 0; index < fields.length(); index++) {
-                if ("reasons_no_vaccination".equals(fields.getJSONObject(index).optString("key"))) {
-                    missingReasonsFields++;
-                }
-            }
-            return missingReasonsFields == 1;
-        } catch (JSONException e) {
-            return false;
-        }
-    }
-
-    private void restoreImmunizationDrafts() {
-        for (String actionId : immunizationDrafts.keySet()) {
-            Bundle draft = immunizationDrafts.getBundle(actionId);
-            BaseAncHomeVisitAction action = actionList.get(actionId);
-            if (draft != null && isMatchingImmunizationAction(action, draft.getString("visit_id"),
-                    draft.getString("child_id"))) {
-                String payload = draft.getString("payload");
-                if (isImmunizationPayloadForChild(payload, draft.getString("child_id"))
-                        && !payload.equals(action.getJsonPayload())) {
-                    action.setJsonPayload(payload);
-                }
-            }
-        }
-    }
-
 
     public static void startMe(Activity activity, MemberObject memberObject, Boolean isEditMode) {
         Intent intent = new Intent(activity, PncHomeVisitActivity.class);
@@ -299,7 +226,7 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity implements Im
         reorderKeysFirst(actionList, map, keys);
 
         actionList.putAll(map);
-        restoreImmunizationDrafts();
+        immunizationDrafts.restoreActions(memberObject == null ? null : memberObject.getBaseEntityId(), actionList);
 
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();

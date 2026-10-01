@@ -125,7 +125,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         this.vaccineDisplays = vaccineDisplays;
 
         // redraw all vaccine views
-        if (vaccineDisplays.size() > 0 && singleDatePicker != null) {
+        if (isAdded() && vaccineDisplays.size() > 0 && singleDatePicker != null) {
             initializeDatePicker(singleDatePicker, vaccineDisplays);
             addVaccineViews();
         }
@@ -142,6 +142,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     private void addVaccineViews() {
         // get the views and bind the click listener
         vaccineViews.clear();
+        vaccinationNameLayout.removeAllViews();
         for (Map.Entry<String, VaccineDisplay> entry : vaccineDisplays.entrySet()) {
             VaccineWrapper vaccineWrapper = entry.getValue().getVaccineWrapper();
 
