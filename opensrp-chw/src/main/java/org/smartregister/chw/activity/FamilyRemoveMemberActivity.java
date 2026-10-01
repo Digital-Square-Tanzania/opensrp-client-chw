@@ -73,8 +73,9 @@ public class FamilyRemoveMemberActivity extends CoreFamilyRemoveMemberActivity {
 
         // A restored activity/form result can lose the fragment's selected reason.
         // Do not send an incomplete removal to the core handler or guess a reason.
-        if (resultCode == Activity.RESULT_OK && !TextUtils.isEmpty(data.getStringExtra("json"))
-                && (removeMemberFragment == null || TextUtils.isEmpty(data.getStringExtra("reasonForRemove")))) {
+        if (resultCode == Activity.RESULT_OK && data.getStringExtra("json") != null
+                && (TextUtils.isEmpty(data.getStringExtra("json")) || removeMemberFragment == null
+                || TextUtils.isEmpty(data.getStringExtra("reasonForRemove")))) {
             Toast.makeText(this, R.string.member_removal_reason_missing, Toast.LENGTH_LONG).show();
             return;
         }
