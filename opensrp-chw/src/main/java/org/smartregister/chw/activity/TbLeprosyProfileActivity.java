@@ -11,7 +11,6 @@ import static org.smartregister.client.utils.constants.JsonFormConstants.JSON_FO
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Pair;
@@ -97,13 +96,6 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     @Nullable
     private String pendingContactRegistrationLocationId;
     private boolean pendingTbLeprosyReferralLaunch;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
-        notificationListAdapter.setOnClickListener(this);
-    }
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, TbLeprosyProfileActivity.class);
@@ -560,8 +552,15 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void initializeNotificationReferralRecyclerView() {
+        super.initializeNotificationReferralRecyclerView();
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
         applyTbLeprosyDeceasedHandling();
         delayRefresh();
     }
@@ -569,6 +568,9 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
     protected void delayRefresh() {
         try {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                if (context().IsUserLoggedOut() || isFinishing() || isDestroyed()) {
+                    return;
+                }
                 TbLeprosyDao.closeTbNegativeClients();
                 if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
                     Timber.w("Skipping TB/Leprosy profile refresh because memberObject is missing");
