@@ -339,14 +339,14 @@
         "options": [
           {
             "key": "chk_weight",
-            "text": "Uzito",
+            "text": "Kupima Uzito",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_weight"
           },
           {
             "key": "chk_height",
-            "text": "Urefu",
+            "text": "Kupima Urefu",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_height"
