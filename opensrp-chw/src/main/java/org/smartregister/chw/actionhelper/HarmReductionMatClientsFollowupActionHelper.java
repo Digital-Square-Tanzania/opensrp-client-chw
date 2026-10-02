@@ -32,6 +32,10 @@ public class HarmReductionMatClientsFollowupActionHelper implements BaseHarmRedu
 
     @Override
     public void onPayloadReceived(String jsonPayload) {
+        methadoneTreatmentStatus = "";
+        if (StringUtils.isBlank(jsonPayload)) {
+            return;
+        }
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
             methadoneTreatmentStatus = JsonFormUtils.getValue(jsonObject, METHADONE_TREATMENT_STATUS_KEY);

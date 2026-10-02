@@ -44,6 +44,11 @@ public class ProfileSessionExpiryTest extends BaseUnitTest {
         assertLoggedOutProfile(KvpPrEPProfileActivity.class);
     }
 
+    @Test
+    public void childProfileRedirectsWithoutUsingUninitializedMember() {
+        assertLoggedOutProfile(ChildProfileActivity.class);
+    }
+
     private <T extends Activity> void assertLoggedOutProfile(Class<T> activityClass) {
         LoggedOutApplication application = (LoggedOutApplication) RuntimeEnvironment.getApplication();
         CoreLibrary.getInstance().context().userService().logoutSession();
