@@ -13,6 +13,7 @@ public class HarmReductionRegisterActivityTest extends BaseUnitTest {
     @Test
     public void shouldLaunchPreMatSessionReturnsTrueForRiskAssessmentWithYesAnswer() throws Exception {
         JSONObject form = new JSONObject()
+                .put("count", "1")
                 .put(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE, Constants.EVENT_TYPE.HARM_REDUCTION_RISK_ASSESSMENT)
                 .put("step1", new JSONObject().put("fields", new org.json.JSONArray()
                         .put(new JSONObject()
@@ -26,6 +27,7 @@ public class HarmReductionRegisterActivityTest extends BaseUnitTest {
     @Test
     public void shouldLaunchPreMatSessionReturnsFalseWhenPreMatAnswerIsNo() throws Exception {
         JSONObject form = new JSONObject()
+                .put("count", "1")
                 .put(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE, Constants.EVENT_TYPE.HARM_REDUCTION_RISK_ASSESSMENT)
                 .put("step1", new JSONObject().put("fields", new org.json.JSONArray()
                         .put(new JSONObject()

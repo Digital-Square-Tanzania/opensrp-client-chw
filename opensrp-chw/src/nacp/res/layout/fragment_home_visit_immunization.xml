@@ -214,6 +214,15 @@
             android:layout_height="1px"
             android:background="@color/light_grey" />
 
+        <TextView
+            android:id="@+id/immunization_save_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:accessibilityLiveRegion="polite"
+            android:text="@string/immunization_save_retry"
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/save_btn"
             style="?android:attr/borderlessButtonStyle"

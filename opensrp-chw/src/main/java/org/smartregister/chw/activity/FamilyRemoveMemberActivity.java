@@ -3,11 +3,13 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.fragment.FamilyRemoveMemberFragment;
 import org.smartregister.family.util.JsonFormUtils;
@@ -22,7 +24,10 @@ public class FamilyRemoveMemberActivity extends CoreFamilyRemoveMemberActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (data == null) {
+            return;
+        }
+        if (resultCode == Activity.RESULT_OK) {
             try {
                 String json = data.getStringExtra("json");
                 if (!TextUtils.isEmpty(json)) {
@@ -62,12 +67,18 @@ public class FamilyRemoveMemberActivity extends CoreFamilyRemoveMemberActivity {
             }
         }
 
-        if (removeMemberFragment.getReasonForRemove() != null && data != null) {
+        if (removeMemberFragment != null && !TextUtils.isEmpty(removeMemberFragment.getReasonForRemove())) {
             data.putExtra("reasonForRemove", removeMemberFragment.getReasonForRemove());
         }
 
-        if (data != null) {
-            super.onActivityResult(requestCode, resultCode, data);
+        // A restored activity/form result can lose the fragment's selected reason.
+        // Do not send an incomplete removal to the core handler or guess a reason.
+        if (resultCode == Activity.RESULT_OK && data.getStringExtra("json") != null
+                && (TextUtils.isEmpty(data.getStringExtra("json")) || removeMemberFragment == null
+                || TextUtils.isEmpty(data.getStringExtra("reasonForRemove")))) {
+            Toast.makeText(this, R.string.member_removal_reason_missing, Toast.LENGTH_LONG).show();
+            return;
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

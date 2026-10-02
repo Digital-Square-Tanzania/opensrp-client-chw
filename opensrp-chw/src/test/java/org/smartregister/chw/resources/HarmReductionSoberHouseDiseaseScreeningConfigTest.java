@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.smartregister.chw.BuildConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -41,9 +42,7 @@ public class HarmReductionSoberHouseDiseaseScreeningConfigTest {
 
         Assert.assertTrue(repository.contains("case 48:"));
         Assert.assertTrue(repository.contains("upgradeToVersion48(db)"));
-        Assert.assertTrue(readText("build.gradle").contains(
-                "buildConfigField \"int\", \"DATABASE_VERSION\", '48'"
-        ));
+        Assert.assertTrue(BuildConfig.DATABASE_VERSION >= 48);
     }
 
     @Test

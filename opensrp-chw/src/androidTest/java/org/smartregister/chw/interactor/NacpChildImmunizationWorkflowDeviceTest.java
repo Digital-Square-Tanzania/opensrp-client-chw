@@ -58,7 +58,9 @@ public class NacpChildImmunizationWorkflowDeviceTest {
     private static final String TEAM_ID = "8b0ad916-115b-410c-9dd2-0b9fc00ca84f";
     private static final Pattern DATE_ONLY = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
 
-    private final LocalDate birthDate = new LocalDate(2026, 4, 23);
+    // The scheduler also reads Calendar, which Joda's test clock does not advance.
+    // Keep all stages through 18 months in the past for both clocks.
+    private final LocalDate birthDate = new LocalDate(LocalDate.now().getYear() - 2, 1, 1);
 
     private Context context;
     private DefaultChildHomeVisitInteractorFlv interactor;

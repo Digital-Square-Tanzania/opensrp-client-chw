@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.smartregister.chw.BuildConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -24,9 +25,7 @@ public class HarmReductionNicknameConfigTest {
         Assert.assertTrue(repository.contains(
                 "addColumnIfMissing(db, \"ec_harm_reduction_risk_assessment\", \"nickname\")"
         ));
-        Assert.assertTrue(readText("build.gradle").contains(
-                "buildConfigField \"int\", \"DATABASE_VERSION\", '47'"
-        ));
+        Assert.assertTrue(BuildConfig.DATABASE_VERSION >= 47);
     }
 
     private static JSONObject findTable(JSONArray tables, String name) throws Exception {

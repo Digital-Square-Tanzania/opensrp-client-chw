@@ -39,28 +39,38 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class AypOutSchoolMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
-    private static MemberObject aypMemberObject;
+    private static final String EXTRA_BASE_ENTITY_ID = "history_base_entity_id";
+    private static final String EXTRA_MEMBER_NAME = "history_member_name";
     private final Flavor flavor = new AypOutSchoolMedicalHistoryActivityFlv();
     private ProgressBar progressBar;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, AypOutSchoolMedicalHistoryActivity.class);
-        aypMemberObject = memberObject;
+        intent.putExtra(EXTRA_BASE_ENTITY_ID, memberObject.getBaseEntityId());
+        intent.putExtra(EXTRA_MEMBER_NAME, memberObject.getFullName());
         activity.startActivity(intent);
     }
 
     @Override
     public void initializePresenter() {
-        presenter = new BaseAncMedicalHistoryPresenter(new AypOutSchoolMedicalHistoryInteractor(), this, aypMemberObject.getBaseEntityId());
+        if (isFinishing() || StringUtils.isBlank(getIntent().getStringExtra(EXTRA_BASE_ENTITY_ID))) {
+            return;
+        }
+        presenter = new BaseAncMedicalHistoryPresenter(new AypOutSchoolMedicalHistoryInteractor(), this, getIntent().getStringExtra(EXTRA_BASE_ENTITY_ID));
     }
 
     @Override
     public void setUpView() {
+        // Intent extras survive process recreation; legacy launches may have no member payload.
+        if (StringUtils.isBlank(getIntent().getStringExtra(EXTRA_BASE_ENTITY_ID))) {
+            finish();
+            return;
+        }
         linearLayout = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.linearLayoutMedicalHistory);
         progressBar = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.progressBarMedicalHistory);
 
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
-        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, aypMemberObject.getFullName()));
+        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, getIntent().getStringExtra(EXTRA_MEMBER_NAME)));
 
         ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.visits_history));
     }

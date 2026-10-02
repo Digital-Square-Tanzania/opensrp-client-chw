@@ -8,7 +8,6 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Pair;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -61,8 +60,9 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity implements On
     private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreation() {
+        super.onCreation();
+        // SecuredActivity skips this hook when the session has expired.
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
     }
@@ -115,6 +115,10 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity implements On
 
     @Override
     protected void setupViews() {
+        // The library also calls this from onResume after the secured login redirect.
+        if (context().IsUserLoggedOut()) {
+            return;
+        }
         try {
             KvpVisitUtils.processVisits(this);
         } catch (Exception e) {
@@ -189,6 +193,9 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity implements On
 
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
+        if (context().IsUserLoggedOut()) {
+            return;
+        }
         Visit lastVisit = getVisit(org.smartregister.chw.util.Constants.Events.KVP_PREP_FOLLOWUP_VISIT);
         if (lastVisit != null) {
             rlLastVisit.setVisibility(View.VISIBLE);
