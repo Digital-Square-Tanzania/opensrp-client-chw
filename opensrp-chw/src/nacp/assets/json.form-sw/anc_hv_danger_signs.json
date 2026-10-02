@@ -125,7 +125,7 @@
           },
           {
             "key": "chk_unusual_movement",
-            "text": "Mtoto kupunguza kucheza au kutokucheza kabisa tumbonia",
+            "text": "Mtoto kupunguza kucheza au kutokucheza kabisa tumboni",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_unusual_movement"
           },
