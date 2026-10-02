@@ -68,11 +68,6 @@ import static org.mockito.Mockito.verify;
 public class ProfileSessionLifecycleTest extends BaseUnitTest {
     private static final String MEMBER_ID = "session-test-member";
 
-    @ParameterizedRobolectricTestRunner.Parameters(name = "{0}")
-    public static Collection<Object[]> activities() {
-        return Arrays.asList(new Object[][]{{MalariaProfileActivity.class}, {TbLeprosyProfileActivity.class}});
-    }
-
     @ParameterizedRobolectricTestRunner.Parameter
     public Class<? extends BaseProfileActivity> activityClass;
 
@@ -83,6 +78,11 @@ public class ProfileSessionLifecycleTest extends BaseUnitTest {
     private MockedStatic<org.smartregister.util.Utils> utilities;
     private Object presenter;
     private boolean created;
+
+    @ParameterizedRobolectricTestRunner.Parameters(name = "{0}")
+    public static Collection<Object[]> activities() {
+        return Arrays.asList(new Object[][]{{MalariaProfileActivity.class}, {TbLeprosyProfileActivity.class}});
+    }
 
     @Before
     public void setUp() {
@@ -259,6 +259,8 @@ public class ProfileSessionLifecycleTest extends BaseUnitTest {
         Mockito.when(launcher.getPackageName()).thenReturn(application().getPackageName());
         MalariaProfileActivity.startMalariaActivity(launcher, "different-member");
         create(profileIntent(), savedState);
+        RecyclerView recycler = controller.get().findViewById(R.id.notification_and_referral_recycler_view);
+        assertSame(adapter(), recycler.getAdapter());
         View row = new View(controller.get());
         try (MockedStatic<NotificationsUtil> clicks = Mockito.mockStatic(NotificationsUtil.class)) {
             controller.get().onClick(row);
