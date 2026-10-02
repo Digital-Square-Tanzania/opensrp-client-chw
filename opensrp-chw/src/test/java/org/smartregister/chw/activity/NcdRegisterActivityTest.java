@@ -14,8 +14,8 @@ public class NcdRegisterActivityTest extends BaseUnitTest {
 
     @Test
     public void openClientProfileShouldStartNcdProfileActivity() {
+        // Exercise routing without starting register fragments that require an authenticated session.
         NcdRegisterActivity activity = Robolectric.buildActivity(NcdRegisterActivity.class)
-                .setup()
                 .get();
 
         activity.openClientProfile("sample-base-entity", true);

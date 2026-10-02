@@ -35,8 +35,12 @@ public class ChwQueryConstantTest {
     }
 
     @Test
-    public void testQueryDoesNotAddGenericHarmReductionRegisterType() {
-        Assert.assertFalse(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains("/*ONLY Harm Reduction clients*/"));
-        Assert.assertFalse(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains("'HARM REDUCTION'                             AS register_type"));
+    public void testHarmReductionRegisterTypeRequiresAnOpenRiskAssessment() {
+        String query = ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY;
+        String section = query.substring(query.indexOf("/*ONLY Harm Reduction clients*/"),
+                query.indexOf("/*ONLY Sober House clients*/"));
+        Assert.assertTrue(section.contains("'HARM REDUCTION'                             AS register_type"));
+        Assert.assertTrue(section.contains("inner join ec_harm_reduction_risk_assessment"));
+        Assert.assertTrue(section.contains("ec_harm_reduction_risk_assessment.is_closed is 0"));
     }
 }

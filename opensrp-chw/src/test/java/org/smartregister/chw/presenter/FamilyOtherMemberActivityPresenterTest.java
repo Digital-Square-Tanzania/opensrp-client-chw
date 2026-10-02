@@ -12,6 +12,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
+import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.cloudant.models.Client;
 import org.smartregister.cloudant.models.Event;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
@@ -31,7 +32,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
     private FamilyOtherMemberContract.Model model;
 
     @Mock
-    private FamilyProfileContract.Interactor profileInteractor;
+    private FamilyProfileExtendedContract.Interactor profileInteractor;
 
     @Mock
     private FamilyProfileContract.Model profileModel;

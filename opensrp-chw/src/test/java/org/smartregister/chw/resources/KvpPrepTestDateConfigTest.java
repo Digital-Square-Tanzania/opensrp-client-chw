@@ -20,13 +20,14 @@ public class KvpPrepTestDateConfigTest {
     };
 
     @Test
-    public void branchBTestDateCannotBeWithinLastNinetyDays() throws Exception {
+    public void branchBTestDateIsWithinLastThreeMonths() throws Exception {
         for (String formPath : FORM_PATHS) {
             JSONObject testDate = getField(form(formPath), "branch_b_test_date");
 
             assertEquals(formPath, "date_picker", testDate.getString("type"));
             assertEquals(formPath, "branch_b_test_date", testDate.getString("openmrs_entity_id"));
-            assertEquals(formPath, "today-90d", testDate.getString("max_date"));
+            assertEquals(formPath, "today-3m", testDate.getString("min_date"));
+            assertEquals(formPath, "today", testDate.getString("max_date"));
             assertTrue(formPath, testDate.getJSONObject("v_required").getBoolean("value"));
         }
     }
