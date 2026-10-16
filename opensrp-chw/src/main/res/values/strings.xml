@@ -966,6 +966,8 @@
     <string name="mothermentor_follow_up_status_section">Follow-up status</string>
     <string name="mothermentor_interruption_reason_section">Reason for service interruption</string>
     <string name="mothermentor_return_to_facility_section">Return to facility</string>
+    <string name="mothermentor_partner_non_attendance_reason_section">Reason for not attending the facility</string>
+    <string name="mothermentor_partner_arrival_section">Arrived at the facility</string>
     <string name="mothermentor_comments_section">Comments</string>
     <string name="mothermentor_save">SAVE</string>
     <string name="mothermentor_visit_header">%1$s, %2$d yrs · Visit #%3$d</string>
@@ -988,6 +990,10 @@
     <string name="mothermentor_reason_facility_congestion">Facility congestion</string>
     <string name="mothermentor_reason_stigma">Stigma</string>
     <string name="mothermentor_reason_other">Other</string>
+    <string name="mothermentor_partner_reason_travel_or_moved">Travel / Moved</string>
+    <string name="mothermentor_partner_reason_transport_cost">No transport fare</string>
+    <string name="mothermentor_partner_reason_stigma">Stigma</string>
+    <string name="mothermentor_partner_reason_other">Other</string>
     <string name="mothermentor_answer_yes">Yes</string>
     <string name="mothermentor_answer_no">No</string>
     <string name="mothermentor_history_service_interruption_reason">Reason for service interruption</string>
@@ -995,6 +1001,11 @@
     <string name="mothermentor_history_expected_facility_visit_date">Expected facility visit date</string>
     <string name="mothermentor_history_returned_to_facility">Returned to facility</string>
     <string name="mothermentor_history_facility_return_date">Return date</string>
+    <string name="mothermentor_history_partner_non_attendance_reason">Reason for not attending the facility</string>
+    <string name="mothermentor_history_partner_non_attendance_reason_other">Other reason</string>
+    <string name="mothermentor_history_partner_expected_facility_visit_date">Expected facility visit date</string>
+    <string name="mothermentor_history_partner_arrived_at_facility">Arrived at the facility</string>
+    <string name="mothermentor_history_partner_facility_arrival_date">Arrival date</string>
     <string name="mothermentor_history_visit_number">Visit number</string>
     <string name="mothermentor_history_visit_completion_state">Visit state</string>
     <string name="mothermentor_history_saved">Saved</string>

@@ -10,6 +10,8 @@ import org.smartregister.chw.core.CoreBaseAncMedicalHistoryInteractor;
 import org.smartregister.chw.domain.SortableVisit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
+import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +19,15 @@ import java.util.List;
 
 public class MotherMentorMedicalHistoryInteractor extends CoreBaseAncMedicalHistoryInteractor {
     private static final Gson GSON = new Gson();
+    private final MotherMentorFollowUpType followUpType;
+
+    public MotherMentorMedicalHistoryInteractor() {
+        this(null);
+    }
+
+    public MotherMentorMedicalHistoryInteractor(MotherMentorFollowUpType followUpType) {
+        this.followUpType = followUpType;
+    }
 
     public static List<SortableVisit> getVisits(String memberID, String... eventTypes) {
         List<org.smartregister.chw.mothermentor.domain.Visit> motherMentorVisits = new ArrayList<>();
@@ -26,6 +37,11 @@ public class MotherMentorMedicalHistoryInteractor extends CoreBaseAncMedicalHist
             }
         }
 
+        return toSortableVisits(motherMentorVisits);
+    }
+
+    private static List<SortableVisit> toSortableVisits(
+            List<org.smartregister.chw.mothermentor.domain.Visit> motherMentorVisits) {
         for (org.smartregister.chw.mothermentor.domain.Visit visit : motherMentorVisits) {
             List<org.smartregister.chw.mothermentor.domain.VisitDetail> detailList = VisitUtils.getVisitDetailsOnly(visit.getVisitId());
             visit.setVisitDetails(VisitUtils.getVisitGroups(detailList));
@@ -44,11 +60,13 @@ public class MotherMentorMedicalHistoryInteractor extends CoreBaseAncMedicalHist
     @Override
     public void getMemberHistory(final String memberID, final Context context, final BaseAncMedicalHistoryContract.InteractorCallBack callBack) {
         final Runnable runnable = () -> {
-            String[] eventTypes = new String[]{
-                    Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES,
-                    Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT
-            };
-            List<SortableVisit> visits = getVisits(memberID, eventTypes);
+            List<SortableVisit> visits;
+            if (followUpType == null) {
+                visits = getVisits(memberID, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES,
+                        Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT);
+            } else {
+                visits = toSortableVisits(MotherMentorFollowUpVisitUtils.getVisits(memberID, followUpType));
+            }
             final List<Visit> allVisits = new ArrayList<>(visits);
             appExecutors.mainThread().execute(() -> callBack.onDataFetched(allVisits));
         };

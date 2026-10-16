@@ -12,23 +12,43 @@ import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
 import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
 import org.smartregister.chw.interactor.MotherMentorMedicalHistoryInteractor;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.util.MotherMentorFollowUpType;
 
 import java.util.List;
 
 public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
     private static MemberObject motherMentorMemberObject;
-    private final Flavor flavor = new MotherMentorMedicalHistoryActivityFlv();
+    private Flavor flavor;
     private ProgressBar progressBar;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
+        startMe(activity, memberObject, null);
+    }
+
+    public static void startMe(Activity activity, MemberObject memberObject, MotherMentorFollowUpType followUpType) {
         Intent intent = new Intent(activity, MotherMentorMedicalHistoryActivity.class);
         motherMentorMemberObject = memberObject;
+        if (followUpType != null) {
+            intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
+        }
         activity.startActivity(intent);
     }
 
     @Override
     public void initializePresenter() {
-        presenter = new BaseAncMedicalHistoryPresenter(new MotherMentorMedicalHistoryInteractor(), this, motherMentorMemberObject.getBaseEntityId());
+        MotherMentorFollowUpType followUpType = getFollowUpType();
+        flavor = new MotherMentorMedicalHistoryActivityFlv(followUpType);
+        presenter = new BaseAncMedicalHistoryPresenter(
+                new MotherMentorMedicalHistoryInteractor(followUpType), this,
+                motherMentorMemberObject.getBaseEntityId());
+    }
+
+    private MotherMentorFollowUpType getFollowUpType() {
+        if (getIntent() == null || !getIntent().hasExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE)) {
+            return null;
+        }
+        return MotherMentorFollowUpType.fromValue(
+                getIntent().getStringExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
     }
 
     @Override

@@ -1121,6 +1121,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "MotherMentor Partner Follow-up Visit",
+            "creates_case": [
+              "ec_mothermentor_followup_visit"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "MotherMentor Visit",
             "creates_case": [
               "ec_mothermentor_visit"

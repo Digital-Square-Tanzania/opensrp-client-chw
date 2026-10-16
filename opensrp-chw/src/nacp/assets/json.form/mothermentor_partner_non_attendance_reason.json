@@ -1,0 +1,14 @@
+{
+  "count":"1","skip_blank_steps":true,"encounter_type":"Mother Mentor Partner Non-attendance Reason","entity_id":"",
+  "metadata":{"start":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"start","openmrs_entity_id":"start"},"end":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"end","openmrs_entity_id":"end"},"today":{"openmrs_entity_parent":"","openmrs_entity":"encounter","openmrs_entity_id":"encounter_date"},"encounter_location":""},"global":{},
+  "step1":{"title":"Reason for not attending the facility","fields":[
+    {"key":"partner_non_attendance_reason","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"partner_non_attendance_reason","label":"Reason for not attending the facility *","type":"native_radio","options":[
+      {"key":"travel_or_moved","text":"Travel / Moved","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"travel_or_moved"},
+      {"key":"transport_cost","text":"No transport fare","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"transport_cost"},
+      {"key":"stigma","text":"Stigma","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"stigma"},
+      {"key":"other","text":"Other (specify)","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"other"}
+    ],"v_required":{"value":"true","err":"Please select an answer"}},
+    {"key":"partner_non_attendance_reason_other","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"partner_non_attendance_reason_other","type":"edit_text","hint":"Specify the reason","v_required":{"value":"true","err":"Please specify the reason"},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"mothermentor_partner_follow_up_relevance.yml"}}}},
+    {"key":"partner_expected_facility_visit_date","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"partner_expected_facility_visit_date","type":"date_picker","display_format":"dd/MM/yyyy","min_date":"today-5y","max_date":"today","expanded":false,"hint":"Date partner was expected at the facility *","v_required":{"value":"true","err":"Required"}}
+  ]}
+}

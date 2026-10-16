@@ -1,0 +1,8 @@
+{
+  "count":"1","skip_blank_steps":true,"encounter_type":"Mother Mentor Partner Facility Arrival","entity_id":"",
+  "metadata":{"start":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"start","openmrs_entity_id":"start"},"end":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"end","openmrs_entity_id":"end"},"today":{"openmrs_entity_parent":"","openmrs_entity":"encounter","openmrs_entity_id":"encounter_date"},"encounter_location":""},"global":{},
+  "step1":{"title":"Arrived at the facility","fields":[
+    {"key":"partner_arrived_at_facility","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"partner_arrived_at_facility","label":"Has the partner arrived at the facility (for the first time)? *","type":"native_radio","options":[{"key":"yes","text":"Yes","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"yes"},{"key":"no","text":"No","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"no"}],"v_required":{"value":"true","err":"Please select an answer"}},
+    {"key":"partner_facility_arrival_date","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"partner_facility_arrival_date","type":"date_picker","display_format":"dd/MM/yyyy","min_date":"today-5y","max_date":"today","expanded":false,"hint":"Date arrived at the facility *","v_required":{"value":"true","err":"Required"},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"mothermentor_partner_follow_up_relevance.yml"}}}}
+  ]}
+}

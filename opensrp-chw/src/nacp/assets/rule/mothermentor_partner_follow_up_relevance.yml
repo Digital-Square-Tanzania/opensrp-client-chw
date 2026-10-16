@@ -1,0 +1,15 @@
+---
+name: step1_partner_non_attendance_reason_other
+description: Require a written partner reason only when Other is selected
+priority: 1
+condition: "step1_partner_non_attendance_reason.contains('other')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_partner_facility_arrival_date
+description: Require an arrival date only when the partner arrived
+priority: 1
+condition: "step1_partner_arrived_at_facility.contains('yes')"
+actions:
+  - "isRelevant = true"

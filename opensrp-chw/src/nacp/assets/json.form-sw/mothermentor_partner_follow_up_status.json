@@ -1,0 +1,14 @@
+{
+  "count":"1","skip_blank_steps":true,"encounter_type":"Mother Mentor Partner Follow-up Status","entity_id":"",
+  "metadata":{"start":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"start","openmrs_entity_id":"start"},"end":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"end","openmrs_entity_id":"end"},"today":{"openmrs_entity_parent":"","openmrs_entity":"encounter","openmrs_entity_id":"encounter_date"},"encounter_location":""},
+  "global":{},"step1":{"title":"Hali ya ufuatiliaji","fields":[
+    {"key":"follow_up_status","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"follow_up_status","label":"HALI YA UFUATILIAJI *","text_color":"#000000","type":"native_radio","options":[
+      {"key":"found","text":"Amepatikana","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"found"},
+      {"key":"not_found","text":"Hajapatikana","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"not_found"},
+      {"key":"deceased","text":"Amefariki","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"deceased"},
+      {"key":"transferred_facility","text":"Amehamia kituo kingine","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"transferred_facility"},
+      {"key":"refused_return","text":"Amekataa kurudi","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"refused_return"},
+      {"key":"under_follow_up","text":"Bado anafuatiliwa","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"under_follow_up"}
+    ],"v_required":{"value":"true","err":"Tafadhali chagua jibu"}}
+  ]}
+}
