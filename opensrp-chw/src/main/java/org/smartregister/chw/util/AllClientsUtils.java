@@ -422,7 +422,9 @@ public class AllClientsUtils {
             addMotherMentorSecondaryEnrollmentMenuItems(menu, true);
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, gender.equalsIgnoreCase("Female"));
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_iit, gender.equalsIgnoreCase("Female"));
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_partner, true);
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_partner,
+                    new org.smartregister.chw.repository.MotherMentorPartnerRepository(
+                            ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollPartner(baseEntityId));
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_child_eid, true);
         }
     }

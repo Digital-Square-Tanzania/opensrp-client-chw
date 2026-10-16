@@ -186,6 +186,11 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
+        if (EVENT_MOTHER_MENTOR_ENROLL_PARTNER.equals(jsonForm.optString(Constants.ENCOUNTER_TYPE))
+                && !canEnrollPartner(jsonForm.optString("entity_id"))) {
+            displayToast(getString(R.string.mothermentor_partner_enrollment_unavailable));
+            return;
+        }
         Form form = new Form();
         form.setWizard(false);
 
@@ -257,6 +262,11 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                 }
                 String tableName = getMotherMentorSecondaryEnrollmentTable(form.optString(Constants.ENCOUNTER_TYPE));
                 if (tableName != null) {
+                    if (TABLE_MOTHERMENTOR_ENROLL_PARTNER.equals(tableName)
+                            && !canEnrollPartner(form.optString("entity_id"))) {
+                        displayToast(getString(R.string.mothermentor_partner_enrollment_unavailable));
+                        return;
+                    }
                     saveMotherMentorSecondaryEnrollment(form, tableName);
                     startClientProcessing();
                     openSecondaryEnrollmentsTab(tableName);
@@ -391,6 +401,11 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             return TAB_INDEX_CHILD_EID;
         }
         return -1;
+    }
+
+    private boolean canEnrollPartner(String id) {
+        return new org.smartregister.chw.repository.MotherMentorPartnerRepository(
+                ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollPartner(id);
     }
 
     private void saveMotherMentorSecondaryEnrollment(JSONObject form, String tableName) throws Exception {

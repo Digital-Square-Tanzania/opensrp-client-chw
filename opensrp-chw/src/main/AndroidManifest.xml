@@ -56,6 +56,10 @@
             android:name=".activity.MotherMentorHouseholdProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.MotherMentorPartnerRegisterActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.MotherMentorRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

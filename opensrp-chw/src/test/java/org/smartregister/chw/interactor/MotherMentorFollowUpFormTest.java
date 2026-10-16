@@ -4,16 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+@org.junit.runner.RunWith(org.robolectric.RobolectricTestRunner.class)
+@org.robolectric.annotation.Config(application = android.app.Application.class, sdk = 28, manifest = org.robolectric.annotation.Config.NONE)
 public class MotherMentorFollowUpFormTest {
 
     @Test
@@ -62,8 +60,7 @@ public class MotherMentorFollowUpFormTest {
     }
 
     private JSONObject form(String directory, String name) throws Exception {
-        Path path = Paths.get("src", "nacp", "assets", directory, name);
-        return new JSONObject(new String(Files.readAllBytes(path), StandardCharsets.UTF_8));
+        return org.smartregister.chw.util.MotherMentorTestAssets.form(directory, name);
     }
 
     private JSONObject field(JSONObject form, String key) throws Exception {

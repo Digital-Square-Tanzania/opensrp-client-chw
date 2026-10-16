@@ -17,10 +17,7 @@ import static org.junit.Assert.*;
 public class MotherMentorVisitCompletionTest {
     @Test public void householdAttendanceValidatesAgainstCalculatedCounsellingTotal() throws Exception {
         for (String locale : new String[]{"json.form", "json.form-sw"}) {
-            JSONObject form = new JSONObject(new String(java.nio.file.Files.readAllBytes(
-                    java.nio.file.Paths.get("src/nacp/assets", locale,
-                            "mother_mentor_household_members_who_received_counselling.json")),
-                    java.nio.charset.StandardCharsets.UTF_8));
+            JSONObject form = MotherMentorTestAssets.form(locale, "mother_mentor_household_members_who_received_counselling.json");
             JSONObject attendance = null;
             JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
             for (int i = 0; i < fields.length(); i++) {

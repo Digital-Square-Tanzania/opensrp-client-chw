@@ -4616,6 +4616,46 @@
           }
         },
         {
+          "column_name": "mother_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mother_base_entity_id"
+          }
+        },
+        {
+          "column_name": "partner_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_name"
+          }
+        },
+        {
+          "column_name": "partner_sex",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_sex"
+          }
+        },
+        {
+          "column_name": "partner_dob",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_dob"
+          }
+        },
+        {
+          "column_name": "partner_phone_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_phone_number"
+          }
+        },
+        {
           "column_name": "mother_name",
           "type": "Event",
           "json_mapping": {
