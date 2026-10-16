@@ -25,9 +25,12 @@ import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
+import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
@@ -63,6 +66,17 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private static final String EXPECTED_FACILITY_VISIT_DATE = "expected_facility_visit_date";
     private static final String RETURNED_TO_FACILITY = "returned_to_facility";
     private static final String FACILITY_RETURN_DATE = "facility_return_date";
+    private static final String PARTNER_NON_ATTENDANCE_REASON = "partner_non_attendance_reason";
+    private static final String PARTNER_NON_ATTENDANCE_REASON_OTHER = "partner_non_attendance_reason_other";
+    private static final String PARTNER_EXPECTED_FACILITY_VISIT_DATE = "partner_expected_facility_visit_date";
+    private static final String PARTNER_ARRIVED_AT_FACILITY = "partner_arrived_at_facility";
+    private static final String PARTNER_FACILITY_ARRIVAL_DATE = "partner_facility_arrival_date";
+    private static final String CHILD_EID_TEST_TYPE = "child_eid_test_type";
+    private static final String CHILD_EID_NON_ATTENDANCE_REASON = "child_eid_non_attendance_reason";
+    private static final String CHILD_EID_NON_ATTENDANCE_REASON_OTHER = "child_eid_non_attendance_reason_other";
+    private static final String CHILD_EID_EXPECTED_FACILITY_VISIT_DATE = "child_eid_expected_facility_visit_date";
+    private static final String CHILD_EID_ARRIVED_AT_FACILITY = "child_eid_arrived_at_facility";
+    private static final String CHILD_EID_FACILITY_ARRIVAL_DATE = "child_eid_facility_arrival_date";
     private static final int HIGH_RISK_WEEK_THRESHOLD = 8;
     private static final String[] IIT_DATE_FORMATS = new String[]{"dd-MM-yyyy", "yyyy-MM-dd"};
 
@@ -77,6 +91,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     ));
     private TextView iitRiskTag;
     private TextView pregnancyWeekView;
+    private TextView followUpRoleView;
     private LinearLayout iitProfileImageRow;
 
     public static void startMe(Activity activity, String baseEntityId) {
@@ -87,10 +102,15 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     public static void startFollowUpProfile(Activity activity, String baseEntityId) {
+        startFollowUpProfile(activity, baseEntityId, MotherMentorFollowUpType.MOTHER_IIT);
+    }
+
+    public static void startFollowUpProfile(Activity activity, String baseEntityId, MotherMentorFollowUpType followUpType) {
         Intent intent = new Intent(activity, MotherMentorProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
         intent.putExtra(EXTRA_FOLLOW_UP_PROFILE, true);
+        intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
         activity.startActivity(intent);
     }
 
@@ -234,11 +254,36 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     protected void setupViews() {
         super.setupViews();
+        updateFollowUpRole();
         updateIitHighRiskTag();
         updatePregnancyWeek();
     }
 
+    private void updateFollowUpRole() {
+        LinearLayout profile = findViewById(org.smartregister.chw.mothermentor.R.id.profile_name_layout);
+        if (profile == null) return;
+        if (followUpRoleView == null) {
+            followUpRoleView = new TextView(this);
+            followUpRoleView.setTextSize(14);
+            followUpRoleView.setTypeface(Typeface.DEFAULT_BOLD);
+            followUpRoleView.setTextColor(getResources().getColor(R.color.customAppThemeBlue));
+            followUpRoleView.setGravity(android.view.Gravity.CENTER);
+            profile.addView(followUpRoleView);
+        }
+        boolean showSecondaryRole = isFollowUpProfile()
+                && getFollowUpType() != MotherMentorFollowUpType.MOTHER_IIT;
+        followUpRoleView.setVisibility(showSecondaryRole ? View.VISIBLE : View.GONE);
+        if (showSecondaryRole) {
+            followUpRoleView.setText(getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
+                    ? R.string.mothermentor_child_eid : R.string.mothermentor_partner);
+        }
+    }
+
     private void updatePregnancyWeek() {
+        if (isFollowUpProfile() && getFollowUpType() != MotherMentorFollowUpType.MOTHER_IIT) {
+            if (pregnancyWeekView != null) pregnancyWeekView.setVisibility(View.GONE);
+            return;
+        }
         Integer week = getPregnancyWeek(memberObject == null ? null : memberObject.getBaseEntityId());
         LinearLayout profile = findViewById(org.smartregister.chw.mothermentor.R.id.profile_name_layout);
         if (profile == null) return;
@@ -271,6 +316,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private void updateIitHighRiskTag() {
+        if (isFollowUpProfile() && getFollowUpType() != MotherMentorFollowUpType.MOTHER_IIT) {
+            hideIitRiskTag();
+            return;
+        }
         if (memberObject == null || isFinishing()) {
             return;
         }
@@ -494,6 +543,22 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         return getIntent() != null && getIntent().getBooleanExtra(EXTRA_FOLLOW_UP_PROFILE, false);
     }
 
+    MotherMentorFollowUpType getFollowUpType() {
+        return MotherMentorFollowUpType.fromValue(getIntent() == null ? null
+                : getIntent().getStringExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
+    }
+
+    @Override
+    protected Visit getServiceVisit() {
+        if (isFollowUpProfile() && memberObject != null) {
+            // Legacy sectioned follow-ups were stored as MotherMentor Services. Keep them in
+            // history, but do not resume them with a different category schema.
+            return MotherMentorLibrary.getInstance().visitRepository().getLatestVisit(
+                    memberObject.getBaseEntityId(), getFollowUpType().getEventType());
+        }
+        return super.getServiceVisit();
+    }
+
     @Override
     public void onClick(View view) {
         if (view.getId() == org.smartregister.chw.mothermentor.R.id.textview_record_mothermentor) {
@@ -556,13 +621,26 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             String status = values.get(FOLLOW_UP_STATUS);
             if (!TextUtils.isEmpty(status)) {
                 if (!"found".equals(status)) return true;
-                if (TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON))
-                        || TextUtils.isEmpty(values.get(EXPECTED_FACILITY_VISIT_DATE))
-                        || TextUtils.isEmpty(values.get(RETURNED_TO_FACILITY))) return false;
-                if ("other".equals(values.get(SERVICE_INTERRUPTION_REASON))
-                        && TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON_OTHER))) return false;
-                return !"yes".equals(values.get(RETURNED_TO_FACILITY))
-                        || !TextUtils.isEmpty(values.get(FACILITY_RETURN_DATE));
+                boolean partnerSchema = getFollowUpType() == MotherMentorFollowUpType.PARTNER
+                        && MotherMentorFollowUpType.PARTNER.getEventType().equals(visit.getVisitType());
+                boolean childSchema = getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
+                        && MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visit.getVisitType());
+                String reasonField = childSchema ? CHILD_EID_NON_ATTENDANCE_REASON
+                        : partnerSchema ? PARTNER_NON_ATTENDANCE_REASON : SERVICE_INTERRUPTION_REASON;
+                String otherField = childSchema ? CHILD_EID_NON_ATTENDANCE_REASON_OTHER
+                        : partnerSchema ? PARTNER_NON_ATTENDANCE_REASON_OTHER : SERVICE_INTERRUPTION_REASON_OTHER;
+                String expectedDateField = childSchema ? CHILD_EID_EXPECTED_FACILITY_VISIT_DATE
+                        : partnerSchema ? PARTNER_EXPECTED_FACILITY_VISIT_DATE : EXPECTED_FACILITY_VISIT_DATE;
+                String arrivalField = childSchema ? CHILD_EID_ARRIVED_AT_FACILITY
+                        : partnerSchema ? PARTNER_ARRIVED_AT_FACILITY : RETURNED_TO_FACILITY;
+                String arrivalDateField = childSchema ? CHILD_EID_FACILITY_ARRIVAL_DATE
+                        : partnerSchema ? PARTNER_FACILITY_ARRIVAL_DATE : FACILITY_RETURN_DATE;
+                if (childSchema && TextUtils.isEmpty(values.get(CHILD_EID_TEST_TYPE))) return false;
+                if (TextUtils.isEmpty(values.get(reasonField))
+                        || TextUtils.isEmpty(values.get(expectedDateField))
+                        || TextUtils.isEmpty(values.get(arrivalField))) return false;
+                if ("other".equals(values.get(reasonField)) && TextUtils.isEmpty(values.get(otherField))) return false;
+                return !"yes".equals(values.get(arrivalField)) || !TextUtils.isEmpty(values.get(arrivalDateField));
             }
             return getCompletedMotherMentorServiceFields(obsArray).containsAll(REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS);
         } catch (Exception e) {
@@ -613,7 +691,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openFollowupVisit() {
-        startForm(Constants.FORMS.MOTHERMENTOR_FOLLOWUP_VISIT);
+        if (isFollowUpProfile()) {
+            openRecordClientVisit();
+        } else {
+            startForm(Constants.FORMS.MOTHERMENTOR_FOLLOWUP_VISIT);
+        }
     }
 
     @Override
@@ -639,7 +721,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void openRecordClientVisit() {
         if (isFollowUpProfile()) {
-            MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(this, memberObject.getBaseEntityId(), false);
+            MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
+                    this, memberObject.getBaseEntityId(), false, getFollowUpType());
         } else {
             MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
         }
@@ -664,11 +747,16 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openMedicalHistory() {
-        MotherMentorMedicalHistoryActivity.startMe(this, memberObject);
+        MotherMentorMedicalHistoryActivity.startMe(this, memberObject,
+                isFollowUpProfile() ? getFollowUpType() : null);
     }
 
     private int getMotherMentorVisitHistoryCount() {
         try {
+            if (isFollowUpProfile()) {
+                return MotherMentorFollowUpVisitUtils.getVisits(
+                        memberObject.getBaseEntityId(), getFollowUpType()).size();
+            }
             return VisitUtils.getVisitsOnly(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES).size()
                     + VisitUtils.getVisitsOnly(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT).size();
         } catch (Exception e) {
@@ -685,7 +773,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void continueService() {
         if (isFollowUpProfile()) {
-            MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(this, memberObject.getBaseEntityId(), true);
+            MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
+                    this, memberObject.getBaseEntityId(), true, getFollowUpType());
         } else {
             MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), true);
         }

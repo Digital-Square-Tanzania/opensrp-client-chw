@@ -20,6 +20,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.util.MotherMentorFollowUpType;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -48,6 +49,17 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             "expected_facility_visit_date",
             "returned_to_facility",
             "facility_return_date",
+            "partner_non_attendance_reason",
+            "partner_non_attendance_reason_other",
+            "partner_expected_facility_visit_date",
+            "partner_arrived_at_facility",
+            "partner_facility_arrival_date",
+            "child_eid_test_type",
+            "child_eid_non_attendance_reason",
+            "child_eid_non_attendance_reason_other",
+            "child_eid_expected_facility_visit_date",
+            "child_eid_arrived_at_facility",
+            "child_eid_facility_arrival_date",
             "has_been_linked_to_psychosocial_support_group",
             "has_been_linked_to_iga_group",
             "education_provided",
@@ -59,6 +71,15 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     };
 
     private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+    private final MotherMentorFollowUpType followUpType;
+
+    public MotherMentorMedicalHistoryActivityFlv() {
+        this(null);
+    }
+
+    public MotherMentorMedicalHistoryActivityFlv(MotherMentorFollowUpType followUpType) {
+        this.followUpType = followUpType;
+    }
 
     @Override
     protected void processAncCard(String hasCard, Context context) {
@@ -129,7 +150,9 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             TextView tvEdit = view.findViewById(R.id.textview_edit);
 
             Visit visit = visits.get(x);
-            if (x == visits.size() - 1) {
+            boolean legacyFollowUp = followUpType != null
+                    && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType());
+            if (x == visits.size() - 1 && !legacyFollowUp) {
                 tvEdit.setVisibility(View.VISIBLE);
             } else {
                 tvEdit.setVisibility(View.GONE);
@@ -139,8 +162,13 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
                 if (visit.getBaseEntityId() != null) {
                     ((Activity) context).finish();
                     if (StringUtils.isNotBlank(vals.get("follow_up_status"))) {
+                        MotherMentorFollowUpType editType = MotherMentorFollowUpType.PARTNER.getEventType().equals(visit.getVisitType())
+                                ? MotherMentorFollowUpType.PARTNER
+                                : MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visit.getVisitType())
+                                ? MotherMentorFollowUpType.CHILD_EID
+                                : followUpType == null ? MotherMentorFollowUpType.MOTHER_IIT : followUpType;
                         MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
-                                (Activity) context, visit.getBaseEntityId(), true);
+                                (Activity) context, visit.getBaseEntityId(), true, editType);
                     } else {
                         MotherMentorVisitActivity.startMotherMentorVisitActivity(
                                 (Activity) context, visit.getBaseEntityId(), true);
@@ -172,7 +200,10 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
 
     private String getVisitType(Context context, String visitType) {
         if (Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visitType)
-                || Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT.equals(visitType)) {
+                || Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT.equals(visitType)
+                || Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT.equals(visitType)
+                || MotherMentorFollowUpType.PARTNER.getEventType().equals(visitType)
+                || MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visitType)) {
             return context.getString(R.string.mothermentor_visit_history_title);
         }
         return visitType;

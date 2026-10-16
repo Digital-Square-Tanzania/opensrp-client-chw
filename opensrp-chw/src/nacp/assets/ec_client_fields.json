@@ -14178,6 +14178,101 @@
             "field": "obs.fieldCode",
             "concept": "client_challenge_types"
           }
+        },
+        {
+          "column_name": "follow_up_category",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "follow_up_category"}
+        },
+        {
+          "column_name": "follow_up_status",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "follow_up_status"}
+        },
+        {
+          "column_name": "service_interruption_reason",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "service_interruption_reason"}
+        },
+        {
+          "column_name": "service_interruption_reason_other",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "service_interruption_reason_other"}
+        },
+        {
+          "column_name": "expected_facility_visit_date",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "expected_facility_visit_date"}
+        },
+        {
+          "column_name": "returned_to_facility",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "returned_to_facility"}
+        },
+        {
+          "column_name": "facility_return_date",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "facility_return_date"}
+        },
+        {
+          "column_name": "partner_non_attendance_reason",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "partner_non_attendance_reason"}
+        },
+        {
+          "column_name": "partner_non_attendance_reason_other",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "partner_non_attendance_reason_other"}
+        },
+        {
+          "column_name": "partner_expected_facility_visit_date",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "partner_expected_facility_visit_date"}
+        },
+        {
+          "column_name": "partner_arrived_at_facility",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "partner_arrived_at_facility"}
+        },
+        {
+          "column_name": "partner_facility_arrival_date",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "partner_facility_arrival_date"}
+        },
+        {
+          "column_name": "child_eid_test_type",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_test_type"}
+        },
+        {
+          "column_name": "child_eid_non_attendance_reason",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_non_attendance_reason"}
+        },
+        {
+          "column_name": "child_eid_non_attendance_reason_other",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_non_attendance_reason_other"}
+        },
+        {
+          "column_name": "child_eid_expected_facility_visit_date",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_expected_facility_visit_date"}
+        },
+        {
+          "column_name": "child_eid_arrived_at_facility",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_arrived_at_facility"}
+        },
+        {
+          "column_name": "child_eid_facility_arrival_date",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_facility_arrival_date"}
+        },
+        {
+          "column_name": "comments",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "comments"}
         }
       ]
     },

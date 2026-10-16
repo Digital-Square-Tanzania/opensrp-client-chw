@@ -12,6 +12,7 @@ import org.smartregister.chw.activity.MotherMentorProfileActivity;
 import org.smartregister.chw.provider.MotherMentorFollowUpRegisterProvider;
 import org.smartregister.chw.model.MotherMentorRegisterFragmentModel;
 import org.smartregister.chw.presenter.MotherMentorSecondaryEnrollmentRegisterFragmentPresenter;
+import org.smartregister.chw.util.MotherMentorFollowUpType;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
@@ -23,13 +24,15 @@ import timber.log.Timber;
 public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMentorRegisterFragment {
 
     private static final String ARG_TABLE_NAME = "table_name";
+    private static final String ARG_FOLLOW_UP_TYPE = "follow_up_type";
     private String sharedSearchText = "";
     private final MotherMentorRegisterFragmentModel registerModel = new MotherMentorRegisterFragmentModel();
 
-    public static MotherMentorSecondaryEnrollmentRegisterFragment newInstance(String tableName) {
+    public static MotherMentorSecondaryEnrollmentRegisterFragment newInstance(MotherMentorFollowUpType followUpType) {
         MotherMentorSecondaryEnrollmentRegisterFragment fragment = new MotherMentorSecondaryEnrollmentRegisterFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_TABLE_NAME, tableName);
+        args.putString(ARG_TABLE_NAME, followUpType.getEnrollmentTable());
+        args.putString(ARG_FOLLOW_UP_TYPE, followUpType.getValue());
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,7 +58,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
 
     @Override
     protected void openProfile(String baseEntityId) {
-        MotherMentorProfileActivity.startFollowUpProfile(requireActivity(), baseEntityId);
+        MotherMentorProfileActivity.startFollowUpProfile(requireActivity(), baseEntityId, getFollowUpType());
     }
 
     public void setSharedSearchText(String searchText) {
@@ -129,5 +132,13 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
     private String getTableName() {
         Bundle arguments = getArguments();
         return arguments == null ? null : arguments.getString(ARG_TABLE_NAME);
+    }
+
+    private MotherMentorFollowUpType getFollowUpType() {
+        Bundle arguments = getArguments();
+        if (arguments != null && arguments.containsKey(ARG_FOLLOW_UP_TYPE)) {
+            return MotherMentorFollowUpType.fromValue(arguments.getString(ARG_FOLLOW_UP_TYPE));
+        }
+        return MotherMentorFollowUpType.fromEnrollmentTable(getTableName());
     }
 }

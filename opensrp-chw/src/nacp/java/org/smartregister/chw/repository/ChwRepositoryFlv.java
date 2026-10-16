@@ -191,6 +191,9 @@ public class ChwRepositoryFlv {
                 case 50:
                     upgradeToVersion50(db);
                     break;
+                case 51:
+                    upgradeToVersion51(db);
+                    break;
                 default:
                     break;
             }
@@ -1112,6 +1115,26 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_mothermentor_contacts ADD COLUMN screening_status VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion50-add-contact-screening-status");
+        }
+    }
+
+    private static void upgradeToVersion51(SQLiteDatabase db) {
+        String tableName = "ec_mothermentor_followup_visit";
+        for (String column : Arrays.asList(
+                "follow_up_category",
+                "follow_up_status",
+                "service_interruption_reason",
+                "service_interruption_reason_other",
+                "expected_facility_visit_date",
+                "returned_to_facility",
+                "facility_return_date",
+                "partner_non_attendance_reason",
+                "partner_non_attendance_reason_other",
+                "partner_expected_facility_visit_date",
+                "partner_arrived_at_facility",
+                "partner_facility_arrival_date",
+                "comments")) {
+            addColumnIfMissing(db, tableName, column);
         }
     }
 

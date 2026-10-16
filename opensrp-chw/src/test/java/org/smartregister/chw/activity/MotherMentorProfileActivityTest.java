@@ -9,7 +9,9 @@ import org.robolectric.Robolectric;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.util.MotherMentorFollowUpType;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -45,5 +47,26 @@ public class MotherMentorProfileActivityTest extends BaseUnitTest {
         activity.onClick(view);
 
         Mockito.verify(activity).openRecordClientVisit();
+    }
+
+    @Test
+    public void profileCategoryComesFromStableIntentExtra() {
+        Intent partnerIntent = new Intent()
+                .putExtra(MotherMentorProfileActivity.EXTRA_FOLLOW_UP_PROFILE, true)
+                .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE,
+                        MotherMentorFollowUpType.PARTNER.getValue());
+        MotherMentorProfileActivity partnerProfile = Robolectric
+                .buildActivity(MotherMentorProfileActivity.class, partnerIntent)
+                .get();
+        assertEquals(MotherMentorFollowUpType.PARTNER, partnerProfile.getFollowUpType());
+
+        Intent childIntent = new Intent()
+                .putExtra(MotherMentorProfileActivity.EXTRA_FOLLOW_UP_PROFILE, true)
+                .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE,
+                        MotherMentorFollowUpType.CHILD_EID.getValue());
+        MotherMentorProfileActivity childProfile = Robolectric
+                .buildActivity(MotherMentorProfileActivity.class, childIntent)
+                .get();
+        assertEquals(MotherMentorFollowUpType.CHILD_EID, childProfile.getFollowUpType());
     }
 }
