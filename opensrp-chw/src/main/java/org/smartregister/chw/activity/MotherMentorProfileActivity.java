@@ -535,10 +535,6 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 textViewRecordMotherMentor.setText(org.smartregister.chw.mothermentor.R.string.record_mothermentor);
             }
         }
-        if (textViewRegisterMotherMentorContact != null) {
-            textViewRegisterMotherMentorContact.setVisibility(
-                    isFollowUpProfile() ? View.GONE : View.VISIBLE);
-        }
         enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
     }
@@ -792,15 +788,6 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void openObservationResults() {
         startForm(Constants.FORMS.OBSERVATION_RESULTS);
-    }
-
-    @Override
-    public void openMotherMentorContactRegister() {
-//        MotherMentorRegisterActivity.startRegistration(
-//                this,
-//                memberObject.getBaseEntityId(),
-//                memberObject.getFamilyBaseEntityId()
-//        );
     }
 
     private void startForm(String formName) {

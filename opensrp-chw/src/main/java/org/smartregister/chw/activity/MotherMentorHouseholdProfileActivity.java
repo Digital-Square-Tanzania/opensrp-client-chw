@@ -191,11 +191,6 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     @Override
-    public void openMotherMentorContactRegister() {
-        // Contact registration is not available from household profiles.
-    }
-
-    @Override
     public void startHivstRegistration() {
         // HIV self-testing registration is not available from household profiles.
     }
