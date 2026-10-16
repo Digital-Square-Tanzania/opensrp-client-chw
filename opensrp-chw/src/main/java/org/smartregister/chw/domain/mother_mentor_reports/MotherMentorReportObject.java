@@ -1,0 +1,468 @@
+package org.smartregister.chw.domain.mother_mentor_reports;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.chw.dao.ReportDao;
+import org.smartregister.chw.domain.ReportObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+/** Monthly Mama Kinara workbook, using the same direct-query pipeline as Harm Reduction reports. */
+public class MotherMentorReportObject extends ReportObject {
+    private int failedQueries;
+    private static final String NOT_CAPTURED = "—";
+    private static final String[] AGE_BANDS = {"under-1m", "1-11m", "12-23m", "2-4", "5-9",
+            "10-14", "15-19", "20-24", "25-59", "60-plus"};
+    private static final int[] AGE_MONTH_LIMITS = {0, 1, 12, 24, 60, 120, 180, 240, 300, 720};
+    private static final String[] SEXES = {"male", "female"};
+    private static final String[] SUBROWS = {"4-returned", "4-not-found", "4-died", "4-refused",
+            "8-hiv-positive", "8-hiv-negative", "8-syphilis-positive", "8-syphilis-negative",
+            "8-hepatitis-b-positive", "8-hepatitis-b-negative", "9-boys", "9-girls",
+            "10-boys", "10-girls", "11-positive", "11-negative", "12-hiv", "12-syphilis",
+            "12-hepatitis-b", "18-returned", "18-not-found", "18-died", "18-transferred", "18-refused"};
+    private static final List<String> RESULT_COLUMNS = createResultColumns();
+
+    public MotherMentorReportObject(Date reportDate) {
+        super(reportDate);
+    }
+
+    @Override
+    public JSONObject getIndicatorData() throws JSONException {
+        failedQueries = 0;
+        JSONObject result = new JSONObject();
+        // Unsupported indicators are not zero. They require additional data or agreed definitions.
+        for (int indicator = 1; indicator <= 18; indicator++) {
+            putUnavailable(result, "mm-" + indicator);
+        }
+        for (String subrow : SUBROWS) {
+            putUnavailable(result, "mm-" + subrow);
+        }
+
+        putClientIndicator(result, "mm-1", "has_been_linked_to_psychosocial_support_group");
+        putClientIndicator(result, "mm-2", "has_been_linked_to_iga_group");
+        putClientIndicator(result, "mm-7", "education_provided");
+        Map<String, Integer> households = query(buildHouseholdQuery(), Collections.singletonList("total"));
+        if (households != null) result.put("mm-13", value(households, "total"));
+        putDemographicIndicator(result, "mm-3", buildNewArtQuery());
+        putTracingIndicators(result, 4, true);
+        putDemographicIndicator(result, "mm-5", buildReturnedToArtQuery());
+        putTracingIndicators(result, 18, false);
+        putChildAttendanceIndicator(result, 9, "week_6", 0);
+        putChildAttendanceIndicator(result, 10, "month_9", 1);
+        putCommunityIndicators(result);
+        putAggregateIndicator(result, "mm-14", buildHouseholdCounsellingQuery());
+        putTracingCoverage(result);
+        result.put("query-errors", failedQueries);
+        return result;
+    }
+
+    private void putTracingCoverage(JSONObject result) throws JSONException {
+        // Unknown older visits cannot override a later complete tracing outcome. An unknown
+        // latest possible tracing visit still makes the month-end outcome unavailable.
+        String candidates = "SELECT v.*, " + serviceDate() + " AS service_date, "
+                + detail("iit_tracing_visit") + " AS tracing_flag, "
+                + detail("iit_tracing_outcome") + " AS outcome, "
+                + detail("returned_to_art") + " AS returned_to_art, "
+                + normalizeDate(detail("art_return_date")) + " AS return_date FROM visits v WHERE "
+                + finalizedVisitInMonth() + " AND " + iitAt(serviceDate())
+                + " AND NOT coalesce((" + detail("iit_tracing_visit") + " = 'no'), 0)";
+        String returnKnown = "v.returned_to_art IN ('yes', 'no', 'not_applicable') AND "
+                + "(v.returned_to_art <> 'yes' OR (" + returnedOutcome() + "))";
+        String outcomeKnown = "v.tracing_flag = 'yes' AND v.outcome IN "
+                + "('found', 'not_found', 'deceased', 'transferred', 'refused', 'still_followed') AND " + returnKnown;
+        for (int indicator : new int[]{4, 18}) {
+            String sql = "WITH coverage_visits AS (" + candidates + ") SELECT COUNT(DISTINCT v.base_entity_id) AS total "
+                    + "FROM coverage_visits v WHERE NOT EXISTS (SELECT 1 FROM coverage_visits n WHERE "
+                    + "n.base_entity_id = v.base_entity_id AND " + laterVisit() + ")"
+                    + (indicator == 4 ? " AND " + primaryAt("v.service_date") : "")
+                    + " AND NOT coalesce((" + outcomeKnown + "), 0)";
+            Map<String, Integer> missing = query(sql, Collections.singletonList("total"));
+            if (missing != null) result.put("mm-" + indicator + "-missing-records", value(missing, "total"));
+            if (missing == null || value(missing, "total") > 0) {
+                result.remove("mm-" + indicator + "-other-outcomes");
+                for (String suffix : new String[]{"", "-returned", "-not-found", "-died", "-refused", "-transferred"})
+                    putUnavailable(result, "mm-" + indicator + suffix);
+            }
+        }
+        // Indicator 5 is any confirmed return in the month, independent of the latest outcome.
+        // Missing observations for a client already counted cannot add another distinct client.
+        String returnedClients = clientSource(returnedToArtCondition());
+        Map<String, Integer> missingReturns = query("SELECT COUNT(DISTINCT v.base_entity_id) AS total FROM ("
+                + candidates + ") v WHERE " + primaryAt("v.service_date")
+                + " AND NOT coalesce((v.tracing_flag = 'yes' AND " + returnKnown + "), 0)"
+                + " AND v.base_entity_id NOT IN (SELECT client_id FROM (" + returnedClients + "))",
+                Collections.singletonList("total"));
+        if (missingReturns != null) result.put("mm-5-missing-records", value(missingReturns, "total"));
+        if (missingReturns == null || value(missingReturns, "total") > 0) putUnavailable(result, "mm-5");
+    }
+
+    private static String laterVisit() {
+        return "(n.service_date > v.service_date OR (n.service_date = v.service_date AND "
+                + "(coalesce(CAST(n.visit_date AS INTEGER), 0) > coalesce(CAST(v.visit_date AS INTEGER), 0) "
+                + "OR (coalesce(CAST(n.visit_date AS INTEGER), 0) = coalesce(CAST(v.visit_date AS INTEGER), 0) "
+                + "AND n.visit_id > v.visit_id))))";
+    }
+
+    private void putUnavailable(JSONObject result, String key) throws JSONException {
+        for (String column : RESULT_COLUMNS) {
+            if (!"unclassified".equals(column)) {
+                result.put(jsonKey(key, column), NOT_CAPTURED);
+            }
+        }
+    }
+
+    private void putClientIndicator(JSONObject result, String key, String detailKey) throws JSONException {
+        Map<String, Integer> counts = query(buildClientQuery(detailKey), RESULT_COLUMNS);
+        if (counts == null) return;
+        for (String column : RESULT_COLUMNS) {
+            result.put(jsonKey(key, column), value(counts, column));
+        }
+    }
+
+    private static String jsonKey(String key, String column) {
+        return "total".equals(column) ? key : key + "-" + column.replace('_', '-');
+    }
+
+    private static int value(Map<String, Integer> counts, String column) {
+        Integer count = counts == null ? null : counts.get(column);
+        return count == null ? 0 : count;
+    }
+
+    private static List<String> createResultColumns() {
+        List<String> columns = new ArrayList<>(Arrays.asList("total", "unclassified"));
+        for (String sex : SEXES) {
+            columns.add(sex + "_total");
+            for (String band : AGE_BANDS) {
+                columns.add(sex + "_" + band.replace('-', '_'));
+            }
+        }
+        return Collections.unmodifiableList(columns);
+    }
+
+    private String demographicQuery(String source) {
+        return demographicQuery(source, 120, Integer.MAX_VALUE);
+    }
+
+    private String demographicQuery(String source, int minimumMonths, int maximumMonths) {
+        // Respect each workbook row's applicable age bands; expose unknown/out-of-band clients.
+        String ageRange = "age_months >= " + minimumMonths + " AND age_months < " + maximumMonths;
+        String eligible = ageRange + " AND gender IN ('male', 'female')";
+        StringBuilder sql = new StringBuilder("SELECT ");
+        appendCount(sql, eligible, "total");
+        sql.append(", ");
+        appendCount(sql, "NOT coalesce((" + eligible + "), 0)", "unclassified");
+        for (String sex : SEXES) {
+            sql.append(", ");
+            appendCount(sql, "gender = '" + sex + "' AND " + ageRange, sex + "_total");
+            for (int band = 0; band < AGE_BANDS.length; band++) {
+                String condition = "gender = '" + sex + "' AND age_months >= " + AGE_MONTH_LIMITS[band];
+                if (band + 1 < AGE_BANDS.length) {
+                    condition += " AND age_months < " + AGE_MONTH_LIMITS[band + 1];
+                }
+                sql.append(", ");
+                appendCount(sql, condition + " AND " + ageRange, sex + "_" + AGE_BANDS[band].replace('-', '_'));
+            }
+        }
+        sql.append(" FROM (").append(source).append(") report_clients");
+        return sql.toString();
+    }
+
+    String buildClientQuery(String detailKey) {
+        return demographicQuery(clientSource(finalizedVisitInMonth()
+                + " AND " + primaryAt(serviceDate())
+                + " AND " + hasDetail(detailKey, "lower(trim(d.details)) = 'yes'")));
+    }
+
+    private String clientSource(String condition) {
+        return "SELECT DISTINCT v.base_entity_id AS client_id, lower(trim(ifnull(m.gender, ''))) AS gender, "
+                + ageInMonths() + " AS age_months FROM visits v LEFT JOIN ec_family_member m "
+                + "ON m.base_entity_id = v.base_entity_id WHERE " + condition;
+    }
+
+    String buildHouseholdQuery() {
+        return "SELECT COUNT(DISTINCT v.base_entity_id) AS total FROM visits v WHERE "
+                + finalizedVisitInMonth()
+                + " AND EXISTS (SELECT 1 FROM ec_mothermentor_household_enrolment h "
+                + "WHERE h.base_entity_id = v.base_entity_id AND lower(trim(h.consent)) = 'ndiyo')"
+                + " AND " + hasDetail("purpose_of_visit", "trim(ifnull(d.details, '')) <> ''");
+    }
+
+    private void putDemographicIndicator(JSONObject result, String key, String sql) throws JSONException {
+        Map<String, Integer> counts = query(sql, RESULT_COLUMNS);
+        if (counts == null) return;
+        for (String column : RESULT_COLUMNS) result.put(jsonKey(key, column), value(counts, column));
+    }
+
+    /** ReportDao's fallback zero must not turn a failed SQL query into a measured zero. */
+    private Map<String, Integer> query(String sql, List<String> columns) {
+        List<String> checkedColumns = new ArrayList<>(columns);
+        checkedColumns.add("query_ok");
+        Map<String, Integer> counts = ReportDao.getReportBreakdown(
+                "SELECT 1 AS query_ok, report.* FROM (" + sql + ") report", checkedColumns);
+        if (value(counts, "query_ok") == 1) return counts;
+        failedQueries++;
+        return null;
+    }
+
+    private String enrollmentDate(String id, String eventType) {
+        // eventDate can be an ISO timestamp with an offset. Enrollment is a recorded local
+        // calendar date; converting to UTC can incorrectly move first-day events to last month.
+        String date = "substr(e.eventDate, 1, 10)";
+        return "(SELECT MIN(" + date + ") FROM event e WHERE e.baseEntityId = " + id
+                + " AND e.eventType = '" + eventType + "' AND " + validDate(date)
+                + " AND date(e.eventDate) IS NOT NULL)";
+    }
+
+    private String primaryAt(String date) {
+        return "EXISTS (SELECT 1 FROM ec_mothermentor_enrollment e WHERE e.base_entity_id = v.base_entity_id)"
+                + " AND " + enrollmentDate("v.base_entity_id", "Mother Mentor Enrollment") + " <= " + date;
+    }
+
+    private String iitAt(String date) {
+        return "EXISTS (SELECT 1 FROM ec_mothermentor_enroll_it i WHERE i.base_entity_id = v.base_entity_id)"
+                + " AND " + enrollmentDate("v.base_entity_id", "Mother Mentor Enroll IIT") + " <= " + date;
+    }
+
+    private String childEidAt(String date) {
+        return "EXISTS (SELECT 1 FROM ec_mothermentor_enroll_child_eid c WHERE c.base_entity_id = v.base_entity_id)"
+                + " AND " + enrollmentDate("v.base_entity_id", "Mother Mentor Enroll Child Eid") + " <= " + date;
+    }
+
+    private void putChildAttendanceIndicator(JSONObject result, int indicator, String stage, int minimumMonths) throws JSONException {
+        String key = "mm-" + indicator;
+        String selectedStage = detail("child_followup_test_stage");
+        String attendance = detail("child_reached_facility");
+        String attendanceDate = normalizeDate(detail("child_facility_date"));
+        String cohort = finalizedVisitInMonth() + " AND " + childEidAt(serviceDate());
+        String knownStage = selectedStage + " IN ('week_6', 'month_9', 'three_months_after_breastfeeding', 'month_18', 'not_applicable')";
+        String knownAttendance = attendance + " IN ('yes', 'no', 'not_applicable') AND (" + attendance + " <> 'yes' OR ("
+                + validDate(attendanceDate) + " AND " + attendanceDate + " <= " + serviceDate()
+                + " AND " + childEidAt(attendanceDate) + "))";
+        // An old visit with no test stage could belong to either indicator. A known different
+        // stage does not make this indicator incomplete. Never backfill attendance from enrollment.
+        String missingCondition = "NOT coalesce((" + knownStage + "), 0) OR (" + selectedStage + " = '" + stage
+                + "' AND NOT coalesce((" + knownAttendance + "), 0))";
+        Map<String, Integer> missing = query("SELECT COUNT(DISTINCT v.visit_id) AS total FROM visits v WHERE "
+                + cohort + " AND (" + missingCondition + ")", Collections.singletonList("total"));
+        if (missing == null) return;
+        result.put(key + "-missing-records", value(missing, "total"));
+        if (value(missing, "total") > 0) return;
+        String source = clientSource(cohort + " AND " + selectedStage + " = '" + stage + "' AND "
+                + attendance + " = 'yes' AND " + knownAttendance + " AND " + inMonth(attendanceDate));
+        putDemographicIndicator(result, key, demographicQuery(source, minimumMonths, 12));
+        for (String sex : SEXES) {
+            putDemographicIndicator(result, key + ("male".equals(sex) ? "-boys" : "-girls"),
+                    demographicQuery("SELECT * FROM (" + source + ") children WHERE gender = '" + sex + "'", minimumMonths, 12));
+        }
+    }
+
+    String buildNewArtQuery() {
+        String enrolled = enrollmentDate("m.base_entity_id", "Mother Mentor Enrollment");
+        String artDate = normalizeDate("e.art_start_date");
+        // Use the enrollment ART date and later explicit initiation snapshots, never infer ART
+        // initiation merely from continuing services or the time an imported event was saved.
+        return demographicQuery("SELECT DISTINCT m.base_entity_id AS client_id, lower(trim(ifnull(m.gender, ''))) AS gender, "
+                + ageInMonths() + " AS age_months FROM ec_family_member m JOIN ec_mothermentor_enrollment e "
+                + "ON e.base_entity_id = m.base_entity_id WHERE " + inMonth(enrolled)
+                + " AND ((lower(e.art_status) = 'yes' AND " + inMonth(artDate) + ") OR EXISTS (SELECT 1 FROM visits v WHERE "
+                + "v.base_entity_id = m.base_entity_id AND " + finalizedVisitInMonth()
+                + " AND " + hasDetail("new_pmtct_art_initiation", "d.details = 'yes'")
+                + " AND " + inMonth(normalizeDate(detail("visit_art_start_date")))
+                + " AND " + normalizeDate(detail("visit_art_start_date")) + " <= " + serviceDate() + "))");
+    }
+
+    private String tracingVisits() {
+        return "SELECT v.*, " + serviceDate() + " AS service_date, "
+                + detail("iit_tracing_outcome") + " AS outcome, "
+                + detail("returned_to_art") + " AS returned_to_art, "
+                + normalizeDate(detail("art_return_date")) + " AS return_date FROM visits v WHERE "
+                + finalizedVisitInMonth() + " AND " + iitAt(serviceDate())
+                + " AND " + hasDetail("iit_tracing_visit", "d.details = 'yes'");
+    }
+
+    private String latestTracingClients(boolean primary, String outcome) {
+        // Latest clinical date wins. Save time and visit ID deterministically break same-day ties.
+        return "WITH tracing AS (" + tracingVisits() + "), latest AS (SELECT v.* FROM tracing v WHERE NOT EXISTS ("
+                + "SELECT 1 FROM tracing n WHERE n.base_entity_id = v.base_entity_id AND " + laterVisit() + ")) "
+                + clientSource((primary ? primaryAt("v.service_date") + " AND " : "") + outcome)
+                .replace("FROM visits v", "FROM latest v");
+    }
+
+    private String returnedOutcome() {
+        return "v.returned_to_art = 'yes' AND " + validDate("v.return_date") + " AND v.return_date <= v.service_date";
+    }
+
+    private void putTracingIndicators(JSONObject result, int indicator, boolean primary) throws JSONException {
+        String returned = returnedOutcome();
+        String[][] outcomes = {{"returned", returned}, {"not-found", "v.outcome = 'not_found' AND NOT (" + returned + ")"},
+                {"died", "v.outcome = 'deceased' AND NOT (" + returned + ")"},
+                {"refused", "v.outcome = 'refused' AND NOT (" + returned + ")"},
+                {"transferred", "v.outcome = 'transferred' AND NOT (" + returned + ")"}};
+        StringBuilder displayedOutcomes = new StringBuilder();
+        for (String[] outcome : outcomes) {
+            if (indicator == 4 && "transferred".equals(outcome[0])) continue;
+            // COALESCE is necessary when no return date was captured for a non-return outcome.
+            String condition = outcome[1].replace("NOT (" + returned + ")", "NOT coalesce((" + returned + "), 0)");
+            putDemographicIndicator(result, "mm-" + indicator + "-" + outcome[0],
+                    demographicQuery(latestTracingClients(primary, condition)));
+            if (displayedOutcomes.length() > 0) displayedOutcomes.append(" OR ");
+            displayedOutcomes.append('(').append(condition).append(')');
+        }
+        putDemographicIndicator(result, "mm-" + indicator,
+                demographicQuery(latestTracingClients(primary, displayedOutcomes.toString())));
+        Map<String, Integer> other = query("SELECT COUNT(DISTINCT client_id) AS total FROM ("
+                + latestTracingClients(primary, "NOT coalesce((" + displayedOutcomes + "), 0)") + ")", Collections.singletonList("total"));
+        if (other != null) result.put("mm-" + indicator + "-other-outcomes", value(other, "total"));
+    }
+
+    String buildReturnedToArtQuery() {
+        return demographicQuery(clientSource(returnedToArtCondition()));
+    }
+
+    private String returnedToArtCondition() {
+        String returnDate = normalizeDate(detail("art_return_date"));
+        return finalizedVisitInMonth() + " AND " + primaryAt(serviceDate()) + " AND " + iitAt(serviceDate())
+                + " AND " + hasDetail("iit_tracing_visit", "d.details = 'yes'")
+                + " AND " + hasDetail("returned_to_art", "d.details = 'yes'")
+                + " AND " + inMonth(returnDate) + " AND " + returnDate + " <= " + serviceDate();
+    }
+
+    private String householdVisits() {
+        return "SELECT v.* FROM visits v WHERE " + finalizedVisitInMonth()
+                + " AND EXISTS (SELECT 1 FROM ec_mothermentor_household_enrolment h "
+                + "WHERE h.base_entity_id = v.base_entity_id AND lower(trim(h.consent)) = 'ndiyo')"
+                + " AND " + hasDetail("purpose_of_visit", "trim(ifnull(d.details, '')) <> ''");
+    }
+
+    String buildHouseholdCounsellingQuery() {
+        return aggregateQuery("SELECT " + detail("counselled_male") + " AS male, "
+                + detail("counselled_female") + " AS female FROM (" + householdVisits() + ") v");
+    }
+
+    private String aggregateQuery(String source) {
+        return "SELECT coalesce(SUM(CASE WHEN " + validCount("male") + " THEN CAST(male AS INTEGER) ELSE 0 END), 0) AS male_total, "
+                + "coalesce(SUM(CASE WHEN " + validCount("female") + " THEN CAST(female AS INTEGER) ELSE 0 END), 0) AS female_total, "
+                + "COUNT(CASE WHEN NOT (" + validCount("male") + ") OR NOT (" + validCount("female") + ") THEN 1 END) AS missing "
+                + "FROM (" + source + ")";
+    }
+
+    private void putAggregateIndicator(JSONObject result, String key, String sql) throws JSONException {
+        Map<String, Integer> counts = query(sql, Arrays.asList("male_total", "female_total", "missing"));
+        if (counts == null) return;
+        result.put(key + "-missing-records", value(counts, "missing"));
+        result.put(key + "-known-total", value(counts, "male_total") + value(counts, "female_total"));
+        if (value(counts, "missing") > 0) return;
+        result.put(key, value(counts, "male_total") + value(counts, "female_total"));
+        result.put(key + "-male-total", value(counts, "male_total"));
+        result.put(key + "-female-total", value(counts, "female_total"));
+        // Aggregate counts cannot provide age bands or distinct people across activities.
+    }
+
+    private void putCommunityIndicators(JSONObject result) throws JSONException {
+        String community = "SELECT *, " + normalizeDate("sh_tarehe") + " AS service_date FROM ec_mothermentor_mobilization";
+        String sessions = "SELECT * FROM (" + community + ") WHERE " + inMonth("service_date");
+        String[] topics = {"pmtct", "hiv", "syphilis", "hepb", "fp", "nutrition", "tb", "gbv", "nyingine"};
+        List<String> topicCounts = new ArrayList<>();
+        for (String topic : topics) topicCounts.add("CASE WHEN " + hasToken("sh_mada", topic) + " THEN 1 ELSE 0 END");
+        Map<String, Integer> counts = query("SELECT coalesce(SUM(" + android.text.TextUtils.join(" + ", topicCounts)
+                + "), 0) AS topics, COUNT(CASE WHEN " + hasToken("sh_mada", "pmtct") + " THEN 1 END) AS activities FROM (" + sessions + ")",
+                Arrays.asList("topics", "activities"));
+        if (counts != null) {
+            result.put("mm-6", value(counts, "topics"));
+            result.put("mm-15", value(counts, "activities"));
+        }
+        putAggregateIndicator(result, "mm-16", aggregateQuery("SELECT elim_m AS male, elim_f AS female FROM ("
+                + sessions + ") WHERE " + hasToken("sh_mada", "pmtct")));
+        Map<String, Integer> schema = query("SELECT COUNT(*) AS total FROM pragma_table_info('ec_mothermentor_mobilization') "
+                + "WHERE name IN ('referred_male', 'referred_female')", Collections.singletonList("total"));
+        if (schema != null && value(schema, "total") == 2) {
+            putAggregateIndicator(result, "mm-17", aggregateQuery("SELECT referred_male AS male, referred_female AS female FROM (" + sessions + ")"));
+        } else if (schema != null) {
+            Map<String, Integer> existing = query("SELECT COUNT(*) AS total FROM (" + sessions + ")", Collections.singletonList("total"));
+            if (existing != null && value(existing, "total") == 0) {
+                result.put("mm-17", 0); result.put("mm-17-male-total", 0); result.put("mm-17-female-total", 0);
+            } else if (existing != null) result.put("mm-17-missing-records", value(existing, "total"));
+        }
+        // Household referral service codes do not identify or count the referred people.
+        Map<String, Integer> householdReferrals = query("SELECT COUNT(*) AS total FROM (" + householdVisits()
+                + ") v WHERE " + hasDetail("household_referral_given", "d.details = 'yes'"), Collections.singletonList("total"));
+        if (householdReferrals == null) putUnavailable(result, "mm-17");
+        if (householdReferrals != null && value(householdReferrals, "total") > 0) {
+            result.put("mm-17-household-referral-visits", value(householdReferrals, "total"));
+            putUnavailable(result, "mm-17");
+        }
+    }
+
+    private static String validCount(String column) {
+        return "coalesce((trim(" + column + ") <> '' AND trim(" + column + ") NOT GLOB '*[^0-9]*'), 0)";
+    }
+
+    private static String hasToken(String column, String token) {
+        return "instr(',' || replace(replace(replace(replace(ifnull(" + column
+                + ", ''), '[', ''), ']', ''), '\"', ''), ' ', '') || ',', '," + token + ",') > 0";
+    }
+
+    private String serviceDate() { return detail("mothermentor_visit_date"); }
+
+    private static String detail(String key) {
+        return "(SELECT MAX(d.details) FROM visit_details d WHERE d.visit_id = v.visit_id AND d.visit_key = '" + key + "')";
+    }
+
+    private String inMonth(String column) {
+        return validDate(column) + " AND date(" + column + ") >= date('" + monthStart()
+                + "') AND date(" + column + ") < date('" + monthStart() + "', '+1 month')";
+    }
+
+    private static String normalizeDate(String column) {
+        return "CASE WHEN " + column + " GLOB '[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]' THEN "
+                + "substr(" + column + ", 7, 4) || '-' || substr(" + column + ", 4, 2) || '-' || substr(" + column + ", 1, 2) ELSE " + column + " END";
+    }
+
+    private static void appendCount(StringBuilder sql, String condition, String alias) {
+        sql.append("COUNT(DISTINCT CASE WHEN ").append(condition)
+                .append(" THEN client_id END) AS ").append(alias);
+    }
+
+    private String monthStart() {
+        return new SimpleDateFormat("yyyy-MM-01", Locale.ENGLISH).format(getReportDate());
+    }
+
+    private String ageInMonths() {
+        String monthEnd = "date('" + monthStart() + "', '+1 month', '-1 day')";
+        String dob = "substr(m.dob, 1, 10)";
+        // Completed calendar months keep infant and exact birthday boundaries intact.
+        // Registration stores ISO timestamps as well as date-only values. Use the recorded
+        // calendar birth date, without shifting it across midnight for its timezone offset.
+        return "CASE WHEN " + validDate(dob) + " AND date(m.dob) IS NOT NULL AND date(" + dob + ") <= " + monthEnd
+                + " THEN (CAST(strftime('%Y', " + monthEnd + ") AS INTEGER) - CAST(strftime('%Y', " + dob + ") AS INTEGER)) * 12"
+                + " + CAST(strftime('%m', " + monthEnd + ") AS INTEGER) - CAST(strftime('%m', " + dob + ") AS INTEGER)"
+                + " - CASE WHEN strftime('%d', " + monthEnd + ") < strftime('%d', " + dob + ") THEN 1 ELSE 0 END END";
+    }
+
+    private String finalizedVisitInMonth() {
+        // visits.visit_date is the import/save time, not necessarily the service date. The visit
+        // interactor always records mothermentor_visit_date, normalized by NCUtils to yyyy-MM-dd.
+        // processed is local finalization, not server sync; detail rows may remain processed=0.
+        return "v.visit_type = 'MotherMentor Services' AND v.processed = 1 AND "
+                + hasDetail("mothermentor_visit_date", validDate("d.details") + " AND date(d.details) >= date('" + monthStart()
+                + "') AND date(d.details) < date('" + monthStart() + "', '+1 month')");
+    }
+
+    private static String hasDetail(String key, String condition) {
+        return "EXISTS (SELECT 1 FROM visit_details d WHERE d.visit_id = v.visit_id "
+                + "AND d.visit_key = '" + key + "' AND " + condition + ")";
+    }
+
+    private static String validDate(String column) {
+        // SQLite accepts numeric Julian dates and can retain impossible dates without a modifier.
+        return column + " GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'"
+                + " AND date(" + column + ", '+0 days') = " + column;
+    }
+}

@@ -281,6 +281,14 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.MotherMentorReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MotherMentorReportsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.MotherChampionSbcMobilizationSessionDetailsActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />

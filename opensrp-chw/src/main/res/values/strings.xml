@@ -903,4 +903,6 @@
     <string name="harm_reduction_fixed_bins">Number of Safety Boxes collected (used syringes) in Fixed Bins</string>
     <string name="harm_reduction_total_safety_boxes_collected">Total Safety Boxes collected (used syringes)</string>
     <string name="harm_reduction_name_of_ow">Name of OW</string>
+    <string name="mother_mentor_reports">Mama Kinara Monthly Report</string>
+    <string name="mother_mentor_reports_subtitle">View Mother Mentor monthly report</string>
 </resources>

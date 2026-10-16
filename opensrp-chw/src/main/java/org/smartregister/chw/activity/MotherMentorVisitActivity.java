@@ -58,8 +58,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     protected MemberObject getMemberObject(String baseEntityId) {
-        MemberObject memberObject = MotherMentorDao.getMember(baseEntityId);
-        return memberObject != null ? memberObject : MotherMentorDao.getContact(baseEntityId);
+        return MotherMentorDao.getVisitMember(baseEntityId);
     }
 
     @Override

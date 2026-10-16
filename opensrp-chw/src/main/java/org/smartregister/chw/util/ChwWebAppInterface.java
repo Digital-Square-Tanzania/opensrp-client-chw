@@ -26,6 +26,10 @@ public class ChwWebAppInterface {
             ReportUtils.setPrintJobName("mother_champion_report-" + ReportUtils.getReportPeriod() + ".pdf");
             return ReportUtils.MotherChampionReport.computeReport(ReportUtils.getReportDate());
         }
+        if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.MOTHER_MENTOR_REPORT)) {
+            ReportUtils.setPrintJobName("mother_mentor_report-" + ReportUtils.getReportPeriod() + ".pdf");
+            return ReportUtils.MotherMentorReport.computeReport(ReportUtils.getReportDate());
+        }
 
 
         return "";

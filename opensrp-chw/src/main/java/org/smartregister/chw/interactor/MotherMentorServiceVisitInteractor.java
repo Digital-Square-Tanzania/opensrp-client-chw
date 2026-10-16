@@ -3,6 +3,8 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.mothermentor.contract.BaseMotherMentorVisitContract;
 import org.smartregister.chw.mothermentor.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.interactor.BaseMotherMentorServiceVisitInteractor;
@@ -10,6 +12,7 @@ import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.JsonFormUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -98,8 +101,8 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
 
     private boolean shouldShowFullVisitActions() {
         VisitTypeSelection selection = getVisitTypeSelection();
-        return isNewAttendance(selection.attendanceType)
-                || (isRepeatAttendance(selection.attendanceType) && isContinuingServices(selection.followUpStatus));
+        return org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion.isFullVisit(
+                selection.attendanceType, selection.followUpStatus);
     }
 
     private boolean isVisitTypeAnswered() {
@@ -113,7 +116,7 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         }
 
         try {
-            org.json.JSONObject jsonObject = new org.json.JSONObject(visitTypeAction.getJsonPayload());
+            JSONObject jsonObject = new JSONObject(visitTypeAction.getJsonPayload());
             return new VisitTypeSelection(
                     JsonFormUtils.getValue(jsonObject, FIELD_ATTENDANCE_TYPE),
                     JsonFormUtils.getValue(jsonObject, FIELD_FOLLOW_UP_STATUS));
@@ -180,26 +183,50 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         }
     }
 
-    private static class VisitTypeActionHelper implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
-        private String attendanceType;
+    private class VisitTypeActionHelper implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
+        private boolean complete;
+        private String preparedForm;
 
         @Override
         public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
-            // No preprocessing needed.
+            try {
+                JSONObject form = new JSONObject(jsonString);
+                Map<String, String> defaults = org.smartregister.chw.mothermentor.dao.MotherMentorDao
+                        .getVisitEnrollmentValues(memberObject.getBaseEntityId());
+                JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
+                for (int i = 0; i < fields.length(); i++) {
+                    JSONObject field = fields.getJSONObject(i);
+                    String key = field.optString("key");
+                    String value = defaults.get(key);
+                    // Preserve answers already saved in an unfinished visit.
+                    if (value != null && !value.isEmpty() && field.optString("value").isEmpty()) field.put("value", value);
+                    if ("primary_mothermentor_client".equals(key) || "iit_enrolled".equals(key)
+                            || "partner_enrolled".equals(key) || "child_eid_enrolled".equals(key)) field.put("value", value);
+                }
+                preparedForm = form.toString();
+            } catch (Exception e) {
+                Timber.e(e);
+            }
         }
 
         @Override
         public String getPreProcessed() {
-            return null;
+            return preparedForm;
         }
 
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                attendanceType = JsonFormUtils.getValue(new org.json.JSONObject(jsonPayload), "attendance_type");
+                JSONArray fields = new JSONObject(jsonPayload).getJSONObject("step1").getJSONArray("fields");
+                Map<String, String> values = new HashMap<>();
+                for (int i = 0; i < fields.length(); i++) {
+                    JSONObject field = fields.getJSONObject(i);
+                    values.put(field.optString("key"), field.optString("value"));
+                }
+                complete = org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion.isVisitTypeComplete(values);
             } catch (Exception e) {
                 Timber.e(e);
-                attendanceType = null;
+                complete = false;
             }
         }
 
@@ -225,7 +252,7 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
 
         @Override
         public BaseMotherMentorVisitAction.Status evaluateStatusOnPayload() {
-            return StringUtils.isNotBlank(attendanceType)
+            return complete
                     ? BaseMotherMentorVisitAction.Status.COMPLETED
                     : BaseMotherMentorVisitAction.Status.PENDING;
         }
@@ -253,7 +280,7 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                org.json.JSONObject jsonObject = new org.json.JSONObject(jsonPayload);
+                JSONObject jsonObject = new JSONObject(jsonPayload);
                 psychosocialSupportGroupLinkage = JsonFormUtils.getValue(jsonObject, "has_been_linked_to_psychosocial_support_group");
                 igaGroupLinkage = JsonFormUtils.getValue(jsonObject, "has_been_linked_to_iga_group");
             } catch (Exception e) {
@@ -313,7 +340,7 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                educationProvided = JsonFormUtils.getValue(new org.json.JSONObject(jsonPayload), "education_provided");
+                educationProvided = JsonFormUtils.getValue(new JSONObject(jsonPayload), "education_provided");
             } catch (Exception e) {
                 Timber.e(e);
                 educationProvided = null;
@@ -369,7 +396,7 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                referralGiven = JsonFormUtils.getValue(new org.json.JSONObject(jsonPayload), "referral_given");
+                referralGiven = JsonFormUtils.getValue(new JSONObject(jsonPayload), "referral_given");
             } catch (Exception e) {
                 Timber.e(e);
                 referralGiven = null;
@@ -425,7 +452,7 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                nextAppointmentDate = JsonFormUtils.getValue(new org.json.JSONObject(jsonPayload), "next_appointment_date");
+                nextAppointmentDate = JsonFormUtils.getValue(new JSONObject(jsonPayload), "next_appointment_date");
             } catch (Exception e) {
                 Timber.e(e);
                 nextAppointmentDate = null;
@@ -481,7 +508,7 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                comments = JsonFormUtils.getValue(new org.json.JSONObject(jsonPayload), "comments");
+                comments = JsonFormUtils.getValue(new JSONObject(jsonPayload), "comments");
             } catch (Exception e) {
                 Timber.e(e);
                 comments = null;

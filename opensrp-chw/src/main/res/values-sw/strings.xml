@@ -1145,4 +1145,6 @@
     <string name="started_refreshing_reports">Imeanza kuchakata Ripoti Upya</string>
     <string name="refreshing_reports_progress">Uchakataji wa Ripoti Unaendelea</string>
     <string name="finished_refreshing_reports">Uchakataji wa Ripoti Umemalizika</string>
+    <string name="mother_mentor_reports">Ripoti ya mwezi ya Mama Kinara</string>
+    <string name="mother_mentor_reports_subtitle">Tazama ripoti ya mwezi ya Mama Kinara</string>
 </resources>

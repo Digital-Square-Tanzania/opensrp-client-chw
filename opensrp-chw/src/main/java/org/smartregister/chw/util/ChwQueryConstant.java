@@ -325,7 +325,7 @@ public interface ChwQueryConstant {
             "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
             "WHERE ec_family_member.is_closed = '0'\n" +
             "  AND ec_family_member.date_removed is null\n" +
-            "  AND cast(strftime('%Y-%m-%d %H:%M:%S', 'now') - strftime('%Y-%m-%d %H:%M:%S', ec_child.dob) as int) > 0\n" +
+            "  AND date(ec_child.dob) <= date('now')\n" +
             "  AND ec_child.base_entity_id IN (%s)\n" +
             "\n" +
             "UNION ALL\n" +

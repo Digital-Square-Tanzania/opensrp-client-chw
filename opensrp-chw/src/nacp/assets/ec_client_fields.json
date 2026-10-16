@@ -14361,6 +14361,46 @@
           "json_mapping": {
             "field": "version"
           }
+        },
+        {
+          "column_name": "referred_male",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_male"
+          }
+        },
+        {
+          "column_name": "referred_female",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_female"
+          }
+        },
+        {
+          "column_name": "referred_total",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_total"
+          }
+        },
+        {
+          "column_name": "facility_referral_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_referral_services"
+          }
+        },
+        {
+          "column_name": "facility_referral_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_referral_other"
+          }
         }
       ]
     },

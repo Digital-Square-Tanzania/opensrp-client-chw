@@ -428,6 +428,12 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         values.put(FIELD_ELIM_F, elimF);
         values.put(FIELD_ELIM_TOTAL, getObsValue(event, FIELD_ELIM_TOTAL, false));
         values.put(FIELD_MAONI, getObsValue(event, FIELD_MAONI, false));
+        values.put("referred_male", getObsValue(event, "referred_male", false));
+        values.put("referred_female", getObsValue(event, "referred_female", false));
+        values.put("referred_total", getObsValue(event, "referred_total", false));
+        values.put("facility_referral_services", getObsValue(event, "facility_referral_services", true));
+        values.put("facility_referral_other", getObsValue(event, "facility_referral_other", false));
+
         values.put("mobilization_date", shTarehe);
         values.put("mobilization_area", shAina);
         values.put("other_mobilization_area", getObsValue(event, FIELD_SH_AINA_OTHER, false));
@@ -456,6 +462,12 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         addColumnIfMissing(db, FIELD_ELIM_F);
         addColumnIfMissing(db, FIELD_ELIM_TOTAL);
         addColumnIfMissing(db, FIELD_MAONI);
+        addColumnIfMissing(db, "referred_male");
+        addColumnIfMissing(db, "referred_female");
+        addColumnIfMissing(db, "referred_total");
+        addColumnIfMissing(db, "facility_referral_services");
+        addColumnIfMissing(db, "facility_referral_other");
+
     }
 
     private void addColumnIfMissing(SQLiteDatabase db, String column) {

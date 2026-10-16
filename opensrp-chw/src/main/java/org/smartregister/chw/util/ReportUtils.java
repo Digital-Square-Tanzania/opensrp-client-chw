@@ -33,6 +33,7 @@ import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
 import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
 import org.smartregister.chw.domain.mother_champion_report.MotherChampionReportObject;
+import org.smartregister.chw.domain.mother_mentor_reports.MotherMentorReportObject;
 import org.smartregister.chw.domain.sbc_reports.SbcReportObject;
 import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyCommunityReportObject;
 import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyHouseholdReportObject;
@@ -163,6 +164,18 @@ public class ReportUtils {
                 Timber.e(e);
             }
             return report;
+        }
+    }
+
+    public static class MotherMentorReport {
+        public static String computeReport(Date reportDate) {
+            MotherMentorReportObject reportObject = new MotherMentorReportObject(reportDate);
+            try {
+                return reportObject.getIndicatorDataAsGson(reportObject.getIndicatorData());
+            } catch (Exception e) {
+                Timber.e(e);
+                return "";
+            }
         }
     }
 

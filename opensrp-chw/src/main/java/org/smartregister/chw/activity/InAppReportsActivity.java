@@ -37,6 +37,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout motherChampionReportsLayout;
 
+    protected ConstraintLayout motherMentorReportsLayout;
+
     protected ConstraintLayout condomDistributionReports;
 
     protected ConstraintLayout agywReports;
@@ -81,6 +83,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
     public void setUpViews() {
         cbhsReportsLayout = findViewById(R.id.cbhs_summary);
         motherChampionReportsLayout = findViewById(R.id.mother_champion_reports);
+        motherMentorReportsLayout = findViewById(R.id.mother_mentor_reports);
         condomDistributionReports = findViewById(R.id.cdp_reports);
         agywReports = findViewById(R.id.agyw_reports);
         iccmReports = findViewById(R.id.iccm_reports);
@@ -124,6 +127,12 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
                     if (ChwApplication.getApplicationFlavor().hasPmtct()) {
                         motherChampionReportsLayout.setVisibility(View.VISIBLE);
+                    }
+
+                    // Match the Mother Mentor register's availability in NavigationModelFlv.
+                    if (ChwApplication.getApplicationFlavor().hasMotherMentor()
+                            && !"rmncah_provider".equals(teamRoleIdentifier)) {
+                        motherMentorReportsLayout.setVisibility(View.VISIBLE);
                     }
 
                     if (ChwApplication.getApplicationFlavor().hasAGYW()) {
@@ -181,6 +190,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 motherChampionReportsLayout.setVisibility(View.VISIBLE);
             }
 
+            if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                motherMentorReportsLayout.setVisibility(View.VISIBLE);
+            }
+
             if (ChwApplication.getApplicationFlavor().hasAGYW()) {
                 agywReports.setVisibility(View.VISIBLE);
             }
@@ -228,6 +241,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         }
 
         motherChampionReportsLayout.setOnClickListener(this);
+        motherMentorReportsLayout.setOnClickListener(this);
         condomDistributionReports.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);
         agywReports.setOnClickListener(this);
@@ -277,6 +291,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             startActivity(new Intent(this, CBHSReportsActivity.class));
         } else if (id == R.id.mother_champion_reports) {
             startActivity(new Intent(this, MotherChampionReportsActivity.class));
+        } else if (id == R.id.mother_mentor_reports) {
+            startActivity(new Intent(this, MotherMentorReportsActivity.class));
         } else if (id == R.id.cdp_reports) {
             startActivity(new Intent(this, CdpReportsActivity.class));
         } else if (id == R.id.agyw_reports) {
