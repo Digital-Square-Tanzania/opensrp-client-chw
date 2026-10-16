@@ -39,6 +39,11 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
     }
 
     @Override
+    public void redrawHeader(MemberObject memberObject) {
+        tvTitle.setText(memberObject.getFullName());
+    }
+
+    @Override
     public void startFormActivity(JSONObject jsonForm) {
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);

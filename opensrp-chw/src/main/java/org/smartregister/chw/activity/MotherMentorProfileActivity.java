@@ -51,7 +51,6 @@ import timber.log.Timber;
 public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity {
     static final String EXTRA_FOLLOW_UP_PROFILE = "extra_follow_up_profile";
     private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
-    private static final String HOUSEHOLD_RECORD_LABEL = "Utoaji wa huduma za mama kinara kwa jamii";
     private static final String ATTENDANCE_TYPE = "attendance_type";
     private static final String PSYCHOSOCIAL_GROUP_LINKAGE = "has_been_linked_to_psychosocial_support_group";
     private static final String IGA_GROUP_LINKAGE = "has_been_linked_to_iga_group";
@@ -540,7 +539,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             if (isFollowUpProfile()) {
                 textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
             } else if (memberObject != null && TextUtils.equals(memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId())) {
-                textViewRecordMotherMentor.setText(HOUSEHOLD_RECORD_LABEL);
+                textViewRecordMotherMentor.setText(R.string.mothermentor_household_record);
             } else {
                 textViewRecordMotherMentor.setText(org.smartregister.chw.mothermentor.R.string.record_mothermentor);
             }
