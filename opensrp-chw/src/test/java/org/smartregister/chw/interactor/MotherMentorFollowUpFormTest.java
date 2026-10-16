@@ -101,6 +101,78 @@ public class MotherMentorFollowUpFormTest {
         assertFalse(partnerReason.toString().contains("service_interruption_reason"));
     }
 
+    @Test
+    public void childEidUsesFiveIndependentClinicalSectionsInBothLocales() throws Exception {
+        String[] locales = {"json.form", "json.form-sw"};
+        String[] expectedTests = {"six_weeks", "nine_months", "three_months_after_weaning", "eighteen_months"};
+        String[] expectedReasons = {"medicine_side_effects", "forgot", "travel_or_moved", "transport_cost",
+                "facility_congestion", "stigma", "other"};
+        for (String locale : locales) {
+            String[] childForms = {
+                    "mothermentor_child_eid_follow_up_status.json",
+                    "mothermentor_child_eid_test_type.json",
+                    "mothermentor_child_eid_non_attendance_reason.json",
+                    "mothermentor_child_eid_arrival.json",
+                    "mothermentor_child_eid_follow_up_comment.json"
+            };
+            for (String childForm : childForms) assertRendererMetadata(form(locale, childForm));
+
+            assertNotNull(field(form(locale, childForms[0]), "follow_up_status"));
+
+            JSONObject test = field(form(locale, "mothermentor_child_eid_test_type.json"), "child_eid_test_type");
+            assertOptions(test, expectedTests);
+            assertNotNull(field(form(locale, "mothermentor_child_eid_test_type.json"), "child_eid_test_recommendation"));
+
+            JSONObject reasonForm = form(locale, "mothermentor_child_eid_non_attendance_reason.json");
+            assertOptions(field(reasonForm, "child_eid_non_attendance_reason"), expectedReasons);
+            assertNotNull(field(reasonForm, "child_eid_non_attendance_reason_other").getJSONObject("relevance"));
+            assertEquals("date_picker", field(reasonForm, "child_eid_expected_facility_visit_date").getString("type"));
+
+            JSONObject arrivalForm = form(locale, "mothermentor_child_eid_arrival.json");
+            assertNotNull(field(arrivalForm, "child_eid_arrived_at_facility"));
+            assertNotNull(field(arrivalForm, "child_eid_facility_arrival_date").getJSONObject("relevance"));
+
+            JSONObject comments = field(form(locale, "mothermentor_child_eid_follow_up_comment.json"), "comments");
+            assertFalse(comments.has("v_required"));
+            assertEquals("100", comments.getJSONObject("v_max_length").getString("value"));
+        }
+    }
+
+    @Test
+    public void allThreeCategoryFieldSetsRemainSeparate() throws Exception {
+        String mother = form("json.form", "mothermentor_service_interruption_reason.json").toString();
+        String partner = form("json.form", "mothermentor_partner_non_attendance_reason.json").toString();
+        String child = form("json.form", "mothermentor_child_eid_non_attendance_reason.json").toString();
+        assertFalse(mother.contains("partner_non_attendance_reason"));
+        assertFalse(mother.contains("child_eid_non_attendance_reason"));
+        assertFalse(partner.contains("service_interruption_reason"));
+        assertFalse(partner.contains("child_eid_non_attendance_reason"));
+        assertFalse(child.contains("service_interruption_reason"));
+        assertFalse(child.contains("partner_non_attendance_reason"));
+    }
+
+    private void assertOptions(JSONObject field, String[] expected) throws Exception {
+        JSONArray options = field.getJSONArray("options");
+        assertEquals(expected.length, options.length());
+        for (int i = 0; i < expected.length; i++) assertEquals(expected[i], options.getJSONObject(i).getString("key"));
+    }
+
+    private void assertRendererMetadata(JSONObject form) throws Exception {
+        JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.getJSONObject(i);
+            assertTrue("Missing renderer metadata for field " + field.optString("key"),
+                    field.has("openmrs_entity_parent"));
+            JSONArray options = field.optJSONArray("options");
+            if (options == null) continue;
+            for (int j = 0; j < options.length(); j++) {
+                JSONObject option = options.getJSONObject(j);
+                assertTrue("Missing renderer metadata for option " + option.optString("key"),
+                        option.has("openmrs_entity_parent"));
+            }
+        }
+    }
+
     private boolean hasOption(JSONObject field, String key) throws Exception {
         JSONArray options = field.getJSONArray("options");
         for (int i = 0; i < options.length(); i++) {

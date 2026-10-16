@@ -59,5 +59,14 @@ public class MotherMentorProfileActivityTest extends BaseUnitTest {
                 .buildActivity(MotherMentorProfileActivity.class, partnerIntent)
                 .get();
         assertEquals(MotherMentorFollowUpType.PARTNER, partnerProfile.getFollowUpType());
+
+        Intent childIntent = new Intent()
+                .putExtra(MotherMentorProfileActivity.EXTRA_FOLLOW_UP_PROFILE, true)
+                .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE,
+                        MotherMentorFollowUpType.CHILD_EID.getValue());
+        MotherMentorProfileActivity childProfile = Robolectric
+                .buildActivity(MotherMentorProfileActivity.class, childIntent)
+                .get();
+        assertEquals(MotherMentorFollowUpType.CHILD_EID, childProfile.getFollowUpType());
     }
 }

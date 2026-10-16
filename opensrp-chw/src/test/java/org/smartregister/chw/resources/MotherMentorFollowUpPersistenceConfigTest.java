@@ -20,21 +20,31 @@ public class MotherMentorFollowUpPersistenceConfigTest {
             "expected_facility_visit_date", "returned_to_facility", "facility_return_date",
             "partner_non_attendance_reason", "partner_non_attendance_reason_other",
             "partner_expected_facility_visit_date", "partner_arrived_at_facility",
-            "partner_facility_arrival_date", "comments"
+            "partner_facility_arrival_date",
+            "child_eid_test_type", "child_eid_non_attendance_reason",
+            "child_eid_non_attendance_reason_other", "child_eid_expected_facility_visit_date",
+            "child_eid_arrived_at_facility", "child_eid_facility_arrival_date", "comments"
     };
 
     @Test
-    public void motherAndPartnerUseDifferentStableEventTypes() {
+    public void allCategoriesUseDifferentStableEventTypes() {
         assertFalse(MotherMentorFollowUpType.MOTHER_IIT.getEventType()
                 .equals(MotherMentorFollowUpType.PARTNER.getEventType()));
         assertEquals(MotherMentorFollowUpType.PARTNER,
                 MotherMentorFollowUpType.fromEnrollmentTable("ec_mothermentor_enroll_partner"));
+        assertFalse(MotherMentorFollowUpType.MOTHER_IIT.getEventType()
+                .equals(MotherMentorFollowUpType.CHILD_EID.getEventType()));
+        assertFalse(MotherMentorFollowUpType.PARTNER.getEventType()
+                .equals(MotherMentorFollowUpType.CHILD_EID.getEventType()));
+        assertEquals(MotherMentorFollowUpType.CHILD_EID,
+                MotherMentorFollowUpType.fromEnrollmentTable("ec_mothermentor_enroll_child_eid"));
     }
 
     @Test
     public void partnerEventIsClassifiedAndAllAnswersAreMappedAndMigrated() throws Exception {
         JSONObject classification = json("src/nacp/assets/ec_client_classification.json");
         assertTrue(classification.toString().contains(MotherMentorFollowUpType.PARTNER.getEventType()));
+        assertTrue(classification.toString().contains(MotherMentorFollowUpType.CHILD_EID.getEventType()));
 
         JSONObject fields = json("src/nacp/assets/ec_client_fields.json");
         JSONArray columns = findTable(fields.getJSONArray("bindobjects"),
@@ -45,8 +55,8 @@ public class MotherMentorFollowUpPersistenceConfigTest {
             assertTrue("Missing migration for " + column,
                     repository.contains("\"" + column + "\""));
         }
-        assertTrue(repository.contains("case 51:"));
-        assertTrue(text("build.gradle").contains("DATABASE_VERSION\", '51'"));
+        assertTrue(repository.contains("case 52:"));
+        assertTrue(text("build.gradle").contains("DATABASE_VERSION\", '52'"));
     }
 
     private JSONObject findTable(JSONArray tables, String name) throws Exception {

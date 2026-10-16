@@ -14200,6 +14200,36 @@
           "json_mapping": {"field": "obs.fieldCode", "concept": "partner_facility_arrival_date"}
         },
         {
+          "column_name": "child_eid_test_type",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_test_type"}
+        },
+        {
+          "column_name": "child_eid_non_attendance_reason",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_non_attendance_reason"}
+        },
+        {
+          "column_name": "child_eid_non_attendance_reason_other",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_non_attendance_reason_other"}
+        },
+        {
+          "column_name": "child_eid_expected_facility_visit_date",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_expected_facility_visit_date"}
+        },
+        {
+          "column_name": "child_eid_arrived_at_facility",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_arrived_at_facility"}
+        },
+        {
+          "column_name": "child_eid_facility_arrival_date",
+          "type": "Event",
+          "json_mapping": {"field": "obs.fieldCode", "concept": "child_eid_facility_arrival_date"}
+        },
+        {
           "column_name": "comments",
           "type": "Event",
           "json_mapping": {"field": "obs.fieldCode", "concept": "comments"}

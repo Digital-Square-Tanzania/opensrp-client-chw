@@ -72,6 +72,12 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private static final String PARTNER_EXPECTED_FACILITY_VISIT_DATE = "partner_expected_facility_visit_date";
     private static final String PARTNER_ARRIVED_AT_FACILITY = "partner_arrived_at_facility";
     private static final String PARTNER_FACILITY_ARRIVAL_DATE = "partner_facility_arrival_date";
+    private static final String CHILD_EID_TEST_TYPE = "child_eid_test_type";
+    private static final String CHILD_EID_NON_ATTENDANCE_REASON = "child_eid_non_attendance_reason";
+    private static final String CHILD_EID_NON_ATTENDANCE_REASON_OTHER = "child_eid_non_attendance_reason_other";
+    private static final String CHILD_EID_EXPECTED_FACILITY_VISIT_DATE = "child_eid_expected_facility_visit_date";
+    private static final String CHILD_EID_ARRIVED_AT_FACILITY = "child_eid_arrived_at_facility";
+    private static final String CHILD_EID_FACILITY_ARRIVAL_DATE = "child_eid_facility_arrival_date";
     private static final int HIGH_RISK_WEEK_THRESHOLD = 8;
     private static final String[] IIT_DATE_FORMATS = new String[]{"dd-MM-yyyy", "yyyy-MM-dd"};
 
@@ -265,10 +271,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             followUpRoleView.setGravity(android.view.Gravity.CENTER);
             profile.addView(followUpRoleView);
         }
-        boolean showPartnerRole = isFollowUpProfile()
-                && getFollowUpType() == MotherMentorFollowUpType.PARTNER;
-        followUpRoleView.setVisibility(showPartnerRole ? View.VISIBLE : View.GONE);
-        if (showPartnerRole) followUpRoleView.setText(R.string.mothermentor_partner);
+        boolean showSecondaryRole = isFollowUpProfile()
+                && getFollowUpType() != MotherMentorFollowUpType.MOTHER_IIT;
+        followUpRoleView.setVisibility(showSecondaryRole ? View.VISIBLE : View.GONE);
+        if (showSecondaryRole) {
+            followUpRoleView.setText(getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
+                    ? R.string.mothermentor_child_eid : R.string.mothermentor_partner);
+        }
     }
 
     private void updatePregnancyWeek() {
@@ -598,11 +607,19 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 if (!"found".equals(status)) return true;
                 boolean partnerSchema = getFollowUpType() == MotherMentorFollowUpType.PARTNER
                         && MotherMentorFollowUpType.PARTNER.getEventType().equals(visit.getVisitType());
-                String reasonField = partnerSchema ? PARTNER_NON_ATTENDANCE_REASON : SERVICE_INTERRUPTION_REASON;
-                String otherField = partnerSchema ? PARTNER_NON_ATTENDANCE_REASON_OTHER : SERVICE_INTERRUPTION_REASON_OTHER;
-                String expectedDateField = partnerSchema ? PARTNER_EXPECTED_FACILITY_VISIT_DATE : EXPECTED_FACILITY_VISIT_DATE;
-                String arrivalField = partnerSchema ? PARTNER_ARRIVED_AT_FACILITY : RETURNED_TO_FACILITY;
-                String arrivalDateField = partnerSchema ? PARTNER_FACILITY_ARRIVAL_DATE : FACILITY_RETURN_DATE;
+                boolean childSchema = getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
+                        && MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visit.getVisitType());
+                String reasonField = childSchema ? CHILD_EID_NON_ATTENDANCE_REASON
+                        : partnerSchema ? PARTNER_NON_ATTENDANCE_REASON : SERVICE_INTERRUPTION_REASON;
+                String otherField = childSchema ? CHILD_EID_NON_ATTENDANCE_REASON_OTHER
+                        : partnerSchema ? PARTNER_NON_ATTENDANCE_REASON_OTHER : SERVICE_INTERRUPTION_REASON_OTHER;
+                String expectedDateField = childSchema ? CHILD_EID_EXPECTED_FACILITY_VISIT_DATE
+                        : partnerSchema ? PARTNER_EXPECTED_FACILITY_VISIT_DATE : EXPECTED_FACILITY_VISIT_DATE;
+                String arrivalField = childSchema ? CHILD_EID_ARRIVED_AT_FACILITY
+                        : partnerSchema ? PARTNER_ARRIVED_AT_FACILITY : RETURNED_TO_FACILITY;
+                String arrivalDateField = childSchema ? CHILD_EID_FACILITY_ARRIVAL_DATE
+                        : partnerSchema ? PARTNER_FACILITY_ARRIVAL_DATE : FACILITY_RETURN_DATE;
+                if (childSchema && TextUtils.isEmpty(values.get(CHILD_EID_TEST_TYPE))) return false;
                 if (TextUtils.isEmpty(values.get(reasonField))
                         || TextUtils.isEmpty(values.get(expectedDateField))
                         || TextUtils.isEmpty(values.get(arrivalField))) return false;

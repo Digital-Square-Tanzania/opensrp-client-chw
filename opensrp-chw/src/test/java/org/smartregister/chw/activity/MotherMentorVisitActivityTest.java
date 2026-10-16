@@ -38,5 +38,14 @@ public class MotherMentorVisitActivityTest extends BaseUnitTest {
                 .buildActivity(MotherMentorVisitActivity.class, partnerIntent)
                 .get();
         assertEquals(MotherMentorFollowUpType.PARTNER, partnerVisit.getFollowUpType());
+
+        Intent childIntent = new Intent()
+                .putExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, true)
+                .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE,
+                        MotherMentorFollowUpType.CHILD_EID.getValue());
+        MotherMentorVisitActivity childVisit = Robolectric
+                .buildActivity(MotherMentorVisitActivity.class, childIntent)
+                .get();
+        assertEquals(MotherMentorFollowUpType.CHILD_EID, childVisit.getFollowUpType());
     }
 }

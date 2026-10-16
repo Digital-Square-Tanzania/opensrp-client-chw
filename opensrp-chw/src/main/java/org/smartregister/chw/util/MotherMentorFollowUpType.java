@@ -11,7 +11,7 @@ public enum MotherMentorFollowUpType {
     PARTNER("PARTNER", Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER,
             "MotherMentor Partner Follow-up Visit"),
     CHILD_EID("CHILD_EID", Constants.TABLES.MOTHERMENTOR_ENROLL_CHILD_EID,
-            Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT);
+            "MotherMentor Child EID Follow-up Visit");
 
     public static final String EXTRA_FOLLOW_UP_TYPE = "mother_mentor_follow_up_type";
     public static final String FOLLOW_UP_TABLE = "ec_mothermentor_followup_visit";

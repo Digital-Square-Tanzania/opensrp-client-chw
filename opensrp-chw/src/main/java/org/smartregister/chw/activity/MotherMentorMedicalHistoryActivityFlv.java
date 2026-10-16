@@ -54,6 +54,12 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             "partner_expected_facility_visit_date",
             "partner_arrived_at_facility",
             "partner_facility_arrival_date",
+            "child_eid_test_type",
+            "child_eid_non_attendance_reason",
+            "child_eid_non_attendance_reason_other",
+            "child_eid_expected_facility_visit_date",
+            "child_eid_arrived_at_facility",
+            "child_eid_facility_arrival_date",
             "has_been_linked_to_psychosocial_support_group",
             "has_been_linked_to_iga_group",
             "education_provided",
@@ -158,6 +164,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
                     if (StringUtils.isNotBlank(vals.get("follow_up_status"))) {
                         MotherMentorFollowUpType editType = MotherMentorFollowUpType.PARTNER.getEventType().equals(visit.getVisitType())
                                 ? MotherMentorFollowUpType.PARTNER
+                                : MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visit.getVisitType())
+                                ? MotherMentorFollowUpType.CHILD_EID
                                 : followUpType == null ? MotherMentorFollowUpType.MOTHER_IIT : followUpType;
                         MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                                 (Activity) context, visit.getBaseEntityId(), true, editType);
@@ -194,7 +202,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         if (Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visitType)
                 || Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT.equals(visitType)
                 || Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT.equals(visitType)
-                || MotherMentorFollowUpType.PARTNER.getEventType().equals(visitType)) {
+                || MotherMentorFollowUpType.PARTNER.getEventType().equals(visitType)
+                || MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visitType)) {
             return context.getString(R.string.mothermentor_visit_history_title);
         }
         return visitType;

@@ -3,13 +3,18 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
+
 import org.json.JSONObject;
 import org.smartregister.chw.core.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.MotherMentorFollowUpVisitInteractor;
+import org.smartregister.chw.interactor.ChildEidFollowUpVisitInteractor;
 import org.smartregister.chw.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
@@ -22,6 +27,8 @@ import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Months;
 
 public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     static final String EXTRA_FOLLOW_UP_VISIT = "extra_follow_up_visit";
@@ -64,8 +71,9 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                         ? new MotherMentorServiceVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES)
                         : followUpType == MotherMentorFollowUpType.PARTNER
                         ? new PartnerFollowUpVisitInteractor(followUpType.getEventType())
-                        : new MotherMentorFollowUpVisitInteractor(
-                                followUpType.getEventType(), followUpType.getValue()));
+                        : followUpType == MotherMentorFollowUpType.CHILD_EID
+                        ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType())
+                        : new MotherMentorFollowUpVisitInteractor(followUpType.getEventType(), followUpType.getValue()));
     }
 
     @Override
@@ -84,8 +92,33 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         }
         int savedVisits = MotherMentorFollowUpVisitUtils.getVisits(member.getBaseEntityId(), getFollowUpType()).size();
         int visitNumber = Boolean.TRUE.equals(isEditMode) ? Math.max(1, savedVisits) : savedVisits + 1;
-        tvTitle.setText(getString(org.smartregister.chw.R.string.mothermentor_visit_header,
-                member.getFullName(), member.getAge(), visitNumber));
+        if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+            tvTitle.setText(getString(org.smartregister.chw.R.string.mothermentor_child_visit_header,
+                    member.getFullName(), childAge(member.getBaseEntityId()), visitNumber));
+        } else {
+            tvTitle.setText(getString(org.smartregister.chw.R.string.mothermentor_visit_header,
+                    member.getFullName(), member.getAge(), visitNumber));
+        }
+    }
+
+    private String childAge(String baseEntityId) {
+        try {
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+            try (Cursor cursor = db.rawQuery("SELECT dob FROM ec_family_member WHERE base_entity_id = ? LIMIT 1",
+                    new String[]{baseEntityId})) {
+                if (cursor.moveToFirst() && !cursor.isNull(0)) {
+                    DateTime dob = new DateTime(cursor.getString(0));
+                    int totalMonths = Math.max(0, Months.monthsBetween(dob.withTimeAtStartOfDay(),
+                            DateTime.now().withTimeAtStartOfDay()).getMonths());
+                    int years = totalMonths / 12;
+                    int months = totalMonths % 12;
+                    if (years == 0) return getString(org.smartregister.chw.R.string.mothermentor_child_age_months, months);
+                    if (months == 0) return getString(org.smartregister.chw.R.string.mothermentor_child_age_years, years);
+                    return getString(org.smartregister.chw.R.string.mothermentor_child_age_years_months, years, months);
+                }
+            }
+        } catch (Exception ignored) { }
+        return String.valueOf(memberObject.getAge());
     }
 
     @Override

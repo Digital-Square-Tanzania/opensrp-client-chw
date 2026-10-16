@@ -25,6 +25,7 @@ import timber.log.Timber;
 /** Shared section UI and validation plumbing for category-specific follow-up forms. */
 public abstract class BaseMotherMentorFollowUpVisitInteractor extends BaseMotherMentorServiceVisitInteractor {
     private static final String STATUS = "status";
+    private static final String TEST_TYPE = "test_type";
     private static final String REASON = "reason";
     private static final String ARRIVAL = "arrival";
     private static final String COMMENTS = "comments";
@@ -53,6 +54,9 @@ public abstract class BaseMotherMentorFollowUpVisitInteractor extends BaseMother
             workflowActions.clear();
             try {
                 add(STATUS, definition.statusTitle, definition.statusForm, new StatusHelper(), null, false);
+                if (StringUtils.isNotBlank(definition.testTypeForm)) {
+                    add(TEST_TYPE, definition.testTypeTitle, definition.testTypeForm, new TestTypeHelper(), new FoundValidator(), false);
+                }
                 add(REASON, definition.reasonTitle, definition.reasonForm, new ReasonHelper(), new FoundValidator(), false);
                 add(ARRIVAL, definition.arrivalTitle, definition.arrivalForm, new ArrivalHelper(), new FoundValidator(), false);
                 add(COMMENTS, definition.commentsTitle, definition.commentsForm, new CommentsHelper(), new AnsweredValidator(), true);
@@ -116,6 +120,7 @@ public abstract class BaseMotherMentorFollowUpVisitInteractor extends BaseMother
         if (clientFound()) return;
         clearAction(REASON);
         clearAction(ARRIVAL);
+        clearAction(TEST_TYPE);
     }
 
     private void clearAction(String key) {
@@ -186,6 +191,25 @@ public abstract class BaseMotherMentorFollowUpVisitInteractor extends BaseMother
         }
     }
 
+    private class TestTypeHelper extends Helper {
+        private String source;
+
+        @Override
+        public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> details) {
+            super.onJsonFormLoaded(jsonPayload, context, details);
+            source = jsonPayload;
+        }
+
+        @Override public String getPreProcessed() { return preprocessTestTypeForm(source); }
+        @Override public String evaluateSubTitle() { return translate(definition.testTypeTranslationPrefix, get(definition.testTypeField)); }
+        @Override public BaseMotherMentorVisitAction.Status evaluateStatusOnPayload() {
+            return complete(StringUtils.isNotBlank(get(definition.testTypeField)));
+        }
+    }
+
+    /** Category hook used by Child EID to inject a data-backed test recommendation. */
+    protected String preprocessTestTypeForm(String source) { return null; }
+
     private class ArrivalHelper extends Helper {
         @Override public String evaluateSubTitle() {
             String answer = translate("mothermentor_answer_", get(definition.arrivalField));
@@ -223,7 +247,9 @@ public abstract class BaseMotherMentorFollowUpVisitInteractor extends BaseMother
         final String eventType;
         final String category;
         final int statusTitle, reasonTitle, arrivalTitle, commentsTitle;
+        int testTypeTitle;
         final String statusForm, reasonForm, arrivalForm, commentsForm;
+        String testTypeForm, testTypeField, testTypeTranslationPrefix;
         final String reasonField, reasonOtherField, expectedDateField, arrivalField, arrivalDateField;
         final String reasonTranslationPrefix;
 
@@ -248,6 +274,14 @@ public abstract class BaseMotherMentorFollowUpVisitInteractor extends BaseMother
             this.arrivalField = arrivalField;
             this.arrivalDateField = arrivalDateField;
             this.reasonTranslationPrefix = reasonTranslationPrefix;
+        }
+
+        protected FollowUpFormDefinition withTestType(int title, String form, String field, String translationPrefix) {
+            testTypeTitle = title;
+            testTypeForm = form;
+            testTypeField = field;
+            testTypeTranslationPrefix = translationPrefix;
+            return this;
         }
     }
 }

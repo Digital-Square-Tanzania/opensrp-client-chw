@@ -1,0 +1,15 @@
+---
+name: step1_child_eid_non_attendance_reason_other
+description: Require a written Child EID reason only when Other is selected
+priority: 1
+condition: "step1_child_eid_non_attendance_reason.contains('other')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_child_eid_facility_arrival_date
+description: Require an arrival date only when the child arrived
+priority: 1
+condition: "step1_child_eid_arrived_at_facility.contains('yes')"
+actions:
+  - "isRelevant = true"
