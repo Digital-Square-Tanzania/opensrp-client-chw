@@ -1,0 +1,16 @@
+{
+ "count":"1","skip_blank_steps":true,"encounter_type":"Mother Mentor Service Interruption Reason","entity_id":"",
+ "metadata":{"start":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"start","openmrs_entity_id":"start"},"end":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"end","openmrs_entity_id":"end"},"today":{"openmrs_entity_parent":"","openmrs_entity":"encounter","openmrs_entity_id":"encounter_date"},"encounter_location":""},"global":{},
+ "step1":{"title":"Sababu ya kukatisha huduma","fields":[
+  {"key":"service_interruption_reason","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"service_interruption_reason","label":"Sababu ya kukatisha huduma *","type":"native_radio","options":[
+   {"key":"medicine_side_effects","text":"Maudhi ya dawa","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"medicine_side_effects"},
+   {"key":"forgot","text":"Kusahau","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"forgot"},
+   {"key":"travel_or_moved","text":"Safari / Kuhama","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"travel_or_moved"},
+   {"key":"transport_cost","text":"Hana pesa ya nauli","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"transport_cost"},
+   {"key":"facility_congestion","text":"Msongamano kituoni","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"facility_congestion"},
+   {"key":"stigma","text":"Unyanyapaa","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"stigma"},
+   {"key":"other","text":"Nyingine (taja)","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"other"}],"v_required":{"value":"true","err":"Tafadhali chagua jibu"}},
+  {"key":"service_interruption_reason_other","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"service_interruption_reason_other","type":"edit_text","hint":"Taja sababu","v_required":{"value":"true","err":"Tafadhali taja sababu"},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"mothermentor_follow_up_relevance.yml"}}}},
+  {"key":"expected_facility_visit_date","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"expected_facility_visit_date","type":"date_picker","display_format":"dd/MM/yyyy","min_date":"today-5y","max_date":"today","expanded":false,"hint":"Tarehe mama aliyotakiwa kuhudhuria kituoni *","v_required":{"value":"true","err":"Inahitajika"}}
+ ]}
+}

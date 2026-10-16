@@ -17,12 +17,13 @@
         android:id="@+id/mothermentor_secondary_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/customAppThemeBlue"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/customAppThemeBlue"
+        app:tabIndicatorColor="@color/mothermentor_tab_indicator"
+        app:tabIndicatorHeight="3dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/customAppThemeBlue"
-        app:tabTextColor="@color/text_black" />
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/mothermentor_tab_text_inactive" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/mothermentor_secondary_view_pager"

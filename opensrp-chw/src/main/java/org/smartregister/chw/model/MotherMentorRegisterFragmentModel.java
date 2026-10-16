@@ -23,6 +23,7 @@ public class MotherMentorRegisterFragmentModel extends BaseMotherMentorRegisterF
         queryBuilder.customJoin("INNER JOIN " + Constants.TABLE_NAME.FAMILY + " ON " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID + " = " + Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.BASE_ENTITY_ID);
         queryBuilder.customJoin("LEFT JOIN " + Constants.TABLE_NAME.FAMILY_MEMBER + " as T1 ON " + Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER + " = T1." + DBConstants.KEY.BASE_ENTITY_ID);
         queryBuilder.customJoin("LEFT JOIN " + Constants.TABLE_NAME.FAMILY_MEMBER + " as T2 ON " + Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FAMILY_HEAD + " = T2." + DBConstants.KEY.BASE_ENTITY_ID);
+        queryBuilder.customJoin("LEFT JOIN ec_anc_register as ANC ON " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = ANC." + DBConstants.KEY.BASE_ENTITY_ID + " AND ANC.is_closed = 0");
         return queryBuilder.mainCondition(mainCondition);
     }
 
@@ -46,6 +47,14 @@ public class MotherMentorRegisterFragmentModel extends BaseMotherMentorRegisterF
         columnList.add("T1." + DBConstants.KEY.FIRST_NAME + " || " + "' '" + " || " + "T1." + DBConstants.KEY.MIDDLE_NAME + " || " + "' '" + " || " + "T1." + DBConstants.KEY.LAST_NAME + " AS " + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add("T2." + DBConstants.KEY.FIRST_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.MIDDLE_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.LAST_NAME + " AS " + DBConstants.KEY.FAMILY_HEAD);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
+        columnList.add("ANC.edd as pregnancy_edd");
+        if ("ec_mothermentor_enroll_it".equals(tableName)) {
+            columnList.add(tableName + ".weeks_lost as follow_up_weeks_lost");
+            columnList.add(tableName + ".expected_return_date as follow_up_expected_return_date");
+        } else {
+            columnList.add("NULL as follow_up_weeks_lost");
+            columnList.add("NULL as follow_up_expected_return_date");
+        }
 
         return columnList.toArray(new String[0]);
     }

@@ -1,0 +1,8 @@
+{
+ "count":"1","skip_blank_steps":true,"encounter_type":"Mother Mentor Return to Facility","entity_id":"",
+ "metadata":{"start":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"start","openmrs_entity_id":"start"},"end":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"end","openmrs_entity_id":"end"},"today":{"openmrs_entity_parent":"","openmrs_entity":"encounter","openmrs_entity_id":"encounter_date"},"encounter_location":""},"global":{},
+ "step1":{"title":"Kurudi Kituoni","fields":[
+  {"key":"returned_to_facility","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"returned_to_facility","label":"Mama amerudi kituoni? *","type":"native_radio","options":[{"key":"yes","text":"Ndiyo","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"yes"},{"key":"no","text":"Hapana","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"no"}],"v_required":{"value":"true","err":"Tafadhali chagua jibu"}},
+  {"key":"facility_return_date","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"facility_return_date","type":"date_picker","display_format":"dd/MM/yyyy","min_date":"today-5y","max_date":"today","expanded":false,"hint":"Tarehe ya kurudi kituoni *","v_required":{"value":"true","err":"Inahitajika"},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"mothermentor_follow_up_relevance.yml"}}}}
+ ]}
+}
