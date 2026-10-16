@@ -458,10 +458,12 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         super.setupButtons();
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
-            if (memberObject != null && TextUtils.equals(memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId())) {
+            if (isFollowUpProfile()) {
+                textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
+            } else if (memberObject != null && TextUtils.equals(memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId())) {
                 textViewRecordMotherMentor.setText(HOUSEHOLD_RECORD_LABEL);
             } else {
-                textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
+                textViewRecordMotherMentor.setText(org.smartregister.chw.mothermentor.R.string.record_mothermentor);
             }
         }
         if (textViewRegisterMotherMentorContact != null) {
@@ -620,7 +622,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openRecordClientVisit() {
-        MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
+        if (isFollowUpProfile()) {
+            MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(this, memberObject.getBaseEntityId(), false);
+        } else {
+            MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
+        }
     }
 
     @Override
@@ -657,12 +663,16 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void startServiceForm() {
-        MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), false);
+        openRecordClientVisit();
     }
 
     @Override
     public void continueService() {
-        MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), true);
+        if (isFollowUpProfile()) {
+            MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(this, memberObject.getBaseEntityId(), true);
+        } else {
+            MotherMentorVisitActivity.startMotherMentorVisitActivity(this, memberObject.getBaseEntityId(), true);
+        }
     }
 
     @Override

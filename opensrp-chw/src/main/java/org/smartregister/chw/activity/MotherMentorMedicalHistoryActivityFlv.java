@@ -138,7 +138,13 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             tvEdit.setOnClickListener(view1 -> {
                 if (visit.getBaseEntityId() != null) {
                     ((Activity) context).finish();
-                    MotherMentorVisitActivity.startMotherMentorVisitActivity((Activity) context, visit.getBaseEntityId(), true);
+                    if (StringUtils.isNotBlank(vals.get("follow_up_status"))) {
+                        MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
+                                (Activity) context, visit.getBaseEntityId(), true);
+                    } else {
+                        MotherMentorVisitActivity.startMotherMentorVisitActivity(
+                                (Activity) context, visit.getBaseEntityId(), true);
+                    }
                 }
             });
 

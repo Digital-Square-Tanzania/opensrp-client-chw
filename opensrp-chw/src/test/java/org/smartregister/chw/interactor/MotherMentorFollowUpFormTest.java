@@ -20,12 +20,23 @@ public class MotherMentorFollowUpFormTest {
     public void statusUsesStableValuesInBothLocales() throws Exception {
         String[] expected = {"found", "not_found", "deceased", "transferred_facility", "refused_return", "under_follow_up"};
         for (String locale : new String[]{"json.form", "json.form-sw"}) {
-            JSONObject field = field(form(locale, "mothermentor_visit_type.json"), "follow_up_status");
+            JSONObject field = field(form(locale, "mothermentor_follow_up_status.json"), "follow_up_status");
             assertEquals("true", field.getJSONObject("v_required").getString("value"));
             JSONArray options = field.getJSONArray("options");
             assertEquals(expected.length, options.length());
             for (int i = 0; i < expected.length; i++) assertEquals(expected[i], options.getJSONObject(i).getString("key"));
         }
+    }
+
+    @Test
+    public void homeAndFollowUpFormsRemainSeparate() throws Exception {
+        assertNotNull(field(form("json.form", "mothermentor_visit_type.json"), "attendance_type"));
+        assertNotNull(field(form("json.form", "mothermentor_follow_up_status.json"), "follow_up_status"));
+
+        JSONObject homeComment = field(form("json.form", "mothermentor_visit_comment.json"), "comments");
+        JSONObject followUpComment = field(form("json.form", "mothermentor_follow_up_comment.json"), "comments");
+        assertTrue(homeComment.has("v_required"));
+        assertFalse(followUpComment.has("v_required"));
     }
 
     @Test
@@ -44,7 +55,7 @@ public class MotherMentorFollowUpFormTest {
 
     @Test
     public void commentsAreOptionalAndLimitedToOneHundredCharacters() throws Exception {
-        JSONObject comments = field(form("json.form-sw", "mothermentor_visit_comment.json"), "comments");
+        JSONObject comments = field(form("json.form-sw", "mothermentor_follow_up_comment.json"), "comments");
         assertFalse(comments.has("v_required"));
         assertEquals("100", comments.getJSONObject("v_max_length").getString("value"));
         assertTrue(comments.getString("hint").contains("100"));

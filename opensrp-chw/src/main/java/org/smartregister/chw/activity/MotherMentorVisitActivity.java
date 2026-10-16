@@ -9,6 +9,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.core.R;
+import org.smartregister.chw.interactor.MotherMentorFollowUpVisitInteractor;
 import org.smartregister.chw.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
@@ -21,30 +22,49 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
 public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
+    static final String EXTRA_FOLLOW_UP_VISIT = "extra_follow_up_visit";
     private boolean submitting;
 
     public static void startMotherMentorVisitActivity(Activity activity, String baseEntityId, Boolean editMode) {
+        startMotherMentorVisitActivity(activity, baseEntityId, editMode, false);
+    }
+
+    public static void startMotherMentorFollowUpVisitActivity(Activity activity, String baseEntityId, Boolean editMode) {
+        startMotherMentorVisitActivity(activity, baseEntityId, editMode, true);
+    }
+
+    private static void startMotherMentorVisitActivity(Activity activity, String baseEntityId, Boolean editMode,
+                                                       boolean followUpVisit) {
         Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, followUpVisit);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
 
     @Override
     protected void registerPresenter() {
         presenter = new BaseMotherMentorVisitPresenter(memberObject, this,
-                new MotherMentorServiceVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES));
+                isFollowUpVisit()
+                        ? new MotherMentorFollowUpVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES)
+                        : new MotherMentorServiceVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES));
     }
 
     @Override
     public void setUpView() {
         super.setUpView();
-        tvSubmit.setText(org.smartregister.chw.R.string.mothermentor_save);
+        if (isFollowUpVisit()) {
+            tvSubmit.setText(org.smartregister.chw.R.string.mothermentor_save);
+        }
     }
 
     @Override
     public void redrawHeader(MemberObject member) {
+        if (!isFollowUpVisit()) {
+            super.redrawHeader(member);
+            return;
+        }
         int savedVisits = VisitUtils.getVisitsOnly(member.getBaseEntityId(), Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES).size();
         int visitNumber = Boolean.TRUE.equals(isEditMode) ? Math.max(1, savedVisits) : savedVisits + 1;
         tvTitle.setText(getString(org.smartregister.chw.R.string.mothermentor_visit_header,
@@ -66,6 +86,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         submitting = false;
         if (tvSubmit != null) tvSubmit.setEnabled(true);
         super.displayToast(message);
+    }
+
+    boolean isFollowUpVisit() {
+        return getIntent() != null && getIntent().getBooleanExtra(EXTRA_FOLLOW_UP_VISIT, false);
     }
 
     @Override

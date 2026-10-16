@@ -10,7 +10,7 @@ import org.smartregister.chw.mothermentor.domain.MemberObject;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
-public class MotherMentorServiceVisitInteractorTest {
+public class MotherMentorFollowUpVisitInteractorTest {
 
     @Test
     public void getMemberClientFallsBackToSecondaryEnrollmentMember() {
@@ -25,8 +25,8 @@ public class MotherMentorServiceVisitInteractorTest {
             dao.when(() -> MotherMentorDao.getMember(baseEntityId)).thenReturn(null);
             dao.when(() -> MotherMentorDao.getSecondaryEnrollmentMember(baseEntityId)).thenReturn(secondaryMember);
 
-            MotherMentorServiceVisitInteractor interactor =
-                    new MotherMentorServiceVisitInteractor("Mother Mentor Services");
+            MotherMentorFollowUpVisitInteractor interactor =
+                    new MotherMentorFollowUpVisitInteractor("Mother Mentor Services");
 
             assertSame(secondaryMember, interactor.getMemberClient(baseEntityId, null));
         }
@@ -44,8 +44,8 @@ public class MotherMentorServiceVisitInteractorTest {
             stubApplicationContext(motherMentorLibrary);
             dao.when(() -> MotherMentorDao.getMember(baseEntityId)).thenReturn(primaryMember);
 
-            MotherMentorServiceVisitInteractor interactor =
-                    new MotherMentorServiceVisitInteractor("Mother Mentor Services");
+            MotherMentorFollowUpVisitInteractor interactor =
+                    new MotherMentorFollowUpVisitInteractor("Mother Mentor Services");
 
             assertSame(primaryMember, interactor.getMemberClient(baseEntityId, null));
             dao.verify(() -> MotherMentorDao.getSecondaryEnrollmentMember(baseEntityId), Mockito.never());
