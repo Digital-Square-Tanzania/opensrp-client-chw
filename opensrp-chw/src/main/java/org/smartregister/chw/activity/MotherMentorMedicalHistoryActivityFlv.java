@@ -43,6 +43,11 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             "comments",
             "attendance_type",
             "follow_up_status",
+            "service_interruption_reason",
+            "service_interruption_reason_other",
+            "expected_facility_visit_date",
+            "returned_to_facility",
+            "facility_return_date",
             "has_been_linked_to_psychosocial_support_group",
             "has_been_linked_to_iga_group",
             "education_provided",
@@ -78,6 +83,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         while (x < visits.size()) {
             LinkedHashMap<String, String> detailsMap = new LinkedHashMap<>();
             extractVisitDetails(visits, VISIT_PARAMS, detailsMap, x, context);
+            detailsMap.put("visit_number", String.valueOf(x + 1));
+            detailsMap.put("visit_completion_state", Boolean.TRUE.equals(visits.get(x).getProcessed()) ? "completed" : "saved");
             visitDetails.add(detailsMap);
             x++;
         }

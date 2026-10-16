@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
@@ -22,11 +23,11 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
 import org.smartregister.chw.core.utils.FormUtils;
-import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
+import org.smartregister.chw.mothermentor.util.VisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
@@ -38,12 +39,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
 public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity {
+    static final String EXTRA_FOLLOW_UP_PROFILE = "extra_follow_up_profile";
     private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
     private static final String FORM_MOTHERMENTOR_ENROLL_PARTNER = "mothermentor_enroll_partner";
     private static final String FORM_MOTHERMENTOR_ENROLL_CHILD_EID = "mothermentor_enroll_child_eid";
@@ -55,10 +58,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private static final String REFERRAL_GIVEN = "referral_given";
     private static final String NEXT_APPOINTMENT_DATE = "next_appointment_date";
     private static final String COMMENTS = "comments";
+    private static final String FOLLOW_UP_STATUS = "follow_up_status";
+    private static final String SERVICE_INTERRUPTION_REASON = "service_interruption_reason";
+    private static final String SERVICE_INTERRUPTION_REASON_OTHER = "service_interruption_reason_other";
+    private static final String EXPECTED_FACILITY_VISIT_DATE = "expected_facility_visit_date";
+    private static final String RETURNED_TO_FACILITY = "returned_to_facility";
+    private static final String FACILITY_RETURN_DATE = "facility_return_date";
     private static final int HIGH_RISK_WEEK_THRESHOLD = 8;
-    private static final String HIGH_RISK_LABEL = "HIGH RISK";
-    private static final String LOW_RISK_LABEL = "LOW RISK";
-    private static final String LOW_RISK_COLOR = "#2E7D32";
     private static final String[] IIT_DATE_FORMATS = new String[]{"dd-MM-yyyy", "yyyy-MM-dd"};
 
     private static final Set<String> REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS = new HashSet<>(Arrays.asList(
@@ -71,12 +77,21 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             COMMENTS
     ));
     private TextView iitRiskTag;
+    private TextView pregnancyWeekView;
     private LinearLayout iitProfileImageRow;
 
     public static void startMe(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MotherMentorProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        activity.startActivity(intent);
+    }
+
+    public static void startFollowUpProfile(Activity activity, String baseEntityId) {
+        Intent intent = new Intent(activity, MotherMentorProfileActivity.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        intent.putExtra(EXTRA_FOLLOW_UP_PROFILE, true);
         activity.startActivity(intent);
     }
 
@@ -221,6 +236,39 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     protected void setupViews() {
         super.setupViews();
         updateIitHighRiskTag();
+        updatePregnancyWeek();
+    }
+
+    private void updatePregnancyWeek() {
+        Integer week = getPregnancyWeek(memberObject == null ? null : memberObject.getBaseEntityId());
+        LinearLayout profile = findViewById(org.smartregister.chw.mothermentor.R.id.profile_name_layout);
+        if (profile == null) return;
+        if (pregnancyWeekView == null) {
+            pregnancyWeekView = new TextView(this);
+            pregnancyWeekView.setTextSize(14);
+            pregnancyWeekView.setTextColor(getResources().getColor(android.R.color.darker_gray));
+            pregnancyWeekView.setGravity(android.view.Gravity.CENTER);
+            profile.addView(pregnancyWeekView);
+        }
+        pregnancyWeekView.setVisibility(week == null ? View.GONE : View.VISIBLE);
+        if (week != null) pregnancyWeekView.setText(getString(R.string.mothermentor_pregnancy_week, week));
+    }
+
+    private Integer getPregnancyWeek(String baseEntityId) {
+        if (TextUtils.isEmpty(baseEntityId)) return null;
+        try {
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+            try (Cursor cursor = db.rawQuery("SELECT edd FROM ec_anc_register WHERE base_entity_id = ? AND is_closed = 0 ORDER BY last_interacted_with DESC LIMIT 1", new String[]{baseEntityId})) {
+                if (!cursor.moveToFirst()) return null;
+                String edd = getCursorValue(cursor, "edd");
+                if (TextUtils.isEmpty(edd)) return null;
+                int remaining = org.joda.time.Weeks.weeksBetween(new org.joda.time.DateTime().withTimeAtStartOfDay(), new org.joda.time.DateTime(edd).withTimeAtStartOfDay()).getWeeks();
+                return Math.max(0, Math.min(42, 40 - remaining));
+            }
+        } catch (Exception e) {
+            Timber.e(e, "Unable to load pregnancy week for Mother Mentor profile");
+            return null;
+        }
     }
 
     private void updateIitHighRiskTag() {
@@ -232,9 +280,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (weeksLost == null) {
             hideIitRiskTag();
         } else if (weeksLost >= HIGH_RISK_WEEK_THRESHOLD) {
-            showIitRiskTag(HIGH_RISK_LABEL, getResources().getColor(org.smartregister.chw.mothermentor.R.color.visit_status_over_due));
+            showIitRiskTag(getString(R.string.mothermentor_risk_high), getResources().getColor(R.color.mothermentor_risk_high));
         } else {
-            showIitRiskTag(LOW_RISK_LABEL, Color.parseColor(LOW_RISK_COLOR));
+            showIitRiskTag(getString(R.string.mothermentor_risk_low), getResources().getColor(R.color.mothermentor_risk_low));
         }
     }
 
@@ -413,14 +461,34 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             if (memberObject != null && TextUtils.equals(memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId())) {
                 textViewRecordMotherMentor.setText(HOUSEHOLD_RECORD_LABEL);
             } else {
-                textViewRecordMotherMentor.setText(org.smartregister.chw.mothermentor.R.string.record_mothermentor);
+                textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
             }
         }
         if (textViewRegisterMotherMentorContact != null) {
-            textViewRegisterMotherMentorContact.setVisibility(View.VISIBLE);
+            textViewRegisterMotherMentorContact.setVisibility(
+                    isFollowUpProfile() ? View.GONE : View.VISIBLE);
         }
         enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
+    }
+
+    boolean isFollowUpProfile() {
+        return getIntent() != null && getIntent().getBooleanExtra(EXTRA_FOLLOW_UP_PROFILE, false);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == org.smartregister.chw.mothermentor.R.id.textview_record_mothermentor) {
+            if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())) {
+                Timber.w("Unable to start Mother Mentor follow-up: client identity is missing");
+                Toast.makeText(this, org.smartregister.chw.mothermentor.R.string.error_unable_to_open_profile,
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            openRecordClientVisit();
+            return;
+        }
+        super.onClick(view);
     }
 
     private void enforceProcessVisitVisibility() {
@@ -444,6 +512,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
         manualProcessVisit.setVisibility(shouldShowProcessVisit ? View.VISIBLE : View.GONE);
         if (shouldShowProcessVisit) {
+            manualProcessVisit.setText(R.string.mothermentor_complete_visit);
             manualProcessVisit.setOnClickListener(view -> {
                 try {
                     MotherMentorVisitsUtil.manualProcessVisit(latestVisit);
@@ -464,12 +533,37 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
         try {
             JSONArray obsArray = new JSONObject(visit.getJson()).optJSONArray("obs");
-            return obsArray != null && getCompletedMotherMentorServiceFields(obsArray)
-                    .containsAll(REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS);
+            if (obsArray == null) return false;
+            Map<String, String> values = getMotherMentorServiceValues(obsArray);
+            String status = values.get(FOLLOW_UP_STATUS);
+            if (!TextUtils.isEmpty(status)) {
+                if (!"found".equals(status)) return true;
+                if (TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON))
+                        || TextUtils.isEmpty(values.get(EXPECTED_FACILITY_VISIT_DATE))
+                        || TextUtils.isEmpty(values.get(RETURNED_TO_FACILITY))) return false;
+                if ("other".equals(values.get(SERVICE_INTERRUPTION_REASON))
+                        && TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON_OTHER))) return false;
+                return !"yes".equals(values.get(RETURNED_TO_FACILITY))
+                        || !TextUtils.isEmpty(values.get(FACILITY_RETURN_DATE));
+            }
+            return getCompletedMotherMentorServiceFields(obsArray).containsAll(REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS);
         } catch (Exception e) {
             Timber.e(e);
             return false;
         }
+    }
+
+    private Map<String, String> getMotherMentorServiceValues(JSONArray obsArray) {
+        Map<String, String> valuesByField = new java.util.HashMap<>();
+        for (int i = 0; i < obsArray.length(); i++) {
+            JSONObject obs = obsArray.optJSONObject(i);
+            if (obs == null) continue;
+            JSONArray values = obs.optJSONArray("values");
+            if (values != null && values.length() > 0) {
+                valuesByField.put(obs.optString("fieldCode").toLowerCase(Locale.US), values.optString(0));
+            }
+        }
+        return valuesByField;
     }
 
     private Set<String> getCompletedMotherMentorServiceFields(JSONArray obsArray) {
@@ -531,12 +625,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
-        if (hasProcessedMotherMentorVisitHistory()) {
+        int visitCount = getMotherMentorVisitHistoryCount();
+        if (visitCount > 0) {
             rlLastVisit.setVisibility(View.VISIBLE);
             view_last_visit_row.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
             ((TextView) findViewById(org.smartregister.chw.mothermentor.R.id.ivViewHistoryArrow))
-                    .setText(getString(R.string.view_visits_history));
+                    .setText(getString(R.string.mothermentor_view_visit_history, visitCount));
             rlLastVisit.setOnClickListener(view -> openMedicalHistory());
             ivViewHistoryArrow.setOnClickListener(view -> openMedicalHistory());
         } else {
@@ -550,17 +645,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         MotherMentorMedicalHistoryActivity.startMe(this, memberObject);
     }
 
-    private boolean hasProcessedMotherMentorVisitHistory() {
+    private int getMotherMentorVisitHistoryCount() {
         try {
-            return !MotherMentorLibrary.getInstance().visitRepository()
-                    .getAllVisitsProcessed(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES, memberObject.getBaseEntityId())
-                    .isEmpty()
-                    || !MotherMentorLibrary.getInstance().visitRepository()
-                    .getAllVisitsProcessed(Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT, memberObject.getBaseEntityId())
-                    .isEmpty();
+            return VisitUtils.getVisitsOnly(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES).size()
+                    + VisitUtils.getVisitsOnly(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT).size();
         } catch (Exception e) {
             Timber.e(e);
-            return false;
+            return 0;
         }
     }
 
