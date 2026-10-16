@@ -253,6 +253,12 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     protected void setupViews() {
         super.setupViews();
+        TextView toolbarTitle = findViewById(org.smartregister.chw.mothermentor.R.id.toolbar_title);
+        if (toolbarTitle != null) {
+            toolbarTitle.setText(isFollowUpProfile()
+                    ? R.string.mothermentor_back_to_follow_up_clients
+                    : org.smartregister.chw.mothermentor.R.string.return_to_mothermentor_clients);
+        }
         updateFollowUpRole();
         updateIitHighRiskTag();
         updatePregnancyWeek();
@@ -475,8 +481,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        menu.add(Menu.NONE, R.id.action_mothermentor_enroll_iit, Menu.NONE, R.string.mothermentor_enroll_iit)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (!isFollowUpProfile()) {
+            menu.add(Menu.NONE, R.id.action_mothermentor_enroll_iit, Menu.NONE, R.string.mothermentor_enroll_iit)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
         menu.add(Menu.NONE, R.id.action_mothermentor_enroll_partner, Menu.NONE, R.string.mothermentor_link_partner)
                 .setVisible(canLinkMotherMentorClient())
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -490,7 +498,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_mothermentor_enroll_iit) {
-            startSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
+            if (!isFollowUpProfile()) {
+                startSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
+            }
             return true;
         } else if (itemId == R.id.action_mothermentor_enroll_partner) {
             if (canLinkMotherMentorClient()) {

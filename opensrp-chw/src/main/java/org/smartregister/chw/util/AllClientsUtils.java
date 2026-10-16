@@ -419,15 +419,9 @@ public class AllClientsUtils {
         }
 
         if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
-            addMotherMentorSecondaryEnrollmentMenuItems(menu, true);
+            addMotherMentorIitMenuItem(menu, true);
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, gender.equalsIgnoreCase("Female"));
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_iit, gender.equalsIgnoreCase("Female"));
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_partner,
-                    new org.smartregister.chw.repository.MotherMentorPartnerRepository(
-                            ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollPartner(baseEntityId));
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_child_eid,
-                    new org.smartregister.chw.repository.MotherMentorChildEidRepository(
-                            ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollChild(baseEntityId));
         }
     }
 
@@ -453,10 +447,8 @@ public class AllClientsUtils {
         motherMentorMenu.setVisible(!MotherMentorDao.isRegisteredForMotherMentor(baseEntityId));
     }
 
-    public static void addMotherMentorSecondaryEnrollmentMenuItems(Menu menu, boolean visible) {
+    public static void addMotherMentorIitMenuItem(Menu menu, boolean visible) {
         addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_iit, R.string.mother_mentor_enroll_iit, visible);
-        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_partner, R.string.mother_mentor_enroll_partner, visible);
-        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_child_eid, R.string.mother_mentor_enroll_child_eid, visible);
     }
 
     private static void addMenuItemIfMissing(Menu menu, int itemId, int titleRes, boolean visible) {

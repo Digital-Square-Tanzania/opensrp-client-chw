@@ -85,8 +85,6 @@ import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity implements OnRetrieveNotifications {
     private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
-    private static final String FORM_MOTHERMENTOR_ENROLL_PARTNER = "mothermentor_enroll_partner";
-    private static final String FORM_MOTHERMENTOR_ENROLL_CHILD_EID = "mothermentor_enroll_child_eid";
 
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
@@ -125,7 +123,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
         AllClientsUtils.addMotherMentorMenuItem(menu, baseEntityId);
-        AllClientsUtils.addMotherMentorSecondaryEnrollmentMenuItems(menu, ChwApplication.getApplicationFlavor().hasMotherMentor());
+        AllClientsUtils.addMotherMentorIitMenuItem(menu, ChwApplication.getApplicationFlavor().hasMotherMentor());
         try {
             int count = headedFamilies != null ? headedFamilies.size() : 0;
 
@@ -164,12 +162,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         int itemId = item.getItemId();
         if (itemId == R.id.action_mother_mentor_enroll_iit) {
             startMotherMentorEnrollIit();
-            return true;
-        } else if (itemId == R.id.action_mother_mentor_enroll_partner) {
-            startMotherMentorEnrollPartner();
-            return true;
-        } else if (itemId == R.id.action_mother_mentor_enroll_child_eid) {
-            startMotherMentorEnrollChildEid();
             return true;
         } else if (itemId == R.id.action_view_households) {
             handleViewHouseholdsClick();
@@ -494,14 +486,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     protected void startMotherMentorEnrollIit() {
         startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
-    }
-
-    protected void startMotherMentorEnrollPartner() {
-        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_PARTNER);
-    }
-
-    protected void startMotherMentorEnrollChildEid() {
-        startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_CHILD_EID);
     }
 
     private void startMotherMentorSecondaryEnrollment(String formName) {

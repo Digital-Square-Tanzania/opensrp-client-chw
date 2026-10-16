@@ -1097,12 +1097,11 @@
     <string name="mothermentor_child_eid">MTOTO EID</string>
     <string name="mothermentor_secondary_enrollments">Ufuatiliaji</string>
     <string name="mothermentor_follow_up">Fomu ya Ufuatiliaji</string>
+    <string name="mothermentor_back_to_follow_up_clients">Rudi kwa Wateja Wote wa Ufuatiliaji wa Mama Kinara</string>
     <string name="mothermentor_enroll_iit">Sajili IIT</string>
     <string name="mothermentor_enroll_partner">Sajili Mwenza</string>
     <string name="mothermentor_enroll_child_eid">Sajili EID ya Mtoto</string>
     <string name="mother_mentor_enroll_iit">Sajili IIT</string>
-    <string name="mother_mentor_enroll_partner">Sajili Mwenza</string>
-    <string name="mother_mentor_enroll_child_eid">Sajili EID ya Mtoto</string>
     <string name="mothermentor_visit_history_title">Tembeleo la Mama Kinara</string>
     <string name="mothermentor_search_hint">Tafuta jina au kijiji</string>
     <string name="mothermentor_follow_up_status_section">Hali ya ufuatiliaji</string>

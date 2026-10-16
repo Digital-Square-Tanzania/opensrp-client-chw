@@ -911,12 +911,11 @@
     <string name="mothermentor_child_eid">CHILD EID</string>
     <string name="mothermentor_secondary_enrollments">Follow Up</string>
     <string name="mothermentor_follow_up">Follow Up</string>
+    <string name="mothermentor_back_to_follow_up_clients">Back to All Mother Mentor Followup Clients</string>
     <string name="mothermentor_enroll_iit">Enroll IIT</string>
     <string name="mothermentor_enroll_partner">Enroll Partner</string>
     <string name="mothermentor_enroll_child_eid">Enroll Child EID</string>
     <string name="mother_mentor_enroll_iit">Mother Mentor Enroll IIT</string>
-    <string name="mother_mentor_enroll_partner">Mother Mentor Enroll Partner</string>
-    <string name="mother_mentor_enroll_child_eid">Mother Mentor Enroll Child EID</string>
     <string name="mothermentor_visit_history_title">Mother Mentor Visit</string>
     <string name="mothermentor_history_attendance_type">Attendance Type</string>
     <string name="mothermentor_history_follow_up_status">Follow-up Status</string>
