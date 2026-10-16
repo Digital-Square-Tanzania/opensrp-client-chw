@@ -191,6 +191,11 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             displayToast(getString(R.string.mothermentor_partner_enrollment_unavailable));
             return;
         }
+        if (EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID.equals(jsonForm.optString(Constants.ENCOUNTER_TYPE))
+                && !canEnrollChild(jsonForm.optString("entity_id"))) {
+            displayToast(getString(R.string.mothermentor_child_eid_enrollment_unavailable));
+            return;
+        }
         Form form = new Form();
         form.setWizard(false);
 
@@ -265,6 +270,11 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                     if (TABLE_MOTHERMENTOR_ENROLL_PARTNER.equals(tableName)
                             && !canEnrollPartner(form.optString("entity_id"))) {
                         displayToast(getString(R.string.mothermentor_partner_enrollment_unavailable));
+                        return;
+                    }
+                    if (TABLE_MOTHERMENTOR_ENROLL_CHILD_EID.equals(tableName)
+                            && !canEnrollChild(form.optString("entity_id"))) {
+                        displayToast(getString(R.string.mothermentor_child_eid_enrollment_unavailable));
                         return;
                     }
                     saveMotherMentorSecondaryEnrollment(form, tableName);
@@ -406,6 +416,11 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     private boolean canEnrollPartner(String id) {
         return new org.smartregister.chw.repository.MotherMentorPartnerRepository(
                 ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollPartner(id);
+    }
+
+    private boolean canEnrollChild(String id) {
+        return new org.smartregister.chw.repository.MotherMentorChildEidRepository(
+                ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollChild(id);
     }
 
     private void saveMotherMentorSecondaryEnrollment(JSONObject form, String tableName) throws Exception {

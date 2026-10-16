@@ -83,6 +83,7 @@ public class ChwRepository extends CoreChwRepository {
         database.execSQL("PRAGMA cipher_memory_security = OFF;");
         database.rawExecSQL("PRAGMA journal_mode = TRUNCATE;");
         MotherMentorPartnerRepository.ensureColumns(database);
+        MotherMentorChildEidRepository.ensureColumns(database);
     }
 
     private MigrationResult performCipherMigrationToV4Safely(SQLiteDatabase database) {

@@ -4526,6 +4526,38 @@
           }
         },
         {
+          "column_name": "mother_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mother_base_entity_id"
+          }
+        },
+        {
+          "column_name": "child_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_name"
+          }
+        },
+        {
+          "column_name": "child_sex",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_sex"
+          }
+        },
+        {
+          "column_name": "child_dob",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_dob"
+          }
+        },
+        {
           "column_name": "hei_registered",
           "type": "Event",
           "json_mapping": {

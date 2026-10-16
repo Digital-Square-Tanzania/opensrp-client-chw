@@ -51,7 +51,6 @@ import timber.log.Timber;
 public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity {
     static final String EXTRA_FOLLOW_UP_PROFILE = "extra_follow_up_profile";
     private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
-    private static final String FORM_MOTHERMENTOR_ENROLL_CHILD_EID = "mothermentor_enroll_child_eid";
     private static final String HOUSEHOLD_RECORD_LABEL = "Utoaji wa huduma za mama kinara kwa jamii";
     private static final String ATTENDANCE_TYPE = "attendance_type";
     private static final String PSYCHOSOCIAL_GROUP_LINKAGE = "has_been_linked_to_psychosocial_support_group";
@@ -479,9 +478,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         menu.add(Menu.NONE, R.id.action_mothermentor_enroll_iit, Menu.NONE, R.string.mothermentor_enroll_iit)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(Menu.NONE, R.id.action_mothermentor_enroll_partner, Menu.NONE, R.string.mothermentor_link_partner)
-                .setVisible(canLinkPartner())
+                .setVisible(canLinkMotherMentorClient())
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(Menu.NONE, R.id.action_mothermentor_enroll_child_eid, Menu.NONE, R.string.mothermentor_enroll_child_eid)
+        menu.add(Menu.NONE, R.id.action_mothermentor_enroll_child_eid, Menu.NONE, R.string.mothermentor_link_child_eid)
+                .setVisible(canLinkMotherMentorClient())
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         return result;
     }
@@ -493,27 +493,31 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             startSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
             return true;
         } else if (itemId == R.id.action_mothermentor_enroll_partner) {
-            if (canLinkPartner()) {
+            if (canLinkMotherMentorClient()) {
                 Intent intent = new Intent(this, MotherMentorPartnerRegisterActivity.class);
                 intent.putExtra(MotherMentorPartnerRegisterActivity.MOTHER_ID, memberObject.getBaseEntityId());
                 startActivity(intent);
             }
             return true;
         } else if (itemId == R.id.action_mothermentor_enroll_child_eid) {
-            startSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_CHILD_EID);
+            if (canLinkMotherMentorClient()) {
+                Intent intent = new Intent(this, MotherMentorChildEidRegisterActivity.class);
+                intent.putExtra(MotherMentorChildEidRegisterActivity.MOTHER_ID, memberObject.getBaseEntityId());
+                startActivity(intent);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean canLinkPartner() {
+    private boolean canLinkMotherMentorClient() {
         if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())) return false;
         try {
             return new org.smartregister.chw.repository.MotherMentorPartnerRepository(
                     ChwApplication.getInstance().getRepository().getReadableDatabase())
                     .findMother(memberObject.getBaseEntityId()) != null;
         } catch (Exception e) {
-            Timber.e(e, "Unable to check Mother Mentor partner linking eligibility");
+            Timber.e(e, "Unable to check Mother Mentor client linking eligibility");
             return false;
         }
     }

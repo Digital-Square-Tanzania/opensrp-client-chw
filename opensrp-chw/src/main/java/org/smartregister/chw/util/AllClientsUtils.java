@@ -425,7 +425,9 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_partner,
                     new org.smartregister.chw.repository.MotherMentorPartnerRepository(
                             ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollPartner(baseEntityId));
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_child_eid, true);
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_child_eid,
+                    new org.smartregister.chw.repository.MotherMentorChildEidRepository(
+                            ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollChild(baseEntityId));
         }
     }
 
