@@ -1,6 +1,5 @@
 package org.smartregister.chw.fragment;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -10,33 +9,39 @@ import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.MotherMentorHouseholdProfileActivity;
-import org.smartregister.chw.activity.MotherMentorProfileActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.model.MotherMentorHouseholdRegisterFragmentModel;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorContactFragment;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.presenter.MotherMentorHouseholdRegisterFragmentPresenter;
 import org.smartregister.chw.provider.MotherMentorHouseholdRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.family.util.Constants;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
-
-import java.util.Set;
 
 import timber.log.Timber;
 
+import java.util.Set;
+
 public class MotherMentorContactRegisterFragment extends BaseMotherMentorContactFragment {
     private View view;
-    private final MotherMentorHouseholdRegisterFragmentModel model = new MotherMentorHouseholdRegisterFragmentModel();
+    private final MotherMentorHouseholdRegisterFragmentModel model =
+            new MotherMentorHouseholdRegisterFragmentModel();
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        MotherMentorHouseholdRegisterProvider registerProvider = new MotherMentorHouseholdRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
+    public void initializeAdapter(
+            Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        MotherMentorHouseholdRegisterProvider registerProvider =
+                new MotherMentorHouseholdRegisterProvider(
+                        getActivity(),
+                        paginationViewHandler,
+                        registerActionHandler,
+                        visibleColumns);
+        clientAdapter =
+                new RecyclerViewPaginatedAdapter(
+                        null, registerProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
@@ -45,8 +50,11 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
     public void countExecute() {
         Cursor c = null;
         try {
-            String query = "select count(*) from " + presenter().getMainTable() +
-                    " where " + presenter().getMainCondition();
+            String query =
+                    "select count(*) from "
+                            + presenter().getMainTable()
+                            + " where "
+                            + presenter().getMainCondition();
             if (StringUtils.isNotBlank(filters)) {
                 query = query + " and ( " + filters + " ) ";
             }
@@ -74,13 +82,20 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
                     if (args != null && args.getBoolean("count_execute")) {
                         countExecute();
                     }
-                    String mainSelect = model.mainSelect(presenter().getMainTable(), presenter().getMainCondition());
+                    String mainSelect =
+                            model.mainSelect(
+                                    presenter().getMainTable(), presenter().getMainCondition());
                     SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
                     if (StringUtils.isNotBlank(filters)) {
                         sqb.addCondition(filters);
                     }
                     String query = sqb.orderbyCondition(Sortqueries);
-                    query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
+                    query =
+                            sqb.Endquery(
+                                    sqb.addlimitandOffset(
+                                            query,
+                                            clientAdapter.getCurrentlimit(),
+                                            clientAdapter.getCurrentoffset()));
                     return commonRepository().rawCustomQueryForAdapter(query);
                 }
             };
@@ -93,7 +108,9 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
         if (getActivity() == null) {
             return;
         }
-        presenter = new MotherMentorHouseholdRegisterFragmentPresenter(this, new MotherMentorHouseholdRegisterFragmentModel(), null);
+        presenter =
+                new MotherMentorHouseholdRegisterFragmentPresenter(
+                        this, new MotherMentorHouseholdRegisterFragmentModel(), null);
     }
 
     @Override
@@ -116,12 +133,15 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
     }
 
     private String getHouseholdBaseEntityId(CommonPersonObjectClient client) {
-        String baseEntityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+        String baseEntityId =
+                Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         if (StringUtils.isNotBlank(baseEntityId)) {
             return baseEntityId;
         }
 
-        baseEntityId = Utils.getValue(client.getColumnmaps(), "family_base_entity_id", false);
+        baseEntityId =
+                Utils.getValue(
+                        client.getColumnmaps(), DBConstants.KEY.FAMILY_BASE_ENTITY_ID, false);
         if (StringUtils.isNotBlank(baseEntityId)) {
             return baseEntityId;
         }

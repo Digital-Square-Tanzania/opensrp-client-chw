@@ -14568,6 +14568,78 @@
             "field": "obs.fieldCode",
             "concept": "facility_referral_other"
           }
+        },
+        {
+          "column_name": "sh_tarehe",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_tarehe"
+          }
+        },
+        {
+          "column_name": "sh_aina",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_aina"
+          }
+        },
+        {
+          "column_name": "sh_aina_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_aina_other"
+          }
+        },
+        {
+          "column_name": "sh_mada",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_mada"
+          }
+        },
+        {
+          "column_name": "sh_mada_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_mada_other"
+          }
+        },
+        {
+          "column_name": "elim_m",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "elim_m"
+          }
+        },
+        {
+          "column_name": "elim_f",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "elim_f"
+          }
+        },
+        {
+          "column_name": "elim_total",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "elim_total"
+          }
+        },
+        {
+          "column_name": "maoni",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "maoni"
+          }
         }
       ]
     },

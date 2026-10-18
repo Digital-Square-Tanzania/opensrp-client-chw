@@ -5,7 +5,6 @@ import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPa
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.view.Menu;
 
 import androidx.annotation.MenuRes;
@@ -18,13 +17,13 @@ import com.vijay.jsonwizard.domain.Form;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreMotherMentorRegisterActivity;
@@ -34,7 +33,9 @@ import org.smartregister.chw.fragment.MotherMentorContactRegisterFragment;
 import org.smartregister.chw.fragment.MotherMentorMobilizationFragment;
 import org.smartregister.chw.fragment.MotherMentorRegisterFragment;
 import org.smartregister.chw.fragment.MotherMentorSecondaryEnrollmentsFragment;
+import org.smartregister.chw.mothermentor.repository.MotherMentorReportingRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.JsonFormUtils;
@@ -42,14 +43,15 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import timber.log.Timber;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import timber.log.Timber;
-
 public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivity {
-    public static final String EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX = "secondary_enrollment_tab_index";
+    public static final String EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX =
+            "secondary_enrollment_tab_index";
     public static final int TAB_INDEX_IIT = 0;
     public static final int TAB_INDEX_PARTNER = 1;
     public static final int TAB_INDEX_CHILD_EID = 2;
@@ -57,58 +59,88 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     private static final String EVENT_MOTHER_MENTOR_ENROLLMENT = "Mother Mentor Enrollment";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_IIT = "Mother Mentor Enroll IIT";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_PARTNER = "Mother Mentor Enroll Partner";
-    private static final String EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID = "Mother Mentor Enroll Child Eid";
-    private static final String EVENT_MOTHER_MENTOR_MOBILIZATION = "MotherMentor Mobilization Session";
-    private static final String EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT = "mama_kinara_household_enrolment";
-    private static final String TABLE_MOTHERMENTOR_ENROLL_IIT = "ec_mothermentor_enroll_it";
-    private static final String TABLE_MOTHERMENTOR_ENROLL_PARTNER = "ec_mothermentor_enroll_partner";
-    private static final String TABLE_MOTHERMENTOR_ENROLL_CHILD_EID = "ec_mothermentor_enroll_child_eid";
-    private static final String TABLE_MOTHERMENTOR_MOBILIZATION = "ec_mothermentor_mobilization";
-    private static final String TABLE_MAMA_KINARA_HOUSEHOLD_ENROLMENT = "ec_mothermentor_household_enrolment";
-    private static final String FIELD_HOUSEHOLD_ID = "household_id";
-    private static final String FIELD_ENROLLMENT_DATE = "enrollment_date";
-    private static final String FIELD_CONSENT = "consent";
+    private static final String EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID =
+            "Mother Mentor Enroll Child Eid";
+    private static final String EVENT_MOTHER_MENTOR_MOBILIZATION =
+            "MotherMentor Mobilization Session";
+    private static final String EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT =
+            "mama_kinara_household_enrolment";
+    private static final String TABLE_MOTHERMENTOR_ENROLL_IIT =
+            org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_IIT;
+    private static final String TABLE_MOTHERMENTOR_ENROLL_PARTNER =
+            org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER;
+    private static final String TABLE_MOTHERMENTOR_ENROLL_CHILD_EID =
+            org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_CHILD_EID;
+    private static final String TABLE_MOTHERMENTOR_MOBILIZATION =
+            org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_MOBILIZATION;
+    private static final String TABLE_MAMA_KINARA_HOUSEHOLD_ENROLMENT =
+            org.smartregister.chw.mothermentor.util.Constants.TABLES
+                    .MAMA_KINARA_HOUSEHOLD_ENROLMENT;
     private static final String CONSENT_YES = "ndiyo";
-    private static final String FIELD_SH_TAREHE = "sh_tarehe";
-    private static final String FIELD_SH_AINA = "sh_aina";
-    private static final String FIELD_SH_AINA_OTHER = "sh_aina_other";
-    private static final String FIELD_GPS = "gps";
-    private static final String FIELD_SH_MADA = "sh_mada";
-    private static final String FIELD_SH_MADA_OTHER = "sh_mada_other";
-    private static final String FIELD_ELIM_M = "elim_m";
-    private static final String FIELD_ELIM_F = "elim_f";
-    private static final String FIELD_ELIM_TOTAL = "elim_total";
-    private static final String FIELD_MAONI = "maoni";
-    private static final String FIELD_CHILD_DOB = "child_dob";
-    private static final String CHILD_OVER_18_MONTHS_MESSAGE = "Mother not enrolled — child is over 18 months of follow-up";
-    private static final DateTimeFormatter[] CHILD_DOB_FORMATTERS = new DateTimeFormatter[]{
-            DateTimeFormat.forPattern("dd-MM-yyyy"),
-            DateTimeFormat.forPattern("yyyy-MM-dd")
-    };
+    private static final String CHILD_OVER_18_MONTHS_MESSAGE =
+            "Mother not enrolled — child is over 18 months of follow-up";
+    private static final DateTimeFormatter[] CHILD_DOB_FORMATTERS =
+            new DateTimeFormatter[] {
+                DateTimeFormat.forPattern("dd-MM-yyyy"), DateTimeFormat.forPattern("yyyy-MM-dd")
+            };
 
-    public static void startRegistration(Activity activity, String baseEntityId, String gender,int age) {
+    public static void startRegistration(
+            Activity activity, String baseEntityId, String gender, int age) {
         startRegistration(activity, baseEntityId, null, gender, age);
     }
 
-    public static void startRegistration(Activity activity, String baseEntityId, String familyBaseEntityId, String gender, int age) {
-        startRegistration(activity, baseEntityId, familyBaseEntityId, gender, age, Constants.FORMS.MOTHER_MENTOR_ENROLLMENT);
+    public static void startRegistration(
+            Activity activity,
+            String baseEntityId,
+            String familyBaseEntityId,
+            String gender,
+            int age) {
+        startRegistration(
+                activity,
+                baseEntityId,
+                familyBaseEntityId,
+                gender,
+                age,
+                Constants.FORMS.MOTHER_MENTOR_ENROLLMENT);
     }
 
-    public static void startRegistration(Activity activity, String baseEntityId, String familyBaseEntityId, String gender, int age, String formName) {
+    public static void startRegistration(
+            Activity activity,
+            String baseEntityId,
+            String familyBaseEntityId,
+            String gender,
+            int age,
+            String formName) {
         Intent intent = new Intent(activity, MotherMentorRegisterActivity.class);
-        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, familyBaseEntityId);
+        intent.putExtra(
+                org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID,
+                baseEntityId);
+        intent.putExtra(
+                org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD
+                        .FAMILY_BASE_ENTITY_ID,
+                familyBaseEntityId);
         intent.putExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER, gender);
         intent.putExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.AGE, age);
-        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.MOTHER_MENTOR_FORM_NAME, formName);
+        intent.putExtra(
+                org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD
+                        .MOTHER_MENTOR_FORM_NAME,
+                formName);
         activity.startActivity(intent);
     }
 
     public static void startHouseholdEnrollment(Activity activity, String householdBaseEntityId) {
         Intent intent = new Intent(activity, MotherMentorRegisterActivity.class);
-        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, householdBaseEntityId);
-        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, householdBaseEntityId);
-        intent.putExtra(org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.MOTHER_MENTOR_FORM_NAME, EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT);
+        intent.putExtra(
+                org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID,
+                householdBaseEntityId);
+        intent.putExtra(
+                org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD
+                        .FAMILY_BASE_ENTITY_ID,
+                householdBaseEntityId);
+        intent.putExtra(
+                org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD
+                        .MOTHER_MENTOR_FORM_NAME,
+                EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT);
         activity.startActivity(intent);
     }
 
@@ -120,7 +152,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         form.setName(getString(R.string.mother_mentor_registration));
         form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
         form.setNextLabel(this.getResources().getString(org.smartregister.chw.core.R.string.next));
-        form.setPreviousLabel(this.getResources().getString(org.smartregister.chw.core.R.string.back));
+        form.setPreviousLabel(
+                this.getResources().getString(org.smartregister.chw.core.R.string.back));
         form.setSaveLabel(this.getResources().getString(org.smartregister.chw.core.R.string.save));
         return form;
     }
@@ -132,10 +165,10 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[]{
-                new MotherMentorContactRegisterFragment(),
-                new MotherMentorMobilizationFragment(),
-                new MotherMentorSecondaryEnrollmentsFragment()
+        return new Fragment[] {
+            new MotherMentorContactRegisterFragment(),
+            new MotherMentorMobilizationFragment(),
+            new MotherMentorSecondaryEnrollmentsFragment()
         };
     }
 
@@ -150,28 +183,41 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
 
         if (bottomNavigationView != null) {
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+            bottomNavigationView.setLabelVisibilityMode(
+                    LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_clients);
-            bottomNavigationView.getMenu().removeItem(org.smartregister.chw.mothermentor.R.id.action_register);
+            bottomNavigationView
+                    .getMenu()
+                    .removeItem(org.smartregister.chw.mothermentor.R.id.action_register);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_search);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_library);
             bottomNavigationView.inflateMenu(getMenuResource());
-            bottomNavigationView.getMenu()
-                    .add(Menu.NONE, R.id.action_mothermentor_secondary_enrollments, Menu.NONE, R.string.mothermentor_secondary_enrollments)
+            bottomNavigationView
+                    .getMenu()
+                    .add(
+                            Menu.NONE,
+                            R.id.action_mothermentor_secondary_enrollments,
+                            Menu.NONE,
+                            R.string.mothermentor_secondary_enrollments)
                     .setIcon(org.smartregister.chw.mothermentor.R.mipmap.ic_jobaids);
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-            bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-                if (item.getItemId() == org.smartregister.chw.mothermentor.R.id.action_home) {
-                    switchToBaseFragment();
-                } else if (item.getItemId() == org.smartregister.chw.mothermentor.R.id.action_contact) {
-                    switchToFragment(1);
-                } else if (item.getItemId() == org.smartregister.chw.mothermentor.R.id.action_mobilization) {
-                    switchToFragment(2);
-                } else if (item.getItemId() == R.id.action_mothermentor_secondary_enrollments) {
-                    switchToFragment(3);
-                }
-                return true;
-            });
+            bottomNavigationView.setOnNavigationItemSelectedListener(
+                    item -> {
+                        if (item.getItemId()
+                                == org.smartregister.chw.mothermentor.R.id.action_home) {
+                            switchToBaseFragment();
+                        } else if (item.getItemId()
+                                == org.smartregister.chw.mothermentor.R.id.action_contact) {
+                            switchToFragment(1);
+                        } else if (item.getItemId()
+                                == org.smartregister.chw.mothermentor.R.id.action_mobilization) {
+                            switchToFragment(2);
+                        } else if (item.getItemId()
+                                == R.id.action_mothermentor_secondary_enrollments) {
+                            switchToFragment(3);
+                        }
+                        return true;
+                    });
         }
     }
 
@@ -187,12 +233,13 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     @Override
     public void startFormActivity(JSONObject jsonForm) {
         if (EVENT_MOTHER_MENTOR_ENROLL_PARTNER.equals(jsonForm.optString(Constants.ENCOUNTER_TYPE))
-                && !canEnrollPartner(jsonForm.optString("entity_id"))) {
+                && !canEnrollPartner(jsonForm.optString(DBConstants.KEY.ENTITY_ID))) {
             displayToast(getString(R.string.mothermentor_partner_enrollment_unavailable));
             return;
         }
-        if (EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID.equals(jsonForm.optString(Constants.ENCOUNTER_TYPE))
-                && !canEnrollChild(jsonForm.optString("entity_id"))) {
+        if (EVENT_MOTHER_MENTOR_ENROLL_CHILD_EID.equals(
+                        jsonForm.optString(Constants.ENCOUNTER_TYPE))
+                && !canEnrollChild(jsonForm.optString(DBConstants.KEY.ENTITY_ID))) {
             displayToast(getString(R.string.mothermentor_child_eid_enrollment_unavailable));
             return;
         }
@@ -201,8 +248,14 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
 
-        String gender = getIntent().getStringExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER);
-        int age = getIntent().getIntExtra(org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.AGE, -1);
+        String gender =
+                getIntent()
+                        .getStringExtra(
+                                org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER);
+        int age =
+                getIntent()
+                        .getIntExtra(
+                                org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.AGE, -1);
 
         try {
             if (jsonForm.getString("encounter_type").equals("Mother Mentor Enrollment")) {
@@ -210,10 +263,9 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                 JSONObject global = jsonForm.getJSONObject("global");
 
                 if (gender != null) {
-                    global.put("age", age);
-                    global.put("gender", gender);
+                    global.put(DBConstants.KEY.AGE, age);
+                    global.put(DBConstants.KEY.GENDER, gender);
                 }
-
             }
         } catch (Exception e) {
             Timber.e(e);
@@ -221,7 +273,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(
+                org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
         form.setWizard(true);
         form.setHomeAsUpIndicator(org.smartregister.chw.core.R.mipmap.ic_cross_white);
@@ -232,7 +285,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
             form.setName(null);
             form.setNextLabel(getResources().getString(org.smartregister.chw.core.R.string.next));
-            form.setPreviousLabel(getResources().getString(org.smartregister.chw.core.R.string.back));
+            form.setPreviousLabel(
+                    getResources().getString(org.smartregister.chw.core.R.string.back));
         }
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
@@ -252,11 +306,14 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                     displayToast(CHILD_OVER_18_MONTHS_MESSAGE);
                     return;
                 }
-                if (EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT.equals(form.optString(Constants.ENCOUNTER_TYPE))) {
+                if (EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT.equals(
+                        form.optString(Constants.ENCOUNTER_TYPE))) {
                     boolean hasConsent = saveHouseholdEnrollment(form);
-                    displayToast(getString(hasConsent
-                            ? R.string.mama_kinara_household_enrolled
-                            : R.string.mama_kinara_household_no_consent));
+                    displayToast(
+                            getString(
+                                    hasConsent
+                                            ? R.string.mama_kinara_household_enrolled
+                                            : R.string.mama_kinara_household_no_consent));
                     startClientProcessing();
                     if (!hasConsent) {
                         finish();
@@ -265,16 +322,20 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                     }
                     return;
                 }
-                String tableName = getMotherMentorSecondaryEnrollmentTable(form.optString(Constants.ENCOUNTER_TYPE));
+                String tableName =
+                        getMotherMentorSecondaryEnrollmentTable(
+                                form.optString(Constants.ENCOUNTER_TYPE));
                 if (tableName != null) {
                     if (TABLE_MOTHERMENTOR_ENROLL_PARTNER.equals(tableName)
-                            && !canEnrollPartner(form.optString("entity_id"))) {
-                        displayToast(getString(R.string.mothermentor_partner_enrollment_unavailable));
+                            && !canEnrollPartner(form.optString(DBConstants.KEY.ENTITY_ID))) {
+                        displayToast(
+                                getString(R.string.mothermentor_partner_enrollment_unavailable));
                         return;
                     }
                     if (TABLE_MOTHERMENTOR_ENROLL_CHILD_EID.equals(tableName)
-                            && !canEnrollChild(form.optString("entity_id"))) {
-                        displayToast(getString(R.string.mothermentor_child_eid_enrollment_unavailable));
+                            && !canEnrollChild(form.optString(DBConstants.KEY.ENTITY_ID))) {
+                        displayToast(
+                                getString(R.string.mothermentor_child_eid_enrollment_unavailable));
                         return;
                     }
                     saveMotherMentorSecondaryEnrollment(form, tableName);
@@ -284,7 +345,10 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                 }
             } catch (Exception e) {
                 Timber.e(e);
-                displayToast(getString(org.smartregister.chw.mothermentor.R.string.error_unable_to_save_form));
+                displayToast(
+                        getString(
+                                org.smartregister.chw.mothermentor.R.string
+                                        .error_unable_to_save_form));
                 return;
             }
         }
@@ -292,7 +356,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     }
 
     private boolean isJsonFormRequest(int requestCode) {
-        return requestCode == Constants.REQUEST_CODE_GET_JSON || requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON;
+        return requestCode == Constants.REQUEST_CODE_GET_JSON
+                || requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON;
     }
 
     private boolean isMotherMentorEnrollment(JSONObject form) {
@@ -303,13 +368,16 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     }
 
     private boolean isChildOver18Months(JSONObject form) {
-        String childDob = org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(form, FIELD_CHILD_DOB);
+        String childDob =
+                org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
+                        form, DBConstants.KEY.CHILD_DOB);
         if (StringUtils.isBlank(childDob)) {
             return false;
         }
 
         LocalDate childDobDate = parseChildDob(childDob);
-        return childDobDate != null && Months.monthsBetween(childDobDate, LocalDate.now()).getMonths() > 18;
+        return childDobDate != null
+                && Months.monthsBetween(childDobDate, LocalDate.now()).getMonths() > 18;
     }
 
     private LocalDate parseChildDob(String childDob) {
@@ -326,19 +394,25 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
     private boolean saveHouseholdEnrollment(JSONObject form) throws Exception {
         String today = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
-        JSONArray fields = org.smartregister.chw.mothermentor.util.MotherMentorJsonFormUtils.fields(form, Constants.STEP_ONE);
-        String consent = getFieldValue(fields, FIELD_CONSENT);
-        setFieldValue(fields, FIELD_HOUSEHOLD_ID, BASE_ENTITY_ID);
-        setFieldValue(fields, FIELD_ENROLLMENT_DATE, today);
+        JSONArray fields =
+                org.smartregister.chw.mothermentor.util.MotherMentorJsonFormUtils.fields(
+                        form, Constants.STEP_ONE);
+        String consent = getFieldValue(fields, DBConstants.KEY.CONSENT);
+        setFieldValue(fields, DBConstants.KEY.HOUSEHOLD_ID, BASE_ENTITY_ID);
+        setFieldValue(fields, DBConstants.KEY.ENROLLMENT_DATE, today);
         form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, BASE_ENTITY_ID);
 
         org.smartregister.repository.AllSharedPreferences allSharedPreferences =
-                org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance().context().allSharedPreferences();
-        Event event = org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(
-                allSharedPreferences,
-                form.toString(),
-                TABLE_MAMA_KINARA_HOUSEHOLD_ENROLMENT);
-        org.smartregister.chw.mothermentor.util.MotherMentorUtil.processEvent(allSharedPreferences, event);
+                org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance()
+                        .context()
+                        .allSharedPreferences();
+        Event event =
+                org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(
+                        allSharedPreferences,
+                        form.toString(),
+                        TABLE_MAMA_KINARA_HOUSEHOLD_ENROLMENT);
+        org.smartregister.chw.mothermentor.util.MotherMentorUtil.processEvent(
+                allSharedPreferences, event);
         return CONSENT_YES.equals(consent);
     }
 
@@ -396,7 +470,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
     private void openHouseholdTab() {
         if (bottomNavigationView != null) {
-            bottomNavigationView.setSelectedItemId(org.smartregister.chw.mothermentor.R.id.action_contact);
+            bottomNavigationView.setSelectedItemId(
+                    org.smartregister.chw.mothermentor.R.id.action_contact);
         } else {
             switchToFragment(1);
         }
@@ -415,20 +490,28 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
     private boolean canEnrollPartner(String id) {
         return new org.smartregister.chw.repository.MotherMentorPartnerRepository(
-                ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollPartner(id);
+                        ChwApplication.getInstance().getRepository().getReadableDatabase())
+                .canEnrollPartner(id);
     }
 
     private boolean canEnrollChild(String id) {
         return new org.smartregister.chw.repository.MotherMentorChildEidRepository(
-                ChwApplication.getInstance().getRepository().getReadableDatabase()).canEnrollChild(id);
+                        ChwApplication.getInstance().getRepository().getReadableDatabase())
+                .canEnrollChild(id);
     }
 
-    private void saveMotherMentorSecondaryEnrollment(JSONObject form, String tableName) throws Exception {
+    private void saveMotherMentorSecondaryEnrollment(JSONObject form, String tableName)
+            throws Exception {
         updateRelationalId(form);
         org.smartregister.repository.AllSharedPreferences allSharedPreferences =
-                org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance().context().allSharedPreferences();
-        Event event = org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(allSharedPreferences, form.toString(), tableName);
-        org.smartregister.chw.mothermentor.util.MotherMentorUtil.processEvent(allSharedPreferences, event);
+                org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance()
+                        .context()
+                        .allSharedPreferences();
+        Event event =
+                org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(
+                        allSharedPreferences, form.toString(), tableName);
+        org.smartregister.chw.mothermentor.util.MotherMentorUtil.processEvent(
+                allSharedPreferences, event);
         if (TABLE_MOTHERMENTOR_MOBILIZATION.equals(tableName)) {
             saveMotherMentorMobilizationSession(event);
         }
@@ -440,83 +523,65 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         }
 
         ContentValues values = new ContentValues();
-        String shTarehe = getObsValue(event, FIELD_SH_TAREHE, false);
-        String shAina = getObsValue(event, FIELD_SH_AINA, false);
-        String shMada = getObsValue(event, FIELD_SH_MADA, true);
-        String elimM = getObsValue(event, FIELD_ELIM_M, false);
-        String elimF = getObsValue(event, FIELD_ELIM_F, false);
+        String shTarehe = getObsValue(event, DBConstants.KEY.SH_TAREHE, false);
+        String shAina = getObsValue(event, DBConstants.KEY.SH_AINA, false);
+        String shMada = getObsValue(event, DBConstants.KEY.SH_MADA, true);
+        String elimM = getObsValue(event, DBConstants.KEY.ELIM_M, false);
+        String elimF = getObsValue(event, DBConstants.KEY.ELIM_F, false);
 
-        values.put("id", event.getBaseEntityId());
-        values.put("base_entity_id", event.getBaseEntityId());
-        values.put(FIELD_SH_TAREHE, shTarehe);
-        values.put(FIELD_SH_AINA, shAina);
-        values.put(FIELD_SH_AINA_OTHER, getObsValue(event, FIELD_SH_AINA_OTHER, false));
-        values.put(FIELD_GPS, getObsValue(event, FIELD_GPS, false));
-        values.put(FIELD_SH_MADA, shMada);
-        values.put(FIELD_SH_MADA_OTHER, getObsValue(event, FIELD_SH_MADA_OTHER, false));
-        values.put(FIELD_ELIM_M, elimM);
-        values.put(FIELD_ELIM_F, elimF);
-        values.put(FIELD_ELIM_TOTAL, getObsValue(event, FIELD_ELIM_TOTAL, false));
-        values.put(FIELD_MAONI, getObsValue(event, FIELD_MAONI, false));
-        values.put("referred_male", getObsValue(event, "referred_male", false));
-        values.put("referred_female", getObsValue(event, "referred_female", false));
-        values.put("referred_total", getObsValue(event, "referred_total", false));
-        values.put("facility_referral_services", getObsValue(event, "facility_referral_services", true));
-        values.put("facility_referral_other", getObsValue(event, "facility_referral_other", false));
+        values.put(DBConstants.KEY.ID, event.getBaseEntityId());
+        values.put(DBConstants.KEY.BASE_ENTITY_ID, event.getBaseEntityId());
+        values.put(DBConstants.KEY.SH_TAREHE, shTarehe);
+        values.put(DBConstants.KEY.SH_AINA, shAina);
+        values.put(
+                DBConstants.KEY.SH_AINA_OTHER,
+                getObsValue(event, DBConstants.KEY.SH_AINA_OTHER, false));
+        values.put(DBConstants.KEY.GPS, getObsValue(event, DBConstants.KEY.GPS, false));
+        values.put(DBConstants.KEY.SH_MADA, shMada);
+        values.put(
+                DBConstants.KEY.SH_MADA_OTHER,
+                getObsValue(event, DBConstants.KEY.SH_MADA_OTHER, false));
+        values.put(DBConstants.KEY.ELIM_M, elimM);
+        values.put(DBConstants.KEY.ELIM_F, elimF);
+        values.put(
+                DBConstants.KEY.ELIM_TOTAL, getObsValue(event, DBConstants.KEY.ELIM_TOTAL, false));
+        values.put(DBConstants.KEY.MAONI, getObsValue(event, DBConstants.KEY.MAONI, false));
+        values.put(
+                DBConstants.KEY.REFERRED_MALE,
+                getObsValue(event, DBConstants.KEY.REFERRED_MALE, false));
+        values.put(
+                DBConstants.KEY.REFERRED_FEMALE,
+                getObsValue(event, DBConstants.KEY.REFERRED_FEMALE, false));
+        values.put(
+                DBConstants.KEY.REFERRED_TOTAL,
+                getObsValue(event, DBConstants.KEY.REFERRED_TOTAL, false));
+        values.put(
+                DBConstants.KEY.FACILITY_REFERRAL_SERVICES,
+                getObsValue(event, DBConstants.KEY.FACILITY_REFERRAL_SERVICES, true));
+        values.put(
+                DBConstants.KEY.FACILITY_REFERRAL_OTHER,
+                getObsValue(event, DBConstants.KEY.FACILITY_REFERRAL_OTHER, false));
 
-        values.put("mobilization_date", shTarehe);
-        values.put("mobilization_area", shAina);
-        values.put("other_mobilization_area", getObsValue(event, FIELD_SH_AINA_OTHER, false));
-        values.put("mobilization_topics", shMada);
-        values.put("male_clients_reached", elimM);
-        values.put("female_clients_reached", elimF);
-        long lastInteractedWith = event.getVersion() > 0 ? event.getVersion() : System.currentTimeMillis();
-        values.put("last_interacted_with", lastInteractedWith);
+        values.put(DBConstants.KEY.MOBILIZATION_DATE, shTarehe);
+        values.put(DBConstants.KEY.MOBILIZATION_AREA, shAina);
+        values.put(
+                DBConstants.KEY.OTHER_MOBILIZATION_AREA,
+                getObsValue(event, DBConstants.KEY.SH_AINA_OTHER, false));
+        values.put(DBConstants.KEY.MOBILIZATION_TOPICS, shMada);
+        values.put(DBConstants.KEY.MALE_CLIENTS_REACHED, elimM);
+        values.put(DBConstants.KEY.FEMALE_CLIENTS_REACHED, elimF);
+        long lastInteractedWith =
+                event.getVersion() > 0 ? event.getVersion() : System.currentTimeMillis();
+        values.put(DBConstants.KEY.LAST_INTERACTED_WITH, lastInteractedWith);
 
         try {
             SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
-            ensureMotherMentorMobilizationColumns(db);
-            db.insertWithOnConflict(TABLE_MOTHERMENTOR_MOBILIZATION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            MotherMentorReportingRepository.ensureMobilizationColumns(db);
+            db.insertWithOnConflict(
+                    TABLE_MOTHERMENTOR_MOBILIZATION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         } catch (Exception e) {
             Timber.e(e, "Unable to save Mother Mentor mobilization session row");
         }
-    }
-
-    private void ensureMotherMentorMobilizationColumns(SQLiteDatabase db) {
-        addColumnIfMissing(db, FIELD_SH_TAREHE);
-        addColumnIfMissing(db, FIELD_SH_AINA);
-        addColumnIfMissing(db, FIELD_SH_AINA_OTHER);
-        addColumnIfMissing(db, FIELD_SH_MADA);
-        addColumnIfMissing(db, FIELD_SH_MADA_OTHER);
-        addColumnIfMissing(db, FIELD_ELIM_M);
-        addColumnIfMissing(db, FIELD_ELIM_F);
-        addColumnIfMissing(db, FIELD_ELIM_TOTAL);
-        addColumnIfMissing(db, FIELD_MAONI);
-        addColumnIfMissing(db, "referred_male");
-        addColumnIfMissing(db, "referred_female");
-        addColumnIfMissing(db, "referred_total");
-        addColumnIfMissing(db, "facility_referral_services");
-        addColumnIfMissing(db, "facility_referral_other");
-
-    }
-
-    private void addColumnIfMissing(SQLiteDatabase db, String column) {
-        if (hasColumn(db, column)) {
-            return;
-        }
-        db.execSQL("ALTER TABLE " + TABLE_MOTHERMENTOR_MOBILIZATION + " ADD COLUMN " + column + " VARCHAR;");
-    }
-
-    private boolean hasColumn(SQLiteDatabase db, String column) {
-        try (Cursor cursor = db.rawQuery("PRAGMA table_info(" + TABLE_MOTHERMENTOR_MOBILIZATION + ")", null)) {
-            while (cursor.moveToNext()) {
-                String columnName = cursor.getString(cursor.getColumnIndex("name"));
-                if (column.equals(columnName)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     private String getObsValue(Event event, String key, boolean preferValues) {
@@ -541,8 +606,12 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             return;
         }
 
-        JSONArray fields = org.smartregister.chw.mothermentor.util.MotherMentorJsonFormUtils.fields(form, Constants.STEP_ONE);
-        JSONObject relationalId = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, org.smartregister.chw.mothermentor.util.DBConstants.KEY.RELATIONAL_ID);
+        JSONArray fields =
+                org.smartregister.chw.mothermentor.util.MotherMentorJsonFormUtils.fields(
+                        form, Constants.STEP_ONE);
+        JSONObject relationalId =
+                org.smartregister.util.JsonFormUtils.getFieldJSONObject(
+                        fields, DBConstants.KEY.RELATIONAL_ID);
         if (relationalId != null) {
             relationalId.remove(org.smartregister.util.JsonFormUtils.VALUE);
             relationalId.put(org.smartregister.util.JsonFormUtils.VALUE, FAMILY_BASE_ENTITY_ID);

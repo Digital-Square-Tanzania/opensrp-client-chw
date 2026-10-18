@@ -154,16 +154,6 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
     }
 
-    @Override
-    protected void startMotherMentorEnrollPartner() {
-
-    }
-
-    @Override
-    protected void startMotherMentorEnrollChildEid() {
-
-    }
-
     private void startMotherMentorSecondaryEnrollment(String formName) {
         String gender = AllClientsUtils.getClientGender(baseEntityId);
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);

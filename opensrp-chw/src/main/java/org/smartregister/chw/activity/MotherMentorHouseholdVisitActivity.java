@@ -16,6 +16,7 @@ import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.JsonFormUtils;
@@ -24,18 +25,25 @@ import org.smartregister.util.LangUtils;
 
 public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitActivity {
 
-    public static void startMotherMentorHouseholdVisitActivity(Activity activity, String baseEntityId, Boolean editMode) {
+    public static void startMotherMentorHouseholdVisitActivity(
+            Activity activity, String baseEntityId, Boolean editMode) {
         Intent intent = new Intent(activity, MotherMentorHouseholdVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        intent.putExtra(
+                Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE,
+                Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseMotherMentorVisitPresenter(memberObject, this,
-                new MotherMentorHouseholdVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES));
+        presenter =
+                new BaseMotherMentorVisitPresenter(
+                        memberObject,
+                        this,
+                        new MotherMentorHouseholdVisitInteractor(
+                                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES));
     }
 
     @Override
@@ -50,8 +58,11 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
         form.setWizard(false);
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-        intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, false);
+        intent.putExtra(
+                org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(
+                org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog,
+                false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -81,7 +92,8 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
 
     private MemberObject getHouseholdMember(String baseEntityId) {
         try {
-            CommonRepository repository = Utils.context().commonrepository(Utils.metadata().familyRegister.tableName);
+            CommonRepository repository =
+                    Utils.context().commonrepository(Utils.metadata().familyRegister.tableName);
             if (repository == null) {
                 return null;
             }
@@ -91,13 +103,29 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
                 MemberObject memberObject = new MemberObject();
                 memberObject.setBaseEntityId(personObject.getCaseId());
                 memberObject.setFamilyBaseEntityId(personObject.getCaseId());
-                memberObject.setFirstName(Utils.getValue(personObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FIRST_NAME, false));
-                memberObject.setLastName(Utils.getValue(personObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.LAST_NAME, false));
-                memberObject.setUniqueId(Utils.getValue(personObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.UNIQUE_ID, false));
-                memberObject.setAddress(Utils.getValue(personObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.VILLAGE_TOWN, false));
-                memberObject.setFamilyHead(Utils.getValue(personObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FAMILY_HEAD, false));
-                memberObject.setPrimaryCareGiver(Utils.getValue(personObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.PRIMARY_CAREGIVER, false));
-                memberObject.setPhoneNumber(Utils.getValue(personObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.PHONE_NUMBER, false));
+                memberObject.setFirstName(
+                        Utils.getValue(
+                                personObject.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false));
+                memberObject.setLastName(
+                        Utils.getValue(
+                                personObject.getColumnmaps(), DBConstants.KEY.LAST_NAME, false));
+                memberObject.setUniqueId(
+                        Utils.getValue(
+                                personObject.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+                memberObject.setAddress(
+                        Utils.getValue(
+                                personObject.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
+                memberObject.setFamilyHead(
+                        Utils.getValue(
+                                personObject.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
+                memberObject.setPrimaryCareGiver(
+                        Utils.getValue(
+                                personObject.getColumnmaps(),
+                                DBConstants.KEY.PRIMARY_CARE_GIVER,
+                                false));
+                memberObject.setPhoneNumber(
+                        Utils.getValue(
+                                personObject.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, false));
                 return memberObject;
             }
         } catch (Exception e) {

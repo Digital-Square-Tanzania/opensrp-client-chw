@@ -10,14 +10,15 @@ import org.smartregister.chw.mothermentor.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.interactor.BaseMotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.JsonFormUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import timber.log.Timber;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceVisitInteractor {
     private static final String ACTION_VISIT_TYPE = "Visit Type";
@@ -32,13 +33,12 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
     private static final String FORM_REFERRAL_PROVIDED = "mothermentor_visit_referal";
     private static final String FORM_NEXT_VISIT_DATE = "mothermentor_next_visit_date";
     private static final String FORM_COMMENT = "mothermentor_visit_comment";
-    private static final String FIELD_ATTENDANCE_TYPE = "attendance_type";
-    private static final String FIELD_FOLLOW_UP_STATUS = "follow_up_status";
     private static final String ATTENDANCE_TYPE_NEW = "new";
     private static final String ATTENDANCE_TYPE_REPEAT = "repeat";
     private static final String FOLLOW_UP_STATUS_CONTINUING_SERVICES = "continuing_services";
 
-    private final LinkedHashMap<String, BaseMotherMentorVisitAction> motherMentorVisitActions = new LinkedHashMap<>();
+    private final LinkedHashMap<String, BaseMotherMentorVisitAction> motherMentorVisitActions =
+            new LinkedHashMap<>();
 
     public MotherMentorServiceVisitInteractor(String visitType) {
         super(visitType);
@@ -46,50 +46,88 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
 
     @Override
     protected void populateActionList(BaseMotherMentorVisitContract.InteractorCallBack callBack) {
-        final Runnable runnable = () -> {
-            motherMentorVisitActions.clear();
-            try {
-                addVisitAction(ACTION_VISIT_TYPE, FORM_VISIT_TYPE, new VisitTypeActionHelper(), null);
-                addVisitAction(ACTION_GROUP_LINKAGE, FORM_GROUP_LINKAGE, new GroupLinkageActionHelper(), new VisitFlowValidator(false));
-                addVisitAction(ACTION_EDUCATION_PROVIDED, FORM_EDUCATION_PROVIDED, new EducationProvidedActionHelper(), new VisitFlowValidator(false));
-                addVisitAction(ACTION_REFERRAL_PROVIDED, FORM_REFERRAL_PROVIDED, new ReferralProvidedActionHelper(), new VisitFlowValidator(false));
-                addVisitAction(ACTION_NEXT_VISIT_DATE, FORM_NEXT_VISIT_DATE, new NextVisitDateActionHelper(), new VisitFlowValidator(false));
-                addVisitAction(ACTION_COMMENT, FORM_COMMENT, new CommentActionHelper(), new VisitFlowValidator(true));
-            } catch (BaseMotherMentorVisitAction.ValidationException e) {
-                Timber.e(e);
-            }
+        final Runnable runnable =
+                () -> {
+                    motherMentorVisitActions.clear();
+                    try {
+                        addVisitAction(
+                                ACTION_VISIT_TYPE,
+                                FORM_VISIT_TYPE,
+                                new VisitTypeActionHelper(),
+                                null);
+                        addVisitAction(
+                                ACTION_GROUP_LINKAGE,
+                                FORM_GROUP_LINKAGE,
+                                new GroupLinkageActionHelper(),
+                                new VisitFlowValidator(false));
+                        addVisitAction(
+                                ACTION_EDUCATION_PROVIDED,
+                                FORM_EDUCATION_PROVIDED,
+                                new EducationProvidedActionHelper(),
+                                new VisitFlowValidator(false));
+                        addVisitAction(
+                                ACTION_REFERRAL_PROVIDED,
+                                FORM_REFERRAL_PROVIDED,
+                                new ReferralProvidedActionHelper(),
+                                new VisitFlowValidator(false));
+                        addVisitAction(
+                                ACTION_NEXT_VISIT_DATE,
+                                FORM_NEXT_VISIT_DATE,
+                                new NextVisitDateActionHelper(),
+                                new VisitFlowValidator(false));
+                        addVisitAction(
+                                ACTION_COMMENT,
+                                FORM_COMMENT,
+                                new CommentActionHelper(),
+                                new VisitFlowValidator(true));
+                    } catch (BaseMotherMentorVisitAction.ValidationException e) {
+                        Timber.e(e);
+                    }
 
-            appExecutors.mainThread().execute(() -> callBack.preloadActions(motherMentorVisitActions));
-        };
+                    appExecutors
+                            .mainThread()
+                            .execute(() -> callBack.preloadActions(motherMentorVisitActions));
+                };
 
         appExecutors.diskIO().execute(runnable);
     }
 
-    private void addVisitAction(String title, String formName) throws BaseMotherMentorVisitAction.ValidationException {
+    private void addVisitAction(String title, String formName)
+            throws BaseMotherMentorVisitAction.ValidationException {
         addVisitAction(title, formName, null);
     }
 
-    private void addVisitAction(String title, String formName, BaseMotherMentorVisitAction.MotherMentorVisitActionHelper helper)
+    private void addVisitAction(
+            String title,
+            String formName,
+            BaseMotherMentorVisitAction.MotherMentorVisitActionHelper helper)
             throws BaseMotherMentorVisitAction.ValidationException {
         addVisitAction(title, formName, helper, null);
     }
 
-    private void addVisitAction(String title, String formName, BaseMotherMentorVisitAction.MotherMentorVisitActionHelper helper,
-                                BaseMotherMentorVisitAction.Validator validator)
+    private void addVisitAction(
+            String title,
+            String formName,
+            BaseMotherMentorVisitAction.MotherMentorVisitActionHelper helper,
+            BaseMotherMentorVisitAction.Validator validator)
             throws BaseMotherMentorVisitAction.ValidationException {
-        BaseMotherMentorVisitAction action = getBuilder(title)
-                .withOptional(false)
-                .withDetails(details)
-                .withHelper(helper)
-                .withValidator(validator)
-                .withFormName(formName)
-                .build();
+        BaseMotherMentorVisitAction action =
+                getBuilder(title)
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withHelper(helper)
+                        .withValidator(validator)
+                        .withFormName(formName)
+                        .build();
         motherMentorVisitActions.put(title, action);
     }
 
     @Override
-    public void submitVisit(boolean editMode, String memberID, Map<String, BaseMotherMentorVisitAction> map,
-                            BaseMotherMentorVisitContract.InteractorCallBack callBack) {
+    public void submitVisit(
+            boolean editMode,
+            String memberID,
+            Map<String, BaseMotherMentorVisitAction> map,
+            BaseMotherMentorVisitContract.InteractorCallBack callBack) {
         super.submitVisit(editMode, memberID, getVisibleVisitActions(map), callBack);
     }
 
@@ -98,7 +136,8 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         return Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES;
     }
 
-    private Map<String, BaseMotherMentorVisitAction> getVisibleVisitActions(Map<String, BaseMotherMentorVisitAction> map) {
+    private Map<String, BaseMotherMentorVisitAction> getVisibleVisitActions(
+            Map<String, BaseMotherMentorVisitAction> map) {
         LinkedHashMap<String, BaseMotherMentorVisitAction> visibleActions = new LinkedHashMap<>();
         for (Map.Entry<String, BaseMotherMentorVisitAction> entry : map.entrySet()) {
             if (entry.getValue().isValid()) {
@@ -119,7 +158,8 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
     }
 
     private VisitTypeSelection getVisitTypeSelection() {
-        BaseMotherMentorVisitAction visitTypeAction = motherMentorVisitActions.get(ACTION_VISIT_TYPE);
+        BaseMotherMentorVisitAction visitTypeAction =
+                motherMentorVisitActions.get(ACTION_VISIT_TYPE);
         if (visitTypeAction == null || StringUtils.isBlank(visitTypeAction.getJsonPayload())) {
             return new VisitTypeSelection(null, null);
         }
@@ -127,8 +167,8 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         try {
             JSONObject jsonObject = new JSONObject(visitTypeAction.getJsonPayload());
             return new VisitTypeSelection(
-                    JsonFormUtils.getValue(jsonObject, FIELD_ATTENDANCE_TYPE),
-                    JsonFormUtils.getValue(jsonObject, FIELD_FOLLOW_UP_STATUS));
+                    JsonFormUtils.getValue(jsonObject, DBConstants.KEY.ATTENDANCE_TYPE),
+                    JsonFormUtils.getValue(jsonObject, DBConstants.KEY.FOLLOW_UP_STATUS));
         } catch (Exception e) {
             Timber.e(e);
             return new VisitTypeSelection(null, null);
@@ -144,7 +184,11 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
     }
 
     private boolean isContinuingServices(String followUpStatus) {
-        return matchesAny(followUpStatus, FOLLOW_UP_STATUS_CONTINUING_SERVICES, "Continuing Services", "Anaendelea na huduma");
+        return matchesAny(
+                followUpStatus,
+                FOLLOW_UP_STATUS_CONTINUING_SERVICES,
+                "Continuing Services",
+                "Anaendelea na huduma");
     }
 
     private boolean matchesAny(String value, String... candidates) {
@@ -192,25 +236,32 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         }
     }
 
-    private class VisitTypeActionHelper implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
+    private class VisitTypeActionHelper
+            implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
         private boolean complete;
         private String preparedForm;
 
         @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        public void onJsonFormLoaded(
+                String jsonString, Context context, Map<String, List<VisitDetail>> details) {
             try {
                 JSONObject form = new JSONObject(jsonString);
-                Map<String, String> defaults = org.smartregister.chw.mothermentor.dao.MotherMentorDao
-                        .getVisitEnrollmentValues(memberObject.getBaseEntityId());
+                Map<String, String> defaults =
+                        org.smartregister.chw.mothermentor.dao.MotherMentorDao
+                                .getVisitEnrollmentValues(memberObject.getBaseEntityId());
                 JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
                 for (int i = 0; i < fields.length(); i++) {
                     JSONObject field = fields.getJSONObject(i);
                     String key = field.optString("key");
                     String value = defaults.get(key);
                     // Preserve answers already saved in an unfinished visit.
-                    if (value != null && !value.isEmpty() && field.optString("value").isEmpty()) field.put("value", value);
-                    if ("primary_mothermentor_client".equals(key) || "iit_enrolled".equals(key)
-                            || "partner_enrolled".equals(key) || "child_eid_enrolled".equals(key)) field.put("value", value);
+                    if (value != null && !value.isEmpty() && field.optString("value").isEmpty())
+                        field.put("value", value);
+                    if (DBConstants.KEY.PRIMARY_MOTHERMENTOR_CLIENT.equals(key)
+                            || DBConstants.KEY.IIT_ENROLLED.equals(key)
+                            || DBConstants.KEY.PARTNER_ENROLLED.equals(key)
+                            || DBConstants.KEY.CHILD_EID_ENROLLED.equals(key))
+                        field.put("value", value);
                 }
                 preparedForm = form.toString();
             } catch (Exception e) {
@@ -226,13 +277,16 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                JSONArray fields = new JSONObject(jsonPayload).getJSONObject("step1").getJSONArray("fields");
+                JSONArray fields =
+                        new JSONObject(jsonPayload).getJSONObject("step1").getJSONArray("fields");
                 Map<String, String> values = new HashMap<>();
                 for (int i = 0; i < fields.length(); i++) {
                     JSONObject field = fields.getJSONObject(i);
                     values.put(field.optString("key"), field.optString("value"));
                 }
-                complete = org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion.isVisitTypeComplete(values);
+                complete =
+                        org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion
+                                .isVisitTypeComplete(values);
             } catch (Exception e) {
                 Timber.e(e);
                 complete = false;
@@ -272,12 +326,14 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         }
     }
 
-    private static class GroupLinkageActionHelper implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
+    private static class GroupLinkageActionHelper
+            implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
         private String psychosocialSupportGroupLinkage;
         private String igaGroupLinkage;
 
         @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        public void onJsonFormLoaded(
+                String jsonString, Context context, Map<String, List<VisitDetail>> details) {
             // No preprocessing needed.
         }
 
@@ -290,8 +346,13 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                psychosocialSupportGroupLinkage = JsonFormUtils.getValue(jsonObject, "has_been_linked_to_psychosocial_support_group");
-                igaGroupLinkage = JsonFormUtils.getValue(jsonObject, "has_been_linked_to_iga_group");
+                psychosocialSupportGroupLinkage =
+                        JsonFormUtils.getValue(
+                                jsonObject,
+                                DBConstants.KEY.HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP);
+                igaGroupLinkage =
+                        JsonFormUtils.getValue(
+                                jsonObject, DBConstants.KEY.HAS_BEEN_LINKED_TO_IGA_GROUP);
             } catch (Exception e) {
                 Timber.e(e);
                 psychosocialSupportGroupLinkage = null;
@@ -322,7 +383,7 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public BaseMotherMentorVisitAction.Status evaluateStatusOnPayload() {
             return StringUtils.isNotBlank(psychosocialSupportGroupLinkage)
-                    && StringUtils.isNotBlank(igaGroupLinkage)
+                            && StringUtils.isNotBlank(igaGroupLinkage)
                     ? BaseMotherMentorVisitAction.Status.COMPLETED
                     : BaseMotherMentorVisitAction.Status.PENDING;
         }
@@ -333,11 +394,13 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         }
     }
 
-    private static class EducationProvidedActionHelper implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
+    private static class EducationProvidedActionHelper
+            implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
         private String educationProvided;
 
         @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        public void onJsonFormLoaded(
+                String jsonString, Context context, Map<String, List<VisitDetail>> details) {
             // No preprocessing needed.
         }
 
@@ -349,7 +412,9 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                educationProvided = JsonFormUtils.getValue(new JSONObject(jsonPayload), "education_provided");
+                educationProvided =
+                        JsonFormUtils.getValue(
+                                new JSONObject(jsonPayload), DBConstants.KEY.EDUCATION_PROVIDED);
             } catch (Exception e) {
                 Timber.e(e);
                 educationProvided = null;
@@ -389,11 +454,13 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         }
     }
 
-    private static class ReferralProvidedActionHelper implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
+    private static class ReferralProvidedActionHelper
+            implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
         private String referralGiven;
 
         @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        public void onJsonFormLoaded(
+                String jsonString, Context context, Map<String, List<VisitDetail>> details) {
             // No preprocessing needed.
         }
 
@@ -405,7 +472,9 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                referralGiven = JsonFormUtils.getValue(new JSONObject(jsonPayload), "referral_given");
+                referralGiven =
+                        JsonFormUtils.getValue(
+                                new JSONObject(jsonPayload), DBConstants.KEY.REFERRAL_GIVEN);
             } catch (Exception e) {
                 Timber.e(e);
                 referralGiven = null;
@@ -445,11 +514,13 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         }
     }
 
-    private static class NextVisitDateActionHelper implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
+    private static class NextVisitDateActionHelper
+            implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
         private String nextAppointmentDate;
 
         @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        public void onJsonFormLoaded(
+                String jsonString, Context context, Map<String, List<VisitDetail>> details) {
             // No preprocessing needed.
         }
 
@@ -461,7 +532,9 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                nextAppointmentDate = JsonFormUtils.getValue(new JSONObject(jsonPayload), "next_appointment_date");
+                nextAppointmentDate =
+                        JsonFormUtils.getValue(
+                                new JSONObject(jsonPayload), DBConstants.KEY.NEXT_APPOINTMENT_DATE);
             } catch (Exception e) {
                 Timber.e(e);
                 nextAppointmentDate = null;
@@ -501,11 +574,13 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         }
     }
 
-    private static class CommentActionHelper implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
+    private static class CommentActionHelper
+            implements BaseMotherMentorVisitAction.MotherMentorVisitActionHelper {
         private String comments;
 
         @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        public void onJsonFormLoaded(
+                String jsonString, Context context, Map<String, List<VisitDetail>> details) {
             // No preprocessing needed.
         }
 
@@ -517,7 +592,9 @@ public class MotherMentorServiceVisitInteractor extends BaseMotherMentorServiceV
         @Override
         public void onPayloadReceived(String jsonPayload) {
             try {
-                comments = JsonFormUtils.getValue(new JSONObject(jsonPayload), "comments");
+                comments =
+                        JsonFormUtils.getValue(
+                                new JSONObject(jsonPayload), DBConstants.KEY.COMMENTS);
             } catch (Exception e) {
                 Timber.e(e);
                 comments = null;

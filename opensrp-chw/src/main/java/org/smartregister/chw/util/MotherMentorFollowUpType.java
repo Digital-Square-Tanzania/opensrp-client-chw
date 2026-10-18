@@ -6,15 +6,21 @@ import org.smartregister.chw.mothermentor.util.Constants;
 
 /** Stable routing identity for the three Mother Mentor follow-up registers. */
 public enum MotherMentorFollowUpType {
-    MOTHER_IIT("MOTHER_IIT", Constants.TABLES.MOTHERMENTOR_ENROLL_IIT,
+    MOTHER_IIT(
+            "MOTHER_IIT",
+            Constants.TABLES.MOTHERMENTOR_ENROLL_IIT,
             Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT),
-    PARTNER("PARTNER", Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER,
+    PARTNER(
+            "PARTNER",
+            Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER,
             "MotherMentor Partner Follow-up Visit"),
-    CHILD_EID("CHILD_EID", Constants.TABLES.MOTHERMENTOR_ENROLL_CHILD_EID,
+    CHILD_EID(
+            "CHILD_EID",
+            Constants.TABLES.MOTHERMENTOR_ENROLL_CHILD_EID,
             "MotherMentor Child EID Follow-up Visit");
 
     public static final String EXTRA_FOLLOW_UP_TYPE = "mother_mentor_follow_up_type";
-    public static final String FOLLOW_UP_TABLE = "ec_mothermentor_followup_visit";
+    public static final String FOLLOW_UP_TABLE = Constants.TABLES.MOTHERMENTOR_FOLLOWUP_VISIT;
 
     private final String value;
     private final String enrollmentTable;
@@ -26,9 +32,17 @@ public enum MotherMentorFollowUpType {
         this.eventType = eventType;
     }
 
-    public String getValue() { return value; }
-    public String getEnrollmentTable() { return enrollmentTable; }
-    public String getEventType() { return eventType; }
+    public String getValue() {
+        return value;
+    }
+
+    public String getEnrollmentTable() {
+        return enrollmentTable;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
 
     public static MotherMentorFollowUpType fromValue(String value) {
         if (!TextUtils.isEmpty(value)) {

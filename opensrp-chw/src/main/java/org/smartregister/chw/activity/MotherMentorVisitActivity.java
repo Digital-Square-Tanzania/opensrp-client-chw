@@ -10,11 +10,13 @@ import com.vijay.jsonwizard.domain.Form;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.joda.time.DateTime;
+import org.joda.time.Months;
 import org.json.JSONObject;
-import org.smartregister.chw.core.R;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.interactor.MotherMentorFollowUpVisitInteractor;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.interactor.ChildEidFollowUpVisitInteractor;
+import org.smartregister.chw.interactor.MotherMentorFollowUpVisitInteractor;
 import org.smartregister.chw.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
@@ -22,42 +24,58 @@ import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
-import org.joda.time.DateTime;
-import org.joda.time.Months;
 
 public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     static final String EXTRA_FOLLOW_UP_VISIT = "extra_follow_up_visit";
     private boolean submitting;
 
-    public static void startMotherMentorVisitActivity(Activity activity, String baseEntityId, Boolean editMode) {
+    public static void startMotherMentorVisitActivity(
+            Activity activity, String baseEntityId, Boolean editMode) {
         startMotherMentorVisitActivity(activity, baseEntityId, editMode, false);
     }
 
-    public static void startMotherMentorFollowUpVisitActivity(Activity activity, String baseEntityId, Boolean editMode) {
-        startMotherMentorFollowUpVisitActivity(activity, baseEntityId, editMode, MotherMentorFollowUpType.MOTHER_IIT);
+    public static void startMotherMentorFollowUpVisitActivity(
+            Activity activity, String baseEntityId, Boolean editMode) {
+        startMotherMentorFollowUpVisitActivity(
+                activity, baseEntityId, editMode, MotherMentorFollowUpType.MOTHER_IIT);
     }
 
-    public static void startMotherMentorFollowUpVisitActivity(Activity activity, String baseEntityId, Boolean editMode,
-                                                               MotherMentorFollowUpType followUpType) {
+    public static void startMotherMentorFollowUpVisitActivity(
+            Activity activity,
+            String baseEntityId,
+            Boolean editMode,
+            MotherMentorFollowUpType followUpType) {
         startMotherMentorVisitActivity(activity, baseEntityId, editMode, true, followUpType);
     }
 
-    private static void startMotherMentorVisitActivity(Activity activity, String baseEntityId, Boolean editMode,
-                                                       boolean followUpVisit) {
-        startMotherMentorVisitActivity(activity, baseEntityId, editMode, followUpVisit, MotherMentorFollowUpType.MOTHER_IIT);
+    private static void startMotherMentorVisitActivity(
+            Activity activity, String baseEntityId, Boolean editMode, boolean followUpVisit) {
+        startMotherMentorVisitActivity(
+                activity,
+                baseEntityId,
+                editMode,
+                followUpVisit,
+                MotherMentorFollowUpType.MOTHER_IIT);
     }
 
-    private static void startMotherMentorVisitActivity(Activity activity, String baseEntityId, Boolean editMode,
-                                                       boolean followUpVisit, MotherMentorFollowUpType followUpType) {
+    private static void startMotherMentorVisitActivity(
+            Activity activity,
+            String baseEntityId,
+            Boolean editMode,
+            boolean followUpVisit,
+            MotherMentorFollowUpType followUpType) {
         Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        intent.putExtra(
+                Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE,
+                Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
         intent.putExtra(EXTRA_FOLLOW_UP_VISIT, followUpVisit);
         intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
@@ -66,14 +84,22 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     @Override
     protected void registerPresenter() {
         MotherMentorFollowUpType followUpType = getFollowUpType();
-        presenter = new BaseMotherMentorVisitPresenter(memberObject, this,
-                !isFollowUpVisit()
-                        ? new MotherMentorServiceVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES)
-                        : followUpType == MotherMentorFollowUpType.PARTNER
-                        ? new PartnerFollowUpVisitInteractor(followUpType.getEventType())
-                        : followUpType == MotherMentorFollowUpType.CHILD_EID
-                        ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType())
-                        : new MotherMentorFollowUpVisitInteractor(followUpType.getEventType(), followUpType.getValue()));
+        presenter =
+                new BaseMotherMentorVisitPresenter(
+                        memberObject,
+                        this,
+                        !isFollowUpVisit()
+                                ? new MotherMentorServiceVisitInteractor(
+                                        Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES)
+                                : followUpType == MotherMentorFollowUpType.PARTNER
+                                        ? new PartnerFollowUpVisitInteractor(
+                                                followUpType.getEventType())
+                                        : followUpType == MotherMentorFollowUpType.CHILD_EID
+                                                ? new ChildEidFollowUpVisitInteractor(
+                                                        followUpType.getEventType())
+                                                : new MotherMentorFollowUpVisitInteractor(
+                                                        followUpType.getEventType(),
+                                                        followUpType.getValue()));
     }
 
     @Override
@@ -90,34 +116,66 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             super.redrawHeader(member);
             return;
         }
-        int savedVisits = MotherMentorFollowUpVisitUtils.getVisits(member.getBaseEntityId(), getFollowUpType()).size();
-        int visitNumber = Boolean.TRUE.equals(isEditMode) ? Math.max(1, savedVisits) : savedVisits + 1;
+        int savedVisits =
+                MotherMentorFollowUpVisitUtils.getVisits(
+                                member.getBaseEntityId(), getFollowUpType())
+                        .size();
+        int visitNumber =
+                Boolean.TRUE.equals(isEditMode) ? Math.max(1, savedVisits) : savedVisits + 1;
         if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
-            tvTitle.setText(getString(org.smartregister.chw.R.string.mothermentor_child_visit_header,
-                    member.getFullName(), childAge(member.getBaseEntityId()), visitNumber));
+            tvTitle.setText(
+                    getString(
+                            org.smartregister.chw.R.string.mothermentor_child_visit_header,
+                            member.getFullName(),
+                            childAge(member.getBaseEntityId()),
+                            visitNumber));
         } else {
-            tvTitle.setText(getString(org.smartregister.chw.R.string.mothermentor_visit_header,
-                    member.getFullName(), member.getAge(), visitNumber));
+            tvTitle.setText(
+                    getString(
+                            org.smartregister.chw.R.string.mothermentor_visit_header,
+                            member.getFullName(),
+                            member.getAge(),
+                            visitNumber));
         }
     }
 
     private String childAge(String baseEntityId) {
         try {
             SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
-            try (Cursor cursor = db.rawQuery("SELECT dob FROM ec_family_member WHERE base_entity_id = ? LIMIT 1",
-                    new String[]{baseEntityId})) {
+            try (Cursor cursor =
+                    db.rawQuery(
+                            "SELECT "
+                                    + DBConstants.KEY.DOB
+                                    + " FROM ec_family_member WHERE "
+                                    + DBConstants.KEY.BASE_ENTITY_ID
+                                    + " = ? LIMIT 1",
+                            new String[] {baseEntityId})) {
                 if (cursor.moveToFirst() && !cursor.isNull(0)) {
                     DateTime dob = new DateTime(cursor.getString(0));
-                    int totalMonths = Math.max(0, Months.monthsBetween(dob.withTimeAtStartOfDay(),
-                            DateTime.now().withTimeAtStartOfDay()).getMonths());
+                    int totalMonths =
+                            Math.max(
+                                    0,
+                                    Months.monthsBetween(
+                                                    dob.withTimeAtStartOfDay(),
+                                                    DateTime.now().withTimeAtStartOfDay())
+                                            .getMonths());
                     int years = totalMonths / 12;
                     int months = totalMonths % 12;
-                    if (years == 0) return getString(org.smartregister.chw.R.string.mothermentor_child_age_months, months);
-                    if (months == 0) return getString(org.smartregister.chw.R.string.mothermentor_child_age_years, years);
-                    return getString(org.smartregister.chw.R.string.mothermentor_child_age_years_months, years, months);
+                    if (years == 0)
+                        return getString(
+                                org.smartregister.chw.R.string.mothermentor_child_age_months,
+                                months);
+                    if (months == 0)
+                        return getString(
+                                org.smartregister.chw.R.string.mothermentor_child_age_years, years);
+                    return getString(
+                            org.smartregister.chw.R.string.mothermentor_child_age_years_months,
+                            years,
+                            months);
                 }
             }
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
         return String.valueOf(memberObject.getAge());
     }
 
@@ -143,8 +201,11 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     MotherMentorFollowUpType getFollowUpType() {
-        return MotherMentorFollowUpType.fromValue(getIntent() == null ? null
-                : getIntent().getStringExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
+        return MotherMentorFollowUpType.fromValue(
+                getIntent() == null
+                        ? null
+                        : getIntent()
+                                .getStringExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
     }
 
     @Override
@@ -156,8 +217,11 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         form.setSaveLabel(getString(org.smartregister.chw.core.R.string.save));
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-        intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, false);
+        intent.putExtra(
+                org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(
+                org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog,
+                false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -178,7 +242,9 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         }
 
         memberObject = MotherMentorDao.getContact(baseEntityId);
-        return memberObject != null ? memberObject : MotherMentorDao.getSecondaryEnrollmentMember(baseEntityId);
+        return memberObject != null
+                ? memberObject
+                : MotherMentorDao.getSecondaryEnrollmentMember(baseEntityId);
     }
 
     @Override

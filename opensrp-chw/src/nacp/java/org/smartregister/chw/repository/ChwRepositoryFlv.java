@@ -1,5 +1,6 @@
 package org.smartregister.chw.repository;
 
+
 import static org.smartregister.chw.BuildConfig.VERSION_CODE;
 
 import android.database.Cursor;
@@ -15,12 +16,13 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.ncd.util.Constants;
+import org.smartregister.chw.mothermentor.repository.MotherMentorReportingRepository;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
@@ -196,6 +198,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 52:
                     upgradeToVersion52(db);
+                    break;
+                case 53:
+                    upgradeToVersion53(db);
                     break;
                 default:
                     break;
@@ -1115,7 +1120,8 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion50");
         }
         try {
-            db.execSQL("ALTER TABLE ec_mothermentor_contacts ADD COLUMN screening_status VARCHAR;");
+            db.execSQL("ALTER TABLE ec_mothermentor_contacts ADD COLUMN "
+                    + DBConstants.KEY.SCREENING_STATUS + " VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion50-add-contact-screening-status");
         }
@@ -1124,33 +1130,37 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion51(SQLiteDatabase db) {
         String tableName = "ec_mothermentor_followup_visit";
         for (String column : Arrays.asList(
-                "follow_up_category",
-                "follow_up_status",
-                "service_interruption_reason",
-                "service_interruption_reason_other",
-                "expected_facility_visit_date",
-                "returned_to_facility",
-                "facility_return_date",
-                "partner_non_attendance_reason",
-                "partner_non_attendance_reason_other",
-                "partner_expected_facility_visit_date",
-                "partner_arrived_at_facility",
-                "partner_facility_arrival_date",
-                "comments")) {
+                DBConstants.KEY.FOLLOW_UP_CATEGORY,
+                DBConstants.KEY.FOLLOW_UP_STATUS,
+                DBConstants.KEY.SERVICE_INTERRUPTION_REASON,
+                DBConstants.KEY.SERVICE_INTERRUPTION_REASON_OTHER,
+                DBConstants.KEY.EXPECTED_FACILITY_VISIT_DATE,
+                DBConstants.KEY.RETURNED_TO_FACILITY,
+                DBConstants.KEY.FACILITY_RETURN_DATE,
+                DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON,
+                DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON_OTHER,
+                DBConstants.KEY.PARTNER_EXPECTED_FACILITY_VISIT_DATE,
+                DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY,
+                DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE,
+                DBConstants.KEY.COMMENTS)) {
             addColumnIfMissing(db, tableName, column);
         }
     }
 
     private static void upgradeToVersion52(SQLiteDatabase db) {
         for (String column : Arrays.asList(
-                "child_eid_test_type",
-                "child_eid_non_attendance_reason",
-                "child_eid_non_attendance_reason_other",
-                "child_eid_expected_facility_visit_date",
-                "child_eid_arrived_at_facility",
-                "child_eid_facility_arrival_date")) {
+                DBConstants.KEY.CHILD_EID_TEST_TYPE,
+                DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
+                DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON_OTHER,
+                DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE,
+                DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY,
+                DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE)) {
             addColumnIfMissing(db, "ec_mothermentor_followup_visit", column);
         }
+    }
+
+    private static void upgradeToVersion53(SQLiteDatabase db) {
+        MotherMentorReportingRepository.ensureMobilizationColumns(db);
     }
 
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
