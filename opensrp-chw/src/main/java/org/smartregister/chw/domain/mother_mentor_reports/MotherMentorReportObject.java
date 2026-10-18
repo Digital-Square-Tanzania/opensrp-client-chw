@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
+import org.smartregister.chw.util.MotherMentorFollowUpType;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class MotherMentorReportObject extends ReportObject {
     private int failedQueries;
     private static final String NOT_CAPTURED = "—";
+    private static final String LEGACY_SERVICE = "MotherMentor Services";
     private static final String[] AGE_BANDS = {"under-1m", "1-11m", "12-23m", "2-4", "5-9",
             "10-14", "15-19", "20-24", "25-59", "60-plus"};
     private static final int[] AGE_MONTH_LIMITS = {0, 1, 12, 24, 60, 120, 180, 240, 300, 720};
@@ -66,13 +68,7 @@ public class MotherMentorReportObject extends ReportObject {
     private void putTracingCoverage(JSONObject result) throws JSONException {
         // Unknown older visits cannot override a later complete tracing outcome. An unknown
         // latest possible tracing visit still makes the month-end outcome unavailable.
-        String candidates = "SELECT v.*, " + serviceDate() + " AS service_date, "
-                + detail("iit_tracing_visit") + " AS tracing_flag, "
-                + detail("iit_tracing_outcome") + " AS outcome, "
-                + detail("returned_to_art") + " AS returned_to_art, "
-                + normalizeDate(detail("art_return_date")) + " AS return_date FROM visits v WHERE "
-                + finalizedVisitInMonth() + " AND " + iitAt(serviceDate())
-                + " AND NOT coalesce((" + detail("iit_tracing_visit") + " = 'no'), 0)";
+        String candidates = tracingCandidates();
         String returnKnown = "v.returned_to_art IN ('yes', 'no', 'not_applicable') AND "
                 + "(v.returned_to_art <> 'yes' OR (" + returnedOutcome() + "))";
         String outcomeKnown = "v.tracing_flag = 'yes' AND v.outcome IN "
@@ -93,7 +89,7 @@ public class MotherMentorReportObject extends ReportObject {
         }
         // Indicator 5 is any confirmed return in the month, independent of the latest outcome.
         // Missing observations for a client already counted cannot add another distinct client.
-        String returnedClients = clientSource(returnedToArtCondition());
+        String returnedClients = returnedToArtClients();
         Map<String, Integer> missingReturns = query("SELECT COUNT(DISTINCT v.base_entity_id) AS total FROM ("
                 + candidates + ") v WHERE " + primaryAt("v.service_date")
                 + " AND NOT coalesce((v.tracing_flag = 'yes' AND " + returnKnown + "), 0)"
@@ -181,8 +177,12 @@ public class MotherMentorReportObject extends ReportObject {
     }
 
     private String clientSource(String condition) {
+        return clientSource("visits", condition);
+    }
+
+    private String clientSource(String source, String condition) {
         return "SELECT DISTINCT v.base_entity_id AS client_id, lower(trim(ifnull(m.gender, ''))) AS gender, "
-                + ageInMonths() + " AS age_months FROM visits v LEFT JOIN ec_family_member m "
+                + ageInMonths() + " AS age_months FROM " + source + " v LEFT JOIN ec_family_member m "
                 + "ON m.base_entity_id = v.base_entity_id WHERE " + condition;
     }
 
@@ -237,30 +237,44 @@ public class MotherMentorReportObject extends ReportObject {
 
     private void putChildAttendanceIndicator(JSONObject result, int indicator, String stage, int minimumMonths) throws JSONException {
         String key = "mm-" + indicator;
-        String selectedStage = detail("child_followup_test_stage");
-        String attendance = detail("child_reached_facility");
-        String attendanceDate = normalizeDate(detail("child_facility_date"));
-        String cohort = finalizedVisitInMonth() + " AND " + childEidAt(serviceDate());
+        String selectedStage = "v.test_stage";
+        String attendance = "v.attendance";
+        String attendanceDate = "v.attendance_date";
+        String visits = "(" + childAttendanceVisits() + ")";
         String knownStage = selectedStage + " IN ('week_6', 'month_9', 'three_months_after_breastfeeding', 'month_18', 'not_applicable')";
         String knownAttendance = attendance + " IN ('yes', 'no', 'not_applicable') AND (" + attendance + " <> 'yes' OR ("
-                + validDate(attendanceDate) + " AND " + attendanceDate + " <= " + serviceDate()
+                + validDate(attendanceDate) + " AND " + attendanceDate + " <= v.service_date"
                 + " AND " + childEidAt(attendanceDate) + "))";
         // An old visit with no test stage could belong to either indicator. A known different
         // stage does not make this indicator incomplete. Never backfill attendance from enrollment.
         String missingCondition = "NOT coalesce((" + knownStage + "), 0) OR (" + selectedStage + " = '" + stage
                 + "' AND NOT coalesce((" + knownAttendance + "), 0))";
-        Map<String, Integer> missing = query("SELECT COUNT(DISTINCT v.visit_id) AS total FROM visits v WHERE "
-                + cohort + " AND (" + missingCondition + ")", Collections.singletonList("total"));
+        Map<String, Integer> missing = query("SELECT COUNT(DISTINCT v.visit_id) AS total FROM "
+                + visits + " v WHERE " + missingCondition, Collections.singletonList("total"));
         if (missing == null) return;
         result.put(key + "-missing-records", value(missing, "total"));
         if (value(missing, "total") > 0) return;
-        String source = clientSource(cohort + " AND " + selectedStage + " = '" + stage + "' AND "
+        String source = clientSource(visits, selectedStage + " = '" + stage + "' AND "
                 + attendance + " = 'yes' AND " + knownAttendance + " AND " + inMonth(attendanceDate));
         putDemographicIndicator(result, key, demographicQuery(source, minimumMonths, 12));
         for (String sex : SEXES) {
             putDemographicIndicator(result, key + ("male".equals(sex) ? "-boys" : "-girls"),
                     demographicQuery("SELECT * FROM (" + source + ") children WHERE gender = '" + sex + "'", minimumMonths, 12));
         }
+    }
+
+    private String childAttendanceVisits() {
+        String stage = "CASE " + detail("child_eid_test_type")
+                + " WHEN 'six_weeks' THEN 'week_6' WHEN 'nine_months' THEN 'month_9'"
+                + " WHEN 'three_months_after_weaning' THEN 'three_months_after_breastfeeding'"
+                + " WHEN 'eighteen_months' THEN 'month_18' END";
+        MotherMentorFollowUpType type = MotherMentorFollowUpType.CHILD_EID;
+        return "SELECT v.*, " + serviceDate() + " AS service_date, "
+                + workflowAnswer(type, "child_followup_test_stage", whenFound(stage)) + " AS test_stage, "
+                + workflowAnswer(type, "child_reached_facility", whenFound(detail("child_eid_arrived_at_facility"))) + " AS attendance, "
+                + normalizeDate(workflowAnswer(type, "child_facility_date", detail("child_eid_facility_arrival_date")))
+                + " AS attendance_date FROM visits v WHERE " + finalizedVisitInMonth(LEGACY_SERVICE, type.getEventType())
+                + " AND " + childEidAt(serviceDate());
     }
 
     String buildNewArtQuery() {
@@ -278,21 +292,46 @@ public class MotherMentorReportObject extends ReportObject {
                 + " AND " + normalizeDate(detail("visit_art_start_date")) + " <= " + serviceDate() + "))");
     }
 
-    private String tracingVisits() {
+    private String tracingCandidates() {
+        MotherMentorFollowUpType type = MotherMentorFollowUpType.MOTHER_IIT;
+        String outcome = "CASE " + detail("follow_up_status")
+                + " WHEN 'transferred_facility' THEN 'transferred' WHEN 'refused_return' THEN 'refused'"
+                + " WHEN 'under_follow_up' THEN 'still_followed' ELSE " + detail("follow_up_status") + " END";
         return "SELECT v.*, " + serviceDate() + " AS service_date, "
-                + detail("iit_tracing_outcome") + " AS outcome, "
-                + detail("returned_to_art") + " AS returned_to_art, "
-                + normalizeDate(detail("art_return_date")) + " AS return_date FROM visits v WHERE "
-                + finalizedVisitInMonth() + " AND " + iitAt(serviceDate())
-                + " AND " + hasDetail("iit_tracing_visit", "d.details = 'yes'");
+                + workflowAnswer(type, "iit_tracing_visit", "'yes'") + " AS tracing_flag, "
+                + workflowAnswer(type, "iit_tracing_outcome", outcome) + " AS outcome, "
+                + workflowAnswer(type, "returned_to_art", whenFound(detail("returned_to_facility"))) + " AS returned_to_art, "
+                + normalizeDate(workflowAnswer(type, "art_return_date", detail("facility_return_date")))
+                + " AS return_date FROM visits v WHERE " + finalizedVisitInMonth(LEGACY_SERVICE, type.getEventType())
+                + " AND " + iitAt(serviceDate()) + " AND NOT coalesce(("
+                + workflowAnswer(type, "iit_tracing_visit", "'yes'") + " = 'no'), 0)";
+    }
+
+    private String tracingVisits() {
+        return "SELECT * FROM (" + tracingCandidates() + ") WHERE tracing_flag = 'yes'";
+    }
+
+    private static String workflowAnswer(MotherMentorFollowUpType type, String legacyKey, String currentAnswer) {
+        // Select by encounter contract, not COALESCE: missing new answers must not fall back
+        // to stale fields from a different workflow.
+        return "CASE WHEN v.visit_type = '" + type.getEventType() + "' THEN "
+                + currentAnswer + " ELSE " + detail(legacyKey) + " END";
+    }
+
+    private static String whenFound(String answer) {
+        // These sections are intentionally hidden (and cleared) for non-found outcomes.
+        // Unknown status remains missing evidence, not an assumed negative answer.
+        return "CASE WHEN " + detail("follow_up_status") + " = 'found' THEN " + answer
+                + " WHEN " + detail("follow_up_status")
+                + " IN ('not_found', 'deceased', 'transferred_facility', 'refused_return', 'under_follow_up')"
+                + " THEN 'not_applicable' END";
     }
 
     private String latestTracingClients(boolean primary, String outcome) {
         // Latest clinical date wins. Save time and visit ID deterministically break same-day ties.
         return "WITH tracing AS (" + tracingVisits() + "), latest AS (SELECT v.* FROM tracing v WHERE NOT EXISTS ("
                 + "SELECT 1 FROM tracing n WHERE n.base_entity_id = v.base_entity_id AND " + laterVisit() + ")) "
-                + clientSource((primary ? primaryAt("v.service_date") + " AND " : "") + outcome)
-                .replace("FROM visits v", "FROM latest v");
+                + clientSource("latest", (primary ? primaryAt("v.service_date") + " AND " : "") + "(" + outcome + ")");
     }
 
     private String returnedOutcome() {
@@ -323,15 +362,14 @@ public class MotherMentorReportObject extends ReportObject {
     }
 
     String buildReturnedToArtQuery() {
-        return demographicQuery(clientSource(returnedToArtCondition()));
+        return demographicQuery(returnedToArtClients());
     }
 
-    private String returnedToArtCondition() {
-        String returnDate = normalizeDate(detail("art_return_date"));
-        return finalizedVisitInMonth() + " AND " + primaryAt(serviceDate()) + " AND " + iitAt(serviceDate())
-                + " AND " + hasDetail("iit_tracing_visit", "d.details = 'yes'")
-                + " AND " + hasDetail("returned_to_art", "d.details = 'yes'")
-                + " AND " + inMonth(returnDate) + " AND " + returnDate + " <= " + serviceDate();
+    private String returnedToArtClients() {
+        // The current Mother IIT return-to-facility section replaces the legacy return
+        // section. Count a confirmed, dated return; being found alone is insufficient.
+        return clientSource("(" + tracingVisits() + ")", primaryAt("v.service_date")
+                + " AND " + returnedOutcome() + " AND " + inMonth("v.return_date"));
     }
 
     private String householdVisits() {
@@ -447,10 +485,14 @@ public class MotherMentorReportObject extends ReportObject {
     }
 
     private String finalizedVisitInMonth() {
+        return finalizedVisitInMonth(LEGACY_SERVICE);
+    }
+
+    private String finalizedVisitInMonth(String... visitTypes) {
         // visits.visit_date is the import/save time, not necessarily the service date. The visit
         // interactor always records mothermentor_visit_date, normalized by NCUtils to yyyy-MM-dd.
         // processed is local finalization, not server sync; detail rows may remain processed=0.
-        return "v.visit_type = 'MotherMentor Services' AND v.processed = 1 AND "
+        return "v.visit_type IN ('" + android.text.TextUtils.join("', '", visitTypes) + "') AND v.processed = 1 AND "
                 + hasDetail("mothermentor_visit_date", validDate("d.details") + " AND date(d.details) >= date('" + monthStart()
                 + "') AND date(d.details) < date('" + monthStart() + "', '+1 month')");
     }

@@ -17,6 +17,7 @@ import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.dao.ReportDao;
+import org.smartregister.chw.util.MotherMentorFollowUpType;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -538,6 +539,159 @@ public class MotherMentorReportObjectTest {
         JSONObject counts = report.getIndicatorData();
         for (int i = 1; i <= 18; i++) assertEquals("—", counts.getString("mm-" + i));
         assertTrue(counts.getInt("query-errors") > 0);
+    }
+
+    @Test
+    public void currentIitOutcomesUseNewCodesAndHiddenReturnSectionsAreNotMissing() throws Exception {
+        String[] outcomes = {"found", "not_found", "deceased", "transferred_facility", "refused_return", "under_follow_up"};
+        for (String outcome : outcomes) {
+            primary(outcome, "Female", "2000-01-01"); iit(outcome);
+            currentVisit(outcome, outcome, "2026-04-15", MotherMentorFollowUpType.MOTHER_IIT, outcome);
+        }
+        detail("found", "returned_to_facility", "yes"); detail("found", "facility_return_date", "15-04-2026");
+        // A hidden stale value cannot turn a non-found outcome into a return.
+        detail("not_found", "returned_to_facility", "yes"); detail("not_found", "facility_return_date", "2026-04-15");
+        member("iit-only", "Female", "2000-01-01"); iit("iit-only");
+        currentVisit("secondary", "iit-only", "2026-04-15", MotherMentorFollowUpType.MOTHER_IIT, "not_found");
+        JSONObject c = report.getIndicatorData();
+        for (String outcome : new String[]{"returned", "not-found", "died", "refused"})
+            assertEquals(outcome, 1, c.getInt("mm-4-" + outcome));
+        assertEquals(4, c.getInt("mm-4"));
+        assertEquals(6, c.getInt("mm-18"));
+        assertEquals(2, c.getInt("mm-18-not-found"));
+        assertEquals(1, c.getInt("mm-18-transferred"));
+        assertEquals(2, c.getInt("mm-4-other-outcomes"));
+        assertEquals(1, c.getInt("mm-18-other-outcomes"));
+        assertEquals(1, c.getInt("mm-5"));
+        for (int n : new int[]{4, 5, 18}) assertEquals(0, c.getInt("mm-" + n + "-missing-records"));
+    }
+
+    @Test
+    public void currentTracingSupersedesLegacyOutcomeWithoutErasingMonthlyReturn() throws Exception {
+        primary("mother", "Female", "2000-01-01"); iit("mother");
+        tracing("old", "mother", "2026-04-10", "found", "yes", "2026-04-10");
+        currentVisit("new", "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "not_found");
+        JSONObject c = report.getIndicatorData();
+        assertEquals(0, c.getInt("mm-4-returned"));
+        assertEquals(1, c.getInt("mm-4-not-found"));
+        assertEquals(1, c.getInt("mm-18-not-found"));
+        assertEquals(1, c.getInt("mm-5"));
+        // Clinical chronology also works when a later legacy event is imported.
+        tracing("last", "mother", "2026-04-25", "deceased", "no", null);
+        c = report.getIndicatorData();
+        assertEquals(1, c.getInt("mm-4-died"));
+        assertEquals(0, c.getInt("mm-4-not-found"));
+    }
+
+    @Test
+    public void currentFoundRequiresExplicitDatedReturnAndDoesNotReuseLegacyAnswers() throws Exception {
+        primary("mother", "Female", "2000-01-01"); iit("mother");
+        currentVisit("new", "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "found");
+        detail("new", "returned_to_art", "yes"); detail("new", "art_return_date", "2026-04-20");
+        JSONObject c = report.getIndicatorData();
+        for (int n : new int[]{4, 5, 18}) assertEquals("—", c.getString("mm-" + n));
+        detail("new", "returned_to_facility", "no");
+        c = report.getIndicatorData();
+        assertEquals(0, c.getInt("mm-5")); assertEquals(1, c.getInt("mm-4-other-outcomes"));
+        database.execSQL("UPDATE visit_details SET details = 'yes' WHERE visit_key = 'returned_to_facility'");
+        detail("new", "facility_return_date", "2026-04-21");
+        c = report.getIndicatorData();
+        for (int n : new int[]{4, 5, 18}) assertEquals("—", c.getString("mm-" + n));
+    }
+
+    @Test
+    public void currentIncompleteLatestTracingMasksOutcomesButPreservesConfirmedReturn() throws Exception {
+        primary("mother", "Female", "2000-01-01"); iit("mother");
+        currentVisit("returned", "mother", "2026-04-10", MotherMentorFollowUpType.MOTHER_IIT, "found");
+        detail("returned", "returned_to_facility", "yes"); detail("returned", "facility_return_date", "2026-04-10");
+        currentVisit("unknown", "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "unknown");
+        JSONObject c = report.getIndicatorData();
+        assertEquals("—", c.getString("mm-4")); assertEquals("—", c.getString("mm-18"));
+        assertEquals(1, c.getInt("mm-5"));
+    }
+
+    @Test
+    public void currentChildAttendanceCountsBothStagesAndDeduplicatesLegacyRecords() throws Exception {
+        eid("young", "Male", "2026-03-01"); eid("older", "Female", "2025-07-01");
+        currentChildAttendance("six", "young", "six_weeks", "yes", "20-04-2026");
+        currentChildAttendance("nine", "older", "nine_months", "yes", "2026-04-20");
+        childVisit("legacy", "older", "2026-04-10", "month_9", "yes", "2026-04-10", 1);
+        JSONObject c = report.getIndicatorData();
+        assertEquals(1, c.getInt("mm-9")); assertEquals(1, c.getInt("mm-9-boys-male-1-11m"));
+        assertEquals(1, c.getInt("mm-10")); assertEquals(1, c.getInt("mm-10-girls-female-1-11m"));
+        assertEquals(0, c.getInt("mm-9-missing-records")); assertEquals(0, c.getInt("mm-10-missing-records"));
+    }
+
+    @Test
+    public void currentChildNonFoundStatusesIgnoreHiddenAttendanceAndOtherStagesDoNotCount() throws Exception {
+        eid("child", "Female", "2025-07-01");
+        for (String outcome : new String[]{"not_found", "deceased", "transferred_facility", "refused_return", "under_follow_up"}) {
+            currentVisit(outcome, "child", "2026-04-20", MotherMentorFollowUpType.CHILD_EID, outcome);
+            detail(outcome, "child_eid_test_type", "nine_months");
+            detail(outcome, "child_eid_arrived_at_facility", "yes");
+            detail(outcome, "child_eid_facility_arrival_date", "2026-04-20");
+        }
+        currentChildAttendance("weaned", "child", "three_months_after_weaning", "yes", "2026-04-20");
+        currentChildAttendance("final", "child", "eighteen_months", "yes", "2026-04-20");
+        JSONObject c = report.getIndicatorData();
+        for (int n : new int[]{9, 10}) {
+            assertEquals(0, c.getInt("mm-" + n)); assertEquals(0, c.getInt("mm-" + n + "-missing-records"));
+        }
+    }
+
+    @Test
+    public void currentChildMissingAndInvalidAnswersRemainUnavailable() throws Exception {
+        eid("child", "Female", "2025-07-01");
+        currentVisit("new", "child", "2026-04-20", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("new", "child_followup_test_stage", "month_9");
+        detail("new", "child_reached_facility", "yes"); detail("new", "child_facility_date", "2026-04-20");
+        JSONObject c = report.getIndicatorData();
+        assertEquals("—", c.getString("mm-9")); assertEquals("—", c.getString("mm-10"));
+        detail("new", "child_eid_test_type", "nine_months"); detail("new", "child_eid_arrived_at_facility", "yes");
+        detail("new", "child_eid_facility_arrival_date", "2026-04-31");
+        c = report.getIndicatorData();
+        assertEquals(0, c.getInt("mm-9")); assertEquals("—", c.getString("mm-10"));
+        assertEquals(1, c.getInt("mm-10-missing-records"));
+    }
+
+    @Test
+    public void currentFollowUpsKeepDateFinalizationAndEnrollmentBoundaries() throws Exception {
+        primary("mother", "Female", "2000-01-01"); iit("mother");
+        eid("child", "Female", "2025-07-01");
+        for (String id : new String[]{"draft", "outside", "before-enrollment"}) {
+            currentVisit(id, "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "not_found");
+            currentChildAttendance("child-" + id, "child", "nine_months", "yes", "2026-04-20");
+        }
+        database.execSQL("UPDATE visits SET processed = 0 WHERE visit_id IN ('draft','child-draft')");
+        database.execSQL("UPDATE visit_details SET details = '2026-05-01' WHERE visit_key = 'mothermentor_visit_date' AND visit_id IN ('outside','child-outside')");
+        database.execSQL("UPDATE event SET eventDate = '2026-04-25' WHERE eventType <> 'Mother Mentor Enrollment'");
+        JSONObject c = report.getIndicatorData();
+        for (int n : new int[]{4, 5, 9, 10, 18}) assertEquals(0, c.getInt("mm-" + n));
+    }
+
+    @Test
+    public void partnerFollowUpCannotContaminateIitChildOrPrimaryServiceIndicators() throws Exception {
+        primary("client", "Female", "2000-01-01"); iit("client");
+        database.execSQL("INSERT INTO ec_mothermentor_enroll_child_eid VALUES ('client')");
+        event("client", "Mother Mentor Enroll Child Eid", "2026-03-01");
+        currentVisit("partner", "client", "2026-04-20", MotherMentorFollowUpType.PARTNER, "found");
+        detail("partner", "education_provided", "yes");
+        detail("partner", "returned_to_facility", "yes"); detail("partner", "facility_return_date", "2026-04-20");
+        JSONObject c = report.getIndicatorData();
+        for (int n : new int[]{4, 5, 7, 9, 10, 18}) assertEquals(0, c.getInt("mm-" + n));
+        for (int n : new int[]{4, 5, 9, 10, 18}) assertEquals(0, c.getInt("mm-" + n + "-missing-records"));
+    }
+
+    private void currentChildAttendance(String id, String child, String stage, String attendance, String date) {
+        currentVisit(id, child, "2026-04-20", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail(id, "child_eid_test_type", stage); detail(id, "child_eid_arrived_at_facility", attendance);
+        if (date != null) detail(id, "child_eid_facility_arrival_date", date);
+    }
+
+    private void currentVisit(String id, String client, String date, MotherMentorFollowUpType type, String status) {
+        visit(id, client, date, 1);
+        database.execSQL("UPDATE visits SET visit_type = ? WHERE visit_id = ?", new Object[]{type.getEventType(), id});
+        detail(id, "follow_up_category", type.getValue()); detail(id, "follow_up_status", status);
     }
 
     private void event(String id, String type, String date) {

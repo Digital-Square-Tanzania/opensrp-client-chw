@@ -194,6 +194,9 @@ public class ChwRepositoryFlv {
                 case 51:
                     upgradeToVersion51(db);
                     break;
+                case 52:
+                    upgradeToVersion52(db);
+                    break;
                 default:
                     break;
             }
@@ -1135,6 +1138,18 @@ public class ChwRepositoryFlv {
                 "partner_facility_arrival_date",
                 "comments")) {
             addColumnIfMissing(db, tableName, column);
+        }
+    }
+
+    private static void upgradeToVersion52(SQLiteDatabase db) {
+        for (String column : Arrays.asList(
+                "child_eid_test_type",
+                "child_eid_non_attendance_reason",
+                "child_eid_non_attendance_reason_other",
+                "child_eid_expected_facility_visit_date",
+                "child_eid_arrived_at_facility",
+                "child_eid_facility_arrival_date")) {
+            addColumnIfMissing(db, "ec_mothermentor_followup_visit", column);
         }
     }
 
