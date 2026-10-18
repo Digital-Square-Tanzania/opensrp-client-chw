@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAllClientsMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
@@ -91,7 +92,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     protected void onResume() {
         super.onResume();
         notificationListAdapter.canOpen = true;
-        ChwNotificationUtil.retrieveNotifications(org.smartregister.chw.application.ChwApplication.getApplicationFlavor().hasReferrals(),
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
                 baseEntityId, this);
     }
 
@@ -151,6 +152,16 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
     protected void startMotherMentorEnrollIit() {
         startMotherMentorSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
+    }
+
+    @Override
+    protected void startMotherMentorEnrollPartner() {
+
+    }
+
+    @Override
+    protected void startMotherMentorEnrollChildEid() {
+
     }
 
     private void startMotherMentorSecondaryEnrollment(String formName) {
