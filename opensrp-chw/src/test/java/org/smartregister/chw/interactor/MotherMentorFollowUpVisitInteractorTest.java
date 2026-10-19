@@ -1,5 +1,7 @@
 package org.smartregister.chw.interactor;
 
+import org.smartregister.chw.mothermentor.interactor.MotherMentorFollowUpVisitInteractor;
+
 import org.junit.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;

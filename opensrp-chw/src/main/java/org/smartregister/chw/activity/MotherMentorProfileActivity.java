@@ -30,7 +30,7 @@ import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
@@ -68,23 +68,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             DBConstants.KEY.EXPECTED_FACILITY_VISIT_DATE;
     private static final String RETURNED_TO_FACILITY = DBConstants.KEY.RETURNED_TO_FACILITY;
     private static final String FACILITY_RETURN_DATE = DBConstants.KEY.FACILITY_RETURN_DATE;
-    private static final String PARTNER_NON_ATTENDANCE_REASON =
-            DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON;
-    private static final String PARTNER_NON_ATTENDANCE_REASON_OTHER =
-            DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON_OTHER;
-    private static final String PARTNER_EXPECTED_FACILITY_VISIT_DATE =
-            DBConstants.KEY.PARTNER_EXPECTED_FACILITY_VISIT_DATE;
     private static final String PARTNER_ARRIVED_AT_FACILITY =
             DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY;
     private static final String PARTNER_FACILITY_ARRIVAL_DATE =
             DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE;
     private static final String CHILD_EID_TEST_TYPE = DBConstants.KEY.CHILD_EID_TEST_TYPE;
-    private static final String CHILD_EID_NON_ATTENDANCE_REASON =
-            DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON;
-    private static final String CHILD_EID_NON_ATTENDANCE_REASON_OTHER =
-            DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON_OTHER;
-    private static final String CHILD_EID_EXPECTED_FACILITY_VISIT_DATE =
-            DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE;
     private static final String CHILD_EID_ARRIVED_AT_FACILITY =
             DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY;
     private static final String CHILD_EID_FACILITY_ARRIVAL_DATE =
@@ -846,24 +834,6 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                                 && MotherMentorFollowUpType.CHILD_EID
                                         .getEventType()
                                         .equals(visit.getVisitType());
-                String reasonField =
-                        childSchema
-                                ? CHILD_EID_NON_ATTENDANCE_REASON
-                                : partnerSchema
-                                        ? PARTNER_NON_ATTENDANCE_REASON
-                                        : SERVICE_INTERRUPTION_REASON;
-                String otherField =
-                        childSchema
-                                ? CHILD_EID_NON_ATTENDANCE_REASON_OTHER
-                                : partnerSchema
-                                        ? PARTNER_NON_ATTENDANCE_REASON_OTHER
-                                        : SERVICE_INTERRUPTION_REASON_OTHER;
-                String expectedDateField =
-                        childSchema
-                                ? CHILD_EID_EXPECTED_FACILITY_VISIT_DATE
-                                : partnerSchema
-                                        ? PARTNER_EXPECTED_FACILITY_VISIT_DATE
-                                        : EXPECTED_FACILITY_VISIT_DATE;
                 String arrivalField =
                         childSchema
                                 ? CHILD_EID_ARRIVED_AT_FACILITY
@@ -877,11 +847,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                                         ? PARTNER_FACILITY_ARRIVAL_DATE
                                         : FACILITY_RETURN_DATE;
                 if (childSchema && TextUtils.isEmpty(values.get(CHILD_EID_TEST_TYPE))) return false;
-                if (TextUtils.isEmpty(values.get(reasonField))
-                        || TextUtils.isEmpty(values.get(expectedDateField))
-                        || TextUtils.isEmpty(values.get(arrivalField))) return false;
-                if (DBConstants.KEY.OTHER.equals(values.get(reasonField))
-                        && TextUtils.isEmpty(values.get(otherField))) return false;
+                if (TextUtils.isEmpty(values.get(arrivalField))) return false;
+                if (!partnerSchema && !childSchema) {
+                    if (TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON))
+                            || TextUtils.isEmpty(values.get(EXPECTED_FACILITY_VISIT_DATE))) return false;
+                    if (DBConstants.KEY.OTHER.equals(values.get(SERVICE_INTERRUPTION_REASON))
+                            && TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON_OTHER))) return false;
+                }
                 return !"yes".equals(values.get(arrivalField))
                         || !TextUtils.isEmpty(values.get(arrivalDateField));
             }

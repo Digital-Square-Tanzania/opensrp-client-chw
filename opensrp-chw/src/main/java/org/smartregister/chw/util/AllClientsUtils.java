@@ -58,6 +58,7 @@ import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
@@ -141,6 +142,11 @@ public class AllClientsUtils {
 
     public static void goToMotherMentorProfile(Activity activity, CommonPersonObjectClient client) {
         MotherMentorProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToMotherMentorFollowUpProfile(Activity activity, CommonPersonObjectClient client,
+                                                     MotherMentorFollowUpType followUpType) {
+        MotherMentorProfileActivity.startFollowUpProfile(activity, client.getCaseId(), followUpType);
     }
 
     public static void goToTbLeprosyProfile(Activity activity, CommonPersonObjectClient client) {

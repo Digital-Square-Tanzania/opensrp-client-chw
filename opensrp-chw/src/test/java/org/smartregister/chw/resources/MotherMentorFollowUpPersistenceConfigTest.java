@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.smartregister.chw.mothermentor.util.DBConstants;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

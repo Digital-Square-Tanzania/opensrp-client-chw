@@ -10,15 +10,12 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.core.R;
-import org.smartregister.chw.interactor.MotherMentorHouseholdVisitInteractor;
 import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.mothermentor.interactor.MotherMentorHouseholdVisitInteractor;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.util.Constants;
-import org.smartregister.chw.mothermentor.util.DBConstants;
-import org.smartregister.commonregistry.CommonPersonObject;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
@@ -43,7 +40,8 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
                         memberObject,
                         this,
                         new MotherMentorHouseholdVisitInteractor(
-                                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES));
+                                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES,
+                                Utils.metadata().familyRegister.tableName));
     }
 
     @Override
@@ -81,57 +79,15 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
             return null;
         }
 
-        MemberObject householdMember = getHouseholdMember(baseEntityId);
+        MemberObject householdMember =
+                MotherMentorDao.getHouseholdMember(
+                        baseEntityId, Utils.metadata().familyRegister.tableName);
         if (householdMember != null) {
             return householdMember;
         }
 
         MemberObject memberObject = MotherMentorDao.getMember(baseEntityId);
         return memberObject != null ? memberObject : MotherMentorDao.getContact(baseEntityId);
-    }
-
-    private MemberObject getHouseholdMember(String baseEntityId) {
-        try {
-            CommonRepository repository =
-                    Utils.context().commonrepository(Utils.metadata().familyRegister.tableName);
-            if (repository == null) {
-                return null;
-            }
-
-            CommonPersonObject personObject = repository.findByBaseEntityId(baseEntityId);
-            if (personObject != null) {
-                MemberObject memberObject = new MemberObject();
-                memberObject.setBaseEntityId(personObject.getCaseId());
-                memberObject.setFamilyBaseEntityId(personObject.getCaseId());
-                memberObject.setFirstName(
-                        Utils.getValue(
-                                personObject.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false));
-                memberObject.setLastName(
-                        Utils.getValue(
-                                personObject.getColumnmaps(), DBConstants.KEY.LAST_NAME, false));
-                memberObject.setUniqueId(
-                        Utils.getValue(
-                                personObject.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
-                memberObject.setAddress(
-                        Utils.getValue(
-                                personObject.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
-                memberObject.setFamilyHead(
-                        Utils.getValue(
-                                personObject.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
-                memberObject.setPrimaryCareGiver(
-                        Utils.getValue(
-                                personObject.getColumnmaps(),
-                                DBConstants.KEY.PRIMARY_CARE_GIVER,
-                                false));
-                memberObject.setPhoneNumber(
-                        Utils.getValue(
-                                personObject.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, false));
-                return memberObject;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override

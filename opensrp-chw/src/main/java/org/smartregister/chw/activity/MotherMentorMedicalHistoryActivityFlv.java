@@ -21,7 +21,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
 import timber.log.Timber;
 

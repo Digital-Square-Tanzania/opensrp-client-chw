@@ -13,7 +13,7 @@ import org.smartregister.chw.model.MotherMentorRegisterFragmentModel;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.presenter.MotherMentorSecondaryEnrollmentRegisterFragmentPresenter;
 import org.smartregister.chw.provider.MotherMentorFollowUpRegisterProvider;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 

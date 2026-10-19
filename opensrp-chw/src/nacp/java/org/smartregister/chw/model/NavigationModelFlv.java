@@ -45,7 +45,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op10 = new NavigationOption(R.drawable.sidemenu_all_clients, R.drawable.sidemenu_all_clients_active, R.string.menu_all_clients, CoreConstants.DrawerMenu.ALL_CLIENTS, 0);
             NavigationOption op11 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hiv, CoreConstants.DrawerMenu.CBHS_CLIENTS, 0);
             NavigationOption op12 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hiv_index_contacts, CoreConstants.DrawerMenu.HIV_INDEX_CLIENTS, 0);
-            NavigationOption op13 = new NavigationOption(R.drawable.sidemenu_pmtct, R.drawable.sidemenu_pmtct_active, R.string.mother_champion, CoreConstants.DrawerMenu.MOTHER_CHAMPION, 0);
+            NavigationOption op13 = new NavigationOption(R.drawable.sidemenu_pmtct, R.drawable.sidemenu_pmtct_active, R.string.mother_mentor, CoreConstants.DrawerMenu.MOTHER_MENTOR, 0);
             NavigationOption op14 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tb, CoreConstants.DrawerMenu.TB_CLIENTS, 0);
             NavigationOption op15 = new NavigationOption(R.mipmap.sidemenu_referrals, R.mipmap.sidemenu_referrals_active, R.string.menu_ltfu, Constants.DrawerMenu.LTFU, 0);
             NavigationOption op16 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hivst, CoreConstants.DrawerMenu.HIV_SELF_TESTING, 0);
@@ -68,7 +68,6 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op31 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, org.smartregister.chw.core.R.string.menu_harm_reduction, CoreConstants.DrawerMenu.HARM_REDUCTION, 0);
             NavigationOption op32 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.harm_reduction_sober_house, CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE, 0);
             NavigationOption op33 = new NavigationOption(R.drawable.ic_ncd, R.drawable.ic_ncd_blue, R.string.nav_menu_ncd, CoreConstants.DrawerMenu.NCD, 0);
-            NavigationOption op34 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.mother_mentor, CoreConstants.DrawerMenu.MOTHER_MENTOR, 0);
 
             AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
             SharedPreferences preferences = allSharedPreferences.getPreferences();
@@ -80,7 +79,11 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             if (!teamRoleIdentifier.isEmpty()) {
                 switch (teamRoleIdentifier) {
                     case "mother_champion":
-                        navigationOptions.addAll(Arrays.asList(op10, op33, op8, op9));
+                        navigationOptions.add(op10);
+                        if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                            navigationOptions.add(op13);
+                        }
+                        navigationOptions.addAll(Arrays.asList(op33, op8, op9));
                         break;
                     case "cbhs_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op9, op15));
@@ -95,7 +98,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         navigationOptions.addAll(Arrays.asList(op10, op28, op16, op9, op8));
                         break;
                     default:
-                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2));
+                        if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                            navigationOptions.add(op13);
+                        }
                         if (ChwApplication.getApplicationFlavor().hasNCD()) {
                             navigationOptions.add(3, op33);
                         }
@@ -149,15 +155,14 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                             navigationOptions.add(op26);
                         }
 
-                        if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
-                            navigationOptions.add(op34);
-                        }
-
                         navigationOptions.addAll(Arrays.asList(op8, op9, op15));
                         break;
                 }
             } else {
-                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2));
+                if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                    navigationOptions.add(op13);
+                }
                 if (ChwApplication.getApplicationFlavor().hasNCD()) {
                     navigationOptions.add(3, op33);
                 }
@@ -196,9 +201,6 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                     navigationOptions.add(op27);
                     navigationOptions.add(op28);
                     navigationOptions.add(op29);
-                }
-                if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
-                    navigationOptions.add(op34);
                 }
                 if (ChwApplication.getApplicationFlavor().hasSbc()) {
                     navigationOptions.add(op21);

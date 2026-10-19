@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
 import org.smartregister.chw.mothermentor.util.DBConstants;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

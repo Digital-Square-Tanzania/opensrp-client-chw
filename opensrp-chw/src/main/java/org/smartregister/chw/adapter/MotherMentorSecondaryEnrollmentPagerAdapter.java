@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.MotherMentorSecondaryEnrollmentRegisterFragment;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
 public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAdapter {
     private final Context context;
