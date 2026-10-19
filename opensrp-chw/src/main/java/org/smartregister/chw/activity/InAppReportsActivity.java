@@ -35,8 +35,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     protected ConstraintLayout cbhsReportsLayout;
 
-    protected ConstraintLayout motherChampionReportsLayout;
-
     protected ConstraintLayout motherMentorReportsLayout;
 
     protected ConstraintLayout condomDistributionReports;
@@ -82,7 +80,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     public void setUpViews() {
         cbhsReportsLayout = findViewById(R.id.cbhs_summary);
-        motherChampionReportsLayout = findViewById(R.id.mother_champion_reports);
         motherMentorReportsLayout = findViewById(R.id.mother_mentor_reports);
         condomDistributionReports = findViewById(R.id.cdp_reports);
         agywReports = findViewById(R.id.agyw_reports);
@@ -109,7 +106,9 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         if (!teamRoleIdentifier.isEmpty()) {
             switch (teamRoleIdentifier) {
                 case "mother_champion":
-                    motherChampionReportsLayout.setVisibility(View.VISIBLE);
+                    if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                        motherMentorReportsLayout.setVisibility(View.VISIBLE);
+                    }
                     break;
                 case "cbhs_provider":
                     cbhsReportsLayout.setVisibility(View.VISIBLE);
@@ -123,10 +122,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 default:
                     if (ChwApplication.getApplicationFlavor().hasHIV()) {
                         cbhsReportsLayout.setVisibility(View.VISIBLE);
-                    }
-
-                    if (ChwApplication.getApplicationFlavor().hasPmtct()) {
-                        motherChampionReportsLayout.setVisibility(View.VISIBLE);
                     }
 
                     // Match the Mother Mentor register's availability in NavigationModelFlv.
@@ -186,10 +181,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
                 cbhsReportsLayout.setVisibility(View.VISIBLE);
             }
 
-            if (ChwApplication.getApplicationFlavor().hasPmtct()) {
-                motherChampionReportsLayout.setVisibility(View.VISIBLE);
-            }
-
             if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
                 motherMentorReportsLayout.setVisibility(View.VISIBLE);
             }
@@ -240,7 +231,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             ecdReports.setVisibility(View.VISIBLE);
         }
 
-        motherChampionReportsLayout.setOnClickListener(this);
         motherMentorReportsLayout.setOnClickListener(this);
         condomDistributionReports.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);
@@ -289,8 +279,6 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         // Route each report tile once to keep the back stack clean.
         if (id == R.id.cbhs_summary) {
             startActivity(new Intent(this, CBHSReportsActivity.class));
-        } else if (id == R.id.mother_champion_reports) {
-            startActivity(new Intent(this, MotherChampionReportsActivity.class));
         } else if (id == R.id.mother_mentor_reports) {
             startActivity(new Intent(this, MotherMentorReportsActivity.class));
         } else if (id == R.id.cdp_reports) {

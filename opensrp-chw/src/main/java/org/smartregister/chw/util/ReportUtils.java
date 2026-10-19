@@ -32,7 +32,6 @@ import org.smartregister.chw.domain.hps_reports.HpsMonthlyReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmClientsReportObject;
 import org.smartregister.chw.domain.iccm_reports.IccmDispensingSummaryReportObject;
 import org.smartregister.chw.domain.iccm_reports.MalariaTestReportObject;
-import org.smartregister.chw.domain.mother_champion_report.MotherChampionReportObject;
 import org.smartregister.chw.domain.mother_mentor_reports.MotherMentorReportObject;
 import org.smartregister.chw.domain.sbc_reports.SbcReportObject;
 import org.smartregister.chw.domain.tbleprosy_reports.TbLeprosyCommunityReportObject;
@@ -147,19 +146,6 @@ public class ReportUtils {
             CbhsMonthlyReportObject cbhsMonthlyReportObject = new CbhsMonthlyReportObject(now, context);
             try {
                 report = cbhsMonthlyReportObject.getIndicatorDataAsGson(cbhsMonthlyReportObject.getIndicatorData());
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-            return report;
-        }
-    }
-
-    public static class MotherChampionReport {
-        public static String computeReport(Date now) {
-            String report = "";
-            MotherChampionReportObject motherChampionReportObject = new MotherChampionReportObject(now);
-            try {
-                report = motherChampionReportObject.getIndicatorDataAsGson(motherChampionReportObject.getIndicatorData());
             } catch (Exception e) {
                 Timber.e(e);
             }
