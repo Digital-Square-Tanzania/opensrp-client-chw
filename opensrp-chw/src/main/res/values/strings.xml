@@ -905,6 +905,8 @@
     <string name="mothermentor_iit">MOTHER IIT</string>
     <string name="mothermentor_partner">PARTNER</string>
     <string name="mothermentor_child_eid">CHILD EID</string>
+    <string name="mothermentor_child_eid_register_tag">Mother Mentor Child IED</string>
+    <string name="mothermentor_partner_register_tag">Mother Mentor Partner</string>
     <string name="mothermentor_secondary_enrollments">Follow Up</string>
     <string name="mothermentor_follow_up">Follow Up</string>
     <string name="mothermentor_back_to_follow_up_clients">Back to All Mother Mentor Followup Clients</string>

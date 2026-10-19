@@ -1091,6 +1091,8 @@
     <string name="mothermentor_iit">MAMA IIT</string>
     <string name="mothermentor_partner">MWENZI</string>
     <string name="mothermentor_child_eid">MTOTO EID</string>
+    <string name="mothermentor_child_eid_register_tag">Mama Kinara: Mtoto IED</string>
+    <string name="mothermentor_partner_register_tag">Mama Kinara: Mwenza</string>
     <string name="mothermentor_secondary_enrollments">Ufuatiliaji</string>
     <string name="mothermentor_follow_up">Fomu ya Ufuatiliaji</string>
     <string name="mothermentor_back_to_follow_up_clients">Rudi kwa Wateja Wote wa Ufuatiliaji wa Mama Kinara</string>
