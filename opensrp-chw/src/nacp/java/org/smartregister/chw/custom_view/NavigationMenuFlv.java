@@ -19,6 +19,12 @@ import java.util.Locale;
 public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
+    public List<String> getPrimaryNavigationItems() {
+        return Arrays.asList(CoreConstants.DrawerMenu.ALL_CLIENTS,
+                CoreConstants.DrawerMenu.ALL_FAMILIES, CoreConstants.DrawerMenu.HPS);
+    }
+
+    @Override
     public List<Pair<String, Locale>> getSupportedLanguages() {
         return Arrays.asList(Pair.of("English", Locale.ENGLISH), Pair.of("Kiswahili", new Locale("sw")));
     }
