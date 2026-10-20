@@ -9,27 +9,30 @@ import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import org.smartregister.chw.activity.MotherMentorProfileActivity;
-import org.smartregister.chw.provider.MotherMentorFollowUpRegisterProvider;
 import org.smartregister.chw.model.MotherMentorRegisterFragmentModel;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.presenter.MotherMentorSecondaryEnrollmentRegisterFragmentPresenter;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.provider.MotherMentorFollowUpRegisterProvider;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.family.util.DBConstants;
-
-import java.util.Set;
 
 import timber.log.Timber;
+
+import java.util.Set;
 
 public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMentorRegisterFragment {
 
     private static final String ARG_TABLE_NAME = "table_name";
     private static final String ARG_FOLLOW_UP_TYPE = "follow_up_type";
     private String sharedSearchText = "";
-    private final MotherMentorRegisterFragmentModel registerModel = new MotherMentorRegisterFragmentModel();
+    private final MotherMentorRegisterFragmentModel registerModel =
+            new MotherMentorRegisterFragmentModel();
 
-    public static MotherMentorSecondaryEnrollmentRegisterFragment newInstance(MotherMentorFollowUpType followUpType) {
-        MotherMentorSecondaryEnrollmentRegisterFragment fragment = new MotherMentorSecondaryEnrollmentRegisterFragment();
+    public static MotherMentorSecondaryEnrollmentRegisterFragment newInstance(
+            MotherMentorFollowUpType followUpType) {
+        MotherMentorSecondaryEnrollmentRegisterFragment fragment =
+                new MotherMentorSecondaryEnrollmentRegisterFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TABLE_NAME, followUpType.getEnrollmentTable());
         args.putString(ARG_FOLLOW_UP_TYPE, followUpType.getValue());
@@ -42,11 +45,9 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
         if (getActivity() == null) {
             return;
         }
-        presenter = new MotherMentorSecondaryEnrollmentRegisterFragmentPresenter(
-                this,
-                new MotherMentorRegisterFragmentModel(),
-                null,
-                getTableName());
+        presenter =
+                new MotherMentorSecondaryEnrollmentRegisterFragmentPresenter(
+                        this, new MotherMentorRegisterFragmentModel(), null, getTableName());
     }
 
     @Override
@@ -58,7 +59,8 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
 
     @Override
     protected void openProfile(String baseEntityId) {
-        MotherMentorProfileActivity.startFollowUpProfile(requireActivity(), baseEntityId, getFollowUpType());
+        MotherMentorProfileActivity.startFollowUpProfile(
+                requireActivity(), baseEntityId, getFollowUpType());
     }
 
     public void setSharedSearchText(String searchText) {
@@ -69,19 +71,42 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
     private void applySharedSearchText() {
         if (presenter == null || clientAdapter == null) return;
         String term = sharedSearchText.trim().replace("'", "''");
-        filters = TextUtils.isEmpty(term) ? "" : "(" +
-                "ec_family_member.first_name LIKE '%" + term + "%' OR " +
-                "ec_family_member.middle_name LIKE '%" + term + "%' OR " +
-                "ec_family_member.last_name LIKE '%" + term + "%' OR " +
-                "ec_family_member.unique_id LIKE '%" + term + "%' OR " +
-                "ec_family.village_town LIKE '%" + term + "%')";
+        filters =
+                TextUtils.isEmpty(term)
+                        ? ""
+                        : "(ec_family_member."
+                                + DBConstants.KEY.FIRST_NAME
+                                + " LIKE '%"
+                                + term
+                                + "%' OR ec_family_member."
+                                + DBConstants.KEY.MIDDLE_NAME
+                                + " LIKE '%"
+                                + term
+                                + "%' OR ec_family_member."
+                                + DBConstants.KEY.LAST_NAME
+                                + " LIKE '%"
+                                + term
+                                + "%' OR ec_family_member."
+                                + DBConstants.KEY.UNIQUE_ID
+                                + " LIKE '%"
+                                + term
+                                + "%' OR ec_family."
+                                + DBConstants.KEY.VILLAGE_TOWN
+                                + " LIKE '%"
+                                + term
+                                + "%')";
         filterandSortExecute(countBundle());
     }
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        MotherMentorFollowUpRegisterProvider provider = new MotherMentorFollowUpRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
+    public void initializeAdapter(
+            Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        MotherMentorFollowUpRegisterProvider provider =
+                new MotherMentorFollowUpRegisterProvider(
+                        getActivity(), paginationViewHandler, registerActionHandler);
+        clientAdapter =
+                new RecyclerViewPaginatedAdapter(
+                        null, provider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
@@ -90,12 +115,24 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
         if (id == LOADER_ID) {
             return new CursorLoader(getActivity()) {
-                @Override public Cursor loadInBackground() {
+                @Override
+                public Cursor loadInBackground() {
                     if (args != null && args.getBoolean("count_execute")) countExecute();
-                    SmartRegisterQueryBuilder builder = new SmartRegisterQueryBuilder(registerModel.mainSelect(presenter().getMainTable(), presenter().getMainCondition()));
-                    if (TextUtils.isEmpty(filters)) { /* no search */ } else builder.addCondition(filters);
+                    SmartRegisterQueryBuilder builder =
+                            new SmartRegisterQueryBuilder(
+                                    registerModel.mainSelect(
+                                            presenter().getMainTable(),
+                                            presenter().getMainCondition()));
+                    if (TextUtils.isEmpty(filters)) {
+                        /* no search */
+                    } else builder.addCondition(filters);
                     String query = builder.orderbyCondition(Sortqueries);
-                    query = builder.Endquery(builder.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
+                    query =
+                            builder.Endquery(
+                                    builder.addlimitandOffset(
+                                            query,
+                                            clientAdapter.getCurrentlimit(),
+                                            clientAdapter.getCurrentoffset()));
                     return commonRepository().rawCustomQueryForAdapter(query);
                 }
             };
@@ -107,13 +144,25 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
     public void countExecute() {
         Cursor cursor = null;
         try {
-            SmartRegisterQueryBuilder builder = new SmartRegisterQueryBuilder(registerModel.mainSelect(presenter().getMainTable(), presenter().getMainCondition()));
+            SmartRegisterQueryBuilder builder =
+                    new SmartRegisterQueryBuilder(
+                            registerModel.mainSelect(
+                                    presenter().getMainTable(), presenter().getMainCondition()));
             if (!TextUtils.isEmpty(filters)) builder.addCondition(filters);
-            cursor = commonRepository().rawCustomQueryForAdapter("SELECT count(*) FROM (" + builder.toString() + ") follow_up_clients");
+            cursor =
+                    commonRepository()
+                            .rawCustomQueryForAdapter(
+                                    "SELECT count(*) FROM ("
+                                            + builder.toString()
+                                            + ") follow_up_clients");
             if (cursor.moveToFirst()) clientAdapter.setTotalcount(cursor.getInt(0));
-            clientAdapter.setCurrentlimit(20); clientAdapter.setCurrentoffset(0);
-        } catch (Exception e) { Timber.e(e); }
-        finally { if (cursor != null) cursor.close(); }
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null) cursor.close();
+        }
     }
 
     private void hideRegisterHeader(View view) {

@@ -58,6 +58,7 @@ import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
@@ -141,6 +142,11 @@ public class AllClientsUtils {
 
     public static void goToMotherMentorProfile(Activity activity, CommonPersonObjectClient client) {
         MotherMentorProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToMotherMentorFollowUpProfile(Activity activity, CommonPersonObjectClient client,
+                                                     MotherMentorFollowUpType followUpType) {
+        MotherMentorProfileActivity.startFollowUpProfile(activity, client.getCaseId(), followUpType);
     }
 
     public static void goToTbLeprosyProfile(Activity activity, CommonPersonObjectClient client) {
@@ -419,11 +425,9 @@ public class AllClientsUtils {
         }
 
         if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
-            addMotherMentorSecondaryEnrollmentMenuItems(menu, true);
+            addMotherMentorIitMenuItem(menu, true);
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, gender.equalsIgnoreCase("Female"));
             setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_iit, gender.equalsIgnoreCase("Female"));
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_partner, true);
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_child_eid, true);
         }
     }
 
@@ -449,10 +453,8 @@ public class AllClientsUtils {
         motherMentorMenu.setVisible(!MotherMentorDao.isRegisteredForMotherMentor(baseEntityId));
     }
 
-    public static void addMotherMentorSecondaryEnrollmentMenuItems(Menu menu, boolean visible) {
+    public static void addMotherMentorIitMenuItem(Menu menu, boolean visible) {
         addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_iit, R.string.mother_mentor_enroll_iit, visible);
-        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_partner, R.string.mother_mentor_enroll_partner, visible);
-        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_child_eid, R.string.mother_mentor_enroll_child_eid, visible);
     }
 
     private static void addMenuItemIfMissing(Menu menu, int itemId, int titleRes, boolean visible) {

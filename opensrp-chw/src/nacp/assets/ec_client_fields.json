@@ -4526,6 +4526,38 @@
           }
         },
         {
+          "column_name": "mother_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mother_base_entity_id"
+          }
+        },
+        {
+          "column_name": "child_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_name"
+          }
+        },
+        {
+          "column_name": "child_sex",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_sex"
+          }
+        },
+        {
+          "column_name": "child_dob",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_dob"
+          }
+        },
+        {
           "column_name": "hei_registered",
           "type": "Event",
           "json_mapping": {
@@ -4613,6 +4645,46 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "mother_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mother_base_entity_id"
+          }
+        },
+        {
+          "column_name": "partner_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_name"
+          }
+        },
+        {
+          "column_name": "partner_sex",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_sex"
+          }
+        },
+        {
+          "column_name": "partner_dob",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_dob"
+          }
+        },
+        {
+          "column_name": "partner_phone_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_phone_number"
           }
         },
         {
@@ -14455,6 +14527,118 @@
           "type": "Event",
           "json_mapping": {
             "field": "version"
+          }
+        },
+        {
+          "column_name": "referred_male",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_male"
+          }
+        },
+        {
+          "column_name": "referred_female",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_female"
+          }
+        },
+        {
+          "column_name": "referred_total",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_total"
+          }
+        },
+        {
+          "column_name": "facility_referral_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_referral_services"
+          }
+        },
+        {
+          "column_name": "facility_referral_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "facility_referral_other"
+          }
+        },
+        {
+          "column_name": "sh_tarehe",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_tarehe"
+          }
+        },
+        {
+          "column_name": "sh_aina",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_aina"
+          }
+        },
+        {
+          "column_name": "sh_aina_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_aina_other"
+          }
+        },
+        {
+          "column_name": "sh_mada",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_mada"
+          }
+        },
+        {
+          "column_name": "sh_mada_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sh_mada_other"
+          }
+        },
+        {
+          "column_name": "elim_m",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "elim_m"
+          }
+        },
+        {
+          "column_name": "elim_f",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "elim_f"
+          }
+        },
+        {
+          "column_name": "elim_total",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "elim_total"
+          }
+        },
+        {
+          "column_name": "maoni",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "maoni"
           }
         }
       ]

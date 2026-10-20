@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_link_child_eid">Link Child EID</string>
+    <string name="mothermentor_child_eid_household">Select a child from the household</string>
+    <string name="mothermentor_child_eid_all_clients">Select a registered child</string>
+    <string name="mothermentor_child_eid_new_client">Register a new child</string>
+    <string name="mothermentor_child_eid_search">Search by name or ID</string>
+    <string name="mothermentor_child_eid_none">No eligible children found</string>
+    <string name="mothermentor_child_eid_linked">Child linked successfully</string>
+    <string name="mothermentor_child_eid_unavailable">The mother or child is no longer eligible for linking. The child must be younger than 18 months with a known date of birth.</string>
+    <string name="mothermentor_child_eid_eligibility">Children must be younger than 18 months with a known date of birth.</string>
+    <string name="mothermentor_child_eid_age_error">Enter a date of birth for a child younger than 18 months</string>
+    <string name="mothermentor_child_eid_enrollment_unavailable">Child EID enrollment requires a child younger than 18 months with a known date of birth who is not already enrolled.</string>
+</resources>

@@ -15,6 +15,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.provider.OpdRegisterProvider;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -121,6 +122,15 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                     break;
                 case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR:
                     AllClientsUtils.goToMotherMentorProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_IIT:
+                    AllClientsUtils.goToMotherMentorFollowUpProfile(this.getActivity(), commonPersonObjectClient, MotherMentorFollowUpType.MOTHER_IIT);
+                    break;
+                case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_PARTNER:
+                    AllClientsUtils.goToMotherMentorFollowUpProfile(this.getActivity(), commonPersonObjectClient, MotherMentorFollowUpType.PARTNER);
+                    break;
+                case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_CHILD_EID:
+                    AllClientsUtils.goToMotherMentorFollowUpProfile(this.getActivity(), commonPersonObjectClient, MotherMentorFollowUpType.CHILD_EID);
                     break;
                 case CoreConstants.REGISTER_TYPE.SBC:
                     AllClientsUtils.goToSbcProfile(this.getActivity(), commonPersonObjectClient);

@@ -12,7 +12,7 @@ import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
 import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
 import org.smartregister.chw.interactor.MotherMentorMedicalHistoryInteractor;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
 import java.util.List;
 

@@ -3,9 +3,12 @@ package org.smartregister.chw.presenter;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.mothermentor.contract.MotherMentorRegisterFragmentContract;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorRegisterFragmentPresenter;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 
-public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter extends BaseMotherMentorRegisterFragmentPresenter {
-    private static final String DEFAULT_TABLE_NAME = "ec_mothermentor_enroll_it";
+public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter
+        extends BaseMotherMentorRegisterFragmentPresenter {
+    private static final String DEFAULT_TABLE_NAME =
+            org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_IIT;
 
     private final String tableName;
 
@@ -20,7 +23,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter extends Ba
 
     @Override
     public String getMainCondition() {
-        return " " + getMainTable() + ".is_closed = 0 ";
+        return " " + getMainTable() + "." + DBConstants.KEY.IS_CLOSED + " = 0 ";
     }
 
     @Override

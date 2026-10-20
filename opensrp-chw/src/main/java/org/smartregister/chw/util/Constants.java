@@ -388,7 +388,7 @@ public class Constants extends CoreConstants {
         public interface ReportTypes {
            String CBHS_REPORT = "cbhs_report";
 
-           String MOTHER_CHAMPION_REPORT = "mother_champion_report";
+           String MOTHER_MENTOR_REPORT = "mother_mentor_report";
 
            String CONDOM_DISTRIBUTION_REPORT = "condom_distribution_report";
 
@@ -478,7 +478,7 @@ public class Constants extends CoreConstants {
         public interface ReportPaths {
             String CBHS_REPORT_PATH = "cbhs-taarifa-ya-mwezi";
 
-            String MOTHER_CHAMPION_REPORT_PATH = "mother-champion-report";
+            String MOTHER_MENTOR_REPORT_PATH = "mother-mentor-report";
 
             String CONDOM_DISTRIBUTION_ISSUING_REPORT_PATH = "condom-distribution-issuing-report";
 

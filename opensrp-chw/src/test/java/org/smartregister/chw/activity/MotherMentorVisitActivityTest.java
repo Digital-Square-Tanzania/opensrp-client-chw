@@ -5,7 +5,7 @@ import android.content.Intent;
 import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

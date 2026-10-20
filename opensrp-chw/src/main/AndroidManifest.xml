@@ -56,6 +56,14 @@
             android:name=".activity.MotherMentorHouseholdProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.MotherMentorPartnerRegisterActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MotherMentorChildEidRegisterActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.MotherMentorRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -273,11 +281,11 @@
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.MotherChampionReportsViewActivity"
+            android:name=".activity.MotherMentorReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.MotherChampionReportsActivity"
+            android:name=".activity.MotherMentorReportsActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

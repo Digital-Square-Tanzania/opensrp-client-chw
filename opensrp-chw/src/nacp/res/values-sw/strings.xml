@@ -72,8 +72,6 @@
     <string name="print_report">Chapa</string>
     <string name="reports">Ripoti</string>
 
-    <string name="mother_champion_reports_subtitle">Tazama ripoti ya mama kinara</string>
-    <string name="mother_champion_reports">Ripoti ya mama kinara</string>
 
     <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
     <string name="referral_problem_pain">Maumivu</string>

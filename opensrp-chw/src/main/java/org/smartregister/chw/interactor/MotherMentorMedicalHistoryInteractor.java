@@ -10,7 +10,7 @@ import org.smartregister.chw.core.CoreBaseAncMedicalHistoryInteractor;
 import org.smartregister.chw.domain.SortableVisit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 
 import java.util.ArrayList;

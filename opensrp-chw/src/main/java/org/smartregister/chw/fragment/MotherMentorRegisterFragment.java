@@ -31,6 +31,10 @@ public class MotherMentorRegisterFragment extends BaseMotherMentorRegisterFragme
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        View filterSortLayout = view.findViewById(org.smartregister.R.id.filter_sort_layout);
+        if (filterSortLayout != null) {
+            filterSortLayout.setVisibility(View.GONE);
+        }
         this.view = view;
         setupNavigationMenu(view);
     }

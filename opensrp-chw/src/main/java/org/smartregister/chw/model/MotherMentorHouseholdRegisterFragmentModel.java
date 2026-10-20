@@ -3,10 +3,11 @@ package org.smartregister.chw.model;
 import androidx.annotation.NonNull;
 
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorContactsRegisterFragmentModel;
-import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
-public class MotherMentorHouseholdRegisterFragmentModel extends BaseMotherMentorContactsRegisterFragmentModel {
+public class MotherMentorHouseholdRegisterFragmentModel
+        extends BaseMotherMentorContactsRegisterFragmentModel {
     @Override
     public String mainSelect(@NonNull String tableName, @NonNull String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
@@ -16,16 +17,16 @@ public class MotherMentorHouseholdRegisterFragmentModel extends BaseMotherMentor
 
     @Override
     protected String[] mainColumns(String tableName) {
-        return new String[]{
-                tableName + ".relationalid",
-                tableName + ".last_interacted_with",
-                tableName + ".base_entity_id",
-                tableName + ".first_name",
-                tableName + ".last_name",
-                tableName + ".unique_id",
-                tableName + ".village_town",
-                tableName + ".family_head",
-                tableName + ".primary_caregiver"
+        return new String[] {
+            tableName + "." + DBConstants.KEY.RELATIONALID,
+            tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
+            tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
+            tableName + "." + DBConstants.KEY.FIRST_NAME,
+            tableName + "." + DBConstants.KEY.LAST_NAME,
+            tableName + "." + DBConstants.KEY.UNIQUE_ID,
+            tableName + "." + DBConstants.KEY.VILLAGE_TOWN,
+            tableName + "." + DBConstants.KEY.FAMILY_HEAD,
+            tableName + "." + DBConstants.KEY.PRIMARY_CARE_GIVER
         };
     }
 }

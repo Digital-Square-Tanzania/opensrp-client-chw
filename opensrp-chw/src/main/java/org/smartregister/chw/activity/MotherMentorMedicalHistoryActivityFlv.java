@@ -20,7 +20,10 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.mothermentor.util.Constants;
-import org.smartregister.chw.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+
+import timber.log.Timber;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -30,44 +33,42 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import timber.log.Timber;
-
 public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
     private static final String[] VISIT_PARAMS = {
-            "step1:purpose_of_visit",
-            "step1:participants",
-            "step1:topics_taught",
-            "step1:comments",
-            "purpose_of_visit",
-            "participants",
-            "topics_taught",
-            "comments",
-            "attendance_type",
-            "follow_up_status",
-            "service_interruption_reason",
-            "service_interruption_reason_other",
-            "expected_facility_visit_date",
-            "returned_to_facility",
-            "facility_return_date",
-            "partner_non_attendance_reason",
-            "partner_non_attendance_reason_other",
-            "partner_expected_facility_visit_date",
-            "partner_arrived_at_facility",
-            "partner_facility_arrival_date",
-            "child_eid_test_type",
-            "child_eid_non_attendance_reason",
-            "child_eid_non_attendance_reason_other",
-            "child_eid_expected_facility_visit_date",
-            "child_eid_arrived_at_facility",
-            "child_eid_facility_arrival_date",
-            "has_been_linked_to_psychosocial_support_group",
-            "has_been_linked_to_iga_group",
-            "education_provided",
-            "way_education_provided",
-            "topics_being_provided",
-            "referral_given",
-            "type_of_referral_given",
-            "next_appointment_date"
+        "step1:" + DBConstants.KEY.PURPOSE_OF_VISIT,
+        "step1:" + DBConstants.KEY.PARTICIPANTS,
+        "step1:" + DBConstants.KEY.TOPICS_TAUGHT,
+        "step1:" + DBConstants.KEY.COMMENTS,
+        DBConstants.KEY.PURPOSE_OF_VISIT,
+        DBConstants.KEY.PARTICIPANTS,
+        DBConstants.KEY.TOPICS_TAUGHT,
+        DBConstants.KEY.COMMENTS,
+        DBConstants.KEY.ATTENDANCE_TYPE,
+        DBConstants.KEY.FOLLOW_UP_STATUS,
+        DBConstants.KEY.SERVICE_INTERRUPTION_REASON,
+        DBConstants.KEY.SERVICE_INTERRUPTION_REASON_OTHER,
+        DBConstants.KEY.EXPECTED_FACILITY_VISIT_DATE,
+        DBConstants.KEY.RETURNED_TO_FACILITY,
+        DBConstants.KEY.FACILITY_RETURN_DATE,
+        DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON,
+        DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON_OTHER,
+        DBConstants.KEY.PARTNER_EXPECTED_FACILITY_VISIT_DATE,
+        DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY,
+        DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE,
+        DBConstants.KEY.CHILD_EID_TEST_TYPE,
+        DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
+        DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON_OTHER,
+        DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE,
+        DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY,
+        DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE,
+        DBConstants.KEY.HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP,
+        DBConstants.KEY.HAS_BEEN_LINKED_TO_IGA_GROUP,
+        DBConstants.KEY.EDUCATION_PROVIDED,
+        DBConstants.KEY.WAY_EDUCATION_PROVIDED,
+        DBConstants.KEY.TOPICS_BEING_PROVIDED,
+        DBConstants.KEY.REFERRAL_GIVEN,
+        DBConstants.KEY.TYPE_OF_REFERRAL_GIVEN,
+        DBConstants.KEY.NEXT_APPOINTMENT_DATE
     };
 
     private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
@@ -97,15 +98,21 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             return;
         }
 
-        int days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
+        int days =
+                Days.daysBetween(
+                                new DateTime(visits.get(visits.size() - 1).getDate()),
+                                new DateTime())
+                        .getDays();
         List<LinkedHashMap<String, String>> visitDetails = new ArrayList<>();
 
         int x = 0;
         while (x < visits.size()) {
             LinkedHashMap<String, String> detailsMap = new LinkedHashMap<>();
             extractVisitDetails(visits, VISIT_PARAMS, detailsMap, x, context);
-            detailsMap.put("visit_number", String.valueOf(x + 1));
-            detailsMap.put("visit_completion_state", Boolean.TRUE.equals(visits.get(x).getProcessed()) ? "completed" : "saved");
+            detailsMap.put(DBConstants.KEY.VISIT_NUMBER, String.valueOf(x + 1));
+            detailsMap.put(
+                    "visit_completion_state",
+                    Boolean.TRUE.equals(visits.get(x).getProcessed()) ? "completed" : "saved");
             visitDetails.add(detailsMap);
             x++;
         }
@@ -114,10 +121,16 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         processVisit(visitDetails, context, visits);
     }
 
-    private void extractVisitDetails(List<Visit> sourceVisits, String[] params, LinkedHashMap<String, String> visitDetailsMap, int iteration, Context context) {
+    private void extractVisitDetails(
+            List<Visit> sourceVisits,
+            String[] params,
+            LinkedHashMap<String, String> visitDetailsMap,
+            int iteration,
+            Context context) {
         for (String param : params) {
             try {
-                List<VisitDetail> details = sourceVisits.get(iteration).getVisitDetails().get(param);
+                List<VisitDetail> details =
+                        sourceVisits.get(iteration).getVisitDetails().get(param);
                 visitDetailsMap.put(param, getTexts(context, details));
             } catch (Exception e) {
                 Timber.e(e);
@@ -128,14 +141,23 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     private void processLastVisit(int days, Context context) {
         linearLayoutLastVisit.setVisibility(View.VISIBLE);
         if (days < 1) {
-            customFontTextViewLastVisit.setText(org.smartregister.chw.core.R.string.less_than_twenty_four);
+            customFontTextViewLastVisit.setText(
+                    org.smartregister.chw.core.R.string.less_than_twenty_four);
         } else {
-            customFontTextViewLastVisit.setText(StringUtils.capitalize(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.days_ago), String.valueOf(days))));
+            customFontTextViewLastVisit.setText(
+                    StringUtils.capitalize(
+                            MessageFormat.format(
+                                    context.getString(org.smartregister.chw.core.R.string.days_ago),
+                                    String.valueOf(days))));
         }
     }
 
-    protected void processVisit(List<LinkedHashMap<String, String>> motherMentorVisits, Context context, List<Visit> visits) {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+    protected void processVisit(
+            List<LinkedHashMap<String, String>> motherMentorVisits,
+            Context context,
+            List<Visit> visits) {
+        final SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         if (motherMentorVisits == null || motherMentorVisits.isEmpty()) {
             return;
         }
@@ -150,49 +172,74 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             TextView tvEdit = view.findViewById(R.id.textview_edit);
 
             Visit visit = visits.get(x);
-            boolean legacyFollowUp = followUpType != null
-                    && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType());
+            boolean legacyFollowUp =
+                    followUpType != null
+                            && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(
+                                    visit.getVisitType());
             if (x == visits.size() - 1 && !legacyFollowUp) {
                 tvEdit.setVisibility(View.VISIBLE);
             } else {
                 tvEdit.setVisibility(View.GONE);
             }
 
-            tvEdit.setOnClickListener(view1 -> {
-                if (visit.getBaseEntityId() != null) {
-                    ((Activity) context).finish();
-                    if (StringUtils.isNotBlank(vals.get("follow_up_status"))) {
-                        MotherMentorFollowUpType editType = MotherMentorFollowUpType.PARTNER.getEventType().equals(visit.getVisitType())
-                                ? MotherMentorFollowUpType.PARTNER
-                                : MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visit.getVisitType())
-                                ? MotherMentorFollowUpType.CHILD_EID
-                                : followUpType == null ? MotherMentorFollowUpType.MOTHER_IIT : followUpType;
-                        MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
-                                (Activity) context, visit.getBaseEntityId(), true, editType);
-                    } else {
-                        MotherMentorVisitActivity.startMotherMentorVisitActivity(
-                                (Activity) context, visit.getBaseEntityId(), true);
-                    }
-                }
-            });
+            tvEdit.setOnClickListener(
+                    view1 -> {
+                        if (visit.getBaseEntityId() != null) {
+                            ((Activity) context).finish();
+                            if (StringUtils.isNotBlank(
+                                    vals.get(DBConstants.KEY.FOLLOW_UP_STATUS))) {
+                                MotherMentorFollowUpType editType =
+                                        MotherMentorFollowUpType.PARTNER
+                                                        .getEventType()
+                                                        .equals(visit.getVisitType())
+                                                ? MotherMentorFollowUpType.PARTNER
+                                                : MotherMentorFollowUpType.CHILD_EID
+                                                                .getEventType()
+                                                                .equals(visit.getVisitType())
+                                                        ? MotherMentorFollowUpType.CHILD_EID
+                                                        : followUpType == null
+                                                                ? MotherMentorFollowUpType
+                                                                        .MOTHER_IIT
+                                                                : followUpType;
+                                MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
+                                        (Activity) context,
+                                        visit.getBaseEntityId(),
+                                        true,
+                                        editType);
+                            } else {
+                                MotherMentorVisitActivity.startMotherMentorVisitActivity(
+                                        (Activity) context, visit.getBaseEntityId(), true);
+                            }
+                        }
+                    });
 
             String visitType = getVisitType(context, visits.get(x).getVisitType());
-            tvTypeOfService.setText(String.format("%s - %s", visitType, simpleDateFormat.format(visits.get(x).getDate())));
+            tvTypeOfService.setText(
+                    String.format(
+                            "%s - %s",
+                            visitType, simpleDateFormat.format(visits.get(x).getDate())));
 
             for (LinkedHashMap.Entry<String, String> entry : vals.entrySet()) {
                 TextView visitDetailTv = new TextView(context);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams params =
+                        new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT);
                 visitDetailTv.setLayoutParams(params);
                 float scale = context.getResources().getDisplayMetrics().density;
                 int dpAsPixels = (int) (10 * scale + 0.5f);
                 visitDetailTv.setPadding(dpAsPixels, 0, 0, 0);
                 visitDetailsLayout.addView(visitDetailTv);
 
-            int titleResource = context.getResources().getIdentifier("mothermentor_history_" + normalizeHistoryKey(entry.getKey()), "string", context.getPackageName());
-            evaluateView(context, vals, visitDetailTv, entry.getKey(), titleResource);
-        }
+                int titleResource =
+                        context.getResources()
+                                .getIdentifier(
+                                        "mothermentor_history_"
+                                                + normalizeHistoryKey(entry.getKey()),
+                                        "string",
+                                        context.getPackageName());
+                evaluateView(context, vals, visitDetailTv, entry.getKey(), titleResource);
+            }
             linearLayoutHealthFacilityVisitDetails.addView(view, 0);
             x++;
         }
@@ -209,22 +256,37 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         return visitType;
     }
 
-    private void evaluateView(Context context, Map<String, String> vals, TextView tv, String valueKey, int viewTitleStringResource) {
+    private void evaluateView(
+            Context context,
+            Map<String, String> vals,
+            TextView tv,
+            String valueKey,
+            int viewTitleStringResource) {
         if (StringUtils.isBlank(getMapValue(vals, valueKey))) {
             tv.setVisibility(View.GONE);
             return;
         }
 
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
-        spannableStringBuilder.append(getStringResource(context, viewTitleStringResource, valueKey), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
+        spannableStringBuilder
+                .append(
+                        getStringResource(context, viewTitleStringResource, valueKey),
+                        boldSpan,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                .append("\n");
 
         String[] values = getMapValue(vals, valueKey).split(",");
         if (values.length > 1) {
             for (String value : values) {
-                spannableStringBuilder.append(getStringResource(context, value.trim()) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableStringBuilder.append(
+                        getStringResource(context, value.trim()) + "\n",
+                        new BulletSpan(10),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         } else {
-            spannableStringBuilder.append(getStringResource(context, getMapValue(vals, valueKey))).append("\n");
+            spannableStringBuilder
+                    .append(getStringResource(context, getMapValue(vals, valueKey)))
+                    .append("\n");
         }
         tv.setText(spannableStringBuilder);
     }
@@ -247,7 +309,12 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
 
     private String getStringResource(Context context, String rawValue) {
         String value = rawValue.trim();
-        int resourceId = context.getResources().getIdentifier("mothermentor_history_" + normalizeResourceName(value), "string", context.getPackageName());
+        int resourceId =
+                context.getResources()
+                        .getIdentifier(
+                                "mothermentor_history_" + normalizeResourceName(value),
+                                "string",
+                                context.getPackageName());
         try {
             return context.getString(resourceId);
         } catch (Exception e) {

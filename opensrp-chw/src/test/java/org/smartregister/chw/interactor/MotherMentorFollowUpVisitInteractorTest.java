@@ -1,5 +1,7 @@
 package org.smartregister.chw.interactor;
 
+import org.smartregister.chw.mothermentor.interactor.MotherMentorFollowUpVisitInteractor;
+
 import org.junit.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -22,7 +24,7 @@ public class MotherMentorFollowUpVisitInteractorTest {
             MotherMentorLibrary motherMentorLibrary = mock(MotherMentorLibrary.class);
             library.when(MotherMentorLibrary::getInstance).thenReturn(motherMentorLibrary);
             stubApplicationContext(motherMentorLibrary);
-            dao.when(() -> MotherMentorDao.getMember(baseEntityId)).thenReturn(null);
+            dao.when(() -> MotherMentorDao.getVisitMember(baseEntityId)).thenReturn(null);
             dao.when(() -> MotherMentorDao.getSecondaryEnrollmentMember(baseEntityId)).thenReturn(secondaryMember);
 
             MotherMentorFollowUpVisitInteractor interactor =
@@ -42,7 +44,7 @@ public class MotherMentorFollowUpVisitInteractorTest {
             MotherMentorLibrary motherMentorLibrary = mock(MotherMentorLibrary.class);
             library.when(MotherMentorLibrary::getInstance).thenReturn(motherMentorLibrary);
             stubApplicationContext(motherMentorLibrary);
-            dao.when(() -> MotherMentorDao.getMember(baseEntityId)).thenReturn(primaryMember);
+            dao.when(() -> MotherMentorDao.getVisitMember(baseEntityId)).thenReturn(primaryMember);
 
             MotherMentorFollowUpVisitInteractor interactor =
                     new MotherMentorFollowUpVisitInteractor("Mother Mentor Services");
