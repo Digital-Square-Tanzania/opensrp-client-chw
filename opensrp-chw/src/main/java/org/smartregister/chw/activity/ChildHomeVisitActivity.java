@@ -4,12 +4,15 @@ import static org.smartregister.chw.util.Utils.reorderKeysFirst;
 import static org.smartregister.util.JsonFormUtils.createEvent;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.chw.R;
+import org.smartregister.chw.contract.ImmunizationSaveHost;
+import org.smartregister.chw.util.ImmunizationDrafts;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
 import org.smartregister.chw.anc.util.NCUtils;
@@ -31,7 +34,41 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
+public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity implements ImmunizationSaveHost {
+    private final ImmunizationDrafts immunizationDrafts = new ImmunizationDrafts();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        immunizationDrafts.restoreState(savedInstanceState);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        immunizationDrafts.saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void startFragment(BaseAncHomeVisitAction action) {
+        if (!immunizationDrafts.bind(memberObject == null ? null : memberObject.getBaseEntityId(), action)) {
+            displayToast(getString(R.string.immunization_save_retry));
+            return;
+        }
+        super.startFragment(action);
+    }
+
+    @Override
+    public boolean saveImmunization(String visitId, String actionId, String childId, String requestId, String payload) {
+        if (isFinishing() || isDestroyed() || !immunizationDrafts.accept(
+                memberObject == null ? null : memberObject.getBaseEntityId(), actionList,
+                visitId, actionId, childId, requestId, payload)) return false;
+        if (mAdapter != null) mAdapter.notifyDataSetChanged();
+        redrawVisitUI();
+        return true;
+    }
+
+
     @Override
     protected void registerPresenter() {
         presenter = new BaseAncHomeVisitPresenter(memberObject, this, new CoreChildHomeVisitInteractor(new ChildHomeVisitInteractorFlv()));
@@ -135,6 +172,7 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
         reorderKeysFirst(actionList, map, keys);
 
         actionList.putAll(map);
+        immunizationDrafts.restoreActions(memberObject == null ? null : memberObject.getBaseEntityId(), actionList);
 
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();

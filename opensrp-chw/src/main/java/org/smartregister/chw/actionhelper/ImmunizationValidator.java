@@ -6,6 +6,8 @@ import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.fragment.BaseHomeVisitImmunizationFragmentFlv;
 import org.smartregister.domain.Alert;
@@ -157,7 +159,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             DateTime anchorDate = anchorDates.get(key);
             VaccineGroup vaccineGroup = vaccineGroupMap.get(key);
 
-            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(vaccineSchedules, anchorDate, vaccineGroup, allReceivedVaccines);
+            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(vaccineSchedules, anchorDate, vaccineGroup, scheduleVaccineNames(allReceivedVaccines));
             List<VaccineDisplay> displays = generateDisplaysFromWrappers(wrappers, anchorDate.toDate());
 
             // update the vaccines
@@ -200,6 +202,21 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             displays.add(display);
         }
         return displays;
+    }
+
+    private Map<String, Date> scheduleVaccineNames(Map<String, Date> receivedVaccines) {
+        // The scheduler matches prerequisite names against VaccineRepo display names.
+        Map<String, String> names = new HashMap<>();
+        for (VaccineRepo.Vaccine vaccine : VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD)) {
+            names.put(normalizeVaccineNameForMatching(vaccine.display()), vaccine.display());
+            names.put(normalizeVaccineNameForMatching(vaccine.name()), vaccine.display());
+        }
+        Map<String, Date> scheduled = new HashMap<>();
+        for (Map.Entry<String, Date> entry : receivedVaccines.entrySet()) {
+            String canonical = names.get(normalizeVaccineNameForMatching(entry.getKey()));
+            scheduled.put(canonical == null ? entry.getKey() : canonical, entry.getValue());
+        }
+        return scheduled;
     }
 
     private String normalizeVaccineNameForMatching(String vaccineName) {

@@ -34,6 +34,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
+import org.smartregister.util.LangUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +52,12 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.GROUP_ID, groupId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.GROUP_NAME, groupName);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        String lang = LangUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(LangUtils.setAppLocale(base, lang));
     }
 
     @Override
@@ -100,7 +107,7 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
             }
 
             new AlertDialog.Builder(this)
-                    .setTitle(org.smartregister.chw.R.string.add_eligible_child)
+                    .setTitle(org.smartregister.chw.R.string.add_group_member)
                     .setMultiChoiceItems(items, checked, (dialog, which, isChecked) -> checked[which] = isChecked)
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> saveMembershipByEvent(groupId, collectSelectedIds(eligible, checked)))
                     .setNegativeButton(android.R.string.cancel, null)
@@ -211,6 +218,10 @@ public class AypInSchoolGroupProfileActivity extends BaseAypGroupProfileActivity
     @Override
     public void setGroupViewWithData(GroupObject groupObject) {
         super.onGroupLoaded(groupObject);
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        if (toolbarTitle != null) {
+            toolbarTitle.setText(getString(R.string.return_to_ayp_groups));
+        }
         // Populate group name, type and age-band from repository
         try {
             TextView tvName = findViewById(R.id.textview_group_name);

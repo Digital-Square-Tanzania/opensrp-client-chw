@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.smartregister.chw.BuildConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -13,7 +14,6 @@ import java.nio.file.Paths;
 
 public class HpsCurativeServicesConfigTest {
 
-    private static final String BUILD_GRADLE_PATH = "build.gradle";
     private static final String EC_CLIENT_FIELDS_PATH = "src/nacp/assets/ec_client_fields.json";
     private static final String HPS_CURATIVE_FORM_PATH = "src/nacp/assets/json.form/hps_curative_services.json";
     private static final String HPS_CURATIVE_FORM_SW_PATH = "src/nacp/assets/json.form-sw/hps_curative_services.json";
@@ -70,7 +70,6 @@ public class HpsCurativeServicesConfigTest {
     @Test
     public void hpsCurativeServicesMigrationShouldAddMalariaDrugsTreatmentColumn() throws Exception {
         String repositoryFlv = readFile(HPS_REPOSITORY_FLV_PATH);
-        String buildGradle = readFile(BUILD_GRADLE_PATH);
 
         Assert.assertTrue(
                 "The NACP repository migration should add malaria_drugs_treatment to ec_hps_client_services",
@@ -78,7 +77,7 @@ public class HpsCurativeServicesConfigTest {
         );
         Assert.assertTrue(
                 "DATABASE_VERSION should be bumped so the new migration runs on upgrade",
-                buildGradle.contains("buildConfigField \"int\", \"DATABASE_VERSION\", '41'")
+                BuildConfig.DATABASE_VERSION >= 41
         );
     }
 

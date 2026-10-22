@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.smartregister.chw.BuildConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -95,8 +96,8 @@ public class AypOutSchoolMedicalServicesConfigTest {
 
         Assert.assertTrue(repository.contains("case 49:"));
         Assert.assertTrue(repository.contains("upgradeToVersion49(db)"));
-        Assert.assertTrue(readText("build.gradle").contains(
-                "buildConfigField \"int\", \"DATABASE_VERSION\", '49'"));
+        Assert.assertTrue("The configured database must include the version 49 migration",
+                BuildConfig.DATABASE_VERSION >= 49);
     }
 
     private static JSONObject form(String directory) throws Exception {

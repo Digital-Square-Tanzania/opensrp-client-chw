@@ -194,6 +194,10 @@ public class ChwRepositoryFlv {
                     upgradeToVersion50(db);
                     break;
                 case 51:
+                    // Development also used version 50, without the Mother Mentor tables.
+                    if (newVersion >= 54) {
+                        createMotherMentorTables(db);
+                    }
                     upgradeToVersion51(db);
                     break;
                 case 52:
@@ -201,6 +205,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 53:
                     upgradeToVersion53(db);
+                    break;
+                case 54:
+                    upgradeToVersion54(db);
                     break;
                 default:
                     break;
@@ -1103,19 +1110,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion50(SQLiteDatabase db) {
         try {
-            DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList(
-                            "ec_mothermentor_enrollment",
-                            "ec_mothermentor_contacts",
-                            "ec_mothermentor_observation_results",
-                            "ec_mothermentor_followup_visit",
-                            "ec_mothermentor_visit",
-                            "ec_mothermentor_contact_visit",
-                            "ec_mothermentor_mobilization",
-                            "ec_mothermentor_enroll_it",
-                            "ec_mothermentor_enroll_partner",
-                            "ec_mothermentor_enroll_child_eid")),
-                    ChwApplication.createCommonFtsObject());
+            createMotherMentorTables(db);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion50");
         }
@@ -1125,6 +1120,22 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion50-add-contact-screening-status");
         }
+    }
+
+    private static void createMotherMentorTables(SQLiteDatabase db) {
+        DatabaseMigrationUtils.createAddedECTables(db,
+                new HashSet<>(Arrays.asList(
+                        "ec_mothermentor_enrollment",
+                        "ec_mothermentor_contacts",
+                        "ec_mothermentor_observation_results",
+                        "ec_mothermentor_followup_visit",
+                        "ec_mothermentor_visit",
+                        "ec_mothermentor_contact_visit",
+                        "ec_mothermentor_mobilization",
+                        "ec_mothermentor_enroll_it",
+                        "ec_mothermentor_enroll_partner",
+                        "ec_mothermentor_enroll_child_eid")),
+                ChwApplication.createCommonFtsObject());
     }
 
     private static void upgradeToVersion51(SQLiteDatabase db) {
@@ -1161,6 +1172,40 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion53(SQLiteDatabase db) {
         MotherMentorReportingRepository.ensureMobilizationColumns(db);
+    }
+
+    /**
+     * Reconcile the development and Mother Mentor version-50 migrations. Both branches
+     * used version 50, so devices already at versions 50-53 need the combined schema.
+     */
+    private static void upgradeToVersion54(SQLiteDatabase db) {
+        createMotherMentorTables(db);
+        DatabaseMigrationUtils.createAddedECTables(
+                db,
+                new HashSet<>(Arrays.asList(
+                        "ec_mothermentor_household_enrolment",
+                        "ec_referral_followup",
+                        "ec_kvp_prep_followup")),
+                ChwApplication.createCommonFtsObject());
+        addColumnIfMissing(db, "ec_mothermentor_contacts", DBConstants.KEY.SCREENING_STATUS);
+        upgradeToVersion51(db);
+        upgradeToVersion52(db);
+        upgradeToVersion53(db);
+
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_a_test_date");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_b_test_date");
+        for (String column : Arrays.asList(
+                "referral_task_id",
+                "client_attended_referral",
+                "reason_not_attended",
+                "attended_assigned_facility",
+                "reason_different_facility",
+                "facility_attended",
+                "services_received",
+                "client_condition",
+                "client_satisfied")) {
+            addColumnIfMissing(db, "ec_referral_followup", column);
+        }
     }
 
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {

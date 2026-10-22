@@ -720,8 +720,9 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             JSONObject jo = null;
             int x = 0;
             while (jsonArray.length() > x) {
-                jo = jsonArray.getJSONObject(x);
-                if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
+                JSONObject field = jsonArray.getJSONObject(x);
+                if (field.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
+                    jo = field;
                     break;
                 }
                 x++;

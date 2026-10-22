@@ -19,6 +19,18 @@ import org.smartregister.family.util.DBConstants;
 @Config(sdk = 28)
 public class JsonFormUtilsTest {
 
+    @Test
+    public void checkboxLookupDoesNotReturnSelectionsFromAnotherField() throws Exception {
+        JSONObject selected = new JSONObject().put("text", "Other answer").put("value", true);
+        JSONObject field = new JSONObject().put("key", "other_field")
+                .put("options", new JSONArray().put(selected));
+        JSONObject form = new JSONObject().put("step1", new JSONObject()
+                .put("fields", new JSONArray().put(field)));
+
+        Assert.assertEquals("", JsonFormUtils.getCheckBoxValue(form, "missing_field"));
+        Assert.assertEquals("Other answer", JsonFormUtils.getCheckBoxValue(form, "other_field"));
+    }
+
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 

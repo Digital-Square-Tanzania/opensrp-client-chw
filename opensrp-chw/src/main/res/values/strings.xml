@@ -13,7 +13,8 @@
     <string name="not_provided">Not provided</string>
 
     <string name="child_under_five">Child under 5 years</string>
-    <string name="add_eligible_child">Eligible child</string>
+    <string name="add_eligible_child">Add Group Member</string>
+    <string name="add_group_member">Add Group Member</string>
     <string name="add_child_under_11">Add child under 11</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="view_households_with_count">Households (%1$d)</string>
@@ -183,6 +184,7 @@
     <!-- AYP In-school Groups register labels -->
     <string name="ayp_in_school_groups_register_title">AYP In-school Groups</string>
     <string name="ayp_out_school_groups_register_title">AYP Out-school Groups</string>
+    <string name="return_to_ayp_groups">Return to AYP Groups</string>
     <string name="ayp_group_type_label">Type: %1$s</string>
     <string name="ayp_group_age_band_label">Age-band: %1$s</string>
     <string name="ayp_group_type_title">Type:</string>
@@ -195,6 +197,14 @@
     <string name="ayp_age_band_age_10_19_enabling_dreams">10-19 (Enabling DREAMS)</string>
     <string name="ayp_age_band_age_15_19">15-19</string>
     <string name="ayp_age_band_age_20_24">20-24</string>
+    <string name="group_members">Group Members</string>
+    <string name="less_than_five_members">Less Than Five Members</string>
+    <string name="group_members_count">Group Members: %1$d</string>
+    <string name="group_few_members_count">Less Than Five Members: %1$d</string>
+    <string name="ayp_group_max_members_reached">This group already has 15 members</string>
+    <string name="ayp_no_eligible_members_available">No eligible members available</string>
+    <string name="ayp_max_members_per_group">Maximum 15 members per group</string>
+    <string name="ayp_member_limit_exceeded">Member limit exceeded</string>
     <string name="id_label">ID: %1$s</string>
     <string name="filter_by_group_type">Filter by group type</string>
     <string name="filter_all">All</string>
@@ -370,6 +380,8 @@
     <string name="mena">MenA</string>
 
     <string name="follow_up_visit">Follow-up Visit</string>
+    <string name="referral_follow_up">Follow Up</string>
+    <string name="referral_unresolved_condition">Referral for unresolved condition</string>
 
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
  as defined in the data dictionary -->
@@ -593,6 +605,8 @@
     <string name="agyw_reports_subtitle">View AGYW Report</string>
     <string name="view_visit_history">View visit history</string>
     <string name="kvp_prep_next_visit_date">Next Visit Date</string>
+    <string name="kvp_hiv_first_visit_question">Have you been tested for HIV in the last three months?</string>
+    <string name="kvp_hiv_retest_question">Has the client undergone a repeat HIV/AIDS test?</string>
 
     <string name="child_danger_signs_baby">Danger signs</string>
     <string name="child_danger_signs_baby_task">Danger signs</string>
@@ -1011,4 +1025,7 @@
 
     <string name="mother_mentor_reports">Mama Kinara Monthly Report</string>
     <string name="mother_mentor_reports_subtitle">View Mother Mentor monthly report</string>
+    <string name="member_removal_reason_missing">Please select the reason for removing this member and try again.</string>
+    <string name="immunization_save_retry">Vaccinations have not been saved. Your entries are still on this screen. Wait for the visit to load, then tap Save again.</string>
+    <string name="immunization_restore_failed">This vaccination form could not be restored. Nothing was saved. Return to the visit and reopen Record vaccinations.</string>
 </resources>

@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.dao.ChwKvpDao;
 import org.smartregister.chw.kvp.model.BaseKvpVisitAction;
@@ -23,6 +24,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     private static final String[] HIV_PREP_SUPPRESSED_FIELDS = {
             "hiv_tested_within_last_3_months",
             "hiv_result_recent",
+            "branch_a_test_date",
             "ctc_number_a",
             "on_prep",
             "prep_facility_a",
@@ -33,7 +35,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "tested_for_hiv",
             "testing_location",
             "facility_name",
-            "test_date",
+            "branch_b_test_date",
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
@@ -45,6 +47,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
 
     private static final String[] BRANCH_A_FIELDS = {
             "hiv_result_recent",
+            "branch_a_test_date",
             "ctc_number_a",
             "on_prep",
             "prep_facility_a",
@@ -56,7 +59,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "tested_for_hiv",
             "testing_location",
             "facility_name",
-            "test_date",
+            "branch_b_test_date",
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
@@ -68,7 +71,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "tested_for_hiv",
             "testing_location",
             "facility_name",
-            "test_date",
+            "branch_b_test_date",
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
@@ -79,7 +82,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     private static final String[] TESTED_FOR_HIV_DOWNSTREAM_FIELDS = {
             "testing_location",
             "facility_name",
-            "test_date",
+            "branch_b_test_date",
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
@@ -91,6 +94,8 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     private String jsonPayload;
     private String baseEntityId;
     private final Map<String, String> visitState;
+    private String firstVisitHivQuestion = "Have you been tested for HIV in the last three months?";
+    private String followupHivQuestion = "Has the client undergone a repeat HIV/AIDS test?";
 
     public KvpPrEPPreventiveServicesActionHelper(String baseEntityId, Map<String, String> visitState) {
         this.baseEntityId = baseEntityId;
@@ -100,6 +105,10 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
         this.jsonPayload = jsonPayload;
+        if (context != null) {
+            firstVisitHivQuestion = context.getString(R.string.kvp_hiv_first_visit_question);
+            followupHivQuestion = context.getString(R.string.kvp_hiv_retest_question);
+        }
     }
 
     @Override
@@ -116,15 +125,18 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
                 getFieldJSONObject(fields(jsonObject, STEP1), "protective_items_for_PWID_label").put("type", "hidden");
             }
 
+            boolean hasFollowupVisits = ChwKvpDao.hasFollowupVisits(baseEntityId);
             boolean clientHivPositive = ChwKvpDao.isClientHivPositive(baseEntityId);
-            if (clientHivPositive || !ChwKvpDao.isHivRetestDue(baseEntityId)) {
+            boolean hivRetestDue = hasFollowupVisits && ChwKvpDao.isHivRetestDue(baseEntityId);
+            if (shouldShowHivTestingFields(clientHivPositive, hasFollowupVisits, hivRetestDue)) {
+                setHivTestQuestion(jsonObject, hasFollowupVisits ? followupHivQuestion : firstVisitHivQuestion);
+            } else {
                 suppressHivPrepFields(jsonObject);
             }
 
             JSONObject global = jsonObject.optJSONObject("global");
             if (global != null) {
                 String visitType = StringUtils.defaultIfBlank(visitState.get("visit_type"), ChwKvpDao.getLatestVisitType(baseEntityId));
-                boolean hasFollowupVisits = ChwKvpDao.hasFollowupVisits(baseEntityId);
                 String visitNumber = hasFollowupVisits ? "2" : "1";
                 if (StringUtils.equalsIgnoreCase(visitType, "followup")) {
                     visitNumber = "2";
@@ -158,6 +170,17 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
                 field.remove("relevance");
             }
         }
+    }
+
+    private void setHivTestQuestion(JSONObject jsonObject, String question) throws JSONException {
+        JSONObject field = getField(fields(jsonObject, STEP1), "hiv_tested_within_last_3_months");
+        if (field != null && StringUtils.isNotBlank(question)) {
+            field.put("label", question);
+        }
+    }
+
+    static boolean shouldShowHivTestingFields(boolean clientHivPositive, boolean hasFollowupVisits, boolean hivRetestDue) {
+        return !clientHivPositive && (!hasFollowupVisits || hivRetestDue);
     }
 
     private JSONObject getField(JSONArray formFields, String fieldKey) {
@@ -316,22 +339,40 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
         String hivResult = getValue(formFields, "hiv_result");
         String ctcNumberA = getValue(formFields, "ctc_number_a");
         String ctcNumberB = getValue(formFields, "ctc_number_b");
+        String testDateA = getValue(formFields, "branch_a_test_date");
+        String testDateB = getValue(formFields, "branch_b_test_date");
 
         boolean positive = ChwKvpDao.isClientHivPositive(baseEntityId) ||
                 StringUtils.equalsIgnoreCase(hivResultRecent, "positive") ||
                 StringUtils.equalsIgnoreCase(hivResult, "positive");
         boolean negative = !positive && (StringUtils.equalsIgnoreCase(hivResultRecent, "negative") ||
                 StringUtils.equalsIgnoreCase(hivResult, "negative"));
+        String existingCtcNumber = positive ? ChwKvpDao.getCtcNumber(baseEntityId) : null;
 
         setValue(formFields, "client_hiv_status", positive ? "positive" : negative ? "negative" : "");
         setValue(formFields, "hiv_positive", Boolean.toString(positive));
-        setValue(formFields, "ctc_number", positive ? StringUtils.defaultIfBlank(ctcNumberA, ctcNumberB) : "");
+        setValue(formFields, "ctc_number", resolvePersistedCtcNumber(positive, ctcNumberA, ctcNumberB, existingCtcNumber));
+        setValue(formFields, "test_date", resolvePersistedTestDate(testDateA, testDateB));
         setValue(formFields, "hiv_test_conducted", getCompatHivTestConducted(tested3months, hivResultRecent, referredForHiv, testedForHiv));
         setValue(formFields, "hiv_test_location", StringUtils.equalsIgnoreCase(testedForHiv, "yes") ? testingLocation : "");
 
         if (positive) {
             visitState.put("client_hiv_status", "positive");
         }
+    }
+
+    static String resolvePersistedCtcNumber(boolean positive, String ctcNumberA, String ctcNumberB,
+                                            String existingCtcNumber) {
+        if (!positive) {
+            return "";
+        }
+
+        return StringUtils.defaultIfBlank(ctcNumberA,
+                StringUtils.defaultIfBlank(ctcNumberB, StringUtils.defaultString(existingCtcNumber)));
+    }
+
+    static String resolvePersistedTestDate(String testDateA, String testDateB) {
+        return StringUtils.defaultIfBlank(testDateA, StringUtils.defaultString(testDateB));
     }
 
     private String getCompatHivTestConducted(String tested3months, String hivResultRecent, String referredForHiv, String testedForHiv) {

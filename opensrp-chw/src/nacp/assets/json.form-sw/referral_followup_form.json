@@ -1,0 +1,382 @@
+{
+  "count": "1",
+  "encounter_type": "Referral Followup Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Ufuatiliaji wa rufaa",
+    "fields": [
+      {
+        "key": "referral_task_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_task_id",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "chw_followup_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_followup_date",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "client_attended_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_attended_referral",
+        "type": "native_radio",
+        "label": "Mteja alihudhuria rufaa?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali eleza kama mteja alihudhuria rufaa"
+        }
+      },
+      {
+        "key": "reason_not_attended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_not_attended",
+        "type": "check_box",
+        "label": "Kwanini mteja hakuhudhuria rufaa?",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "did_not_understand_referral_instruction",
+            "text": "Mteja hakuelewa maana ya rufaa",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "did_not_understand_referral_instruction",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no_transport_to_facility",
+            "text": "Mteja hakuwa na usafiri wa kufika kituo cha rufaa",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no_transport_to_facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "lack_of_financial_means",
+            "text": "Mteja hakuwa na hela ya kuhudhuria rufaa",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "lack_of_financial_means",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "health_condition_did_not_allow_travel",
+            "text": "Hali ya afya ya mteja haikumruhusu kusafiri kuelekea rufaa",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "health_condition_did_not_allow_travel",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "social_cultural_reasons",
+            "text": "Sababu za kijamii",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "social_cultural_reasons",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "previous_negative_experience_or_fear",
+            "text": "Mteja ameshakuwa na uzoefu hasi na rufaa hapo zamani",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "previous_negative_experience_or_fear",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "perceived_improvement_in_condition",
+            "text": "Mteja alijihisi amepona",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "perceived_improvement_in_condition",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "busy_with_other_commitments",
+            "text": "Mteja alizongwa na shughuli nyingine",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "busy_with_other_commitments",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:client_attended_referral": {
+            "type": "String",
+            "ex": "equalTo(.,\"no\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau sababu moja"
+        }
+      },
+      {
+        "key": "attended_assigned_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "attended_assigned_facility",
+        "type": "native_radio",
+        "label": "Je, mteja alienda rufaa kwenye kituo alichopangiwa?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:client_attended_referral": {
+            "type": "String",
+            "ex": "equalTo(.,\"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali eleza kama mteja alienda kituo alichopangiwa"
+        }
+      },
+      {
+        "key": "reason_different_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_different_facility",
+        "type": "check_box",
+        "label": "Sababu za mteja kuhudhuria rufaa kituo tofauti",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "preferred_the_other_facility",
+            "text": "Mteja alipenda zaidi kituo kingine",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "preferred_the_other_facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no_service_at_assigned_facility",
+            "text": "Mteja alikosa huduma kwenye kituo alichoandikiwa aende",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no_service_at_assigned_facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "did_not_know_location_of_assigned_facility",
+            "text": "Mteja hakujua mahali kilipo kituo alichoandikiwa aende",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "did_not_know_location_of_assigned_facility",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:attended_assigned_facility": {
+            "type": "String",
+            "ex": "equalTo(.,\"no\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau sababu moja"
+        }
+      },
+      {
+        "key": "facility_attended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "facility_attended",
+        "type": "spinner",
+        "searchable": true,
+        "openmrs_data_type": "select one",
+        "label": "Mteja alihudhuria rufaa kituo gani?",
+        "label_text_style": "bold",
+        "hint": "Chagua kituo mteja alichohudhuria",
+        "options": [],
+        "relevance": {
+          "step1:attended_assigned_facility": {
+            "type": "String",
+            "ex": "equalTo(.,\"no\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua kituo mteja alichohudhuria"
+        }
+      },
+      {
+        "key": "services_received",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "services_received",
+        "type": "native_radio",
+        "label": "Je, mteja alipata huduma alizopelekewa rufaa?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:client_attended_referral": {
+            "type": "String",
+            "ex": "equalTo(.,\"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali eleza kama mteja alipata huduma"
+        }
+      },
+      {
+        "key": "client_condition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_condition",
+        "type": "native_radio",
+        "label": "Hali ya mteja baada ya kuhudhuria rufaa",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "no_danger_signs",
+            "text": "Mteja hana dalili hatarishi",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no_danger_signs",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "exhibits_danger_signs",
+            "text": "Mteja anaonesha dalili hatarishi",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "exhibits_danger_signs",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali andika hali ya mteja kwa sasa"
+        }
+      },
+      {
+        "key": "client_satisfied",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_satisfied",
+        "type": "native_radio",
+        "label": "Je, mteja ameridhika na huduma aliyopata kwenye rufaa?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:client_condition": {
+            "type": "String",
+            "ex": "equalTo(.,\"no_danger_signs\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali eleza kama mteja ameridhika na huduma aliyopata"
+        }
+      }
+    ]
+  }
+}

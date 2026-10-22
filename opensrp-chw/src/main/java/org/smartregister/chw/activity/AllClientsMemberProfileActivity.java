@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,15 +81,16 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreation() {
+        super.onCreation();
+        // SecuredActivity skips this hook when the session has expired.
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onResumption() {
+        super.onResumption();
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
                 baseEntityId, this);
