@@ -35,3 +35,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ github.actor }}
+
+    - name: Verify 16 KB native library compatibility
+      run: python scripts/check_16kb_alignment.py opensrp-chw/build/outputs/apk/nacp/debug/*.apk opensrp-chw/build/outputs/apk/nacp/release/*.apk

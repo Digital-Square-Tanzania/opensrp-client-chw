@@ -155,29 +155,26 @@ public class AypOutSchoolGroupsRegisterFragment extends CoreAypRegisterFragment 
     }
 
     protected void setUpAdapter() {
+        android.view.View currentView = getView();
+        if (!isAdded() || currentView == null) {
+            return;
+        }
+        AypOutSchoolGroupsRegisterInteractor.Callback callback = items -> {
+            Activity activity = getActivity();
+            // The database result belongs to the view that requested it.
+            if (!isAdded() || activity == null || getView() != currentView) {
+                return;
+            }
+            adapter = items != null && !items.isEmpty()
+                    ? new AypOutSchoolGroupsRegisterAdapter(items, activity) : null;
+            clientsView.setAdapter(adapter);
+            showEmptyState();
+        };
         AypOutSchoolGroupsRegisterInteractor interactor = new AypOutSchoolGroupsRegisterInteractor();
         if (currentGroupTypeFilter == null || currentGroupTypeFilter.isEmpty()) {
-            interactor.fetchItems(items -> {
-                if (items != null && !items.isEmpty()) {
-                    adapter = new AypOutSchoolGroupsRegisterAdapter(items, requireActivity());
-                    clientsView.setAdapter(adapter);
-                    showEmptyState();
-                } else {
-                    clientsView.setAdapter(null);
-                    showEmptyState();
-                }
-            });
+            interactor.fetchItems(callback);
         } else {
-            interactor.fetchItemsByType(currentGroupTypeFilter, items -> {
-                if (items != null && !items.isEmpty()) {
-                    adapter = new AypOutSchoolGroupsRegisterAdapter(items, requireActivity());
-                    clientsView.setAdapter(adapter);
-                    showEmptyState();
-                } else {
-                    clientsView.setAdapter(null);
-                    showEmptyState();
-                }
-            });
+            interactor.fetchItemsByType(currentGroupTypeFilter, callback);
         }
     }
 

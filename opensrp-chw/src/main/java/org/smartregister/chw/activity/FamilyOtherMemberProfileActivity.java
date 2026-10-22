@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -94,15 +93,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     Intent data = new Intent();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
-        notificationListAdapter.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onResumption() {
+        super.onResumption();
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(org.smartregister.chw.application.ChwApplication.getApplicationFlavor().hasReferrals(),
                 baseEntityId, this);
@@ -111,6 +103,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void onCreation() {
         super.onCreation();
+        // SecuredActivity skips this hook when the session has expired.
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
         setIndependentClient(false);
         updateToolbarTitle(this, R.id.toolbar_title, familyName);
     }
