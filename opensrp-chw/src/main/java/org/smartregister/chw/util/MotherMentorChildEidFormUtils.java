@@ -117,7 +117,8 @@ public final class MotherMentorChildEidFormUtils {
         field.put("value", value == null ? "" : value);
         if (readOnly) {
             field.put("read_only", true);
-            field.put("editable", false);
+            // Native forms give editable precedence over read_only, even when it is false.
+            field.remove("editable");
         }
     }
 

@@ -121,15 +121,28 @@ public class MotherMentorPartnerFormUtilsTest {
                 new HashMap<>());
     }
 
-    @Test public void missingMotherCtcAllowsEntryAndDoesNotEraseItOnSave() throws Exception {
-        JSONObject form = form("json.form");
-        Map<String, String> mother = person("mother", "family", "Asha");
-        Map<String, String> partner = person("partner", "family", "Juma");
-        MotherMentorPartnerFormUtils.bindIdentity(form, mother, partner);
-        assertFalse(field(form, "mother_ctc_number").optBoolean("read_only"));
-        field(form, "mother_ctc_number").put("value", "12-34-5678-123456");
-        MotherMentorPartnerFormUtils.bindIdentity(form, mother, partner);
-        assertEquals("12-34-5678-123456", value(form, "mother_ctc_number"));
+    @Test
+    public void missingMotherCtcRemainsReadOnlyAndClearsUntrustedValuesOnSave() throws Exception {
+        for (String locale : new String[] {"json.form", "json.form-sw"}) {
+            for (String missingCtc : new String[] {null, "", "   "}) {
+                JSONObject form = form(locale);
+                Map<String, String> mother = person("mother", "family", "Asha");
+                mother.put("ctc_number", missingCtc);
+                Map<String, String> partner = person("partner", "family", "Juma");
+                field(form, "mother_ctc_number").put("value", "12-34-5678-123456");
+
+                MotherMentorPartnerFormUtils.bindIdentity(form, mother, partner);
+
+                assertEquals("", value(form, "mother_ctc_number"));
+                assertTrue(field(form, "mother_ctc_number").getBoolean("read_only"));
+                assertFalse(field(form, "mother_ctc_number").has("editable"));
+                field(form, "mother_ctc_number").put("value", "98-76-5432-123456");
+
+                MotherMentorPartnerFormUtils.bindIdentity(form, mother, partner);
+
+                assertEquals("", value(form, "mother_ctc_number"));
+            }
+        }
     }
     @Test(expected = IllegalArgumentException.class) public void cannotEnrollMotherAsOwnPartner() throws Exception {
         Map<String, String> mother = person("mother", "family", "Asha");

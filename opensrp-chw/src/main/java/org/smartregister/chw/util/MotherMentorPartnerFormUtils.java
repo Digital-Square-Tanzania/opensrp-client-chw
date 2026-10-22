@@ -79,15 +79,12 @@ public final class MotherMentorPartnerFormUtils {
         set(form, DBConstants.KEY.MOTHER_BASE_ENTITY_ID, motherId, false);
         set(form, DBConstants.KEY.PARTNER_LINKING, "yes", false);
         set(form, DBConstants.KEY.MOTHER_NAME, name(mother), true);
-        // An absent CTC number can still be entered in the existing required field.
-        if (mother.get(DBConstants.KEY.CTC_NUMBER) != null
-                && !mother.get(DBConstants.KEY.CTC_NUMBER).trim().isEmpty()) {
-            set(
-                    form,
-                    DBConstants.KEY.MOTHER_CTC_NUMBER,
-                    mother.get(DBConstants.KEY.CTC_NUMBER),
-                    true);
-        }
+        String motherCtc = mother.get(DBConstants.KEY.CTC_NUMBER);
+        set(
+                form,
+                DBConstants.KEY.MOTHER_CTC_NUMBER,
+                motherCtc == null ? "" : motherCtc.trim(),
+                true);
         set(form, DBConstants.KEY.PARTNER_NAME, name(partner), true);
         set(form, DBConstants.KEY.PARTNER_SEX, partner.get(DBConstants.KEY.GENDER), true);
         set(form, DBConstants.KEY.PARTNER_DOB, dateOfBirth(partner.get(DBConstants.KEY.DOB)), true);
@@ -127,7 +124,8 @@ public final class MotherMentorPartnerFormUtils {
         field.put("value", value == null ? "" : value);
         if (readOnly) {
             field.put("read_only", true);
-            field.put("editable", false);
+            // Native forms give editable precedence over read_only, even when it is false.
+            field.remove("editable");
         }
     }
 
