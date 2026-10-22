@@ -90,6 +90,16 @@ public final class MotherMentorHistoryMapper {
         for (String form : workflowForms(visit, recorded)) addForm(fields, ignored, form);
 
         List<Row> rows = new ArrayList<>();
+        Row comments = addFormRows(rows, fields, recorded);
+        addHistoricalRows(rows, fields, ignored, recorded);
+        if (comments != null) rows.add(comments);
+        return rows;
+    }
+
+    private Row addFormRows(
+            List<Row> rows,
+            Map<String, Field> fields,
+            Map<String, List<VisitDetail>> recorded) {
         Row comments = null;
         for (Field field : fields.values()) {
             List<String> values = values(field, recorded.get(field.key));
@@ -98,7 +108,14 @@ public final class MotherMentorHistoryMapper {
             if (DBConstants.KEY.COMMENTS.equals(field.key)) comments = row;
             else rows.add(row);
         }
+        return comments;
+    }
 
+    private void addHistoricalRows(
+            List<Row> rows,
+            Map<String, Field> fields,
+            Set<String> ignored,
+            Map<String, List<VisitDetail>> recorded) {
         // Historical fields outside the current form remain readable when an explicit history
         // label exists. Do not turn arbitrary internal observation IDs into user-facing headings.
         for (String key : new TreeSet<>(recorded.keySet())) {
@@ -109,8 +126,6 @@ public final class MotherMentorHistoryMapper {
             List<String> values = values(field, recorded.get(key));
             if (!values.isEmpty()) rows.add(new Row(key, label, values, false));
         }
-        if (comments != null) rows.add(comments);
-        return rows;
     }
 
     public static boolean isHouseholdVisit(Visit visit) {
@@ -305,40 +320,45 @@ public final class MotherMentorHistoryMapper {
         List<String> result = new ArrayList<>();
         for (VisitDetail detail : details) {
             if (detail == null) continue;
-            String raw = scalar(detail.getDetails());
-            String readable = scalar(detail.getHumanReadable());
             if (field.multiple) {
-                List<String> selections =
-                        selections(
-                                StringUtils.isNotBlank(raw)
-                                        ? detail.getDetails()
-                                        : detail.getHumanReadable());
-                List<String> savedLabels = selections(detail.getHumanReadable());
-                for (int i = 0; i < selections.size(); i++) {
-                    String selection = selections.get(i);
-                    String translated = field.option(selection);
-                    String saved = savedLabels.size() == selections.size() ? savedLabels.get(i) : "";
-                    if (translated == null) translated = field.option(saved);
-                    if (translated == null) {
-                        String legacy = resource(HISTORY_PREFIX + resourceName(selection));
-                        translated = legacy != null ? legacy : firstAnswer(saved, selection);
-                    }
-                    if (StringUtils.isNotBlank(translated)) result.add(translated);
-                }
-            } else if (!field.options.isEmpty()) {
-                String translated = field.option(raw);
-                if (translated == null) translated = field.option(readable);
-                if (translated == null) {
-                    String legacy = resource(HISTORY_PREFIX + resourceName(raw));
-                    translated = legacy != null ? legacy : firstAnswer(readable, raw);
-                }
-                if (StringUtils.isNotBlank(translated)) result.add(translated);
+                result.addAll(selectionValues(field, detail));
             } else {
-                String text = firstAnswer(detail.getDetails(), detail.getHumanReadable());
+                String text = singleValue(field, detail);
                 if (StringUtils.isNotBlank(text)) result.add(text);
             }
         }
         return field.multiple ? new ArrayList<>(new LinkedHashSet<>(result)) : result;
+    }
+
+    private List<String> selectionValues(Field field, VisitDetail detail) {
+        List<String> selections =
+                selections(
+                        StringUtils.isNotBlank(scalar(detail.getDetails()))
+                                ? detail.getDetails()
+                                : detail.getHumanReadable());
+        List<String> savedLabels = selections(detail.getHumanReadable());
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < selections.size(); i++) {
+            String saved = savedLabels.size() == selections.size() ? savedLabels.get(i) : "";
+            String translated = translatedValue(field, selections.get(i), saved);
+            if (StringUtils.isNotBlank(translated)) result.add(translated);
+        }
+        return result;
+    }
+
+    private String singleValue(Field field, VisitDetail detail) {
+        if (field.options.isEmpty()) {
+            return firstAnswer(detail.getDetails(), detail.getHumanReadable());
+        }
+        return translatedValue(field, scalar(detail.getDetails()), scalar(detail.getHumanReadable()));
+    }
+
+    private String translatedValue(Field field, String raw, String readable) {
+        String translated = field.option(raw);
+        if (translated == null) translated = field.option(readable);
+        if (translated != null) return translated;
+        String legacy = resource(HISTORY_PREFIX + resourceName(raw));
+        return legacy != null ? legacy : firstAnswer(readable, raw);
     }
 
     private String firstAnswer(String first, String second) {
@@ -362,25 +382,10 @@ public final class MotherMentorHistoryMapper {
 
     private List<String> selections(String value) {
         if (StringUtils.isBlank(value)) return Collections.emptyList();
-        List<String> result = new ArrayList<>();
         String trimmed = value.trim();
-        try {
-            JSONTokener tokens = new JSONTokener(trimmed);
-            Object parsed = tokens.nextValue();
-            if (parsed instanceof JSONArray && tokens.nextClean() == '\0') {
-                JSONArray array = (JSONArray) parsed;
-                for (int i = 0; i < array.length(); i++) {
-                    Object item = array.opt(i);
-                    if (item instanceof JSONArray) result.addAll(selections(item.toString()));
-                    else if (item != null && item != JSONObject.NULL && !item.toString().trim().isEmpty()) {
-                        result.add(item.toString().trim());
-                    }
-                }
-                return result;
-            }
-        } catch (Exception ignored) {
-            // Historical visits also store checkbox values as bracketed or plain CSV.
-        }
+        List<String> arrayValues = arraySelections(trimmed);
+        if (arrayValues != null) return arrayValues;
+        List<String> result = new ArrayList<>();
         Matcher groups = BRACKET_GROUP.matcher(trimmed);
         if (groups.find()
                 && groups.replaceAll("").replace(",", "").trim().isEmpty()) {
@@ -393,6 +398,27 @@ public final class MotherMentorHistoryMapper {
             if (!clean.isEmpty()) result.add(clean);
         }
         return result;
+    }
+
+    private List<String> arraySelections(String value) {
+        try {
+            JSONTokener tokens = new JSONTokener(value);
+            Object parsed = tokens.nextValue();
+            if (!(parsed instanceof JSONArray) || tokens.nextClean() != '\0') return null;
+            List<String> result = new ArrayList<>();
+            JSONArray array = (JSONArray) parsed;
+            for (int i = 0; i < array.length(); i++) {
+                Object item = array.opt(i);
+                if (item instanceof JSONArray) result.addAll(selections(item.toString()));
+                else if (item != null && item != JSONObject.NULL && !item.toString().trim().isEmpty()) {
+                    result.add(item.toString().trim());
+                }
+            }
+            return result;
+        } catch (Exception ignored) {
+            // Historical visits also store checkbox values as bracketed or plain CSV.
+            return null;
+        }
     }
 
     private String resource(String name) {
