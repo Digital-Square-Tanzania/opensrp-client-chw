@@ -1,11 +1,16 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +36,7 @@ import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.util.MotherMentorDailyVisitUtils;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
@@ -41,6 +47,7 @@ import timber.log.Timber;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
@@ -94,6 +101,56 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private TextView pregnancyWeekView;
     private TextView followUpRoleView;
     private LinearLayout iitProfileImageRow;
+    private final Handler visitAvailabilityHandler = new Handler(Looper.getMainLooper());
+    private final Runnable refreshVisitAvailability =
+            () -> {
+                if (memberObject != null && !isFinishing()) {
+                    setupButtons();
+                    scheduleVisitAvailabilityRefresh();
+                }
+            };
+    private final BroadcastReceiver visitDateChangedReceiver =
+            new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    refreshVisitAvailability.run();
+                }
+            };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter dateChanges = new IntentFilter(Intent.ACTION_DATE_CHANGED);
+        dateChanges.addAction(Intent.ACTION_TIME_CHANGED);
+        dateChanges.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        registerReceiver(visitDateChangedReceiver, dateChanges);
+        refreshVisitAvailability.run();
+    }
+
+    @Override
+    protected void onPause() {
+        visitAvailabilityHandler.removeCallbacks(refreshVisitAvailability);
+        unregisterReceiver(visitDateChangedReceiver);
+        super.onPause();
+    }
+
+    private void scheduleVisitAvailabilityRefresh() {
+        visitAvailabilityHandler.removeCallbacks(refreshVisitAvailability);
+        Date now = getVisitAvailabilityDate();
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.setTime(now);
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+        tomorrow.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrow.set(Calendar.MINUTE, 0);
+        tomorrow.set(Calendar.SECOND, 0);
+        tomorrow.set(Calendar.MILLISECOND, 0);
+        visitAvailabilityHandler.postDelayed(
+                refreshVisitAvailability, tomorrow.getTimeInMillis() - now.getTime());
+    }
+
+    Date getVisitAvailabilityDate() {
+        return new Date();
+    }
 
     public static void startMe(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MotherMentorProfileActivity.class);
@@ -715,6 +772,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         super.setupButtons();
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
+            boolean canStartVisit = isFollowUpProfile() || !hasCompletedServiceVisitToday();
+            textViewRecordMotherMentor.setEnabled(canStartVisit);
+            textViewRecordMotherMentor.setAlpha(canStartVisit ? 1f : 0.5f);
             if (isFollowUpProfile()) {
                 textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
             } else if (memberObject != null
@@ -728,6 +788,15 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         }
         enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
+    }
+
+    private boolean hasCompletedServiceVisitToday() {
+        return memberObject != null
+                && MotherMentorDailyVisitUtils.hasCompletedServiceVisitToday(
+                        VisitUtils.getVisitsOnly(
+                                memberObject.getBaseEntityId(),
+                                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES),
+                        getVisitAvailabilityDate());
     }
 
     boolean isFollowUpProfile() {
@@ -940,6 +1009,15 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                     this, memberObject.getBaseEntityId(), false, getFollowUpType());
         } else {
+            // Re-read persisted visits so a stale profile cannot start a second visit today.
+            if (hasCompletedServiceVisitToday()) {
+                setupButtons();
+                return;
+            }
+            if (isVisitOnProgress(getServiceVisit())) {
+                continueService();
+                return;
+            }
             MotherMentorVisitActivity.startMotherMentorVisitActivity(
                     this, memberObject.getBaseEntityId(), false);
         }
