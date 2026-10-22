@@ -54,8 +54,6 @@ public final class MotherMentorPartnerFormUtils {
             throws JSONException {
         for (String key :
                 new String[] {
-                    DBConstants.KEY.RELATIONSHIP_TO_MOTHER,
-                    DBConstants.KEY.OTHER_RELATIONSHIP,
                     DBConstants.KEY.HIV_DISCLOSURE,
                     DBConstants.KEY.HIV_TESTED,
                     DBConstants.KEY.TEST_RESULT,

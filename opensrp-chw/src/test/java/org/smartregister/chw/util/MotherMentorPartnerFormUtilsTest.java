@@ -43,7 +43,7 @@ public class MotherMentorPartnerFormUtilsTest {
             Map<String, String> partner = person("partner", "partner-family", "Juma");
             partner.put("gender", "Male"); partner.put("dob", "1990-01-01"); partner.put("phone_number", "0700000000");
             Map<String, String> previous = new HashMap<>();
-            previous.put("relationship_to_mother", "husband_or_partner"); previous.put("hiv_tested", "no");
+            previous.put("hiv_tested", "no");
             MotherMentorPartnerFormUtils.prepare(form, mother, partner, previous);
             assertEquals("partner", form.getString("entity_id"));
             assertEquals("partner-family", value(form, "relational_id"));
@@ -54,7 +54,6 @@ public class MotherMentorPartnerFormUtilsTest {
             assertEquals("Male", value(form, "partner_sex"));
             assertEquals("1990-01-01", value(form, "partner_dob"));
             assertEquals("0700000000", value(form, "partner_phone_number"));
-            assertEquals("husband_or_partner", value(form, "relationship_to_mother"));
             assertEquals("no", value(form, "hiv_tested"));
             assertTrue(field(form, "mother_name").getBoolean("read_only"));
             assertTrue(field(form, "partner_name").getBoolean("read_only"));
@@ -67,6 +66,61 @@ public class MotherMentorPartnerFormUtilsTest {
             assertEquals("yes", value(form, "hiv_tested"));
         }
     }
+    @Test
+    public void legacyRelationshipAnswersDoNotPreventPreparingThreeStepForms() throws Exception {
+        for (String locale : new String[] {"json.form", "json.form-sw"}) {
+            JSONObject form = formWithoutRelationshipSection(locale);
+            Map<String, String> mother = person("mother", "mother-family", "Asha");
+            Map<String, String> partner = person("partner", "partner-family", "Juma");
+            partner.put("gender", "Male");
+            partner.put("dob", "1990-01-01");
+            Map<String, String> previous = new HashMap<>();
+            previous.put("relationship_to_mother", "other");
+            previous.put("other_relationship", "Legacy answer");
+            previous.put("hiv_disclosure", "yes");
+            previous.put("hiv_tested", "yes");
+            previous.put("test_result", "positive");
+            previous.put("on_ctc", "yes");
+            previous.put("partner_ctc", "12-34-5678-123456");
+
+            MotherMentorPartnerFormUtils.prepare(form, mother, partner, previous);
+
+            assertEquals(3, form.getInt("count"));
+            assertEquals("partner", form.getString("entity_id"));
+            assertEquals("mother", value(form, "mother_base_entity_id"));
+            assertEquals("partner-family", value(form, "relational_id"));
+            assertEquals("Asha Mtemi", value(form, "mother_name"));
+            assertEquals("Juma Mtemi", value(form, "partner_name"));
+            for (String key :
+                    new String[] {
+                        "hiv_disclosure", "hiv_tested", "test_result", "on_ctc", "partner_ctc"
+                    }) {
+                assertEquals(previous.get(key), value(form, key));
+            }
+            assertFalse(form.toString().contains("relationship_to_mother"));
+            assertFalse(form.toString().contains("other_relationship"));
+            // Ignoring obsolete answers does not modify the stored legacy record.
+            assertEquals("other", previous.get("relationship_to_mother"));
+            assertEquals("Legacy answer", previous.get("other_relationship"));
+        }
+    }
+
+    @Test(expected = org.json.JSONException.class)
+    public void missingRequiredMotherIdentityFieldStillFails() throws Exception {
+        JSONObject form = formWithoutRelationshipSection("json.form");
+        JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
+        for (int i = fields.length() - 1; i >= 0; i--) {
+            if ("mother_base_entity_id".equals(fields.getJSONObject(i).optString("key"))) {
+                fields.remove(i);
+            }
+        }
+        MotherMentorPartnerFormUtils.prepare(
+                form,
+                person("mother", "mother-family", "Asha"),
+                person("partner", "partner-family", "Juma"),
+                new HashMap<>());
+    }
+
     @Test public void missingMotherCtcAllowsEntryAndDoesNotEraseItOnSave() throws Exception {
         JSONObject form = form("json.form");
         Map<String, String> mother = person("mother", "family", "Asha");
@@ -98,9 +152,20 @@ public class MotherMentorPartnerFormUtilsTest {
     private JSONObject form(String locale) throws Exception {
         return MotherMentorTestAssets.form(locale, "mothermentor_enroll_partner.json");
     }
+    private JSONObject formWithoutRelationshipSection(String locale) throws Exception {
+        JSONObject form = form(locale);
+        if (form.getInt("count") == 4) {
+            // Exercise compatibility before the new three-step library form is published.
+            form.put("step2", form.remove("step3"));
+            form.put("step3", form.remove("step4"));
+            form.getJSONObject("step2").put("next", "step3");
+            form.put("count", "3");
+        }
+        return form;
+    }
     private String value(JSONObject form, String key) throws Exception { return field(form, key).getString("value"); }
     private JSONObject field(JSONObject form, String key) throws Exception {
-        for (int step = 1; step <= 4; step++) {
+        for (int step = 1; step <= form.getInt("count"); step++) {
             JSONArray fields = form.getJSONObject("step" + step).getJSONArray("fields");
             for (int i = 0; i < fields.length(); i++) if (key.equals(fields.getJSONObject(i).optString("key"))) return fields.getJSONObject(i);
         }
