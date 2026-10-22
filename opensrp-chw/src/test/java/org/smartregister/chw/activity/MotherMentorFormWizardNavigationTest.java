@@ -39,14 +39,16 @@ public class MotherMentorFormWizardNavigationTest extends BaseUnitTest {
         String originalLanguage = LangUtils.getLanguage(context);
         try {
             for (String language : new String[] {"en", "sw"}) {
-                checkEnrollmentNavigation(context, language);
+                JSONObject answers = checkEnrollmentNavigation(context, language);
+                assertEquals(CTC_NUMBER, value(answers, "step1", "ctc_number"));
+                assertEquals("no", value(answers, "step2", "art_status"));
             }
         } finally {
             LangUtils.saveLanguage(context, originalLanguage);
         }
     }
 
-    private void checkEnrollmentNavigation(Context context, String language) throws Exception {
+    private JSONObject checkEnrollmentNavigation(Context context, String language) throws Exception {
         LangUtils.saveLanguage(context, language);
         Context localized = LangUtils.setAppLocale(context, language);
         JSONObject form =
@@ -90,10 +92,8 @@ public class MotherMentorFormWizardNavigationTest extends BaseUnitTest {
             assertEquals("step2", fragment(activity).getArguments().getString("stepName"));
             assertTrue(widget(fragment(activity).getView(), "art_status", "no", RadioButton.class).isChecked());
 
-            JSONObject serialized = new JSONObject(activity.currentJsonState());
-            assertEquals(CTC_NUMBER, value(serialized, "step1", "ctc_number"));
-            assertEquals("no", value(serialized, "step2", "art_status"));
             assertFalse(activity.isFinishing());
+            return new JSONObject(activity.currentJsonState());
         } finally {
             controller.pause().stop().destroy();
         }

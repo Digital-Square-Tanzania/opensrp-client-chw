@@ -397,10 +397,14 @@ public class MotherMentorFormWizardLaunchTest {
         }
 
         @Override
-        public void showProgressDialog(int title) {}
+        public void showProgressDialog(int title) {
+            // Selection executors run synchronously; no progress window is needed.
+        }
 
         @Override
-        public void hideProgressDialog() {}
+        public void hideProgressDialog() {
+            // No progress window is created by this capturing activity.
+        }
     }
 
     public static class CapturingChildActivity extends MotherMentorChildEidRegisterActivity {
@@ -412,10 +416,14 @@ public class MotherMentorFormWizardLaunchTest {
         }
 
         @Override
-        public void showProgressDialog(int title) {}
+        public void showProgressDialog(int title) {
+            // Selection executors run synchronously; no progress window is needed.
+        }
 
         @Override
-        public void hideProgressDialog() {}
+        public void hideProgressDialog() {
+            // No progress window is created by this capturing activity.
+        }
     }
 
     public static class CapturingProfileActivity extends MotherMentorProfileActivity {
