@@ -1,7 +1,5 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPartForm;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -36,6 +34,7 @@ import org.smartregister.chw.fragment.MotherMentorSecondaryEnrollmentsFragment;
 import org.smartregister.chw.mothermentor.repository.MotherMentorReportingRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.JsonFormUtils;
@@ -146,15 +145,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
 
     @Override
     public Form getFormConfig() {
-        Form form = new Form();
-        form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
-        form.setWizard(true);
+        Form form = MotherMentorFormWizardUtils.getFormConfig(this);
         form.setName(getString(R.string.mother_mentor_registration));
-        form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
-        form.setNextLabel(this.getResources().getString(org.smartregister.chw.core.R.string.next));
-        form.setPreviousLabel(
-                this.getResources().getString(org.smartregister.chw.core.R.string.back));
-        form.setSaveLabel(this.getResources().getString(org.smartregister.chw.core.R.string.save));
         return form;
     }
 
@@ -243,11 +235,6 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             displayToast(getString(R.string.mothermentor_child_eid_enrollment_unavailable));
             return;
         }
-        Form form = new Form();
-        form.setWizard(false);
-
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-
         String gender =
                 getIntent()
                         .getStringExtra(
@@ -271,34 +258,14 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             Timber.e(e);
         }
 
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-        intent.putExtra(
-                org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-        form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
-        form.setWizard(true);
-        form.setHomeAsUpIndicator(org.smartregister.chw.core.R.mipmap.ic_cross_white);
-        form.setSaveLabel(getResources().getString(org.smartregister.chw.core.R.string.save));
-
-        if (isMultiPartForm(jsonForm)) {
-            form.setWizard(true);
-            form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
-            form.setName(null);
-            form.setNextLabel(getResources().getString(org.smartregister.chw.core.R.string.next));
-            form.setPreviousLabel(
-                    getResources().getString(org.smartregister.chw.core.R.string.back));
-        }
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
+        Intent intent = MotherMentorFormWizardUtils.getFormIntent(this, jsonForm);
         Form formConfig = getFormConfig();
-        if (formConfig != null) {
-            if (Constants.EVENT_TYPE.MOTHER_MENTOR_MOBILIZATION.equals(
-                    jsonForm.optString(Constants.ENCOUNTER_TYPE))) {
-                // Let the community activity form supply its localized toolbar title.
-                formConfig.setName(null);
-            }
-            intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, formConfig);
+        if (Constants.EVENT_TYPE.MOTHER_MENTOR_MOBILIZATION.equals(
+                jsonForm.optString(Constants.ENCOUNTER_TYPE))) {
+            // Let the community activity form supply its localized toolbar title.
+            formConfig.setName(null);
         }
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, formConfig);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
