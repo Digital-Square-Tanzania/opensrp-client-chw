@@ -29,6 +29,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.adapter.NavigationAdapter;
 import org.smartregister.chw.core.model.NavigationOption;
@@ -89,6 +90,48 @@ public class GroupedNavigationMenuTest {
         ReflectionHelpers.setStaticField(Context.class, "context", originalContext);
         if (controller != null) {
             controller.pause().stop().destroy();
+        }
+    }
+
+    @Test
+    public void buildFlagControlsAvailableDrawerEntries() {
+        for (String role : Arrays.asList("icchw", "iccm_provider", "cbhs_provider",
+                "mother_champion", "rmncah_provider", "AYP_OUT_OF_SCHOOL", "")) {
+            List<NavigationOption> options = optionsForRole(role);
+            List<String> originalOrder = menuTitles(options);
+            NavigationAdapter adapter = adapterFor(options);
+
+            if (BuildConfig.ENABLE_COLLAPSIBLE_NAVIGATION) {
+                List<String> collapsedRows = new ArrayList<>();
+                for (String primary : Arrays.asList(CoreConstants.DrawerMenu.ALL_CLIENTS,
+                        CoreConstants.DrawerMenu.ALL_FAMILIES, CoreConstants.DrawerMenu.HPS)) {
+                    if (originalOrder.contains(primary)) {
+                        collapsedRows.add(primary);
+                    }
+                }
+                collapsedRows.add(null);
+                assertEquals(collapsedRows, visibleTags(adapter));
+                toggleOtherModules(adapter);
+                assertExpandedContainsExactly(adapter, originalOrder);
+            } else {
+                assertEquals(originalOrder, visibleTags(adapter));
+                assertFalse(visibleTags(adapter).contains(null));
+            }
+
+            NavigationOption selected = options.get(options.size() - 1);
+            selected.setRegisterCount(17);
+            adapter.notifyDataSetChanged();
+            adapter.setSelectedView(selected.getMenuTitle());
+            int selectedPosition = visibleTags(adapter).indexOf(selected.getMenuTitle());
+            NavigationAdapter.MyViewHolder selectedRow = bind(adapter, selectedPosition);
+            assertEquals("17", selectedRow.tvCount.getText().toString());
+            assertEquals(activity.getResources().getColor(
+                            org.smartregister.chw.core.R.color.navigation_item_selected),
+                    selectedRow.tvName.getCurrentTextColor());
+            assertEquals(originalOrder, menuTitles(options));
+            if (!BuildConfig.ENABLE_COLLAPSIBLE_NAVIGATION) {
+                assertEquals(originalOrder, visibleTags(adapter));
+            }
         }
     }
 

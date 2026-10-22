@@ -278,6 +278,8 @@ android {
             // NOTE: the chw-referral library reads its OWN BuildConfig field of the same name;
             // this one only controls NacpReferralRegisterProvider / ReferralRegisterFragment.
             buildConfigField "boolean", "ENABLE_REFERRAL_FOLLOWUP", "true"
+            // Set false to show the original flat register menu without Other Modules.
+            buildConfigField "boolean", "ENABLE_COLLAPSIBLE_NAVIGATION", "true"
         }
     }
 
