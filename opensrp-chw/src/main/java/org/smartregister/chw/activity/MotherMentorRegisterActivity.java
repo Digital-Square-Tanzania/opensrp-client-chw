@@ -290,8 +290,14 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         }
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
-        if (getFormConfig() != null) {
-            intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, getFormConfig());
+        Form formConfig = getFormConfig();
+        if (formConfig != null) {
+            if (Constants.EVENT_TYPE.MOTHER_MENTOR_MOBILIZATION.equals(
+                    jsonForm.optString(Constants.ENCOUNTER_TYPE))) {
+                // Let the community activity form supply its localized toolbar title.
+                formConfig.setName(null);
+            }
+            intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, formConfig);
         }
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
