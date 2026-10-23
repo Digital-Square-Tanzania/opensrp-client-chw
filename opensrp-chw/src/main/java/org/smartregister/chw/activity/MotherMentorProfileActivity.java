@@ -24,10 +24,13 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
@@ -48,10 +51,12 @@ import timber.log.Timber;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -426,6 +431,82 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             return "";
         }
         return cursor.getString(columnIndex);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        super.initializeFloatingMenu();
+        if (baseMotherMentorFloatingMenu != null) {
+            baseMotherMentorFloatingMenu.setReferralClickListener(
+                    !getReferralTypeModels().isEmpty()
+                            ? view -> openClientReferrals()
+                            : null);
+        }
+    }
+
+    private void openClientReferrals() {
+        if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())) {
+            return;
+        }
+        List<ReferralTypeModel> referralTypes = getReferralTypeModels();
+        if (referralTypes.isEmpty()) {
+            return;
+        }
+        org.smartregister.chw.util.Utils.launchClientReferralActivity(
+                this, referralTypes, memberObject.getBaseEntityId());
+    }
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        List<ReferralTypeModel> referralTypes = new ArrayList<>();
+        if (!ChwApplication.getApplicationFlavor().hasReferrals()) {
+            return referralTypes;
+        }
+        if (isFollowUpProfile() && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+            referralTypes.add(
+                    new ReferralTypeModel(
+                            getString(R.string.sick_child),
+                            BuildConfig.USE_UNIFIED_REFERRAL_APPROACH
+                                    ? CoreConstants.JSON_FORM.getChildUnifiedReferralForm()
+                                    : CoreConstants.JSON_FORM.getChildReferralForm(),
+                            CoreConstants.TASKS_FOCUS.SICK_CHILD));
+            if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+                referralTypes.add(
+                        new ReferralTypeModel(
+                                getString(R.string.child_gbv_referral),
+                                CoreConstants.JSON_FORM.getChildGbvReferralForm(),
+                                CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
+            }
+        } else if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH
+                && isFollowUpProfile()
+                && getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+            referralTypes.add(
+                    new ReferralTypeModel(
+                            getString(R.string.hiv_referral),
+                            CoreConstants.JSON_FORM.getHivReferralForm(),
+                            CoreConstants.TASKS_FOCUS.SICK_HIV));
+            referralTypes.add(
+                    new ReferralTypeModel(
+                            getString(R.string.hts_referral),
+                            CoreConstants.JSON_FORM.getHtsReferralForm(),
+                            CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
+            referralTypes.add(
+                    new ReferralTypeModel(
+                            getString(R.string.tb_leprosy_referral),
+                            CoreConstants.JSON_FORM.getTbLeprosyReferralForm(),
+                            CoreConstants.TASKS_FOCUS.TBLEPROSY));
+            referralTypes.add(
+                    new ReferralTypeModel(
+                            getString(R.string.gbv_referral),
+                            CoreConstants.JSON_FORM.getGbvReferralForm(),
+                            CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+        } else if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypes.add(
+                    new ReferralTypeModel(
+                            getString(R.string.pmtct_referral),
+                            CoreConstants.JSON_FORM.getPmtctReferralForm(),
+                            CoreConstants.TASKS_FOCUS.PMTCT));
+        }
+        return referralTypes;
     }
 
     @Override
