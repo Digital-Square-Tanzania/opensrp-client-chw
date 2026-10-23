@@ -17,60 +17,22 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
-import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
-
-import timber.log.Timber;
+import org.smartregister.chw.util.MotherMentorHistoryMapper;
+import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
-    private static final String[] VISIT_PARAMS = {
-        "step1:" + DBConstants.KEY.PURPOSE_OF_VISIT,
-        "step1:" + DBConstants.KEY.PARTICIPANTS,
-        "step1:" + DBConstants.KEY.TOPICS_TAUGHT,
-        "step1:" + DBConstants.KEY.COMMENTS,
-        DBConstants.KEY.PURPOSE_OF_VISIT,
-        DBConstants.KEY.PARTICIPANTS,
-        DBConstants.KEY.TOPICS_TAUGHT,
-        DBConstants.KEY.COMMENTS,
-        DBConstants.KEY.ATTENDANCE_TYPE,
-        DBConstants.KEY.FOLLOW_UP_STATUS,
-        DBConstants.KEY.SERVICE_INTERRUPTION_REASON,
-        DBConstants.KEY.SERVICE_INTERRUPTION_REASON_OTHER,
-        DBConstants.KEY.EXPECTED_FACILITY_VISIT_DATE,
-        DBConstants.KEY.RETURNED_TO_FACILITY,
-        DBConstants.KEY.FACILITY_RETURN_DATE,
-        DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON,
-        DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON_OTHER,
-        DBConstants.KEY.PARTNER_EXPECTED_FACILITY_VISIT_DATE,
-        DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY,
-        DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE,
-        DBConstants.KEY.CHILD_EID_TEST_TYPE,
-        DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
-        DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON_OTHER,
-        DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE,
-        DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY,
-        DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE,
-        DBConstants.KEY.HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP,
-        DBConstants.KEY.HAS_BEEN_LINKED_TO_IGA_GROUP,
-        DBConstants.KEY.EDUCATION_PROVIDED,
-        DBConstants.KEY.WAY_EDUCATION_PROVIDED,
-        DBConstants.KEY.TOPICS_BEING_PROVIDED,
-        DBConstants.KEY.REFERRAL_GIVEN,
-        DBConstants.KEY.TYPE_OF_REFERRAL_GIVEN,
-        DBConstants.KEY.NEXT_APPOINTMENT_DATE
-    };
-
     private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
     private final MotherMentorFollowUpType followUpType;
 
@@ -88,54 +50,34 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     }
 
     @Override
-    protected void processHealthFacilityVisit(List<Map<String, String>> hfVisits, Context context) {
+    protected void processHealthFacilityVisit(
+            List<Map<String, String>> hfVisits, Context context) {
         // Mother Mentor history is rendered from the visit action details below.
     }
 
     @Override
     public void processViewData(List<Visit> visits, Context context) {
-        if (visits.isEmpty()) {
-            return;
+        if (visits == null || visits.isEmpty()) return;
+
+        int days = Days.daysBetween(
+                new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
+        MotherMentorHistoryMapper mapper = new MotherMentorHistoryMapper(context);
+        List<List<Row>> visitDetails = new ArrayList<>();
+        for (int i = 0; i < visits.size(); i++) {
+            Visit visit = visits.get(i);
+            List<Row> rows = new ArrayList<>(mapper.map(visit));
+            rows.add(new Row(DBConstants.KEY.VISIT_NUMBER,
+                    context.getString(R.string.mothermentor_history_visit_number),
+                    Collections.singletonList(String.valueOf(i + 1)), false));
+            rows.add(new Row("visit_completion_state",
+                    context.getString(R.string.mothermentor_history_visit_completion_state),
+                    Collections.singletonList(context.getString(Boolean.TRUE.equals(visit.getProcessed())
+                            ? R.string.mothermentor_history_completed
+                            : R.string.mothermentor_history_saved)), false));
+            visitDetails.add(rows);
         }
-
-        int days =
-                Days.daysBetween(
-                                new DateTime(visits.get(visits.size() - 1).getDate()),
-                                new DateTime())
-                        .getDays();
-        List<LinkedHashMap<String, String>> visitDetails = new ArrayList<>();
-
-        int x = 0;
-        while (x < visits.size()) {
-            LinkedHashMap<String, String> detailsMap = new LinkedHashMap<>();
-            extractVisitDetails(visits, VISIT_PARAMS, detailsMap, x, context);
-            detailsMap.put(DBConstants.KEY.VISIT_NUMBER, String.valueOf(x + 1));
-            detailsMap.put(
-                    "visit_completion_state",
-                    Boolean.TRUE.equals(visits.get(x).getProcessed()) ? "completed" : "saved");
-            visitDetails.add(detailsMap);
-            x++;
-        }
-
         processLastVisit(days, context);
         processVisit(visitDetails, context, visits);
-    }
-
-    private void extractVisitDetails(
-            List<Visit> sourceVisits,
-            String[] params,
-            LinkedHashMap<String, String> visitDetailsMap,
-            int iteration,
-            Context context) {
-        for (String param : params) {
-            try {
-                List<VisitDetail> details =
-                        sourceVisits.get(iteration).getVisitDetails().get(param);
-                visitDetailsMap.put(param, getTexts(context, details));
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        }
     }
 
     private void processLastVisit(int days, Context context) {
@@ -144,195 +86,91 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             customFontTextViewLastVisit.setText(
                     org.smartregister.chw.core.R.string.less_than_twenty_four);
         } else {
-            customFontTextViewLastVisit.setText(
-                    StringUtils.capitalize(
-                            MessageFormat.format(
-                                    context.getString(org.smartregister.chw.core.R.string.days_ago),
-                                    String.valueOf(days))));
+            customFontTextViewLastVisit.setText(StringUtils.capitalize(MessageFormat.format(
+                    context.getString(org.smartregister.chw.core.R.string.days_ago),
+                    String.valueOf(days))));
         }
     }
 
-    protected void processVisit(
-            List<LinkedHashMap<String, String>> motherMentorVisits,
-            Context context,
-            List<Visit> visits) {
-        final SimpleDateFormat simpleDateFormat =
+    protected void processVisit(List<List<Row>> history, Context context, List<Visit> visits) {
+        if (history == null || history.isEmpty()) return;
+        SimpleDateFormat dateFormat =
                 new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
-        if (motherMentorVisits == null || motherMentorVisits.isEmpty()) {
-            return;
-        }
-
         linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
-        int x = 0;
-        for (LinkedHashMap<String, String> vals : motherMentorVisits) {
+        for (int i = 0; i < history.size(); i++) {
+            List<Row> rows = history.get(i);
+            Visit visit = visits.get(i);
             View view = inflater.inflate(R.layout.medical_history_visit, null);
             view.findViewById(R.id.title).setVisibility(View.GONE);
-            TextView tvTypeOfService = view.findViewById(R.id.type_of_service);
-            LinearLayout visitDetailsLayout = view.findViewById(R.id.visit_details_layout);
-            TextView tvEdit = view.findViewById(R.id.textview_edit);
-
-            Visit visit = visits.get(x);
-            boolean legacyFollowUp =
-                    followUpType != null
-                            && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(
-                                    visit.getVisitType());
-            if (x == visits.size() - 1 && !legacyFollowUp) {
-                tvEdit.setVisibility(View.VISIBLE);
-            } else {
-                tvEdit.setVisibility(View.GONE);
-            }
-
-            tvEdit.setOnClickListener(
-                    view1 -> {
-                        if (visit.getBaseEntityId() != null) {
-                            ((Activity) context).finish();
-                            if (StringUtils.isNotBlank(
-                                    vals.get(DBConstants.KEY.FOLLOW_UP_STATUS))) {
-                                MotherMentorFollowUpType editType =
-                                        MotherMentorFollowUpType.PARTNER
-                                                        .getEventType()
-                                                        .equals(visit.getVisitType())
-                                                ? MotherMentorFollowUpType.PARTNER
-                                                : MotherMentorFollowUpType.CHILD_EID
-                                                                .getEventType()
-                                                                .equals(visit.getVisitType())
-                                                        ? MotherMentorFollowUpType.CHILD_EID
-                                                        : followUpType == null
-                                                                ? MotherMentorFollowUpType
-                                                                        .MOTHER_IIT
-                                                                : followUpType;
-                                MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
-                                        (Activity) context,
-                                        visit.getBaseEntityId(),
-                                        true,
-                                        editType);
-                            } else {
-                                MotherMentorVisitActivity.startMotherMentorVisitActivity(
-                                        (Activity) context, visit.getBaseEntityId(), true);
-                            }
-                        }
-                    });
-
-            String visitType = getVisitType(context, visits.get(x).getVisitType());
-            tvTypeOfService.setText(
-                    String.format(
-                            "%s - %s",
-                            visitType, simpleDateFormat.format(visits.get(x).getDate())));
-
-            for (LinkedHashMap.Entry<String, String> entry : vals.entrySet()) {
-                TextView visitDetailTv = new TextView(context);
-                LinearLayout.LayoutParams params =
-                        new LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT);
-                visitDetailTv.setLayoutParams(params);
-                float scale = context.getResources().getDisplayMetrics().density;
-                int dpAsPixels = (int) (10 * scale + 0.5f);
-                visitDetailTv.setPadding(dpAsPixels, 0, 0, 0);
-                visitDetailsLayout.addView(visitDetailTv);
-
-                int titleResource =
-                        context.getResources()
-                                .getIdentifier(
-                                        "mothermentor_history_"
-                                                + normalizeHistoryKey(entry.getKey()),
-                                        "string",
-                                        context.getPackageName());
-                evaluateView(context, vals, visitDetailTv, entry.getKey(), titleResource);
+            TextView service = view.findViewById(R.id.type_of_service);
+            LinearLayout details = view.findViewById(R.id.visit_details_layout);
+            TextView edit = view.findViewById(R.id.textview_edit);
+            boolean legacyFollowUp = followUpType != null
+                    && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType());
+            edit.setVisibility(
+                    i == visits.size() - 1 && !legacyFollowUp ? View.VISIBLE : View.GONE);
+            edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
+            service.setText(String.format("%s - %s", getVisitType(context, visit.getVisitType()),
+                    dateFormat.format(visit.getDate())));
+            for (Row row : rows) {
+                if (row.getValues().isEmpty()) continue;
+                TextView text = new TextView(context);
+                text.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                int padding = (int) (10 * context.getResources().getDisplayMetrics().density + 0.5f);
+                text.setPadding(padding, 0, 0, 0);
+                text.setTag(row.getKey());
+                SpannableStringBuilder content = new SpannableStringBuilder();
+                content.append(row.getLabel(), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        .append("\n");
+                for (String value : row.getValues()) {
+                    if (row.isMultiValue()) {
+                        content.append(value + "\n", new BulletSpan(10),
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    } else {
+                        content.append(value).append("\n");
+                    }
+                }
+                text.setText(content);
+                details.addView(text);
             }
             linearLayoutHealthFacilityVisitDetails.addView(view, 0);
-            x++;
         }
+    }
+
+    private void editVisit(Activity activity, Visit visit) {
+        if (StringUtils.isBlank(visit.getBaseEntityId())) return;
+        activity.finish();
+        if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
+            MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
+                    activity, visit.getBaseEntityId(), true);
+        } else if (isFollowUpVisit(visit.getVisitType())) {
+            MotherMentorFollowUpType type = MotherMentorFollowUpType.MOTHER_IIT;
+            for (MotherMentorFollowUpType candidate : MotherMentorFollowUpType.values()) {
+                if (candidate.getEventType().equals(visit.getVisitType())) type = candidate;
+            }
+            MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
+                    activity, visit.getBaseEntityId(), true, type);
+        } else {
+            MotherMentorVisitActivity.startMotherMentorVisitActivity(
+                    activity, visit.getBaseEntityId(), true);
+        }
+    }
+
+    private boolean isFollowUpVisit(String eventType) {
+        for (MotherMentorFollowUpType type : MotherMentorFollowUpType.values()) {
+            if (type.getEventType().equals(eventType)) return true;
+        }
+        return false;
     }
 
     private String getVisitType(Context context, String visitType) {
         if (Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visitType)
                 || Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT.equals(visitType)
-                || Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT.equals(visitType)
-                || MotherMentorFollowUpType.PARTNER.getEventType().equals(visitType)
-                || MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visitType)) {
+                || isFollowUpVisit(visitType)) {
             return context.getString(R.string.mothermentor_visit_history_title);
         }
         return visitType;
-    }
-
-    private void evaluateView(
-            Context context,
-            Map<String, String> vals,
-            TextView tv,
-            String valueKey,
-            int viewTitleStringResource) {
-        if (StringUtils.isBlank(getMapValue(vals, valueKey))) {
-            tv.setVisibility(View.GONE);
-            return;
-        }
-
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
-        spannableStringBuilder
-                .append(
-                        getStringResource(context, viewTitleStringResource, valueKey),
-                        boldSpan,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                .append("\n");
-
-        String[] values = getMapValue(vals, valueKey).split(",");
-        if (values.length > 1) {
-            for (String value : values) {
-                spannableStringBuilder.append(
-                        getStringResource(context, value.trim()) + "\n",
-                        new BulletSpan(10),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-        } else {
-            spannableStringBuilder
-                    .append(getStringResource(context, getMapValue(vals, valueKey)))
-                    .append("\n");
-        }
-        tv.setText(spannableStringBuilder);
-    }
-
-    private String getMapValue(Map<String, String> map, String key) {
-        if (map.containsKey(key)) {
-            return map.get(key);
-        }
-        return "";
-    }
-
-    private String getStringResource(Context context, int resourceId, String fallbackKey) {
-        try {
-            return context.getString(resourceId);
-        } catch (Exception e) {
-            Timber.e(e);
-            return fallbackKey.replace("_", " ");
-        }
-    }
-
-    private String getStringResource(Context context, String rawValue) {
-        String value = rawValue.trim();
-        int resourceId =
-                context.getResources()
-                        .getIdentifier(
-                                "mothermentor_history_" + normalizeResourceName(value),
-                                "string",
-                                context.getPackageName());
-        try {
-            return context.getString(resourceId);
-        } catch (Exception e) {
-            Timber.e(e);
-            return value;
-        }
-    }
-
-    private String normalizeHistoryKey(String key) {
-        if (key == null) {
-            return "";
-        }
-        return key.replace("step1:", "");
-    }
-
-    private String normalizeResourceName(String value) {
-        return value.toLowerCase(Locale.getDefault())
-                .replaceAll("[^a-z0-9]+", "_")
-                .replaceAll("^_+|_+$", "");
     }
 }
