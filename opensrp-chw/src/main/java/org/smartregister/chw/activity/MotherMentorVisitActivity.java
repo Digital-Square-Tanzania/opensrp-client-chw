@@ -5,16 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.R;
 import org.smartregister.chw.mothermentor.interactor.ChildEidFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.MotherMentorFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
@@ -27,6 +23,7 @@ import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
+import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
@@ -210,19 +207,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
-        form.setHomeAsUpIndicator(org.smartregister.chw.core.R.mipmap.ic_cross_white);
-        form.setSaveLabel(getString(org.smartregister.chw.core.R.string.save));
-
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(
-                org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        Intent intent = MotherMentorFormWizardUtils.getFormIntent(this, jsonForm);
         intent.putExtra(
                 org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog,
                 false);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 

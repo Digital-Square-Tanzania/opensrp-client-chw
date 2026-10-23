@@ -26,7 +26,6 @@ import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
@@ -35,6 +34,7 @@ import org.smartregister.chw.presenter.MotherMentorChildEidRegisterPresenter;
 import org.smartregister.chw.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.repository.MotherMentorChildEidRepository.Person;
 import org.smartregister.chw.util.MotherMentorChildEidFormUtils;
+import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.JsonFormUtils;
@@ -216,9 +216,13 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
                                                     hideProgressDialog();
                                                     if (isFinishing() || isDestroyed()) return;
                                                     childId = id;
-                                                    startActivityForResult(
+                                                    Intent intent =
                                                             Utils.formActivityIntent(
-                                                                    this, form.toString()),
+                                                                    this, form.toString());
+                                                    startActivityForResult(
+                                                            MotherMentorFormWizardUtils
+                                                                    .configureIntent(
+                                                                            this, intent),
                                                             JsonFormUtils.REQUEST_CODE_GET_JSON);
                                                 });
                             } catch (Exception e) {
@@ -358,11 +362,7 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
             fail(e, org.smartregister.chw.core.R.string.error_unable_to_start_form);
             return;
         }
-        Intent intent =
-                CoreJsonFormUtils.getJsonIntent(
-                        this,
-                        form,
-                        org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
+        Intent intent = MotherMentorFormWizardUtils.getFormIntent(this, form);
         if (extras != null)
             for (Map.Entry<String, String> entry : extras.entrySet())
                 intent.putExtra(entry.getKey(), entry.getValue());

@@ -38,8 +38,10 @@ import org.smartregister.chw.mothermentor.util.VisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorDailyVisitUtils;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
+import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import timber.log.Timber;
@@ -1092,6 +1094,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void openObservationResults() {
         startForm(Constants.FORMS.OBSERVATION_RESULTS);
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        startActivityForResult(
+                MotherMentorFormWizardUtils.getFormIntent(this, jsonForm),
+                JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     private void startForm(String formName) {

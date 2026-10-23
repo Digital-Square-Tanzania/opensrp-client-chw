@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mockStatic;
 
 import android.app.Application;
@@ -40,6 +41,10 @@ public class MotherMentorRegisterFormTitleTest {
 
             CapturingRegisterActivity activity = launchForm(form);
 
+            assertTrue(launchedFormConfig(activity).isWizard());
+            assertEquals(
+                    activity.getString(org.smartregister.chw.core.R.string.back),
+                    launchedFormConfig(activity).getPreviousLabel());
             assertNull(launchedFormConfig(activity).getName());
             JSONObject launchedJson = launchedJson(activity);
             assertEquals(title, launchedJson.getJSONObject("step1").getString("title"));
@@ -54,6 +59,10 @@ public class MotherMentorRegisterFormTitleTest {
 
             CapturingRegisterActivity activity = launchForm(form);
 
+            assertTrue(launchedFormConfig(activity).isWizard());
+            assertEquals(
+                    activity.getString(org.smartregister.chw.core.R.string.next),
+                    launchedFormConfig(activity).getNextLabel());
             assertEquals(
                     activity.getString(R.string.mother_mentor_registration),
                     launchedFormConfig(activity).getName());
