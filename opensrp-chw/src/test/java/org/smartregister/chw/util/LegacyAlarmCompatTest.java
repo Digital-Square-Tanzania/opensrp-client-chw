@@ -250,7 +250,7 @@ public class LegacyAlarmCompatTest {
         BroadcastReceiver receiver = mock(BroadcastReceiver.class);
         IntentFilter filter = new IntentFilter("telemetry");
         Intent sticky = new Intent("sticky");
-        org.mockito.Mockito.when(recordingContext.registerReceiver(receiver, filter)).thenReturn(sticky);
+        when(recordingContext.registerReceiver(receiver, filter)).thenReturn(sticky);
 
         assertSame(sticky, LegacyAlarmCompat.registerPrivateReceiver(
                 recordingContext, receiver, filter, 23));
@@ -266,7 +266,7 @@ public class LegacyAlarmCompatTest {
         BroadcastReceiver receiver = mock(BroadcastReceiver.class);
         IntentFilter filter = new IntentFilter("telemetry");
         Intent sticky = new Intent("sticky");
-        org.mockito.Mockito.when(recordingContext.registerReceiver(
+        when(recordingContext.registerReceiver(
                 receiver, filter, Context.RECEIVER_NOT_EXPORTED)).thenReturn(sticky);
 
         assertSame(sticky, LegacyAlarmCompat.registerPrivateReceiver(
