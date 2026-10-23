@@ -72,8 +72,61 @@ public class LegacyAlarmClassVisitorTest {
     }
 
     @Test
+    public void realNetworkFixtureRedirectsOnlyTheOptionalCellularRead() throws Exception {
+        byte[] original = fixture("legacy.fixture.mapboxTelemetry", LegacyAlarmClassVisitor.NETWORK_CLASS);
+        List<String> expected = calls(original);
+        List<String> adapted = calls(transform(original));
+
+        replace(expected, Opcodes.INVOKEVIRTUAL, "android/telephony/TelephonyManager", "getNetworkType",
+                "()I", "getOptionalNetworkType", LegacyAlarmClassVisitor.NETWORK_BRIDGE_DESCRIPTOR, 1);
+        assertEquals("Upstream network mapping, battery receiver and other calls stay unchanged",
+                expected, adapted);
+    }
+
+    @Test
     public void dependencyShapeChangeFailsInsteadOfLeavingAnUnpatchedCall() throws Exception {
-        byte[] original = fixture("legacy.fixture.androidJob", LegacyAlarmClassVisitor.JOB_CLASS);
+        assertChangedInvocationRejected("legacy.fixture.androidJob", LegacyAlarmClassVisitor.JOB_CLASS,
+                "getBroadcast");
+    }
+
+    @Test
+    public void changedNetworkGetterRequiresExplicitAdapterReview() throws Exception {
+        assertChangedInvocationRejected("legacy.fixture.mapboxTelemetry", LegacyAlarmClassVisitor.NETWORK_CLASS,
+                "getNetworkType");
+    }
+
+    @Test
+    public void networkGetterOutsideTheKnownMetadataMethodIsRejected() throws Exception {
+        byte[] original = fixture("legacy.fixture.mapboxTelemetry", LegacyAlarmClassVisitor.NETWORK_CLASS);
+        ClassWriter changed = new ClassWriter(0);
+        new ClassReader(original).accept(new ClassVisitor(Opcodes.ASM9, changed) {
+            @Override
+            public MethodVisitor visitMethod(int access, String name, String descriptor,
+                    String signature, String[] exceptions) {
+                return super.visitMethod(access,
+                        "obtainCellularNetworkType".equals(name) ? "differentMetadataMethod" : name,
+                        descriptor, signature, exceptions);
+            }
+        }, 0);
+        assertAdapterRejects(changed.toByteArray());
+    }
+
+    @Test
+    public void targetsExactlyTheFourPinnedDependencyClasses() {
+        assertTrue(LegacyAlarmClassVisitor.isSupportedClass("com.evernote.android.job.v14.JobProxy14"));
+        assertTrue(LegacyAlarmClassVisitor.isSupportedClass("com.mapbox.android.telemetry.AlarmSchedulerFlusher"));
+        assertTrue(LegacyAlarmClassVisitor.isSupportedClass(
+                "com.mapbox.android.telemetry.location.LocationEngineControllerImpl"));
+        assertTrue(LegacyAlarmClassVisitor.isSupportedClass("com.mapbox.android.telemetry.TelemetryUtils"));
+        assertFalse(LegacyAlarmClassVisitor.isSupportedClass("com.mapbox.android.telemetry.TelemetryUtils$1"));
+        assertFalse(LegacyAlarmClassVisitor.isSupportedClass("com.evernote.android.job.v19.JobProxy19"));
+        assertFalse(LegacyAlarmClassVisitor.isSupportedClass("com.mapbox.android.telemetry.MapboxTelemetry"));
+        assertFalse(LegacyAlarmClassVisitor.isSupportedClass("org.smartregister.chw.application.ChwApplication"));
+    }
+
+    private static void assertChangedInvocationRejected(String property, String className, String targetMethod)
+            throws Exception {
+        byte[] original = fixture(property, className);
         ClassWriter changed = new ClassWriter(0);
         new ClassReader(original).accept(new ClassVisitor(Opcodes.ASM9, changed) {
             @Override
@@ -85,29 +138,22 @@ public class LegacyAlarmClassVisitorTest {
                     public void visitMethodInsn(int opcode, String owner, String method,
                             String descriptor, boolean isInterface) {
                         super.visitMethodInsn(opcode, owner,
-                                "getBroadcast".equals(method) ? "differentCreationApi" : method,
+                                targetMethod.equals(method) ? "differentPlatformApi" : method,
                                 descriptor, isInterface);
                     }
                 };
             }
         }, 0);
+        assertAdapterRejects(changed.toByteArray());
+    }
+
+    private static void assertAdapterRejects(byte[] changed) {
         try {
-            transform(changed.toByteArray());
+            transform(changed);
             fail("A changed upstream class must require explicit adapter review");
         } catch (IllegalStateException expected) {
             assertTrue(expected.getMessage().contains("Legacy alarm dependency changed"));
         }
-    }
-
-    @Test
-    public void targetsExactlyTheThreePinnedDependencyClasses() {
-        assertTrue(LegacyAlarmClassVisitor.isSupportedClass("com.evernote.android.job.v14.JobProxy14"));
-        assertTrue(LegacyAlarmClassVisitor.isSupportedClass("com.mapbox.android.telemetry.AlarmSchedulerFlusher"));
-        assertTrue(LegacyAlarmClassVisitor.isSupportedClass(
-                "com.mapbox.android.telemetry.location.LocationEngineControllerImpl"));
-        assertFalse(LegacyAlarmClassVisitor.isSupportedClass("com.evernote.android.job.v19.JobProxy19"));
-        assertFalse(LegacyAlarmClassVisitor.isSupportedClass("com.mapbox.android.telemetry.MapboxTelemetry"));
-        assertFalse(LegacyAlarmClassVisitor.isSupportedClass("org.smartregister.chw.application.ChwApplication"));
     }
 
     private static byte[] transform(byte[] bytes) {

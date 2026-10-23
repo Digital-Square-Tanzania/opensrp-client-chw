@@ -6,9 +6,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -19,6 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Looper;
 import android.os.Build;
+import android.telephony.TelephonyManager;
 
 import androidx.test.core.app.ApplicationProvider;
 
@@ -202,6 +206,42 @@ public class LegacyAlarmCompatTest {
         LegacyAlarmCompat.cancelIfPresent(manager, present);
 
         verify(manager).cancel(present);
+    }
+
+    @Test
+    public void optionalNetworkMetadataKeepsAllowedPlatformValues() {
+        TelephonyManager manager = mock(TelephonyManager.class);
+        when(manager.getNetworkType()).thenReturn(
+                TelephonyManager.NETWORK_TYPE_LTE, TelephonyManager.NETWORK_TYPE_NR);
+
+        assertEquals(TelephonyManager.NETWORK_TYPE_LTE, LegacyAlarmCompat.getOptionalNetworkType(manager));
+        assertEquals("Newer values remain available to upstream mapping", TelephonyManager.NETWORK_TYPE_NR,
+                LegacyAlarmCompat.getOptionalNetworkType(manager));
+        verify(manager, times(2)).getNetworkType();
+    }
+
+    @Test
+    public void deniedOptionalNetworkMetadataReturnsTheUpstreamUnknownValue() {
+        TelephonyManager manager = mock(TelephonyManager.class);
+        when(manager.getNetworkType()).thenThrow(new SecurityException("Phone-state access denied"));
+
+        assertEquals(TelephonyManager.NETWORK_TYPE_UNKNOWN, LegacyAlarmCompat.getOptionalNetworkType(manager));
+        verify(manager).getNetworkType();
+    }
+
+    @Test
+    public void unrelatedNetworkMetadataFailuresRemainVisible() {
+        TelephonyManager manager = mock(TelephonyManager.class);
+        UnsupportedOperationException failure = new UnsupportedOperationException("No telephony radio");
+        when(manager.getNetworkType()).thenThrow(failure);
+
+        try {
+            LegacyAlarmCompat.getOptionalNetworkType(manager);
+            fail("Only denied access to optional metadata should be handled");
+        } catch (UnsupportedOperationException actual) {
+            assertSame(failure, actual);
+        }
+        verify(manager).getNetworkType();
     }
 
     @Test

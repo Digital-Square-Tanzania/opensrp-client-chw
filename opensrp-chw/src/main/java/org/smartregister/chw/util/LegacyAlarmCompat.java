@@ -8,8 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.telephony.TelephonyManager;
 
-/** Platform calls used by the two pinned legacy alarm dependencies; see the compatibility guide. */
+/** Platform calls used by the pinned job and telemetry dependencies; see the compatibility guide. */
 public final class LegacyAlarmCompat {
     private LegacyAlarmCompat() {}
 
@@ -72,6 +73,18 @@ public final class LegacyAlarmCompat {
     public static void cancelIfPresent(AlarmManager manager, PendingIntent pendingIntent) {
         if (pendingIntent != null) {
             manager.cancel(pendingIntent);
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    @SuppressWarnings("deprecation")
+    public static int getOptionalNetworkType(TelephonyManager manager) {
+        try {
+            // Keep the API 23-compatible upstream getter and its value when access is allowed.
+            return manager.getNetworkType();
+        } catch (SecurityException denied) {
+            // Mapbox already maps this value to "Unknown" for optional cellular metadata.
+            return TelephonyManager.NETWORK_TYPE_UNKNOWN;
         }
     }
 

@@ -6,12 +6,13 @@ The app retains `android-job:1.4.3` and Mapbox telemetry `4.5.1` to preserve its
 existing scheduling and map APIs. Both versions create alarm `PendingIntent`s
 without mutability flags. Android rejects those calls when targeting API 31+.
 Telemetry also registers an app-only receiver without an export flag, which
-Android rejects when targeting API 34+.
+Android rejects when targeting API 34+. Its optional cellular-network metadata
+lookup can be denied without phone-state access.
 
 `org.smartregister.legacy-alarm-compatibility` uses AGP's supported dependency
-instrumentation API. It selects exactly `JobProxy14`, `AlarmSchedulerFlusher`
-and `LocationEngineControllerImpl`. At build time, it redirects only their known
-platform calls to the ordinary Java methods in `LegacyAlarmCompat`:
+instrumentation API. It selects exactly `JobProxy14`, `AlarmSchedulerFlusher`,
+`LocationEngineControllerImpl` and `TelemetryUtils`. At build time, it redirects
+only their known platform calls to ordinary Java methods in `LegacyAlarmCompat`:
 
 - Job alarm creation adds `FLAG_IMMUTABLE`, available at the app's minimum API
   23. Request codes, explicit receiver intents, payloads, `FLAG_NO_CREATE`,
@@ -33,6 +34,12 @@ platform calls to the ordinary Java methods in `LegacyAlarmCompat`:
   with a package-scoped **mutable** token on API 31+ so location providers can
   attach result extras. Older Android retains its default mutability. Actions,
   callbacks, alarm timing and unregister behavior remain.
+- Only `TelemetryUtils.obtainCellularNetworkType` redirects its existing
+  `TelephonyManager.getNetworkType` call. When Android denies access with a
+  `SecurityException`, the bridge returns `NETWORK_TYPE_UNKNOWN`, which upstream
+  already maps to `Unknown`. Allowed values and upstream mapping remain
+  unchanged. Other telephony errors still propagate. No phone permission is
+  added or requested, and telemetry collection continues.
 
 This does not disable jobs, telemetry, or mapping. No patched binary is stored
 in this repository. Gradle constraints pin the reviewed dependency versions,
@@ -43,14 +50,17 @@ remain unchanged.
 Validation:
 
 - `./gradlew -p buildSrc test` loads both pinned upstream AARs. It checks every
-  invocation in all three adapted classes, including both cancellation sites,
-  checks the exact class filter and rejects changed upstream call sites.
+  invocation in all four adapted classes, including both cancellation sites,
+  checks the exact class filter and rejects changed upstream call sites or a
+  network getter moved outside the known metadata method. The battery receiver
+  in `TelemetryUtils` remains unchanged.
 - Run `./gradlew :opensrp-chw:testNacpDebugUnitTest` with the filter
   `--tests '*.LegacyAlarmCompatTest'`. The tests cover API 23/31 token identity,
   lookup flags, private alarm delivery, cancellation, pre-upgrade job tokens,
-  mutable location-result delivery and receiver lifecycle. The API 33
+  mutable location-result delivery, receiver lifecycle and allowed/denied
+  cellular metadata. Unrelated telephony errors must remain visible. The API 33
   registration branch uses a recording Context in tests. Native API 36 testing
-  covers the real platform call.
+  covers the real receiver call.
 - Build and run the APK on API 31+. Inspect startup, background-job cleanup and
   telemetry initialization logs, and exercise a map screen.
 
@@ -70,3 +80,4 @@ Platform references:
 - [PendingIntent mutability](https://developer.android.com/guide/components/intents-filters#SpecifyMutability)
 - [Context-registered receivers](https://developer.android.com/develop/background-work/background-tasks/broadcasts#context-registered-receivers)
 - [AGP instrumentation API](https://developer.android.com/reference/tools/gradle-api/8.13/com/android/build/api/variant/Instrumentation)
+- [Telephony network type](https://developer.android.com/reference/android/telephony/TelephonyManager#getNetworkType())
