@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.Menu;
 
 import androidx.annotation.MenuRes;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
@@ -175,6 +176,15 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
 
         if (bottomNavigationView != null) {
+            bottomNavigationView.setItemIconTintList(
+                    ContextCompat.getColorStateList(
+                            this,
+                            org.smartregister.chw.mothermentor.R.color
+                                    .mothermentor_bottom_navigation_icon_tint));
+            bottomNavigationView.setItemIconSize(
+                    getResources().getDimensionPixelSize(
+                            org.smartregister.chw.mothermentor.R.dimen
+                                    .mothermentor_bottom_navigation_icon_size));
             bottomNavigationView.setLabelVisibilityMode(
                     LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_clients);
@@ -191,7 +201,9 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                             R.id.action_mothermentor_secondary_enrollments,
                             Menu.NONE,
                             R.string.mothermentor_secondary_enrollments)
-                    .setIcon(org.smartregister.chw.mothermentor.R.mipmap.ic_jobaids);
+                    .setIcon(
+                            org.smartregister.chw.mothermentor.R.drawable
+                                    .ic_mothermentor_nav_follow_up);
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
             bottomNavigationView.setOnNavigationItemSelectedListener(
                     item -> {
