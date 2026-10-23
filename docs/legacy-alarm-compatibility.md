@@ -1,4 +1,6 @@
-**Legacy alarm compatibility**
+---
+title: Legacy alarm compatibility
+---
 
 The app retains `android-job:1.4.3` and Mapbox telemetry `4.5.1` to preserve its
 existing scheduling and map APIs. Both versions create alarm `PendingIntent`s
