@@ -107,9 +107,8 @@ public class AncProfileNotificationLifecycleTest extends BaseUnitTest {
 
     @Test
     public void absentOptionalNotificationViewDoesNotCrashInitialization() {
-        controller = Robolectric.buildActivity(AncMemberProfileActivity.class, profileIntent());
+        create(null);
         AncMemberProfileActivity activity = controller.get();
-        activity.setTheme(org.smartregister.family.R.style.FamilyTheme_NoActionBar);
         activity.setContentView(new FrameLayout(activity));
 
         activity.initializeNotificationReferralRecyclerView();
