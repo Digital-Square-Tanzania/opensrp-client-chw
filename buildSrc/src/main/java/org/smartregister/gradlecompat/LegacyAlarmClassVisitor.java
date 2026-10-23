@@ -44,44 +44,66 @@ final class LegacyAlarmClassVisitor extends ClassVisitor {
     @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor,
             String signature, String[] exceptions) {
-        return new MethodVisitor(Opcodes.ASM9,
-                super.visitMethod(access, name, descriptor, signature, exceptions)) {
-            @Override
-            public void visitMethodInsn(int opcode, String owner, String method,
-                    String methodDescriptor, boolean isInterface) {
-                if (opcode == Opcodes.INVOKESTATIC && "android/app/PendingIntent".equals(owner)
-                        && "getBroadcast".equals(method)
-                        && BROADCAST_DESCRIPTOR.equals(methodDescriptor)) {
-                    broadcastCalls++;
-                    super.visitMethodInsn(Opcodes.INVOKESTATIC, HELPER,
-                            JOB_CLASS.equals(className) ? "getImmutableBroadcast"
-                                    : LOCATION_CLASS.equals(className)
-                                            ? "getPrivateMutableBroadcast" : "getPrivateImmutableBroadcast",
-                            methodDescriptor, false);
-                    return;
-                }
-                if (JOB_CLASS.equals(className) && opcode == Opcodes.INVOKEVIRTUAL
-                        && "android/app/AlarmManager".equals(owner) && "cancel".equals(method)
-                        && CANCEL_DESCRIPTOR.equals(methodDescriptor)) {
-                    cancelCalls++;
-                    super.visitMethodInsn(Opcodes.INVOKESTATIC, HELPER, "cancelIfPresent",
-                            "(Landroid/app/AlarmManager;Landroid/app/PendingIntent;)V", false);
-                    return;
-                }
-                if ((TELEMETRY_CLASS.equals(className) || LOCATION_CLASS.equals(className))
-                        && opcode == Opcodes.INVOKEVIRTUAL
-                        && "android/content/Context".equals(owner)
-                        && "registerReceiver".equals(method)
-                        && RECEIVER_DESCRIPTOR.equals(methodDescriptor)) {
-                    receiverCalls++;
-                    super.visitMethodInsn(Opcodes.INVOKESTATIC, HELPER, "registerPrivateReceiver",
-                            "(Landroid/content/Context;Landroid/content/BroadcastReceiver;"
-                                    + "Landroid/content/IntentFilter;)Landroid/content/Intent;", false);
-                    return;
-                }
-                super.visitMethodInsn(opcode, owner, method, methodDescriptor, isInterface);
+        return new AlarmMethodVisitor(
+                super.visitMethod(access, name, descriptor, signature, exceptions));
+    }
+
+    private boolean isBroadcastCreation(int opcode, String owner, String method, String descriptor) {
+        return opcode == Opcodes.INVOKESTATIC && "android/app/PendingIntent".equals(owner)
+                && "getBroadcast".equals(method) && BROADCAST_DESCRIPTOR.equals(descriptor);
+    }
+
+    private boolean isLegacyCancellation(int opcode, String owner, String method, String descriptor) {
+        return JOB_CLASS.equals(className) && opcode == Opcodes.INVOKEVIRTUAL
+                && "android/app/AlarmManager".equals(owner) && "cancel".equals(method)
+                && CANCEL_DESCRIPTOR.equals(descriptor);
+    }
+
+    private boolean isPrivateRegistration(int opcode, String owner, String method, String descriptor) {
+        return (TELEMETRY_CLASS.equals(className) || LOCATION_CLASS.equals(className))
+                && opcode == Opcodes.INVOKEVIRTUAL && "android/content/Context".equals(owner)
+                && "registerReceiver".equals(method) && RECEIVER_DESCRIPTOR.equals(descriptor);
+    }
+
+    private String broadcastBridge() {
+        if (JOB_CLASS.equals(className)) {
+            return "getImmutableBroadcast";
+        }
+        if (LOCATION_CLASS.equals(className)) {
+            return "getPrivateMutableBroadcast";
+        }
+        return "getPrivateImmutableBroadcast";
+    }
+
+    private final class AlarmMethodVisitor extends MethodVisitor {
+        private AlarmMethodVisitor(MethodVisitor next) {
+            super(Opcodes.ASM9, next);
+        }
+
+        @Override
+        public void visitMethodInsn(int opcode, String owner, String method,
+                String descriptor, boolean isInterface) {
+            if (isBroadcastCreation(opcode, owner, method, descriptor)) {
+                broadcastCalls++;
+                super.visitMethodInsn(Opcodes.INVOKESTATIC, HELPER,
+                        broadcastBridge(), descriptor, false);
+                return;
             }
-        };
+            if (isLegacyCancellation(opcode, owner, method, descriptor)) {
+                cancelCalls++;
+                super.visitMethodInsn(Opcodes.INVOKESTATIC, HELPER, "cancelIfPresent",
+                        "(Landroid/app/AlarmManager;Landroid/app/PendingIntent;)V", false);
+                return;
+            }
+            if (isPrivateRegistration(opcode, owner, method, descriptor)) {
+                receiverCalls++;
+                super.visitMethodInsn(Opcodes.INVOKESTATIC, HELPER, "registerPrivateReceiver",
+                        "(Landroid/content/Context;Landroid/content/BroadcastReceiver;"
+                                + "Landroid/content/IntentFilter;)Landroid/content/Intent;", false);
+                return;
+            }
+            super.visitMethodInsn(opcode, owner, method, descriptor, isInterface);
+        }
     }
 
     @Override
