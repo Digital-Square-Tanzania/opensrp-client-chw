@@ -101,8 +101,10 @@ android {
 
     packagingOptions {
         resources {
+            merges.remove("jacoco-agent.properties")
             excludes += [
                     "AndroidManifest.xml",
+                    "jacoco-agent.properties",
                     "res/drawable-*/ic_check.png",
                     "res/drawable-*/ic_clear.png",
                     "res/drawable-*/ic_chevron_right.png"
