@@ -164,6 +164,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasMotherMentor() {
+        return true;
+    }
+
+    @Override
     public boolean hasKvp() {
         return true;
     }

@@ -115,6 +115,10 @@ android {
     defaultConfig {
         applicationId "org.smartregister.chw"
         minSdkVersion androidMinSdkVersion
+        // Match the Play release architectures; legacy x86 SDK binaries are not 16 KB aligned.
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
         targetSdkVersion androidTargetSdkVersion
         versionCode 2
         versionName "0.2.1"
@@ -246,7 +250,7 @@ android {
         resolutionStrategy {
             force 'androidx.appcompat:appcompat:1.0.2'
             force 'com.google.android.material:material:1.0.0'
-            force 'net.zetetic:sqlcipher-android:4.13.0'
+            force 'net.zetetic:sqlcipher-android:4.19.1'
             // Rhino 1.7.14 references javax.lang.model.SourceVersion, which is absent on Android runtime.
             force 'org.mozilla:rhino:1.7.13'
         }
@@ -258,8 +262,8 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            versionCode 63
-            versionName "2.2.3"
+            versionCode 66
+            versionName "1.0.0-Mother-Mentor.Beta.4"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
@@ -273,7 +277,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '50'
+            buildConfigField "int", "DATABASE_VERSION", '54'
             // Gates the app-owned manual referral follow-up action in the Referral register.
             // NOTE: the chw-referral library reads its OWN BuildConfig field of the same name;
             // this one only controls NacpReferralRegisterProvider / ReferralRegisterFragment.
@@ -332,7 +336,7 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.8-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-6-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         // Pull opensrp-chw-ncd directly (below) instead of the version chw-core resolves to,
@@ -357,6 +361,7 @@ dependencies {
         exclude group: "jakarta.activation", module: "jakarta.activation-api"
         exclude group: "javax.xml.bind", module: "jaxb-api"
         exclude group: 'com.github.lecho', module: 'hellocharts-library'
+        exclude group: 'io.ona.kujaku', module: 'library'
     }
 
     // Direct dependency on the NCD library (excluded from chw-core above) so the app builds
@@ -392,10 +397,9 @@ dependencies {
     implementation 'org.apache.commons:commons-text:1.10.0'
     implementation("commons-io:commons-io:2.21.0")
     implementation 'org.jacoco:org.jacoco.agent:0.7.9:runtime'
-    implementation('io.ona.kujaku:library:0.9.0') {
-        exclude group: 'com.android.volley', module: 'volley'
-        exclude group: 'stax', module: 'stax-api'
-    }
+    // Backported from release/play-store: use its stateless Kujaku adapter without Realm.
+    implementation 'com.cocoahero.android:geojson:1.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.3.3'
 
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -406,7 +410,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
-    implementation 'net.zetetic:sqlcipher-android:4.13.0'
+    implementation 'net.zetetic:sqlcipher-android:4.19.1'
 
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation('com.google.guava:guava:20.0') {

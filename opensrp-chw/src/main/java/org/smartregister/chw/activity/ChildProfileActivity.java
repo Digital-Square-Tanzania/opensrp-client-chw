@@ -88,8 +88,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onResumption() {
+        super.onResumption();
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
                 childBaseEntityId, this);

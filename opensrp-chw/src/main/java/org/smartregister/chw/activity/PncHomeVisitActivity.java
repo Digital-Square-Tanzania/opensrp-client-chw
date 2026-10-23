@@ -7,6 +7,7 @@ import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -16,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.contract.ImmunizationSaveHost;
+import org.smartregister.chw.util.ImmunizationDrafts;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
@@ -47,7 +50,39 @@ import java.util.Random;
 
 import timber.log.Timber;
 
-public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
+public class PncHomeVisitActivity extends BasePncHomeVisitActivity implements ImmunizationSaveHost {
+    private final ImmunizationDrafts immunizationDrafts = new ImmunizationDrafts();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        immunizationDrafts.restoreState(savedInstanceState);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        immunizationDrafts.saveState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void startFragment(BaseAncHomeVisitAction action) {
+        if (!immunizationDrafts.bind(memberObject == null ? null : memberObject.getBaseEntityId(), action)) {
+            displayToast(getString(R.string.immunization_save_retry));
+            return;
+        }
+        super.startFragment(action);
+    }
+
+    @Override
+    public boolean saveImmunization(String visitId, String actionId, String childId, String requestId, String payload) {
+        if (isFinishing() || isDestroyed() || !immunizationDrafts.accept(
+                memberObject == null ? null : memberObject.getBaseEntityId(), actionList,
+                visitId, actionId, childId, requestId, payload)) return false;
+        if (mAdapter != null) mAdapter.notifyDataSetChanged();
+        redrawVisitUI();
+        return true;
+    }
 
     public static void startMe(Activity activity, MemberObject memberObject, Boolean isEditMode) {
         Intent intent = new Intent(activity, PncHomeVisitActivity.class);
@@ -191,6 +226,7 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
         reorderKeysFirst(actionList, map, keys);
 
         actionList.putAll(map);
+        immunizationDrafts.restoreActions(memberObject == null ? null : memberObject.getBaseEntityId(), actionList);
 
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();

@@ -73,6 +73,7 @@ public class GroupedNavigationMenuTest {
         flavor = Mockito.mock(ChwApplication.Flavor.class);
         Mockito.when(flavor.hasHps()).thenReturn(true);
         Mockito.when(flavor.hasICCM()).thenReturn(true);
+        Mockito.when(flavor.hasMotherMentor()).thenReturn(true);
         ReflectionHelpers.setStaticField(ChwApplication.class, "flavor", flavor);
         NavigationModelFlv.resetNavigationOptions();
 
@@ -137,9 +138,12 @@ public class GroupedNavigationMenuTest {
 
     @Test
     public void restrictedRolesRetainOnlyTheirAvailableModules() {
+        assertFalse(menuTitles(optionsForRole("mother_champion"))
+                .contains(CoreConstants.DrawerMenu.MOTHER_CHAMPION));
         assertRestrictedRole("mother_champion", Arrays.asList(
                 CoreConstants.DrawerMenu.ALL_CLIENTS,
-                CoreConstants.DrawerMenu.MOTHER_CHAMPION,
+                CoreConstants.DrawerMenu.MOTHER_MENTOR,
+                CoreConstants.DrawerMenu.NCD,
                 CoreConstants.DrawerMenu.REFERRALS,
                 CoreConstants.DrawerMenu.UPDATES));
         assertRestrictedRole("cbhs_provider", Arrays.asList(
@@ -160,6 +164,62 @@ public class GroupedNavigationMenuTest {
                 CoreConstants.DrawerMenu.HIV_SELF_TESTING,
                 CoreConstants.DrawerMenu.UPDATES,
                 CoreConstants.DrawerMenu.REFERRALS));
+    }
+
+    @Test
+    public void enabledMotherMentorIsAvailableOnceInOtherModulesForEligibleRoles() {
+        for (String role : Arrays.asList("", "icchw", "mother_champion")) {
+            List<NavigationOption> options = optionsForRole(role);
+            List<String> originalOrder = menuTitles(options);
+            NavigationOption motherMentor =
+                    optionFor(options, CoreConstants.DrawerMenu.MOTHER_MENTOR);
+            motherMentor.setRegisterCount(9);
+            NavigationAdapter adapter = adapterFor(options);
+
+            assertEquals(1, Collections.frequency(originalOrder,
+                    CoreConstants.DrawerMenu.MOTHER_MENTOR));
+            assertFalse(originalOrder.contains(CoreConstants.DrawerMenu.MOTHER_CHAMPION));
+            if (BuildConfig.ENABLE_COLLAPSIBLE_NAVIGATION) {
+                assertFalse(visibleTags(adapter).contains(CoreConstants.DrawerMenu.MOTHER_MENTOR));
+                toggleOtherModules(adapter);
+                assertExpandedContainsExactly(adapter, originalOrder);
+            }
+            List<String> visible = visibleTags(adapter);
+            assertEquals(1, Collections.frequency(visible, CoreConstants.DrawerMenu.MOTHER_MENTOR));
+            int position = visible.indexOf(CoreConstants.DrawerMenu.MOTHER_MENTOR);
+            assertEquals(activity.getString(org.smartregister.chw.R.string.mother_mentor),
+                    bind(adapter, position).tvName.getText().toString());
+            assertEquals("9", bind(adapter, position).tvCount.getText().toString());
+            assertEquals(originalOrder, menuTitles(options));
+        }
+    }
+
+    @Test
+    public void disabledMotherMentorDoesNotRemoveOtherRoleModulesOrExposeChampion() {
+        for (String role : Arrays.asList("", "icchw", "mother_champion")) {
+            Mockito.when(flavor.hasMotherMentor()).thenReturn(true);
+            List<String> expected = menuTitles(optionsForRole(role));
+            expected.remove(CoreConstants.DrawerMenu.MOTHER_MENTOR);
+            Mockito.when(flavor.hasMotherMentor()).thenReturn(false);
+            List<NavigationOption> options = optionsForRole(role);
+            NavigationAdapter adapter = adapterFor(options);
+
+            assertEquals(expected, menuTitles(options));
+            assertFalse(menuTitles(options).contains(CoreConstants.DrawerMenu.MOTHER_MENTOR));
+            assertFalse(menuTitles(options).contains(CoreConstants.DrawerMenu.MOTHER_CHAMPION));
+            if (BuildConfig.ENABLE_COLLAPSIBLE_NAVIGATION) {
+                toggleOtherModules(adapter);
+                assertExpandedContainsExactly(adapter, expected);
+            } else {
+                assertEquals(expected, visibleTags(adapter));
+            }
+            assertFalse(visibleTags(adapter).contains(CoreConstants.DrawerMenu.MOTHER_MENTOR));
+        }
+        assertEquals(Arrays.asList(
+                CoreConstants.DrawerMenu.ALL_CLIENTS,
+                CoreConstants.DrawerMenu.NCD,
+                CoreConstants.DrawerMenu.REFERRALS,
+                CoreConstants.DrawerMenu.UPDATES), menuTitles(optionsForRole("mother_champion")));
     }
 
     @Test

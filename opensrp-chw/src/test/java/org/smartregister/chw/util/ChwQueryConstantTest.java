@@ -35,8 +35,29 @@ public class ChwQueryConstantTest {
     }
 
     @Test
-    public void testQueryDoesNotAddGenericHarmReductionRegisterType() {
-        Assert.assertFalse(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains("/*ONLY Harm Reduction clients*/"));
-        Assert.assertFalse(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains("'HARM REDUCTION'                             AS register_type"));
+    public void testMotherMentorClientsHaveDedicatedRegisterTypeBranch() {
+        String query = ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY;
+        Assert.assertTrue(query.contains("/*ONLY Mother Mentor clients*/"));
+        Assert.assertTrue(query.contains("'Mother Mentor'                             AS register_type"));
+        Assert.assertTrue(query.contains("inner join ec_mothermentor_enrollment"));
+    }
+
+    @Test
+    public void testIndependentClientsExcludeActiveMotherMentorEnrollment() {
+        Assert.assertTrue(ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY.contains(
+                "SELECT ec_mothermentor_enrollment.base_entity_id AS base_entity_id\n" +
+                        "    FROM ec_mothermentor_enrollment\n" +
+                        "    WHERE ec_mothermentor_enrollment.is_closed is 0 AND (ec_mothermentor_enrollment.status IS NULL OR ec_mothermentor_enrollment.status = 'client') AND (ec_mothermentor_enrollment.screening_status IS NULL OR ec_mothermentor_enrollment.screening_status != '-')"
+        ));
+    }
+
+    @Test
+    public void testHarmReductionRegisterTypeRequiresAnOpenRiskAssessment() {
+        String query = ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY;
+        String section = query.substring(query.indexOf("/*ONLY Harm Reduction clients*/"),
+                query.indexOf("/*ONLY Sober House clients*/"));
+        Assert.assertTrue(section.contains("'HARM REDUCTION'                             AS register_type"));
+        Assert.assertTrue(section.contains("inner join ec_harm_reduction_risk_assessment"));
+        Assert.assertTrue(section.contains("ec_harm_reduction_risk_assessment.is_closed is 0"));
     }
 }

@@ -11,7 +11,6 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Menu;
@@ -82,8 +81,9 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity im
     private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreation() {
+        super.onCreation();
+        // SecuredActivity skips this hook when the session has expired.
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
     }
@@ -125,6 +125,10 @@ public class AypOutSchoolMemberProfileActivity extends CoreAypProfileActivity im
 
     @Override
     protected void setupViews() {
+        // The library also calls this from onResume after the secured login redirect.
+        if (context().IsUserLoggedOut()) {
+            return;
+        }
         super.setupViews();
         enforceProcessVisitVisibility();
 

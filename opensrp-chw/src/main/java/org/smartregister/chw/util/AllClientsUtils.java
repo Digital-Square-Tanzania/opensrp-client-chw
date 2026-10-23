@@ -36,6 +36,7 @@ import org.smartregister.chw.activity.HpsMemberProfileActivity;
 import org.smartregister.chw.activity.IccmProfileActivity;
 import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
+import org.smartregister.chw.activity.MotherMentorProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.activity.SbcMemberProfileActivity;
 import org.smartregister.chw.activity.TbLeprosyProfileActivity;
@@ -56,6 +57,8 @@ import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
@@ -135,6 +138,15 @@ public class AllClientsUtils {
 
     public static void goToAypProfile(Activity activity, CommonPersonObjectClient client) {
         AypOutSchoolMemberProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
+    public static void goToMotherMentorProfile(Activity activity, CommonPersonObjectClient client) {
+        MotherMentorProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToMotherMentorFollowUpProfile(Activity activity, CommonPersonObjectClient client,
+                                                     MotherMentorFollowUpType followUpType) {
+        MotherMentorProfileActivity.startFollowUpProfile(activity, client.getCaseId(), followUpType);
     }
 
     public static void goToTbLeprosyProfile(Activity activity, CommonPersonObjectClient client) {
@@ -274,7 +286,7 @@ public class AllClientsUtils {
 
         // Helper methods for commonly repeated logic
         int age = getPersonAge(commonPersonObject);
-        boolean isFemaleOfReproductiveAge = gender.equalsIgnoreCase("Female") && flavor.isOfReproductiveAge(commonPersonObject, "Female");
+        boolean isFemaleOfReproductiveAge = age >= 0 && gender.equalsIgnoreCase("Female") && flavor.isOfReproductiveAge(commonPersonObject, "Female");
 
         // Handle team role logic
         if (!teamRoleIdentifier.isEmpty()) {
@@ -329,7 +341,7 @@ public class AllClientsUtils {
         }
 
         // Handle Family Planning Menu items
-        if (ChwApplication.getApplicationFlavor().hasFamilyPlanning() && flavor.isOfReproductiveAge(commonPersonObject, gender)) {
+        if (age >= 0 && ChwApplication.getApplicationFlavor().hasFamilyPlanning() && flavor.isOfReproductiveAge(commonPersonObject, gender)) {
             flavor.updateFpMenuItems(baseEntityId, menu);
         } else {
             setMenuItemVisibility(menu, R.id.action_fp_initiation, false);
@@ -411,6 +423,12 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_ayp_parental_enrollment, !AypDao.isRegisteredForAypParentalServices(baseEntityId) && age >= 25);
             setMenuItemVisibility(menu, R.id.action_ayp_out_school_enrollment, !AypDao.isRegisteredForAypOutSchoolServices(baseEntityId) && age >= 10 && age < 25);
         }
+
+        if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+            addMotherMentorIitMenuItem(menu, true);
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, gender.equalsIgnoreCase("Female"));
+            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_iit, gender.equalsIgnoreCase("Female"));
+        }
     }
 
     public static void addTbLeprosyMenuItem(Menu menu, String baseEntityId) {
@@ -425,6 +443,29 @@ public class AllClientsUtils {
         tbLeprosyMenu.setVisible(showItem);
     }
 
+    public static void addMotherMentorMenuItem(Menu menu, String baseEntityId) {
+        MenuItem motherMentorMenu = menu.findItem(R.id.action_mother_mentor_registration);
+        if (motherMentorMenu == null) {
+            motherMentorMenu = menu.add(Menu.NONE, R.id.action_mother_mentor_registration, Menu.NONE, R.string.mother_mentor_registration);
+            motherMentorMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
+
+        motherMentorMenu.setVisible(!MotherMentorDao.isRegisteredForMotherMentor(baseEntityId));
+    }
+
+    public static void addMotherMentorIitMenuItem(Menu menu, boolean visible) {
+        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_iit, R.string.mother_mentor_enroll_iit, visible);
+    }
+
+    private static void addMenuItemIfMissing(Menu menu, int itemId, int titleRes, boolean visible) {
+        MenuItem item = menu.findItem(itemId);
+        if (item == null) {
+            item = menu.add(Menu.NONE, itemId, Menu.NONE, titleRes);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
+        item.setVisible(visible);
+    }
+
     public static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {
         MenuItem item = menu.findItem(itemId);
         if (item != null) {
@@ -434,7 +475,15 @@ public class AllClientsUtils {
 
     private static int getPersonAge(CommonPersonObjectClient commonPersonObject) {
         String dob = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
-        return org.smartregister.chw.util.Utils.getAgeFromDate(dob);
+        if (StringUtils.isBlank(dob)) {
+            return -1;
+        }
+        try {
+            return org.smartregister.chw.util.Utils.getAgeFromDate(dob);
+        } catch (IllegalArgumentException e) {
+            // An unknown age must not qualify the client for an age-gated service.
+            return -1;
+        }
     }
 
     private static boolean isRegisteredForHarmReduction(String baseEntityId) {

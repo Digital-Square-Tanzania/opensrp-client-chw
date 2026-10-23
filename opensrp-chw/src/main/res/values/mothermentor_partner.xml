@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_link_partner">Link Partner</string>
+    <string name="mothermentor_partner_household">Select a household member</string>
+    <string name="mothermentor_partner_all_clients">Select a registered client</string>
+    <string name="mothermentor_partner_new_client">Register a new client</string>
+    <string name="mothermentor_partner_search">Search by name or ID</string>
+    <string name="mothermentor_partner_none">No eligible partners found</string>
+    <string name="mothermentor_partner_linked">Partner linked successfully</string>
+    <string name="mothermentor_partner_unavailable">The mother or partner is no longer available for linking</string>
+    <string name="mothermentor_partner_eligibility">Partners must be male and aged 15 or older.</string>
+    <string name="mothermentor_partner_minimum_age">Partner must be aged 15 or older</string>
+    <string name="mothermentor_partner_enrollment_unavailable">Partner enrollment requires a male aged 15 or older who is not already enrolled as a partner.</string>
+</resources>

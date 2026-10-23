@@ -280,6 +280,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
             BaseAncHomeVisitAction action = getBuilder(title)
+                    .withBaseEntityID(memberObject.getBaseEntityId())
                     .withOptional(false)
                     .withDetails(details)
                     .withDestinationFragment(fragment)

@@ -78,8 +78,9 @@ public class NcdFollowupClinicalAdherenceConfigTest {
         JSONObject sideEffects = findField(fields, "medication_side_effects");
 
         Assert.assertTrue(
-                "medication_side_effects should appear immediately after medication_adherence",
-                indexOf(fields, "medication_side_effects") == indexOf(fields, "medication_adherence") + 1
+                "medication_side_effects should follow adherence and its conditional reason",
+                indexOf(fields, "no_adherence_reason") == indexOf(fields, "medication_adherence") + 1
+                        && indexOf(fields, "medication_side_effects") == indexOf(fields, "no_adherence_reason") + 1
         );
         Assert.assertEquals("native_radio", sideEffects.getString(JsonFormConstants.TYPE));
         Assert.assertEquals("medication_side_effects", sideEffects.getString("openmrs_entity_id"));

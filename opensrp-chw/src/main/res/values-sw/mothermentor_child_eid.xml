@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_link_child_eid">Unganisha Mtoto wa ufuatiliaji wa ukusanyaji wa DBS</string>
+    <string name="mothermentor_child_eid_household">Chagua mtoto kutoka kwenye kaya</string>
+    <string name="mothermentor_child_eid_all_clients">Chagua mtoto aliyesajiliwa</string>
+    <string name="mothermentor_child_eid_new_client">Sajili mtoto mpya</string>
+    <string name="mothermentor_child_eid_search">Tafuta kwa jina au kitambulisho</string>
+    <string name="mothermentor_child_eid_none">Hakuna watoto wanaoweza kuunganishwa</string>
+    <string name="mothermentor_child_eid_linked">Mtoto ameunganishwa kikamilifu</string>
+    <string name="mothermentor_child_eid_unavailable">Mama au mtoto hawezi kuunganishwa kwa sasa. Mtoto lazima awe na umri chini ya miezi 18 na tarehe ya kuzaliwa inayojulikana.</string>
+    <string name="mothermentor_child_eid_eligibility">Mtoto lazima awe na umri chini ya miezi 18 na tarehe ya kuzaliwa inayojulikana.</string>
+    <string name="mothermentor_child_eid_age_error">Weka tarehe ya kuzaliwa ya mtoto mwenye umri chini ya miezi 18</string>
+    <string name="mothermentor_child_eid_enrollment_unavailable">Usajili wa mtoto wa ufuatiliaji wa ukusanyaji wa DBS unahitaji mtoto mwenye umri chini ya miezi 18, tarehe ya kuzaliwa inayojulikana, na ambaye hajasajiliwa tayari.</string>
+</resources>

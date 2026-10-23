@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -81,7 +80,6 @@ import timber.log.Timber;
 
 public class MalariaProfileActivity extends CoreMalariaProfileActivity implements MalariaProfileContract.View {
 
-    private static String baseEntityId;
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private static final String ANC = "anc";
     private static final String PNC = "pnc";
@@ -93,7 +91,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
     }
 
     public static void startMalariaActivity(Activity activity, String baseEntityId) {
-        MalariaProfileActivity.baseEntityId = baseEntityId;
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
         intent.putExtra(BASE_ENTITY_ID, baseEntityId);
         passToolbarTitle(activity, intent);
@@ -108,18 +105,18 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initializeNotificationReferralRecyclerView() {
+        super.initializeNotificationReferralRecyclerView();
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onResumption() {
+        super.onResumption();
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
-                baseEntityId, this);
+                memberObject.getBaseEntityId(), this);
     }
 
     @Override
@@ -170,7 +167,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                 if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
                     JSONObject formJson = getFormUtils().getFormJson(Constants.JSON_FORM.getMalariaReferralForm());
                     formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getFocus());
-                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, formJson, false, false);
+                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, memberObject.getBaseEntityId(), formJson, false, false);
                 } else {
                     startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));
                 }
@@ -178,14 +175,14 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                 Timber.e(ex);
             }
         } else {
-            Utils.launchClientReferralActivity(this, getReferralTypeModels(), baseEntityId);
+            Utils.launchClientReferralActivity(this, getReferralTypeModels(), memberObject.getBaseEntityId());
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        AllClientsUtils.addTbLeprosyMenuItem(menu, baseEntityId);
+        AllClientsUtils.addTbLeprosyMenuItem(menu, memberObject.getBaseEntityId());
         return true;
     }
 
@@ -274,7 +271,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
             }
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         }
-        handleNotificationRowClick(this, view, notificationListAdapter, baseEntityId);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     private void saveAncVisit(String eventType) {
