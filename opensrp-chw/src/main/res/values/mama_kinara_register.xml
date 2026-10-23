@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mama_kinara_register_title">Mama Kinara Service Clients</string>
+    <string name="mama_kinara_register_search_hint">Search by name or CTC number</string>
+    <string name="mama_kinara_register_filter">Filter</string>
+    <string name="mama_kinara_register_filtered">Filtered</string>
+    <string name="mama_kinara_register_filter_on">On</string>
+    <string name="mama_kinara_register_filter_off">Off</string>
+    <string name="mama_kinara_register_filter_hint">Show clients matching any selected category.</string>
+    <string name="mama_kinara_register_filter_pregnant">Pregnant</string>
+    <string name="mama_kinara_register_filter_breastfeeding">Breastfeeding</string>
+    <string name="mama_kinara_register_filter_under_two">Caring for a child under 2 years</string>
+    <string name="mama_kinara_register_filter_save">Save</string>
+    <string name="mama_kinara_register_back">Back</string>
+    <string name="mama_kinara_register_sync">Sync</string>
+    <string name="mama_kinara_register_empty">No clients found</string>
+    <string name="mama_kinara_ctc_and_visits">CTC %1$s · Visits %2$s</string>
+    <string name="mama_kinara_status_pregnant">Pregnant</string>
+    <string name="mama_kinara_status_breastfeeding">Breastfeeding</string>
+    <string name="mama_kinara_status_not_pregnant">Not pregnant</string>
+    <string name="mama_kinara_status_unknown">Status not recorded</string>
+    <string name="mama_kinara_unknown_client">Unnamed client</string>
+    <string name="mama_kinara_sex_female">Female</string>
+    <string name="mama_kinara_sex_male">Male</string>
+    <string name="mama_kinara_missing_value" translatable="false">—</string>
+</resources>

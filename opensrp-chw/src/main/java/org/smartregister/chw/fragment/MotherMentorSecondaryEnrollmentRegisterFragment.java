@@ -23,6 +23,11 @@ import java.util.Set;
 
 public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMentorRegisterFragment {
 
+    @Override
+    protected boolean isMainClientRegister() {
+        return false;
+    }
+
     private static final String ARG_TABLE_NAME = "table_name";
     private static final String ARG_FOLLOW_UP_TYPE = "follow_up_type";
     private String sharedSearchText = "";
