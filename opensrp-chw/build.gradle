@@ -282,6 +282,8 @@ android {
             // NOTE: the chw-referral library reads its OWN BuildConfig field of the same name;
             // this one only controls NacpReferralRegisterProvider / ReferralRegisterFragment.
             buildConfigField "boolean", "ENABLE_REFERRAL_FOLLOWUP", "true"
+            // Set false to show the original flat register menu without Other Modules.
+            buildConfigField "boolean", "ENABLE_COLLAPSIBLE_NAVIGATION", "true"
         }
     }
 
@@ -334,7 +336,7 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-5-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-6-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         // Pull opensrp-chw-ncd directly (below) instead of the version chw-core resolves to,

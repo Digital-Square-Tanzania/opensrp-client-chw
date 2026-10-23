@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.ChwHIA2ReportsActivity;
 import org.smartregister.chw.activity.InAppReportsActivity;
 import org.smartregister.chw.core.activity.CoreStockInventoryReportActivity;
@@ -12,11 +13,21 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.referral.util.Constants;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 public class NavigationMenuFlv implements NavigationMenu.Flavour {
+
+    @Override
+    public List<String> getPrimaryNavigationItems() {
+        if (!BuildConfig.ENABLE_COLLAPSIBLE_NAVIGATION) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(CoreConstants.DrawerMenu.ALL_CLIENTS,
+                CoreConstants.DrawerMenu.ALL_FAMILIES, CoreConstants.DrawerMenu.HPS);
+    }
 
     @Override
     public List<Pair<String, Locale>> getSupportedLanguages() {
