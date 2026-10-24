@@ -404,6 +404,12 @@ public class GroupedNavigationMenuTest {
         assertEquals("Moduli Nyingine, zimepanuliwa", header.getView().getContentDescription());
         assertHeaderAction(header, AccessibilityNodeInfoCompat.ACTION_COLLAPSE,
                 "Kunja Moduli Nyingine");
+
+        int motherMentorPosition = visibleTags(adapter)
+                .indexOf(CoreConstants.DrawerMenu.MOTHER_MENTOR);
+        NavigationAdapter.MyViewHolder motherMentor = bind(adapter, motherMentorPosition);
+        assertEquals("Mama Kinara", motherMentor.tvName.getText().toString());
+        assertEquals(CoreConstants.DrawerMenu.MOTHER_MENTOR, motherMentor.getView().getTag());
     }
 
     @Test
