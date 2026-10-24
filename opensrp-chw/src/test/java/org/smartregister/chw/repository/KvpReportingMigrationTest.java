@@ -231,7 +231,7 @@ public class KvpReportingMigrationTest {
         assertEquals("SELECT 4", scalar("SELECT indicator_query FROM indicator_queries WHERE indicator_code='other-report'"));
         assertEquals("0", scalar("SELECT COUNT(*) FROM indicator_daily_tally WHERE indicator_code='kvp-1' AND day='2026-10-01'"));
         assertEquals(5, count("indicator_daily_tally"));
-        assertEquals("3.0", scalar("SELECT indicator_value FROM indicator_daily_tally WHERE indicator_code='other-report'"));
+        assertEquals(3.0, Double.parseDouble(scalar("SELECT indicator_value FROM indicator_daily_tally WHERE indicator_code='other-report'")), 0.0);
         assertEquals("", preferences.get(ReportIndicatorDaoImpl.REPORT_LAST_PROCESSED_DATE));
         migrate();
         assertEquals(queries.size() + 1, count("indicator_queries"));
