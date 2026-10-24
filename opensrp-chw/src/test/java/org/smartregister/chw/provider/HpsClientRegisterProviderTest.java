@@ -254,7 +254,9 @@ public class HpsClientRegisterProviderTest {
 
         assertEquals("Halima Amina " + surname + ", 32", holder.patientName.getText().toString());
         assertTrue(holder.patientName.getMaxLines() > 1);
-        assertEquals(village, holder.textViewVillage.getText().toString());
+        assertEquals(
+                "Mtaa Wa Mikocheni Barabara Ya Mbuyuni",
+                holder.textViewVillage.getText().toString());
         assertFalse(holder.registerColumns.getContentDescription().toString().contains(uniqueId));
     }
 
