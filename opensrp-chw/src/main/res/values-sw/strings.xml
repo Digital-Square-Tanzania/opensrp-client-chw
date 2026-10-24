@@ -1094,6 +1094,7 @@
     <string name="tbleprosy_record_visit_no">Hapana</string>
 
     <!-- Mother Mentor -->
+    <string name="mother_mentor_registration">Usajili kwenye huduma za Mama Kinara</string>
     <string name="mother_mentor_enrollment">Usajili kwenye huduma za Mama Kinara</string>
     <string name="mothermentor_iit">MAMA IIT</string>
     <string name="mothermentor_partner">MWENZA</string>
