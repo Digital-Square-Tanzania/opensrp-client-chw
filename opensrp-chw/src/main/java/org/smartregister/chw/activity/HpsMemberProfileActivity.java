@@ -77,6 +77,7 @@ import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.AllClientsUtils;
@@ -344,6 +345,8 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
         int age = memberObject.getAge();
 
         String gender = memberObject.getGender();
+        menu.findItem(R.id.action_mother_mentor_enrollment)
+                .setVisible(canEnrollInMotherMentor());
         menu.findItem(R.id.action_location_info).setVisible(true);
         if (ChwApplication.getApplicationFlavor().hasHIV()) {
             menu.findItem(R.id.action_cbhs_registration).setVisible(true);
@@ -435,6 +438,12 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
         return true;
     }
 
+    private boolean canEnrollInMotherMentor() {
+        return ChwApplication.getApplicationFlavor().hasMotherMentor()
+                && "Female".equalsIgnoreCase(memberObject.getGender())
+                && !MotherMentorDao.isRegisteredForMotherMentor(memberObject.getBaseEntityId());
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
@@ -458,6 +467,16 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_iccm_registration) {
             MemberProfileUtils.startIntegratedCommunityCaseManagementEnrollment(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+            return true;
+        } else if (i == R.id.action_mother_mentor_enrollment) {
+            if (canEnrollInMotherMentor()) {
+                MotherMentorRegisterActivity.startRegistration(
+                        this,
+                        memberObject.getBaseEntityId(),
+                        memberObject.getFamilyBaseEntityId(),
+                        memberObject.getGender(),
+                        memberObject.getAge());
+            }
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_vmmc_registration) {
             MemberProfileUtils.startVmmcRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
