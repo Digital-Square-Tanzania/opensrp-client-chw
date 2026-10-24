@@ -5927,6 +5927,14 @@
           }
         },
         {
+          "column_name": "kvp_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kvp_visit_date"
+          }
+        },
+        {
           "column_name": "visit_type",
           "type": "Event",
           "json_mapping": {
