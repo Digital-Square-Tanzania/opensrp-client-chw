@@ -170,6 +170,20 @@ public class TbLeprosyReportingMigrationTest {
     }
 
     @Test
+    public void lateSyncedOlderScreeningCannotOverrideMoreRecentClinicalAnswers() throws Exception {
+        screening("client");
+        event("newer-visit", TbLeprosyReportingMigration.SCREENING_EVENT, "screen-new", "client",
+                observations("screening_location", "pharmacy", "hiv_tested", "yes"));
+        db.execSQL("UPDATE event SET eventDate='2026-10-10', updatedAt='2026-10-11 12:00:00' WHERE eventId='newer-visit'");
+        event("older-late-sync", TbLeprosyReportingMigration.SCREENING_EVENT, "screen-old", "client",
+                observations("screening_location", "market", "hiv_tested", "no"));
+        db.execSQL("UPDATE event SET eventDate='2026-08-01', updatedAt='2026-10-24 12:00:00' WHERE eventId='older-late-sync'");
+        migrate();
+        assertEquals("pharmacy", value("ec_tbleprosy_screening", "screening_location", "client"));
+        assertEquals("yes", value("ec_tbleprosy_screening", "hiv_tested", "client"));
+    }
+
+    @Test
     public void differentClientsSubmissionsAndEventTypesCannotSupplyAnswers() throws Exception {
         screening("client-a");
         results("submission-a", "client-a");

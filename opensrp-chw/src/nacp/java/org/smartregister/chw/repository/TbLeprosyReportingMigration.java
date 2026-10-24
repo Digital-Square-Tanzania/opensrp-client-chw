@@ -63,7 +63,7 @@ final class TbLeprosyReportingMigration {
     private static void backfillScreening(SQLiteDatabase db) {
         String query = "SELECT e.json, e.eventType, e.formSubmissionId, e.baseEntityId FROM event e "
                 + "INNER JOIN " + SCREENING_TABLE + " s ON s.base_entity_id = e.baseEntityId "
-                + "WHERE e.eventType IN (?, ?) ORDER BY e.updatedAt DESC";
+                + "WHERE e.eventType IN (?, ?) ORDER BY e.eventDate DESC, e.updatedAt DESC";
         try (Cursor cursor = db.rawQuery(query, new String[] {SCREENING_EVENT, RESULTS_EVENT})) {
             while (cursor.moveToNext()) {
                 JSONObject event = retainedEvent(cursor);
