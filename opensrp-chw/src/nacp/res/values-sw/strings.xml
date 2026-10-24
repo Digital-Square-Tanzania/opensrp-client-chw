@@ -72,8 +72,6 @@
     <string name="print_report">Chapa</string>
     <string name="reports">Ripoti</string>
 
-    <string name="mother_champion_reports_subtitle">Tazama ripoti ya mama kinara</string>
-    <string name="mother_champion_reports">Ripoti ya mama kinara</string>
 
     <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
     <string name="referral_problem_pain">Maumivu</string>
@@ -214,6 +212,11 @@
     <string name="visits_history_profile_title">Historia ya Matembeleo</string>
     <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
     <string name="visits_history">Historia ya Matembeleo</string>
+    <string name="mother_mentor">Mama Kinara</string>
+    <string name="mothermentor_history_purpose_of_visit">Kusudi la Ziara</string>
+    <string name="mothermentor_history_participants">Wanakaya waliopewa ushauri</string>
+    <string name="mothermentor_history_topics_taught">Mada zilizofundishwa</string>
+    <string name="mothermentor_history_comments">Maoni</string>
     <string name="mother_champion_visit">Matembeleo ya Mama Kinara</string>
     <string name="cbhs_visit">Matembeleo ya HUWANYU</string>
     <string name="cbhs_visit_less_than_twenty_four">Tembeleo la mwisho la HUWANYU lilikuwa chini ya masaa 24 yaliyopita</string>

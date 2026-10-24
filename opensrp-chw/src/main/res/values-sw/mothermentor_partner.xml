@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_link_partner">Unganisha Mwenza</string>
+    <string name="mothermentor_partner_household">Chagua mwanafamilia</string>
+    <string name="mothermentor_partner_all_clients">Chagua mteja aliyesajiliwa</string>
+    <string name="mothermentor_partner_new_client">Sajili mteja mpya</string>
+    <string name="mothermentor_partner_search">Tafuta kwa jina au kitambulisho</string>
+    <string name="mothermentor_partner_none">Hakuna wenza wanaoweza kuunganishwa</string>
+    <string name="mothermentor_partner_linked">Mwenza ameunganishwa kikamilifu</string>
+    <string name="mothermentor_partner_unavailable">Mama au mwenza hawezi kuunganishwa kwa sasa</string>
+    <string name="mothermentor_partner_eligibility">Mwenza lazima awe mwanaume mwenye umri wa miaka 15 au zaidi.</string>
+    <string name="mothermentor_partner_minimum_age">Mwenza lazima awe na umri wa miaka 15 au zaidi</string>
+    <string name="mothermentor_partner_enrollment_unavailable">Usajili wa mwenza unahitaji mwanaume mwenye umri wa miaka 15 au zaidi ambaye hajasajiliwa kama mwenza.</string>
+</resources>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mama_kinara_white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/mama_kinara_blue">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="104dp"
+            android:layout_marginEnd="88dp"
+            android:gravity="center"
+            android:text="@string/mama_kinara_register_filter"
+            android:textColor="@color/mama_kinara_white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mama_kinara_filter_back"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:drawableStart="@drawable/mama_kinara_ic_back"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/mama_kinara_register_back"
+            android:textColor="@color/mama_kinara_white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/mama_kinara_filter_save"
+            android:layout_width="88dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/mama_kinara_register_filter_save"
+            android:textColor="@color/mama_kinara_white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/mama_kinara_filter_enabled"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:gravity="center_vertical"
+                android:text="@string/mama_kinara_register_filter_off"
+                android:textColor="@color/mama_kinara_text"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:thumbTint="@color/mama_kinara_blue" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/mama_kinara_divider" />
+
+            <LinearLayout
+                android:id="@+id/mama_kinara_filter_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/mama_kinara_register_filter_hint"
+                    android:textColor="@color/mama_kinara_secondary"
+                    android:textSize="16sp" />
+
+                <CheckBox
+                    android:id="@+id/mama_kinara_filter_pregnant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/mama_kinara_blue"
+                    android:minHeight="64dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/mama_kinara_register_filter_pregnant"
+                    android:textColor="@color/mama_kinara_text"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/mama_kinara_filter_breastfeeding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/mama_kinara_blue"
+                    android:minHeight="64dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/mama_kinara_register_filter_breastfeeding"
+                    android:textColor="@color/mama_kinara_text"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/mama_kinara_filter_under_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/mama_kinara_blue"
+                    android:minHeight="64dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/mama_kinara_register_filter_under_two"
+                    android:textColor="@color/mama_kinara_text"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

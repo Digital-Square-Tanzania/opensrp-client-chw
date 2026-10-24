@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mama_kinara_white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/toolbar_parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/mama_kinara_blue">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/register_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+        <TextView
+            android:id="@+id/mama_kinara_register_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="64dp"
+            android:layout_marginEnd="64dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/mama_kinara_register_title"
+            android:textColor="@color/mama_kinara_white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/sync_refresh"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/mama_kinara_register_sync"
+            android:padding="16dp"
+            android:src="@drawable/mama_kinara_ic_sync" />
+
+        <ProgressBar
+            android:id="@+id/sync_progress_bar"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="14dp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/search_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/mama_kinara_blue"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="10dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/edt_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/mama_kinara_search_background"
+                android:drawablePadding="10dp"
+                android:hint="@string/mama_kinara_register_search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingStart="12dp"
+                android:paddingEnd="40dp"
+                android:singleLine="true"
+                android:textColor="@color/mama_kinara_text"
+                android:textColorHint="@color/mama_kinara_search_hint"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/btn_search_cancel"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@android:string/cancel"
+                android:padding="12dp"
+                android:src="@drawable/mama_kinara_ic_clear"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/mama_kinara_filter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:drawableStart="@drawable/mama_kinara_ic_filter"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:minWidth="80dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/mama_kinara_register_filter"
+            android:textColor="@color/mama_kinara_white"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Required hooks for the inherited register, without the legacy title/count/sort UI. -->
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/txt_title_label"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/clients_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/base_register_sort_filter_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+
+        <ProgressBar
+            android:id="@+id/client_list_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="32dp"
+            android:text="@string/mama_kinara_register_empty"
+            android:textColor="@color/mama_kinara_secondary"
+            android:textSize="17sp"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

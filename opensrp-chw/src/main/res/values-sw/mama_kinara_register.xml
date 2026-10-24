@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mama_kinara_register_title">Wapokea Huduma za Mama Kinara</string>
+    <string name="mama_kinara_register_search_hint">Tafuta jina au CTC namba</string>
+    <string name="mama_kinara_register_filter">Chuja</string>
+    <string name="mama_kinara_register_filtered">Zimechujwa</string>
+    <string name="mama_kinara_register_filter_on">Imewashwa</string>
+    <string name="mama_kinara_register_filter_off">Imezimwa</string>
+    <string name="mama_kinara_register_filter_hint">Onyesha wateja wanaolingana na angalau kundi moja lililochaguliwa.</string>
+    <string name="mama_kinara_register_filter_pregnant">Wajawazito</string>
+    <string name="mama_kinara_register_filter_breastfeeding">Wanaonyonyesha</string>
+    <string name="mama_kinara_register_filter_under_two">Wanaolea watoto chini ya miaka 2</string>
+    <string name="mama_kinara_register_filter_save">Hifadhi</string>
+    <string name="mama_kinara_register_back">Rudi</string>
+    <string name="mama_kinara_register_sync">Oanisha</string>
+    <string name="mama_kinara_register_empty">Hakuna wateja waliopatikana</string>
+    <string name="mama_kinara_ctc_and_visits">CTC %1$s · Ziara %2$s</string>
+    <string name="mama_kinara_status_pregnant">Mjamzito</string>
+    <string name="mama_kinara_status_breastfeeding">Ananyonyesha</string>
+    <string name="mama_kinara_status_not_pregnant">Si mjamzito</string>
+    <string name="mama_kinara_status_unknown">Hali haijarekodiwa</string>
+    <string name="mama_kinara_unknown_client">Mteja asiye na jina</string>
+    <string name="mama_kinara_sex_female">Mwanamke</string>
+    <string name="mama_kinara_sex_male">Mwanaume</string>
+</resources>

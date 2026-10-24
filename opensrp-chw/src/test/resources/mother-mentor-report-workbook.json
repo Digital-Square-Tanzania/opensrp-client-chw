@@ -1,0 +1,679 @@
+{
+  "source": "Mama Kinara Monthly Report v2 finale.xlsx",
+  "sheet": "Taarifa ya Mwezi",
+  "range": "B8:AA49",
+  "rows": [
+    {
+      "workbookRow": 8,
+      "indicator": 1,
+      "label": "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya msaada wa kisaikolojia (PSG)",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 9,
+      "indicator": 2,
+      "label": "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya ujasiriamali (IGA) ili kukuza kipato",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 10,
+      "indicator": 3,
+      "label": "Idadi ya wateja wapya wa PMTCT waliounganishwa na Mama Kinara na kuanza kutumia dawa (ART)",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 11,
+      "indicator": 4,
+      "label": "Idadi ya wateja wa PMTCT waliopotea (IIT) na kufuatiliwa na Mama Kinara",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 12,
+      "indicator": "",
+      "label": "Amerudi",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 13,
+      "indicator": "",
+      "label": "Hajapatikana",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 14,
+      "indicator": "",
+      "label": "Amefariki",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 15,
+      "indicator": "",
+      "label": "Amekataa",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 16,
+      "indicator": 5,
+      "label": "Idadi ya wateja wa PMTCT waliopotea (IIT) na kurudishwa kwenye matibabu na Mama Kinara",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 17,
+      "indicator": 6,
+      "label": "Idadi ya mada za elimu ya afya zilizofundishwa na Mama Kinara kwenye jamii",
+      "columns": [
+        "total"
+      ]
+    },
+    {
+      "workbookRow": 18,
+      "indicator": 7,
+      "label": "Idadi ya wateja wa PMTCT walioelimishwa na Mama Kinara",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 19,
+      "indicator": 8,
+      "label": "Idadi ya wenzi wa wajawazito waliofuatiliwa na kupimwa VVU, Kaswende na Homa ya Ini aina B kwa mara ya kwanza",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 20,
+      "indicator": "",
+      "label": "VVU – Chanya",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 21,
+      "indicator": "",
+      "label": "VVU – Hasi",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 22,
+      "indicator": "",
+      "label": "Kaswende – Chanya",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 23,
+      "indicator": "",
+      "label": "Kaswende – Hasi",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 24,
+      "indicator": "",
+      "label": "Homa ya Ini aina B – Chanya",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 25,
+      "indicator": "",
+      "label": "Homa ya Ini aina B – Hasi",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 26,
+      "indicator": 9,
+      "label": "Idadi ya Watoto waliofuatiliwa kufika kituoni kwa ukusanyaji wa DBS – Umri wa Wiki 6",
+      "columns": [
+        "total",
+        "male-total",
+        "male-under-1m",
+        "male-1-11m",
+        "female-total",
+        "female-under-1m",
+        "female-1-11m"
+      ]
+    },
+    {
+      "workbookRow": 27,
+      "indicator": "",
+      "label": "Wavulana (Boys)",
+      "columns": [
+        "total",
+        "male-total",
+        "male-under-1m",
+        "male-1-11m"
+      ]
+    },
+    {
+      "workbookRow": 28,
+      "indicator": "",
+      "label": "Wasichana (Girls)",
+      "columns": [
+        "total",
+        "female-total",
+        "female-under-1m",
+        "female-1-11m"
+      ]
+    },
+    {
+      "workbookRow": 29,
+      "indicator": 10,
+      "label": "Idadi ya Watoto waliofuatiliwa kufika kituoni kwa ukusanyaji wa DBS – Umri wa Miezi 9",
+      "columns": [
+        "total",
+        "male-total",
+        "male-1-11m",
+        "female-total",
+        "female-1-11m"
+      ]
+    },
+    {
+      "workbookRow": 30,
+      "indicator": "",
+      "label": "Wavulana (Boys)",
+      "columns": [
+        "total",
+        "male-total",
+        "male-1-11m"
+      ]
+    },
+    {
+      "workbookRow": 31,
+      "indicator": "",
+      "label": "Wasichana (Girls)",
+      "columns": [
+        "total",
+        "female-total",
+        "female-1-11m"
+      ]
+    },
+    {
+      "workbookRow": 32,
+      "indicator": 11,
+      "label": "Idadi ya Watoto waliounganishwa na Mama Kinara kupata kipimo cha mwisho cha uthibitisho wa VVU (Miezi 18)",
+      "columns": [
+        "total",
+        "male-total",
+        "male-1-11m",
+        "male-12-23m",
+        "female-total",
+        "female-1-11m",
+        "female-12-23m"
+      ]
+    },
+    {
+      "workbookRow": 33,
+      "indicator": "",
+      "label": "Chanya (Positive)",
+      "columns": [
+        "total",
+        "male-total",
+        "male-1-11m",
+        "male-12-23m"
+      ]
+    },
+    {
+      "workbookRow": 34,
+      "indicator": "",
+      "label": "Hasi (Negative)",
+      "columns": [
+        "total",
+        "female-total",
+        "female-1-11m",
+        "female-12-23m"
+      ]
+    },
+    {
+      "workbookRow": 35,
+      "indicator": 12,
+      "label": "Idadi ya wenzi wa wajawazito walioelimishwa na Mama Kinara (jamii) kuhusu huduma za kuzuia PMTCT",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 36,
+      "indicator": "",
+      "label": "VVU",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 37,
+      "indicator": "",
+      "label": "Kaswende",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 38,
+      "indicator": "",
+      "label": "Homa ya Ini aina B",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 39,
+      "indicator": 13,
+      "label": "Idadi ya kaya za akina mama wanaoishi na VVU zilizotembelewa na Mama Kinara",
+      "columns": [
+        "total"
+      ]
+    },
+    {
+      "workbookRow": 40,
+      "indicator": 14,
+      "label": "Idadi ya wanakaya waliopewa unasihi wakati wa ziara za nyumbani za Mama Kinara",
+      "columns": [
+        "total",
+        "male-total",
+        "male-under-1m",
+        "male-1-11m",
+        "male-12-23m",
+        "male-2-4",
+        "male-5-9",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-under-1m",
+        "female-1-11m",
+        "female-12-23m",
+        "female-2-4",
+        "female-5-9",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 41,
+      "indicator": 15,
+      "label": "Idadi ya shughuli za kijamii alizoshiriki Mama Kinara na kutoa elimu ya kuzuia PMTCT",
+      "columns": [
+        "total"
+      ]
+    },
+    {
+      "workbookRow": 42,
+      "indicator": 16,
+      "label": "Idadi ya wateja waliopewa elimu ya kuzuia PMTCT katika shughuli za kijamii za Mama Kinara",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 43,
+      "indicator": 17,
+      "label": "Idadi ya wateja waliopewa rufaa kwenda kituoni kupata huduma za kuzuia PMTCT",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 44,
+      "indicator": 18,
+      "label": "Idadi ya wateja waliopotea kwenye ufuatiliaji (LTFU/IIT) waliofuatiliwa na Mama Kinara",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 45,
+      "indicator": "",
+      "label": "Amerudi",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 46,
+      "indicator": "",
+      "label": "Hajapatikana",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 47,
+      "indicator": "",
+      "label": "Amefariki",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 48,
+      "indicator": "",
+      "label": "Amehamishwa",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    },
+    {
+      "workbookRow": 49,
+      "indicator": "",
+      "label": "Amekataa",
+      "columns": [
+        "total",
+        "male-total",
+        "male-10-14",
+        "male-15-19",
+        "male-20-24",
+        "male-25-59",
+        "male-60-plus",
+        "female-total",
+        "female-10-14",
+        "female-15-19",
+        "female-20-24",
+        "female-25-59",
+        "female-60-plus"
+      ]
+    }
+  ]
+}

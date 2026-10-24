@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mothermentor_risk_low">#2E7D32</color>
+    <color name="mothermentor_risk_high">#C62828</color>
+    <color name="mothermentor_tab_indicator">#FFD600</color>
+    <color name="mothermentor_tab_text_inactive">#CCFFFFFF</color>
+</resources>

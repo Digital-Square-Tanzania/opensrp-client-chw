@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.ChwHIA2ReportsActivity;
 import org.smartregister.chw.activity.InAppReportsActivity;
 import org.smartregister.chw.core.activity.CoreStockInventoryReportActivity;
@@ -12,11 +13,21 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.referral.util.Constants;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 public class NavigationMenuFlv implements NavigationMenu.Flavour {
+
+    @Override
+    public List<String> getPrimaryNavigationItems() {
+        if (!BuildConfig.ENABLE_COLLAPSIBLE_NAVIGATION) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(CoreConstants.DrawerMenu.ALL_CLIENTS,
+                CoreConstants.DrawerMenu.ALL_FAMILIES, CoreConstants.DrawerMenu.HPS);
+    }
 
     @Override
     public List<Pair<String, Locale>> getSupportedLanguages() {
@@ -29,6 +40,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
         tableMap.put(CoreConstants.DrawerMenu.REFERRALS, Constants.Tables.REFERRAL);
         tableMap.put(CoreConstants.DrawerMenu.HARM_REDUCTION, org.smartregister.chw.harmreduction.util.Constants.TABLES.HARM_REDUCTION_RISK_ASSESSMENT);
         tableMap.put(CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE, org.smartregister.chw.harmreduction.util.Constants.TABLES.HARM_REDUCTION_SOBER_HOUSE_ENROLLMENT);
+        tableMap.put(CoreConstants.DrawerMenu.MOTHER_MENTOR, org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLLMENT);
         return tableMap;
     }
 
@@ -44,7 +56,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
     public boolean hasCommunityResponders() {
-        return true;
+        return false;
     }
 
     @Override
