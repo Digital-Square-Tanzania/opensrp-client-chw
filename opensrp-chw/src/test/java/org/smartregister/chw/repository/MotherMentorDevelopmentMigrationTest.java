@@ -205,7 +205,7 @@ public class MotherMentorDevelopmentMigrationTest {
     }
 
     private void upgradeAndReplay(int oldVersion) throws Exception {
-        assertEquals(54, BuildConfig.DATABASE_VERSION);
+        assertTrue(BuildConfig.DATABASE_VERSION >= 54);
         ChwRepositoryFlv.onUpgrade(RuntimeEnvironment.getApplication(), cipher, oldVersion, 54);
         assertRequiredSchema();
         assertTrue(requestedTables.containsAll(motherMentorTables()));

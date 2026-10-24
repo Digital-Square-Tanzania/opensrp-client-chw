@@ -209,6 +209,9 @@ public class ChwRepositoryFlv {
                 case 54:
                     upgradeToVersion54(db);
                     break;
+                case 55:
+                    KvpReportingMigration.upgrade(db, ReportingLibrary.getInstance());
+                    break;
                 default:
                     break;
             }
