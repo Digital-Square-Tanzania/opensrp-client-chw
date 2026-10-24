@@ -446,6 +446,16 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
                 && !MotherMentorDao.isRegisteredForMotherMentor(memberObject.getBaseEntityId());
     }
 
+    private String getMotherMentorFamilyBaseEntityId() {
+        String familyBaseEntityId = memberObject.getFamilyBaseEntityId();
+        if (StringUtils.isBlank(familyBaseEntityId)) {
+            return UpdateDetailsUtil.getFamilyBaseEntityId(
+                    org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient(
+                            memberObject.getBaseEntityId()));
+        }
+        return familyBaseEntityId;
+    }
+
     private boolean canAccessMotherMentorServices() {
         return ChwApplication.getApplicationFlavor().hasMotherMentor()
                 && "Female".equalsIgnoreCase(memberObject.getGender());
@@ -480,7 +490,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
                 MotherMentorRegisterActivity.startRegistration(
                         this,
                         memberObject.getBaseEntityId(),
-                        memberObject.getFamilyBaseEntityId(),
+                        getMotherMentorFamilyBaseEntityId(),
                         memberObject.getGender(),
                         memberObject.getAge());
             }
@@ -490,7 +500,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
                 MotherMentorRegisterActivity.startRegistration(
                         this,
                         memberObject.getBaseEntityId(),
-                        memberObject.getFamilyBaseEntityId(),
+                        getMotherMentorFamilyBaseEntityId(),
                         memberObject.getGender(),
                         memberObject.getAge(),
                         MOTHERMENTOR_ENROLL_IIT);

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -37,10 +38,13 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.UpdateDetailsUtil;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.hps.domain.MemberObject;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.util.AllClientsUtils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(application = Application.class, sdk = 28)
@@ -254,6 +258,90 @@ public class HpsMotherMentorEnrollmentTest {
         verify(activity, never()).startActivity(any(Intent.class));
     }
 
+    @Test
+    public void primaryEnrollmentRecoversCanonicalFamilyWhenHpsFamilyIsMissing() {
+        CommonPersonObjectClient canonicalClient = mock(CommonPersonObjectClient.class);
+        try (MockedStatic<Utils> clients = mockStatic(Utils.class);
+                MockedStatic<UpdateDetailsUtil> families = mockStatic(UpdateDetailsUtil.class)) {
+            clients.when(() -> Utils.getCommonPersonObjectClient(CLIENT_ID))
+                    .thenReturn(canonicalClient);
+            families.when(() -> UpdateDetailsUtil.getFamilyBaseEntityId(canonicalClient))
+                    .thenReturn(FAMILY_ID);
+
+            for (String missingFamily : new String[] {null, "", "   "}) {
+                when(member.getFamilyBaseEntityId()).thenReturn(missingFamily);
+                clearInvocations(activity);
+
+                assertTrue(activity.onOptionsItemSelected(enrollment(menu())));
+
+                assertRegistrationIntent(Constants.FORMS.MOTHER_MENTOR_ENROLLMENT);
+            }
+        }
+    }
+
+    @Test
+    public void iitEnrollmentRecoversCanonicalFamilyWhenHpsFamilyIsMissing() {
+        CommonPersonObjectClient canonicalClient = mock(CommonPersonObjectClient.class);
+        try (MockedStatic<Utils> clients = mockStatic(Utils.class);
+                MockedStatic<UpdateDetailsUtil> families = mockStatic(UpdateDetailsUtil.class)) {
+            clients.when(() -> Utils.getCommonPersonObjectClient(CLIENT_ID))
+                    .thenReturn(canonicalClient);
+            families.when(() -> UpdateDetailsUtil.getFamilyBaseEntityId(canonicalClient))
+                    .thenReturn(FAMILY_ID);
+
+            for (String missingFamily : new String[] {null, "", "   "}) {
+                when(member.getFamilyBaseEntityId()).thenReturn(missingFamily);
+                clearInvocations(activity);
+
+                assertTrue(activity.onOptionsItemSelected(iitEnrollment(menu())));
+
+                assertRegistrationIntent(Constants.FORMS.MOTHERMENTOR_ENROLL_IIT);
+            }
+        }
+    }
+
+    @Test
+    public void validHpsFamilyIsPreservedForBothFormsWithoutCanonicalLookup() {
+        try (MockedStatic<Utils> clients = mockStatic(Utils.class);
+                MockedStatic<UpdateDetailsUtil> families = mockStatic(UpdateDetailsUtil.class)) {
+            MenuBuilder menu = menu();
+
+            assertTrue(activity.onOptionsItemSelected(enrollment(menu)));
+            assertRegistrationIntent(Constants.FORMS.MOTHER_MENTOR_ENROLLMENT);
+            clearInvocations(activity);
+
+            assertTrue(activity.onOptionsItemSelected(iitEnrollment(menu)));
+            assertRegistrationIntent(Constants.FORMS.MOTHERMENTOR_ENROLL_IIT);
+            clients.verifyNoInteractions();
+            families.verifyNoInteractions();
+        }
+    }
+
+    @Test
+    public void independentClientCanOpenBothFormsWithoutACanonicalFamily() {
+        when(member.getFamilyBaseEntityId()).thenReturn(null);
+        CommonPersonObjectClient canonicalClient = mock(CommonPersonObjectClient.class);
+        try (MockedStatic<Utils> clients = mockStatic(Utils.class);
+                MockedStatic<UpdateDetailsUtil> families = mockStatic(UpdateDetailsUtil.class)) {
+            clients.when(() -> Utils.getCommonPersonObjectClient(CLIENT_ID))
+                    .thenReturn(canonicalClient);
+
+            for (String canonicalFamily : new String[] {null, ""}) {
+                families.when(() -> UpdateDetailsUtil.getFamilyBaseEntityId(canonicalClient))
+                        .thenReturn(canonicalFamily);
+                MenuBuilder menu = menu();
+                clearInvocations(activity);
+
+                assertTrue(activity.onOptionsItemSelected(enrollment(menu)));
+                assertRegistrationIntent(Constants.FORMS.MOTHER_MENTOR_ENROLLMENT, canonicalFamily);
+                clearInvocations(activity);
+
+                assertTrue(activity.onOptionsItemSelected(iitEnrollment(menu)));
+                assertRegistrationIntent(Constants.FORMS.MOTHERMENTOR_ENROLL_IIT, canonicalFamily);
+            }
+        }
+    }
+
     private MenuBuilder menu() {
         MenuBuilder menu = new MenuBuilder(context);
         assertTrue(activity.onCreateOptionsMenu(menu));
@@ -273,6 +361,10 @@ public class HpsMotherMentorEnrollmentTest {
     }
 
     private void assertRegistrationIntent(String expectedForm) {
+        assertRegistrationIntent(expectedForm, FAMILY_ID);
+    }
+
+    private void assertRegistrationIntent(String expectedForm, String expectedFamily) {
         ArgumentCaptor<Intent> intent = ArgumentCaptor.forClass(Intent.class);
         verify(activity).startActivity(intent.capture());
         Intent registration = intent.getValue();
@@ -281,7 +373,7 @@ public class HpsMotherMentorEnrollmentTest {
                 registration.getComponent().getClassName());
         assertEquals(CLIENT_ID,
                 registration.getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID));
-        assertEquals(FAMILY_ID,
+        assertEquals(expectedFamily,
                 registration.getStringExtra(Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID));
         assertEquals("Female", registration.getStringExtra(
                 org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER));
