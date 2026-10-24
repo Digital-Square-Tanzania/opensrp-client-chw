@@ -33,6 +33,26 @@ allprojects {
         }
 
         maven {
+            name = "FpGitHubPackages"
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-chw-fp")
+            content { includeModule('org.smartregister', 'opensrp-chw-fp') }
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GITHUB_ACTOR")
+                password = githubProperties['gpr.key'] ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+
+        maven {
+            name = "AsrhGitHubPackages"
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-chw-asrh")
+            content { includeModule('org.smartregister', 'opensrp-chw-asrh') }
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GITHUB_ACTOR")
+                password = githubProperties['gpr.key'] ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+
+        maven {
             name = "MotherMentorGitHubPackages"
             url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-chw-mother-mentor")
             credentials {
@@ -359,7 +379,7 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-7-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-8-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         // Pull opensrp-chw-ncd directly (below) instead of the version chw-core resolves to,
