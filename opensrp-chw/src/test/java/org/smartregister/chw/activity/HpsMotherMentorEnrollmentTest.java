@@ -114,21 +114,27 @@ public class HpsMotherMentorEnrollmentTest {
     public void maleClientHasNoMotherMentorEnrollmentOption() {
         when(member.getGender()).thenReturn("Male");
 
-        assertFalse(enrollment(menu()).isVisible());
+        MenuBuilder menu = menu();
+        assertFalse(enrollment(menu).isVisible());
+        assertFalse(iitEnrollment(menu).isVisible());
     }
 
     @Test
     public void missingGenderHasNoMotherMentorEnrollmentOption() {
         when(member.getGender()).thenReturn(null);
 
-        assertFalse(enrollment(menu()).isVisible());
+        MenuBuilder menu = menu();
+        assertFalse(enrollment(menu).isVisible());
+        assertFalse(iitEnrollment(menu).isVisible());
     }
 
     @Test
     public void disabledMotherMentorFlavorHidesEnrollmentOption() {
         when(flavor.hasMotherMentor()).thenReturn(false);
 
-        assertFalse(enrollment(menu()).isVisible());
+        MenuBuilder menu = menu();
+        assertFalse(enrollment(menu).isVisible());
+        assertFalse(iitEnrollment(menu).isVisible());
     }
 
     @Test
@@ -140,10 +146,9 @@ public class HpsMotherMentorEnrollmentTest {
     }
 
     @Test
-    public void hpsProfileDoesNotExposeSecondaryMotherMentorEnrollments() {
+    public void hpsProfileKeepsPartnerAndChildEnrollmentUnavailable() {
         MenuBuilder menu = menu();
 
-        assertNotVisible(menu, R.id.action_mother_mentor_enroll_iit);
         assertNotVisible(menu, R.id.action_mothermentor_enroll_iit);
         assertNotVisible(menu, R.id.action_mothermentor_enroll_partner);
         assertNotVisible(menu, R.id.action_mothermentor_enroll_child_eid);
@@ -155,22 +160,7 @@ public class HpsMotherMentorEnrollmentTest {
 
         assertTrue(activity.onOptionsItemSelected(enrollment));
 
-        ArgumentCaptor<Intent> intent = ArgumentCaptor.forClass(Intent.class);
-        verify(activity).startActivity(intent.capture());
-        Intent registration = intent.getValue();
-        assertEquals(
-                MotherMentorRegisterActivity.class.getName(),
-                registration.getComponent().getClassName());
-        assertEquals(CLIENT_ID,
-                registration.getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID));
-        assertEquals(FAMILY_ID,
-                registration.getStringExtra(Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID));
-        assertEquals("Female", registration.getStringExtra(
-                org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER));
-        assertEquals(32, registration.getIntExtra(
-                org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.AGE, -1));
-        assertEquals(Constants.FORMS.MOTHER_MENTOR_ENROLLMENT,
-                registration.getStringExtra(Constants.ACTIVITY_PAYLOAD.MOTHER_MENTOR_FORM_NAME));
+        assertRegistrationIntent(Constants.FORMS.MOTHER_MENTOR_ENROLLMENT);
     }
 
     @Test
@@ -204,6 +194,66 @@ public class HpsMotherMentorEnrollmentTest {
         verify(activity, never()).startActivity(any(Intent.class));
     }
 
+    @Test
+    @Config(qualifiers = "en")
+    public void eligibleFemaleHasLocalizedEnglishIitEnrollmentOption() {
+        MenuItem enrollment = iitEnrollment(menu());
+
+        assertTrue(enrollment.isVisible());
+        assertEquals("Mother Mentor Enroll IIT", enrollment.getTitle().toString());
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void eligibleFemaleHasLocalizedSwahiliIitEnrollmentOption() {
+        MenuItem enrollment = iitEnrollment(menu());
+
+        assertTrue(enrollment.isVisible());
+        assertEquals("Sajili IIT", enrollment.getTitle().toString());
+    }
+
+    @Test
+    public void primaryMotherMentorEnrollmentDoesNotHideIitEnrollment() {
+        motherMentor.when(() -> MotherMentorDao.isRegisteredForMotherMentor(CLIENT_ID))
+                .thenReturn(true);
+
+        MenuBuilder menu = menu();
+
+        assertFalse(enrollment(menu).isVisible());
+        assertTrue(iitEnrollment(menu).isVisible());
+    }
+
+    @Test
+    public void primaryEnrolledMotherIitClickOpensIitFormWithExactClientAndFamilyDetails() {
+        motherMentor.when(() -> MotherMentorDao.isRegisteredForMotherMentor(CLIENT_ID))
+                .thenReturn(true);
+        MenuItem enrollment = iitEnrollment(menu());
+
+        assertTrue(activity.onOptionsItemSelected(enrollment));
+
+        assertRegistrationIntent(Constants.FORMS.MOTHERMENTOR_ENROLL_IIT);
+    }
+
+    @Test
+    public void staleIitEnrollmentClickDoesNotEnrollAMaleClient() {
+        MenuItem enrollment = iitEnrollment(menu());
+        when(member.getGender()).thenReturn("Male");
+
+        activity.onOptionsItemSelected(enrollment);
+
+        verify(activity, never()).startActivity(any(Intent.class));
+    }
+
+    @Test
+    public void staleIitEnrollmentClickRespectsDisabledMotherMentorFlavor() {
+        MenuItem enrollment = iitEnrollment(menu());
+        when(flavor.hasMotherMentor()).thenReturn(false);
+
+        activity.onOptionsItemSelected(enrollment);
+
+        verify(activity, never()).startActivity(any(Intent.class));
+    }
+
     private MenuBuilder menu() {
         MenuBuilder menu = new MenuBuilder(context);
         assertTrue(activity.onCreateOptionsMenu(menu));
@@ -214,6 +264,31 @@ public class HpsMotherMentorEnrollmentTest {
         MenuItem item = menu.findItem(R.id.action_mother_mentor_enrollment);
         assertNotNull(item);
         return item;
+    }
+
+    private MenuItem iitEnrollment(MenuBuilder menu) {
+        MenuItem item = menu.findItem(R.id.action_mother_mentor_enroll_iit);
+        assertNotNull(item);
+        return item;
+    }
+
+    private void assertRegistrationIntent(String expectedForm) {
+        ArgumentCaptor<Intent> intent = ArgumentCaptor.forClass(Intent.class);
+        verify(activity).startActivity(intent.capture());
+        Intent registration = intent.getValue();
+        assertEquals(
+                MotherMentorRegisterActivity.class.getName(),
+                registration.getComponent().getClassName());
+        assertEquals(CLIENT_ID,
+                registration.getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID));
+        assertEquals(FAMILY_ID,
+                registration.getStringExtra(Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID));
+        assertEquals("Female", registration.getStringExtra(
+                org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.GENDER));
+        assertEquals(32, registration.getIntExtra(
+                org.smartregister.chw.kvp.util.Constants.ACTIVITY_PAYLOAD.AGE, -1));
+        assertEquals(expectedForm,
+                registration.getStringExtra(Constants.ACTIVITY_PAYLOAD.MOTHER_MENTOR_FORM_NAME));
     }
 
     private void assertNotVisible(MenuBuilder menu, int id) {
