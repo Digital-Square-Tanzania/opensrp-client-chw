@@ -6218,6 +6218,22 @@
           }
         },
         {
+          "column_name": "screening_location",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "screening_location"
+          }
+        },
+        {
+          "column_name": "hiv_tested",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_tested"
+          }
+        },
+        {
           "column_name": "relational_id",
           "type": "Event",
           "json_mapping": {
@@ -6371,6 +6387,22 @@
           "type": "Event",
           "json_mapping": {
             "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "hiv_tested",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_tested"
+          }
+        },
+        {
+          "column_name": "tpt_initiation_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tpt_initiation_date"
           }
         },
         {
