@@ -30,6 +30,15 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     }
 
     @Override
+    public List<String> getFollowUpNavigationItems() {
+        if (!BuildConfig.ENABLE_COLLAPSIBLE_NAVIGATION) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(CoreConstants.DrawerMenu.REFERRALS,
+                CoreConstants.DrawerMenu.UPDATES, CoreConstants.DrawerMenu.LTFU);
+    }
+
+    @Override
     public List<Pair<String, Locale>> getSupportedLanguages() {
         return Arrays.asList(Pair.of("English", Locale.ENGLISH), Pair.of("Kiswahili", new Locale("sw")));
     }
