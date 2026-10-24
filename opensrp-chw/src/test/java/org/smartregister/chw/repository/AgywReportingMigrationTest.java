@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.nullable;
@@ -30,10 +31,16 @@ import org.robolectric.annotation.Config;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.dao.ReportIndicatorDaoImpl;
+import org.smartregister.reporting.domain.CompositeIndicatorTally;
+import org.smartregister.reporting.domain.IndicatorQuery;
+import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
+import java.util.AbstractMap;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -98,6 +105,7 @@ public class AgywReportingMigrationTest {
             preferences.put(call.getArgument(0), call.getArgument(1));
             return null;
         }).when(shared).savePreference(anyString(), anyString());
+        when(shared.fetchRegisteredANM()).thenReturn("");
         org.smartregister.Context context = mock(org.smartregister.Context.class);
         when(context.allSharedPreferences()).thenReturn(shared);
         reporting = mock(ReportingLibrary.class);
@@ -210,6 +218,42 @@ public class AgywReportingMigrationTest {
                 assertEquals(row.getKey(), 1, cursor.getColumnCount());
                 assertEquals(row.getKey(), 0, cursor.getInt(0));
             }
+        }
+    }
+
+    @Test
+    public void distinctPackageQueriesSaveEveryPositiveReportCellThroughTheTallyDao() {
+        seedPackage(12, "dreams", PRIMARY_TOPICS, "");
+        Set<String> expandedQueries = new LinkedHashSet<>();
+        Map<String, IndicatorQuery> packageQueries = new LinkedHashMap<>();
+        for (int indicator = 7; indicator <= 10; indicator++) {
+            for (String ages : new String[] {"10-14", "15-19", "20-24"}) {
+                String key = "agyw-" + indicator + "-" + ages;
+                assertTrue(key + " must not share the worker's SQL deduplication key",
+                        expandedQueries.add(query(key, MONTH)));
+                IndicatorQuery definition = new IndicatorQuery();
+                definition.setIndicatorCode(key);
+                definition.setQuery(queries.get(key));
+                packageQueries.put(key, definition);
+            }
+        }
+        assertEquals(12, expandedQueries.size());
+        DailyIndicatorCountRepository tallies = mock(DailyIndicatorCountRepository.class);
+        Map<String, Integer> saved = new LinkedHashMap<>();
+        doAnswer(call -> {
+            CompositeIndicatorTally tally = call.getArgument(0);
+            saved.put(tally.getIndicatorCode(), tally.getCount());
+            return null;
+        }).when(tallies).add(any(CompositeIndicatorTally.class));
+        try (MockedStatic<ReportingLibrary> library = mockStatic(ReportingLibrary.class);
+                MockedStatic<Utils> utils = mockStatic(Utils.class)) {
+            library.when(ReportingLibrary::getInstance).thenReturn(reporting);
+            utils.when(() -> Utils.getBooleanProperty(anyString())).thenReturn(false);
+            new TallyDao(tallies).save(packageQueries, cipher);
+        }
+        assertEquals(4, saved.size());
+        for (int indicator = 7; indicator <= 10; indicator++) {
+            assertEquals(Integer.valueOf(1), saved.get("agyw-" + indicator + "-10-14"));
         }
     }
 
@@ -356,6 +400,18 @@ public class AgywReportingMigrationTest {
 
     private int count(String table) {
         return Integer.parseInt(scalar("SELECT COUNT(*) FROM " + table));
+    }
+
+    private static class TallyDao extends ReportIndicatorDaoImpl {
+        TallyDao(DailyIndicatorCountRepository tallies) {
+            super(null, tallies, null);
+        }
+
+        void save(Map<String, IndicatorQuery> definitions,
+                net.zetetic.database.sqlcipher.SQLiteDatabase database) {
+            saveTallies(definitions, new AbstractMap.SimpleImmutableEntry<>(MONTH, new Date()),
+                    database, new LinkedHashSet<>());
+        }
     }
 
     private void createProjection(String table) throws Exception {
