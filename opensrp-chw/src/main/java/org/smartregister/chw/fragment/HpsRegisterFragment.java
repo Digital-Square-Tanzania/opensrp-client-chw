@@ -44,6 +44,7 @@ public class HpsRegisterFragment extends CoreHpsRegisterFragment {
             }
         }
         if (getSearchView() != null) {
+            getSearchView().setHint(getString(R.string.search_hint));
             getSearchView().setBackgroundResource(R.drawable.mama_kinara_search_background);
             getSearchView().setTextColor(getResources().getColor(R.color.mama_kinara_text));
             getSearchView()
