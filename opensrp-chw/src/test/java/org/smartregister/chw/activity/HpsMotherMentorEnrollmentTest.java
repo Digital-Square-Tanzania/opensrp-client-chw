@@ -213,7 +213,8 @@ public class HpsMotherMentorEnrollmentTest {
         MenuItem enrollment = iitEnrollment(menu());
 
         assertTrue(enrollment.isVisible());
-        assertEquals("Sajili IIT", enrollment.getTitle().toString());
+        assertEquals(
+                "Ufuatiliaji wa Mama IIT (Mama Kinara)", enrollment.getTitle().toString());
     }
 
     @Test
