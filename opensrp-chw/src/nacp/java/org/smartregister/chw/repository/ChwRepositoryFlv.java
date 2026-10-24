@@ -212,6 +212,9 @@ public class ChwRepositoryFlv {
                 case 55:
                     KvpReportingMigration.upgrade(db, ReportingLibrary.getInstance());
                     break;
+                case 56:
+                    TbLeprosyReportingMigration.upgrade(db, ReportingLibrary.getInstance());
+                    break;
                 default:
                     break;
             }
