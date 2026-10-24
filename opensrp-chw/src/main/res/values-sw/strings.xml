@@ -1096,7 +1096,7 @@
     <!-- Mother Mentor -->
     <string name="mother_mentor_enrollment">Usajili kwenye huduma za Mama Kinara</string>
     <string name="mothermentor_iit">MAMA IIT</string>
-    <string name="mothermentor_partner">MWENZI</string>
+    <string name="mothermentor_partner">MWENZA</string>
     <string name="mothermentor_child_eid">Mtoto wa ufuatiliaji wa ukusanyaji wa DBS</string>
     <string name="mothermentor_child_eid_register_tag">Mtoto wa ufuatiliaji wa ukusanyaji wa DBS</string>
     <string name="mothermentor_partner_register_tag">Mama Kinara: Mwenza</string>
@@ -1168,7 +1168,7 @@
     <string name="mothermentor_history_facility_return_date">Tarehe ya kurudi</string>
     <string name="mothermentor_history_partner_non_attendance_reason">Sababu ya kutofika kituoni</string>
     <string name="mothermentor_history_partner_non_attendance_reason_other">Sababu nyingine</string>
-    <string name="mothermentor_history_partner_expected_facility_visit_date">Tarehe mwenzi aliyotakiwa kituoni</string>
+    <string name="mothermentor_history_partner_expected_facility_visit_date">Tarehe mwenza aliyotakiwa kituoni</string>
     <string name="mothermentor_history_partner_arrived_at_facility">Amefika kituoni</string>
     <string name="mothermentor_history_partner_facility_arrival_date">Tarehe ya kufika kituoni</string>
     <string name="mothermentor_history_child_eid_test_type">Aina ya kipimo</string>
