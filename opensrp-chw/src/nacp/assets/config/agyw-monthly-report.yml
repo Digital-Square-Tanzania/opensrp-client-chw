@@ -223,12 +223,12 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
+					  /* primary packages */
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -236,22 +236,22 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
+					  /* Secondary packages */
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -280,12 +280,12 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
+					  /* primary packages */
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -293,22 +293,22 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
+					  /* Secondary packages */
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -338,12 +338,12 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
+					  /* primary packages */
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -351,22 +351,22 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
+					  /* Secondary packages */
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -397,14 +397,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -412,24 +412,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -459,14 +459,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -474,24 +474,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -521,14 +521,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -536,24 +536,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -584,14 +584,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -599,24 +599,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -646,14 +646,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -661,24 +661,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -708,14 +708,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -723,24 +723,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -771,14 +771,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -786,24 +786,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -833,14 +833,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -848,24 +848,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -895,14 +895,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -910,24 +910,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
