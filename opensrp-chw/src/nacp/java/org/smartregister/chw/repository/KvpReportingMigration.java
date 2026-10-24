@@ -105,27 +105,39 @@ final class KvpReportingMigration {
         if (json == null || submissionId == null || entityId == null) return null;
         try {
             JSONObject event = new JSONObject(json);
-            if (!FOLLOW_UP_EVENT.equals(event.optString("eventType"))
-                    || !submissionId.equals(event.optString("formSubmissionId"))
-                    || !entityId.equals(event.optString("baseEntityId"))) return null;
-            JSONArray observations = event.optJSONArray("obs");
-            if (observations == null) return null;
-            for (int i = 0; i < observations.length(); i++) {
-                JSONObject observation = observations.optJSONObject(i);
-                if (observation == null || !VISIT_DATE.equals(observation.optString("fieldCode"))) {
-                    continue;
-                }
-                JSONArray values = observation.optJSONArray("values");
-                if (values == null || values.length() == 0 || !(values.opt(0) instanceof String)) {
-                    continue;
-                }
-                String date = values.getString(0);
-                if (isValidVisitDate(date)) return date;
-            }
+            if (!matchesEvent(event, submissionId, entityId)) return null;
+            return findVisitDate(event.optJSONArray("obs"));
         } catch (JSONException ignored) {
             // A malformed retained event must not prevent the schema repair. Do not log its data.
         }
         return null;
+    }
+
+    private static boolean matchesEvent(JSONObject event, String submissionId, String entityId) {
+        return FOLLOW_UP_EVENT.equals(event.optString("eventType"))
+                && submissionId.equals(event.optString("formSubmissionId"))
+                && entityId.equals(event.optString("baseEntityId"));
+    }
+
+    private static String findVisitDate(JSONArray observations) {
+        if (observations == null) return null;
+        for (int i = 0; i < observations.length(); i++) {
+            String date = observationVisitDate(observations.optJSONObject(i));
+            if (date != null) return date;
+        }
+        return null;
+    }
+
+    private static String observationVisitDate(JSONObject observation) {
+        if (observation == null || !VISIT_DATE.equals(observation.optString("fieldCode"))) {
+            return null;
+        }
+        JSONArray values = observation.optJSONArray("values");
+        if (values == null || values.length() == 0 || !(values.opt(0) instanceof String)) {
+            return null;
+        }
+        String date = (String) values.opt(0);
+        return isValidVisitDate(date) ? date : null;
     }
 
     private static boolean isValidVisitDate(String value) {
