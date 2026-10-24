@@ -191,6 +191,10 @@ public class ChwApplication extends CoreChwApplication {
 
     @Override
     public void onCreate() {
+        // Keep dependency coverage disabled without opening the signed APK as a JAR at startup.
+        if (System.getProperty("jacoco-agent.output") == null) {
+            System.setProperty("jacoco-agent.output", "none");
+        }
         super.onCreate();
 
         mInstance = this;

@@ -22,6 +22,7 @@ import timber.log.Timber;
 public class ChwRepository extends CoreChwRepository {
     private Context context;
     private static String appVersionCodePref = "APP_VERSION_CODE";
+    private boolean createdWithCurrentCipher;
 
     private enum MigrationResult {
         SUCCESS,
@@ -64,9 +65,17 @@ public class ChwRepository extends CoreChwRepository {
     }
 
     @Override
+    public void onCreate(SQLiteDatabase database) {
+        super.onCreate(database);
+        createdWithCurrentCipher = true;
+    }
+
+    @Override
     public void onOpen(SQLiteDatabase database) {
         if (!CoreLibrary.getInstance().context().allSharedPreferences().isMigratedToSqlite4()) {
-            MigrationResult result = performCipherMigrationToV4Safely(database);
+            // New databases already use the current cipher; migration must precede schema access.
+            MigrationResult result = createdWithCurrentCipher
+                    ? MigrationResult.SUCCESS : performCipherMigrationToV4Safely(database);
             if (result == MigrationResult.FAILED) {
                 throw new DatabaseMigrationException("Database migration to SQLiteCipher v4 was not successful");
             }
