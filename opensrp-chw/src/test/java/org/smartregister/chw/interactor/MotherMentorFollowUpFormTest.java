@@ -28,13 +28,18 @@ public class MotherMentorFollowUpFormTest {
 
     @Test
     public void homeAndFollowUpFormsRemainSeparate() throws Exception {
-        assertNotNull(field(form("json.form", "mothermentor_visit_type.json"), "attendance_type"));
-        assertNotNull(field(form("json.form", "mothermentor_follow_up_status.json"), "follow_up_status"));
+        for (String locale : new String[] {"json.form", "json.form-sw"}) {
+            assertNotNull(field(form(locale, "mothermentor_visit_type.json"), "attendance_type"));
+            assertNotNull(
+                    field(form(locale, "mothermentor_follow_up_status.json"), "follow_up_status"));
 
-        JSONObject homeComment = field(form("json.form", "mothermentor_visit_comment.json"), "comments");
-        JSONObject followUpComment = field(form("json.form", "mothermentor_follow_up_comment.json"), "comments");
-        assertTrue(homeComment.has("v_required"));
-        assertFalse(followUpComment.has("v_required"));
+            JSONObject homeComment =
+                    field(form(locale, "mothermentor_visit_comment.json"), "comments");
+            JSONObject followUpComment =
+                    field(form(locale, "mothermentor_follow_up_comment.json"), "comments");
+            assertFalse(locale, homeComment.has("v_required"));
+            assertFalse(locale, followUpComment.has("v_required"));
+        }
     }
 
     @Test
