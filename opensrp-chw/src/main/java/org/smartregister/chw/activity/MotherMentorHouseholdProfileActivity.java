@@ -37,7 +37,6 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
         REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.PURPOSE_OF_VISIT);
         REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.PARTICIPANTS);
         REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.TOPICS_TAUGHT);
-        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.COMMENTS);
     }
 
     public static void startMe(Activity activity, String baseEntityId) {
