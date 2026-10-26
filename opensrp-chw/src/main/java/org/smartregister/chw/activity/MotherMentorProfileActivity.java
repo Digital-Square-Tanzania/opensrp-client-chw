@@ -36,6 +36,7 @@ import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
@@ -972,6 +973,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         try {
             JSONArray obsArray = new JSONObject(visit.getJson()).optJSONArray("obs");
             if (obsArray == null) return false;
+            if (!isFollowUpProfile()) return MotherMentorVisitCompletion.isComplete(obsArray);
             Map<String, String> values = getMotherMentorServiceValues(obsArray);
             String status = values.get(FOLLOW_UP_STATUS);
             if (!TextUtils.isEmpty(status)) {
