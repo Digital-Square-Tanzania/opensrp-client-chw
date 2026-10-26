@@ -78,7 +78,8 @@ public class MotherMentorReadOnlyIdentityTest {
             for (String key : new String[] {"child_name", "child_sex", "child_dob"}) {
                 assertDisabledWithoutEditButton(field(form, key));
             }
-            assertEditable(field(form, "hei_number"));
+            assertDisabledWithoutEditButton(field(form, "hei_number"));
+            assertEditable(field(form, "hei_follow_up_number"));
             field(form, "mother_name").put("value", "Untrusted name");
 
             MotherMentorChildEidFormUtils.bindIdentity(form, mother, child);
