@@ -78,12 +78,12 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
             if (!teamRoleIdentifier.isEmpty()) {
                 switch (teamRoleIdentifier) {
-                    case "mother_champion":
-                        navigationOptions.add(op10);
+                    case "PE_MAMA_KINARA":
+                        navigationOptions.addAll(Arrays.asList(op10,op1));
                         if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
                             navigationOptions.add(op13);
                         }
-                        navigationOptions.addAll(Arrays.asList(op33, op8, op9));
+                        navigationOptions.addAll(Arrays.asList(op8, op9));
                         break;
                     case "cbhs_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op9, op15));
