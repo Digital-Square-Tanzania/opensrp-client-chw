@@ -859,7 +859,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
             boolean canStartVisit =
                     isFollowUpProfile()
-                            ? !hasCompletedPartnerFollowUpVisitToday()
+                            ? !hasCompletedFollowUpVisitToday()
                             : !hasCompletedServiceVisitToday();
             textViewRecordMotherMentor.setEnabled(canStartVisit);
             textViewRecordMotherMentor.setAlpha(canStartVisit ? 1f : 0.5f);
@@ -887,10 +887,14 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                         getVisitAvailabilityDate());
     }
 
-    private boolean hasCompletedPartnerFollowUpVisitToday() {
-        return memberObject != null
-                && getFollowUpType() == MotherMentorFollowUpType.PARTNER
-                && MotherMentorDao.hasCompletedPartnerFollowUpVisitToday(
+    private boolean hasCompletedFollowUpVisitToday() {
+        if (memberObject == null) return false;
+        if (getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+            return MotherMentorDao.hasCompletedPartnerFollowUpVisitToday(
+                    memberObject.getBaseEntityId(), getVisitAvailabilityDate());
+        }
+        return getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
+                && MotherMentorDao.hasCompletedChildEidFollowUpVisitToday(
                         memberObject.getBaseEntityId(), getVisitAvailabilityDate());
     }
 
@@ -1102,9 +1106,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void openRecordClientVisit() {
         if (isFollowUpProfile()) {
-            if (getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+            if (getFollowUpType() == MotherMentorFollowUpType.PARTNER
+                    || getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
                 // Re-read saved records to guard stale button taps after a completed visit.
-                if (hasCompletedPartnerFollowUpVisitToday()) {
+                if (hasCompletedFollowUpVisitToday()) {
                     setupButtons();
                     return;
                 }
