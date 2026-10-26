@@ -80,6 +80,17 @@ public final class MotherMentorChildEidFormUtils {
             if (previous.get(key) != null) set(form, key, previous.get(key), false);
         }
         bindIdentity(form, mother, child);
+        String motherCtc = mother.get(DBConstants.KEY.CTC_NUMBER);
+        String previousHei = previous.get(DBConstants.KEY.HEI_NUMBER);
+        if (motherCtc != null && previousHei != null) {
+            String prefix = motherCtc.trim() + "-C-";
+            if (previousHei.startsWith(prefix)) {
+                String suffix = previousHei.substring(prefix.length());
+                if (suffix.matches("[0-9]{2}")) {
+                    set(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER, suffix, false);
+                }
+            }
+        }
         return form;
     }
 
@@ -97,6 +108,12 @@ public final class MotherMentorChildEidFormUtils {
         set(form, DBConstants.KEY.MOTHER_BASE_ENTITY_ID, motherId, false);
         set(form, DBConstants.KEY.CHILD_LINKING, "yes", false);
         set(form, DBConstants.KEY.MOTHER_NAME, name(mother), true);
+        String motherCtc = mother.get(DBConstants.KEY.CTC_NUMBER);
+        set(
+                form,
+                DBConstants.KEY.MOTHER_CTC_NUMBER,
+                motherCtc == null ? "" : motherCtc.trim(),
+                true);
         set(form, DBConstants.KEY.CHILD_NAME, name(child), true);
         set(form, DBConstants.KEY.CHILD_SEX, child.get(DBConstants.KEY.GENDER), true);
         String dob = child.get(DBConstants.KEY.DOB);
@@ -105,6 +122,21 @@ public final class MotherMentorChildEidFormUtils {
                 DBConstants.KEY.CHILD_DOB,
                 dob != null && dob.length() >= 10 ? dob.substring(0, 10) : dob,
                 true);
+    }
+
+    public static void bindHeiNumber(JSONObject form, Map<String, String> mother)
+            throws JSONException {
+        String heiNumber = "";
+        if ("yes".equals(field(form, DBConstants.KEY.HEI_REGISTERED).optString("value"))) {
+            String motherCtc = mother.get(DBConstants.KEY.CTC_NUMBER);
+            String suffix = field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).optString("value");
+            if (motherCtc == null || motherCtc.trim().isEmpty() || !suffix.matches("[0-9]{2}")) {
+                throw new IllegalArgumentException(
+                        "A mother's CTC ID and two-digit follow-up number are required");
+            }
+            heiNumber = motherCtc.trim() + "-C-" + suffix;
+        }
+        set(form, DBConstants.KEY.HEI_NUMBER, heiNumber, true);
     }
 
     public static String name(Map<String, String> person) {

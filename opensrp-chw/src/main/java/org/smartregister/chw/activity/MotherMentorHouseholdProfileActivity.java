@@ -1,7 +1,12 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,18 +31,34 @@ import org.smartregister.family.util.Utils;
 
 import timber.log.Timber;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
 public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfileActivity {
     private static final Set<String> REQUIRED_HOUSEHOLD_SERVICE_FIELDS = new HashSet<>();
+    private final Handler visitAvailabilityHandler = new Handler(Looper.getMainLooper());
+    private final Runnable refreshVisitAvailability =
+            () -> {
+                if (memberObject != null && !isFinishing()) {
+                    setupButtons();
+                    scheduleVisitAvailabilityRefresh();
+                }
+            };
+    private final BroadcastReceiver visitDateChangedReceiver =
+            new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    refreshVisitAvailability.run();
+                }
+            };
 
     static {
         REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.PURPOSE_OF_VISIT);
         REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.PARTICIPANTS);
         REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.TOPICS_TAUGHT);
-        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.COMMENTS);
     }
 
     public static void startMe(Activity activity, String baseEntityId) {
@@ -108,6 +129,9 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
             textViewRecordMotherMentor.setText(R.string.mothermentor_household_record);
+            boolean canStartVisit = !hasCompletedHouseholdVisitToday();
+            textViewRecordMotherMentor.setEnabled(canStartVisit);
+            textViewRecordMotherMentor.setAlpha(canStartVisit ? 1f : 0.5f);
         }
         enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
@@ -139,20 +163,27 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void openRecordClientVisit() {
+        // Re-read saved visits so a stale profile cannot start a duplicate on the same day.
+        if (hasCompletedHouseholdVisitToday()) {
+            setupButtons();
+            return;
+        }
+        if (isVisitOnProgress(getServiceVisit())) {
+            continueService();
+            return;
+        }
         MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
                 this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
     public void openFollowupVisit() {
-        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
-                this, memberObject.getBaseEntityId(), false);
+        openRecordClientVisit();
     }
 
     @Override
     public void openRecordTbContactVisit() {
-        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
-                this, memberObject.getBaseEntityId(), false);
+        openRecordClientVisit();
     }
 
     @Override
@@ -188,8 +219,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void openTbContactFollowUpVisit() {
-        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
-                this, memberObject.getBaseEntityId(), false);
+        openRecordClientVisit();
     }
 
     @Override
@@ -238,6 +268,42 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
         memberObject =
                 getMemberObject(
                         getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID));
+        IntentFilter dateChanges = new IntentFilter(Intent.ACTION_DATE_CHANGED);
+        dateChanges.addAction(Intent.ACTION_TIME_CHANGED);
+        dateChanges.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        registerReceiver(visitDateChangedReceiver, dateChanges);
+        refreshVisitAvailability.run();
+    }
+
+    @Override
+    protected void onPause() {
+        visitAvailabilityHandler.removeCallbacks(refreshVisitAvailability);
+        unregisterReceiver(visitDateChangedReceiver);
+        super.onPause();
+    }
+
+    private void scheduleVisitAvailabilityRefresh() {
+        visitAvailabilityHandler.removeCallbacks(refreshVisitAvailability);
+        Date now = getVisitAvailabilityDate();
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.setTime(now);
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+        tomorrow.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrow.set(Calendar.MINUTE, 0);
+        tomorrow.set(Calendar.SECOND, 0);
+        tomorrow.set(Calendar.MILLISECOND, 0);
+        visitAvailabilityHandler.postDelayed(
+                refreshVisitAvailability, tomorrow.getTimeInMillis() - now.getTime());
+    }
+
+    Date getVisitAvailabilityDate() {
+        return new Date();
+    }
+
+    private boolean hasCompletedHouseholdVisitToday() {
+        return memberObject != null
+                && MotherMentorDao.hasCompletedHouseholdVisitToday(
+                        memberObject.getBaseEntityId(), getVisitAvailabilityDate());
     }
 
     private void enforceProcessVisitVisibility() {
@@ -297,7 +363,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     protected boolean isVisitOnProgress(Visit visit) {
-        return visit != null && TextUtils.isEmpty(visit.getVisitId());
+        return visit != null && !Boolean.TRUE.equals(visit.getProcessed());
     }
 
     private boolean hasProcessedHouseholdVisitHistory() {

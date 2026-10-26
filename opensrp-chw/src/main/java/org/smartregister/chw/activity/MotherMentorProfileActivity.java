@@ -32,10 +32,12 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
@@ -855,7 +857,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         super.setupButtons();
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
-            boolean canStartVisit = isFollowUpProfile() || !hasCompletedServiceVisitToday();
+            boolean canStartVisit =
+                    isFollowUpProfile()
+                            ? !hasCompletedPartnerFollowUpVisitToday()
+                            : !hasCompletedServiceVisitToday();
             textViewRecordMotherMentor.setEnabled(canStartVisit);
             textViewRecordMotherMentor.setAlpha(canStartVisit ? 1f : 0.5f);
             if (isFollowUpProfile()) {
@@ -880,6 +885,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                                 memberObject.getBaseEntityId(),
                                 Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES),
                         getVisitAvailabilityDate());
+    }
+
+    private boolean hasCompletedPartnerFollowUpVisitToday() {
+        return memberObject != null
+                && getFollowUpType() == MotherMentorFollowUpType.PARTNER
+                && MotherMentorDao.hasCompletedPartnerFollowUpVisitToday(
+                        memberObject.getBaseEntityId(), getVisitAvailabilityDate());
     }
 
     boolean isFollowUpProfile() {
@@ -972,6 +984,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         try {
             JSONArray obsArray = new JSONObject(visit.getJson()).optJSONArray("obs");
             if (obsArray == null) return false;
+            if (!isFollowUpProfile()) return MotherMentorVisitCompletion.isComplete(obsArray);
             Map<String, String> values = getMotherMentorServiceValues(obsArray);
             String status = values.get(FOLLOW_UP_STATUS);
             if (!TextUtils.isEmpty(status)) {
@@ -1089,6 +1102,17 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void openRecordClientVisit() {
         if (isFollowUpProfile()) {
+            if (getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+                // Re-read saved records to guard stale button taps after a completed visit.
+                if (hasCompletedPartnerFollowUpVisitToday()) {
+                    setupButtons();
+                    return;
+                }
+                if (isVisitOnProgress(getServiceVisit())) {
+                    continueService();
+                    return;
+                }
+            }
             MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                     this, memberObject.getBaseEntityId(), false, getFollowUpType());
         } else {

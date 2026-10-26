@@ -63,6 +63,7 @@ public class MotherMentorChildEidRepositoryTest {
     }
     @Test public void onlyActivePrimaryMothersCanLink() {
         assertNotNull(repository.findMother("mother"));
+        assertEquals("12-34-5678-123456", repository.findMother("mother").values.get("ctc_number"));
         assertNull(repository.findMother("household"));
         db.execSQL("UPDATE ec_mothermentor_enrollment SET is_closed = 1");
         assertNull(repository.findMother("mother"));
