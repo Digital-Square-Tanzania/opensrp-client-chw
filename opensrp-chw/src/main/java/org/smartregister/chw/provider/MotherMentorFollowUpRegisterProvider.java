@@ -15,10 +15,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.smartregister.chw.R;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragment;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorAgeUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.util.Utils;
@@ -60,16 +60,11 @@ public class MotherMentorFollowUpRegisterProvider
                     Utils.getValue(person.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
             String last = Utils.getValue(person.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
             String fullName = (first + " " + middle + " " + last).trim().replaceAll("\\s+", " ");
-            int age =
-                    new Period(
-                                    new DateTime(
-                                            Utils.getValue(
-                                                    person.getColumnmaps(),
-                                                    DBConstants.KEY.DOB,
-                                                    false)),
-                                    new DateTime())
-                            .getYears();
-            holder.name.setText(fullName + ", " + age);
+            String age =
+                    MotherMentorAgeUtils.formatAge(
+                            context,
+                            Utils.getValue(person.getColumnmaps(), DBConstants.KEY.DOB, false));
+            holder.name.setText(TextUtils.isEmpty(age) ? fullName : fullName + ", " + age);
 
             String village =
                     Utils.getValue(person.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true);
