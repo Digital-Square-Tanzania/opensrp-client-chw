@@ -8,6 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.content.res.ColorStateList;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -24,7 +26,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import org.smartregister.chw.R;
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
+import org.smartregister.chw.activity.DueClientsActivity;
+import org.smartregister.chw.due.DueServicesChangedEvent;
+import org.smartregister.chw.due.DueServicesSnapshot;
+import org.smartregister.chw.due.LandingDueServiceRepository;
+import org.smartregister.chw.util.DueServicesUi;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.chw.core.model.NavigationModel;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -60,7 +71,13 @@ import timber.log.Timber;
 public class AllClientsDashboardFragment extends Fragment implements SyncStatusBroadcastReceiver.SyncStatusListener {
     private final AppExecutors executors = new AppExecutors();
     private final AllClientsDashboardRepository repository = new AllClientsDashboardRepository();
+    private final LandingDueServiceRepository dueRepository = new LandingDueServiceRepository();
     private int requestVersion;
+    private final Handler refreshHandler = new Handler(Looper.getMainLooper());
+    private final Runnable serviceChangedRefresh = this::refreshDashboard;
+    private final BroadcastReceiver dateReceiver = new BroadcastReceiver() {
+        @Override public void onReceive(Context context, Intent intent) { refreshDashboard(); }
+    };
     private boolean lastSyncFailed;
     private long lastSyncFailureAt;
     private long lastObservedSyncSuccess;
@@ -134,6 +151,11 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
         requireContext().registerReceiver(connectivityReceiver,
                 new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         updateSyncState();
+        EventBus.getDefault().register(this);
+        IntentFilter filter = new IntentFilter(Intent.ACTION_DATE_CHANGED);
+        filter.addAction(Intent.ACTION_TIME_CHANGED);
+        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        requireContext().registerReceiver(dateReceiver, filter);
     }
 
     @Override
@@ -144,6 +166,10 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
 
     @Override
     public void onStop() {
+        requestVersion++;
+        refreshHandler.removeCallbacks(serviceChangedRefresh);
+        requireContext().unregisterReceiver(dateReceiver);
+        EventBus.getDefault().unregister(this);
         requireContext().unregisterReceiver(connectivityReceiver);
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(this);
         super.onStop();
@@ -157,7 +183,7 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
 
     public void refreshDashboard() {
         View view = getView();
-        if (view == null) {
+        if (view == null || CoreLibrary.getInstance().context().IsUserLoggedOut()) {
             return;
         }
         int version = ++requestVersion;
@@ -165,25 +191,53 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
         updateSyncState();
         view.findViewById(R.id.dashboard_loading).setVisibility(View.VISIBLE);
         view.findViewById(R.id.dashboard_error).setVisibility(View.GONE);
+        view.findViewById(R.id.dashboard_due_card).setEnabled(false);
+        view.findViewById(R.id.dashboard_overdue_card).setEnabled(false);
         executors.diskIO().execute(() -> {
             try {
-                Snapshot snapshot = repository.load(System.currentTimeMillis());
+                long now = System.currentTimeMillis();
+                Snapshot snapshot = repository.load(now);
+                DueServicesSnapshot dueSnapshot = loadDueSnapshot(now, snapshot);
                 executors.mainThread().execute(() -> {
-                    if (getView() == view && version == requestVersion) {
+                    if (getView() == view && version == requestVersion
+                            && !CoreLibrary.getInstance().context().IsUserLoggedOut()) {
                         bindSnapshot(view, snapshot);
+                        bindDueSnapshot(view, dueSnapshot);
                         view.findViewById(R.id.dashboard_loading).setVisibility(View.GONE);
                     }
                 });
             } catch (Exception e) {
                 Timber.e(e, "Unable to load All Clients dashboard");
                 executors.mainThread().execute(() -> {
-                    if (getView() == view && version == requestVersion) {
+                    if (getView() == view && version == requestVersion
+                            && !CoreLibrary.getInstance().context().IsUserLoggedOut()) {
                         view.findViewById(R.id.dashboard_loading).setVisibility(View.GONE);
                         view.findViewById(R.id.dashboard_error).setVisibility(View.VISIBLE);
+                        bindDueSnapshot(view, null);
                     }
                 });
             }
         });
+    }
+
+    private DueServicesSnapshot loadDueSnapshot(long now, Snapshot cohort) {
+        try {
+            return dueRepository.load(now, cohort);
+        } catch (Exception e) {
+            Timber.e(e, "Unable to load landing due services");
+            return null;
+        }
+    }
+
+    private void bindDueSnapshot(View view, DueServicesSnapshot snapshot) {
+        DueServicesUi.bindSummary(view, snapshot,
+                status -> DueClientsActivity.start(requireContext(), status), this::refreshDashboard);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDueServicesChanged(DueServicesChangedEvent event) {
+        refreshHandler.removeCallbacks(serviceChangedRefresh);
+        refreshHandler.postDelayed(serviceChangedRefresh, 250);
     }
 
     private void bindIntroduction(View view) {

@@ -40,7 +40,8 @@ public final class MotherMentorDailyVisitUtils {
         return false;
     }
 
-    private static Date getVisitDate(Visit visit, JSONObject event, Map<String, String> values) {
+    /** Effective clinical date shared by the daily visit guard and appointment reporting. */
+    public static Date getVisitDate(Visit visit, JSONObject event, Map<String, String> values) {
         String recordedDate = values.get(DBConstants.KEY.MOTHERMENTOR_VISIT_DATE);
         if (recordedDate != null && !recordedDate.trim().isEmpty()) {
             for (String pattern : new String[] {"dd-MM-yyyy", "yyyy-MM-dd"}) {

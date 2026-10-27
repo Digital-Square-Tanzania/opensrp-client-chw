@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical"
+    android:minHeight="64dp"
+    android:background="@drawable/all_clients_dashboard_action"
+    android:padding="12dp"
+    android:focusable="true"
+    android:clickable="true">
+    <TextView android:id="@+id/due_client_name"
+        style="@style/AllClientsDashboardText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    <TextView android:id="@+id/due_client_status"
+        style="@style/AllClientsDashboardSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold" />
+    <TextView android:id="@+id/due_client_services"
+        style="@style/AllClientsDashboardSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" />
+</LinearLayout>

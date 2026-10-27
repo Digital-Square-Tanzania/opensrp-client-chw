@@ -16,6 +16,7 @@ import androidx.annotation.VisibleForTesting;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
@@ -25,6 +26,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
+import org.smartregister.chw.due.DueServicesChangedEvent;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.repository.AypInSchoolGroupDetailsRepository;
 import org.smartregister.chw.repository.AypInSchoolGroupMembersRepository;
@@ -69,6 +71,12 @@ public class ChwClientProcessor extends CoreClientProcessor {
             instance = new ChwClientProcessor(context);
         }
         return instance;
+    }
+
+    @Override
+    public synchronized void processClient(List<EventClient> eventClients) throws Exception {
+        super.processClient(eventClients);
+        if (!eventClients.isEmpty()) EventBus.getDefault().post(new DueServicesChangedEvent());
     }
 
     @Override

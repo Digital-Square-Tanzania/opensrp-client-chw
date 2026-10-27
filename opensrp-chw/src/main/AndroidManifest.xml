@@ -523,6 +523,11 @@
             android:name=".activity.AllClientsRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.DueClientsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
             android:name="org.smartregister.opd.activity.BaseOpdFormActivity"
             tools:node="remove" />
         <activity

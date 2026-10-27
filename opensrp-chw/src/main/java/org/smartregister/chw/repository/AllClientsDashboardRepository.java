@@ -247,7 +247,9 @@ public class AllClientsDashboardRepository {
         }
         if (independent > 0) breakdown.add(new ModuleCount(INDEPENDENT, independent));
         breakdown.sort(Comparator.comparingInt(ModuleCount::getCount).reversed());
-        return new Snapshot(clients.size(), independent, counts.size(), newThisWeek, breakdown, recent);
+        Map<String, String> clientNames = new LinkedHashMap<>();
+        for (Client client : clients.values()) clientNames.put(client.id, client.name);
+        return new Snapshot(clients.size(), independent, counts.size(), newThisWeek, breakdown, recent, clientNames);
     }
 
     private static long clientCreatedAt(String json) {
@@ -329,15 +331,24 @@ public class AllClientsDashboardRepository {
         private final int newThisWeek;
         private final List<ModuleCount> breakdown;
         private final List<RecentClient> recentClients;
+        private final Map<String, String> clientNames;
 
         public Snapshot(int totalClients, int independentClients, int activeModules, int newThisWeek,
                         List<ModuleCount> breakdown, List<RecentClient> recentClients) {
+            this(totalClients, independentClients, activeModules, newThisWeek, breakdown, recentClients,
+                    Collections.emptyMap());
+        }
+
+        public Snapshot(int totalClients, int independentClients, int activeModules, int newThisWeek,
+                        List<ModuleCount> breakdown, List<RecentClient> recentClients,
+                        Map<String, String> clientNames) {
             this.totalClients = totalClients;
             this.independentClients = independentClients;
             this.activeModules = activeModules;
             this.newThisWeek = newThisWeek;
             this.breakdown = Collections.unmodifiableList(new ArrayList<>(breakdown));
             this.recentClients = Collections.unmodifiableList(new ArrayList<>(recentClients));
+            this.clientNames = Collections.unmodifiableMap(new LinkedHashMap<>(clientNames));
         }
 
         public int getTotalClients() { return totalClients; }
@@ -346,6 +357,8 @@ public class AllClientsDashboardRepository {
         public int getNewThisWeek() { return newThisWeek; }
         public List<ModuleCount> getBreakdown() { return breakdown; }
         public List<RecentClient> getRecentClients() { return recentClients; }
+        /** Canonical person IDs from the same authorized roster used by the dashboard. */
+        public Map<String, String> getClientNames() { return clientNames; }
     }
 
     public static final class ModuleCount {
