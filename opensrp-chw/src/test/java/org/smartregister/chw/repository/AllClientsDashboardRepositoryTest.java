@@ -87,14 +87,104 @@ public class AllClientsDashboardRepositoryTest {
         add("free", "Independent");
         add("household", null);
 
-        AllClientsDashboardRepository.Snapshot result = repository().load(now);
+        AllClientsDashboardRepository.Snapshot result = repository(CoreConstants.DrawerMenu.MOTHER_MENTOR,
+                CoreConstants.DrawerMenu.ANC, CoreConstants.DrawerMenu.AYP_OUT_SCHOOL,
+                CoreConstants.DrawerMenu.HARM_REDUCTION, CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE).load(now);
         assertEquals(7, result.getTotalClients());
         assertEquals(2, result.getIndependentClients());
         assertEquals(4, result.getActiveModules());
         assertEquals(Integer.valueOf(3), breakdown(result).get("Mother Mentor"));
         assertEquals(Integer.valueOf(1), breakdown(result).get("HARM REDUCTION"));
-        assertEquals(Integer.valueOf(1), breakdown(result).get("AYP"));
+        assertEquals(Integer.valueOf(1), breakdown(result).get(AllClientsDashboardRepository.AYP_OUT_SCHOOL));
         assertEquals(Integer.valueOf(2), breakdown(result).get("Independent"));
+    }
+
+    @Test
+    public void hiddenRosterModulesDoNotChangeTheCohortOrBecomeIndependent() {
+        add("hidden", "NCD");
+        add("overlap", "NCD");
+        row("overlap", "ANC");
+        add("visible", "ANC");
+        add("unlinked", "Independent");
+        registration("hidden", "2026-10-27T12:00:00+03:00");
+        registration("overlap", "2026-10-27T11:00:00+03:00");
+        registration("unlinked", "2026-10-27T10:00:00+03:00");
+
+        AllClientsDashboardRepository.Snapshot result = repository(CoreConstants.DrawerMenu.ANC).load(now);
+
+        assertEquals(4, result.getTotalClients());
+        assertEquals(1, result.getIndependentClients());
+        assertEquals(1, result.getActiveModules());
+        assertEquals(3, result.getNewThisWeek());
+        assertEquals(2, result.getBreakdown().size());
+        assertEquals(Integer.valueOf(2), breakdown(result).get("ANC"));
+        assertEquals(Integer.valueOf(1), breakdown(result).get("Independent"));
+        assertEquals("", result.getRecentClients().get(0).getRegisterType());
+        assertEquals("ANC", result.getRecentClients().get(1).getRegisterType());
+        assertEquals("Independent", result.getRecentClients().get(2).getRegisterType());
+    }
+
+    @Test
+    public void availableModulesWithoutClientsDoNotProduceRowsOrActiveModuleCounts() {
+        add("client", "ANC");
+        AllClientsDashboardRepository.Snapshot result = repository(CoreConstants.DrawerMenu.ANC,
+                CoreConstants.DrawerMenu.PNC).load(now);
+        assertEquals(Collections.singletonMap("ANC", 1), breakdown(result));
+        assertEquals(1, result.getActiveModules());
+
+        result = repository(CoreConstants.DrawerMenu.PNC).load(now);
+        assertEquals(1, result.getTotalClients());
+        assertEquals(0, result.getIndependentClients());
+        assertEquals(0, result.getActiveModules());
+        assertTrue(result.getBreakdown().isEmpty());
+
+        result = repository().load(now);
+        assertEquals(1, result.getTotalClients());
+        assertEquals(0, result.getIndependentClients());
+        assertEquals(0, result.getActiveModules());
+        assertTrue(result.getBreakdown().isEmpty());
+    }
+
+    @Test
+    public void aypRegistersRemainSeparateAndDeduplicateTagsAndOverlappingEnrollments() {
+        add("overlap", "AYP out of school");
+        row("overlap", "AYP out of school");
+        add("school", null);
+        add("parent", null);
+        add("closed", null);
+        db.execSQL("CREATE TABLE ec_ayp_in_school_enrollment (base_entity_id TEXT, is_closed INTEGER)");
+        db.execSQL("CREATE TABLE ec_ayp_out_school_enrollment (base_entity_id TEXT, is_closed INTEGER)");
+        db.execSQL("CREATE TABLE ec_ayp_parental_enrollment (base_entity_id TEXT, is_closed INTEGER)");
+        db.execSQL("INSERT INTO ec_ayp_in_school_enrollment VALUES ('overlap',0), ('school',0), ('closed',1), ('outside',0)");
+        db.execSQL("INSERT INTO ec_ayp_out_school_enrollment VALUES ('overlap',0), ('overlap',0), ('closed',1)");
+        db.execSQL("INSERT INTO ec_ayp_parental_enrollment VALUES ('overlap',0), ('parent',0), ('closed',1)");
+
+        AllClientsDashboardRepository.Snapshot result = repository(CoreConstants.DrawerMenu.AYP_IN_SCHOOL,
+                CoreConstants.DrawerMenu.AYP_OUT_SCHOOL, CoreConstants.DrawerMenu.AYP_PARENTAL).load(now);
+
+        assertEquals(4, result.getTotalClients());
+        assertEquals(1, result.getIndependentClients());
+        assertEquals(3, result.getActiveModules());
+        assertEquals(4, result.getBreakdown().size());
+        assertEquals(Integer.valueOf(2), breakdown(result).get(AllClientsDashboardRepository.AYP_IN_SCHOOL));
+        assertEquals(Integer.valueOf(1), breakdown(result).get(AllClientsDashboardRepository.AYP_OUT_SCHOOL));
+        assertEquals(Integer.valueOf(2), breakdown(result).get(AllClientsDashboardRepository.AYP_PARENTAL));
+    }
+
+    @Test
+    public void restrictedAypAccessHidesOtherRegistersWithoutReclassifyingTheirClients() {
+        add("school", "AYP in school");
+        add("parent", "AYP parental");
+        add("out", "AYP out of school");
+        add("overlap", "AYP in school");
+        row("overlap", "AYP out of school");
+
+        AllClientsDashboardRepository.Snapshot result = repository(CoreConstants.DrawerMenu.AYP_OUT_SCHOOL).load(now);
+
+        assertEquals(4, result.getTotalClients());
+        assertEquals(0, result.getIndependentClients());
+        assertEquals(1, result.getActiveModules());
+        assertEquals(Collections.singletonMap(AllClientsDashboardRepository.AYP_OUT_SCHOOL, 2), breakdown(result));
     }
 
     @Test
@@ -181,8 +271,9 @@ public class AllClientsDashboardRepositoryTest {
         AllClientsDashboardRepository.Snapshot result = new AllClientsDashboardRepository(cipher, ROSTER, menus).load(now);
         assertEquals(5, result.getTotalClients());
         assertEquals(2, result.getIndependentClients());
-        assertEquals(2, result.getActiveModules());
-        assertEquals(Integer.valueOf(2), breakdown(result).get("AYP"));
+        assertEquals(3, result.getActiveModules());
+        assertEquals(Integer.valueOf(1), breakdown(result).get(AllClientsDashboardRepository.AYP_IN_SCHOOL));
+        assertEquals(Integer.valueOf(2), breakdown(result).get(AllClientsDashboardRepository.AYP_PARENTAL));
         assertEquals(Integer.valueOf(1), breakdown(result).get("HIVST"));
         assertEquals(0, repository().load(now).getActiveModules());
     }
@@ -212,13 +303,13 @@ public class AllClientsDashboardRepositoryTest {
                 + "VALUES ('mother',0,'client','positive'), ('closed',1,'client','positive'), ('screening',0,'client','-')");
         db.execSQL("INSERT INTO ec_mothermentor_enroll_partner (base_entity_id,is_closed) VALUES ('partner',0)");
         AllClientsDashboardRepository.Snapshot result = new AllClientsDashboardRepository(cipher,
-                ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY, Collections.emptySet()).load(now);
+                ChwQueryConstant.ALL_CLIENTS_SELECT_QUERY, Collections.singleton(CoreConstants.DrawerMenu.MOTHER_MENTOR)).load(now);
         assertEquals(4, result.getTotalClients());
         assertEquals(2, result.getIndependentClients());
         assertEquals(Integer.valueOf(2), breakdown(result).get("Mother Mentor"));
         // Exercise the separately selected iCCM provider template as well.
         result = new AllClientsDashboardRepository(cipher,
-                ChwQueryConstant.ALL_ICCM_CLIENTS_SELECT_QUERY, Collections.emptySet()).load(now);
+                ChwQueryConstant.ALL_ICCM_CLIENTS_SELECT_QUERY, Collections.singleton(CoreConstants.DrawerMenu.MOTHER_MENTOR)).load(now);
         assertEquals(4, result.getTotalClients());
     }
 
@@ -319,8 +410,8 @@ public class AllClientsDashboardRepositoryTest {
                 new Object[]{id, id + "-family", id});
     }
 
-    private AllClientsDashboardRepository repository() {
-        return new AllClientsDashboardRepository(cipher, ROSTER, Collections.emptySet());
+    private AllClientsDashboardRepository repository(String... menus) {
+        return new AllClientsDashboardRepository(cipher, ROSTER, new HashSet<>(Arrays.asList(menus)));
     }
 
     private void add(String id, String module) {

@@ -12,17 +12,21 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.core.model.NavigationModel;
+import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.repository.AllClientsDashboardRepository;
 import org.smartregister.chw.repository.AllClientsDashboardRepository.ModuleCount;
 import org.smartregister.chw.repository.AllClientsDashboardRepository.RecentClient;
 import org.smartregister.chw.repository.AllClientsDashboardRepository.Snapshot;
+import org.smartregister.chw.util.AllClientsDashboardNavigation;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -40,6 +44,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
@@ -167,6 +172,7 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
         view.findViewById(R.id.dashboard_empty).setVisibility(snapshot.getTotalClients() == 0 ? View.VISIBLE : View.GONE);
         ViewGroup breakdown = view.findViewById(R.id.dashboard_breakdown);
         breakdown.removeAllViews();
+        List<NavigationOption> availableOptions = new NavigationModelFlv().getNavigationItems();
         for (ModuleCount module : snapshot.getBreakdown()) {
             View row = getLayoutInflater().inflate(R.layout.item_all_clients_dashboard_module, breakdown, false);
             String label = moduleLabel(module.getRegisterType());
@@ -182,6 +188,10 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
                         ContextCompat.getColor(requireContext(), R.color.all_clients_dashboard_secondary));
             }
             row.setContentDescription(getString(R.string.all_clients_dashboard_module_count, label, module.getCount()));
+            if (!AllClientsDashboardNavigation.getOptions(module.getRegisterType(), availableOptions).isEmpty()) {
+                row.setFocusable(true);
+                row.setOnClickListener(v -> openModule(v, module.getRegisterType()));
+            }
             breakdown.addView(row);
         }
         ViewGroup recent = view.findViewById(R.id.dashboard_recent);
@@ -195,12 +205,30 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
             View row = getLayoutInflater().inflate(R.layout.item_all_clients_dashboard_recent, recent, false);
             text(row, R.id.dashboard_recent_name, getString(R.string.all_clients_dashboard_new_client, client.getName()));
             text(row, R.id.dashboard_recent_date, relativeDate(client.getRegisteredAt()));
-            String details = moduleLabel(client.getRegisterType());
+            String details = TextUtils.isEmpty(client.getRegisterType()) ? "" : moduleLabel(client.getRegisterType());
             if (!TextUtils.isEmpty(client.getAddress())) {
-                details += " · " + client.getAddress();
+                details += (details.isEmpty() ? "" : " · ") + client.getAddress();
             }
             text(row, R.id.dashboard_recent_details, details);
             recent.addView(row);
+        }
+    }
+
+    private void openModule(View row, String registerType) {
+        List<NavigationOption> options = AllClientsDashboardNavigation.getOptions(registerType,
+                new NavigationModelFlv().getNavigationItems());
+        if (options.size() == 1) {
+            AllClientsDashboardNavigation.openRegister(requireActivity(), row, options.get(0));
+        } else if (options.size() > 1) {
+            String[] labels = new String[options.size()];
+            for (int i = 0; i < options.size(); i++) {
+                labels[i] = getString(options.get(i).getTitleID());
+            }
+            new AlertDialog.Builder(requireContext())
+                    .setTitle(moduleLabel(registerType))
+                    .setItems(labels, (dialog, which) -> AllClientsDashboardNavigation.openRegister(
+                            requireActivity(), row, options.get(which)))
+                    .show();
         }
     }
 
@@ -241,6 +269,9 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
             case CoreConstants.REGISTER_TYPE.AYSRH: return getString(R.string.asrh);
             case CoreConstants.REGISTER_TYPE.TBLEPROSY: return getString(R.string.menu_tbleprosy);
             case CoreConstants.REGISTER_TYPE.HARM_REDUCTION: return getString(R.string.menu_harm_reduction);
+            case AllClientsDashboardRepository.AYP_IN_SCHOOL: return getString(org.smartregister.chw.core.R.string.menu_ayp_inschool);
+            case AllClientsDashboardRepository.AYP_OUT_SCHOOL: return getString(org.smartregister.chw.core.R.string.menu_ayp_outschool);
+            case AllClientsDashboardRepository.AYP_PARENTAL: return getString(org.smartregister.chw.core.R.string.menu_ayp_parental);
             case "NCD": return getString(R.string.nav_menu_ncd);
             case "HIVST": return getString(R.string.menu_hivst);
             default: return type;

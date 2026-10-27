@@ -14,6 +14,7 @@ import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.provider.ChwAllClientsRegisterQueryProvider;
+import org.smartregister.chw.util.AllClientsDashboardNavigation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +35,9 @@ import java.util.TimeZone;
 public class AllClientsDashboardRepository {
     public static final String INDEPENDENT = "Independent";
     public static final String MOTHER_MENTOR = "Mother Mentor";
-    public static final String AYP = "AYP";
+    public static final String AYP_IN_SCHOOL = "AYP in school";
+    public static final String AYP_OUT_SCHOOL = "AYP out of school";
+    public static final String AYP_PARENTAL = "AYP parental";
     public static final String NCD = "NCD";
     public static final String HIVST = "HIVST";
 
@@ -91,7 +94,7 @@ public class AllClientsDashboardRepository {
             }
         }
         addRegisterMemberships(db, clients, menus);
-        return summarize(clients, now);
+        return summarize(clients, now, menus);
     }
 
     private Map<String, Long> registrationDates(SQLiteDatabase db) {
@@ -151,9 +154,9 @@ public class AllClientsDashboardRepository {
                 {CoreConstants.DrawerMenu.HARM_REDUCTION, "HARM REDUCTION", "ec_harm_reduction_risk_assessment", "base_entity_id", "is_closed = 0"},
                 {CoreConstants.DrawerMenu.HARM_REDUCTION_SOBER_HOUSE, "HARM REDUCTION", "ec_harm_reduction_sober_house_enrollment", "base_entity_id",
                         "is_closed = 0 AND detoxification_done = 'yes'"},
-                {CoreConstants.DrawerMenu.AYP_IN_SCHOOL, AYP, "ec_ayp_in_school_enrollment", "base_entity_id", "is_closed = 0"},
-                {CoreConstants.DrawerMenu.AYP_OUT_SCHOOL, AYP, "ec_ayp_out_school_enrollment", "base_entity_id", "is_closed = 0"},
-                {CoreConstants.DrawerMenu.AYP_PARENTAL, AYP, "ec_ayp_parental_enrollment", "base_entity_id", "is_closed = 0"},
+                {CoreConstants.DrawerMenu.AYP_IN_SCHOOL, AYP_IN_SCHOOL, "ec_ayp_in_school_enrollment", "base_entity_id", "is_closed = 0"},
+                {CoreConstants.DrawerMenu.AYP_OUT_SCHOOL, AYP_OUT_SCHOOL, "ec_ayp_out_school_enrollment", "base_entity_id", "is_closed = 0"},
+                {CoreConstants.DrawerMenu.AYP_PARENTAL, AYP_PARENTAL, "ec_ayp_parental_enrollment", "base_entity_id", "is_closed = 0"},
                 {CoreConstants.DrawerMenu.CECAP, "Reproductive Cancers", "ec_cecap_register", "base_entity_id", "is_closed = 0"},
                 {CoreConstants.DrawerMenu.AYSRH, "AYSRH", "ec_asrh_register", "base_entity_id", "is_closed = 0"},
                 {CoreConstants.DrawerMenu.SBC, "SBC", "ec_sbc_register", "base_entity_id", "is_closed = 0"},
@@ -207,7 +210,7 @@ public class AllClientsDashboardRepository {
         }
     }
 
-    private Snapshot summarize(Map<String, Client> clients, long now) {
+    private Snapshot summarize(Map<String, Client> clients, long now, Set<String> availableMenus) {
         Calendar monday = Calendar.getInstance();
         monday.setTimeInMillis(now);
         monday.add(Calendar.DAY_OF_MONTH, -((monday.get(Calendar.DAY_OF_WEEK) + 5) % 7));
@@ -221,11 +224,18 @@ public class AllClientsDashboardRepository {
         List<RecentClient> recent = new ArrayList<>();
         for (Client client : clients.values()) {
             if (client.modules.isEmpty()) independent++;
-            for (String module : client.modules) counts.put(module, counts.getOrDefault(module, 0) + 1);
+            Set<String> visibleModules = new TreeSet<>();
+            for (String module : client.modules) {
+                if (AllClientsDashboardNavigation.isAvailable(module, availableMenus)) {
+                    visibleModules.add(module);
+                    counts.put(module, counts.getOrDefault(module, 0) + 1);
+                }
+            }
             if (client.registeredAt > 0 && client.registeredAt <= now) {
                 if (client.registeredAt >= monday.getTimeInMillis()) newThisWeek++;
                 recent.add(new RecentClient(client.id, client.name, client.address,
-                        client.modules.isEmpty() ? INDEPENDENT : client.modules.iterator().next(), client.registeredAt));
+                        client.modules.isEmpty() ? INDEPENDENT
+                                : visibleModules.isEmpty() ? "" : visibleModules.iterator().next(), client.registeredAt));
             }
         }
         recent.sort(Comparator.comparingLong(RecentClient::getRegisteredAt).reversed()
@@ -304,7 +314,9 @@ public class AllClientsDashboardRepository {
             String key = type.trim().toUpperCase(Locale.ROOT);
             if (key.isEmpty() || key.equals("INDEPENDENT")) return;
             if (key.startsWith("MOTHER MENTOR")) type = MOTHER_MENTOR;
-            else if (key.startsWith("AYP")) type = AYP;
+            else if (key.equals("AYP IN SCHOOL")) type = AYP_IN_SCHOOL;
+            else if (key.equals("AYP OUT OF SCHOOL")) type = AYP_OUT_SCHOOL;
+            else if (key.equals("AYP PARENTAL")) type = AYP_PARENTAL;
             else if (key.startsWith("HARM REDUCTION")) type = "HARM REDUCTION";
             modules.add(type);
         }
