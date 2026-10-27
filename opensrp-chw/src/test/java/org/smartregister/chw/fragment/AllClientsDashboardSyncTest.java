@@ -35,6 +35,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
 import org.robolectric.shadows.ShadowNetworkInfo;
 import org.smartregister.chw.R;
+import org.smartregister.chw.due.DueServicesChangedEvent;
+import org.greenrobot.eventbus.EventBus;
 import org.smartregister.chw.core.job.CoreBasePncCloseJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
@@ -49,6 +51,8 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.DateFormat;
 import java.util.Date;
+
+import java.util.concurrent.TimeUnit;
 
 /** Verifies the dashboard sync action also works in a host with no navigation drawer. */
 @RunWith(RobolectricTestRunner.class)
@@ -243,6 +247,28 @@ public class AllClientsDashboardSyncTest {
                 .remove(fragment).commitNow();
 
         verify(receiver).removeSyncStatusListener(fragment);
+    }
+
+    @Test
+    public void localDateChangeRefreshesDueServiceCounts() {
+        int refreshes = fragment.refreshes;
+        controller.get().sendBroadcast(new Intent(Intent.ACTION_DATE_CHANGED));
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        assertEquals(refreshes + 1, fragment.refreshes);
+    }
+
+    @Test
+    public void processedServiceChangesRefreshOnlyWhileDashboardIsStarted() {
+        int refreshes = fragment.refreshes;
+        EventBus.getDefault().post(new DueServicesChangedEvent());
+        EventBus.getDefault().post(new DueServicesChangedEvent());
+        Shadows.shadowOf(Looper.getMainLooper()).idleFor(250, TimeUnit.MILLISECONDS);
+        assertEquals(refreshes + 1, fragment.refreshes);
+
+        controller.get().getSupportFragmentManager().beginTransaction().remove(fragment).commitNow();
+        EventBus.getDefault().post(new DueServicesChangedEvent());
+        Shadows.shadowOf(Looper.getMainLooper()).idleFor(250, TimeUnit.MILLISECONDS);
+        assertEquals(refreshes + 1, fragment.refreshes);
     }
 
     private TextView syncButton() {

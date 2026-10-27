@@ -168,6 +168,8 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <include layout="@layout/all_clients_due_summary" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="due_services_title">Services requiring attention</string>
+    <string name="due_services_due">Due services</string>
+    <string name="due_services_overdue">Overdue</string>
+    <string name="due_services_coverage">Included services: %1$s. Other services are not included yet.</string>
+    <string name="due_services_partial">Some service data is unavailable; these counts may be incomplete.</string>
+    <string name="due_services_unsupported">Service scheduling is not available for %1$s yet.</string>
+    <string name="due_services_error">Unable to load service schedules. Tap to retry.</string>
+    <string name="due_services_no_modules">No supported modules with active clients are available.</string>
+    <string name="due_services_loading">Loading service schedules…</string>
+    <string name="due_services_unknown_count">—</string>
+    <string name="due_services_partial_count">%1$s+</string>
+    <string name="due_services_open_count">%1$s: %2$s clients. Open register.</string>
+    <string name="due_services_filter_count">%1$s (%2$s)</string>
+    <string name="due_services_search">Search clients by name</string>
+    <string name="due_services_empty">No clients match this filter.</string>
+    <string name="due_services_due_empty">No clients currently have due services in the supported modules.</string>
+    <string name="due_services_overdue_empty">No clients currently have overdue services in the supported modules.</string>
+    <string name="due_services_evaluated">Evaluated for %1$s · local device date</string>
+    <string name="due_services_precedence">Clients with any overdue service appear under Overdue, with all their outstanding services.</string>
+    <string name="due_services_mother_mentor">Mother Mentor</string>
+    <string name="due_services_followup">Next appointments (primary clients)</string>
+    <string name="due_services_due_detail">%1$s · %2$s\nDue from %3$s</string>
+    <string name="due_services_overdue_detail">%1$s · %2$s\nOverdue since %3$s</string>
+    <string name="due_services_profile_unavailable">This client or module is no longer available. Refresh the register.</string>
+    <string name="due_services_choose_service">Choose a service</string>
+</resources>

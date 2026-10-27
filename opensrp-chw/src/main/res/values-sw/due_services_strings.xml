@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="due_services_title">Huduma zinazohitaji ufuatiliaji</string>
+    <string name="due_services_due">Huduma zinazohitajika</string>
+    <string name="due_services_overdue">Zilizochelewa</string>
+    <string name="due_services_coverage">Huduma zilizojumuishwa: %1$s. Huduma nyingine bado hazijajumuishwa.</string>
+    <string name="due_services_partial">Baadhi ya taarifa za huduma hazipatikani; idadi inaweza kuwa pungufu.</string>
+    <string name="due_services_unsupported">Ratiba za huduma za %1$s bado hazipatikani.</string>
+    <string name="due_services_error">Imeshindikana kupakia ratiba za huduma. Gusa kujaribu tena.</string>
+    <string name="due_services_no_modules">Hakuna moduli inayotumika yenye wateja na ratiba zinazopatikana.</string>
+    <string name="due_services_loading">Inapakia ratiba za huduma…</string>
+    <string name="due_services_unknown_count">—</string>
+    <string name="due_services_partial_count">%1$s+</string>
+    <string name="due_services_open_count">%1$s: wateja %2$s. Fungua rejista.</string>
+    <string name="due_services_filter_count">%1$s (%2$s)</string>
+    <string name="due_services_search">Tafuta wateja kwa jina</string>
+    <string name="due_services_empty">Hakuna wateja wanaolingana na kichujio hiki.</string>
+    <string name="due_services_due_empty">Hakuna wateja wenye huduma zinazohitajika sasa katika moduli zilizojumuishwa.</string>
+    <string name="due_services_overdue_empty">Hakuna wateja wenye huduma zilizochelewa katika moduli zilizojumuishwa.</string>
+    <string name="due_services_evaluated">Tathmini ya %1$s · tarehe ya kifaa</string>
+    <string name="due_services_precedence">Wateja wenye huduma iliyochelewa huonekana kwenye Zilizochelewa, pamoja na huduma zao zote zinazohitajika.</string>
+    <string name="due_services_mother_mentor">Mama Kinara</string>
+    <string name="due_services_followup">Miadi ijayo (wateja wakuu)</string>
+    <string name="due_services_due_detail">%1$s · %2$s\nInahitajika kuanzia %3$s</string>
+    <string name="due_services_overdue_detail">%1$s · %2$s\nImechelewa tangu %3$s</string>
+    <string name="due_services_profile_unavailable">Mteja au moduli hii haipatikani tena. Pakia rejista upya.</string>
+    <string name="due_services_choose_service">Chagua huduma</string>
+</resources>
