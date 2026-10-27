@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="all_clients_dashboard_background">#F7F5F1</color>
+    <color name="all_clients_dashboard_card">#FFFFFF</color>
+    <color name="all_clients_dashboard_border">#EEF1F5</color>
+    <color name="all_clients_dashboard_text">#0F1A26</color>
+    <color name="all_clients_dashboard_secondary">#606D7D</color>
+    <color name="all_clients_dashboard_blue">#218CC5</color>
+    <color name="all_clients_dashboard_blue_text">#176C98</color>
+    <color name="all_clients_dashboard_blue_light">#E8F4FB</color>
+    <color name="all_clients_dashboard_green">#2E8B57</color>
+    <color name="all_clients_dashboard_green_light">#E4F2EA</color>
+    <color name="all_clients_dashboard_amber">#A66B11</color>
+    <color name="all_clients_dashboard_amber_light">#FBF0DC</color>
+    <color name="all_clients_dashboard_teal">#0E8F8A</color>
+    <color name="all_clients_dashboard_teal_light">#DFF2F1</color>
+    <color name="all_clients_dashboard_track">#E5E9EE</color>
+    <color name="all_clients_dashboard_unlinked">#8A939F</color>
+</resources>

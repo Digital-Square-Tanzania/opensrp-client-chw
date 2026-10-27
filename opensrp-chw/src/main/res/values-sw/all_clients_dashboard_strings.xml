@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_clients_dashboard_title">Wateja wote</string>
+    <string name="all_clients_dashboard_home">Nyumbani</string>
+    <string name="all_clients_dashboard_greeting">Habari, %1$s</string>
+    <string name="all_clients_dashboard_greeting_default">Habari</string>
+    <string name="all_clients_dashboard_total">Wateja wote</string>
+    <string name="all_clients_dashboard_modules">Moduli zinazotumika</string>
+    <string name="all_clients_dashboard_unlinked">Wateja huru</string>
+    <string name="all_clients_dashboard_new_week">Wapya wiki hii</string>
+    <string name="all_clients_dashboard_quick_actions">Vitendo vya haraka</string>
+    <string name="all_clients_dashboard_view_clients">Tazama wateja wote</string>
+    <string name="all_clients_dashboard_add_client">Ongeza mteja</string>
+    <string name="all_clients_dashboard_search_clients">Tafuta mteja</string>
+    <string name="all_clients_dashboard_sync">Oanisha data</string>
+    <string name="all_clients_dashboard_breakdown">Mgawanyo wa wateja</string>
+    <string name="all_clients_dashboard_recent">Shughuli za hivi karibuni</string>
+    <string name="all_clients_dashboard_new_client">Mteja mpya — %1$s</string>
+    <string name="all_clients_dashboard_today">Leo</string>
+    <string name="all_clients_dashboard_yesterday">Jana</string>
+    <string name="all_clients_dashboard_unlinked_label">Huru</string>
+    <string name="all_clients_dashboard_empty">Hakuna wateja waliosajiliwa bado. Ongeza mteja ili kuanza.</string>
+    <string name="all_clients_dashboard_recent_empty">Hakuna usajili wa hivi karibuni.</string>
+    <string name="all_clients_dashboard_error">Imeshindikana kupakia dashibodi. Gusa ili ujaribu tena.</string>
+    <string name="all_clients_dashboard_loading">Inapakia dashibodi</string>
+    <string name="all_clients_dashboard_module_count">%1$s: wateja %2$d</string>
+    <string name="all_clients_dashboard_breakdown_note">Mteja anaweza kusajiliwa kwenye zaidi ya moduli moja.</string>
+    <string name="all_clients_dashboard_syncing">Inaoanisha data…</string>
+    <string name="all_clients_dashboard_sync_failed">Uoanishaji umeshindikana. Angalia muunganisho wako na ujaribu tena.</string>
+</resources>
