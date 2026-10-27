@@ -12,16 +12,17 @@
     <style name="AllClientsDashboardHeading" parent="AllClientsDashboardSecondary">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/all_clients_dashboard_text</item>
     </style>
     <style name="AllClientsDashboardStat">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:minHeight">84dp</item>
+        <item name="android:minHeight">68dp</item>
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/all_clients_dashboard_card</item>
@@ -30,20 +31,19 @@
     <style name="AllClientsDashboardStatValue" parent="AllClientsDashboardText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:text">—</item>
     </style>
     <style name="AllClientsDashboardStatLabel" parent="AllClientsDashboardSecondary">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginTop">2dp</item>
     </style>
     <style name="AllClientsDashboardAction" parent="AllClientsDashboardText">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:minHeight">80dp</item>
+        <item name="android:minHeight">48dp</item>
         <item name="android:background">@drawable/all_clients_dashboard_action</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">12dp</item>

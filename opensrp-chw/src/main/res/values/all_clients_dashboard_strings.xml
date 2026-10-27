@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="all_clients_dashboard_title">All Clients</string>
+    <string name="all_clients_dashboard_title">All clients</string>
     <string name="all_clients_dashboard_home">Home</string>
     <string name="all_clients_dashboard_greeting">Hello, %1$s</string>
     <string name="all_clients_dashboard_greeting_default">Hello</string>
-    <string name="all_clients_dashboard_total">All Clients</string>
-    <string name="all_clients_dashboard_modules">Active Modules</string>
-    <string name="all_clients_dashboard_unlinked">Unlinked Clients</string>
-    <string name="all_clients_dashboard_new_week">New This Week</string>
-    <string name="all_clients_dashboard_quick_actions">Quick actions</string>
-    <string name="all_clients_dashboard_view_clients">View all clients</string>
+    <string name="all_clients_dashboard_total">All clients</string>
+    <string name="all_clients_dashboard_modules">Modules with clients</string>
+    <string name="all_clients_dashboard_unlinked">Unlinked clients</string>
+    <string name="all_clients_dashboard_new_week">New this week</string>
     <string name="all_clients_dashboard_add_client">Add client</string>
     <string name="all_clients_dashboard_search_clients">Search client</string>
     <string name="all_clients_dashboard_sync">Sync data</string>
     <string name="all_clients_dashboard_breakdown">Client breakdown</string>
-    <string name="all_clients_dashboard_recent">Recent activity</string>
+    <string name="all_clients_dashboard_recent">Recent registrations</string>
     <string name="all_clients_dashboard_new_client">New client — %1$s</string>
     <string name="all_clients_dashboard_today">Today</string>
     <string name="all_clients_dashboard_yesterday">Yesterday</string>
@@ -27,4 +25,12 @@
     <string name="all_clients_dashboard_breakdown_note">A client can be enrolled in more than one module.</string>
     <string name="all_clients_dashboard_syncing">Syncing data…</string>
     <string name="all_clients_dashboard_sync_failed">Sync failed. Check your connection and try again.</string>
+    <string name="all_clients_dashboard_ayp_in_school">AYP — In school</string>
+    <string name="all_clients_dashboard_ayp_out_school">AYP — Out of school</string>
+    <string name="all_clients_dashboard_ayp_parental">AYP — Parents</string>
+    <string name="all_clients_dashboard_open_module">Open %1$s register, %2$d clients</string>
+    <string name="all_clients_dashboard_sync_last_success">Last successful sync: %1$s</string>
+    <string name="all_clients_dashboard_sync_never">No successful sync recorded</string>
+    <string name="all_clients_dashboard_sync_offline">Offline. Saved data is available.</string>
+    <string name="all_clients_dashboard_sync_retry">Retry sync</string>
 </resources>

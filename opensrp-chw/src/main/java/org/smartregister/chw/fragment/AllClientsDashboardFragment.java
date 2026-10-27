@@ -1,6 +1,13 @@
 package org.smartregister.chw.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.content.res.ColorStateList;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -54,14 +61,39 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
     private final AppExecutors executors = new AppExecutors();
     private final AllClientsDashboardRepository repository = new AllClientsDashboardRepository();
     private int requestVersion;
+    private boolean lastSyncFailed;
+    private long lastSyncFailureAt;
+    private long lastObservedSyncSuccess;
+    private final BroadcastReceiver connectivityReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateSyncState();
+        }
+    };
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            lastSyncFailed = savedInstanceState.getBoolean("dashboard_sync_failed");
+            lastSyncFailureAt = savedInstanceState.getLong("dashboard_sync_failure_at");
+            lastObservedSyncSuccess = savedInstanceState.getLong("dashboard_sync_success_at");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("dashboard_sync_failed", lastSyncFailed);
+        outState.putLong("dashboard_sync_failure_at", lastSyncFailureAt);
+        outState.putLong("dashboard_sync_success_at", lastObservedSyncSuccess);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_clients_dashboard, container, false);
-        view.findViewById(R.id.dashboard_view_clients).setOnClickListener(v -> host().showAllClients(false));
-        view.findViewById(R.id.dashboard_add_client).setOnClickListener(v -> host().startRegistration());
         view.findViewById(R.id.dashboard_search_clients).setOnClickListener(v -> host().showAllClients(true));
         view.findViewById(R.id.dashboard_sync).setOnClickListener(v -> startSync());
         view.findViewById(R.id.dashboard_error).setOnClickListener(v -> refreshDashboard());
@@ -98,6 +130,10 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
     public void onStart() {
         super.onStart();
         SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
+        // Connectivity is a protected system broadcast; observe changes while this screen is visible.
+        requireContext().registerReceiver(connectivityReceiver,
+                new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        updateSyncState();
     }
 
     @Override
@@ -108,6 +144,7 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
 
     @Override
     public void onStop() {
+        requireContext().unregisterReceiver(connectivityReceiver);
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(this);
         super.onStop();
     }
@@ -189,6 +226,8 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
             }
             row.setContentDescription(getString(R.string.all_clients_dashboard_module_count, label, module.getCount()));
             if (!AllClientsDashboardNavigation.getOptions(module.getRegisterType(), availableOptions).isEmpty()) {
+                row.findViewById(R.id.dashboard_module_chevron).setVisibility(View.VISIBLE);
+                row.setContentDescription(getString(R.string.all_clients_dashboard_open_module, label, module.getCount()));
                 row.setFocusable(true);
                 row.setOnClickListener(v -> openModule(v, module.getRegisterType()));
             }
@@ -269,9 +308,9 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
             case CoreConstants.REGISTER_TYPE.AYSRH: return getString(R.string.asrh);
             case CoreConstants.REGISTER_TYPE.TBLEPROSY: return getString(R.string.menu_tbleprosy);
             case CoreConstants.REGISTER_TYPE.HARM_REDUCTION: return getString(R.string.menu_harm_reduction);
-            case AllClientsDashboardRepository.AYP_IN_SCHOOL: return getString(org.smartregister.chw.core.R.string.menu_ayp_inschool);
-            case AllClientsDashboardRepository.AYP_OUT_SCHOOL: return getString(org.smartregister.chw.core.R.string.menu_ayp_outschool);
-            case AllClientsDashboardRepository.AYP_PARENTAL: return getString(org.smartregister.chw.core.R.string.menu_ayp_parental);
+            case AllClientsDashboardRepository.AYP_IN_SCHOOL: return getString(R.string.all_clients_dashboard_ayp_in_school);
+            case AllClientsDashboardRepository.AYP_OUT_SCHOOL: return getString(R.string.all_clients_dashboard_ayp_out_school);
+            case AllClientsDashboardRepository.AYP_PARENTAL: return getString(R.string.all_clients_dashboard_ayp_parental);
             case "NCD": return getString(R.string.nav_menu_ncd);
             case "HIVST": return getString(R.string.menu_hivst);
             default: return type;
@@ -283,11 +322,40 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
     }
 
     private void updateSyncState() {
-        if (getView() != null) {
-            boolean syncing = SyncStatusBroadcastReceiver.getInstance().isSyncing();
-            TextView sync = getView().findViewById(R.id.dashboard_sync);
-            sync.setEnabled(!syncing);
-            sync.setText(syncing ? R.string.all_clients_dashboard_syncing : R.string.all_clients_dashboard_sync);
+        View view = getView();
+        if (view == null) {
+            return;
+        }
+        // Core records this timestamp only after a successful sync, unlike its server-version cursor.
+        long lastSuccess = Math.max(lastObservedSyncSuccess,
+                new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(requireContext()))
+                        .fetchLastCheckTimeStamp());
+        if (lastSuccess > lastSyncFailureAt) {
+            lastSyncFailed = false;
+        }
+        text(view, R.id.dashboard_sync_last_success, lastSuccess > 0
+                ? getString(R.string.all_clients_dashboard_sync_last_success,
+                        DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT,
+                                getResources().getConfiguration().locale).format(new Date(lastSuccess)))
+                : getString(R.string.all_clients_dashboard_sync_never));
+
+        boolean syncing = SyncStatusBroadcastReceiver.getInstance().isSyncing();
+        ConnectivityManager connectivity = (ConnectivityManager) requireContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo network = connectivity == null ? null : connectivity.getActiveNetworkInfo();
+        boolean offline = network == null || !network.isConnected();
+        TextView sync = view.findViewById(R.id.dashboard_sync);
+        sync.setEnabled(!syncing);
+        sync.setText(syncing ? R.string.all_clients_dashboard_syncing : lastSyncFailed
+                ? R.string.all_clients_dashboard_sync_retry : R.string.all_clients_dashboard_sync);
+        TextView status = view.findViewById(R.id.dashboard_sync_status);
+        status.setVisibility(syncing || offline || lastSyncFailed ? View.VISIBLE : View.GONE);
+        if (syncing) {
+            status.setText(R.string.all_clients_dashboard_syncing);
+        } else if (offline) {
+            status.setText(R.string.all_clients_dashboard_sync_offline);
+        } else if (lastSyncFailed) {
+            status.setText(R.string.all_clients_dashboard_sync_failed);
         }
     }
 
@@ -305,10 +373,16 @@ public class AllClientsDashboardFragment extends Fragment implements SyncStatusB
     public void onSyncComplete(FetchStatus fetchStatus) {
         executors.mainThread().execute(() -> {
             if (isAdded() && getView() != null) {
-                refreshDashboard();
-                if (fetchStatus == FetchStatus.fetchedFailed || fetchStatus == FetchStatus.noConnection) {
+                lastSyncFailed = fetchStatus == FetchStatus.fetchedFailed || fetchStatus == FetchStatus.noConnection;
+                if (lastSyncFailed) {
+                    lastSyncFailureAt = System.currentTimeMillis();
                     Toast.makeText(requireContext(), R.string.all_clients_dashboard_sync_failed, Toast.LENGTH_LONG).show();
+                } else {
+                    // The completion broadcast can arrive just before Core saves its canonical timestamp.
+                    lastObservedSyncSuccess = System.currentTimeMillis();
                 }
+                updateSyncState();
+                refreshDashboard();
             }
         });
     }

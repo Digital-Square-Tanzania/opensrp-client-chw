@@ -4,6 +4,4 @@
         android:title="@string/all_clients_dashboard_home" />
     <item android:id="@+id/action_dashboard_clients" android:icon="@drawable/sidemenu_all_clients"
         android:title="@string/menu_all_clients" />
-    <item android:id="@id/action_register" android:icon="@drawable/ic_input_add"
-        android:title="@string/add_client" />
 </menu>

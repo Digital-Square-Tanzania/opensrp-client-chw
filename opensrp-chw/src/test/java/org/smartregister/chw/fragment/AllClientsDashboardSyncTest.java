@@ -9,11 +9,17 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.os.Looper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import org.junit.After;
@@ -27,6 +33,7 @@ import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
+import org.robolectric.shadows.ShadowNetworkInfo;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.job.CoreBasePncCloseJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
@@ -38,6 +45,10 @@ import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 /** Verifies the dashboard sync action also works in a host with no navigation drawer. */
 @RunWith(RobolectricTestRunner.class)
@@ -47,6 +58,9 @@ public class AllClientsDashboardSyncTest {
     private RefreshTrackingFragment fragment;
     private SyncStatusBroadcastReceiver receiver;
     private MockedStatic<SyncStatusBroadcastReceiver> syncReceiver;
+    private AllSharedPreferences preferences;
+    private ConnectivityManager connectivity;
+    private static final long LAST_SUCCESS = 1600000000000L;
 
     @Before
     public void setUp() {
@@ -56,6 +70,11 @@ public class AllClientsDashboardSyncTest {
         controller = Robolectric.buildActivity(FragmentActivity.class);
         controller.get().setTheme(R.style.Theme_AppCompat_NoActionBar);
         controller.create().start().resume().visible();
+        PreferenceManager.getDefaultSharedPreferences(controller.get()).edit().clear().commit();
+        preferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(controller.get()));
+        preferences.updateLastCheckTimeStamp(LAST_SUCCESS);
+        connectivity = (ConnectivityManager) controller.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+        setConnected(true);
         fragment = new RefreshTrackingFragment();
         controller.get().getSupportFragmentManager().beginTransaction()
                 .add(android.R.id.content, fragment).commitNow();
@@ -132,6 +151,91 @@ public class AllClientsDashboardSyncTest {
     }
 
     @Test
+    public void showsTheExistingSuccessfulSyncTimestampWithoutClaimingServerVersionIsADate() {
+        preferences.saveLastSyncDate(LAST_SUCCESS + 1000000000L);
+        fragment.onSyncInProgress(FetchStatus.nothingFetched);
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+
+        assertEquals(lastSuccessText(LAST_SUCCESS), lastSuccessLabel().getText().toString());
+        assertEquals(View.GONE, statusLabel().getVisibility());
+    }
+
+    @Test
+    public void missingSuccessfulSyncHasAnExplicitEmptyState() {
+        preferences.updateLastCheckTimeStamp(0L);
+        fragment.onSyncInProgress(FetchStatus.nothingFetched);
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+
+        assertEquals(fragment.getString(R.string.all_clients_dashboard_sync_never),
+                lastSuccessLabel().getText().toString());
+    }
+
+    @Test
+    public void offlineStatusRespondsToConnectivityChangesAndKeepsLastSuccessVisible() {
+        setConnected(false);
+        broadcastConnectivityChange();
+
+        assertEquals(View.VISIBLE, statusLabel().getVisibility());
+        assertEquals(fragment.getString(R.string.all_clients_dashboard_sync_offline),
+                statusLabel().getText().toString());
+        assertEquals(lastSuccessText(LAST_SUCCESS), lastSuccessLabel().getText().toString());
+        assertTrue(syncButton().isEnabled());
+
+        setConnected(true);
+        broadcastConnectivityChange();
+        assertEquals(View.GONE, statusLabel().getVisibility());
+    }
+
+    @Test
+    public void failureRemainsVisibleAcrossFragmentRecreationAndOffersRetry() {
+        fragment.onSyncComplete(FetchStatus.fetchedFailed);
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        Fragment.SavedState state = controller.get().getSupportFragmentManager()
+                .saveFragmentInstanceState(fragment);
+        controller.get().getSupportFragmentManager().beginTransaction().remove(fragment).commitNow();
+        fragment = new RefreshTrackingFragment();
+        fragment.setInitialSavedState(state);
+        controller.get().getSupportFragmentManager().beginTransaction()
+                .add(android.R.id.content, fragment).commitNow();
+
+        assertEquals(View.VISIBLE, statusLabel().getVisibility());
+        assertEquals(fragment.getString(R.string.all_clients_dashboard_sync_failed),
+                statusLabel().getText().toString());
+        assertEquals(fragment.getString(R.string.all_clients_dashboard_sync_retry),
+                syncButton().getText().toString());
+        assertEquals(lastSuccessText(LAST_SUCCESS), lastSuccessLabel().getText().toString());
+        assertEquals(LAST_SUCCESS, preferences.fetchLastCheckTimeStamp());
+    }
+
+    @Test
+    public void successfulCompletionClearsFailureWithoutWaitingForTheTimestampWrite() {
+        fragment.onSyncComplete(FetchStatus.fetchedFailed);
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        fragment.onSyncComplete(FetchStatus.nothingFetched);
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+
+        assertEquals(View.GONE, statusLabel().getVisibility());
+        assertEquals(fragment.getString(R.string.all_clients_dashboard_sync),
+                syncButton().getText().toString());
+        assertFalse(lastSuccessText(LAST_SUCCESS).equals(lastSuccessLabel().getText().toString()));
+        // The dashboard never writes or fabricates the canonical sync metadata.
+        assertEquals(LAST_SUCCESS, preferences.fetchLastCheckTimeStamp());
+    }
+
+    @Test
+    public void laterSuccessfulBackgroundSyncClearsTheEarlierErrorOnReturn() {
+        fragment.onSyncComplete(FetchStatus.fetchedFailed);
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        long laterSuccess = System.currentTimeMillis() + 60000L;
+        preferences.updateLastCheckTimeStamp(laterSuccess);
+        fragment.onSyncInProgress(FetchStatus.nothingFetched);
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+
+        assertEquals(View.GONE, statusLabel().getVisibility());
+        assertEquals(lastSuccessText(laterSuccess), lastSuccessLabel().getText().toString());
+    }
+
+    @Test
     public void syncListenerIsRemovedWhenDashboardStops() {
         verify(receiver).addSyncStatusListener(fragment);
 
@@ -143,6 +247,32 @@ public class AllClientsDashboardSyncTest {
 
     private TextView syncButton() {
         return fragment.requireView().findViewById(R.id.dashboard_sync);
+    }
+
+    private TextView statusLabel() {
+        return fragment.requireView().findViewById(R.id.dashboard_sync_status);
+    }
+
+    private TextView lastSuccessLabel() {
+        return fragment.requireView().findViewById(R.id.dashboard_sync_last_success);
+    }
+
+    private String lastSuccessText(long timestamp) {
+        return fragment.getString(R.string.all_clients_dashboard_sync_last_success,
+                DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT,
+                        fragment.getResources().getConfiguration().locale).format(new Date(timestamp)));
+    }
+
+    private void setConnected(boolean connected) {
+        Shadows.shadowOf(connectivity).setActiveNetworkInfo(ShadowNetworkInfo.newInstance(
+                connected ? NetworkInfo.DetailedState.CONNECTED : NetworkInfo.DetailedState.DISCONNECTED,
+                ConnectivityManager.TYPE_WIFI, 0, connected,
+                connected ? NetworkInfo.State.CONNECTED : NetworkInfo.State.DISCONNECTED));
+    }
+
+    private void broadcastConnectivityChange() {
+        controller.get().sendBroadcast(new Intent(ConnectivityManager.CONNECTIVITY_ACTION));
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
     }
 
     public static class RefreshTrackingFragment extends AllClientsDashboardFragment {

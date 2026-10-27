@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="36dp" android:height="36dp"
-    android:viewportWidth="36" android:viewportHeight="36">
-    <path android:fillColor="@color/all_clients_dashboard_teal_light"
-        android:pathData="M10,0H26A10,10 0,0 1,36 10V26A10,10 0,0 1,26 36H10A10,10 0,0 1,0 26V10A10,10 0,0 1,10 0Z" />
-    <group android:translateX="6" android:translateY="6">
-        <path android:fillColor="@color/all_clients_dashboard_teal"
-            android:pathData="M12,4V1L8,5l4,4V6a6,6 0,0 1,6 6,5.9 5.9,0 0,1 -.9,3.1l1.5,1.5A8,8 0,0 0,12 4M12,18a6,6 0,0 1,-6 -6,5.9 5.9,0 0,1 .9,-3.1L5.4,7.4A8,8 0,0 0,12 20v3l4,-4 -4,-4z" />
-    </group>
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="@color/all_clients_dashboard_teal"
+        android:pathData="M12,4V1L8,5l4,4V6a6,6 0,0 1,6 6,5.9 5.9,0 0,1 -.9,3.1l1.5,1.5A8,8 0,0 0,12 4M12,18a6,6 0,0 1,-6 -6,5.9 5.9,0 0,1 .9,-3.1L5.4,7.4A8,8 0,0 0,12 20v3l4,-4 -4,-4z" />
 </vector>

@@ -2,13 +2,18 @@ package org.smartregister.chw.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -116,15 +121,43 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity {
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         if (hasDashboard()) {
+            installDashboardFooter();
             bottomNavigationView.getMenu().clear();
             bottomNavigationView.inflateMenu(R.menu.bottom_nav_all_clients_dashboard);
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+            bottomNavigationView.setItemHorizontalTranslationEnabled(false);
+            ColorStateList colors = new ColorStateList(
+                    new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                    new int[]{ContextCompat.getColor(this, R.color.all_clients_dashboard_blue_text),
+                            ContextCompat.getColor(this, R.color.all_clients_dashboard_secondary)});
+            bottomNavigationView.setItemIconTintList(colors);
+            bottomNavigationView.setItemTextColor(colors);
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
             bottomNavigationView.setOnNavigationItemSelectedListener(this);
             return;
         }
         Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
         bottomNavigationView.getMenu().findItem(R.id.action_register).setTitle(R.string.add_client).setIcon(R.drawable.ic_input_add);
+    }
+
+    private void installDashboardFooter() {
+        // Keep registration outside the destination tabs without covering either pager page.
+        ViewGroup parent = (ViewGroup) bottomNavigationView.getParent();
+        ViewGroup.LayoutParams footerParams = bottomNavigationView.getLayoutParams();
+        footerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int index = parent.indexOfChild(bottomNavigationView);
+        LinearLayout footer = (LinearLayout) getLayoutInflater().inflate(
+                R.layout.all_clients_dashboard_footer, parent, false);
+        parent.removeView(bottomNavigationView);
+        footer.addView(bottomNavigationView, 0, new LinearLayout.LayoutParams(
+                0, ViewGroup.LayoutParams.WRAP_CONTENT, 2));
+        parent.addView(footer, index, footerParams);
+        RelativeLayout.LayoutParams pagerParams = (RelativeLayout.LayoutParams)
+                findViewById(R.id.base_view_pager).getLayoutParams();
+        pagerParams.addRule(RelativeLayout.ABOVE, R.id.dashboard_footer);
+        findViewById(R.id.base_view_pager).setLayoutParams(pagerParams);
+        footer.findViewById(R.id.dashboard_register_client)
+                .setOnClickListener(v -> startRegistration());
     }
 
     @Override

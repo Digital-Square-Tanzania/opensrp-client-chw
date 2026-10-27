@@ -13,6 +13,8 @@ import static org.mockito.Mockito.when;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import org.junit.runner.RunWith;
 import org.mockito.MockedStatic;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
@@ -136,15 +139,49 @@ public class AllClientsDashboardNavigationTest {
     @Test
     public void addClientLaunchesRegistrationWithoutChangingTheCurrentTab() {
         launch(new Intent(), null);
-        activity.navigation().setSelectedItemId(R.id.action_register);
+        assertEquals(2, activity.navigation().getMenu().size());
+        assertNull(activity.navigation().getMenu().findItem(R.id.action_register));
+        View addClient = activity.findViewById(R.id.dashboard_register_client);
+        assertTrue(addClient.isShown());
+        addClient.performClick();
         assertEquals(1, activity.registrationsStarted);
         assertSelected(1, R.id.action_family);
-        assertFalse(activity.navigation().getMenu().findItem(R.id.action_register).isChecked());
 
         activity.navigation().setSelectedItemId(R.id.action_dashboard_clients);
-        activity.navigation().setSelectedItemId(R.id.action_register);
+        assertTrue(addClient.isShown());
+        addClient.performClick();
         assertEquals(2, activity.registrationsStarted);
         assertSelected(0, R.id.action_dashboard_clients);
+    }
+
+    @Test
+    @Config(qualifiers = "w320dp-h640dp")
+    public void footerReservesSpaceBelowBothPagesOnANarrowScreen() {
+        Resources resources = RuntimeEnvironment.getApplication().getResources();
+        Configuration configuration = new Configuration(resources.getConfiguration());
+        configuration.fontScale = 1.3f;
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        launch(new Intent(), null);
+        View content = activity.findViewById(android.R.id.content);
+        int width = (int) (320 * activity.getResources().getDisplayMetrics().density);
+        int height = (int) (640 * activity.getResources().getDisplayMetrics().density);
+        content.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
+        content.layout(0, 0, width, height);
+
+        View pager = activity.findViewById(R.id.base_view_pager);
+        View footer = activity.findViewById(R.id.dashboard_footer);
+        TextView addClient = activity.findViewById(R.id.dashboard_register_client);
+        assertTrue(pager.getHeight() > 0);
+        assertTrue(footer.getHeight() > 0);
+        assertTrue(pager.getBottom() <= footer.getTop());
+        assertTrue(addClient.getWidth() > 0);
+        assertTrue(addClient.getHeight() >= 48 * activity.getResources().getDisplayMetrics().density);
+        assertTrue(addClient.getLayout().getHeight() <= addClient.getHeight()
+                - addClient.getCompoundPaddingTop() - addClient.getCompoundPaddingBottom());
+        for (int line = 0; line < addClient.getLineCount(); line++) {
+            assertEquals(0, addClient.getLayout().getEllipsisCount(line));
+        }
     }
 
     @Test
@@ -193,6 +230,7 @@ public class AllClientsDashboardNavigationTest {
         assertEquals(0, activity.requestedFragments.length);
         assertEquals(0, activity.page());
         assertNull(activity.navigation().getMenu().findItem(R.id.action_dashboard_clients));
+        assertNull(activity.findViewById(R.id.dashboard_footer));
 
         CommonPersonObjectClient client =
                 new CommonPersonObjectClient("selected-client", new HashMap<>(), "Selected Client");
