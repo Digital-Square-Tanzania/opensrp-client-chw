@@ -236,6 +236,7 @@ public class AllClientsDashboardRepository {
             breakdown.add(new ModuleCount(count.getKey(), count.getValue()));
         }
         if (independent > 0) breakdown.add(new ModuleCount(INDEPENDENT, independent));
+        breakdown.sort(Comparator.comparingInt(ModuleCount::getCount).reversed());
         return new Snapshot(clients.size(), independent, counts.size(), newThisWeek, breakdown, recent);
     }
 
