@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dashboard_footer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/all_clients_dashboard_card"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dashboard_register_client"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/all_clients_dashboard_primary_action"
+        android:fontFamily="sans"
+        android:gravity="center"
+        android:minHeight="48dp"
+        android:minWidth="0dp"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/all_clients_dashboard_add_client"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+</LinearLayout>

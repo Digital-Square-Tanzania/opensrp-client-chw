@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@id/action_family" android:icon="@drawable/all_clients_dashboard_ic_home"
+        android:title="@string/all_clients_dashboard_home" />
+    <item android:id="@+id/action_dashboard_clients" android:icon="@drawable/sidemenu_all_clients"
+        android:title="@string/menu_all_clients" />
+</menu>
