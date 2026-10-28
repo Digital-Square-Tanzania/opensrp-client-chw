@@ -30,13 +30,24 @@ public final class MarkClientAsDeceasedHelper {
 
     public static void markAsDeceased(Context context, MemberObject memberObject,
                                       String dateOfDeath) throws Exception {
-        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
-            throw new IllegalArgumentException("NCD client is required");
+        if (memberObject == null) {
+            throw new IllegalArgumentException("Client is required");
+        }
+        markAsDeceased(context, memberObject.getBaseEntityId(), memberObject.getFirstName(),
+                memberObject.getMiddleName(), memberObject.getLastName(), memberObject.getGender(),
+                dateOfDeath);
+    }
+
+    public static void markAsDeceased(Context context, String baseEntityId,
+                                      String firstName, String middleName, String lastName,
+                                      String gender, String dateOfDeath) throws Exception {
+        if (StringUtils.isBlank(baseEntityId)) {
+            throw new IllegalArgumentException("Client is required");
         }
 
         String normalizedDateOfDeath = normalizeDateOfDeath(dateOfDeath);
         String normalizedDateOfBirth = normalizeDateOfBirth(
-                PersonDao.getDob(memberObject.getBaseEntityId()));
+                PersonDao.getDob(baseEntityId));
         JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(
                 context, CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
         if (form == null) {
@@ -45,10 +56,11 @@ public final class MarkClientAsDeceasedHelper {
 
         org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(
                 form,
-                memberObject.getBaseEntityId(),
+                baseEntityId,
                 org.smartregister.Context.getInstance().allSharedPreferences()
                         .getPreference(AllConstants.CURRENT_LOCATION_ID));
-        populateForm(form, memberObject, normalizedDateOfBirth, normalizedDateOfDeath);
+        populateForm(form, firstName, middleName, lastName, gender,
+                normalizedDateOfBirth, normalizedDateOfDeath);
 
         String eventType = Utils.removeUser(
                 null,
@@ -62,13 +74,21 @@ public final class MarkClientAsDeceasedHelper {
     static void populateForm(JSONObject form, MemberObject memberObject,
                              String normalizedDateOfBirth,
                              String normalizedDateOfDeath) throws Exception {
+        populateForm(form, memberObject.getFirstName(), memberObject.getMiddleName(),
+                memberObject.getLastName(), memberObject.getGender(),
+                normalizedDateOfBirth, normalizedDateOfDeath);
+    }
+
+    static void populateForm(JSONObject form, String firstName, String middleName,
+                             String lastName, String gender, String normalizedDateOfBirth,
+                             String normalizedDateOfDeath) throws Exception {
         JSONArray fields = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1)
                 .getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
 
-        updateField(fields, "first_name", memberObject.getFirstName());
-        updateField(fields, "middle_name", memberObject.getMiddleName());
-        updateField(fields, "last_name", memberObject.getLastName());
-        updateField(fields, "sex", memberObject.getGender());
+        updateField(fields, "first_name", firstName);
+        updateField(fields, "middle_name", middleName);
+        updateField(fields, "last_name", lastName);
+        updateField(fields, "sex", gender);
         updateField(fields, "dob", normalizedDateOfBirth);
         updateField(fields, "remove_reason", REMOVE_REASON_DEATH);
         updateField(fields, "date_died", normalizedDateOfDeath);

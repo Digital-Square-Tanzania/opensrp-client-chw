@@ -25,7 +25,7 @@ public class MotherMentorPartnerRepositoryTest {
     @Before public void setup() {
         db = SQLiteDatabase.create(null);
         db.execSQL("CREATE TABLE ec_family (base_entity_id TEXT, is_closed INTEGER)");
-        db.execSQL("CREATE TABLE ec_family_member (base_entity_id TEXT, relational_id TEXT, first_name TEXT, last_name TEXT, is_closed INTEGER, gender TEXT, dob TEXT)");
+        db.execSQL("CREATE TABLE ec_family_member (base_entity_id TEXT, relational_id TEXT, first_name TEXT, last_name TEXT, is_closed INTEGER, gender TEXT, dob TEXT, dod TEXT)");
         db.execSQL("CREATE TABLE ec_mothermentor_enrollment (base_entity_id TEXT, ctc_number TEXT, is_closed INTEGER)");
         db.execSQL("CREATE TABLE ec_mothermentor_enroll_partner (base_entity_id TEXT, relational_id TEXT, is_closed INTEGER)");
         cipher = Mockito.mock(net.zetetic.database.sqlcipher.SQLiteDatabase.class);
@@ -91,7 +91,29 @@ public class MotherMentorPartnerRepositoryTest {
         db.execSQL("UPDATE ec_mothermentor_enroll_partner SET mother_base_entity_id = 'mother' WHERE base_entity_id = 'legacy'");
         assertEquals(Arrays.asList("household"), ids(repository.candidates("mother", "family", true)));
     }
-    private void add(String id, String family, int closed) { db.execSQL("INSERT INTO ec_family_member VALUES (?, ?, ?, 'Test', ?, 'Male', '1990-01-01')", new Object[]{id, family, id, closed}); }
+    @Test public void deceasedPartnerCannotBeSelectedOrEnrolledWhenMemberRecordRemainsOpen() {
+        db.execSQL("UPDATE ec_family_member SET dod='2026-10-20' WHERE base_entity_id='household'");
+        assertNull(repository.findClient("household"));
+        assertFalse(repository.canEnrollPartner("household"));
+        assertEquals(Arrays.asList("legacy"), ids(repository.candidates("mother", "family", true)));
+        assertEquals(Arrays.asList("legacy", "other"), ids(repository.candidates("mother", "family", false)));
+    }
+    @Test public void deceasedPartnerCannotBeRelinkedAfterPreviousEnrollmentIsClosed() {
+        db.execSQL("UPDATE ec_mothermentor_enroll_partner SET is_closed=1 WHERE base_entity_id='linked'");
+        db.execSQL("UPDATE ec_family_member SET dod='2026-10-20' WHERE base_entity_id='linked'");
+        assertFalse(repository.canEnrollPartner("linked"));
+        assertEquals(Arrays.asList("household", "legacy"), ids(repository.candidates("mother", "family", true)));
+    }
+    @Test(expected = IllegalArgumentException.class) public void savingRechecksPartnerDeathAfterSelection() throws Exception {
+        db.execSQL("UPDATE ec_family_member SET dod='2026-10-20' WHERE base_entity_id='household'");
+        repository.save(null, "mother", "household", null);
+    }
+    @Test(expected = IllegalArgumentException.class) public void deceasedMotherCannotLinkWhenEnrollmentWasReplayedOpen() throws Exception {
+        db.execSQL("UPDATE ec_family_member SET dod='2026-10-20' WHERE base_entity_id='mother'");
+        assertNull(repository.findMother("mother"));
+        repository.save(null, "mother", "household", null);
+    }
+    private void add(String id, String family, int closed) { db.execSQL("INSERT INTO ec_family_member (base_entity_id, relational_id, first_name, last_name, is_closed, gender, dob) VALUES (?, ?, ?, 'Test', ?, 'Male', '1990-01-01')", new Object[]{id, family, id, closed}); }
     private List<String> ids(List<MotherMentorPartnerRepository.Person> people) {
         List<String> ids = new ArrayList<>(); for (MotherMentorPartnerRepository.Person person : people) ids.add(person.id()); return ids;
     }

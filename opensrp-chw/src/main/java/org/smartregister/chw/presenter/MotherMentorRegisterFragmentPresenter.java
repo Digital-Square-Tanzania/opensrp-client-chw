@@ -1,6 +1,7 @@
 package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.mothermentor.contract.MotherMentorRegisterFragmentContract;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorRegisterFragmentPresenter;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 
@@ -19,11 +20,8 @@ public class MotherMentorRegisterFragmentPresenter
 
     @Override
     public String getMainCondition() {
-        return " "
-                + getMainTable()
-                + "."
-                + DBConstants.KEY.IS_CLOSED
-                + " = 0 AND ("
+        return MotherMentorDao.getActiveClientCondition(getMainTable())
+                + " AND ("
                 + getMainTable()
                 + "."
                 + DBConstants.KEY.STATUS

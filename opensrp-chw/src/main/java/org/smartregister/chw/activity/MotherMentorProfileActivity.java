@@ -41,13 +41,16 @@ import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.util.MarkClientAsDeceasedHelper;
 import org.smartregister.chw.util.MotherMentorDailyVisitUtils;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.util.AppExecutors;
 
 import timber.log.Timber;
 
@@ -106,6 +109,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                             REFERRAL_GIVEN,
                             NEXT_APPOINTMENT_DATE,
                             COMMENTS));
+    private static final Object DEATH_RECORD_LOCK = new Object();
+    private final AppExecutors deathRecordExecutors = new AppExecutors();
+    private boolean deathRecordInProgress;
     private TextView iitRiskTag;
     private TextView pregnancyWeekView;
     private TextView followUpRoleView;
@@ -525,6 +531,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         updateFollowUpRole();
         updateIitHighRiskTag();
         updatePregnancyWeek();
+        applyMotherMentorDeceasedHandling();
     }
 
     private void updateFollowUpRole() {
@@ -782,7 +789,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        if (!isFollowUpProfile()) {
+        if (!isFollowUpProfile() && !isClientDeceased()) {
             menu.add(
                             Menu.NONE,
                             R.id.action_mothermentor_enroll_iit,
@@ -804,12 +811,44 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                         R.string.mothermentor_link_child_eid)
                 .setVisible(canLinkMotherMentorClient())
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        updateDeceasedMenuItems(menu);
         return result;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean result = super.onPrepareOptionsMenu(menu);
+        updateDeceasedMenuItems(menu);
+        return result;
+    }
+
+    private void updateDeceasedMenuItems(Menu menu) {
+        boolean deceased = isClientDeceased();
+        for (int itemId : new int[] {R.id.action_mothermentor_enroll_iit,
+                R.id.action_mothermentor_enroll_partner, R.id.action_mothermentor_enroll_child_eid}) {
+            MenuItem item = menu.findItem(itemId);
+            if (item != null && deceased) item.setVisible(false);
+        }
+        MenuItem remove = menu.findItem(R.id.action_remove_member);
+        if (remove != null) {
+            remove.setVisible(memberObject != null
+                    && !TextUtils.equals(memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId())
+                    && !hasRecordedDeath());
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
+        if (itemId == R.id.action_remove_member) {
+            if (!hasRecordedDeath()) openRemoveMember();
+            return true;
+        }
+        if ((itemId == R.id.action_mothermentor_enroll_iit
+                || itemId == R.id.action_mothermentor_enroll_partner
+                || itemId == R.id.action_mothermentor_enroll_child_eid) && isClientDeceased()) {
+            return true;
+        }
         if (itemId == R.id.action_mothermentor_enroll_iit) {
             if (!isFollowUpProfile()) {
                 startSecondaryEnrollment(FORM_MOTHERMENTOR_ENROLL_IIT);
@@ -838,7 +877,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private boolean canLinkMotherMentorClient() {
-        if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())) return false;
+        if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())
+                || isClientDeceased()) return false;
         try {
             return new org.smartregister.chw.repository.MotherMentorPartnerRepository(
                                     ChwApplication.getInstance()
@@ -855,6 +895,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     protected void setupButtons() {
         super.setupButtons();
+        boolean deceased = isClientDeceased();
+        updateDeceasedClientStatusTag(deceased);
+        if (deceased) {
+            hideDeceasedClientActionViews();
+            refreshMedicalHistory(true);
+            return;
+        }
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
             boolean canStartVisit =
@@ -876,6 +923,102 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         }
         enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
+    }
+
+    protected boolean isClientDeceased() {
+        if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())) return false;
+        try {
+            return MotherMentorDao.isClientDeceased(memberObject.getBaseEntityId());
+        } catch (Exception e) {
+            Timber.e(e, "Unable to check Mother Mentor death status");
+            return false;
+        }
+    }
+
+    private boolean hasRecordedDeath() {
+        if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())) return false;
+        try {
+            return MotherMentorDao.hasRecordedDeath(memberObject.getBaseEntityId());
+        } catch (Exception e) {
+            Timber.e(e, "Unable to check shared death record");
+            return false;
+        }
+    }
+
+    void updateDeceasedClientStatusTag(boolean deceased) {
+        TextView status = findViewById(org.smartregister.chw.mothermentor.R.id.family_mothermentor_head);
+        if (status == null) return;
+        if (deceased) {
+            status.setText(org.smartregister.chw.mothermentor.R.string.mothermentor_status_deceased);
+        }
+        status.setVisibility(deceased ? View.VISIBLE : View.GONE);
+    }
+
+    private void hideDeceasedClientActionViews() {
+        if (textViewRecordMotherMentor != null) textViewRecordMotherMentor.setVisibility(View.GONE);
+        if (manualProcessVisit != null) manualProcessVisit.setVisibility(View.GONE);
+        if (mothermentorServiceInProgress != null) mothermentorServiceInProgress.setVisibility(View.GONE);
+    }
+
+    void applyMotherMentorDeceasedHandling() {
+        if (!isClientDeceased()) return;
+        updateDeceasedClientStatusTag(true);
+        hideDeceasedClientActionViews();
+        if (deathRecordInProgress || !isDeathRecordSessionActive()) return;
+        final String providerId = getDeathRecordProviderId();
+        if (TextUtils.isEmpty(providerId)) return;
+        final MemberObject client = memberObject;
+        deathRecordInProgress = true;
+        deathRecordExecutors.diskIO().execute(() -> {
+            try {
+                synchronized (DEATH_RECORD_LOCK) {
+                    if (!isDeathRecordSessionActive()
+                            || !TextUtils.equals(providerId, getDeathRecordProviderId())) return;
+                    if (!MotherMentorDao.hasRecordedDeath(client.getBaseEntityId())) {
+                        Date date = MotherMentorDao.getClientDeathDate(client.getBaseEntityId());
+                        if (date == null) {
+                            throw new IllegalStateException("Recorded death/service date is unavailable");
+                        }
+                        MarkClientAsDeceasedHelper.markAsDeceased(this, client.getBaseEntityId(),
+                                client.getFirstName(), client.getMiddleName(), client.getLastName(),
+                                client.getGender(), new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(date));
+                    }
+                    // Repairs enrollments left open by an older app after a shared death record.
+                    MotherMentorDao.closeDeceasedClientEnrollments(client.getBaseEntityId());
+                }
+            } catch (Exception e) {
+                Timber.e(e, "Unable to record Mother Mentor client death");
+                deathRecordExecutors.mainThread().execute(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        displayToast(org.smartregister.chw.mothermentor.R.string.mothermentor_death_record_failed);
+                    }
+                });
+            } finally {
+                deathRecordExecutors.mainThread().execute(() -> {
+                    deathRecordInProgress = false;
+                    if (!isFinishing() && !isDestroyed()) invalidateOptionsMenu();
+                });
+            }
+        });
+    }
+
+    protected boolean isDeathRecordSessionActive() {
+        return !isFinishing() && !isDestroyed() && !context().IsUserLoggedOut();
+    }
+
+    protected String getDeathRecordProviderId() {
+        return context().allSharedPreferences().fetchRegisteredANM();
+    }
+
+    private void openRemoveMember() {
+        if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())
+                || TextUtils.equals(memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId())) return;
+        CommonPersonObjectClient client = org.smartregister.chw.core.utils.Utils
+                .getCommonPersonObjectClient(memberObject.getBaseEntityId());
+        if (client == null) return;
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(this, client,
+                memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(),
+                memberObject.getPrimaryCareGiver(), MotherMentorRegisterActivity.class.getCanonicalName());
     }
 
     private boolean hasCompletedServiceVisitToday() {
@@ -1105,6 +1248,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openRecordClientVisit() {
+        if (isClientDeceased()) return;
         if (isFollowUpProfile()) {
             if (getFollowUpType() == MotherMentorFollowUpType.PARTNER
                     || getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
@@ -1186,6 +1330,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void continueService() {
+        if (isClientDeceased()) return;
         if (isFollowUpProfile()) {
             MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                     this, memberObject.getBaseEntityId(), true, getFollowUpType());
@@ -1197,6 +1342,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void continueContactVisit() {
+        if (isClientDeceased()) return;
         MotherMentorVisitActivity.startMotherMentorVisitActivity(
                 this, memberObject.getBaseEntityId(), true);
     }
@@ -1214,6 +1360,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private void startForm(String formName) {
+        if (isClientDeceased()) return;
         try {
             JSONObject form = FormUtils.getFormUtils().getFormJson(formName);
             form.put(

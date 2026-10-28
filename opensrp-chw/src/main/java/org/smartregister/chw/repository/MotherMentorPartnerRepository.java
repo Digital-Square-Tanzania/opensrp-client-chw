@@ -5,6 +5,7 @@ import android.database.Cursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.json.JSONObject;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorUtil;
 import org.smartregister.chw.util.MotherMentorPartnerFormUtils;
@@ -62,9 +63,9 @@ public class MotherMentorPartnerRepository {
                         + DBConstants.KEY.BASE_ENTITY_ID
                         + " WHERE m."
                         + DBConstants.KEY.BASE_ENTITY_ID
-                        + " = ? AND m."
-                        + DBConstants.KEY.IS_CLOSED
-                        + " = 0 AND e."
+                        + " = ? AND "
+                        + MotherMentorDao.getActiveClientCondition("m")
+                        + " AND e."
                         + DBConstants.KEY.IS_CLOSED
                         + " = 0 AND f."
                         + DBConstants.KEY.IS_CLOSED
@@ -80,9 +81,9 @@ public class MotherMentorPartnerRepository {
                         + DBConstants.KEY.RELATIONAL_ID
                         + " WHERE m."
                         + DBConstants.KEY.BASE_ENTITY_ID
-                        + " = ? AND m."
-                        + DBConstants.KEY.IS_CLOSED
-                        + " = 0 AND f."
+                        + " = ? AND "
+                        + MotherMentorDao.getActiveClientCondition("m")
+                        + " AND f."
                         + DBConstants.KEY.IS_CLOSED
                         + " = 0",
                 new String[] {id});
@@ -123,9 +124,9 @@ public class MotherMentorPartnerRepository {
                 + DBConstants.KEY.BASE_ENTITY_ID
                 + " = m."
                 + DBConstants.KEY.RELATIONAL_ID
-                + " WHERE m."
-                + DBConstants.KEY.IS_CLOSED
-                + " = 0 AND f."
+                + " WHERE "
+                + MotherMentorDao.getActiveClientCondition("m")
+                + " AND f."
                 + DBConstants.KEY.IS_CLOSED
                 + " = 0 AND m."
                 + DBConstants.KEY.BASE_ENTITY_ID
