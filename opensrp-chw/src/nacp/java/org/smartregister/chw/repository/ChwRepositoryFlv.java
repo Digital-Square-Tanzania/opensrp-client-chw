@@ -218,6 +218,12 @@ public class ChwRepositoryFlv {
                 case 57:
                     AgywReportingMigration.upgrade(db, ReportingLibrary.getInstance());
                     break;
+                case 58:
+                    MotherMentorPartnerWorkflowMigration.upgrade(db);
+                    break;
+                case 59:
+                    org.smartregister.chw.mothermentor.repository.VisitDetailsRepository.createReportIndex(db);
+                    break;
                 default:
                     break;
             }

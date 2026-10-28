@@ -63,6 +63,7 @@ public final class MotherMentorPartnerFormUtils {
             if (previous.get(key) != null) set(form, key, previous.get(key), false);
         }
         bindIdentity(form, mother, partner);
+        set(form, DBConstants.KEY.PARTNER_LINKAGE_ID, java.util.UUID.randomUUID().toString(), false);
         return form;
     }
 
@@ -78,6 +79,13 @@ public final class MotherMentorPartnerFormUtils {
         set(form, DBConstants.KEY.RELATIONAL_ID, partner.get(DBConstants.KEY.RELATIONAL_ID), false);
         set(form, DBConstants.KEY.MOTHER_BASE_ENTITY_ID, motherId, false);
         set(form, DBConstants.KEY.PARTNER_LINKING, "yes", false);
+        set(form, DBConstants.KEY.MOTHER_PREGNANCY_EPISODE_ID,
+                mother.get(DBConstants.KEY.MOTHER_PREGNANCY_EPISODE_ID), false);
+        set(form, DBConstants.KEY.PARTNER_MOTHER_PREGNANT,
+                "pregnant".equals(mother.get(DBConstants.KEY.PREGNANCY_STATUS)) ? "yes"
+                        : ("not_pregnant".equals(mother.get(DBConstants.KEY.PREGNANCY_STATUS))
+                                || "breast_feeding".equals(mother.get(DBConstants.KEY.PREGNANCY_STATUS)))
+                                ? "no" : "unknown", false);
         set(form, DBConstants.KEY.MOTHER_NAME, name(mother), true);
         String motherCtc = mother.get(DBConstants.KEY.CTC_NUMBER);
         set(

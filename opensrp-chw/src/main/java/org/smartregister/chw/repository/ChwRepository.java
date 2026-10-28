@@ -11,6 +11,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.CoreChwRepository;
+import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.exception.DatabaseMigrationException;
 import org.smartregister.reporting.ReportingLibrary;
 
@@ -67,6 +68,7 @@ public class ChwRepository extends CoreChwRepository {
     @Override
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
+        VisitDetailsRepository.createReportIndex(database);
         createdWithCurrentCipher = true;
     }
 

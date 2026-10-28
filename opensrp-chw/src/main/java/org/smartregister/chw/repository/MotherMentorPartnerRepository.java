@@ -9,6 +9,7 @@ import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorUtil;
 import org.smartregister.chw.util.MotherMentorPartnerFormUtils;
+import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 
@@ -53,6 +54,8 @@ public class MotherMentorPartnerRepository {
         return first(
                 "SELECT m.*, e."
                         + DBConstants.KEY.CTC_NUMBER
+                        + ", e." + DBConstants.KEY.PREGNANCY_STATUS
+                        + ", e." + DBConstants.KEY.MOTHER_PREGNANCY_EPISODE_ID
                         + " FROM ec_family_member m JOIN ec_family f ON f."
                         + DBConstants.KEY.BASE_ENTITY_ID
                         + " = m."
@@ -96,7 +99,8 @@ public class MotherMentorPartnerRepository {
                 && MotherMentorPartnerFormUtils.isEligiblePartner(
                         client.values.get(DBConstants.KEY.GENDER),
                         client.values.get(DBConstants.KEY.DOB))
-                && existingEnrollment(id).isEmpty();
+                && existingEnrollment(id).isEmpty()
+                && !isPermanentlyClosed(id);
     }
 
     public List<Person> candidates(String motherId, String familyId, boolean familyOnly) {
@@ -142,9 +146,14 @@ public class MotherMentorPartnerRepository {
                 + DBConstants.KEY.BASE_ENTITY_ID
                 + " AND p."
                 + DBConstants.KEY.IS_CLOSED
-                + " = 0 AND trim(coalesce(p."
+                + " = 0 AND "
+                + MotherMentorPartnerFollowUpDao.activeEnrollmentCondition("p")
+                + " AND trim(coalesce(p."
                 + DBConstants.KEY.MOTHER_BASE_ENTITY_ID
-                + ", '')) <> '') ORDER BY m."
+                + ", '')) <> '') AND NOT "
+                + MotherMentorPartnerFollowUpDao.deceasedPartnerCondition(
+                        "m." + DBConstants.KEY.BASE_ENTITY_ID)
+                + " ORDER BY m."
                 + DBConstants.KEY.FIRST_NAME
                 + " COLLATE NOCASE, m."
                 + DBConstants.KEY.LAST_NAME
@@ -161,7 +170,8 @@ public class MotherMentorPartnerRepository {
                                 + DBConstants.KEY.BASE_ENTITY_ID
                                 + " = ? AND "
                                 + DBConstants.KEY.IS_CLOSED
-                                + " = 0",
+                                + " = 0 AND "
+                                + MotherMentorPartnerFollowUpDao.activeEnrollmentCondition(TABLE),
                         new String[] {partnerId})) {
             return cursor.moveToFirst() ? values(cursor) : new HashMap<>();
         }
@@ -187,6 +197,10 @@ public class MotherMentorPartnerRepository {
                 mother,
                 partner,
                 existingEnrollment(partnerId).get(DBConstants.KEY.MOTHER_BASE_ENTITY_ID));
+        String linkageId = org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
+                form, DBConstants.KEY.PARTNER_LINKAGE_ID);
+        if (linkageId == null) throw new IllegalArgumentException("Missing partner linkage");
+        java.util.UUID.fromString(linkageId);
         MotherMentorPartnerFormUtils.bindIdentity(form, mother.values, partner.values);
         Event event =
                 org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(
@@ -200,14 +214,19 @@ public class MotherMentorPartnerRepository {
         }
     }
 
-    private static void validateLink(Person mother, Person partner, String linkedMother) {
+    private boolean isPermanentlyClosed(String id) {
+        return MotherMentorPartnerFollowUpDao.isPermanentlyClosed(id, database);
+    }
+
+    private void validateLink(Person mother, Person partner, String linkedMother) {
         if (mother == null
                 || partner == null
                 || mother.id().equals(partner.id())
                 || !MotherMentorPartnerFormUtils.isEligiblePartner(
                         partner.values.get(DBConstants.KEY.GENDER),
                         partner.values.get(DBConstants.KEY.DOB))
-                || (linkedMother != null && !linkedMother.trim().isEmpty())) {
+                || (linkedMother != null && !linkedMother.trim().isEmpty())
+                || (partner != null && isPermanentlyClosed(partner.id()))) {
             throw new IllegalArgumentException(
                     "Mother or partner is no longer eligible for linking");
         }
