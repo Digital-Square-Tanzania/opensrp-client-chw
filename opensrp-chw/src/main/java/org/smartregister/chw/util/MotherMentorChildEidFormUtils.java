@@ -12,6 +12,8 @@ import java.util.Map;
 public final class MotherMentorChildEidFormUtils {
     public static final String FORM = "mothermentor_enroll_child_eid";
     public static final String EVENT = "Mother Mentor Enroll Child Eid";
+    private static final String BIRTH_ORDER_PATTERN = "(?:0?[1-9]|1[0-9]|20)";
+    private static final String CTC_NUMBER_PATTERN = "[0-9]{2}-[0-9]{2}-[0-9]{4}-[0-9]{6}";
 
     private MotherMentorChildEidFormUtils() {}
 
@@ -80,16 +82,27 @@ public final class MotherMentorChildEidFormUtils {
             if (previous.get(key) != null) set(form, key, previous.get(key), false);
         }
         bindIdentity(form, mother, child);
+        String birthOrder = previous.get(DBConstants.KEY.HEI_FOLLOW_UP_NUMBER);
         String motherCtc = mother.get(DBConstants.KEY.CTC_NUMBER);
         String previousHei = previous.get(DBConstants.KEY.HEI_NUMBER);
-        if (motherCtc != null && previousHei != null) {
-            String prefix = motherCtc.trim() + "-C-";
+        if ((birthOrder == null || !birthOrder.matches(BIRTH_ORDER_PATTERN))
+                && motherCtc != null
+                && motherCtc.trim().matches(CTC_NUMBER_PATTERN)
+                && previousHei != null) {
+            String prefix = motherCtc.trim() + "-C";
             if (previousHei.startsWith(prefix)) {
-                String suffix = previousHei.substring(prefix.length());
-                if (suffix.matches("[0-9]{2}")) {
-                    set(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER, suffix, false);
+                birthOrder = previousHei.substring(prefix.length());
+                // Records created before the birth-order format used an extra hyphen.
+                if (birthOrder.startsWith("-")) {
+                    birthOrder = birthOrder.substring(1);
+                }
+                if (birthOrder.length() != 2) {
+                    birthOrder = null;
                 }
             }
+        }
+        if (birthOrder != null && birthOrder.matches(BIRTH_ORDER_PATTERN)) {
+            set(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER, birthOrder, false);
         }
         return form;
     }
@@ -129,12 +142,15 @@ public final class MotherMentorChildEidFormUtils {
         String heiNumber = "";
         if ("yes".equals(field(form, DBConstants.KEY.HEI_REGISTERED).optString("value"))) {
             String motherCtc = mother.get(DBConstants.KEY.CTC_NUMBER);
-            String suffix = field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).optString("value");
-            if (motherCtc == null || motherCtc.trim().isEmpty() || !suffix.matches("[0-9]{2}")) {
+            String birthOrder = field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).optString("value");
+            if (motherCtc == null
+                    || !motherCtc.trim().matches(CTC_NUMBER_PATTERN)
+                    || !birthOrder.matches(BIRTH_ORDER_PATTERN)) {
                 throw new IllegalArgumentException(
-                        "A mother's CTC ID and two-digit follow-up number are required");
+                        "A valid mother's CTC ID and a child's birth order from 1 to 20 are required");
             }
-            heiNumber = motherCtc.trim() + "-C-" + suffix;
+            heiNumber =
+                    motherCtc.trim() + "-C" + (birthOrder.length() == 1 ? "0" : "") + birthOrder;
         }
         set(form, DBConstants.KEY.HEI_NUMBER, heiNumber, true);
     }

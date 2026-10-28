@@ -23,18 +23,48 @@ import java.util.Map;
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorChildHeiNumberBindingTest {
     @Test
-    public void preparationBindsTheLinkedMothersCtcAndRestoresAnExistingSuffix() throws Exception {
+    public void preparationBindsTheLinkedMotherAndRestoresNewOrLegacyBirthOrder() throws Exception {
         for (String language : languages()) {
+            for (String hei : new String[] {"12-34-5678-123456-C03", "12-34-5678-123456-C-03"}) {
+                JSONObject form = form(language);
+                MotherMentorChildEidFormUtils.prepare(form, mother(), child(),
+                        Collections.singletonMap(DBConstants.KEY.HEI_NUMBER, hei));
+                JSONObject ctc = field(form, DBConstants.KEY.MOTHER_CTC_NUMBER);
+                assertEquals("12-34-5678-123456", ctc.getString("value"));
+                assertTrue(ctc.getBoolean("read_only"));
+                assertFalse(ctc.has("editable"));
+                assertEquals("03", field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).getString("value"));
+                assertEquals("child", form.getString("entity_id"));
+                assertEquals(hei, field(form, DBConstants.KEY.HEI_NUMBER).getString("value"));
+            }
+        }
+    }
+
+    @Test
+    public void preparationPrefersThePersistedBirthOrder() throws Exception {
+        for (String language : languages()) {
+            Map<String, String> previous = new HashMap<>();
+            previous.put(DBConstants.KEY.HEI_NUMBER, "12-34-5678-123456-C-03");
+            previous.put(DBConstants.KEY.HEI_FOLLOW_UP_NUMBER, "2");
             JSONObject form = form(language);
-            Map<String, String> mother = mother();
-            MotherMentorChildEidFormUtils.prepare(form, mother, child(),
-                    Collections.singletonMap(DBConstants.KEY.HEI_NUMBER, "12-34-5678-123456-C-03"));
-            JSONObject ctc = field(form, DBConstants.KEY.MOTHER_CTC_NUMBER);
-            assertEquals("12-34-5678-123456", ctc.getString("value"));
-            assertTrue(ctc.getBoolean("read_only"));
-            assertFalse(ctc.has("editable"));
-            assertEquals("03", field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).getString("value"));
-            assertEquals("child", form.getString("entity_id"));
+            MotherMentorChildEidFormUtils.prepare(form, mother(), child(), previous);
+            assertEquals("2", field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).getString("value"));
+        }
+    }
+
+    @Test
+    public void preparationIgnoresInvalidOrUnrelatedHeiSuffixes() throws Exception {
+        for (String language : languages()) {
+            for (String hei : new String[] {
+                    "12-34-5678-123456-C00", "12-34-5678-123456-C-00",
+                    "12-34-5678-123456-C21", "12-34-5678-123456-C-99",
+                    "12-34-5678-123456-C3", "12-34-5678-123456-C-3",
+                    "12-34-5678-123456-C--03", "98-76-5432-654321-C03"}) {
+                JSONObject form = form(language);
+                MotherMentorChildEidFormUtils.prepare(form, mother(), child(),
+                        Collections.singletonMap(DBConstants.KEY.HEI_NUMBER, hei));
+                assertEquals("", field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).optString("value"));
+            }
         }
     }
 
@@ -50,9 +80,26 @@ public class MotherMentorChildHeiNumberBindingTest {
             field(form, DBConstants.KEY.LAST_TEST_RESULT).put("value", "negative");
             MotherMentorChildEidFormUtils.bindIdentity(form, mother(), child());
             MotherMentorChildEidFormUtils.bindHeiNumber(form, mother());
-            assertEquals("12-34-5678-123456-C-01", field(form, DBConstants.KEY.HEI_NUMBER).getString("value"));
+            assertEquals("12-34-5678-123456-C01", field(form, DBConstants.KEY.HEI_NUMBER).getString("value"));
             assertEquals("12-34-5678-123456", field(form, DBConstants.KEY.MOTHER_CTC_NUMBER).getString("value"));
             assertEquals("negative", field(form, DBConstants.KEY.LAST_TEST_RESULT).getString("value"));
+        }
+    }
+
+    @Test
+    public void savingPadsBirthOrdersOneThroughTwenty() throws Exception {
+        for (String language : languages()) {
+            for (String birthOrder : new String[] {"1", "01", "2", "02", "9", "09", "10", "20"}) {
+                JSONObject form = form(language);
+                field(form, DBConstants.KEY.HEI_REGISTERED).put("value", "yes");
+                field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).put("value", birthOrder);
+                MotherMentorChildEidFormUtils.bindHeiNumber(form, mother());
+                String expectedSuffix = birthOrder.length() == 1 ? "0" + birthOrder : birthOrder;
+                assertEquals("12-34-5678-123456-C" + expectedSuffix,
+                        field(form, DBConstants.KEY.HEI_NUMBER).getString("value"));
+                assertTrue(field(form, DBConstants.KEY.HEI_NUMBER).getBoolean("read_only"));
+                assertFalse(field(form, DBConstants.KEY.HEI_NUMBER).has("editable"));
+            }
         }
     }
 
@@ -68,18 +115,28 @@ public class MotherMentorChildHeiNumberBindingTest {
     }
 
     @Test
-    public void incompleteFollowUpNumbersAndMissingMotherCtcCannotBeSaved() throws Exception {
+    public void invalidBirthOrdersCannotBeSaved() throws Exception {
         for (String language : languages()) {
-            for (String suffix : new String[] {"", "1", "001", "ab"}) {
+            for (String suffix : new String[] {"", "0", "00", "21", "99", "-1", "001", "ab", " 1", "1 "}) {
                 JSONObject form = form(language);
                 field(form, DBConstants.KEY.HEI_REGISTERED).put("value", "yes");
                 field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).put("value", suffix);
                 assertRejected(form, mother());
             }
-            JSONObject form = form(language);
-            field(form, DBConstants.KEY.HEI_REGISTERED).put("value", "yes");
-            field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).put("value", "01");
-            assertRejected(form, Collections.emptyMap());
+        }
+    }
+
+    @Test
+    public void missingOrMalformedMotherCtcCannotBeSaved() throws Exception {
+        for (String language : languages()) {
+            for (String ctc : new String[] {null, "", "   ", "12-34-5678-12345", "12-34-56789-123456", "wrong-mother"}) {
+                JSONObject form = form(language);
+                field(form, DBConstants.KEY.HEI_REGISTERED).put("value", "yes");
+                field(form, DBConstants.KEY.HEI_FOLLOW_UP_NUMBER).put("value", "01");
+                Map<String, String> mother = mother();
+                mother.put(DBConstants.KEY.CTC_NUMBER, ctc);
+                assertRejected(form, mother);
+            }
         }
     }
 
