@@ -46,6 +46,8 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.TbLeprosyFloatingMenu;
+import org.smartregister.chw.dao.ChwHpsDao;
+import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbLeprosyContactRegisterPresenter;
@@ -57,6 +59,7 @@ import org.smartregister.chw.tbleprosy.util.Constants;
 import org.smartregister.chw.tbleprosy.util.DBConstants;
 import org.smartregister.chw.tbleprosy.util.TbLeprosyVisitsUtil;
 import org.smartregister.chw.util.AllClientsUtils;
+import org.smartregister.chw.util.MarkClientAsDeceasedHelper;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -325,6 +328,7 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         updateDeceasedClientStatusTag(deceasedClient);
         if (deceasedClient) {
             hideDeceasedClientActionViews();
+            autoMarkTbLeprosyClientAsDeceased();
             return;
         }
 
@@ -656,6 +660,19 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
         }
 
         try {
+            String baseEntityId = memberObject.getBaseEntityId();
+            if (ChwHpsDao.hasCompleteDeathRegisterRecord(baseEntityId)) {
+                return;
+            }
+
+            // Older TB removal events may already have recorded the family member's death date.
+            String dateOfDeath = ChwHpsDao.getRecordedDateOfDeath(baseEntityId);
+            if (StringUtils.isBlank(dateOfDeath)) {
+                dateOfDeath = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(new Date());
+            }
+            dateOfDeath = MarkClientAsDeceasedHelper.normalizeDateOfDeath(dateOfDeath);
+            String dateOfBirth = MarkClientAsDeceasedHelper.normalizeDateOfBirth(PersonDao.getDob(baseEntityId));
+
             JSONObject removeFamilyMemberForm = (new com.vijay.jsonwizard.utils.FormUtils())
                     .getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
             org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(
@@ -666,11 +683,20 @@ public class TbLeprosyProfileActivity extends CoreTbLeprosyProfileActivity imple
             );
 
             JSONArray jsonArray = removeFamilyMemberForm.getJSONObject(org.smartregister.chw.anc.util.JsonFormUtils.STEP1).getJSONArray(org.smartregister.util.JsonFormUtils.FIELDS);
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "first_name", memberObject.getFirstName());
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "middle_name", memberObject.getMiddleName());
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "last_name", memberObject.getLastName());
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "sex", memberObject.getGender());
             org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "remove_reason", "Death");
-            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "dob", String.valueOf(memberObject.getAge()));
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "dob", dateOfBirth);
             org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "age_at_death", memberObject.getAge() + "y");
-            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "date_died", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-            Utils.removeUser(null, removeFamilyMemberForm, Utils.context().allSharedPreferences().fetchRegisteredANM());
+            // This programmatic path does not run the form rule that copies date_died into dod.
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "date_died", dateOfDeath);
+            org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "dod", dateOfDeath);
+            String eventType = Utils.removeUser(null, removeFamilyMemberForm, Utils.context().allSharedPreferences().fetchRegisteredANM());
+            if (!CoreConstants.EventType.REMOVE_MEMBER.equalsIgnoreCase(eventType)) {
+                throw new IllegalStateException("TB/Leprosy death registration did not create a removal event");
+            }
         } catch (Exception e) {
             Timber.e(e);
         }
