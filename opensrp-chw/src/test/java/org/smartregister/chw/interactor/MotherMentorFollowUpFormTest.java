@@ -107,7 +107,7 @@ public class MotherMentorFollowUpFormTest {
     @Test
     public void childEidUsesFiveIndependentClinicalSectionsInBothLocales() throws Exception {
         String[] locales = {"json.form", "json.form-sw"};
-        String[] expectedTests = {"six_weeks", "nine_months", "three_months_after_weaning", "eighteen_months"};
+        String[] expectedTests = {"six_weeks", "nine_months", "three_months_after_weaning", "eighteen_months", "not_applicable"};
         String[] expectedReasons = {"medicine_side_effects", "forgot", "travel_or_moved", "transport_cost",
                 "facility_congestion", "stigma", "other"};
         for (String locale : locales) {
