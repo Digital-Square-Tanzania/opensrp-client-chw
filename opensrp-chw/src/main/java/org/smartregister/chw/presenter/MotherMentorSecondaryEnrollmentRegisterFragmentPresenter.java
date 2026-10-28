@@ -2,8 +2,8 @@ package org.smartregister.chw.presenter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.mothermentor.contract.MotherMentorRegisterFragmentContract;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorRegisterFragmentPresenter;
-import org.smartregister.chw.mothermentor.util.DBConstants;
 
 public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter
         extends BaseMotherMentorRegisterFragmentPresenter {
@@ -23,7 +23,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter
 
     @Override
     public String getMainCondition() {
-        return " " + getMainTable() + "." + DBConstants.KEY.IS_CLOSED + " = 0 ";
+        return MotherMentorDao.getActiveClientCondition(getMainTable());
     }
 
     @Override

@@ -30,45 +30,110 @@ public final class MarkClientAsDeceasedHelper {
 
     public static void markAsDeceased(Context context, MemberObject memberObject,
                                       String dateOfDeath) throws Exception {
-        if (memberObject == null || StringUtils.isBlank(memberObject.getBaseEntityId())) {
-            throw new IllegalArgumentException("NCD client is required");
+        if (memberObject == null) {
+            throw new IllegalArgumentException("Client is required");
+        }
+        markAsDeceased(context, memberObject.getBaseEntityId(), memberObject.getFirstName(),
+                memberObject.getMiddleName(), memberObject.getLastName(), memberObject.getGender(),
+                dateOfDeath);
+    }
+
+    public static void markAsDeceased(Context context, String baseEntityId,
+                                      String firstName, String middleName, String lastName,
+                                      String gender, String dateOfDeath) throws Exception {
+        markAsDeceased(context, baseEntityId, firstName, middleName, lastName, gender,
+                dateOfDeath, false);
+    }
+
+    public static void markChildAsDeceased(Context context, String baseEntityId,
+                                           String firstName, String middleName, String lastName,
+                                           String gender, String dateOfDeath) throws Exception {
+        markAsDeceased(context, baseEntityId, firstName, middleName, lastName, gender,
+                dateOfDeath, true);
+    }
+
+    private static void markAsDeceased(Context context, String baseEntityId,
+                                       String firstName, String middleName, String lastName,
+                                       String gender, String dateOfDeath,
+                                       boolean child) throws Exception {
+        if (StringUtils.isBlank(baseEntityId)) {
+            throw new IllegalArgumentException("Client is required");
         }
 
         String normalizedDateOfDeath = normalizeDateOfDeath(dateOfDeath);
         String normalizedDateOfBirth = normalizeDateOfBirth(
-                PersonDao.getDob(memberObject.getBaseEntityId()));
+                PersonDao.getDob(baseEntityId));
+        String expectedEventType = child
+                ? CoreConstants.EventType.REMOVE_CHILD : CoreConstants.EventType.REMOVE_MEMBER;
         JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(
-                context, CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
+                context, child ? CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_CHILD
+                        : CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
         if (form == null) {
             throw new IllegalStateException("Unable to load Mark as Deceased form");
         }
 
         org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(
                 form,
-                memberObject.getBaseEntityId(),
+                baseEntityId,
                 org.smartregister.Context.getInstance().allSharedPreferences()
                         .getPreference(AllConstants.CURRENT_LOCATION_ID));
-        populateForm(form, memberObject, normalizedDateOfBirth, normalizedDateOfDeath);
+        if (child) prepareChildDateFields(form, normalizedDateOfBirth, normalizedDateOfDeath);
+        populateForm(form, firstName, middleName, lastName, gender,
+                normalizedDateOfBirth, normalizedDateOfDeath);
 
         String eventType = Utils.removeUser(
                 null,
                 form,
                 Utils.context().allSharedPreferences().fetchRegisteredANM());
-        if (!CoreConstants.EventType.REMOVE_MEMBER.equalsIgnoreCase(eventType)) {
-            throw new IllegalStateException("Mark as Deceased did not create Remove Family Member event");
+        if (!expectedEventType.equalsIgnoreCase(eventType)) {
+            throw new IllegalStateException("Mark as Deceased did not create " + expectedEventType);
+        }
+    }
+
+    private static void prepareChildDateFields(JSONObject form, String dateOfBirth,
+                                               String dateOfDeath) throws Exception {
+        JSONArray fields = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1)
+                .getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+        boolean hasDeathDate = false;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null) continue;
+            if (CoreConstants.JsonAssets.DOB.equals(field.optString("key"))) {
+                // The child form contains both display and coded DOB fields.
+                field.put("value", dateOfBirth);
+            }
+            if (CoreConstants.JsonAssets.DOD.equals(field.optString("key"))) {
+                hasDeathDate = true;
+            }
+        }
+        if (!hasDeathDate) {
+            // The shared child form lacks the coded DOD consumed by the iCCHW death register.
+            fields.put(new JSONObject().put("key", CoreConstants.JsonAssets.DOD)
+                    .put("type", "hidden").put("openmrs_entity_parent", "")
+                    .put("openmrs_entity", "concept")
+                    .put("openmrs_entity_id", CoreConstants.JsonAssets.DOD)
+                    .put("value", dateOfDeath));
         }
     }
 
     static void populateForm(JSONObject form, MemberObject memberObject,
                              String normalizedDateOfBirth,
                              String normalizedDateOfDeath) throws Exception {
+        populateForm(form, memberObject.getFirstName(), memberObject.getMiddleName(),
+                memberObject.getLastName(), memberObject.getGender(),
+                normalizedDateOfBirth, normalizedDateOfDeath);
+    }
+
+    static void populateForm(JSONObject form, String firstName, String middleName,
+                             String lastName, String gender, String normalizedDateOfBirth,
+                             String normalizedDateOfDeath) throws Exception {
         JSONArray fields = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1)
                 .getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
 
-        updateField(fields, "first_name", memberObject.getFirstName());
-        updateField(fields, "middle_name", memberObject.getMiddleName());
-        updateField(fields, "last_name", memberObject.getLastName());
-        updateField(fields, "sex", memberObject.getGender());
+        updateField(fields, "first_name", firstName);
+        updateField(fields, "middle_name", middleName);
+        updateField(fields, "last_name", lastName);
+        updateField(fields, "sex", gender);
         updateField(fields, "dob", normalizedDateOfBirth);
         updateField(fields, "remove_reason", REMOVE_REASON_DEATH);
         updateField(fields, "date_died", normalizedDateOfDeath);
