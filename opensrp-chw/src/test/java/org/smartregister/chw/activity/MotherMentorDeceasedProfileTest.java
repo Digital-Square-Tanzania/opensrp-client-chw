@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -26,6 +27,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.util.AppExecutors;
 import org.smartregister.util.LangUtils;
 import org.robolectric.annotation.Config;
+import org.robolectric.android.controller.ActivityController;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -161,6 +163,55 @@ public class MotherMentorDeceasedProfileTest extends BaseUnitTest {
         }
     }
 
+    @Test
+    public void queuedDeathWriteSurvivesFinishingTheProfile() throws Exception {
+        assertQueuedDeathSurvivesProfileClosure(false);
+    }
+
+    @Test
+    public void queuedDeathWriteSurvivesDestroyingTheProfile() throws Exception {
+        assertQueuedDeathSurvivesProfileClosure(true);
+    }
+
+    private void assertQueuedDeathSurvivesProfileClosure(boolean destroy) throws Exception {
+        ActivityController<QueuedDeathProfileActivity> controller =
+                Robolectric.buildActivity(QueuedDeathProfileActivity.class);
+        QueuedDeathProfileActivity activity = controller.get();
+        activity.setTheme(R.style.ChwTheme);
+        controller.create();
+        MemberObject member = new MemberObject();
+        member.setBaseEntityId("deceased-test-client");
+        ReflectionHelpers.setField(activity, "memberObject", member);
+        java.util.List<Runnable> queued = new java.util.ArrayList<>();
+        ReflectionHelpers.setField(activity, "deathRecordExecutors",
+                new AppExecutors(queued::add, Runnable::run, Runnable::run));
+        java.util.Date recorded =
+                new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse("2026-10-20");
+        try (MockedStatic<MotherMentorDao> dao = Mockito.mockStatic(MotherMentorDao.class);
+                MockedStatic<MarkClientAsDeceasedHelper> mortality =
+                        Mockito.mockStatic(MarkClientAsDeceasedHelper.class)) {
+            dao.when(() -> MotherMentorDao.isClientDeceased("deceased-test-client"))
+                    .thenReturn(true);
+            dao.when(() -> MotherMentorDao.getClientDeathDate("deceased-test-client"))
+                    .thenReturn(recorded);
+            activity.applyMotherMentorDeceasedHandling();
+            assertEquals(1, queued.size());
+            if (destroy) {
+                controller.destroy();
+                assertTrue(activity.isDestroyed());
+            } else {
+                activity.finish();
+                assertTrue(activity.isFinishing());
+            }
+            assertFalse(activity.session.IsUserLoggedOut());
+            queued.get(0).run();
+
+            mortality.verify(() -> MarkClientAsDeceasedHelper.markAsDeceased(activity,
+                    "deceased-test-client", null, null, null, null, "20-10-2026"));
+            dao.verify(() -> MotherMentorDao.closeDeceasedClientEnrollments("deceased-test-client"));
+        }
+    }
+
     private void assertStatus(String expected) {
         Context context = RuntimeEnvironment.getApplication();
         String originalLanguage = LangUtils.getLanguage(context);
@@ -215,6 +266,25 @@ public class MotherMentorDeceasedProfileTest extends BaseUnitTest {
             activity.continueService();
             activity.continueContactVisit();
             assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+        }
+    }
+
+    public static class QueuedDeathProfileActivity extends MotherMentorProfileActivity {
+        final org.smartregister.Context session = Mockito.mock(org.smartregister.Context.class);
+
+        @Override
+        protected void onCreation() {
+            // Initialize the real Activity lifecycle without unrelated profile/database views.
+        }
+
+        @Override
+        public org.smartregister.Context context() {
+            return session;
+        }
+
+        @Override
+        protected String getDeathRecordProviderId() {
+            return "initiating-provider";
         }
     }
 

@@ -1003,7 +1003,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     protected boolean isDeathRecordSessionActive() {
-        return !isFinishing() && !isDestroyed() && !context().IsUserLoggedOut();
+        return !context().IsUserLoggedOut();
     }
 
     protected String getDeathRecordProviderId() {
