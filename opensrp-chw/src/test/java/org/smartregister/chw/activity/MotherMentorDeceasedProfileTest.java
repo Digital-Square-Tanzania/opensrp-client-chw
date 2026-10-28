@@ -78,6 +78,32 @@ public class MotherMentorDeceasedProfileTest extends BaseUnitTest {
     }
 
     @Test
+    public void finalizedChildEidDeathUsesTheStandardChildRemovalPath() throws Exception {
+        MotherMentorProfileActivity activity = profile(new Intent()
+                .putExtra(MotherMentorProfileActivity.EXTRA_FOLLOW_UP_PROFILE, true)
+                .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE,
+                        MotherMentorFollowUpType.CHILD_EID.getValue()));
+        ReflectionHelpers.setField(activity, "deathRecordExecutors",
+                new AppExecutors(Runnable::run, Runnable::run, Runnable::run));
+        java.util.Date recorded =
+                new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse("2026-10-20");
+        try (MockedStatic<MotherMentorDao> dao = Mockito.mockStatic(MotherMentorDao.class);
+                MockedStatic<MarkClientAsDeceasedHelper> mortality =
+                        Mockito.mockStatic(MarkClientAsDeceasedHelper.class)) {
+            dao.when(() -> MotherMentorDao.isClientDeceased("deceased-test-client"))
+                    .thenReturn(true);
+            dao.when(() -> MotherMentorDao.getClientDeathDate("deceased-test-client"))
+                    .thenReturn(recorded);
+            activity.applyMotherMentorDeceasedHandling();
+
+            mortality.verify(() -> MarkClientAsDeceasedHelper.markChildAsDeceased(activity,
+                    "deceased-test-client", null, null, null, null, "20-10-2026"));
+            mortality.verifyNoMoreInteractions();
+            dao.verify(() -> MotherMentorDao.closeDeceasedClientEnrollments("deceased-test-client"));
+        }
+    }
+
+    @Test
     public void alreadyRecordedDeathRepairsEnrollmentWithoutAnotherRemoval() {
         MotherMentorProfileActivity activity = profile(new Intent());
         ReflectionHelpers.setField(activity, "deathRecordExecutors",

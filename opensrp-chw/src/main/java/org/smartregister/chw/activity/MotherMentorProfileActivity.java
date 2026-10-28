@@ -968,6 +968,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         final String providerId = getDeathRecordProviderId();
         if (TextUtils.isEmpty(providerId)) return;
         final MemberObject client = memberObject;
+        final boolean childEid = isFollowUpProfile()
+                && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID;
         deathRecordInProgress = true;
         deathRecordExecutors.diskIO().execute(() -> {
             try {
@@ -979,9 +981,19 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                         if (date == null) {
                             throw new IllegalStateException("Recorded death/service date is unavailable");
                         }
-                        MarkClientAsDeceasedHelper.markAsDeceased(this, client.getBaseEntityId(),
-                                client.getFirstName(), client.getMiddleName(), client.getLastName(),
-                                client.getGender(), new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(date));
+                        String deathDate =
+                                new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(date);
+                        if (childEid) {
+                            MarkClientAsDeceasedHelper.markChildAsDeceased(this,
+                                    client.getBaseEntityId(), client.getFirstName(),
+                                    client.getMiddleName(), client.getLastName(),
+                                    client.getGender(), deathDate);
+                        } else {
+                            MarkClientAsDeceasedHelper.markAsDeceased(this,
+                                    client.getBaseEntityId(), client.getFirstName(),
+                                    client.getMiddleName(), client.getLastName(),
+                                    client.getGender(), deathDate);
+                        }
                     }
                     // Repairs enrollments left open by an older app after a shared death record.
                     MotherMentorDao.closeDeceasedClientEnrollments(client.getBaseEntityId());

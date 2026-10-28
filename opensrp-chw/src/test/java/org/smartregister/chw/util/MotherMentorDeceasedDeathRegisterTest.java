@@ -38,6 +38,8 @@ import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
@@ -153,6 +155,13 @@ public class MotherMentorDeceasedDeathRegisterTest {
         for (String table : MOTHER_MENTOR_TABLES) {
             data.execSQL("CREATE TABLE " + table + " (base_entity_id TEXT, is_closed INTEGER)");
         }
+        for (String table : new String[] {CoreConstants.TABLE_NAME.FAMILY_MEMBER,
+                CoreConstants.TABLE_NAME.CHILD}) {
+            data.execSQL("CREATE TABLE " + table + " (base_entity_id TEXT, is_closed INTEGER,"
+                    + " date_removed TEXT, dod TEXT)");
+            data.execSQL("CREATE TABLE " + CommonFtsObject.searchTableName(table) + " ("
+                    + CommonFtsObject.idColumn + " TEXT, is_closed INTEGER, date_removed TEXT)");
+        }
 
         CoreLibrary core = mock(CoreLibrary.class);
         when(core.context()).thenReturn(context);
@@ -173,6 +182,11 @@ public class MotherMentorDeceasedDeathRegisterTest {
         };
         ChwClientProcessor appProcessor = mock(ChwClientProcessor.class, CALLS_REAL_METHODS);
         CoreChwApplication application = mock(CoreChwApplication.class);
+        when(application.getRepository()).thenReturn(repository);
+        when(application.getAllCommonsRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER))
+                .thenReturn(mock(AllCommonsRepository.class));
+        when(application.getAllCommonsRepository(CoreConstants.TABLE_NAME.CHILD))
+                .thenReturn(mock(AllCommonsRepository.class));
 
         try (MockedStatic<CoreLibrary> coreStatic = mockStatic(CoreLibrary.class);
                 MockedStatic<FamilyLibrary> familyStatic = mockStatic(FamilyLibrary.class);
@@ -183,10 +197,9 @@ public class MotherMentorDeceasedDeathRegisterTest {
                 MockedStatic<Utils> utilities = mockStatic(Utils.class);
                 MockedConstruction<FormUtils> formLoader = mockConstruction(FormUtils.class,
                         (mock, construction) -> when(mock.getFormJsonFromRepositoryOrAssets(
-                                any(android.content.Context.class),
-                                eq(CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER)))
+                                any(android.content.Context.class), anyString()))
                                 .thenAnswer(call -> new JSONObject(asset(formDirectory
-                                        + "/family_details_remove_member.json"))))) {
+                                        + "/" + call.getArgument(1) + ".json"))))) {
             coreStatic.when(CoreLibrary::getInstance).thenReturn(core);
             familyStatic.when(FamilyLibrary::getInstance).thenReturn(family);
             motherMentorStatic.when(MotherMentorLibrary::getInstance).thenReturn(motherMentor);
@@ -201,7 +214,10 @@ public class MotherMentorDeceasedDeathRegisterTest {
                                 CoreJsonFormUtils.processRemoveMemberEvent(
                                         null, preferences, form, "test-provider");
                         assertNotNull("The standard form must create a removal event", result);
-                        assertEquals(CoreConstants.EventType.REMOVE_MEMBER, result.getLeft().second);
+                        String expectedEventType = form.getString("entity_id").endsWith("-3")
+                                ? CoreConstants.EventType.REMOVE_CHILD
+                                : CoreConstants.EventType.REMOVE_MEMBER;
+                        assertEquals(expectedEventType, result.getLeft().second);
                         assertEquals(1, result.getRight().size());
                         Event event = org.smartregister.util.JsonFormUtils.gson.fromJson(
                                 CoreJsonFormUtils.gson.toJson(result.getRight().get(0)), Event.class);
@@ -211,21 +227,43 @@ public class MotherMentorDeceasedDeathRegisterTest {
                         for (int replay = 0; replay < 2; replay++) {
                             assertEquals(Boolean.TRUE, projection.processEvent(
                                     event, new Client(event.getBaseEntityId()), classification));
+                            if (CoreConstants.EventType.REMOVE_CHILD.equals(event.getEventType())) {
+                                ReflectionHelpers.callInstanceMethod(appProcessor, "processRemoveChild",
+                                        ClassParameter.from(String.class, event.getBaseEntityId()),
+                                        ClassParameter.from(Event.class, event));
+                            }
                             ReflectionHelpers.callInstanceMethod(appProcessor, "processRemoveMember",
                                     ClassParameter.from(String.class, event.getBaseEntityId()),
                                     ClassParameter.from(Event.class, event));
                         }
-                        return CoreConstants.EventType.REMOVE_MEMBER;
+                        return expectedEventType;
                     });
 
             for (int role = 0; role < MOTHER_MENTOR_TABLES.length; role++) {
                 String clientId = "mother-mentor-death-role-" + role;
                 data.execSQL("INSERT INTO " + MOTHER_MENTOR_TABLES[role] + " VALUES (?, 0)",
                         new Object[] {clientId});
+                data.execSQL("INSERT INTO " + CoreConstants.TABLE_NAME.FAMILY_MEMBER
+                        + " VALUES (?, 0, NULL, NULL)", new Object[] {clientId});
+                data.execSQL("INSERT INTO " + CommonFtsObject.searchTableName(
+                        CoreConstants.TABLE_NAME.FAMILY_MEMBER) + " VALUES (?, 0, NULL)",
+                        new Object[] {clientId});
+                if (role == 3) {
+                    data.execSQL("INSERT INTO " + CoreConstants.TABLE_NAME.CHILD
+                            + " VALUES (?, 0, NULL, NULL)", new Object[] {clientId});
+                    data.execSQL("INSERT INTO " + CommonFtsObject.searchTableName(
+                            CoreConstants.TABLE_NAME.CHILD) + " VALUES (?, 0, NULL)",
+                            new Object[] {clientId});
+                }
                 String[] client = CLIENTS[role];
                 personStatic.when(() -> PersonDao.getDob(clientId)).thenReturn(client[4]);
-                MarkClientAsDeceasedHelper.markAsDeceased(RuntimeEnvironment.application,
-                        clientId, client[0], client[1], client[2], client[3], "2026-10-28");
+                if (role == 3) {
+                    MarkClientAsDeceasedHelper.markChildAsDeceased(RuntimeEnvironment.application,
+                            clientId, client[0], client[1], client[2], client[3], "2026-10-28");
+                } else {
+                    MarkClientAsDeceasedHelper.markAsDeceased(RuntimeEnvironment.application,
+                            clientId, client[0], client[1], client[2], client[3], "2026-10-28");
+                }
 
                 try (Cursor cursor = data.rawQuery("SELECT is_closed FROM "
                         + MOTHER_MENTOR_TABLES[role] + " WHERE base_entity_id = ?",
@@ -233,6 +271,8 @@ public class MotherMentorDeceasedDeathRegisterTest {
                     assertTrue(cursor.moveToFirst());
                     assertEquals("The deceased client's MM enrollment must close", 1, cursor.getInt(0));
                 }
+                assertSharedClientClosed(CoreConstants.TABLE_NAME.FAMILY_MEMBER, clientId);
+                if (role == 3) assertSharedClientClosed(CoreConstants.TABLE_NAME.CHILD, clientId);
             }
 
             List<HpsDeathRegisterModel> records = HpsDao.getHpsDeathRegisterRecords();
@@ -257,6 +297,22 @@ public class MotherMentorDeceasedDeathRegisterTest {
             }
             utilities.verify(() -> Utils.removeUser(isNull(), any(JSONObject.class),
                     eq("test-provider")), times(MOTHER_MENTOR_TABLES.length));
+        }
+    }
+
+    private void assertSharedClientClosed(String table, String clientId) {
+        try (Cursor cursor = data.rawQuery("SELECT is_closed, dod, date_removed FROM " + table
+                + " WHERE base_entity_id = ?", new String[] {clientId})) {
+            assertTrue(cursor.moveToFirst());
+            assertEquals(table + " must close for the deceased client", 1, cursor.getInt(0));
+            assertEquals("2026-10-28", cursor.getString(1));
+            assertFalse("The active child register filters date_removed", cursor.isNull(2));
+        }
+        try (Cursor cursor = data.rawQuery("SELECT is_closed FROM "
+                + CommonFtsObject.searchTableName(table) + " WHERE " + CommonFtsObject.idColumn
+                + " = ?", new String[] {clientId})) {
+            assertTrue(cursor.moveToFirst());
+            assertEquals("The search row must also close", 1, cursor.getInt(0));
         }
     }
 

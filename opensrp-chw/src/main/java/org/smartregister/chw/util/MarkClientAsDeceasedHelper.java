@@ -41,6 +41,21 @@ public final class MarkClientAsDeceasedHelper {
     public static void markAsDeceased(Context context, String baseEntityId,
                                       String firstName, String middleName, String lastName,
                                       String gender, String dateOfDeath) throws Exception {
+        markAsDeceased(context, baseEntityId, firstName, middleName, lastName, gender,
+                dateOfDeath, false);
+    }
+
+    public static void markChildAsDeceased(Context context, String baseEntityId,
+                                           String firstName, String middleName, String lastName,
+                                           String gender, String dateOfDeath) throws Exception {
+        markAsDeceased(context, baseEntityId, firstName, middleName, lastName, gender,
+                dateOfDeath, true);
+    }
+
+    private static void markAsDeceased(Context context, String baseEntityId,
+                                       String firstName, String middleName, String lastName,
+                                       String gender, String dateOfDeath,
+                                       boolean child) throws Exception {
         if (StringUtils.isBlank(baseEntityId)) {
             throw new IllegalArgumentException("Client is required");
         }
@@ -48,8 +63,11 @@ public final class MarkClientAsDeceasedHelper {
         String normalizedDateOfDeath = normalizeDateOfDeath(dateOfDeath);
         String normalizedDateOfBirth = normalizeDateOfBirth(
                 PersonDao.getDob(baseEntityId));
+        String expectedEventType = child
+                ? CoreConstants.EventType.REMOVE_CHILD : CoreConstants.EventType.REMOVE_MEMBER;
         JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(
-                context, CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
+                context, child ? CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_CHILD
+                        : CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
         if (form == null) {
             throw new IllegalStateException("Unable to load Mark as Deceased form");
         }
@@ -59,6 +77,7 @@ public final class MarkClientAsDeceasedHelper {
                 baseEntityId,
                 org.smartregister.Context.getInstance().allSharedPreferences()
                         .getPreference(AllConstants.CURRENT_LOCATION_ID));
+        if (child) prepareChildDateFields(form, normalizedDateOfBirth, normalizedDateOfDeath);
         populateForm(form, firstName, middleName, lastName, gender,
                 normalizedDateOfBirth, normalizedDateOfDeath);
 
@@ -66,8 +85,34 @@ public final class MarkClientAsDeceasedHelper {
                 null,
                 form,
                 Utils.context().allSharedPreferences().fetchRegisteredANM());
-        if (!CoreConstants.EventType.REMOVE_MEMBER.equalsIgnoreCase(eventType)) {
-            throw new IllegalStateException("Mark as Deceased did not create Remove Family Member event");
+        if (!expectedEventType.equalsIgnoreCase(eventType)) {
+            throw new IllegalStateException("Mark as Deceased did not create " + expectedEventType);
+        }
+    }
+
+    private static void prepareChildDateFields(JSONObject form, String dateOfBirth,
+                                               String dateOfDeath) throws Exception {
+        JSONArray fields = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1)
+                .getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+        boolean hasDeathDate = false;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.optJSONObject(i);
+            if (field == null) continue;
+            if (CoreConstants.JsonAssets.DOB.equals(field.optString("key"))) {
+                // The child form contains both display and coded DOB fields.
+                field.put("value", dateOfBirth);
+            }
+            if (CoreConstants.JsonAssets.DOD.equals(field.optString("key"))) {
+                hasDeathDate = true;
+            }
+        }
+        if (!hasDeathDate) {
+            // The shared child form lacks the coded DOD consumed by the iCCHW death register.
+            fields.put(new JSONObject().put("key", CoreConstants.JsonAssets.DOD)
+                    .put("type", "hidden").put("openmrs_entity_parent", "")
+                    .put("openmrs_entity", "concept")
+                    .put("openmrs_entity_id", CoreConstants.JsonAssets.DOD)
+                    .put("value", dateOfDeath));
         }
     }
 
