@@ -623,6 +623,34 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void currentNotApplicableStageRetainsLegacyCoverageWithoutCountingAnAttendance() throws Exception {
+        eid("not-due", "Female", "2026-04-10");
+        eid("legacy-not-due", "Male", "2026-04-10");
+        currentChildAttendance("current-na", "not-due", "not_applicable", "yes", "2026-04-20");
+        childVisit("legacy-na", "legacy-not-due", "2026-04-20", "not_applicable",
+                "not_applicable", null, 1);
+
+        JSONObject counts = report.getIndicatorData();
+        for (int indicator : new int[] {9, 10}) {
+            assertEquals(0, counts.getInt("mm-" + indicator));
+            assertEquals(0, counts.getInt("mm-" + indicator + "-missing-records"));
+        }
+
+        eid("six-week-child", "Male", "2026-03-01");
+        eid("nine-month-child", "Female", "2025-07-01");
+        currentChildAttendance("six-week", "six-week-child", "six_weeks", "yes", "2026-04-20");
+        currentChildAttendance("nine-month", "nine-month-child", "nine_months", "yes", "2026-04-20");
+        counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-9"));
+        assertEquals(1, counts.getInt("mm-9-boys"));
+        assertEquals(1, counts.getInt("mm-10"));
+        assertEquals(1, counts.getInt("mm-10-girls"));
+        for (int indicator : new int[] {9, 10}) {
+            assertEquals(0, counts.getInt("mm-" + indicator + "-missing-records"));
+        }
+    }
+
+    @Test
     public void currentChildNonFoundStatusesIgnoreHiddenAttendanceAndOtherStagesDoNotCount() throws Exception {
         eid("child", "Female", "2025-07-01");
         for (String outcome : new String[]{"not_found", "deceased", "transferred_facility", "refused_return", "under_follow_up"}) {

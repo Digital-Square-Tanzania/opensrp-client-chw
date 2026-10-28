@@ -463,7 +463,8 @@ public class MotherMentorReportObject extends ReportObject {
                         + detail(DBConstants.KEY.CHILD_EID_TEST_TYPE)
                         + " WHEN 'six_weeks' THEN 'week_6' WHEN 'nine_months' THEN 'month_9' WHEN"
                         + " 'three_months_after_weaning' THEN 'three_months_after_breastfeeding'"
-                        + " WHEN 'eighteen_months' THEN 'month_18' END";
+                        + " WHEN 'eighteen_months' THEN 'month_18' WHEN 'not_applicable' THEN"
+                        + " 'not_applicable' END";
         MotherMentorFollowUpType type = MotherMentorFollowUpType.CHILD_EID;
         return "SELECT v.*, "
                 + serviceDate()
