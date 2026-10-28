@@ -130,7 +130,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
                                             presenter().getMainCondition()));
                     if (TextUtils.isEmpty(filters)) {
                         /* no search */
-                    } else builder.addCondition(filters);
+                    } else builder.addCondition("AND " + filters);
                     String query = builder.orderbyCondition(Sortqueries);
                     query =
                             builder.Endquery(
@@ -153,7 +153,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
                     new SmartRegisterQueryBuilder(
                             registerModel.mainSelect(
                                     presenter().getMainTable(), presenter().getMainCondition()));
-            if (!TextUtils.isEmpty(filters)) builder.addCondition(filters);
+            if (!TextUtils.isEmpty(filters)) builder.addCondition("AND " + filters);
             cursor =
                     commonRepository()
                             .rawCustomQueryForAdapter(
