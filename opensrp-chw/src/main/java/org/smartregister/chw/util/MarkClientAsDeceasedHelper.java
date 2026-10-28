@@ -75,12 +75,12 @@ public final class MarkClientAsDeceasedHelper {
         updateField(fields, "dod", normalizedDateOfDeath);
     }
 
-    static String normalizeDateOfDeath(String dateOfDeath) throws ParseException {
+    public static String normalizeDateOfDeath(String dateOfDeath) throws ParseException {
         return normalizeDate(dateOfDeath, "Date of death is required",
                 "Unsupported date of death: ");
     }
 
-    static String normalizeDateOfBirth(String dateOfBirth) throws ParseException {
+    public static String normalizeDateOfBirth(String dateOfBirth) throws ParseException {
         return normalizeDate(dateOfBirth, "Client date of birth is missing",
                 "Unsupported client date of birth: ");
     }
