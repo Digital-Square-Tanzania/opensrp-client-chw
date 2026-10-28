@@ -204,6 +204,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     break;
                 case Constants.Events.CBHS_FOLLOWUP:
                 case Constants.Events.MOTHER_CHAMPION_FOLLOWUP:
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES:
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT:
+                case "MotherMentor Partner Follow-up Visit":
+                case "MotherMentor Child EID Follow-up Visit":
                 case Constants.Events.ANC_FIRST_FACILITY_VISIT:
                 case Constants.Events.ANC_RECURRING_FACILITY_VISIT:
                 case Constants.Events.AGYW_STRUCTURAL_SERVICES:

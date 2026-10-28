@@ -19,6 +19,7 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.contract.BaseMotherMentorVisitContract;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.interactor.BaseMotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.ChildEidFollowUpVisitInteractor;
@@ -35,6 +36,7 @@ import org.smartregister.clientandeventmodel.Event;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -54,7 +56,7 @@ public class MotherMentorVisitActionWiringTest {
                 new PartnerFollowUpVisitInteractor("partner"),
                 new ChildEidFollowUpVisitInteractor("eid")
             };
-            int[] actionCounts = {6, 4, 4, 3, 4};
+            int[] actionCounts = {6, 4, 4, 7, 5};
             for (int i = 0; i < workflows.length; i++) {
                 assertEquals(
                         "org.smartregister.chw.mothermentor.interactor",
@@ -71,7 +73,7 @@ public class MotherMentorVisitActionWiringTest {
                             "Helper reused by different actions: " + helper, helpers.add(helper));
                 }
             }
-            assertEquals(21, helpers.size());
+            assertEquals(26, helpers.size());
         }
     }
 
@@ -155,18 +157,49 @@ public class MotherMentorVisitActionWiringTest {
                     DBConstants.KEY.SERVICE_INTERRUPTION_REASON,
                     DBConstants.KEY.EXPECTED_FACILITY_VISIT_DATE,
                     DBConstants.KEY.RETURNED_TO_FACILITY);
-            checkHiddenAnswers(
-                    new PartnerFollowUpVisitInteractor("partner"),
-                    "mothermentor_partner_",
-                    DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON,
-                    DBConstants.KEY.PARTNER_EXPECTED_FACILITY_VISIT_DATE,
-                    DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY);
+            checkPartnerTracingHiddenAnswers();
             checkHiddenAnswers(
                     new ChildEidFollowUpVisitInteractor("eid"),
                     "mothermentor_child_eid_",
                     DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
                     DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE,
                     DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY);
+        }
+    }
+
+    private void checkPartnerTracingHiddenAnswers() throws Exception {
+        try (MockedStatic<MotherMentorPartnerFollowUpDao> dao =
+                Mockito.mockStatic(MotherMentorPartnerFollowUpDao.class)) {
+            dao.when(() -> MotherMentorPartnerFollowUpDao.getContext(any(), any(), any(Date.class)))
+                    .thenReturn(new MotherMentorPartnerFollowUpDao.Context(
+                            "link", "mother", "pregnancy", "yes", false, true));
+            Map<String, BaseMotherMentorVisitAction> map = actions(new PartnerFollowUpVisitInteractor(
+                    MotherMentorFollowUpType.PARTNER.getEventType()));
+            BaseMotherMentorVisitAction status = byForm(map, "mothermentor_partner_follow_up_status");
+            BaseMotherMentorVisitAction education = byForm(map, "mothermentor_partner_education");
+            assertFalse(education.isValid());
+            status.setJsonPayload(form(DBConstants.KEY.FOLLOW_UP_STATUS, "found",
+                    DBConstants.KEY.PARTNER_FACILITY_AGREEMENT, "agreed"));
+            assertEquals(BaseMotherMentorVisitAction.Status.COMPLETED, status.getActionStatus());
+            assertTrue(education.isValid());
+            assertFalse("Tracing never reveals same-visit attendance",
+                    byForm(map, "mothermentor_partner_arrival").isValid());
+            education.setJsonPayload(form(DBConstants.KEY.PARTNER_EDUCATION_PROVIDED, "no"));
+            assertEquals(BaseMotherMentorVisitAction.Status.COMPLETED, education.getActionStatus());
+            status.setJsonPayload(form(DBConstants.KEY.FOLLOW_UP_STATUS, "not_found",
+                    DBConstants.KEY.PARTNER_NOT_FOUND_REASON, "travelled"));
+            assertFalse(education.isValid());
+            assertNull(education.getJsonPayload());
+            assertNull(education.getSubTitle());
+            assertEquals(BaseMotherMentorVisitAction.Status.PENDING, education.getActionStatus());
+            status.setJsonPayload(form(DBConstants.KEY.FOLLOW_UP_STATUS, "found",
+                    DBConstants.KEY.PARTNER_FACILITY_AGREEMENT, "refused"));
+            assertTrue(education.isValid());
+            assertEquals(BaseMotherMentorVisitAction.Status.PENDING, education.getActionStatus());
+            for (String disease : new String[] {"hiv", "syphilis", "hepatitis_b"}) {
+                assertFalse(byForm(map, "mothermentor_partner_" + disease + "_test").isValid());
+            }
+            assertTrue(byForm(map, "mothermentor_partner_follow_up_comment").isOptional());
         }
     }
 

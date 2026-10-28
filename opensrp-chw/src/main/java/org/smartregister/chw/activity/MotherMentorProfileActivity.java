@@ -33,10 +33,13 @@ import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidFollowUpVisitUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
@@ -87,15 +90,6 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             DBConstants.KEY.EXPECTED_FACILITY_VISIT_DATE;
     private static final String RETURNED_TO_FACILITY = DBConstants.KEY.RETURNED_TO_FACILITY;
     private static final String FACILITY_RETURN_DATE = DBConstants.KEY.FACILITY_RETURN_DATE;
-    private static final String PARTNER_ARRIVED_AT_FACILITY =
-            DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY;
-    private static final String PARTNER_FACILITY_ARRIVAL_DATE =
-            DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE;
-    private static final String CHILD_EID_TEST_TYPE = DBConstants.KEY.CHILD_EID_TEST_TYPE;
-    private static final String CHILD_EID_ARRIVED_AT_FACILITY =
-            DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY;
-    private static final String CHILD_EID_FACILITY_ARRIVAL_DATE =
-            DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE;
     private static final int HIGH_RISK_WEEK_THRESHOLD = 8;
     private static final String[] IIT_DATE_FORMATS = new String[] {"dd-MM-yyyy", "yyyy-MM-dd"};
 
@@ -121,7 +115,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             () -> {
                 if (memberObject != null && !isFinishing()) {
                     setupButtons();
-                    scheduleVisitAvailabilityRefresh();
+                    if (!isFinishing()) scheduleVisitAvailabilityRefresh();
                 }
             };
     private final BroadcastReceiver visitDateChangedReceiver =
@@ -894,6 +888,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     protected void setupButtons() {
+        if (returnIfPartnerFollowUpEnded()) return;
         super.setupButtons();
         boolean deceased = isClientDeceased();
         updateDeceasedClientStatusTag(deceased);
@@ -923,6 +918,25 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         }
         enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
+    }
+
+    private boolean returnIfPartnerFollowUpEnded() {
+        if (isFinishing()) return true;
+        if (!isFollowUpProfile() || getFollowUpType() != MotherMentorFollowUpType.PARTNER
+                || memberObject == null) return false;
+        MotherMentorPartnerFollowUpDao.Context state = MotherMentorPartnerFollowUpDao.getContext(
+                memberObject.getBaseEntityId(), null, getVisitAvailabilityDate());
+        if (state == null || TextUtils.isEmpty(state.getLinkageId()) || state.isActive()) return false;
+        // Queue standard death registration before leaving; the captured client survives navigation.
+        applyMotherMentorDeceasedHandling();
+        Intent list = new Intent(this, MotherMentorRegisterActivity.class);
+        list.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        list.putExtra(MotherMentorRegisterActivity.EXTRA_OPEN_FOLLOW_UP_LIST, true);
+        list.putExtra(MotherMentorRegisterActivity.EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX,
+                MotherMentorRegisterActivity.TAB_INDEX_PARTNER);
+        startActivity(list);
+        finish();
+        return true;
     }
 
     protected boolean isClientDeceased() {
@@ -1145,41 +1159,26 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             if (obsArray == null) return false;
             if (!isFollowUpProfile()) return MotherMentorVisitCompletion.isComplete(obsArray);
             Map<String, String> values = getMotherMentorServiceValues(obsArray);
+            if (getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+                return MotherMentorPartnerFollowUpVisitUtils.isComplete(
+                        values, MotherMentorFollowUpType.PARTNER.getEventType()
+                                .equals(visit.getVisitType()));
+            }
+            if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+                return MotherMentorChildEidFollowUpVisitUtils.isComplete(
+                        values, MotherMentorFollowUpType.CHILD_EID.getEventType()
+                                .equals(visit.getVisitType()));
+            }
             String status = values.get(FOLLOW_UP_STATUS);
             if (!TextUtils.isEmpty(status)) {
                 if (!"found".equals(status)) return true;
-                boolean partnerSchema =
-                        getFollowUpType() == MotherMentorFollowUpType.PARTNER
-                                && MotherMentorFollowUpType.PARTNER
-                                        .getEventType()
-                                        .equals(visit.getVisitType());
-                boolean childSchema =
-                        getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
-                                && MotherMentorFollowUpType.CHILD_EID
-                                        .getEventType()
-                                        .equals(visit.getVisitType());
-                String arrivalField =
-                        childSchema
-                                ? CHILD_EID_ARRIVED_AT_FACILITY
-                                : partnerSchema
-                                        ? PARTNER_ARRIVED_AT_FACILITY
-                                        : RETURNED_TO_FACILITY;
-                String arrivalDateField =
-                        childSchema
-                                ? CHILD_EID_FACILITY_ARRIVAL_DATE
-                                : partnerSchema
-                                        ? PARTNER_FACILITY_ARRIVAL_DATE
-                                        : FACILITY_RETURN_DATE;
-                if (childSchema && TextUtils.isEmpty(values.get(CHILD_EID_TEST_TYPE))) return false;
-                if (TextUtils.isEmpty(values.get(arrivalField))) return false;
-                if (!partnerSchema && !childSchema) {
-                    if (TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON))
-                            || TextUtils.isEmpty(values.get(EXPECTED_FACILITY_VISIT_DATE))) return false;
-                    if (DBConstants.KEY.OTHER.equals(values.get(SERVICE_INTERRUPTION_REASON))
-                            && TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON_OTHER))) return false;
-                }
-                return !"yes".equals(values.get(arrivalField))
-                        || !TextUtils.isEmpty(values.get(arrivalDateField));
+                if (TextUtils.isEmpty(values.get(RETURNED_TO_FACILITY))) return false;
+                if (TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON))
+                        || TextUtils.isEmpty(values.get(EXPECTED_FACILITY_VISIT_DATE))) return false;
+                if (DBConstants.KEY.OTHER.equals(values.get(SERVICE_INTERRUPTION_REASON))
+                        && TextUtils.isEmpty(values.get(SERVICE_INTERRUPTION_REASON_OTHER))) return false;
+                return !"yes".equals(values.get(RETURNED_TO_FACILITY))
+                        || !TextUtils.isEmpty(values.get(FACILITY_RETURN_DATE));
             }
             return getCompletedMotherMentorServiceFields(obsArray)
                     .containsAll(REQUIRED_MOTHER_MENTOR_SERVICE_FIELDS);
@@ -1260,7 +1259,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openRecordClientVisit() {
-        if (isClientDeceased()) return;
+        if (returnIfPartnerFollowUpEnded() || isClientDeceased()) return;
         if (isFollowUpProfile()) {
             if (getFollowUpType() == MotherMentorFollowUpType.PARTNER
                     || getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
@@ -1342,7 +1341,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void continueService() {
-        if (isClientDeceased()) return;
+        if (returnIfPartnerFollowUpEnded() || isClientDeceased()) return;
         if (isFollowUpProfile()) {
             MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                     this, memberObject.getBaseEntityId(), true, getFollowUpType());

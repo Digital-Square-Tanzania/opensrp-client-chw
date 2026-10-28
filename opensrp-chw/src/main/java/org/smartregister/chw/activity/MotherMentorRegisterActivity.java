@@ -35,6 +35,7 @@ import org.smartregister.chw.fragment.MotherMentorSecondaryEnrollmentsFragment;
 import org.smartregister.chw.mothermentor.repository.MotherMentorReportingRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.util.LocalDayRegisterRefresh;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -52,9 +53,43 @@ import java.util.Locale;
 public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivity {
     public static final String EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX =
             "secondary_enrollment_tab_index";
+    static final String EXTRA_OPEN_FOLLOW_UP_LIST = "open_mothermentor_follow_up_list";
     public static final int TAB_INDEX_IIT = 0;
     public static final int TAB_INDEX_PARTNER = 1;
     public static final int TAB_INDEX_CHILD_EID = 2;
+
+    private final LocalDayRegisterRefresh dayRefresh = new LocalDayRegisterRefresh(
+            this, () -> LocalDayRegisterRefresh.refreshAttachedRegisters(getSupportFragmentManager()));
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        openRequestedFollowUpList();
+        dayRefresh.start();
+    }
+
+    @Override
+    protected void onPause() {
+        dayRefresh.stop();
+        super.onPause();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        openRequestedFollowUpList();
+    }
+
+    void openRequestedFollowUpList() {
+        if (getIntent() == null || !getIntent().getBooleanExtra(EXTRA_OPEN_FOLLOW_UP_LIST, false)) return;
+        getIntent().removeExtra(EXTRA_OPEN_FOLLOW_UP_LIST);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setSelectedItemId(R.id.action_mothermentor_secondary_enrollments);
+        } else {
+            switchToFragment(3);
+        }
+    }
 
     private static final String EVENT_MOTHER_MENTOR_ENROLLMENT = "Mother Mentor Enrollment";
     private static final String EVENT_MOTHER_MENTOR_ENROLL_IIT = "Mother Mentor Enroll IIT";

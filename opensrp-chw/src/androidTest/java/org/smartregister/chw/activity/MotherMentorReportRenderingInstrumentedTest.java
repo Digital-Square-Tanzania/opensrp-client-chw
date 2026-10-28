@@ -61,8 +61,11 @@ public class MotherMentorReportRenderingInstrumentedTest {
                             + "zero:document.getElementById('mm-2')?.textContent,"
                             + "child:document.getElementById('mm-10')?.textContent,"
                             + "girls:document.getElementById('mm-10-girls-female-1-11m')?.textContent,"
-                            + "sourceLimitCorrect:document.body.textContent.includes('Ind. 8, 11, 12:'),"
-                            + "unavailable:document.getElementById('mm-8')?.textContent,"
+                            + "partnerTests:document.getElementById('mm-8')?.textContent,"
+                            + "positiveGirl:document.getElementById('mm-11-positive-female-12-23m')?.textContent,"
+                            + "negativeBoy:document.getElementById('mm-11-negative-male-12-23m')?.textContent,"
+                            + "partnerEducation:document.getElementById('mm-12')?.textContent,"
+                            + "unavailable:document.getElementById('mm-12-hiv')?.textContent,"
                             + "households:document.getElementById('mm-13')?.textContent,"
                             + "aggregate:document.getElementById('mm-16')?.textContent,"
                             + "unknownAge:document.getElementById('mm-16-female-25-59')?.textContent,"
@@ -84,13 +87,18 @@ public class MotherMentorReportRenderingInstrumentedTest {
         assertEquals("0", rendered.getString("zero"));
         assertEquals("1", rendered.getString("child"));
         assertEquals("1", rendered.getString("girls"));
-        assertTrue(rendered.getBoolean("sourceLimitCorrect"));
+        assertEquals("2", rendered.getString("partnerTests"));
+        assertEquals("1", rendered.getString("positiveGirl"));
+        assertEquals("1", rendered.getString("negativeBoy"));
+        assertEquals("—", rendered.getString("partnerEducation"));
         assertEquals("—", rendered.getString("unavailable"));
         assertEquals("2", rendered.getString("households"));
         assertEquals("10", rendered.getString("aggregate"));
         assertEquals("—", rendered.getString("unknownAge"));
         assertTrue(rendered.getString("coverage").contains("Ind. 14"));
         assertTrue(rendered.getString("coverage").contains("Ind. 5"));
+        assertTrue(rendered.getString("coverage").contains("Ind. 12"));
+        assertTrue(rendered.getString("coverage").contains("children with final test results recorded as pending"));
         assertTrue(rendered.getBoolean("errorHidden"));
         assertTrue(rendered.getString("unclassified").contains("kiashiria 7: 1"));
 
@@ -98,11 +106,14 @@ public class MotherMentorReportRenderingInstrumentedTest {
         try (FileOutputStream output = new FileOutputStream(new File(evidence, "mother-mentor-report-fixture.json"))) {
             output.write(rendered.toString(2).getBytes(StandardCharsets.UTF_8));
         }
-        Bitmap screenshot = instrumentation.getUiAutomation().takeScreenshot();
-        try (FileOutputStream output = new FileOutputStream(new File(evidence, "mother-mentor-report-fixture.png"))) {
-            screenshot.compress(Bitmap.CompressFormat.PNG, 100, output);
+        if (Boolean.parseBoolean(InstrumentationRegistry.getArguments()
+                .getString("captureScreenshot", "true"))) {
+            Bitmap screenshot = instrumentation.getUiAutomation().takeScreenshot();
+            try (FileOutputStream output = new FileOutputStream(new File(evidence, "mother-mentor-report-fixture.png"))) {
+                screenshot.compress(Bitmap.CompressFormat.PNG, 100, output);
+            }
+            screenshot.recycle();
         }
-        screenshot.recycle();
         // Optional bounded capture window for an external UIAutomator dump during manual QA.
         String captureWindow = InstrumentationRegistry.getArguments().getString("captureWindowMs", "0");
         SystemClock.sleep(Math.min(30000, Long.parseLong(captureWindow)));
@@ -150,6 +161,9 @@ public class MotherMentorReportRenderingInstrumentedTest {
         public String getDataForReport() {
             return "{\"nameValuePairs\":{\"mm-1\":3,\"mm-1-male-total\":1,\"mm-1-female-total\":2,"
                     + "\"mm-1-male-20-24\":1,\"mm-1-female-25-59\":2,\"mm-2\":0,"
+                    + "\"mm-8\":2,\"mm-11\":3,"
+                    + "\"mm-11-positive-female-12-23m\":1,\"mm-11-negative-male-12-23m\":1,"
+                    + "\"mm-11-pending-results\":1,\"mm-12-missing-records\":2,"
                     + "\"mm-5-missing-records\":2,\"mm-10\":1,\"mm-10-girls-female-1-11m\":1,\"mm-7\":4,\"mm-7-unclassified\":1,\"mm-13\":2,\"mm-14-missing-records\":1,\"mm-16\":10,\"mm-16-male-total\":3,\"mm-16-female-total\":7}}";
         }
     }

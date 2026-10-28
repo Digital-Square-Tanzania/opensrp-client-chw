@@ -10,6 +10,47 @@ import static org.junit.Assert.*;
 @org.junit.runner.RunWith(org.robolectric.RobolectricTestRunner.class)
 @org.robolectric.annotation.Config(application = android.app.Application.class, sdk = 28, manifest = org.robolectric.annotation.Config.NONE)
 public class MotherMentorPartnerFormUtilsTest {
+    @Test
+    public void reLinkingCreatesNewLinkageButKeepsMaternalEnrollmentEpisodeInBothLanguages()
+            throws Exception {
+        for (String locale : new String[] {"json.form", "json.form-sw"}) {
+            Map<String, String> mother = person("mother", "family", "Asha");
+            Map<String, String> partner = person("partner", "family", "Juma");
+            mother.put("pregnancy_status", "pregnant");
+            mother.put("mother_pregnancy_episode_id", "maternal-enrollment-one");
+            JSONObject first = MotherMentorPartnerFormUtils.prepare(
+                    form(locale), mother, partner, new HashMap<>());
+            String firstLinkage = value(first, "partner_linkage_id");
+            assertEquals(firstLinkage, java.util.UUID.fromString(firstLinkage).toString());
+            assertEquals("yes", value(first, "partner_mother_pregnant"));
+            assertEquals("maternal-enrollment-one", value(first, "mother_pregnancy_episode_id"));
+            MotherMentorPartnerFormUtils.bindIdentity(first, mother, partner);
+            assertEquals(firstLinkage, value(first, "partner_linkage_id"));
+            JSONObject reLink = MotherMentorPartnerFormUtils.prepare(
+                    form(locale), mother, partner, new HashMap<>());
+            assertNotEquals(firstLinkage, value(reLink, "partner_linkage_id"));
+            assertEquals("maternal-enrollment-one", value(reLink, "mother_pregnancy_episode_id"));
+            mother.put("mother_pregnancy_episode_id", "maternal-enrollment-two");
+            JSONObject newPregnancy = MotherMentorPartnerFormUtils.prepare(
+                    form(locale), mother, partner, new HashMap<>());
+            assertEquals("maternal-enrollment-two", value(newPregnancy, "mother_pregnancy_episode_id"));
+        }
+    }
+
+    @Test
+    public void unknownPregnancyIsNeverTreatedAsKnownNonPregnant() throws Exception {
+        Map<String, String> mother = person("mother", "family", "Asha");
+        JSONObject form = MotherMentorPartnerFormUtils.prepare(form("json.form"), mother,
+                person("partner", "family", "Juma"), new HashMap<>());
+        assertEquals("unknown", value(form, "partner_mother_pregnant"));
+        mother.put("pregnancy_status", "not_pregnant");
+        MotherMentorPartnerFormUtils.bindIdentity(form, mother, person("partner", "family", "Juma"));
+        assertEquals("no", value(form, "partner_mother_pregnant"));
+        mother.put("pregnancy_status", "breast_feeding");
+        MotherMentorPartnerFormUtils.bindIdentity(form, mother, person("partner", "family", "Juma"));
+        assertEquals("no", value(form, "partner_mother_pregnant"));
+    }
+
     @Test public void newRegistrationRestrictsSexDobAndEstimatedAgeInBothLocales() throws Exception {
         for (String locale : new String[]{"json.form", "json.form-sw"}) {
             JSONObject form = MotherMentorTestAssets.form(locale, "all_clients_registration_form.json");

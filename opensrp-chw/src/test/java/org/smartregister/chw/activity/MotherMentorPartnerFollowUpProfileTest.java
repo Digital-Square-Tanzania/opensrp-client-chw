@@ -19,12 +19,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Robolectric;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.LooperMode;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
@@ -158,6 +161,108 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
             activity.setupButtons();
             assertTrue(button(activity).isEnabled());
         }
+    }
+
+    @Test
+    public void expiredPartnerCannotStartOrContinueAVisitAndReturnsToPartnerList() {
+        try (MockedStatic<MotherMentorPartnerFollowUpDao> dao =
+                Mockito.mockStatic(MotherMentorPartnerFollowUpDao.class)) {
+            dao.when(() -> MotherMentorPartnerFollowUpDao.getContext(
+                    Mockito.eq("partner-id"), Mockito.isNull(), Mockito.any(Date.class)))
+                    .thenReturn(new MotherMentorPartnerFollowUpDao.Context(
+                            "current-link", "mother", "episode", "yes", false, false));
+            for (boolean continueVisit : new boolean[] {false, true}) {
+                PartnerProfileActivity activity = profile();
+                if (continueVisit) activity.continueService();
+                else activity.openRecordClientVisit();
+                assertTrue(activity.isFinishing());
+                Intent list = Shadows.shadowOf(activity).getNextStartedActivity();
+                assertEquals(MotherMentorRegisterActivity.class.getName(), list.getComponent().getClassName());
+                assertEquals(MotherMentorRegisterActivity.TAB_INDEX_PARTNER,
+                        list.getIntExtra(MotherMentorRegisterActivity.EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX, -1));
+                org.robolectric.shadows.ShadowActivity.IntentForResult launch =
+                        Shadows.shadowOf(activity).getNextStartedActivityForResult();
+                assertEquals(-1, launch.requestCode);
+                assertEquals(MotherMentorRegisterActivity.class.getName(),
+                        launch.intent.getComponent().getClassName());
+                assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+            }
+        }
+    }
+
+    @Test
+    public void emptyContextDoesNotRedirectProfileOnMissingOrUnavailableDatabase() {
+        try (MockedStatic<MotherMentorPartnerFollowUpDao> dao =
+                Mockito.mockStatic(MotherMentorPartnerFollowUpDao.class)) {
+            dao.when(() -> MotherMentorPartnerFollowUpDao.getContext(
+                    Mockito.eq("partner-id"), Mockito.isNull(), Mockito.any(Date.class)))
+                    .thenReturn(new MotherMentorPartnerFollowUpDao.Context(
+                            "", "", "", "unknown", false, false));
+            PartnerProfileActivity activity = profile();
+            activity.setupButtons();
+            assertFalse(activity.isFinishing());
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
+        }
+    }
+
+    @Test
+    @LooperMode(LooperMode.Mode.PAUSED)
+    public void completedNewWorkflowProfileReturnsToListAtMidnightWithoutAUserTap() throws Exception {
+        PartnerProfileActivity activity = profile();
+        Calendar midnight = Calendar.getInstance();
+        midnight.setTime(activity.now);
+        midnight.set(Calendar.HOUR_OF_DAY, 23);
+        midnight.set(Calendar.MINUTE, 59);
+        midnight.set(Calendar.SECOND, 59);
+        midnight.set(Calendar.MILLISECOND, 0);
+        activity.now = midnight.getTime();
+        Date cutoff = new Date(activity.now.getTime() + 1000);
+        try (MockedStatic<MotherMentorPartnerFollowUpDao> dao =
+                Mockito.mockStatic(MotherMentorPartnerFollowUpDao.class)) {
+            dao.when(() -> MotherMentorPartnerFollowUpDao.getContext(
+                    Mockito.eq("partner-id"), Mockito.isNull(), Mockito.any(Date.class)))
+                    .thenAnswer(call -> new MotherMentorPartnerFollowUpDao.Context(
+                            "current-link", "mother", "episode", "yes", false,
+                            ((Date) call.getArgument(2)).before(cutoff)));
+            ReflectionHelpers.callInstanceMethod(activity, "scheduleVisitAvailabilityRefresh");
+            activity.now = cutoff;
+            Shadows.shadowOf(Looper.getMainLooper()).idleFor(1, TimeUnit.SECONDS);
+            assertTrue(activity.isFinishing());
+            assertEquals(MotherMentorRegisterActivity.class.getName(),
+                    Shadows.shadowOf(activity).getNextStartedActivity().getComponent().getClassName());
+        }
+    }
+
+    @Test
+    public void newAttendancePhaseManualCompletionUsesTestsWithoutRequiringTracingStatus() throws Exception {
+        PartnerProfileActivity activity = profile();
+        Visit visit = completedVisit();
+        JSONObject event = new JSONObject(visit.getJson());
+        JSONArray observations = new JSONArray();
+        for (String[] answer : new String[][] {
+                {DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA, "2"},
+                {DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE, "attendance"},
+                {DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY, "yes"},
+                {DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE, "28-10-2026"},
+                {DBConstants.KEY.PARTNER_EDUCATION_PROVIDED, "no"},
+                {DBConstants.KEY.PARTNER_HIV_TESTED, "yes"},
+                {DBConstants.KEY.PARTNER_HIV_RESULT, "negative"},
+                {DBConstants.KEY.PARTNER_SYPHILIS_TESTED, "yes"},
+                {DBConstants.KEY.PARTNER_SYPHILIS_RESULT, "negative"},
+                {DBConstants.KEY.PARTNER_HEPATITIS_B_TESTED, "yes"}
+        }) {
+            observations.put(new JSONObject().put("fieldCode", answer[0])
+                    .put("values", new JSONArray().put(answer[1])));
+        }
+        event.put("obs", observations);
+        visit.setJson(event.toString());
+        assertFalse(ReflectionHelpers.callInstanceMethod(activity, "hasCompletedMotherMentorServiceSections",
+                ReflectionHelpers.ClassParameter.from(Visit.class, visit)));
+        observations.put(new JSONObject().put("fieldCode", DBConstants.KEY.PARTNER_HEPATITIS_B_RESULT)
+                .put("values", new JSONArray().put("negative")));
+        visit.setJson(event.toString());
+        assertTrue(ReflectionHelpers.callInstanceMethod(activity, "hasCompletedMotherMentorServiceSections",
+                ReflectionHelpers.ClassParameter.from(Visit.class, visit)));
     }
 
     private void savedPartnerVisit(Visit visit) {

@@ -43,6 +43,7 @@ public class MotherMentorReportObjectTest {
         database.execSQL("CREATE TABLE visit_details (visit_id TEXT, visit_key TEXT, details TEXT, processed INTEGER)");
         database.execSQL("CREATE TABLE event (baseEntityId TEXT, eventType TEXT, eventDate TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_enroll_child_eid (base_entity_id TEXT)");
+        database.execSQL("CREATE TABLE ec_mothermentor_enroll_partner (base_entity_id TEXT, is_closed INTEGER)");
         database.execSQL("CREATE TABLE ec_mothermentor_enroll_it (base_entity_id TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_mobilization (base_entity_id TEXT PRIMARY KEY, sh_tarehe TEXT, sh_mada TEXT, elim_m TEXT, elim_f TEXT, referred_male TEXT, referred_female TEXT, facility_referral_services TEXT)");
         report = new MotherMentorReportObject(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse("2026-04-15"));
@@ -60,10 +61,10 @@ public class MotherMentorReportObjectTest {
     @Test
     public void emptyMonthDistinguishesZeroFromIndicatorsNotCaptured() throws Exception {
         JSONObject counts = report.getIndicatorData();
-        for (String key : new String[]{"mm-1", "mm-2", "mm-3", "mm-4", "mm-5", "mm-6", "mm-7", "mm-9", "mm-9-boys", "mm-10", "mm-10-girls", "mm-13", "mm-14", "mm-15", "mm-16", "mm-17", "mm-18", "mm-1-unclassified"}) {
+        for (String key : new String[]{"mm-1", "mm-2", "mm-3", "mm-4", "mm-5", "mm-6", "mm-7", "mm-8", "mm-8-hiv-positive", "mm-8-syphilis-negative", "mm-9", "mm-9-boys", "mm-10", "mm-10-girls", "mm-11", "mm-11-positive", "mm-11-negative", "mm-12", "mm-12-syphilis", "mm-13", "mm-14", "mm-15", "mm-16", "mm-17", "mm-18", "mm-1-unclassified"}) {
             assertEquals(key, 0, counts.getInt(key));
         }
-        for (String key : new String[]{"mm-8-hiv-positive", "mm-11-positive", "mm-12-syphilis", "mm-14-female-25-59", "mm-16-male-20-24"}) {
+        for (String key : new String[]{"mm-14-female-25-59", "mm-16-male-20-24"}) {
             assertEquals(key, "—", counts.getString(key));
         }
     }
@@ -680,6 +681,222 @@ public class MotherMentorReportObjectTest {
         JSONObject c = report.getIndicatorData();
         for (int n : new int[]{4, 5, 7, 9, 10, 18}) assertEquals(0, c.getInt("mm-" + n));
         for (int n : new int[]{4, 5, 9, 10, 18}) assertEquals(0, c.getInt("mm-" + n + "-missing-records"));
+    }
+
+    @Test
+    public void partnerTestsUseFirstQualifyingResultsBeforeFilteringTheServiceMonth() throws Exception {
+        member("partner", "Male", "1990-01-01");
+        partnerAttendance("before", "partner", "2026-03-31", "episode-1", "link-1");
+        partnerTest("before", "hiv", "positive");
+        partnerAttendance("repeat", "partner", "2026-04-01", "episode-1", "link-2");
+        partnerTest("repeat", "hiv", "negative");
+        partnerAttendance("new-pregnancy", "partner", "2026-04-20", "episode-2", "link-3");
+        partnerTest("new-pregnancy", "hiv", "positive");
+        partnerAttendance("new-repeat", "partner", "2026-04-21", "episode-2", "link-4");
+        partnerTest("new-repeat", "hiv", "negative");
+        partnerAttendance("another-pregnancy", "partner", "2026-04-22", "episode-3", "link-5");
+        partnerTest("another-pregnancy", "hiv", "positive");
+        member("three-tests", "Male", "1980-01-01");
+        partnerAttendance("all-tests", "three-tests", "2026-04-25", "other-episode", "link");
+        partnerTest("all-tests", "hiv", "negative");
+        partnerTest("all-tests", "syphilis", "positive");
+        partnerTest("all-tests", "hepatitis_b", "negative");
+        database.execSQL("INSERT INTO ec_mothermentor_enroll_partner VALUES ('partner', 1)");
+
+        JSONObject c = report.getIndicatorData();
+        assertEquals(2, c.getInt("mm-8"));
+        assertEquals(2, c.getInt("mm-8-hiv-positive"));
+        assertEquals(1, c.getInt("mm-8-hiv-negative"));
+        assertEquals(1, c.getInt("mm-8-syphilis-positive"));
+        assertEquals(1, c.getInt("mm-8-hepatitis-b-negative"));
+        assertEquals(0, c.getInt("mm-8-missing-records"));
+    }
+
+    @Test
+    public void partnerTestsUseTheServiceDayForMonthAndAgeWithoutDoubleCountingBirthdays() throws Exception {
+        member("birthday", "Male", "2001-04-15");
+        partnerAttendance("hiv-before-birthday", "birthday", "2026-04-01", "episode", "link");
+        setDetail("hiv-before-birthday", "partner_facility_arrival_date", "2026-03-31");
+        partnerTest("hiv-before-birthday", "hiv", "positive");
+        partnerAttendance("syphilis-after-birthday", "birthday", "2026-04-20", "episode", "link");
+        partnerTest("syphilis-after-birthday", "syphilis", "negative");
+        partnerAttendance("next-month", "birthday", "2026-05-01", "episode", "link");
+        setDetail("next-month", "partner_facility_arrival_date", "2026-04-30");
+        partnerTest("next-month", "hepatitis_b", "positive");
+        database.execSQL("UPDATE visits SET visit_date = 1780272000000");
+
+        JSONObject c = report.getIndicatorData();
+        assertEquals(1, c.getInt("mm-8"));
+        assertEquals(1, c.getInt("mm-8-male-20-24"));
+        assertEquals(0, c.getInt("mm-8-male-25-59"));
+        assertEquals(1, c.getInt("mm-8-hiv-positive-male-20-24"));
+        assertEquals(1, c.getInt("mm-8-syphilis-negative-male-25-59"));
+        assertEquals(0, c.getInt("mm-8-hepatitis-b-positive"));
+    }
+
+    @Test
+    public void partnerTestsExcludeUntestedDraftNonPregnantAndNonAttendancePaths() throws Exception {
+        for (String id : new String[]{"untested", "draft", "not-pregnant", "not-attended", "agreed"}) {
+            member(id, "Male", "1990-01-01");
+            partnerAttendance(id, id, "2026-04-20", "episode", "link");
+            if (!"untested".equals(id)) partnerTest(id, "hiv", "positive");
+        }
+        database.execSQL("UPDATE visits SET processed = 0 WHERE visit_id = 'draft'");
+        setDetail("not-pregnant", "partner_mother_pregnant", "no");
+        setDetail("not-attended", "partner_arrived_at_facility", "no");
+        setDetail("agreed", "partner_follow_up_phase", "tracing");
+        setDetail("agreed", "follow_up_status", "found");
+        setDetail("agreed", "partner_facility_agreement", "agreed");
+        JSONObject c = report.getIndicatorData();
+        assertEquals(0, c.getInt("mm-8"));
+        assertEquals(0, c.getInt("mm-8-hiv-positive"));
+        assertEquals(0, c.getInt("mm-8-missing-records"));
+    }
+
+    @Test
+    public void oldPartnerVisitsAndUnknownPregnancyEpisodesRemainExplicitlyUnavailable() throws Exception {
+        member("legacy", "Male", "1990-01-01");
+        currentVisit("legacy", "legacy", "2026-04-20", MotherMentorFollowUpType.PARTNER, "found");
+        setDetail("legacy", "partner_arrived_at_facility", "yes");
+        JSONObject c = report.getIndicatorData();
+        assertEquals("—", c.getString("mm-8"));
+        assertEquals("—", c.getString("mm-12-hiv"));
+        assertEquals(1, c.getInt("mm-8-missing-records"));
+        assertEquals(1, c.getInt("mm-12-missing-records"));
+        database.execSQL("DELETE FROM visits");
+        database.execSQL("DELETE FROM visit_details");
+        partnerAttendance("unknown-episode", "legacy", "2026-04-20", "", "link");
+        partnerTest("unknown-episode", "hiv", "positive");
+        c = report.getIndicatorData();
+        assertEquals("—", c.getString("mm-8-hiv-positive"));
+        assertEquals(1, c.getInt("mm-8-missing-records"));
+        assertEquals(0, c.getInt("mm-12"));
+    }
+
+    @Test
+    public void partnerEducationCountsDistinctPregnantPartnersAndTopicsWithinTheMonth() throws Exception {
+        member("educated", "Male", "2001-04-15");
+        partnerAttendance("prior", "educated", "2026-03-20", "episode", "link");
+        partnerEducation("prior", "hiv");
+        partnerAttendance("first", "educated", "2026-04-01", "episode", "link");
+        setDetail("first", "partner_follow_up_phase", "tracing");
+        setDetail("first", "partner_facility_agreement", "refused");
+        partnerEducation("first", "[\"hiv\",\"syphilis\"]");
+        partnerAttendance("repeat", "educated", "2026-04-20", "episode", "new-link");
+        partnerEducation("repeat", "hiv,hepatitis_b");
+        member("attendance-no", "Male", "1990-01-01");
+        partnerAttendance("attendance-no", "attendance-no", "2026-04-20", "episode", "link");
+        setDetail("attendance-no", "partner_arrived_at_facility", "no");
+        partnerEducation("attendance-no", "hepatitis_b");
+
+        JSONObject c = report.getIndicatorData();
+        assertEquals(2, c.getInt("mm-12"));
+        assertEquals(1, c.getInt("mm-12-hiv"));
+        assertEquals(1, c.getInt("mm-12-syphilis"));
+        assertEquals(2, c.getInt("mm-12-hepatitis-b"));
+        assertEquals(1, c.getInt("mm-12-hiv-male-20-24"));
+        assertEquals(0, c.getInt("mm-12-hiv-male-25-59"));
+    }
+
+    @Test
+    public void missingPartnerEducationTopicsAreNotReportedAsNoEducation() throws Exception {
+        member("partner", "Male", "1990-01-01");
+        partnerAttendance("missing-topics", "partner", "2026-04-20", "episode", "link");
+        setDetail("missing-topics", "partner_education_provided", "yes");
+        JSONObject c = report.getIndicatorData();
+        assertEquals("—", c.getString("mm-12"));
+        assertEquals("—", c.getString("mm-12-syphilis"));
+        assertEquals(1, c.getInt("mm-12-missing-records"));
+    }
+
+    @Test
+    public void finalChildTestsSeparateLinkagePendingAndConfirmedResultsForBothSexes() throws Exception {
+        eid("positive-girl", "Female", "2024-10-01");
+        eid("negative-boy", "Male", "2024-10-01");
+        eid("pending", "Male", "2024-10-01");
+        finalChildTest("positive", "positive-girl", "2026-04-20", "positive");
+        setDetail("positive", "child_eid_final_hiv_test_date", "20/04/2026");
+        finalChildTest("negative", "negative-boy", "2026-04-20", "negative");
+        setDetail("negative", "child_eid_final_hiv_test_date", "20-04-2026");
+        finalChildTest("pending", "pending", "2026-04-20", "pending");
+        JSONObject c = report.getIndicatorData();
+        assertEquals(3, c.getInt("mm-11"));
+        assertEquals(1, c.getInt("mm-11-positive"));
+        assertEquals(1, c.getInt("mm-11-positive-female-12-23m"));
+        assertEquals(1, c.getInt("mm-11-negative"));
+        assertEquals(1, c.getInt("mm-11-negative-male-12-23m"));
+        assertEquals(1, c.getInt("mm-11-pending-results"));
+        assertEquals(0, c.getInt("mm-11-missing-records"));
+        assertEquals(c.getInt("mm-11"), c.getInt("mm-11-male-total") + c.getInt("mm-11-female-total"));
+    }
+
+    @Test
+    public void missingFinalChildResultsDoNotEraseKnownAttendanceOrCreateFalseZeroes() throws Exception {
+        eid("child", "Female", "2024-10-01");
+        currentChildAttendance("unknown-result", "child", "eighteen_months", "yes", "2026-04-20");
+        JSONObject c = report.getIndicatorData();
+        assertEquals(1, c.getInt("mm-11"));
+        assertEquals("—", c.getString("mm-11-positive"));
+        assertEquals("—", c.getString("mm-11-negative"));
+        assertEquals(1, c.getInt("mm-11-missing-records"));
+        assertEquals(0, c.getInt("mm-11-linkage-missing-records"));
+    }
+
+    @Test
+    public void latestFinalChildStateResolvesPendingWithoutCountingAChildTwice() throws Exception {
+        eid("child", "Female", "2024-10-01");
+        finalChildTest("pending", "child", "2026-04-01", "pending");
+        finalChildTest("confirmed", "child", "2026-04-20", "positive");
+        finalChildTest("draft", "child", "2026-04-21", "negative");
+        database.execSQL("UPDATE visits SET processed = 0 WHERE visit_id = 'draft'");
+        JSONObject c = report.getIndicatorData();
+        assertEquals(1, c.getInt("mm-11"));
+        assertEquals(1, c.getInt("mm-11-positive"));
+        assertEquals(0, c.getInt("mm-11-negative"));
+        assertEquals(0, c.getInt("mm-11-pending-results"));
+        assertEquals(0, c.getInt("mm-11-missing-records"));
+    }
+
+    private void partnerAttendance(String id, String partner, String date, String episode, String linkage) {
+        currentVisit(id, partner, date, MotherMentorFollowUpType.PARTNER, "found");
+        setDetail(id, "partner_follow_up_schema", "2");
+        setDetail(id, "mother_base_entity_id", "mother");
+        setDetail(id, "mother_pregnancy_episode_id", episode);
+        setDetail(id, "partner_linkage_id", linkage);
+        setDetail(id, "partner_mother_pregnant", "yes");
+        setDetail(id, "partner_follow_up_phase", "attendance");
+        setDetail(id, "partner_arrived_at_facility", "yes");
+        setDetail(id, "partner_facility_arrival_date", date);
+        setDetail(id, "partner_education_provided", "no");
+        for (String test : new String[]{"hiv", "syphilis", "hepatitis_b"}) {
+            setDetail(id, "partner_" + test + "_tested", "no");
+            setDetail(id, "partner_" + test + "_not_tested_reason", "stock_out");
+        }
+    }
+
+    private void partnerTest(String id, String test, String result) {
+        setDetail(id, "partner_" + test + "_tested", "yes");
+        setDetail(id, "partner_" + test + "_result", result);
+    }
+
+    private void partnerEducation(String id, String topics) {
+        setDetail(id, "partner_education_provided", "yes");
+        setDetail(id, "partner_education_topics", topics);
+    }
+
+    private void finalChildTest(String id, String child, String date, String result) {
+        currentVisit(id, child, date, MotherMentorFollowUpType.CHILD_EID, "found");
+        setDetail(id, "child_eid_test_type", "eighteen_months");
+        setDetail(id, "child_eid_arrived_at_facility", "yes");
+        setDetail(id, "child_eid_facility_arrival_date", date);
+        setDetail(id, "child_eid_final_hiv_test_done", "yes");
+        setDetail(id, "child_eid_final_hiv_result", result);
+        setDetail(id, "child_eid_final_hiv_test_date", date);
+    }
+
+    private void setDetail(String visitId, String key, String value) {
+        database.execSQL("DELETE FROM visit_details WHERE visit_id = ? AND visit_key = ?", new Object[]{visitId, key});
+        detail(visitId, key, value);
     }
 
     private void currentChildAttendance(String id, String child, String stage, String attendance, String date) {

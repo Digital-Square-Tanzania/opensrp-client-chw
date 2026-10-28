@@ -4511,6 +4511,13 @@
             "field": "obs.fieldCode",
             "concept": "art_start_date"
           }
+        },
+        {
+          "column_name": "mother_pregnancy_episode_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
         }
       ]
     },
@@ -4836,6 +4843,30 @@
           "type": "Event",
           "json_mapping": {
             "field": "version"
+          }
+        },
+        {
+          "column_name": "partner_linkage_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_linkage_id"
+          }
+        },
+        {
+          "column_name": "mother_pregnancy_episode_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mother_pregnancy_episode_id"
+          }
+        },
+        {
+          "column_name": "partner_mother_pregnant",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_mother_pregnant"
           }
         }
       ]
@@ -14433,6 +14464,238 @@
           "column_name": "comments",
           "type": "Event",
           "json_mapping": {"field": "obs.fieldCode", "concept": "comments"}
+        },
+        {
+          "column_name": "mothermentor_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mothermentor_visit_date"
+          }
+        },
+        {
+          "column_name": "mother_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mother_base_entity_id"
+          }
+        },
+        {
+          "column_name": "partner_follow_up_schema",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_follow_up_schema"
+          }
+        },
+        {
+          "column_name": "partner_linkage_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_linkage_id"
+          }
+        },
+        {
+          "column_name": "mother_pregnancy_episode_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mother_pregnancy_episode_id"
+          }
+        },
+        {
+          "column_name": "partner_mother_pregnant",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_mother_pregnant"
+          }
+        },
+        {
+          "column_name": "partner_follow_up_phase",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_follow_up_phase"
+          }
+        },
+        {
+          "column_name": "partner_facility_agreement",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_facility_agreement"
+          }
+        },
+        {
+          "column_name": "partner_not_found_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_not_found_reason"
+          }
+        },
+        {
+          "column_name": "partner_not_found_reason_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_not_found_reason_other"
+          }
+        },
+        {
+          "column_name": "partner_follow_up_end",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_follow_up_end"
+          }
+        },
+        {
+          "column_name": "partner_education_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_education_provided"
+          }
+        },
+        {
+          "column_name": "partner_education_topics",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_education_topics"
+          }
+        },
+        {
+          "column_name": "child_eid_follow_up_schema",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_eid_follow_up_schema"
+          }
+        },
+        {
+          "column_name": "child_eid_final_hiv_test_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_eid_final_hiv_test_done"
+          }
+        },
+        {
+          "column_name": "child_eid_final_hiv_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_eid_final_hiv_result"
+          }
+        },
+        {
+          "column_name": "child_eid_final_hiv_test_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_eid_final_hiv_test_date"
+          }
+        },
+        {
+          "column_name": "partner_hiv_tested",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_hiv_tested"
+          }
+        },
+        {
+          "column_name": "partner_hiv_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_hiv_result"
+          }
+        },
+        {
+          "column_name": "partner_hiv_not_tested_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_hiv_not_tested_reason"
+          }
+        },
+        {
+          "column_name": "partner_hiv_not_tested_reason_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_hiv_not_tested_reason_other"
+          }
+        },
+        {
+          "column_name": "partner_syphilis_tested",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_syphilis_tested"
+          }
+        },
+        {
+          "column_name": "partner_syphilis_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_syphilis_result"
+          }
+        },
+        {
+          "column_name": "partner_syphilis_not_tested_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_syphilis_not_tested_reason"
+          }
+        },
+        {
+          "column_name": "partner_syphilis_not_tested_reason_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_syphilis_not_tested_reason_other"
+          }
+        },
+        {
+          "column_name": "partner_hepatitis_b_tested",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_hepatitis_b_tested"
+          }
+        },
+        {
+          "column_name": "partner_hepatitis_b_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_hepatitis_b_result"
+          }
+        },
+        {
+          "column_name": "partner_hepatitis_b_not_tested_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_hepatitis_b_not_tested_reason"
+          }
+        },
+        {
+          "column_name": "partner_hepatitis_b_not_tested_reason_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_hepatitis_b_not_tested_reason_other"
+          }
         }
       ]
     },

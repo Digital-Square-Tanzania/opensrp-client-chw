@@ -76,7 +76,8 @@
     <p class="legend">Ziara zilizokamilishwa pekee ndizo zinahesabiwa. Kamilisha ziara kwa “Process visit” kabla ya kufungua ripoti. / Only finalized visits are included. Select “Process visit” before opening the report.</p>
     <p class="legend">Ind. 3: kuandikishwa Mama Kinara na kuanza ART ndani ya mwezi huu. Ind. 4/18: matokeo ya mwisho ya ufuatiliaji kwa kila mteja ndani ya mwezi. / Enrollment and ART initiation must both occur in the report month; tracing uses the latest outcome that month.</p>
     <p class="legend">Ind. 6 huhesabu mada kwa kila shughuli. Ind. 14/16/17 hujumlisha idadi zilizorekodiwa kwa shughuli/ziara; mtu anaweza kuhesabiwa tena akihudhuria shughuli nyingine. Mgawanyo wa umri haujakusanywa. / Topics count per activity; attendance/referral aggregates can include repeat participants and have no age breakdown.</p>
-    <p class="legend">Ind. 8, 11, 12: taarifa za vipimo, matokeo au uhusiano unaohitajika hazijathibitishwa katika ukusanyaji wa sasa. / Required testing, results or cohort linkage data are not available for these indicators.</p>
+    <p class="legend">Ind. 8: kipimo cha kwanza cha kila aina kwa mwenza katika ujauzito husika; mwezi hutumia tarehe ya ziara ya ufuatiliaji. Jumla huhesabu wenza, si jumla ya vipimo vitatu. / First qualifying test of each type per partner and pregnancy; reporting uses the follow-up visit date. The summary counts partners, not the sum of test rows.</p>
+    <p class="legend">Ind. 11: jumla huhesabu watoto waliounganishwa kufika kituoni kwa kipimo cha miezi 18; matokeo chanya/hasi huhitaji uthibitisho. Matokeo yanayosubiri yanaonyeshwa kando. Ind. 12 huhesabu kila mwenza aliyeelimishwa mara moja kwa mada ndani ya mwezi. / Child linkage totals include recorded pending results; positive/negative rows require confirmed final results. Partner education counts each partner once per topic in the month.</p>
     <p id="coverage_note" class="legend" hidden></p>
     <p id="unclassified_note" class="legend" hidden></p>
     <table class="signatures" aria-label="Uthibitisho wa taarifa">
@@ -100,8 +101,6 @@
     const columns8 = ["total", "male-total", "male-1-11m"];
     const columns9 = ["total", "female-total", "female-1-11m"];
     const columns10 = ["total", "male-total", "male-1-11m", "male-12-23m", "female-total", "female-1-11m", "female-12-23m"];
-    const columns11 = ["total", "male-total", "male-1-11m", "male-12-23m"];
-    const columns12 = ["total", "female-total", "female-1-11m", "female-12-23m"];
     const columns13 = ["total", "male-total", "male-under-1m", "male-1-11m", "male-12-23m", "male-2-4", "male-5-9", "male-10-14", "male-15-19", "male-20-24", "male-25-59", "male-60-plus", "female-total", "female-under-1m", "female-1-11m", "female-12-23m", "female-2-4", "female-5-9", "female-10-14", "female-15-19", "female-20-24", "female-25-59", "female-60-plus"];
     const reportRows = [
         [1, "mm-1", "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya msaada wa kisaikolojia (PSG)", columns1, false],
@@ -115,7 +114,7 @@
         [5, "mm-5", "Idadi ya wateja wa PMTCT waliopotea (IIT) na kurudishwa kwenye matibabu na Mama Kinara", columns1, false],
         [6, "mm-6", "Idadi ya mada za elimu ya afya zilizofundishwa na Mama Kinara kwenye jamii", columns2, false],
         [7, "mm-7", "Idadi ya wateja wa PMTCT walioelimishwa na Mama Kinara", columns1, false],
-        [8, "mm-8", "Idadi ya wenzi wa wajawazito waliofuatiliwa na kupimwa VVU, Kaswende na Homa ya Ini aina B kwa mara ya kwanza", columns3, true],
+        [8, "mm-8", "Idadi ya wenza wa wajawazito waliofuatiliwa na kupimwa VVU, Kaswende na Homa ya Ini aina B kwa mara ya kwanza", columns3, true],
         ["", "mm-8-hiv-positive", "VVU – Chanya", columns3, false],
         ["", "mm-8-hiv-negative", "VVU – Hasi", columns3, false],
         ["", "mm-8-syphilis-positive", "Kaswende – Chanya", columns3, false],
@@ -129,9 +128,9 @@
         ["", "mm-10-boys", "Wavulana (Boys)", columns8, false],
         ["", "mm-10-girls", "Wasichana (Girls)", columns9, false],
         [11, "mm-11", "Idadi ya Watoto waliounganishwa na Mama Kinara kupata kipimo cha mwisho cha uthibitisho wa VVU (Miezi 18)", columns10, true],
-        ["", "mm-11-positive", "Chanya (Positive)", columns11, false],
-        ["", "mm-11-negative", "Hasi (Negative)", columns12, false],
-        [12, "mm-12", "Idadi ya wenzi wa wajawazito walioelimishwa na Mama Kinara (jamii) kuhusu huduma za kuzuia PMTCT", columns3, true],
+        ["", "mm-11-positive", "Chanya (Positive)", columns10, false],
+        ["", "mm-11-negative", "Hasi (Negative)", columns10, false],
+        [12, "mm-12", "Idadi ya wenza wa wajawazito walioelimishwa na Mama Kinara (jamii) kuhusu huduma za kuzuia PMTCT", columns3, true],
         ["", "mm-12-hiv", "VVU", columns3, false],
         ["", "mm-12-syphilis", "Kaswende", columns3, false],
         ["", "mm-12-hepatitis-b", "Homa ya Ini aina B", columns3, false],
@@ -202,10 +201,11 @@
                 }
             });
             const coverage = [];
-            [4, 5, 9, 10, 14, 16, 17, 18].forEach((indicator) => {
+            [4, 5, 8, 9, 10, 11, 12, 14, 16, 17, 18].forEach((indicator) => {
                 const missing = values["mm-" + indicator + "-missing-records"];
                 if (missing > 0) coverage.push("Ind. " + indicator + ": rekodi " + missing + " hazina taarifa zote / records missing required data");
             });
+            if (values["mm-11-pending-results"] > 0) coverage.push("Ind. 11: watoto " + values["mm-11-pending-results"] + " wanasubiri matokeo ya mwisho / children with final test results recorded as pending");
             [4, 18].forEach((indicator) => {
                 const other = values["mm-" + indicator + "-other-outcomes"];
                 if (other > 0) coverage.push("Ind. " + indicator + ": wateja " + other + " wana matokeo yasiyo na mstari kwenye fomu / outcomes outside the workbook subrows");
@@ -221,7 +221,7 @@
                 error.hidden = false;
                 error.textContent = "Baadhi ya taarifa hazikuweza kusomwa. / Some report data could not be read.";
             }
-            const unclassified = [1, 2, 3, 4, 5, 7, 9, 10, 18].filter((indicator) => values["mm-" + indicator + "-unclassified"] > 0)
+            const unclassified = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 18].filter((indicator) => values["mm-" + indicator + "-unclassified"] > 0)
                 .map((indicator) => "kiashiria " + indicator + ": " + values["mm-" + indicator + "-unclassified"]);
             if (unclassified.length > 0) {
                 const note = document.getElementById("unclassified_note");

@@ -23,6 +23,11 @@ public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter
 
     @Override
     public String getMainCondition() {
+        if (org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER
+                .equals(getMainTable())) {
+            return org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao
+                    .activeEnrollmentCondition(getMainTable());
+        }
         return MotherMentorDao.getActiveClientCondition(getMainTable());
     }
 

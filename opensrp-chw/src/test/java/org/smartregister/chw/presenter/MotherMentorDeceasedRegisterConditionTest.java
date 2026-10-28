@@ -16,6 +16,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.chw.mothermentor.contract.MotherMentorRegisterFragmentContract;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorRegisterFragmentPresenter;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +47,27 @@ public class MotherMentorDeceasedRegisterConditionTest {
                     + " ('closed', 1, 'client', NULL), ('empty-date', 0, 'client', NULL),"
                     + " ('legacy-null-date', 0, 'client', NULL)");
         }
+        database.execSQL("ALTER TABLE " + Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER
+                + " ADD COLUMN " + DBConstants.KEY.PARTNER_LINKAGE_ID + " TEXT");
+        String[] followUpColumns = {
+                DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.ENTITY_ID, DBConstants.KEY.FOLLOW_UP_CATEGORY,
+                DBConstants.KEY.MOTHERMENTOR_VISIT_DATE, DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA,
+                DBConstants.KEY.PARTNER_LINKAGE_ID, DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE,
+                DBConstants.KEY.FOLLOW_UP_STATUS, DBConstants.KEY.PARTNER_NOT_FOUND_REASON,
+                DBConstants.KEY.PARTNER_FOLLOW_UP_END, DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY,
+                DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE, DBConstants.KEY.PARTNER_EDUCATION_PROVIDED,
+                DBConstants.KEY.PARTNER_EDUCATION_TOPICS, DBConstants.KEY.PARTNER_HIV_TESTED,
+                DBConstants.KEY.PARTNER_HIV_RESULT, DBConstants.KEY.PARTNER_HIV_NOT_TESTED_REASON,
+                DBConstants.KEY.PARTNER_HIV_NOT_TESTED_REASON_OTHER, DBConstants.KEY.PARTNER_SYPHILIS_TESTED,
+                DBConstants.KEY.PARTNER_SYPHILIS_RESULT, DBConstants.KEY.PARTNER_SYPHILIS_NOT_TESTED_REASON,
+                DBConstants.KEY.PARTNER_SYPHILIS_NOT_TESTED_REASON_OTHER, DBConstants.KEY.PARTNER_HEPATITIS_B_TESTED,
+                DBConstants.KEY.PARTNER_HEPATITIS_B_RESULT, DBConstants.KEY.PARTNER_HEPATITIS_B_NOT_TESTED_REASON,
+                DBConstants.KEY.PARTNER_HEPATITIS_B_NOT_TESTED_REASON_OTHER
+        };
+        database.execSQL("CREATE TABLE " + Constants.TABLES.MOTHERMENTOR_FOLLOWUP_VISIT + " ("
+                + String.join(" TEXT, ", followUpColumns) + " TEXT)");
+        database.execSQL("CREATE TABLE visits (form_submission_id TEXT, base_entity_id TEXT, "
+                + "processed INTEGER, visit_type TEXT)");
     }
 
     @After

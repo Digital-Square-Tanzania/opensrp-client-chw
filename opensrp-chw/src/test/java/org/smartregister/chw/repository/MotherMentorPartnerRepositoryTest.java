@@ -32,11 +32,15 @@ public class MotherMentorPartnerRepositoryTest {
         Mockito.when(cipher.rawQuery(anyString(), org.mockito.ArgumentMatchers.<String[]>any())).thenAnswer(call -> db.rawQuery(call.getArgument(0), call.getArgument(1)));
         Mockito.doAnswer(call -> { db.execSQL(call.getArgument(0)); return null; }).when(cipher).execSQL(anyString());
         MotherMentorPartnerRepository.ensureColumns(cipher);
+        db.execSQL("ALTER TABLE ec_mothermentor_enrollment ADD COLUMN pregnancy_status TEXT");
+        db.execSQL("CREATE TABLE ec_mothermentor_followup_visit (base_entity_id TEXT, entity_id TEXT, follow_up_category TEXT, follow_up_status TEXT, partner_arrived_at_facility TEXT, partner_facility_arrival_date TEXT)");
+        db.execSQL("CREATE TABLE visits (form_submission_id TEXT, base_entity_id TEXT, processed INTEGER, visit_type TEXT)");
+        MotherMentorPartnerWorkflowMigration.upgrade(cipher);
         repository = new MotherMentorPartnerRepository(cipher);
         db.execSQL("INSERT INTO ec_family VALUES ('family', 0), ('other-family', 0), ('closed-family', 1)");
         add("mother", "family", 0); add("household", "family", 0); add("other", "other-family", 0);
         add("legacy", "family", 0); add("linked", "family", 0); add("closed", "family", 1); add("closed-household", "closed-family", 0);
-        db.execSQL("INSERT INTO ec_mothermentor_enrollment VALUES ('mother', '12-34-5678-123456', 0)");
+        db.execSQL("INSERT INTO ec_mothermentor_enrollment (base_entity_id, ctc_number, is_closed) VALUES ('mother', '12-34-5678-123456', 0)");
         db.execSQL("INSERT INTO ec_mothermentor_enroll_partner (base_entity_id, relational_id, is_closed, mother_base_entity_id) VALUES ('legacy', 'family', 0, NULL), ('linked', 'family', 0, 'mother')");
     }
     @After public void cleanup() { db.close(); }
@@ -70,7 +74,7 @@ public class MotherMentorPartnerRepositoryTest {
         MotherMentorPartnerRepository.ensureColumns(cipher);
         MotherMentorPartnerRepository.ensureColumns(cipher);
         assertEquals("family", repository.existingEnrollment("legacy").get("relational_id"));
-        try (Cursor cursor = db.rawQuery("PRAGMA table_info(ec_mothermentor_enroll_partner)", null)) { assertEquals(8, cursor.getCount()); }
+        try (Cursor cursor = db.rawQuery("PRAGMA table_info(ec_mothermentor_enroll_partner)", null)) { assertEquals(11, cursor.getCount()); }
     }
     @Test public void legacyEnrollmentCannotBypassEligibilityOrOverwriteExistingLink() {
         assertTrue(repository.canEnrollPartner("other"));
@@ -90,6 +94,53 @@ public class MotherMentorPartnerRepositoryTest {
     @Test public void newLinkImmediatelyRemovesCandidate() {
         db.execSQL("UPDATE ec_mothermentor_enroll_partner SET mother_base_entity_id = 'mother' WHERE base_entity_id = 'legacy'");
         assertEquals(Arrays.asList("household"), ids(repository.candidates("mother", "family", true)));
+    }
+    @Test public void completedLinkageAllowsRelinkingTheNextDayAndPreservesNewLinkage() {
+        completedVisit("completed", org.joda.time.LocalDate.now().minusDays(1).toString());
+        assertTrue(repository.canEnrollPartner("linked"));
+        assertTrue(ids(repository.candidates("mother", "family", true)).contains("linked"));
+        assertTrue(repository.existingEnrollment("linked").isEmpty());
+
+        db.execSQL("UPDATE ec_mothermentor_enroll_partner SET partner_linkage_id = 'new-link' WHERE base_entity_id = 'linked'");
+        assertFalse(repository.canEnrollPartner("linked"));
+        assertFalse(ids(repository.candidates("mother", "family", true)).contains("linked"));
+        assertEquals("new-link", repository.existingEnrollment("linked").get("partner_linkage_id"));
+    }
+    @Test public void sameDayCompletionAndDraftCompletionKeepTheLinkageActive() {
+        completedVisit("completed", org.joda.time.LocalDate.now().toString());
+        assertFalse(repository.canEnrollPartner("linked"));
+        db.execSQL("UPDATE ec_mothermentor_followup_visit SET mothermentor_visit_date = ?",
+                new Object[]{org.joda.time.LocalDate.now().minusDays(1).toString()});
+        db.execSQL("UPDATE visits SET processed = 0");
+        assertFalse(repository.canEnrollPartner("linked"));
+        assertFalse(ids(repository.candidates("mother", "family", true)).contains("linked"));
+    }
+    @Test public void finalizedPartnerDeathBlocksRelinkingAcrossLinkagesButDraftOrOtherCategoryDoesNot() {
+        db.execSQL("INSERT INTO ec_mothermentor_followup_visit (base_entity_id, entity_id, follow_up_category, "
+                + "follow_up_status, partner_follow_up_schema, partner_follow_up_phase, partner_not_found_reason, "
+                + "partner_follow_up_end, partner_linkage_id) VALUES "
+                + "('death', 'other', 'PARTNER', 'not_found', '2', 'tracing', 'deceased', 'deceased', 'old-link')");
+        db.execSQL("INSERT INTO visits VALUES ('death', 'other', 0, 'MotherMentor Partner Follow-up Visit')");
+        assertTrue(repository.canEnrollPartner("other"));
+        db.execSQL("UPDATE visits SET processed = 1 WHERE form_submission_id = 'death'");
+        assertFalse(repository.canEnrollPartner("other"));
+        assertFalse(ids(repository.candidates("mother", "family", false)).contains("other"));
+        db.execSQL("UPDATE ec_mothermentor_followup_visit SET follow_up_category = 'CHILD_EID'");
+        assertTrue(repository.canEnrollPartner("other"));
+        assertTrue(ids(repository.candidates("mother", "family", false)).contains("other"));
+    }
+    private void completedVisit(String id, String day) {
+        db.execSQL("INSERT INTO ec_mothermentor_followup_visit (base_entity_id, entity_id, follow_up_category, "
+                + "follow_up_status, mothermentor_visit_date, partner_follow_up_schema, partner_follow_up_phase, "
+                + "partner_arrived_at_facility, partner_facility_arrival_date, partner_follow_up_end, "
+                + "partner_linkage_id, partner_education_provided, partner_hiv_tested, partner_hiv_not_tested_reason, "
+                + "partner_syphilis_tested, partner_syphilis_not_tested_reason, partner_hepatitis_b_tested, "
+                + "partner_hepatitis_b_not_tested_reason) VALUES "
+                + "(?, 'linked', 'PARTNER', 'found', ?, '2', 'attendance', 'yes', ?, 'completed', "
+                + "'legacy:linked', 'no', 'no', 'stock_out', 'no', 'stock_out', 'no', 'stock_out')",
+                new Object[]{id, day, day});
+        db.execSQL("INSERT INTO visits VALUES (?, 'linked', 1, 'MotherMentor Partner Follow-up Visit')",
+                new Object[]{id});
     }
     @Test public void deceasedPartnerCannotBeSelectedOrEnrolledWhenMemberRecordRemainsOpen() {
         db.execSQL("UPDATE ec_family_member SET dod='2026-10-20' WHERE base_entity_id='household'");
