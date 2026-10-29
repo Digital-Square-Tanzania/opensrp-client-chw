@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +79,8 @@ public class MotherMentorChildEidFormUtilsTest {
             assertTrue(field(form, "child_name").getBoolean("read_only"));
             form.put("entity_id", "mother");
             field(form, "relational_id").put("value", "mother-family");
+            field(form, DBConstants.KEY.LAST_TEST_RESULTS_RETURNED)
+                    .put("value", "no");
             field(form, "last_test_result").put("value", "waiting");
             MotherMentorChildEidFormUtils.bindIdentity(form, mother, child);
             assertEquals("child", form.getString("entity_id"));

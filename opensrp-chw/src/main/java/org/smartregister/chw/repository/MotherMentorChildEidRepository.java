@@ -186,6 +186,7 @@ public class MotherMentorChildEidRepository {
                 existingEnrollment(childId).get(DBConstants.KEY.MOTHER_BASE_ENTITY_ID));
         MotherMentorChildEidFormUtils.bindIdentity(form, mother.values, child.values);
         MotherMentorChildEidFormUtils.bindHeiNumber(form, mother.values);
+        MotherMentorChildEidFormUtils.prepareForEvent(form);
         Event event =
                 org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(
                         preferences, form.toString(), TABLE);

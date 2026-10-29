@@ -77,9 +77,19 @@ public final class MotherMentorChildEidFormUtils {
                     DBConstants.KEY.BREASTFEEDING_STATUS,
                     DBConstants.KEY.WEANING_DATE,
                     DBConstants.KEY.LAST_TEST,
+                    DBConstants.KEY.LAST_TEST_RESULTS_RETURNED,
                     DBConstants.KEY.LAST_TEST_RESULT
                 }) {
             if (previous.get(key) != null) set(form, key, previous.get(key), false);
+        }
+        String returned = field(form, DBConstants.KEY.LAST_TEST_RESULTS_RETURNED).optString("value");
+        if (!"yes".equals(returned) && !"no".equals(returned)) {
+            String result = field(form, DBConstants.KEY.LAST_TEST_RESULT).optString("value");
+            if ("positive".equals(result) || "negative".equals(result)) {
+                set(form, DBConstants.KEY.LAST_TEST_RESULTS_RETURNED, "yes", false);
+            } else if ("waiting".equals(result)) {
+                set(form, DBConstants.KEY.LAST_TEST_RESULTS_RETURNED, "no", false);
+            }
         }
         bindIdentity(form, mother, child);
         String birthOrder = previous.get(DBConstants.KEY.HEI_FOLLOW_UP_NUMBER);
@@ -135,6 +145,32 @@ public final class MotherMentorChildEidFormUtils {
                 DBConstants.KEY.CHILD_DOB,
                 dob != null && dob.length() >= 10 ? dob.substring(0, 10) : dob,
                 true);
+        normalizeLastTestResult(form);
+    }
+
+    private static void normalizeLastTestResult(JSONObject form) throws JSONException {
+        String lastTest = field(form, DBConstants.KEY.LAST_TEST).optString("value");
+        String returned = field(form, DBConstants.KEY.LAST_TEST_RESULTS_RETURNED).optString("value");
+        if ("no_test_has_been_done_yet".equals(lastTest)) {
+            set(form, DBConstants.KEY.LAST_TEST_RESULTS_RETURNED, "", false);
+            set(form, DBConstants.KEY.LAST_TEST_RESULT, "", false);
+        } else if ("no".equals(returned)) {
+            // Keep the established enrollment projection's pending-result code.
+            set(form, DBConstants.KEY.LAST_TEST_RESULT, "waiting", false);
+        } else if ("yes".equals(returned)) {
+            String result = field(form, DBConstants.KEY.LAST_TEST_RESULT).optString("value");
+            if (!"positive".equals(result) && !"negative".equals(result)) {
+                set(form, DBConstants.KEY.LAST_TEST_RESULT, "", false);
+            }
+        }
+    }
+
+    public static void prepareForEvent(JSONObject form) throws JSONException {
+        normalizeLastTestResult(form);
+        if ("no".equals(field(form, DBConstants.KEY.LAST_TEST_RESULTS_RETURNED).optString("value"))) {
+            // The serializer accepts only listed radio options; pending is a stored value only.
+            field(form, DBConstants.KEY.LAST_TEST_RESULT).put("type", "hidden");
+        }
     }
 
     public static void bindHeiNumber(JSONObject form, Map<String, String> mother)
