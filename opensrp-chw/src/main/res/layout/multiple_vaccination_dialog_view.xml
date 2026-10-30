@@ -48,7 +48,7 @@
                     android:layout_toRightOf="@+id/close"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
-                    android:text="@string/record_immunizations"
+                    android:text="@string/ui_vaccinations_title"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/activity_title_size" />
@@ -61,11 +61,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/pagination_bar_height"
         android:background="@drawable/dialog_shape">
 
+        <ScrollView android:id="@+id/ui_vaccination_scroll"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -150,7 +154,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="@integer/anc_list_anc_visit_service_mode_anc_visit_1_view_weight"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -184,7 +187,6 @@
                         android:layout_marginEnd="@dimen/btn_margin_right"
                         android:layout_marginRight="@dimen/btn_margin_right"
                         android:layout_marginBottom="@dimen/btn_margin_bottom"
-                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -214,7 +216,9 @@
                             android:paddingLeft="0dp"
                             android:text="@string/add_date_separately"
                             android:textColor="@color/button_navy_blue"
-                            android:textSize="@dimen/number_view_text_size" />
+                            android:textSize="@dimen/number_view_text_size"
+            android:singleLine="false"
+            android:maxLines="100" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -245,7 +249,6 @@
                     android:layout_marginEnd="@dimen/btn_margin_right"
                     android:layout_marginRight="@dimen/btn_margin_right"
                     android:layout_marginBottom="@dimen/btn_margin_bottom"
-                    android:layout_weight="1"
                     android:background="@drawable/vaccination_today_bg"
                     android:paddingTop="@dimen/btn_padding_top"
                     android:paddingBottom="@dimen/btn_padding_bottom"
@@ -264,7 +267,6 @@
                     android:layout_marginLeft="@dimen/btn_margin_left"
                     android:layout_marginEnd="@dimen/btn_margin_right"
                     android:layout_marginRight="@dimen/btn_margin_right"
-                    android:layout_weight="1"
                     android:background="@drawable/vaccination_earlier_bg"
                     android:paddingTop="@dimen/btn_padding_top"
                     android:paddingBottom="@dimen/btn_padding_bottom"
@@ -281,7 +283,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/btn_margin_left"
                     android:layout_marginRight="@dimen/btn_margin_right"
-                    android:layout_weight="1"
                     android:paddingTop="@dimen/btn_padding_top"
                     android:paddingBottom="@dimen/btn_padding_bottom"
                     android:text="@string/set"
@@ -292,5 +293,6 @@
                     android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
+        </ScrollView>
     </FrameLayout>
 </FrameLayout>

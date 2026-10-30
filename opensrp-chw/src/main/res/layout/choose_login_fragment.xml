@@ -1,99 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F6F6F6">
-
-    <org.smartregister.view.customcontrols.CustomFontTextView
-        android:id="@+id/tvAppName"
-        style="@style/CustomFontTextViewStyle.Header.Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="10dp"
-        android:padding="10dp"
-        android:text="@string/app_name"
-        android:textSize="30sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <org.smartregister.view.customcontrols.CustomFontTextView
-        android:id="@+id/tvUseText"
-        style="@style/CustomFontTextViewStyle.ClientList.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp"
-        android:padding="10dp"
-        android:text="Use pin or password to log in?"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAppName" />
-
-    <org.smartregister.view.customcontrols.CustomFontTextView
-        android:id="@+id/tvInstructions"
-        style="@style/CustomFontTextViewStyle.ClientList.Light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="30dp"
-        android:gravity="center"
-        android:maxLines="2"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:text="@string/use_4_digit_pin_number_promt"
-        android:textColor="@color/colorDarkGrey"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUseText" />
-
-    <Button
-        android:id="@+id/btnUsePin"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/btn_margin_left"
-        android:layout_marginEnd="@dimen/btn_margin_right"
-        android:layout_marginBottom="@dimen/btn_margin_right"
-        android:background="@drawable/login_pin_bg"
-        android:paddingTop="@dimen/btn_padding_top"
-        android:paddingBottom="@dimen/btn_padding_bottom"
-        android:text="Use pin number"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnUsePassword"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-
-    <Button
-        android:id="@+id/btnUsePassword"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/btn_margin_left"
-        android:layout_marginEnd="@dimen/btn_margin_right"
-        android:layout_marginBottom="@dimen/btn_margin_right"
-        android:background="@android:color/transparent"
-        android:paddingTop="@dimen/btn_padding_top"
-        android:paddingBottom="@dimen/btn_padding_bottom"
-        android:text="Use password"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="@color/colorDarkGrey"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:background="#F6F6F6">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="24dp">
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/tvAppName" style="@style/CustomFontTextViewStyle.Header.Black"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp" android:gravity="center" android:text="@string/app_name"
+            android:textSize="24sp" android:singleLine="false" android:maxLines="100" />
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/tvUseText" style="@style/CustomFontTextViewStyle.ClientList.Bold"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp" android:text="@string/ui_choose_sign_in"
+            android:textSize="20sp" android:singleLine="false" android:maxLines="100" />
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/tvInstructions" style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" android:text="@string/use_4_digit_pin_number_promt"
+            android:textColor="@color/ui_text_secondary" android:textSize="18sp"
+            android:singleLine="false" android:maxLines="100" />
+        <Button android:id="@+id/btnUsePin" style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp" android:minHeight="56dp" android:padding="12dp"
+            android:background="@drawable/login_button_bg" android:text="@string/ui_use_pin"
+            android:textColor="@color/white" android:textSize="18sp" />
+        <Button android:id="@+id/btnUsePassword" style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:minHeight="56dp" android:padding="12dp"
+            android:background="?attr/selectableItemBackground" android:text="@string/ui_use_password"
+            android:textColor="@color/ui_text_secondary" android:textSize="18sp" />
+    </LinearLayout>
+</ScrollView>

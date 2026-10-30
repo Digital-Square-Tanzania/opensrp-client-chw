@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 import android.widget.Toast;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
@@ -518,9 +520,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (toolbarTitle != null) {
             toolbarTitle.setText(
                     isFollowUpProfile()
-                            ? R.string.mothermentor_back_to_follow_up_clients
-                            : org.smartregister.chw.mothermentor.R.string
-                                    .return_to_mothermentor_clients);
+                            ? R.string.mothermentor_follow_up
+                            : R.string.ui_mothermentor_back);
         }
         updateFollowUpRole();
         updateIitHighRiskTag();
@@ -1297,8 +1298,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             rlLastVisit.setVisibility(View.VISIBLE);
             view_last_visit_row.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
-            ((TextView) findViewById(org.smartregister.chw.mothermentor.R.id.ivViewHistoryArrow))
-                    .setText(getString(R.string.mothermentor_view_visit_history, visitCount));
+            TextView historyLink = findViewById(org.smartregister.chw.mothermentor.R.id.ivViewHistoryArrow);
+            historyLink.setText(getString(R.string.mothermentor_view_visit_history, visitCount));
+            historyLink.setTextColor(ContextCompat.getColor(this, R.color.ui_text_secondary));
             rlLastVisit.setOnClickListener(view -> openMedicalHistory());
             ivViewHistoryArrow.setOnClickListener(view -> openMedicalHistory());
         } else {

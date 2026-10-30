@@ -39,7 +39,7 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="@dimen/ec_main_header_search_layout_height"
+            android:layout_height="48dp"
             android:layout_marginStart="@dimen/register_search_bar_margin"
             android:layout_marginEnd="@dimen/register_search_bar_min_margin"
             android:layout_weight="1.0">
@@ -58,24 +58,29 @@
                 android:padding="@dimen/register_search_bar_padding"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/search_hint_white"
-                android:textSize="@dimen/default_font_size_search_bar" />
+                android:textSize="@dimen/default_font_size_search_bar"
+                android:paddingEnd="48dp"
+            android:paddingStart="@dimen/register_search_bar_padding"
+                android:imeOptions="actionSearch"
+                android:inputType="textCapWords" />
 
             <ImageButton
                 android:id="@id/btn_search_cancel"
-                android:layout_width="@dimen/ec_main_header_search_cancel_button_width"
+                android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/search_view_cancel_image_margin_right"
-                android:background="@android:color/transparent"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_cross"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:contentDescription="@string/ui_clear_search" />
         </RelativeLayout>
 
         <!-- Placeholder left/right containers expected by some bases -->
         <RelativeLayout
             android:id="@id/top_left_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ec_main_header_search_layout_height"
+            android:layout_height="48dp"
             android:layout_marginStart="@dimen/search_bar_min_margin"
             android:layout_weight="0.0"
             android:visibility="gone" />
@@ -83,7 +88,7 @@
         <RelativeLayout
             android:id="@id/top_right_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ec_main_header_search_layout_height"
+            android:layout_height="48dp"
             android:layout_marginEnd="@dimen/register_search_bar_margin"
             android:layout_weight="0.0"
             android:visibility="gone" />
@@ -92,7 +97,7 @@
         <RelativeLayout
             android:id="@id/filter_sort_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ec_main_header_search_layout_height"
+            android:layout_height="48dp"
             android:layout_marginEnd="@dimen/register_search_bar_margin"
             android:layout_marginStart="@dimen/search_bar_min_margin"
             android:layout_weight="0.0"
@@ -102,7 +107,7 @@
         <RelativeLayout
             android:id="@id/due_only_layout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/ec_main_header_search_layout_height"
+            android:layout_height="48dp"
             android:layout_marginEnd="@dimen/register_search_bar_margin"
             android:layout_marginStart="@dimen/search_bar_min_margin"
             android:layout_weight="0.0"

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="chw_primary">@color/ui_action_primary</color>
+    <color name="primary">@color/ui_action_primary</color>
+    <color name="chw_accent">@color/ui_action_primary</color>
+    <color name="primaryAccent">@color/ui_action_primary</color>
+</resources>

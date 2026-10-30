@@ -42,4 +42,5 @@
     <!-- Toolbar action vertical nudge (default: no nudge) -->
     <dimen name="toolbar_action_nudge_y">0dp</dimen>
 
+    <dimen name="login_title_text_size">24sp</dimen>
 </resources>

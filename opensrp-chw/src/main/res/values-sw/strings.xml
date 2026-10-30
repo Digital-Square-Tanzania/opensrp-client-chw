@@ -970,8 +970,8 @@
     <string name="filter_status_on">Imewashwa</string>
     <string name="filter_status_off">Imezimwa</string>
     <string name="filter_applied">Zimechujwa</string>
-    <string name="hiv_status_filter_title">HIV Status</string>
-    <string name="prep_status_filter_title">PrEP Client Status</string>
+    <string name="hiv_status_filter_title">Hali ya VVU</string>
+    <string name="prep_status_filter_title">Hali ya mteja wa PrEP</string>
     <string name="referred_from_community_filter_title">Referred From Community</string>
     <string name="next_visit_date_filter_title">Tarehe ya tembeleo lijalo</string>
     <string name="next_visit_date_range_filter_title">Kipindi cha matembeleo yajayo</string>
@@ -1173,4 +1173,29 @@
     <string name="member_removal_reason_missing">Tafadhali chagua sababu ya kumuondoa mwanakaya na ujaribu tena.</string>
     <string name="immunization_save_retry">Chanjo hazijahifadhiwa. Taarifa ulizoingiza bado zipo kwenye ukurasa huu. Subiri ziara ipakiwe, kisha bonyeza Hifadhi tena.</string>
     <string name="immunization_restore_failed">Fomu hii ya chanjo haikuweza kurejeshwa. Hakuna kilichohifadhiwa. Rudi kwenye ziara na ufungue tena Rekodi chanjo.</string>
+
+    <string name="ui_clear_search">Futa utafutaji</string>
+    <string name="ui_enable_filters">Washa vichujio</string>
+    <string name="ui_show_pin">Onyesha PIN</string>
+    <string name="ui_refresh_indicators">Sasisha viashiria</string>
+    <string-array name="ui_hiv_status_filter_labels">
+        <item>Wote</item>
+        <item>Chanya</item>
+        <item>Hasi</item>
+    </string-array>
+    <string-array name="ui_prep_status_filter_labels">
+        <item>Wote</item>
+        <item>Ameanza</item>
+        <item>Hajaanza</item>
+        <item>Anaendelea</item>
+        <item>Ameanza tena</item>
+        <item>Ameacha</item>
+    </string-array>
+    <string name="ui_link_child_title">Unganisha mtoto</string>
+    <string name="ui_check_in">Weka alama ya kufika</string>
+    <string name="ui_choose_sign_in">Chagua njia ya kuingia</string>
+    <string name="ui_use_pin">Tumia PIN</string>
+    <string name="ui_use_password">Tumia nenosiri</string>
+    <string name="ui_mothermentor_back">Mama Kinara</string>
+    <string name="ui_vaccinations_title">Chanjo</string>
 </resources>
