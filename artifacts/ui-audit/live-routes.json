@@ -1,0 +1,210 @@
+[
+  {
+    "screen": "route-all-clients",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.AllClientsRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "All Clients"
+  },
+  {
+    "screen": "route-all-households",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.FamilyRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "All Households"
+  },
+  {
+    "screen": "route-icchw",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.HpsRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "iCCHW"
+  },
+  {
+    "screen": "route-iccm",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.IccmRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "iCCM"
+  },
+  {
+    "screen": "route-cbhs",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.HivRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "CBHS"
+  },
+  {
+    "screen": "route-ncd-clients",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.NcdRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "NCD Clients"
+  },
+  {
+    "screen": "route-index-contacts",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Index Contacts"
+  },
+  {
+    "screen": "route-anc",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.AncRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "ANC"
+  },
+  {
+    "screen": "route-pnc",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.PncRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "PNC"
+  },
+  {
+    "screen": "route-child-clients",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.ChildRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Child Clients"
+  },
+  {
+    "screen": "route-mother-mentor",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.MotherMentorRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Mother Mentor"
+  },
+  {
+    "screen": "route-self-testing",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.HivstRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Self Testing"
+  },
+  {
+    "screen": "route-kvp",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.KvpPrEPRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "KVP"
+  },
+  {
+    "screen": "route-tb-leprosy",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.TbLeprosyRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "TB/Leprosy"
+  },
+  {
+    "screen": "route-harm-reduction",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.HarmReductionRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Harm Reduction"
+  },
+  {
+    "screen": "route-sober-house",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.HarmReductionSoberHouseRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Sober House"
+  },
+  {
+    "screen": "route-sbc-monthly-social-media-report",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.SbcMonthlySocialMediaReportRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "SBC Monthly Social Media Report"
+  },
+  {
+    "screen": "route-sbc-for-hiv",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.SbcRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "SBC for HIV"
+  },
+  {
+    "screen": "route-family-planning",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.FpRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Family Planning"
+  },
+  {
+    "screen": "route-ayp-in-school-services",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.AypInSchoolRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "AYP In-School Services"
+  },
+  {
+    "screen": "route-ayp-out-school-services",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.AypOutSchoolRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "AYP Out-School Services"
+  },
+  {
+    "screen": "route-ayp-parental-services",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.AypParentalRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "AYP Parental Services"
+  },
+  {
+    "screen": "route-linkage",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.AddoLinkageRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Linkage"
+  },
+  {
+    "screen": "route-referrals",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.ReferralRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Referrals"
+  },
+  {
+    "screen": "route-linkages-from-facility",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.UpdatesRegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "Linkages from Facility"
+  },
+  {
+    "screen": "route-ltfu",
+    "activity": [
+      "org.smartregister.chw.moh.testing/org.smartregister.chw.activity.LTFURegisterActivity"
+    ],
+    "font_scale": "1.0",
+    "label": "LTFU"
+  }
+]

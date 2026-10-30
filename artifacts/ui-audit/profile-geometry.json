@@ -1,0 +1,37 @@
+{
+  "textview_name": {
+    "present": true,
+    "bounds": "[0,591][1280,731]",
+    "nonempty": true
+  },
+  "textview_gender": {
+    "present": true,
+    "bounds": "[48,761][1232,868]",
+    "nonempty": true
+  },
+  "textview_address": {
+    "present": true,
+    "bounds": "[48,868][1232,975]",
+    "nonempty": true
+  },
+  "textview_id": {
+    "present": true,
+    "bounds": "[48,975][1232,1082]",
+    "nonempty": true
+  },
+  "textview_ctc_number": {
+    "present": true,
+    "bounds": "[0,1112][1280,1249]",
+    "nonempty": true
+  },
+  "textview_record_mothermentor": {
+    "present": true,
+    "bounds": "[120,1333][1160,1604]",
+    "nonempty": true
+  },
+  "ivViewHistoryArrow": {
+    "present": true,
+    "bounds": "[90,1740][1220,1852]",
+    "nonempty": true
+  }
+}

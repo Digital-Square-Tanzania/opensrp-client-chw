@@ -1,0 +1,3304 @@
+{
+  "base": "fd69011173bbc755f576fc658ab434d6f2a08f4c",
+  "activities": [
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AGYWReportsActivity.java",
+      "class": "AGYWReportsActivity",
+      "parent": "CBHSReportsActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AGYWReportsViewActivity.java",
+      "class": "AGYWReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AGYWServicesActivity.java",
+      "class": "AGYWServicesActivity",
+      "parent": "BaseAGYWServicesActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AboveFiveChildProfileActivity.java",
+      "class": "AboveFiveChildProfileActivity",
+      "parent": "CoreAboveFiveChildProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AddoLinkageRegisterActivity.java",
+      "class": "AddoLinkageRegisterActivity",
+      "parent": "ReferralRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-linkage"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AgywMedicalHistoryActivity.java",
+      "class": "AgywMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AgywMedicalHistoryActivityFlv.java",
+      "class": "AgywMedicalHistoryActivityFlv",
+      "parent": "DefaultAncMedicalHistoryActivityFlv",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AgywProfileActivity.java",
+      "class": "AgywProfileActivity",
+      "parent": "BaseAGYWProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AgywRegisterActivity.java",
+      "class": "AgywRegisterActivity",
+      "parent": "CoreAgywRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AgywServicesFormActivity.java",
+      "class": "AgywServicesFormActivity",
+      "parent": "CoreAgywServicesFormsActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AllClientsMemberProfileActivity.java",
+      "class": "AllClientsMemberProfileActivity",
+      "parent": "CoreAllClientsMemberProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AllClientsRegisterActivity.java",
+      "class": "AllClientsRegisterActivity",
+      "parent": "CoreAllClientsRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "delivery-final-all-clients",
+        "drawer-page-1",
+        "drawer-page-0",
+        "offline-login-result",
+        "delivery-search-cleared",
+        "all-clients-rows-before-alignment",
+        "signed-in-drawer",
+        "drawer-expanded",
+        "all-clients-alignment-before",
+        "delivery-search-empty",
+        "all-clients-sex-location-fixed",
+        "delivery-final-review-screen",
+        "all-clients-sex-location-fixed-large",
+        "drawer-page-4",
+        "drawer-page-3",
+        "isolated-login-settled",
+        "drawer-page-2",
+        "final-offline-login-result",
+        "route-all-clients"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AllMaleClientsActivity.java",
+      "class": "AllMaleClientsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_all_male_clients"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncHfMedicalHistoryActivity.java",
+      "class": "AncHfMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncHomeVisitActivity.java",
+      "class": "AncHomeVisitActivity",
+      "parent": "BaseAncHomeVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncJsonWizardFormActivity.java",
+      "class": "AncJsonWizardFormActivity",
+      "parent": "FamilyWizardFormActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncMedicalHistoryActivity.java",
+      "class": "AncMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncMemberMapActivity.java",
+      "class": "AncMemberMapActivity",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "activity_anc_member_map"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncMemberProfileActivity.java",
+      "class": "AncMemberProfileActivity",
+      "parent": "CoreAncMemberProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-profile-anc"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncPartnerFollowupReferralProfileActivity.java",
+      "class": "AncPartnerFollowupReferralProfileActivity",
+      "parent": "CoreAncMemberProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncRegisterActivity.java",
+      "class": "AncRegisterActivity",
+      "parent": "CoreAncRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-anc"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AncUpcomingServicesActivity.java",
+      "class": "AncUpcomingServicesActivity",
+      "parent": "BaseAncUpcomingServicesActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AsrhMedicalHistoryActivity.java",
+      "class": "AsrhMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AsrhMemberProfileActivity.java",
+      "class": "AsrhMemberProfileActivity",
+      "parent": "CoreAsrhMemberProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AsrhRegisterActivity.java",
+      "class": "AsrhRegisterActivity",
+      "parent": "CoreAsrhRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AsrhReportsActivity.java",
+      "class": "AsrhReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_asrh_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AsrhReportsViewActivity.java",
+      "class": "AsrhReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AsrhVisitActivity.java",
+      "class": "AsrhVisitActivity",
+      "parent": "BaseAsrhVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypInSchoolClientServiceVisitActivity.java",
+      "class": "AypInSchoolClientServiceVisitActivity",
+      "parent": "BaseAypInSchoolClientVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypInSchoolGroupProfileActivity.java",
+      "class": "AypInSchoolGroupProfileActivity",
+      "parent": "BaseAypGroupProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypInSchoolGroupVisitActivity.java",
+      "class": "AypInSchoolGroupVisitActivity",
+      "parent": "BaseAypInSchoolGroupVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypInSchoolMedicalHistoryActivity.java",
+      "class": "AypInSchoolMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypInSchoolMemberProfileActivity.java",
+      "class": "AypInSchoolMemberProfileActivity",
+      "parent": "CoreAypProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypInSchoolRegisterActivity.java",
+      "class": "AypInSchoolRegisterActivity",
+      "parent": "CoreAypRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-ayp-in-school-services"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolClientServiceVisitActivity.java",
+      "class": "AypOutSchoolClientServiceVisitActivity",
+      "parent": "BaseAypVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolGroupMedicalHistoryActivity.java",
+      "class": "AypOutSchoolGroupMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolGroupProfileActivity.java",
+      "class": "AypOutSchoolGroupProfileActivity",
+      "parent": "BaseAypOutGroupProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolGroupVisitActivity.java",
+      "class": "AypOutSchoolGroupVisitActivity",
+      "parent": "BaseAypOutSchoolGroupVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolMedicalHistoryActivity.java",
+      "class": "AypOutSchoolMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolMemberProfileActivity.java",
+      "class": "AypOutSchoolMemberProfileActivity",
+      "parent": "CoreAypProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolRegisterActivity.java",
+      "class": "AypOutSchoolRegisterActivity",
+      "parent": "CoreAypRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-ayp-out-school-services"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolReportsActivity.java",
+      "class": "AypOutSchoolReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_ayp_out_school_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypOutSchoolReportsViewActivity.java",
+      "class": "AypOutSchoolReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypParentalMedicalHistoryActivity.java",
+      "class": "AypParentalMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypParentalMemberProfileActivity.java",
+      "class": "AypParentalMemberProfileActivity",
+      "parent": "CoreAypProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypParentalRegisterActivity.java",
+      "class": "AypParentalRegisterActivity",
+      "parent": "CoreAypRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-ayp-parental-services"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypParentalVisitActivity.java",
+      "class": "AypParentalVisitActivity",
+      "parent": "BaseAypParentalVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypReportsActivity.java",
+      "class": "AypReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_ayp_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/AypReportsViewActivity.java",
+      "class": "AypReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CBHSReportsActivity.java",
+      "class": "CBHSReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_cbhs_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CBHSReportsViewActivity.java",
+      "class": "CBHSReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CbhsMedicalHistoryActivity.java",
+      "class": "CbhsMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CbhsMedicalHistoryActivityFlv.java",
+      "class": "CbhsMedicalHistoryActivityFlv",
+      "parent": "DefaultAncMedicalHistoryActivityFlv",
+      "layouts": [
+        "medical_history_cbhs_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CbhsUpcomingServiceActivity.java",
+      "class": "CbhsUpcomingServiceActivity",
+      "parent": "CoreHivUpcomingServicesActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CdpProfileActivity.java",
+      "class": "CdpProfileActivity",
+      "parent": "CoreCdpProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CdpRegisterActivity.java",
+      "class": "CdpRegisterActivity",
+      "parent": "CoreCdpRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CdpReportsActivity.java",
+      "class": "CdpReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_cdp_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CdpReportsViewActivity.java",
+      "class": "CdpReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CecapMedicalHistoryActivity.java",
+      "class": "CecapMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CecapMemberProfileActivity.java",
+      "class": "CecapMemberProfileActivity",
+      "parent": "CoreCecapMemberProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CecapMobilizationSessionDetailsActivity.java",
+      "class": "CecapMobilizationSessionDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CecapRegisterActivity.java",
+      "class": "CecapRegisterActivity",
+      "parent": "CoreCecapRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CecapReportsActivity.java",
+      "class": "CecapReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_cecap_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/CecapReportsViewActivity.java",
+      "class": "CecapReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ChildHomeVisitActivity.java",
+      "class": "ChildHomeVisitActivity",
+      "parent": "CoreChildHomeVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ChildMedicalHistoryActivity.java",
+      "class": "ChildMedicalHistoryActivity",
+      "parent": "CoreChildMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ChildProfileActivity.java",
+      "class": "ChildProfileActivity",
+      "parent": "CoreChildProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-child-profile"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ChildRegisterActivity.java",
+      "class": "ChildRegisterActivity",
+      "parent": "CoreChildRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-child-clients"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ChwHIA2ReportsActivity.java",
+      "class": "ChwHIA2ReportsActivity",
+      "parent": "HIA2ReportsActivity",
+      "layouts": [
+        "app_hia2_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ChwLinkageDetailsViewActivity.java",
+      "class": "ChwLinkageDetailsViewActivity",
+      "parent": "ChwReferralDetailsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ChwReferralDetailsViewActivity.java",
+      "class": "ChwReferralDetailsViewActivity",
+      "parent": "ReferralDetailsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ChwReportsViewActivity.java",
+      "class": "ChwReportsViewActivity",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "activity_reports_view"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ClientReferralActivity.java",
+      "class": "ClientReferralActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_client_referral"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ClientSelectionRegisterActivity.java",
+      "class": "ClientSelectionRegisterActivity",
+      "parent": "CoreAllClientsRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/DefaultChildProfileActivityFlv.java",
+      "class": "DefaultChildProfileActivityFlv",
+      "parent": "ChildProfileActivity.Flavor",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/DefaultFamilyOtherMemberProfileActivityFlv.java",
+      "class": "DefaultFamilyOtherMemberProfileActivityFlv",
+      "parent": "FamilyOtherMemberProfileActivity.Flavor",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/DefaultHivProfileActivityFlv.java",
+      "class": "DefaultHivProfileActivityFlv",
+      "parent": "HivProfileActivity.Flavor",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/DefaultPncMemberProfileActivityFlv.java",
+      "class": "DefaultPncMemberProfileActivityFlv",
+      "parent": "PncMemberProfileActivity.Flavor",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/DefaultTbProfileActivityFlv.java",
+      "class": "DefaultTbProfileActivityFlv",
+      "parent": "TbProfileActivity.Flavor",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ECDReportsActivity.java",
+      "class": "ECDReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_ecd_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ECDReportsViewActivity.java",
+      "class": "ECDReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FPMemberProfileActivity.java",
+      "class": "FPMemberProfileActivity",
+      "parent": "CoreFamilyPlanningMemberProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FamilyOtherMemberProfileActivity.java",
+      "class": "FamilyOtherMemberProfileActivity",
+      "parent": "CoreFamilyOtherMemberProfileActivity",
+      "layouts": [
+        "action_households_action",
+        "dialog_households_list",
+        "item_household_row"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FamilyProfileActivity.java",
+      "class": "FamilyProfileActivity",
+      "parent": "CoreFamilyProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-profile-all-households"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FamilyProfileMenuActivity.java",
+      "class": "FamilyProfileMenuActivity",
+      "parent": "CoreFamilyProfileMenuActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FamilyRegisterActivity.java",
+      "class": "FamilyRegisterActivity",
+      "parent": "CoreFamilyRegisterActivity",
+      "layouts": [
+        "dialog_select_head_of_household"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-all-households"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FamilyRemoveMemberActivity.java",
+      "class": "FamilyRemoveMemberActivity",
+      "parent": "CoreFamilyRemoveMemberActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ForgotPasswordActivity.java",
+      "class": "ForgotPasswordActivity",
+      "parent": "CoreForgotPasswordActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FpCbdFollowupVisitProvisionOfServicesActivity.java",
+      "class": "FpCbdFollowupVisitProvisionOfServicesActivity",
+      "parent": "BaseFpCbdFollowupVisitProvisionOfServicesActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FpMedicalHistoryActivity.java",
+      "class": "FpMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FpRegisterActivity.java",
+      "class": "FpRegisterActivity",
+      "parent": "CoreFpRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-family-planning"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/FragmentBaseActivity.java",
+      "class": "FragmentBaseActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_fragment_base"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionMatClientsProfileActivity.java",
+      "class": "HarmReductionMatClientsProfileActivity",
+      "parent": "HarmReductionProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionMatClientsVisitActivity.java",
+      "class": "HarmReductionMatClientsVisitActivity",
+      "parent": "BaseHarmReductionVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionMatClientsVisitHistoryActivity.java",
+      "class": "HarmReductionMatClientsVisitHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionPreMatPrintActivity.java",
+      "class": "HarmReductionPreMatPrintActivity",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "activity_reports_view"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionPreMatSessionsHistoryActivity.java",
+      "class": "HarmReductionPreMatSessionsHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionProfileActivity.java",
+      "class": "HarmReductionProfileActivity",
+      "parent": "CoreHarmReductionProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionRegisterActivity.java",
+      "class": "HarmReductionRegisterActivity",
+      "parent": "CoreHarmReductionRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-harm-reduction"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionReportsActivity.java",
+      "class": "HarmReductionReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_harm_reduction_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionReportsViewActivity.java",
+      "class": "HarmReductionReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionSoberHouseProfileActivity.java",
+      "class": "HarmReductionSoberHouseProfileActivity",
+      "parent": "CoreHarmReductionSoberHouseProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionSoberHouseRegisterActivity.java",
+      "class": "HarmReductionSoberHouseRegisterActivity",
+      "parent": "CoreHarmReductionRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-sober-house"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionSoberHouseReportsActivity.java",
+      "class": "HarmReductionSoberHouseReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_harm_reduction_sober_house_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionSoberHouseReportsViewActivity.java",
+      "class": "HarmReductionSoberHouseReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionSoberHouseVisitActivity.java",
+      "class": "HarmReductionSoberHouseVisitActivity",
+      "parent": "BaseHarmReductionSoberHouseVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionSoberHouseVisitHistoryActivity.java",
+      "class": "HarmReductionSoberHouseVisitHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity.java",
+      "class": "HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionVisitActivity.java",
+      "class": "HarmReductionVisitActivity",
+      "parent": "BaseHarmReductionVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HarmReductionVisitHistoryActivity.java",
+      "class": "HarmReductionVisitHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HivIndexContactProfileActivity.java",
+      "class": "HivIndexContactProfileActivity",
+      "parent": "CoreHivIndexContactProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HivIndexContactsContactsRegisterActivity.java",
+      "class": "HivIndexContactsContactsRegisterActivity",
+      "parent": "CoreHivIndexContactsRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-index-contacts"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HivProfileActivity.java",
+      "class": "HivProfileActivity",
+      "parent": "CoreHivProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-profile-cbhs"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HivRegisterActivity.java",
+      "class": "HivRegisterActivity",
+      "parent": "CoreHivRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "delivery-register-cbhs",
+        "route-cbhs"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HivstMobilizationSessionDetailsActivity.java",
+      "class": "HivstMobilizationSessionDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HivstProfileActivity.java",
+      "class": "HivstProfileActivity",
+      "parent": "CoreHivstProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HivstRegisterActivity.java",
+      "class": "HivstRegisterActivity",
+      "parent": "CoreHivstRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-self-testing"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HivstResultViewActivity.java",
+      "class": "HivstResultViewActivity",
+      "parent": "BaseHivstResultViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsAdvertisementFeedbackDetailsActivity.java",
+      "class": "HpsAdvertisementFeedbackDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsAnnualCensusRegistrationDetailsActivity.java",
+      "class": "HpsAnnualCensusRegistrationDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsAnnualCensusVisitActivity.java",
+      "class": "HpsAnnualCensusVisitActivity",
+      "parent": "BaseHpsVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsClientServicesVisitActivity.java",
+      "class": "HpsClientServicesVisitActivity",
+      "parent": "BaseHpsVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsDeathRegistrationDetailsActivity.java",
+      "class": "HpsDeathRegistrationDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsHouseholdProfileActivity.java",
+      "class": "HpsHouseholdProfileActivity",
+      "parent": "CoreHpsProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsHouseholdVisitHistoryActivity.java",
+      "class": "HpsHouseholdVisitHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsMemberProfileActivity.java",
+      "class": "HpsMemberProfileActivity",
+      "parent": "CoreHpsProfileActivity",
+      "layouts": [
+        "action_households_action",
+        "dialog_households_list",
+        "item_household_row"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsMobilizationSessionDetailsActivity.java",
+      "class": "HpsMobilizationSessionDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsRegisterActivity.java",
+      "class": "HpsRegisterActivity",
+      "parent": "CoreHpsRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-icchw"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsReportsActivity.java",
+      "class": "HpsReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_hps_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsReportsViewActivity.java",
+      "class": "HpsReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/HpsVisitHistoryActivity.java",
+      "class": "HpsVisitHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/IccmMedicalHistoryActivity.java",
+      "class": "IccmMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/IccmProfileActivity.java",
+      "class": "IccmProfileActivity",
+      "parent": "CoreMalariaProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/IccmRegisterActivity.java",
+      "class": "IccmRegisterActivity",
+      "parent": "CoreMalariaRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-iccm"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/IccmReportsActivity.java",
+      "class": "IccmReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_iccm_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/IccmReportsViewActivity.java",
+      "class": "IccmReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/IccmServicesActivity.java",
+      "class": "IccmServicesActivity",
+      "parent": "BaseIccmVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/InAppReportsActivity.java",
+      "class": "InAppReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_in_app_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/IndividualProfileRemoveActivity.java",
+      "class": "IndividualProfileRemoveActivity",
+      "parent": "CoreIndividualProfileRemoveActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/JobAidsActivity.java",
+      "class": "JobAidsActivity",
+      "parent": "FamilyRegisterActivity",
+      "layouts": [
+        "activity_job_aids"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/KvpPrEPMedicalHistoryActivity.java",
+      "class": "KvpPrEPMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/KvpPrEPProfileActivity.java",
+      "class": "KvpPrEPProfileActivity",
+      "parent": "CoreKvpProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-profile-kvp"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/KvpPrEPRegisterActivity.java",
+      "class": "KvpPrEPRegisterActivity",
+      "parent": "CoreKvpRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-kvp",
+        "delivery-register-kvp"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/KvpPrEPVisitActivity.java",
+      "class": "KvpPrEPVisitActivity",
+      "parent": "BaseKvpVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/KvpReportsActivity.java",
+      "class": "KvpReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_kvp_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/KvpReportsViewActivity.java",
+      "class": "KvpReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/LTFURecordFeedbackActivity.java",
+      "class": "LTFURecordFeedbackActivity",
+      "parent": "BaseIssueReferralActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/LTFUReferralsDetailsViewActivity.java",
+      "class": "LTFUReferralsDetailsViewActivity",
+      "parent": "BaseReferralTaskViewActivity",
+      "layouts": [
+        "referrals_tasks_view_layout"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/LTFURegisterActivity.java",
+      "class": "LTFURegisterActivity",
+      "parent": "BaseReferralRegister",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-ltfu"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/LinkageFollowUpActivity.java",
+      "class": "LinkageFollowUpActivity",
+      "parent": "MalariaRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/LoginActivity.java",
+      "class": "LoginActivity",
+      "parent": "BaseLoginActivity",
+      "layouts": [
+        "activity_login"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "isolated-authenticated",
+        "final-launcher-state",
+        "mother-followups-live",
+        "signed-in-home",
+        "isolated-login",
+        "login-final",
+        "clients-after-live-fixes",
+        "isolated-login-result"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MalariaFollowUpVisitActivity.java",
+      "class": "MalariaFollowUpVisitActivity",
+      "parent": "MalariaRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MalariaProfileActivity.java",
+      "class": "MalariaProfileActivity",
+      "parent": "CoreMalariaProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MalariaRegisterActivity.java",
+      "class": "MalariaRegisterActivity",
+      "parent": "CoreMalariaRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MalariaUpcomingServicesActivity.java",
+      "class": "MalariaUpcomingServicesActivity",
+      "parent": "BaseAncUpcomingServicesActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherChampionMedicalHistoryActivity.java",
+      "class": "MotherChampionMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherChampionMedicalHistoryActivityFlv.java",
+      "class": "MotherChampionMedicalHistoryActivityFlv",
+      "parent": "DefaultAncMedicalHistoryActivityFlv",
+      "layouts": [
+        "medical_history_mother_champion_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherChampionProfileActivity.java",
+      "class": "MotherChampionProfileActivity",
+      "parent": "CorePmtctProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherChampionRegisterActivity.java",
+      "class": "MotherChampionRegisterActivity",
+      "parent": "CorePmtctRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherChampionSbcMobilizationSessionDetailsActivity.java",
+      "class": "MotherChampionSbcMobilizationSessionDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorChildEidRegisterActivity.java",
+      "class": "MotherMentorChildEidRegisterActivity",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "dialog_tbleprosy_contact_selector",
+        "item_tbleprosy_contact_row",
+        "mothermentor_register_child_eid"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorHouseholdProfileActivity.java",
+      "class": "MotherMentorHouseholdProfileActivity",
+      "parent": "CoreMotherMentorProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-mother-household-profile"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorHouseholdVisitActivity.java",
+      "class": "MotherMentorHouseholdVisitActivity",
+      "parent": "BaseMotherMentorVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorMedicalHistoryActivity.java",
+      "class": "MotherMentorMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "mother-history-live"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorMedicalHistoryActivityFlv.java",
+      "class": "MotherMentorMedicalHistoryActivityFlv",
+      "parent": "DefaultAncMedicalHistoryActivityFlv",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorPartnerRegisterActivity.java",
+      "class": "MotherMentorPartnerRegisterActivity",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "dialog_tbleprosy_contact_selector",
+        "item_tbleprosy_contact_row",
+        "mothermentor_register_partner"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorProfileActivity.java",
+      "class": "MotherMentorProfileActivity",
+      "parent": "CoreMotherMentorProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "delivery-final-profile-large",
+        "delivery-mother-profile",
+        "mother-profile-live",
+        "final-followup-profile-partner",
+        "final-mother-profile-large-text",
+        "final-followup-profile-child-eid",
+        "final-mother-register-state",
+        "delivery-after-draft-cancel",
+        "delivery-final-profile-normal",
+        "final-followup-profile-mother-iit",
+        "mother-profile-large-text-live"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorRegisterActivity.java",
+      "class": "MotherMentorRegisterActivity",
+      "parent": "CoreMotherMentorRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-followup-mother-iit",
+        "delivery-register-mother-mentor",
+        "route-mother-mentor",
+        "final-mother-action_contact",
+        "final-mother-followups",
+        "final-followup-partner",
+        "final-followup-child-eid",
+        "final-mother-action_mobilization"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorReportsActivity.java",
+      "class": "MotherMentorReportsActivity",
+      "parent": "CBHSReportsActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorReportsViewActivity.java",
+      "class": "MotherMentorReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/MotherMentorVisitActivity.java",
+      "class": "MotherMentorVisitActivity",
+      "parent": "BaseMotherMentorVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "mother-visit-live",
+        "mother-visit-exit-dialog",
+        "mother-visit-actions-live",
+        "mother-form-exit",
+        "delivery-mother-visit"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/NcdCaseManagementVisitActivity.java",
+      "class": "NcdCaseManagementVisitActivity",
+      "parent": "NcdVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/NcdHomeVisitActivity.java",
+      "class": "NcdHomeVisitActivity",
+      "parent": "BaseAncHomeVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/NcdMedicalHistoryActivity.java",
+      "class": "NcdMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/NcdProfileActivity.java",
+      "class": "NcdProfileActivity",
+      "parent": "BaseNcdProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-profile-ncd-clients"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/NcdRegisterActivity.java",
+      "class": "NcdRegisterActivity",
+      "parent": "CoreNcdRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-ncd-clients"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/NcdVisitActivity.java",
+      "class": "NcdVisitActivity",
+      "parent": "BaseNcdVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/OrderDetailsActivity.java",
+      "class": "OrderDetailsActivity",
+      "parent": "BaseOrderDetailsActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PartnerRegistrationActivity.java",
+      "class": "PartnerRegistrationActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_partner_registration"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PinLoginActivity.java",
+      "class": "PinLoginActivity",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "activity_pin_login"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PmtctFollowupDetailsActivity.java",
+      "class": "PmtctFollowupDetailsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_pmtctc_details"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PncHomeVisitActivity.java",
+      "class": "PncHomeVisitActivity",
+      "parent": "BasePncHomeVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PncMedicalHistoryActivity.java",
+      "class": "PncMedicalHistoryActivity",
+      "parent": "CorePncMedicalHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PncMemberProfileActivity.java",
+      "class": "PncMemberProfileActivity",
+      "parent": "CorePncMemberProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-profile-pnc"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PncNoMotherRegisterActivity.java",
+      "class": "PncNoMotherRegisterActivity",
+      "parent": "SecuredActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PncRegisterActivity.java",
+      "class": "PncRegisterActivity",
+      "parent": "CorePncRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-pnc"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PncUpcomingServicesActivity.java",
+      "class": "PncUpcomingServicesActivity",
+      "parent": "BaseAncUpcomingServicesActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/PrivacyPolicyActivity.java",
+      "class": "PrivacyPolicyActivity",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "activity_privacy_policy"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ReferralRegisterActivity.java",
+      "class": "ReferralRegisterActivity",
+      "parent": "BaseReferralRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-referrals"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ReferralRegistrationActivity.java",
+      "class": "ReferralRegistrationActivity",
+      "parent": "BaseIssueReferralActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/RegisterFilterActivity.java",
+      "class": "RegisterFilterActivity",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "activity_register_filter"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "instrumented filter controls and resource host",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/ReportsActivity.java",
+      "class": "ReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/RequestPhoneNumberCollectionPermission.java",
+      "class": "RequestPhoneNumberCollectionPermission",
+      "parent": "FragmentActivity",
+      "layouts": [
+        "activity_request_call_phone_permission"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "isolated-unlock"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/RestockingVisitHistoryActivity.java",
+      "class": "RestockingVisitHistoryActivity",
+      "parent": "BaseRestockingHistoryActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcMedicalHistoryActivity.java",
+      "class": "SbcMedicalHistoryActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcMemberProfileActivity.java",
+      "class": "SbcMemberProfileActivity",
+      "parent": "BaseSbcProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcMobilizationSessionDetailsActivity.java",
+      "class": "SbcMobilizationSessionDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcMonthlySocialMediaReportDetailsActivity.java",
+      "class": "SbcMonthlySocialMediaReportDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcMonthlySocialMediaReportRegisterActivity.java",
+      "class": "SbcMonthlySocialMediaReportRegisterActivity",
+      "parent": "CoreSbcRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-sbc-monthly-social-media-report"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcRegisterActivity.java",
+      "class": "SbcRegisterActivity",
+      "parent": "CoreSbcRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-sbc-for-hiv"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcReportsActivity.java",
+      "class": "SbcReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_sbc_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcReportsViewActivity.java",
+      "class": "SbcReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SbcVisitActivity.java",
+      "class": "SbcVisitActivity",
+      "parent": "BaseSbcVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SickChildJsonFormActivity.java",
+      "class": "SickChildJsonFormActivity",
+      "parent": "JsonWizardFormActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/SickFormMedicalHistory.java",
+      "class": "SickFormMedicalHistory",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "sick_visit_activity"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbCommunityFollowupDetailsActivity.java",
+      "class": "TbCommunityFollowupDetailsActivity",
+      "parent": "BaseTbCommunityFollowupDetailsActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbLeprosyContactRegister.java",
+      "class": "TbLeprosyContactRegister",
+      "parent": "AppCompatActivity",
+      "layouts": [
+        "dialog_tbleprosy_contact_selector",
+        "item_tbleprosy_contact_header",
+        "item_tbleprosy_contact_row",
+        "tbleprosy_register_contact"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbLeprosyContactVisitActivity.java",
+      "class": "TbLeprosyContactVisitActivity",
+      "parent": "BaseTbLeprosyVisitActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbLeprosyMobilizationDetailsActivity.java",
+      "class": "TbLeprosyMobilizationDetailsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbLeprosyObservationResultsActivity.java",
+      "class": "TbLeprosyObservationResultsActivity",
+      "parent": "CoreAncMedicalHistoryActivity",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbLeprosyProfileActivity.java",
+      "class": "TbLeprosyProfileActivity",
+      "parent": "CoreTbLeprosyProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "final-profile-tb-leprosy"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbLeprosyRegisterActivity.java",
+      "class": "TbLeprosyRegisterActivity",
+      "parent": "CoreTbLeprosyRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-tb-leprosy"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbLeprosyReportsActivity.java",
+      "class": "TbLeprosyReportsActivity",
+      "parent": "SecuredActivity",
+      "layouts": [
+        "activity_tb_leprosy_reports"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbLeprosyReportsViewActivity.java",
+      "class": "TbLeprosyReportsViewActivity",
+      "parent": "ChwReportsViewActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbProfileActivity.java",
+      "class": "TbProfileActivity",
+      "parent": "CoreTbProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/TbRegisterActivity.java",
+      "class": "TbRegisterActivity",
+      "parent": "CoreTbRegisterActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/UpcomingServicesActivity.java",
+      "class": "UpcomingServicesActivity",
+      "parent": "CoreUpcomingServicesActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/UpdateRegisterDetailsActivity.java",
+      "class": "UpdateRegisterDetailsActivity",
+      "parent": "BaseChwNotificationDetailsActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/main/java/org/smartregister/chw/activity/UpdatesRegisterActivity.java",
+      "class": "UpdatesRegisterActivity",
+      "parent": "BaseChwNotificationRegister",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "live UI captured",
+      "live_checkpoints": [
+        "route-linkages-from-facility"
+      ]
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/AncHfMedicalHistoryActivityFlv.java",
+      "class": "AncHfMedicalHistoryActivityFlv",
+      "parent": "DefaultAncMedicalHistoryActivityFlv",
+      "layouts": [
+        "medical_history_anc_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/AncMedicalHistoryActivityFlv.java",
+      "class": "AncMedicalHistoryActivityFlv",
+      "parent": "DefaultAncMedicalHistoryActivityFlv",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/ChildMedicalHistoryActivityFlv.java",
+      "class": "ChildMedicalHistoryActivityFlv",
+      "parent": "DefaultChildMedicalHistoryActivityFlv",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/ChildProfileActivityFlv.java",
+      "class": "ChildProfileActivityFlv",
+      "parent": "DefaultChildProfileActivityFlv",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/FamilyOtherMemberProfileActivityFlv.java",
+      "class": "FamilyOtherMemberProfileActivityFlv",
+      "parent": "FamilyOtherMemberProfileActivity.Flavor",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/HivProfileActivityFlv.java",
+      "class": "HivProfileActivityFlv",
+      "parent": "DefaultHivProfileActivityFlv",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/NcdFormWizardActivity.java",
+      "class": "NcdFormWizardActivity",
+      "parent": "FamilyWizardFormActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/NcdMedicalHistoryActivityFlv.java",
+      "class": "NcdMedicalHistoryActivityFlv",
+      "parent": "DefaultAncMedicalHistoryActivityFlv",
+      "layouts": [
+        "medical_history_visit"
+      ],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/PncChildNoMotherProfileActivity.java",
+      "class": "PncChildNoMotherProfileActivity",
+      "parent": "ChildProfileActivity",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/PncMedicalHistoryActivityFlv.java",
+      "class": "PncMedicalHistoryActivityFlv",
+      "parent": "BaMedicalHistoryActivityHelper",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/PncMemberProfileActivityFlv.java",
+      "class": "PncMemberProfileActivityFlv",
+      "parent": "PncMemberProfileActivity.Flavor",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    },
+    {
+      "source": "opensrp-chw/src/nacp/java/org/smartregister/chw/activity/TbProfileActivityFlv.java",
+      "class": "TbProfileActivityFlv",
+      "parent": "DefaultTbProfileActivityFlv",
+      "layouts": [],
+      "source_review": "activity inheritance, layout binding and navigation contract inventory",
+      "live_status": "not individually traversed; dependent on role/client prerequisites",
+      "live_checkpoints": []
+    }
+  ],
+  "layouts": [
+    {
+      "path": "opensrp-chw/src/main/res/layout/action_households_action.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_all_male_clients.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 7,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_anc_member_map.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_asrh_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 16,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_ayp_out_school_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_ayp_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 21,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_base_anc_upcoming_services.xml",
+      "root": "LinearLayout",
+      "views": 10,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_base_mothermentor_visit_activity.xml",
+      "root": "RelativeLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_cbhs_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_cdp_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 16,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_cecap_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 16,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_client_referral.xml",
+      "root": "RelativeLayout",
+      "views": 10,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_ecd_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_family_detail.xml",
+      "root": "androidx.coordinatorlayout.widget.CoordinatorLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_family_list.xml",
+      "root": "androidx.coordinatorlayout.widget.CoordinatorLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_family_profile.xml",
+      "root": "androidx.coordinatorlayout.widget.CoordinatorLayout",
+      "views": 20,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_fragment_base.xml",
+      "root": "RelativeLayout",
+      "views": 5,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_harm_reduction_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_harm_reduction_sober_house_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_hps_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 16,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_iccm_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 21,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_in_app_reports.xml",
+      "root": "LinearLayout",
+      "views": 68,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_job_aids.xml",
+      "root": "androidx.coordinatorlayout.widget.CoordinatorLayout",
+      "views": 12,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_kvp_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_login.xml",
+      "root": "ScrollView",
+      "views": 17,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_mothermentor_profile.xml",
+      "root": "LinearLayout",
+      "views": 22,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_partner_registration.xml",
+      "root": "LinearLayout",
+      "views": 14,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_pin_login.xml",
+      "root": "RelativeLayout",
+      "views": 2,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_pmtctc_details.xml",
+      "root": "RelativeLayout",
+      "views": 42,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_privacy_policy.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_register_filter.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 34,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_reports.xml",
+      "root": "RelativeLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_reports_view.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 5,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_request_call_phone_permission.xml",
+      "root": "ScrollView",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_sbc_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_site_characteristics_enter.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/activity_tb_leprosy_reports.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 35,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/adapter_growth_illness_data_view.xml",
+      "root": "RelativeLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/adapter_immunization_active.xml",
+      "root": "LinearLayout",
+      "views": 7,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/adapter_immunization_hidden.xml",
+      "root": "LinearLayout",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/adapter_immunization_inactive.xml",
+      "root": "LinearLayout",
+      "views": 7,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/adapter_prioritize_child_register_list_row.xml",
+      "root": "RelativeLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/all_client_register_list_row.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 15,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/base_register_search_bar.xml",
+      "root": "LinearLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/choose_login_fragment.xml",
+      "root": "ScrollView",
+      "views": 7,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/content_anc_profile.xml",
+      "root": "RelativeLayout",
+      "views": 48,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/content_child_immunization.xml",
+      "root": "ScrollView",
+      "views": 14,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/content_main.xml",
+      "root": "RelativeLayout",
+      "views": 2,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/content_view.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/custom_native_form_activity_json_form.xml",
+      "root": "RelativeLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/custom_vaccination_name.xml",
+      "root": "LinearLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/dialog_households_list.xml",
+      "root": "LinearLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/dialog_mama_kinara_register_filter.xml",
+      "root": "LinearLayout",
+      "views": 15,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/dialog_member_remove_reason_selection.xml",
+      "root": "LinearLayout",
+      "views": 10,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/dialog_ncd_referral_prompt.xml",
+      "root": "ScrollView",
+      "views": 18,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/dialog_select_head_of_household.xml",
+      "root": "LinearLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/dialog_tbleprosy_contact_selector.xml",
+      "root": "LinearLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/eligible_children_report_item.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/family_detail.xml",
+      "root": "TextView",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/family_has_no_due.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/family_list.xml",
+      "root": "androidx.recyclerview.widget.RecyclerView",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/family_list_content.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/filter_report_fragment.xml",
+      "root": "RelativeLayout",
+      "views": 10,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_client_selection_register.xml",
+      "root": "LinearLayout",
+      "views": 18,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_family_kit.xml",
+      "root": "RelativeLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_job_aids_dashboard.xml",
+      "root": "RelativeLayout",
+      "views": 5,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_job_aids_guide_books.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_job_aids_guide_books_item.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_mama_kinara_register.xml",
+      "root": "LinearLayout",
+      "views": 18,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_mothermentor_secondary_enrollments.xml",
+      "root": "LinearLayout",
+      "views": 5,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_prep_register.xml",
+      "root": "LinearLayout",
+      "views": 14,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_profile_due.xml",
+      "root": "LinearLayout",
+      "views": 15,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_routine_question.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_routine_question_check.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_routine_question_checkbox.xml",
+      "root": "CheckBox",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_routine_question_choice.xml",
+      "root": "RadioButton",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_routine_question_radio.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_routine_visit.xml",
+      "root": "LinearLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/fragment_wash_check.xml",
+      "root": "RelativeLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/immunization_activity_main.xml",
+      "root": "androidx.coordinatorlayout.widget.CoordinatorLayout",
+      "views": 2,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/item_ayp_group_list.xml",
+      "root": "com.google.android.material.card.MaterialCardView",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/item_household_row.xml",
+      "root": "LinearLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/item_tbleprosy_contact_header.xml",
+      "root": "TextView",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/item_tbleprosy_contact_row.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/mama_kinara_register_list_row.xml",
+      "root": "FrameLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/medical_history_anc_visit.xml",
+      "root": "LinearLayout",
+      "views": 11,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/medical_history_cbhs_visit.xml",
+      "root": "LinearLayout",
+      "views": 12,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/medical_history_mother_champion_visit.xml",
+      "root": "LinearLayout",
+      "views": 7,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/medical_history_nested_item.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/medical_history_visit.xml",
+      "root": "LinearLayout",
+      "views": 7,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/mothermentor_follow_up_register_list_row.xml",
+      "root": "LinearLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/mothermentor_register_child_eid.xml",
+      "root": "LinearLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/mothermentor_register_partner.xml",
+      "root": "LinearLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/multiple_vaccination_dialog_view.xml",
+      "root": "FrameLayout",
+      "views": 26,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/multiple_vaccination_name.xml",
+      "root": "LinearLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/multiple_vaccine_layout.xml",
+      "root": "LinearLayout",
+      "views": 7,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/my_community_activity_details_fragment.xml",
+      "root": "RelativeLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/my_community_activity_details_fragment_item.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 5,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/native_form_item_checkbox.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/native_form_item_radiobutton.xml",
+      "root": "com.vijay.jsonwizard.customviews.RadioButton",
+      "views": 1,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/native_item_radio_button.xml",
+      "root": "RelativeLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/pin_login_fragment.xml",
+      "root": "ScrollView",
+      "views": 21,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/referral_details_activity.xml",
+      "root": "RelativeLayout",
+      "views": 74,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/referral_register_list_row.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 9,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/referral_type_list_row.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/referrals_tasks_view_layout.xml",
+      "root": "RelativeLayout",
+      "views": 56,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/report_result_fragment.xml",
+      "root": "RelativeLayout",
+      "views": 10,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/reports_fragment.xml",
+      "root": "RelativeLayout",
+      "views": 5,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/reports_fragment_item.xml",
+      "root": "RelativeLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/sbc_mobilization_session_card_view.xml",
+      "root": "RelativeLayout",
+      "views": 9,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/sbc_monthly_social_media_report_card_view.xml",
+      "root": "RelativeLayout",
+      "views": 8,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/sbcc_session_card_view.xml",
+      "root": "RelativeLayout",
+      "views": 9,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/set_pin_fragment.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/sick_form_medical_history.xml",
+      "root": "RelativeLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/sick_visit_activity.xml",
+      "root": "LinearLayout",
+      "views": 9,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/single_vaccination_dialog_view.xml",
+      "root": "FrameLayout",
+      "views": 20,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/skeleton_visit_item.xml",
+      "root": "LinearLayout",
+      "views": 6,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/view_chw_anc_record_visit.xml",
+      "root": "LinearLayout",
+      "views": 13,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/view_family_kit_fragment.xml",
+      "root": "RelativeLayout",
+      "views": 14,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/view_medical_service_content.xml",
+      "root": "LinearLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/view_vaccine_card_record.xml",
+      "root": "LinearLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/view_wash_check.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/view_wash_check_family_activity.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/view_wash_fragment.xml",
+      "root": "RelativeLayout",
+      "views": 18,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/village_dose.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/village_dose_report_item.xml",
+      "root": "androidx.constraintlayout.widget.ConstraintLayout",
+      "views": 4,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout/widget_copy_to_clipboard.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout-large/action_households_action.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout-sw600dp/action_households_action.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/main/res/layout-w900dp/family_list.xml",
+      "root": "LinearLayout",
+      "views": 3,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/nacp/res/layout/fragment_home_visit_immunization.xml",
+      "root": "RelativeLayout",
+      "views": 24,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/nacp/res/layout/view_anc_call_woma_floating_menu.xml",
+      "root": "RelativeLayout",
+      "views": 14,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    },
+    {
+      "path": "opensrp-chw/src/nacp/res/layout/view_individual_floating_menu.xml",
+      "root": "RelativeLayout",
+      "views": 14,
+      "text_size_dp": [],
+      "coverage": "inflated on emulator at 320dp and 640dp, 200 percent text; resource template, not a signed-in activity"
+    }
+  ]
+}

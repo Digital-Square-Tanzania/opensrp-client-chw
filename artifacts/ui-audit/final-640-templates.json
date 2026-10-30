@@ -1,0 +1,788 @@
+[
+  {
+    "layout": "action_households_action",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_all_male_clients",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_anc_member_map",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_asrh_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_ayp_out_school_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_ayp_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_base_anc_upcoming_services",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_base_mothermentor_visit_activity",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_cbhs_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_cdp_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_cecap_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_client_referral",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_ecd_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_family_detail",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_family_list",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_family_profile",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_fragment_base",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_harm_reduction_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_harm_reduction_sober_house_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_hps_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_iccm_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_in_app_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_job_aids",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_kvp_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_login",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_mothermentor_profile",
+    "kind": "resource-template",
+    "clippedTextCandidates": [
+      "unidentified-label",
+      "unidentified-label"
+    ],
+    "inflated": true
+  },
+  {
+    "layout": "activity_partner_registration",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_pin_login",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_pmtctc_details",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_privacy_policy",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_register_filter",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_reports_view",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_request_call_phone_permission",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_sbc_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_site_characteristics_enter",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "activity_tb_leprosy_reports",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "adapter_growth_illness_data_view",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "adapter_immunization_active",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "adapter_immunization_hidden",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "adapter_immunization_inactive",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "adapter_prioritize_child_register_list_row",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "all_client_register_list_row",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "base_register_search_bar",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "choose_login_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "content_anc_profile",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "content_child_immunization",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "content_main",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "content_view",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "custom_native_form_activity_json_form",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "custom_vaccination_name",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "dialog_households_list",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "dialog_mama_kinara_register_filter",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "dialog_member_remove_reason_selection",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "dialog_ncd_referral_prompt",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "dialog_select_head_of_household",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "dialog_tbleprosy_contact_selector",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "eligible_children_report_item",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "family_detail",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "family_has_no_due",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "family_list",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "family_list_content",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "filter_report_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_client_selection_register",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_family_kit",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_home_visit_immunization",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_job_aids_dashboard",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_job_aids_guide_books",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_job_aids_guide_books_item",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_mama_kinara_register",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_mothermentor_secondary_enrollments",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_prep_register",
+    "kind": "resource-template",
+    "clippedTextCandidates": [
+      "header_text_display",
+      "filter_status"
+    ],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_profile_due",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_routine_question",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_routine_question_check",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_routine_question_checkbox",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_routine_question_choice",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_routine_question_radio",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_routine_visit",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "fragment_wash_check",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "immunization_activity_main",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "item_ayp_group_list",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "item_household_row",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "item_tbleprosy_contact_header",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "item_tbleprosy_contact_row",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "mama_kinara_register_list_row",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "medical_history_anc_visit",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "medical_history_cbhs_visit",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "medical_history_mother_champion_visit",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "medical_history_nested_item",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "medical_history_visit",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "mothermentor_follow_up_register_list_row",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "mothermentor_register_child_eid",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "mothermentor_register_partner",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "multiple_vaccination_dialog_view",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "multiple_vaccination_name",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "multiple_vaccine_layout",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "my_community_activity_details_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "my_community_activity_details_fragment_item",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "native_form_item_checkbox",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "native_form_item_radiobutton",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "native_item_radio_button",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "pin_login_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "referral_details_activity",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "referral_register_list_row",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "referral_type_list_row",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "referrals_tasks_view_layout",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "report_result_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "reports_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "reports_fragment_item",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "sbc_mobilization_session_card_view",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "sbc_monthly_social_media_report_card_view",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "sbcc_session_card_view",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "set_pin_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "sick_form_medical_history",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "sick_visit_activity",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "single_vaccination_dialog_view",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "skeleton_visit_item",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_anc_call_woma_floating_menu",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_chw_anc_record_visit",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_family_kit_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_individual_floating_menu",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_medical_service_content",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_vaccine_card_record",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_wash_check",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_wash_check_family_activity",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "view_wash_fragment",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "village_dose",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "village_dose_report_item",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  },
+  {
+    "layout": "widget_copy_to_clipboard",
+    "kind": "resource-template",
+    "clippedTextCandidates": [],
+    "inflated": true
+  }
+]

@@ -1,0 +1,204 @@
+{
+  "base_branch": "implement/mother-mentor-module",
+  "base_commit": "fd69011173bbc755f576fc658ab434d6f2a08f4c",
+  "branch": "ilakoze/chw-apple-design-audit",
+  "date": "2026-10-30",
+  "platform": "Android XML/Java, NACP debug",
+  "device": {
+    "serial": "emulator-5556",
+    "android_api": 37,
+    "validation_user": 10,
+    "isolated_profile_reason": "original profile database version 60 exceeds base branch database version 59"
+  },
+  "build": {
+    "assembleNacpDebug": "passed",
+    "assembleNacpDebugAndroidTest": "passed",
+    "apk_path": "opensrp-chw/build/outputs/apk/nacp/debug/opensrp-chw-nacp-debug.apk",
+    "apk_sha256": "05dfd2f5fe1d923d330b41e7ab8e0c183be008fb42c62459b17fe093e13a9117",
+    "gradle_mode": "offline",
+    "java_major": 17
+  },
+  "units": {
+    "tests": 1067,
+    "failures": 3,
+    "errors": 0,
+    "skipped": 0,
+    "failed_cases": [
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.restrictedRolesRetainOnlyTheirAvailableModules",
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.refreshedRoleOptionsUpdateAnExistingAdapterWithoutExposingOldModules",
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.disabledMotherMentorDoesNotRemoveOtherRoleModulesOrExposeChampion"
+    ],
+    "baseline_failed_cases": [
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.restrictedRolesRetainOnlyTheirAvailableModules",
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.refreshedRoleOptionsUpdateAnExistingAdapterWithoutExposingOldModules",
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.disabledMotherMentorDoesNotRemoveOtherRoleModulesOrExposeChampion"
+    ],
+    "same_failures_as_baseline": true
+  },
+  "focused_tag_tests": {
+    "tests": 5,
+    "failed": 0
+  },
+  "emulator_widths": [
+    {
+      "width_dp": 320,
+      "density_dpi": 360,
+      "font_scale": 2.0,
+      "native_tests_passed": 14,
+      "layouts_inflated": 130,
+      "layout_failures": 0
+    },
+    {
+      "width_dp": 640,
+      "density_dpi": 320,
+      "font_scale": 2.0,
+      "native_tests_passed": 14,
+      "layouts_inflated": 130,
+      "layout_failures": 0
+    }
+  ],
+  "coverage": {
+    "activity_and_customization_source_files": 231,
+    "layout_variants": 133,
+    "unique_owned_layouts": 130,
+    "live_manifest_activities": 41,
+    "role_routes": 26,
+    "all_activities_individually_validated": false,
+    "runtime_activity_classes": 42,
+    "instrumented_host_activity_classes": 1,
+    "manifest_activity_declarations": 276,
+    "distinct_manifest_activity_classes": 272
+  },
+  "lint": {
+    "baseline_findings": 6915,
+    "current_findings": 6862,
+    "added_findings": 8,
+    "resolved_findings": 61,
+    "abort_on_error": false
+  },
+  "data_preservation": {
+    "original_user": 0,
+    "database_version": 60,
+    "tables_compared": 188,
+    "changed_tables": [],
+    "client_unchanged": true,
+    "event_unchanged": true,
+    "database_byte_identical": true
+  },
+  "cleanup": {
+    "current_android_user": 10,
+    "test_user_retained_for_review": true,
+    "foreground": "AllClientsRegisterActivity",
+    "display_size": "720x1606",
+    "density_dpi": 270,
+    "font_scale": 1.0,
+    "original_android_user": 0,
+    "original_database_preserved": true,
+    "wifi_enabled": false,
+    "mobile_data_enabled": false,
+    "airplane_mode": false,
+    "temporary_handwriting_setting_restored": true,
+    "final_debug_apk_remains_installed": true
+  },
+  "limits": [
+    "Other roles and enrollment-specific workflows remain individually untraversed.",
+    "Template inflation does not establish business workflow correctness.",
+    "TalkBack speech, switch access, dark appearance and French clinical journeys were not exercised."
+  ],
+  "final_runtime_checks": {
+    "all_clients_sex_and_location": "visually verified together on the same first-line baseline at normal and 200 percent text; register type on its own row",
+    "shared_search": "dark hints observed in All Clients, CBHS and KVP",
+    "mother_mentor_profile": "compact toolbar title, client ID, CTC ID, record visit and history visible at 200 percent text",
+    "native_form_targets": {
+      "close": {
+        "width_px": 81,
+        "height_px": 81,
+        "label": "Cancel"
+      },
+      "customFontTextViewSubmit": {
+        "width_px": 537,
+        "height_px": 81,
+        "label": "SAVE"
+      },
+      "radio_targets": [
+        {
+          "width_px": 155,
+          "height_px": 81
+        },
+        {
+          "width_px": 192,
+          "height_px": 81
+        },
+        {
+          "width_px": 377,
+          "height_px": 81
+        },
+        {
+          "width_px": 235,
+          "height_px": 81
+        },
+        {
+          "width_px": 236,
+          "height_px": 81
+        },
+        {
+          "width_px": 522,
+          "height_px": 81
+        },
+        {
+          "width_px": 343,
+          "height_px": 81
+        },
+        {
+          "width_px": 281,
+          "height_px": 81
+        }
+      ],
+      "density_dpi": "Physical density: 480\nOverride density: 270"
+    },
+    "completed_visit_submitted": false,
+    "draft_discarded": true
+  },
+  "shared_core_source_review": {
+    "repository": "opensrp-client-core",
+    "commit": "7b2e4748889695ca8762d3d6f67b81a4a24bfe3f",
+    "paths": [
+      "opensrp-app/res/layout/base_register_search_bar.xml",
+      "opensrp-app/res/layout/base_register_sort_filter_bar.xml",
+      "opensrp-app/res/values/styles.xml",
+      "opensrp-app/src/main/java/org/smartregister/view/fragment/BaseRegisterFragment.java",
+      "opensrp-app/src/main/java/org/smartregister/view/customcontrols/CustomFontTextView.java"
+    ],
+    "implementation_location": "app resource overrides; shared repository unchanged"
+  },
+  "final_client_alignment_checks": [
+    {
+      "width_dp": 320,
+      "font_scale": 2,
+      "passed": true,
+      "checks": [
+        "sex/location first-line baseline",
+        "sex leading edge",
+        "separator order",
+        "no inherited location indent",
+        "complete location wrapping",
+        "text contrast"
+      ]
+    },
+    {
+      "width_dp": 640,
+      "font_scale": 2,
+      "passed": true,
+      "checks": [
+        "sex/location first-line baseline",
+        "sex leading edge",
+        "separator order",
+        "no inherited location indent",
+        "complete location wrapping",
+        "text contrast"
+      ]
+    }
+  ],
+  "private_evidence": "Patient-containing screenshots, UI dumps and database backups remain local and are not included in this repository.",
+  "validation_stage": "Original audit before target-branch resource cleanup and database upgrade"
+}

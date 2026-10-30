@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-30",
+  "ui_pr": 1123,
+  "ui_head": "115e24c63052a278ef07f89af7b83f7df901c430",
+  "integrated_target_commit": "6367bfefd8b9e5a25e7e1044b8dcf102ddb042b6",
+  "original_audit_commit": "fd69011173bbc755f576fc658ab434d6f2a08f4c",
+  "build": {
+    "assembleNacpDebug": "passed",
+    "assembleNacpDebugAndroidTest": "passed",
+    "apk_path": "opensrp-chw/build/outputs/apk/nacp/debug/opensrp-chw-nacp-debug.apk",
+    "apk_sha256": "484ce4aab3426bcf7f9c56da64474516f6db0b68cc2a89009774dccd672fdf7e",
+    "gradle_mode": "offline",
+    "java_major": 17
+  },
+  "dependencies": {
+    "database_version": 60,
+    "core": "2.2.0-MOTHER-MENTOR-ALPHA-15-MOH-SNAPSHOT",
+    "mother_mentor": "0.1.13-SNAPSHOT"
+  },
+  "units": {
+    "tests": 1084,
+    "failures": 3,
+    "errors": 0,
+    "skipped": 0,
+    "failed_cases": [
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.restrictedRolesRetainOnlyTheirAvailableModules",
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.refreshedRoleOptionsUpdateAnExistingAdapterWithoutExposingOldModules",
+      "org.smartregister.chw.adapter.GroupedNavigationMenuTest.disabledMotherMentorDoesNotRemoveOtherRoleModulesOrExposeChampion"
+    ],
+    "matches_original_audit_failure_cases": true
+  },
+  "emulator": {
+    "serial": "emulator-5556",
+    "android_user": 10,
+    "width_runs": [
+      {
+        "width_dp": 320,
+        "font_scale": 2,
+        "tests": 14,
+        "failed": 0,
+        "full_template_sweep_repeated": false
+      },
+      {
+        "width_dp": 640,
+        "font_scale": 2,
+        "tests": 14,
+        "failed": 0,
+        "full_template_sweep_repeated": false
+      }
+    ],
+    "post_test_screen": "AllClientsRegisterActivity",
+    "font_scale_restored": 1.0,
+    "display_size_restored": "720x1606",
+    "density_restored_dpi": 270,
+    "completed_visit_submitted": false
+  },
+  "lint": {
+    "task": "completed",
+    "findings": 6622,
+    "by_severity": {
+      "Fatal": 134,
+      "Error": 2742,
+      "Warning": 3746
+    },
+    "abort_on_error": false,
+    "comparison_note": "Original lint comparison describes the pre-integration audit; dependency/resource cleanup changes this inventory."
+  },
+  "resource_inventory": {
+    "manifest_declarations": 276,
+    "distinct_activity_classes": 272,
+    "owned_layout_variants": 130,
+    "unique_owned_layout_names": 127
+  },
+  "data_preservation": {
+    "original_android_user": 0,
+    "database_byte_identical": true,
+    "tables_compared": 188,
+    "changed_tables": []
+  },
+  "conflict_resolution": "Keep upstream forms/rules/translations and unmodified-resource deletions; retain four audited layout overrides, three contrast colors and the corrected EID display tag.",
+  "limits": [
+    "Live evidence for 41 activity classes and the 130-template sweep remains the original audit-stage evidence.",
+    "Integration reruns the focused UI/form suite at both widths; it does not establish all role/state-specific business journeys."
+  ]
+}
