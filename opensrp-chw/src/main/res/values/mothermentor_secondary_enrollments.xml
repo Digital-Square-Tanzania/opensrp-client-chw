@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="action_mothermentor_enroll_iit" type="id" />
+    <item name="action_mothermentor_enroll_partner" type="id" />
+    <item name="action_mothermentor_enroll_child_eid" type="id" />
+    <item name="action_mothermentor_secondary_enrollments" type="id" />
+    <item name="action_mother_mentor_enroll_iit" type="id" />
+
+</resources>

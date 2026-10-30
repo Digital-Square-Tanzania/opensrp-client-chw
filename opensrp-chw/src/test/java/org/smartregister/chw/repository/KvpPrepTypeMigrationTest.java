@@ -18,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.startsWith;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -32,15 +33,15 @@ public class KvpPrepTypeMigrationTest {
         Set<String> columns = new HashSet<>(Arrays.asList("base_entity_id", "prep_facility_a", "prep_facility_b"));
         SQLiteDatabase db = databaseWithColumns(columns);
 
-        ChwRepositoryFlv.onUpgrade(null, db, 50, 51);
-        ChwRepositoryFlv.onUpgrade(null, db, 50, 51);
+        ChwRepositoryFlv.onUpgrade(null, db, 59, 60);
+        ChwRepositoryFlv.onUpgrade(null, db, 59, 60);
 
-        assertTrue(BuildConfig.DATABASE_VERSION >= 51);
+        assertTrue(BuildConfig.DATABASE_VERSION >= 60);
         assertTrue(columns.containsAll(Arrays.asList("base_entity_id", "prep_facility_a", "prep_facility_b",
                 "prep_type_a", "prep_type_b")));
         verify(db).execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN prep_type_a VARCHAR;");
         verify(db).execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN prep_type_b VARCHAR;");
-        verify(db, times(2)).execSQL(anyString());
+        verify(db, times(6)).execSQL(startsWith("ALTER TABLE"));
     }
 
     @Test
@@ -48,11 +49,11 @@ public class KvpPrepTypeMigrationTest {
         Set<String> columns = new HashSet<>(Arrays.asList("base_entity_id", "prep_type_a"));
         SQLiteDatabase db = databaseWithColumns(columns);
 
-        ChwRepositoryFlv.onUpgrade(null, db, 50, 51);
+        ChwRepositoryFlv.onUpgrade(null, db, 59, 60);
 
         verify(db, never()).execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN prep_type_a VARCHAR;");
         verify(db).execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN prep_type_b VARCHAR;");
-        verify(db, times(1)).execSQL(anyString());
+        verify(db, times(5)).execSQL(startsWith("ALTER TABLE"));
     }
 
     private SQLiteDatabase databaseWithColumns(Set<String> columns) {
@@ -69,7 +70,9 @@ public class KvpPrepTypeMigrationTest {
                 });
         doAnswer(invocation -> {
             String sql = invocation.getArgument(0);
-            columns.add(sql.split(" ")[5]);
+            if (sql.startsWith("ALTER TABLE")) {
+                columns.add(sql.split(" ")[5]);
+            }
             return null;
         }).when(db).execSQL(anyString());
         return db;

@@ -1,5 +1,6 @@
 package org.smartregister.chw.repository;
 
+
 import static org.smartregister.chw.BuildConfig.VERSION_CODE;
 
 import android.database.Cursor;
@@ -15,12 +16,13 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.ncd.util.Constants;
+import org.smartregister.chw.mothermentor.repository.MotherMentorReportingRepository;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
@@ -177,7 +179,7 @@ public class ChwRepositoryFlv {
                     upgradeToVersion45(db);
                     break;
                 case 46:
-                    upgradeToVersion46(db); 
+                    upgradeToVersion46(db);
                     break;
                 case 47:
                     upgradeToVersion47(db);
@@ -192,10 +194,38 @@ public class ChwRepositoryFlv {
                     upgradeToVersion50(db);
                     break;
                 case 51:
+                    // Development also used version 50, without the Mother Mentor tables.
+                    if (newVersion >= 54) {
+                        createMotherMentorTables(db);
+                    }
                     upgradeToVersion51(db);
                     break;
                 case 52:
                     upgradeToVersion52(db);
+                    break;
+                case 53:
+                    upgradeToVersion53(db);
+                    break;
+                case 54:
+                    upgradeToVersion54(db);
+                    break;
+                case 55:
+                    KvpReportingMigration.upgrade(db, ReportingLibrary.getInstance());
+                    break;
+                case 56:
+                    TbLeprosyReportingMigration.upgrade(db, ReportingLibrary.getInstance());
+                    break;
+                case 57:
+                    AgywReportingMigration.upgrade(db, ReportingLibrary.getInstance());
+                    break;
+                case 58:
+                    MotherMentorPartnerWorkflowMigration.upgrade(db);
+                    break;
+                case 59:
+                    org.smartregister.chw.mothermentor.repository.VisitDetailsRepository.createReportIndex(db);
+                    break;
+                case 60:
+                    upgradeToVersion60(db);
                     break;
                 default:
                     break;
@@ -1095,34 +1125,110 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, tableName, "prep_facility_b");
         addColumnIfMissing(db, tableName, "linked_to_prep");
     }
-  
-    /**
-     * Referral follow-up (manual closure at community level) answers QN1-QN8.
-     * The ec_referral_followup table itself is created from ec_client_fields.json; only the new
-     * answer columns need adding for devices upgrading from an earlier database version.
-     */
-    private static void upgradeToVersion50(SQLiteDatabase db) {
-        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_a_test_date");
-        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_b_test_date");
 
-        String tableName = "ec_referral_followup";
-        addColumnIfMissing(db, tableName, "referral_task_id");
-        addColumnIfMissing(db, tableName, "client_attended_referral");
-        addColumnIfMissing(db, tableName, "reason_not_attended");
-        addColumnIfMissing(db, tableName, "attended_assigned_facility");
-        addColumnIfMissing(db, tableName, "reason_different_facility");
-        addColumnIfMissing(db, tableName, "facility_attended");
-        addColumnIfMissing(db, tableName, "services_received");
-        addColumnIfMissing(db, tableName, "client_condition");
-        addColumnIfMissing(db, tableName, "client_satisfied");
+    private static void upgradeToVersion50(SQLiteDatabase db) {
+        try {
+            createMotherMentorTables(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion50");
+        }
+        try {
+            db.execSQL("ALTER TABLE ec_mothermentor_contacts ADD COLUMN "
+                    + DBConstants.KEY.SCREENING_STATUS + " VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion50-add-contact-screening-status");
+        }
+    }
+
+    private static void createMotherMentorTables(SQLiteDatabase db) {
+        DatabaseMigrationUtils.createAddedECTables(db,
+                new HashSet<>(Arrays.asList(
+                        "ec_mothermentor_enrollment",
+                        "ec_mothermentor_contacts",
+                        "ec_mothermentor_observation_results",
+                        "ec_mothermentor_followup_visit",
+                        "ec_mothermentor_visit",
+                        "ec_mothermentor_contact_visit",
+                        "ec_mothermentor_mobilization",
+                        "ec_mothermentor_enroll_it",
+                        "ec_mothermentor_enroll_partner",
+                        "ec_mothermentor_enroll_child_eid")),
+                ChwApplication.createCommonFtsObject());
     }
 
     private static void upgradeToVersion51(SQLiteDatabase db) {
-        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_a");
-        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_b");
+        String tableName = "ec_mothermentor_followup_visit";
+        for (String column : Arrays.asList(
+                DBConstants.KEY.FOLLOW_UP_CATEGORY,
+                DBConstants.KEY.FOLLOW_UP_STATUS,
+                DBConstants.KEY.SERVICE_INTERRUPTION_REASON,
+                DBConstants.KEY.SERVICE_INTERRUPTION_REASON_OTHER,
+                DBConstants.KEY.EXPECTED_FACILITY_VISIT_DATE,
+                DBConstants.KEY.RETURNED_TO_FACILITY,
+                DBConstants.KEY.FACILITY_RETURN_DATE,
+                DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON,
+                DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON_OTHER,
+                DBConstants.KEY.PARTNER_EXPECTED_FACILITY_VISIT_DATE,
+                DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY,
+                DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE,
+                DBConstants.KEY.COMMENTS)) {
+            addColumnIfMissing(db, tableName, column);
+        }
     }
 
     private static void upgradeToVersion52(SQLiteDatabase db) {
+        for (String column : Arrays.asList(
+                DBConstants.KEY.CHILD_EID_TEST_TYPE,
+                DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
+                DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON_OTHER,
+                DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE,
+                DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY,
+                DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE)) {
+            addColumnIfMissing(db, "ec_mothermentor_followup_visit", column);
+        }
+    }
+
+    private static void upgradeToVersion53(SQLiteDatabase db) {
+        MotherMentorReportingRepository.ensureMobilizationColumns(db);
+    }
+
+    /**
+     * Reconcile the development and Mother Mentor version-50 migrations. Both branches
+     * used version 50, so devices already at versions 50-53 need the combined schema.
+     */
+    private static void upgradeToVersion54(SQLiteDatabase db) {
+        createMotherMentorTables(db);
+        DatabaseMigrationUtils.createAddedECTables(
+                db,
+                new HashSet<>(Arrays.asList(
+                        "ec_mothermentor_household_enrolment",
+                        "ec_referral_followup",
+                        "ec_kvp_prep_followup")),
+                ChwApplication.createCommonFtsObject());
+        addColumnIfMissing(db, "ec_mothermentor_contacts", DBConstants.KEY.SCREENING_STATUS);
+        upgradeToVersion51(db);
+        upgradeToVersion52(db);
+        upgradeToVersion53(db);
+
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_a_test_date");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "branch_b_test_date");
+        for (String column : Arrays.asList(
+                "referral_task_id",
+                "client_attended_referral",
+                "reason_not_attended",
+                "attended_assigned_facility",
+                "reason_different_facility",
+                "facility_attended",
+                "services_received",
+                "client_condition",
+                "client_satisfied")) {
+            addColumnIfMissing(db, "ec_referral_followup", column);
+        }
+    }
+
+    private static void upgradeToVersion60(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_b");
         addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type");
         addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility");
         addColumnIfMissing(db, "ec_kvp_prep_followup", "currently_on_prep");
@@ -1154,7 +1260,7 @@ public class ChwRepositoryFlv {
                     + "WHEN " + branchB
                     + "AND LOWER(COALESCE(prep_follow_up, '')) = 'no' THEN COALESCE(linked_to_prep, '') ELSE '' END");
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion52-prep-reporting");
+            Timber.e(e, "upgradeToVersion60-prep-reporting");
         }
     }
 

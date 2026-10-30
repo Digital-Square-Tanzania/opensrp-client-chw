@@ -33,6 +33,35 @@ allprojects {
         }
 
         maven {
+            name = "FpGitHubPackages"
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-chw-fp")
+            content { includeModule('org.smartregister', 'opensrp-chw-fp') }
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GITHUB_ACTOR")
+                password = githubProperties['gpr.key'] ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+
+        maven {
+            name = "AsrhGitHubPackages"
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-chw-asrh")
+            content { includeModule('org.smartregister', 'opensrp-chw-asrh') }
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GITHUB_ACTOR")
+                password = githubProperties['gpr.key'] ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+
+        maven {
+            name = "MotherMentorGitHubPackages"
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-chw-mother-mentor")
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GITHUB_ACTOR")
+                password = githubProperties['gpr.key'] ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+
+        maven {
 
             name = "GitHubPackages"
 
@@ -70,6 +99,7 @@ allprojects {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'org.smartregister.legacy-alarm-compatibility'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply from: "jacoco.gradle"
@@ -92,8 +122,10 @@ android {
 
     packagingOptions {
         resources {
+            merges.remove("jacoco-agent.properties")
             excludes += [
                     "AndroidManifest.xml",
+                    "jacoco-agent.properties",
                     "res/drawable-*/ic_check.png",
                     "res/drawable-*/ic_clear.png",
                     "res/drawable-*/ic_chevron_right.png"
@@ -241,7 +273,8 @@ android {
             includeAndroidResources = true
         }
         unitTests.all {
-            systemProperty 'robolectric.enabledSdks', '28'
+            // Include the minimum API and PendingIntent mutability regression cases.
+            systemProperty 'robolectric.enabledSdks', '23,28,31'
             jvmArgs '-noverify'
         }
     }
@@ -262,8 +295,8 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            versionCode 63
-            versionName "2.2.3"
+            versionCode 69
+            versionName "1.0.0-Mother-Mentor.Beta.7"
             buildConfigField "String", 'opensrp_url', '"https://ucs.moh.go.tz/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://170.187.199.69:8082/opensrp/"'
@@ -277,11 +310,13 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '52'
+            buildConfigField "int", "DATABASE_VERSION", '60'
             // Gates the app-owned manual referral follow-up action in the Referral register.
             // NOTE: the chw-referral library reads its OWN BuildConfig field of the same name;
             // this one only controls NacpReferralRegisterProvider / ReferralRegisterFragment.
             buildConfigField "boolean", "ENABLE_REFERRAL_FOLLOWUP", "true"
+            // Set false to show the original flat register menu without Other Modules.
+            buildConfigField "boolean", "ENABLE_COLLAPSIBLE_NAVIGATION", "true"
         }
     }
 
@@ -309,6 +344,16 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 }
 
 dependencies {
+    // The source compatibility adapter targets exactly these upstream implementations.
+    constraints {
+        implementation('com.evernote:android-job:1.4.3') {
+            version { strictly '1.4.3' }
+        }
+        implementation('com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1') {
+            version { strictly '4.5.1' }
+        }
+    }
+
     // Use a Crashlytics SDK that still supports minSdk 22
     implementation 'com.google.firebase:firebase-crashlytics:18.6.3'
     def libsDir = new File(projectDir, 'libs')
@@ -334,12 +379,13 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.7-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-14-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         // Pull opensrp-chw-ncd directly (below) instead of the version chw-core resolves to,
         // until chw-core is rebuilt against the newer ncd library.
         exclude group: 'org.smartregister', module: 'opensrp-chw-ncd'
+        exclude group: 'org.smartregister', module: 'opensrp-chw-mother-mentor'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
         exclude group: 'androidx.appcompat', module: 'appcompat'
@@ -365,6 +411,11 @@ dependencies {
     // Direct dependency on the NCD library (excluded from chw-core above) so the app builds
     // against the newer published version without waiting on a chw-core rebuild.
     implementation('org.smartregister:opensrp-chw-ncd:0.1.1-SNAPSHOT@aar') {
+        transitive = false
+    }
+
+    // The register DAO is supplied by the Mother Mentor library.
+    implementation('org.smartregister:opensrp-chw-mother-mentor:0.1.12-SNAPSHOT@aar') {
         transitive = false
     }
 

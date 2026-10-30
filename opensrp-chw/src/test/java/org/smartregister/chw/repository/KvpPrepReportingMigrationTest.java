@@ -49,8 +49,8 @@ public class KvpPrepReportingMigrationTest {
     }
 
     @Test
-    public void version51BackfillUsesEligibleBranchAndPreservesSourceAnswers() throws Exception {
-        createOldTable(51);
+    public void version59BackfillUsesEligibleBranchAndPreservesSourceAnswers() throws Exception {
+        createOldTable(true);
         insert("a");
         insert("b", "hiv_tested_within_last_3_months", "no");
         insert("linked", "on_prep", "no", "linked_to_prep_recent", "yes");
@@ -64,10 +64,10 @@ public class KvpPrepReportingMigrationTest {
                 + "prep_type_b, prep_facility_b, linked_to_prep");
         net.zetetic.database.sqlcipher.SQLiteDatabase adapter = adapter();
 
-        ChwRepositoryFlv.onUpgrade(null, adapter, 51, 52);
-        ChwRepositoryFlv.onUpgrade(null, adapter, 51, 52);
+        ChwRepositoryFlv.onUpgrade(null, adapter, 59, 60);
+        ChwRepositoryFlv.onUpgrade(null, adapter, 59, 60);
 
-        assertTrue(BuildConfig.DATABASE_VERSION >= 52);
+        assertTrue(BuildConfig.DATABASE_VERSION >= 60);
         assertShared("a", "oral_prep", "Facility a", "yes", "");
         assertShared("b", "injectable_prep", "Facility b", "yes", "");
         assertShared("linked", "", "", "no", "yes");
@@ -85,10 +85,10 @@ public class KvpPrepReportingMigrationTest {
     }
 
     @Test
-    public void version50UpgradeAddsBranchTypesAndSharedFieldsWithoutInventingType() throws Exception {
-        createOldTable(50);
+    public void version59UpgradeAddsBranchTypesAndSharedFieldsWithoutInventingType() throws Exception {
+        createOldTable(false);
         insert("older");
-        ChwRepositoryFlv.onUpgrade(null, adapter(), 50, 52);
+        ChwRepositoryFlv.onUpgrade(null, adapter(), 59, 60);
         assertShared("older", "", "Facility a", "yes", "");
         assertEquals(null, row("older").get("prep_type_a"));
         assertEquals(null, row("older").get("prep_type_b"));
@@ -96,15 +96,15 @@ public class KvpPrepReportingMigrationTest {
 
     @Test
     public void partialUpgradeReusesExistingColumnAndRecalculatesStaleDerivedValue() throws Exception {
-        createOldTable(51);
+        createOldTable(true);
         insert("partial");
         database.execSQL("ALTER TABLE " + TABLE + " ADD COLUMN prep_type VARCHAR");
         database.execSQL("UPDATE " + TABLE + " SET prep_type = 'stale'");
-        ChwRepositoryFlv.onUpgrade(null, adapter(), 51, 52);
+        ChwRepositoryFlv.onUpgrade(null, adapter(), 59, 60);
         assertShared("partial", "oral_prep", "Facility a", "yes", "");
     }
 
-    private void createOldTable(int version) throws Exception {
+    private void createOldTable(boolean hasPrepTypeAnswers) throws Exception {
         Path path = Paths.get("src/nacp/assets/ec_client_fields.json");
         if (!Files.exists(path)) {
             path = Paths.get("opensrp-chw").resolve(path);
@@ -120,7 +120,7 @@ public class KvpPrepReportingMigrationTest {
             for (int j = 0; j < columns.length(); j++) {
                 String column = columns.getJSONObject(j).getString("column_name");
                 if (Arrays.asList(SHARED).contains(column)
-                        || (version == 50 && ("prep_type_a".equals(column) || "prep_type_b".equals(column)))) {
+                        || (!hasPrepTypeAnswers && ("prep_type_a".equals(column) || "prep_type_b".equals(column)))) {
                     continue;
                 }
                 if (schema.length() > 0) {

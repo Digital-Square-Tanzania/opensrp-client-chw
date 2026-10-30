@@ -11,6 +11,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.CoreChwRepository;
+import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.exception.DatabaseMigrationException;
 import org.smartregister.reporting.ReportingLibrary;
 
@@ -22,6 +23,7 @@ import timber.log.Timber;
 public class ChwRepository extends CoreChwRepository {
     private Context context;
     private static String appVersionCodePref = "APP_VERSION_CODE";
+    private boolean createdWithCurrentCipher;
 
     private enum MigrationResult {
         SUCCESS,
@@ -64,9 +66,18 @@ public class ChwRepository extends CoreChwRepository {
     }
 
     @Override
+    public void onCreate(SQLiteDatabase database) {
+        super.onCreate(database);
+        VisitDetailsRepository.createReportIndex(database);
+        createdWithCurrentCipher = true;
+    }
+
+    @Override
     public void onOpen(SQLiteDatabase database) {
         if (!CoreLibrary.getInstance().context().allSharedPreferences().isMigratedToSqlite4()) {
-            MigrationResult result = performCipherMigrationToV4Safely(database);
+            // New databases already use the current cipher; migration must precede schema access.
+            MigrationResult result = createdWithCurrentCipher
+                    ? MigrationResult.SUCCESS : performCipherMigrationToV4Safely(database);
             if (result == MigrationResult.FAILED) {
                 throw new DatabaseMigrationException("Database migration to SQLiteCipher v4 was not successful");
             }
@@ -82,6 +93,8 @@ public class ChwRepository extends CoreChwRepository {
 
         database.execSQL("PRAGMA cipher_memory_security = OFF;");
         database.rawExecSQL("PRAGMA journal_mode = TRUNCATE;");
+        MotherMentorPartnerRepository.ensureColumns(database);
+        MotherMentorChildEidRepository.ensureColumns(database);
     }
 
     private MigrationResult performCipherMigrationToV4Safely(SQLiteDatabase database) {

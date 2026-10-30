@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mama_kinara_blue">#218CC5</color>
+    <color name="mama_kinara_white">#FFFFFF</color>
+    <color name="mama_kinara_text">#0F1A26</color>
+    <color name="mama_kinara_secondary">#6A7686</color>
+    <color name="mama_kinara_muted">#9AA4B2</color>
+    <color name="mama_kinara_divider">#EEEEEE</color>
+    <color name="mama_kinara_chevron">#C0C0C0</color>
+    <color name="mama_kinara_search_hint">#BBBBBB</color>
+</resources>

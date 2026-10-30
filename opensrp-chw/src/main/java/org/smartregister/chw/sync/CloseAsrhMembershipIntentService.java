@@ -6,9 +6,7 @@ import android.content.Intent;
 import org.smartregister.chw.asrh.dao.AsrhDao;
 import org.smartregister.chw.asrh.domain.MemberObject;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -27,18 +25,18 @@ public class CloseAsrhMembershipIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        List<MemberObject> memberObjects = AsrhDao.getMembers();
-
         try {
+            List<MemberObject> memberObjects = AsrhDao.getMembers();
+            if (memberObjects == null || memberObjects.isEmpty()) {
+                return;
+            }
             for (MemberObject memberObject : memberObjects) {
                 if (memberObject.getAge() > 24) {
                     AsrhDao.closeAsrhMemberFromRegister(memberObject.getBaseEntityId());
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e);
         }
     }
-
-
 }

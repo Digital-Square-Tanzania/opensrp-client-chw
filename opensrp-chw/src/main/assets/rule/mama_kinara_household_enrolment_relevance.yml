@@ -1,0 +1,7 @@
+---
+name: step1_consent_advice
+description: show no-consent advisory
+priority: 1
+condition: "step1_consent.contains('hapana')"
+actions:
+  - "isRelevant = true"
