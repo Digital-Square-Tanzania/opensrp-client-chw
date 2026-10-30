@@ -224,6 +224,9 @@ public class ChwRepositoryFlv {
                 case 59:
                     org.smartregister.chw.mothermentor.repository.VisitDetailsRepository.createReportIndex(db);
                     break;
+                case 60:
+                    upgradeToVersion60(db);
+                    break;
                 default:
                     break;
             }
@@ -1220,6 +1223,44 @@ public class ChwRepositoryFlv {
                 "client_condition",
                 "client_satisfied")) {
             addColumnIfMissing(db, "ec_referral_followup", column);
+        }
+    }
+
+    private static void upgradeToVersion60(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_b");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "currently_on_prep");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep_services");
+
+        // Backfill reporting columns while preserving the originally captured branch answers.
+        String eligible = "LOWER(COALESCE(hiv_positive, '')) != 'true' "
+                + "AND LOWER(COALESCE(client_hiv_status, '')) != 'positive' ";
+        String branchA = eligible
+                + "AND LOWER(COALESCE(hiv_tested_within_last_3_months, '')) = 'yes' "
+                + "AND LOWER(COALESCE(hiv_result_recent, '')) = 'negative' ";
+        String branchB = eligible
+                + "AND LOWER(COALESCE(hiv_tested_within_last_3_months, '')) = 'no' "
+                + "AND LOWER(COALESCE(referred_for_hiv_test, '')) = 'yes' "
+                + "AND LOWER(COALESCE(tested_for_hiv, '')) = 'yes' "
+                + "AND LOWER(COALESCE(hiv_result, '')) = 'negative' ";
+        String usingPrepA = branchA + "AND LOWER(COALESCE(on_prep, '')) = 'yes' ";
+        String usingPrepB = branchB + "AND LOWER(COALESCE(prep_follow_up, '')) = 'yes' ";
+        try {
+            db.execSQL("UPDATE ec_kvp_prep_followup SET "
+                    + "prep_type = CASE WHEN " + usingPrepA + "THEN COALESCE(prep_type_a, '') "
+                    + "WHEN " + usingPrepB + "THEN COALESCE(prep_type_b, '') ELSE '' END, "
+                    + "prep_facility = CASE WHEN " + usingPrepA + "THEN COALESCE(prep_facility_a, '') "
+                    + "WHEN " + usingPrepB + "THEN COALESCE(prep_facility_b, '') ELSE '' END, "
+                    + "currently_on_prep = CASE WHEN " + branchA + "THEN COALESCE(on_prep, '') "
+                    + "WHEN " + branchB + "THEN COALESCE(prep_follow_up, '') ELSE '' END, "
+                    + "linked_to_prep_services = CASE WHEN " + branchA
+                    + "AND LOWER(COALESCE(on_prep, '')) = 'no' THEN COALESCE(linked_to_prep_recent, '') "
+                    + "WHEN " + branchB
+                    + "AND LOWER(COALESCE(prep_follow_up, '')) = 'no' THEN COALESCE(linked_to_prep, '') ELSE '' END");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion60-prep-reporting");
         }
     }
 

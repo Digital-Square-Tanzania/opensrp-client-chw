@@ -140,6 +140,23 @@
         }
       },
       {
+        "key": "prep_type_a",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_type_a",
+        "label": "Aina ya dawa kinga (PrEP) anayotumia",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "oral_prep", "text": "Oral PrEP (Vidonge)", "openmrs_entity": "concept", "openmrs_entity_id": "oral_prep"},
+          {"key": "injectable_prep", "text": "Injectable PrEP (Sindano)", "openmrs_entity": "concept", "openmrs_entity_id": "injectable_prep"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:on_prep": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
         "key": "prep_facility_a",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -337,6 +354,23 @@
         }
       },
       {
+        "key": "prep_type_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_type_b",
+        "label": "Aina ya dawa kinga (PrEP) anayotumia",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "oral_prep", "text": "Oral PrEP (Vidonge)", "openmrs_entity": "concept", "openmrs_entity_id": "oral_prep"},
+          {"key": "injectable_prep", "text": "Injectable PrEP (Sindano)", "openmrs_entity": "concept", "openmrs_entity_id": "injectable_prep"}
+        ],
+        "v_required": {"value": "true", "err": "Tafadhali chagua jibu"},
+        "relevance": {
+          "step1:prep_follow_up": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
         "key": "prep_facility_b",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -376,6 +410,34 @@
         "relevance": {
           "step1:linked_to_prep": {"type": "string", "ex": "equalTo(., \"no\")"}
         }
+      },
+      {
+        "key": "prep_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_type",
+        "type": "hidden"
+      },
+      {
+        "key": "prep_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_facility",
+        "type": "hidden"
+      },
+      {
+        "key": "currently_on_prep",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "currently_on_prep",
+        "type": "hidden"
+      },
+      {
+        "key": "linked_to_prep_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "linked_to_prep_services",
+        "type": "hidden"
       },
       {
         "key": "client_hiv_status",
