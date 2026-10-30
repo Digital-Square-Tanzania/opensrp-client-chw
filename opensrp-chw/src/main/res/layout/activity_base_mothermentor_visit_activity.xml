@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/opensrp_primary"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/home_visit_header_margin_left"
+            android:paddingEnd="@dimen/home_visit_header_margin_right"
+            android:paddingTop="@dimen/home_visit_header_margin_top"
+            android:paddingBottom="@dimen/home_visit_header_margin_bottom">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_action_close"
+                app:tint="@color/white"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
+                android:padding="12dp"
+                android:contentDescription="@android:string/cancel"
+                android:focusable="true" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/customFontTextViewSubmit"
+                style="@style/CustomFontTextViewStyle.ClientList.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@id/close"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:text="@string/submit"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:background="?attr/selectableItemBackground"
+                android:focusable="true" />
+        </RelativeLayout>
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/customFontTextViewName"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/home_visit_left_margin"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="@dimen/home_visit_right_margin"
+            android:layout_marginBottom="@dimen/dialog_toolbar_close_margin"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/home_visit_title_text_size" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_bar">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible" />
+
+</RelativeLayout>

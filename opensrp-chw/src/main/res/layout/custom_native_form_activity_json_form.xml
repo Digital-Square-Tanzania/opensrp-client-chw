@@ -27,6 +27,7 @@
 
     <EditText
         android:id="@+id/default_focus_view"
+        android:importantForAccessibility="no"
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:layout_alignParentLeft="true"

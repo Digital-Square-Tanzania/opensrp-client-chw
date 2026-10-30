@@ -304,7 +304,7 @@
                 android:paddingVertical="5dp"
                 android:text="@string/register"
                 android:textColor="@color/bottom_nav_bar_background"
-                android:textSize="13dp" />
+                android:textSize="13sp" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/text_view_partner_profile"
@@ -364,7 +364,7 @@
                 android:paddingVertical="5dp"
                 android:text="@string/test_partner"
                 android:textColor="@color/bottom_nav_bar_background"
-                android:textSize="13dp" />
+                android:textSize="13sp" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/text_view_partner_testing"

@@ -30,7 +30,7 @@
                     android:padding="20dp"
                     android:text="What type of kit has the family received?"
                     android:textColor="@color/text_black"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <RadioGroup
                     android:id="@+id/radio_group_family_kit"
@@ -92,7 +92,7 @@
                     android:padding="20dp"
                     android:text="Has the kit been used?"
                     android:textColor="@color/text_black"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <RadioGroup
                     android:id="@+id/radio_group_kit_used"

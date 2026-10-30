@@ -919,7 +919,7 @@
     <string name="mothermentor_iit">MOTHER IIT</string>
     <string name="mothermentor_partner">PARTNER</string>
     <string name="mothermentor_child_eid">CHILD EID</string>
-    <string name="mothermentor_child_eid_register_tag">Mother Mentor Child IED</string>
+    <string name="mothermentor_child_eid_register_tag">Mother Mentor Child EID</string>
     <string name="mothermentor_partner_register_tag">Mother Mentor Partner</string>
     <string name="mothermentor_secondary_enrollments">Follow Up</string>
     <string name="mothermentor_follow_up">Follow Up</string>
@@ -1028,4 +1028,29 @@
     <string name="member_removal_reason_missing">Please select the reason for removing this member and try again.</string>
     <string name="immunization_save_retry">Vaccinations have not been saved. Your entries are still on this screen. Wait for the visit to load, then tap Save again.</string>
     <string name="immunization_restore_failed">This vaccination form could not be restored. Nothing was saved. Return to the visit and reopen Record vaccinations.</string>
+
+    <string name="ui_clear_search">Clear search</string>
+    <string name="ui_enable_filters">Enable filters</string>
+    <string name="ui_show_pin">Show PIN</string>
+    <string name="ui_refresh_indicators">Refresh indicators</string>
+    <string-array name="ui_hiv_status_filter_labels">
+        <item>All</item>
+        <item>Positive</item>
+        <item>Negative</item>
+    </string-array>
+    <string-array name="ui_prep_status_filter_labels">
+        <item>All</item>
+        <item>Initiated</item>
+        <item>Not initiated</item>
+        <item>Continuing</item>
+        <item>Restarted</item>
+        <item>Discontinued/Quit</item>
+    </string-array>
+    <string name="ui_link_child_title">Link child</string>
+    <string name="ui_check_in">Check in</string>
+    <string name="ui_choose_sign_in">Choose how to sign in</string>
+    <string name="ui_use_pin">Use PIN</string>
+    <string name="ui_use_password">Use password</string>
+    <string name="ui_mothermentor_back">Mother Mentor</string>
+    <string name="ui_vaccinations_title">Vaccinations</string>
 </resources>

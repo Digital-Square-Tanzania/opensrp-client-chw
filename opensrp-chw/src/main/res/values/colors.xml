@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="chw_primary">#218CC5</color>
-    <color name="primary">#218CC5</color>
+    <color name="chw_primary">@color/ui_action_primary</color>
+    <color name="primary">@color/ui_action_primary</color>
     <color name="chw_primary_dark">#0d384e</color>
-    <color name="chw_accent">#3797ca</color>
-    <color name="primaryAccent">#3797ca</color>
+    <color name="chw_accent">@color/ui_action_primary</color>
+    <color name="primaryAccent">@color/ui_action_primary</color>
     <color name="primaryBackground">#a6d1e7</color>
     <color name="medical_bar">#3B404D</color>
     <color name="medical_text_inner">#212121</color>
@@ -31,4 +31,9 @@
     <color name="pie_chart_orange">#E69138</color>
     <color name="pie_chart_brown">#803F04</color>
     <color name="congratulation_color">#009688</color>
+    <color name="ui_text_secondary">#4F4F4F</color>
+    <color name="customAppThemeBlue">@color/chw_primary</color>
+    <color name="ui_action_primary">#0B6E9E</color>
+    <color name="opensrp_primary">@color/ui_action_primary</color>
+    <color name="text_blue">@color/ui_action_primary</color>
 </resources>

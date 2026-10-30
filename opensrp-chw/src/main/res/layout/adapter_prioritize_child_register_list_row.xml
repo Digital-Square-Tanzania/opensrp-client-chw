@@ -123,7 +123,7 @@
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/vaccine_blue_bg_st"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:typeface="normal" />
 
     </LinearLayout>

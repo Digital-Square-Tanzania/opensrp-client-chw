@@ -348,4 +348,31 @@
     <string name="agyw_reports_subtitle">View AGYW Report</string>
 
 
+
+    <string name="ui_clear_search">Effacer la recherche</string>
+    <string name="ui_enable_filters">Activer les filtres</string>
+    <string name="ui_show_pin">Afficher le code PIN</string>
+    <string name="ui_refresh_indicators">Actualiser les indicateurs</string>
+    <string-array name="ui_hiv_status_filter_labels">
+        <item>Tous</item>
+        <item>Positif</item>
+        <item>Négatif</item>
+    </string-array>
+    <string-array name="ui_prep_status_filter_labels">
+        <item>Tous</item>
+        <item>Commencé</item>
+        <item>Pas commencé</item>
+        <item>En cours</item>
+        <item>Repris</item>
+        <item>Arrêté</item>
+    </string-array>
+    <string name="hiv_status_filter_title">Statut VIH</string>
+    <string name="prep_status_filter_title">Statut du client PrEP</string>
+    <string name="ui_link_child_title">Lier un enfant</string>
+    <string name="ui_check_in">Enregistrer l’arrivée</string>
+    <string name="ui_choose_sign_in">Choisir le mode de connexion</string>
+    <string name="ui_use_pin">Utiliser le code PIN</string>
+    <string name="ui_use_password">Utiliser le mot de passe</string>
+    <string name="ui_mothermentor_back">Mères mentors</string>
+    <string name="ui_vaccinations_title">Vaccinations</string>
 </resources>

@@ -9,8 +9,9 @@
     <FrameLayout
         android:id="@+id/toolbar_parent_layout"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/mama_kinara_blue">
+        android:layout_height="wrap_content"
+        android:background="@color/mama_kinara_blue"
+            android:minHeight="64dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/register_toolbar"
@@ -23,15 +24,17 @@
         <TextView
             android:id="@+id/mama_kinara_register_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
             android:layout_marginEnd="64dp"
             android:gravity="center"
-            android:maxLines="2"
+            android:maxLines="100"
             android:text="@string/mama_kinara_register_title"
             android:textColor="@color/mama_kinara_white"
             android:textSize="17sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:minHeight="64dp"
+            android:padding="8dp" />
 
         <ImageView
             android:id="@+id/sync_refresh"
@@ -64,7 +67,7 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:layout_weight="1">
 
             <EditText
@@ -78,7 +81,7 @@
                 android:inputType="textCapWords"
                 android:maxLines="1"
                 android:paddingStart="12dp"
-                android:paddingEnd="40dp"
+                android:paddingEnd="48dp"
                 android:singleLine="true"
                 android:textColor="@color/mama_kinara_text"
                 android:textColorHint="@color/mama_kinara_search_hint"
@@ -86,11 +89,11 @@
 
             <ImageButton
                 android:id="@+id/btn_search_cancel"
-                android:layout_width="40dp"
+                android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@android:string/cancel"
+                android:contentDescription="@string/ui_clear_search"
                 android:padding="12dp"
                 android:src="@drawable/mama_kinara_ic_clear"
                 android:visibility="invisible" />
@@ -99,7 +102,7 @@
         <TextView
             android:id="@+id/mama_kinara_filter_button"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:drawableStart="@drawable/mama_kinara_ic_filter"

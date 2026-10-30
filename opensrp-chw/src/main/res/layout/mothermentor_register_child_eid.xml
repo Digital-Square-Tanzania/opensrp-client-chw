@@ -6,7 +6,11 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar" android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" android:background="?attr/colorPrimary"
-        android:theme="@style/AppTheme.AppBarOverlay" app:title="@string/mothermentor_link_child_eid" />
+        android:theme="@style/AppTheme.AppBarOverlay" app:title="@string/ui_link_child_title" />
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:fillViewport="true">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
         android:padding="20dp" android:text="@string/mothermentor_child_eid_eligibility"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -28,4 +32,6 @@
         android:background="?attr/selectableItemBackground" android:drawableEnd="@drawable/row_goto"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:text="@string/mothermentor_child_eid_new_client" android:clickable="true" android:focusable="true" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
