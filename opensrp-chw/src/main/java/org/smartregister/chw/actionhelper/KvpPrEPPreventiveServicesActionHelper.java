@@ -362,9 +362,31 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
         setValue(formFields, "hiv_test_conducted", getCompatHivTestConducted(tested3months, hivResultRecent, referredForHiv, testedForHiv));
         setValue(formFields, "hiv_test_location", StringUtils.equalsIgnoreCase(testedForHiv, "yes") ? testingLocation : "");
 
+        normalizePersistedPrepState(formFields, positive);
+
         if (positive) {
             visitState.put("client_hiv_status", "positive");
         }
+    }
+
+    private void normalizePersistedPrepState(JSONArray formFields, boolean hivPositive) throws JSONException {
+        clearValues(formFields, "prep_type", "prep_facility", "currently_on_prep", "linked_to_prep_services");
+        if (hivPositive) {
+            return;
+        }
+
+        String testedRecently = getValue(formFields, "hiv_tested_within_last_3_months");
+        boolean branchA = StringUtils.equalsIgnoreCase(testedRecently, "yes");
+        if (!branchA && !StringUtils.equalsIgnoreCase(testedRecently, "no")) {
+            return;
+        }
+
+        // Inactive and ineligible branch answers have already been cleared before normalization.
+        setValue(formFields, "prep_type", getValue(formFields, branchA ? "prep_type_a" : "prep_type_b"));
+        setValue(formFields, "prep_facility", getValue(formFields, branchA ? "prep_facility_a" : "prep_facility_b"));
+        setValue(formFields, "currently_on_prep", getValue(formFields, branchA ? "on_prep" : "prep_follow_up"));
+        setValue(formFields, "linked_to_prep_services", getValue(formFields,
+                branchA ? "linked_to_prep_recent" : "linked_to_prep"));
     }
 
     static String resolvePersistedCtcNumber(boolean positive, String ctcNumberA, String ctcNumberB,

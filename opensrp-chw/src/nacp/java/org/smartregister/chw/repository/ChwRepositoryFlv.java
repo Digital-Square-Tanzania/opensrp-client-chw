@@ -194,6 +194,9 @@ public class ChwRepositoryFlv {
                 case 51:
                     upgradeToVersion51(db);
                     break;
+                case 52:
+                    upgradeToVersion52(db);
+                    break;
                 default:
                     break;
             }
@@ -1117,6 +1120,42 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion51(SQLiteDatabase db) {
         addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_a");
         addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_b");
+    }
+
+    private static void upgradeToVersion52(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_facility");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "currently_on_prep");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "linked_to_prep_services");
+
+        // Backfill reporting columns while preserving the originally captured branch answers.
+        String eligible = "LOWER(COALESCE(hiv_positive, '')) != 'true' "
+                + "AND LOWER(COALESCE(client_hiv_status, '')) != 'positive' ";
+        String branchA = eligible
+                + "AND LOWER(COALESCE(hiv_tested_within_last_3_months, '')) = 'yes' "
+                + "AND LOWER(COALESCE(hiv_result_recent, '')) = 'negative' ";
+        String branchB = eligible
+                + "AND LOWER(COALESCE(hiv_tested_within_last_3_months, '')) = 'no' "
+                + "AND LOWER(COALESCE(referred_for_hiv_test, '')) = 'yes' "
+                + "AND LOWER(COALESCE(tested_for_hiv, '')) = 'yes' "
+                + "AND LOWER(COALESCE(hiv_result, '')) = 'negative' ";
+        String usingPrepA = branchA + "AND LOWER(COALESCE(on_prep, '')) = 'yes' ";
+        String usingPrepB = branchB + "AND LOWER(COALESCE(prep_follow_up, '')) = 'yes' ";
+        try {
+            db.execSQL("UPDATE ec_kvp_prep_followup SET "
+                    + "prep_type = CASE WHEN " + usingPrepA + "THEN COALESCE(prep_type_a, '') "
+                    + "WHEN " + usingPrepB + "THEN COALESCE(prep_type_b, '') ELSE '' END, "
+                    + "prep_facility = CASE WHEN " + usingPrepA + "THEN COALESCE(prep_facility_a, '') "
+                    + "WHEN " + usingPrepB + "THEN COALESCE(prep_facility_b, '') ELSE '' END, "
+                    + "currently_on_prep = CASE WHEN " + branchA + "THEN COALESCE(on_prep, '') "
+                    + "WHEN " + branchB + "THEN COALESCE(prep_follow_up, '') ELSE '' END, "
+                    + "linked_to_prep_services = CASE WHEN " + branchA
+                    + "AND LOWER(COALESCE(on_prep, '')) = 'no' THEN COALESCE(linked_to_prep_recent, '') "
+                    + "WHEN " + branchB
+                    + "AND LOWER(COALESCE(prep_follow_up, '')) = 'no' THEN COALESCE(linked_to_prep, '') ELSE '' END");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion52-prep-reporting");
+        }
     }
 
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {

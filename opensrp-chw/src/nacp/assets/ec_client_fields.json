@@ -5527,6 +5527,38 @@
           }
         },
         {
+          "column_name": "prep_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "prep_type"
+          }
+        },
+        {
+          "column_name": "prep_facility",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "prep_facility"
+          }
+        },
+        {
+          "column_name": "currently_on_prep",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "currently_on_prep"
+          }
+        },
+        {
+          "column_name": "linked_to_prep_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "linked_to_prep_services"
+          }
+        },
+        {
           "column_name": "hiv_tested_within_last_3_months",
           "type": "Event",
           "json_mapping": {

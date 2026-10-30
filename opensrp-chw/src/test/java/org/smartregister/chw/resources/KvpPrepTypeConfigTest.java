@@ -50,11 +50,26 @@ public class KvpPrepTypeConfigTest {
         JSONArray tables = readJson("src/nacp/assets/ec_client_fields.json").getJSONArray("bindobjects");
         JSONObject followup = tables.getJSONObject(fieldIndex(tables, "ec_kvp_prep_followup", "name"));
         JSONArray columns = followup.getJSONArray("columns");
-        for (String key : new String[]{"prep_type_a", "prep_type_b"}) {
+        for (String key : new String[]{"prep_type_a", "prep_type_b", "prep_type", "prep_facility",
+                "currently_on_prep", "linked_to_prep_services"}) {
             JSONObject column = columns.getJSONObject(fieldIndex(columns, key, "column_name"));
             assertEquals("Event", column.getString("type"));
             assertEquals("obs.fieldCode", column.getJSONObject("json_mapping").getString("field"));
             assertEquals(key, column.getJSONObject("json_mapping").getString("concept"));
+        }
+    }
+
+    @Test
+    public void sharedReportingFieldsAreHiddenObservationsInBothLanguages() throws Exception {
+        for (String language : new String[]{"json.form", "json.form-sw"}) {
+            JSONArray fields = readJson("src/nacp/assets/" + language + "/kvp_prep_preventive_services.json")
+                    .getJSONObject("step1").getJSONArray("fields");
+            for (String key : new String[]{"prep_type", "prep_facility", "currently_on_prep", "linked_to_prep_services"}) {
+                JSONObject field = fields.getJSONObject(fieldIndex(fields, key));
+                assertEquals("hidden", field.getString("type"));
+                assertEquals("concept", field.getString("openmrs_entity"));
+                assertEquals(key, field.getString("openmrs_entity_id"));
+            }
         }
     }
 
