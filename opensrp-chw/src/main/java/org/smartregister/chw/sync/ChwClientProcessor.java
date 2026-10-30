@@ -23,6 +23,8 @@ import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
@@ -57,6 +59,7 @@ import timber.log.Timber;
 public class ChwClientProcessor extends CoreClientProcessor {
 
     private static final String METHADONE_TREATMENT_STATUS_FIELD = "methadone_treatment_status";
+    private static final String DEATH_CONCEPT = "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
     private String currentEventType;
 
@@ -201,6 +204,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     break;
                 case Constants.Events.CBHS_FOLLOWUP:
                 case Constants.Events.MOTHER_CHAMPION_FOLLOWUP:
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES:
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT:
+                case "MotherMentor Partner Follow-up Visit":
+                case "MotherMentor Child EID Follow-up Visit":
                 case Constants.Events.ANC_FIRST_FACILITY_VISIT:
                 case Constants.Events.ANC_RECURRING_FACILITY_VISIT:
                 case Constants.Events.AGYW_STRUCTURAL_SERVICES:
@@ -328,6 +335,31 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 Timber.e(e);
             }
         }
+    }
+
+    @Override
+    protected void processRemoveMember(String baseEntityId, Event event) {
+        super.processRemoveMember(baseEntityId, event);
+        if (StringUtils.isNotBlank(baseEntityId) && isDeathRemoval(event)) {
+            MotherMentorDao.closeDeceasedClientEnrollments(baseEntityId);
+        }
+    }
+
+    private boolean isDeathRemoval(Event event) {
+        if (event == null || event.getObs() == null) {
+            return false;
+        }
+        for (Obs obs : event.getObs()) {
+            if (DBConstants.KEY.REMOVE_REASON.equals(obs.getFormSubmissionField())
+                    || DBConstants.KEY.REMOVE_REASON.equals(obs.getFieldCode())) {
+                String reason = StringUtils.defaultString(
+                        obs.getValue() == null ? null : String.valueOf(obs.getValue()));
+                return "Death".equalsIgnoreCase(reason)
+                        || "Died".equalsIgnoreCase(reason)
+                        || DEATH_CONCEPT.equals(reason);
+            }
+        }
+        return false;
     }
 
     @VisibleForTesting

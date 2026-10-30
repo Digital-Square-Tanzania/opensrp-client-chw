@@ -18,10 +18,10 @@ public class KvpPrEPMedicalHistoryFieldsTest {
 
     private static final Set<String> EXPECTED_HIV_PREP_FIELDS = new HashSet<>(Arrays.asList(
             "hiv_tested_within_last_3_months", "hiv_result_recent", "ctc_number_a",
-            "on_prep", "prep_facility_a", "linked_to_prep_recent",
+            "on_prep", "prep_type_a", "prep_facility_a", "linked_to_prep_recent",
             "referred_for_hiv_test", "tested_for_hiv", "testing_location",
             "facility_name", "test_date", "hiv_result", "ctc_number_b",
-            "prep_follow_up", "prep_facility_b", "linked_to_prep"));
+            "prep_follow_up", "prep_type_b", "prep_facility_b", "linked_to_prep"));
 
     @Test
     public void historyIncludesAllHivPrepAndScheduleFields() {
@@ -56,6 +56,15 @@ public class KvpPrEPMedicalHistoryFieldsTest {
                 "<string name=\"kvp_kits_distributed\">HIVST kits distributed:</string>"));
         assertTrue(swahili.contains(
                 "<string name=\"kvp_kits_distributed\">Vitepe vya JIPIME vilitolewa:</string>"));
+    }
+
+    @Test
+    public void prepTypeOptionsHaveReadableHistoryValuesInBothLanguages() throws Exception {
+        for (String language : new String[]{"values", "values-sw"}) {
+            String strings = readText("src/nacp/res/" + language + "/strings.xml");
+            assertTrue(strings.contains("<string name=\"oral_prep\">Oral PrEP (Vidonge)</string>"));
+            assertTrue(strings.contains("<string name=\"injectable_prep\">Injectable PrEP (Sindano)</string>"));
+        }
     }
 
     private void assertHasLabel(String stringsXml, String field) {
