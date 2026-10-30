@@ -1,0 +1,2069 @@
+[
+  {
+    "activity": "org.smartregister.chw.activity.LoginActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.Login",
+    "live_checkpoints": [
+      "isolated-authenticated",
+      "final-launcher-state",
+      "mother-followups-live",
+      "signed-in-home",
+      "isolated-login",
+      "login-final",
+      "clients-after-live-fixes",
+      "isolated-login-result"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.RequestPhoneNumberCollectionPermission",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "inherited",
+    "live_checkpoints": [
+      "isolated-unlock"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionPreMatPrintActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ForgotPasswordActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.KvpPrEPRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-kvp",
+      "delivery-register-kvp"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbLeprosyProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-profile-tb-leprosy"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbLeprosyRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-tb-leprosy"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "delivery-final-profile-large",
+      "delivery-mother-profile",
+      "mother-profile-live",
+      "final-followup-profile-partner",
+      "final-mother-profile-large-text",
+      "final-followup-profile-child-eid",
+      "final-mother-register-state",
+      "delivery-after-draft-cancel",
+      "delivery-final-profile-normal",
+      "final-followup-profile-mother-iit",
+      "mother-profile-large-text-live"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorHouseholdProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-mother-household-profile"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorPartnerRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorChildEidRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-followup-mother-iit",
+      "delivery-register-mother-mentor",
+      "route-mother-mentor",
+      "final-mother-action_contact",
+      "final-mother-followups",
+      "final-followup-partner",
+      "final-followup-child-eid",
+      "final-mother-action_mobilization"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorVisitActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "mother-visit-live",
+      "mother-visit-exit-dialog",
+      "mother-visit-actions-live",
+      "mother-form-exit",
+      "delivery-mother-visit"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorHouseholdVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "mother-history-live"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbLeprosyContactVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbLeprosyContactRegister",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbLeprosyObservationResultsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbLeprosyMobilizationDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionMatClientsProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-harm-reduction"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-sober-house"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionMatClientsVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionVisitHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionMatClientsVisitHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseVisitHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionUsedNeedlesAndSyringesCollectionDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionPreMatSessionsHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.KvpPrEPProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-profile-kvp"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseVisitHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.KvpReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.KvpReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsAnnualCensusVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.KvpPrEPVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.RegisterFilterActivity",
+    "owner": "app",
+    "coverage": "instrumented host and filter controls; not a drawer workflow",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HivstRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-self-testing"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypInSchoolRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-ayp-in-school-services"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypInSchoolMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypInSchoolMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypParentalRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-ayp-parental-services"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.NcdRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-ncd-clients"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.NcdProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-profile-ncd-clients"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.NcdVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.NcdRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-ncd-clients"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.NcdCaseManagementVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypParentalMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypParentalMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypParentalVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-ayp-out-school-services"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypInSchoolClientServiceVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolGroupMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolClientServiceVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HivstProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HivstResultViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HivstMobilizationSessionDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AgywRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AgywProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AGYWServicesActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AgywServicesFormActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CBHSReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CdpRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CdpProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.RestockingVisitHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.OrderDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.LTFURegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-ltfu"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.LTFUReferralsDetailsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.LTFURecordFeedbackActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CBHSReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherMentorReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherChampionSbcMobilizationSessionDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.InAppReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ClientSelectionRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AllMaleClientsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PartnerRegistrationActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FPMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FpCbdFollowupVisitProvisionOfServicesActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncUpcomingServicesActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncHfMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncHomeVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-anc"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncJsonWizardFormActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncMemberProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-profile-anc"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncPartnerFollowupReferralProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PncUpcomingServicesActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PncMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PncHomeVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PncRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-pnc"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PncMemberProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-profile-pnc"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PncNoMotherRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MalariaRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.IccmRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-iccm"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FpRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-family-planning"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.ChwP2pModeSelectActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.JobAidsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FamilyRemoveMemberActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FamilyProfileMenuActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FamilyRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-all-households"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FamilyProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-profile-all-households"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FamilyOtherMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/FamilyTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.family.activity.FamilyWizardFormActivity",
+    "owner": "library/system component",
+    "coverage": "live UI captured",
+    "theme": "@style/FamilyTheme.NoActionBar",
+    "live_checkpoints": [
+      "mother-visit-type-live",
+      "delivery-mother-visit-type",
+      "mother-visit-conditional",
+      "mother-group-form-live"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ChildRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-child-clients"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.UpcomingServicesActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ChildHomeVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ChildProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-child-profile"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ChildMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreUpcomingServicesActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreFpUpcomingServicesActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.IndividualProfileRemoveActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ClientReferralActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AboveFiveChildProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MalariaProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.IccmProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.IccmServicesActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreAncRegisterActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MalariaUpcomingServicesActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ReferralRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-referrals"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ReferralRegistrationActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FpFollowUpVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SickFormMedicalHistory",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ChwHIA2ReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.ReportSummaryActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.ServiceJsonFormActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreStockInventoryReportActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreStockInventoryItemDetailsReportActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FpMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.NcdMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.FragmentBaseActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PinLoginActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AllClientsRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "delivery-final-all-clients",
+      "drawer-page-1",
+      "drawer-page-0",
+      "offline-login-result",
+      "delivery-search-cleared",
+      "all-clients-rows-before-alignment",
+      "signed-in-drawer",
+      "drawer-expanded",
+      "all-clients-alignment-before",
+      "delivery-search-empty",
+      "all-clients-sex-location-fixed",
+      "delivery-final-review-screen",
+      "all-clients-sex-location-fixed-large",
+      "drawer-page-4",
+      "drawer-page-3",
+      "isolated-login-settled",
+      "drawer-page-2",
+      "final-offline-login-result",
+      "route-all-clients"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SickChildJsonFormActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.UpdatesRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-linkages-from-facility"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.UpdateRegisterDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AllClientsMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/FamilyTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AncMemberMapActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreCommunityRespondersRegisterActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HivRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "delivery-register-cbhs",
+      "route-cbhs"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-index-contacts"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreTbUpcomingServicesActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HivProfileActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "final-profile-cbhs"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HivIndexContactProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbCommunityFollowupDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.core.activity.CoreHivUpcomingServicesActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CbhsUpcomingServiceActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ChwReferralDetailsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherChampionRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-sbc-for-hiv"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PmtctFollowupDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherChampionProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcMobilizationSessionDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcMonthlySocialMediaReportRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-sbc-monthly-social-media-report"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.SbcMonthlySocialMediaReportDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.MotherChampionMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AgywMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.KvpPrEPMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CbhsMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CdpReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CdpReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AGYWReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AGYWReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.IccmReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.IccmReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PncChildNoMotherProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.IccmMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ECDReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ECDReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AsrhRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AsrhMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AsrhMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AsrhVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AsrhReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AsrhReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HarmReductionSoberHouseReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CecapRegisterActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CecapMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CecapMedicalHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CecapMobilizationSessionDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CecapReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.CecapReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-icchw"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsMemberProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsClientServicesVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsVisitHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsHouseholdProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsHouseholdVisitHistoryActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsMobilizationSessionDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsAdvertisementFeedbackDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsDeathRegistrationDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.HpsAnnualCensusRegistrationDetailsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbLeprosyReportsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.TbLeprosyReportsActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.PrivacyPolicyActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AddoLinkageRegisterActivity",
+    "owner": "app",
+    "coverage": "live UI captured",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": [
+      "route-linkage"
+    ]
+  },
+  {
+    "activity": "org.smartregister.chw.activity.ChwLinkageDetailsViewActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.LinkageFollowUpActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.NcdFormWizardActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypInSchoolGroupProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolGroupProfileActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypInSchoolGroupVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.activity.AypOutSchoolGroupVisitActivity",
+    "owner": "app",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.referral.activity.BaseIssueReferralActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwReferralTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.referral.activity.ReferralDetailsViewActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwReferralTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.hiv.activity.BaseHivFormsActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwHivTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.hiv.activity.BaseHivProfileActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwHivTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.hiv.activity.BaseHivCommunityFollowupDetailsActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwHivTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTbTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.tb.activity.BaseTbProfileActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTbTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.tb.activity.BaseTbCommunityFollowupDetailsActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/ChwTbTheme.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.ReportsActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.VideosActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.ReportIndicatorListViewActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.ReportIndicatorDetailActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.ReportIndicatorCaseListActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.EligibleCoupleDetailActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.CameraLaunchActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@android:style/Theme.Holo.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.FormActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.MicroFormActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@android:style/Theme.Holo.Dialog.NoActionBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.NativeECSmartRegisterActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.BarcodeScanActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.NativeHomeActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.SettingsActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.view.activity.StatsActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/AppThemeNoActionBarAndTitle",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.opd.activity.BaseOpdProfileActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.anc.activity.BaseAncUpcomingServicesActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.anc.activity.BaseAncMedicalHistoryActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ld.activity.PartographMonitoringActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ld.activity.BaseLabourProgressViewActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.harmreduction.activity.BaseHarmReductionSoberHouseVisitActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ayp.activity.BaseAypParentalVisitActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ayp.activity.BaseAypInSchoolGroupVisitActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ayp.activity.BaseAypOutSchoolGroupVisitActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ayp.activity.BaseAypGroupProfileActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ayp.activity.BaseAypParentalMemberProfileActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ayp.activity.BaseAypParentalMedicalHistoryActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.ayp.activity.BaseAypFacilityBiomedicalVisitActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.p2p.activity.P2pModeSelectActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "com.vijay.jsonwizard.activities.JsonFormBarcodeScanActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "com.karumi.dexter.DexterActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/Dexter.Internal.Theme.Transparent",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "com.google.android.gms.common.api.GoogleApiActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@android:style/Theme.Translucent.NoTitleBar",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@android:style/Theme",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@android:style/Theme",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@android:style/Theme.Dialog",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.simprint.SimPrintsRegisterActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.simprint.SimPrintsVerifyActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.simprint.SimPrintsIdentifyActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "org.smartregister.chw.mothermentor.activity.MotherMentorMobilizationSessionDetailsActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "inherited",
+    "live_checkpoints": []
+  },
+  {
+    "activity": "com.journeyapps.barcodescanner.CaptureActivity",
+    "owner": "library/system component",
+    "coverage": "source/manifest inventory; no individual live traversal",
+    "theme": "@style/zxing_CaptureTheme",
+    "live_checkpoints": []
+  }
+]

@@ -1,0 +1,428 @@
+{
+  "baseline_findings": 6915,
+  "current_findings": 6862,
+  "new_findings": [
+    {
+      "severity": "Error",
+      "id": "MissingClass",
+      "file": "opensrp-chw/src/main/res/layout/all_client_register_list_row.xml",
+      "message": "Class referenced in the layout file, `com.rey.material.widget.ImageView`, was not found in the project or the libraries",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedAttribute",
+      "file": "opensrp-chw/src/main/res/layout/dialog_mama_kinara_register_filter.xml",
+      "message": "Attribute `accessibilityHeading` is only used in API level 28 and higher (current min is 23)",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "Overdraw",
+      "file": "opensrp-chw/src/main/res/layout/activity_base_mothermentor_visit_activity.xml",
+      "message": "Possible overdraw: Root element paints background `@color/white` with a theme that also paints a background (inferred theme is `@style/ChwTheme`)",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "Overdraw",
+      "file": "opensrp-chw/src/main/res/layout/activity_mothermentor_profile.xml",
+      "message": "Possible overdraw: Root element paints background `@color/white` with a theme that also paints a background (inferred theme is `@style/ChwTheme`)",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/dimens.xml",
+      "message": "The resource `R.dimen.tool_bar_size` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/drawable/login_pin_bg.xml",
+      "message": "The resource `R.drawable.login_pin_bg` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "The resource `R.string.mothermentor_back_to_follow_up_clients` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UselessParent",
+      "file": "opensrp-chw/src/main/res/layout/multiple_vaccination_dialog_view.xml",
+      "message": "This `ScrollView` layout or its `FrameLayout` parent is possibly unnecessary; transfer the `background` attribute to the other view",
+      "count": 1
+    }
+  ],
+  "resolved_findings": [
+    {
+      "severity": "Fatal",
+      "id": "DuplicateIds",
+      "file": "opensrp-chw/src/main/res/layout/activity_hps_reports.xml",
+      "message": "Duplicate id `@+id/report_icon`, already defined earlier in this layout",
+      "count": 1
+    },
+    {
+      "severity": "Fatal",
+      "id": "DuplicateIds",
+      "file": "opensrp-chw/src/main/res/layout/activity_hps_reports.xml",
+      "message": "Duplicate id `@+id/go_to`, already defined earlier in this layout",
+      "count": 1
+    },
+    {
+      "severity": "Fatal",
+      "id": "DuplicateIds",
+      "file": "opensrp-chw/src/main/res/layout/activity_hps_reports.xml",
+      "message": "Duplicate id `@+id/report_title`, already defined earlier in this layout",
+      "count": 1
+    },
+    {
+      "severity": "Fatal",
+      "id": "DuplicateIds",
+      "file": "opensrp-chw/src/main/res/layout/activity_iccm_reports.xml",
+      "message": "Duplicate id `@+id/report_icon`, already defined earlier in this layout",
+      "count": 2
+    },
+    {
+      "severity": "Fatal",
+      "id": "DuplicateIds",
+      "file": "opensrp-chw/src/main/res/layout/activity_iccm_reports.xml",
+      "message": "Duplicate id `@+id/go_to`, already defined earlier in this layout",
+      "count": 2
+    },
+    {
+      "severity": "Fatal",
+      "id": "DuplicateIds",
+      "file": "opensrp-chw/src/main/res/layout/activity_iccm_reports.xml",
+      "message": "Duplicate id `@+id/report_title`, already defined earlier in this layout",
+      "count": 2
+    },
+    {
+      "severity": "Warning",
+      "id": "ScrollViewSize",
+      "file": "opensrp-chw/src/main/res/layout/activity_login.xml",
+      "message": "This RelativeLayout should use `android:layout_height=\"wrap_content\"`",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ScrollViewSize",
+      "file": "opensrp-chw/src/main/res/layout/pin_login_fragment.xml",
+      "message": "This RelativeLayout should use `android:layout_height=\"wrap_content\"`",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ExtraText",
+      "file": "opensrp-chw/src/main/res/layout/view_wash_fragment.xml",
+      "message": "Unexpected text found in layout file: \"\\\"",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "SpUsage",
+      "file": "opensrp-chw/src/main/res/layout/adapter_prioritize_child_register_list_row.xml",
+      "message": "Should use \"`sp`\" instead of \"`dp`\" for text sizes",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "SpUsage",
+      "file": "opensrp-chw/src/main/res/layout/content_anc_profile.xml",
+      "message": "Should use \"`sp`\" instead of \"`dp`\" for text sizes",
+      "count": 2
+    },
+    {
+      "severity": "Warning",
+      "id": "SpUsage",
+      "file": "opensrp-chw/src/main/res/layout/fragment_routine_question.xml",
+      "message": "Should use \"`sp`\" instead of \"`dp`\" for text sizes",
+      "count": 2
+    },
+    {
+      "severity": "Warning",
+      "id": "SpUsage",
+      "file": "opensrp-chw/src/main/res/layout/fragment_routine_question_check.xml",
+      "message": "Should use \"`sp`\" instead of \"`dp`\" for text sizes",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "SpUsage",
+      "file": "opensrp-chw/src/main/res/layout/fragment_routine_question_radio.xml",
+      "message": "Should use \"`sp`\" instead of \"`dp`\" for text sizes",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "SpUsage",
+      "file": "opensrp-chw/src/main/res/layout/view_family_kit_fragment.xml",
+      "message": "Should use \"`sp`\" instead of \"`dp`\" for text sizes",
+      "count": 2
+    },
+    {
+      "severity": "Warning",
+      "id": "SpUsage",
+      "file": "opensrp-chw/src/main/res/layout/view_wash_fragment.xml",
+      "message": "Should use \"`sp`\" instead of \"`dp`\" for text sizes",
+      "count": 3
+    },
+    {
+      "severity": "Error",
+      "id": "MissingTranslation",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "\"hiv_status_filter_title\" is not translated in \"fr\" (French)",
+      "count": 1
+    },
+    {
+      "severity": "Error",
+      "id": "MissingTranslation",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "\"prep_status_filter_title\" is not translated in \"fr\" (French)",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ObsoleteLayoutParam",
+      "file": "opensrp-chw/src/main/res/layout/activity_login.xml",
+      "message": "Invalid layout param in a `ScrollView`: `layout_weight`",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ObsoleteLayoutParam",
+      "file": "opensrp-chw/src/main/res/layout/pin_login_fragment.xml",
+      "message": "Invalid layout param in a `ScrollView`: `layout_weight`",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "InefficientWeight",
+      "file": "opensrp-chw/src/main/res/layout/activity_login.xml",
+      "message": "Use a `layout_height` of `0dp` instead of `@dimen/login_logo_height` for better performance",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "InefficientWeight",
+      "file": "opensrp-chw/src/main/res/layout/multiple_vaccination_dialog_view.xml",
+      "message": "Use a `layout_height` of `0dp` instead of `wrap_content` for better performance",
+      "count": 2
+    },
+    {
+      "severity": "Warning",
+      "id": "InefficientWeight",
+      "file": "opensrp-chw/src/main/res/layout/pin_login_fragment.xml",
+      "message": "Use a `layout_height` of `0dp` instead of `@dimen/login_logo_height` for better performance",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/dimens.xml",
+      "message": "The resource `R.dimen.number_view_text_size` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/layout/fragment_client_selection_register.xml",
+      "message": "The resource `R.layout.fragment_client_selection_register` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/layout/multiple_vaccination_dialog_view.xml",
+      "message": "The resource `R.layout.multiple_vaccination_dialog_view` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "The resource `R.string.add_date_separately` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "The resource `R.string.interpunct` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "The resource `R.string.submit` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "The resource `R.string.vaccination_done_earlier` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "The resource `R.string.vaccines_not_done` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "UnusedResources",
+      "file": "opensrp-chw/src/main/res/values/strings.xml",
+      "message": "The resource `R.string.set` appears to be unused",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "TextFields",
+      "file": "opensrp-chw/src/main/res/layout/base_register_search_bar.xml",
+      "message": "This text field does not specify an `inputType`",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "TextFields",
+      "file": "opensrp-chw/src/main/res/layout/fragment_client_selection_register.xml",
+      "message": "This text field does not specify an `inputType`",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "SmallSp",
+      "file": "opensrp-chw/src/main/res/layout/activity_login.xml",
+      "message": "Avoid using sizes smaller than `11sp`: `10sp`",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "Autofill",
+      "file": "opensrp-chw/src/main/res/layout/activity_login.xml",
+      "message": "Missing `autofillHints` attribute",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/activity_all_male_clients.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/activity_client_referral.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/activity_login.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/activity_partner_registration.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/activity_request_call_phone_permission.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/base_register_search_bar.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/fragment_client_selection_register.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/fragment_routine_visit.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "ContentDescription",
+      "file": "opensrp-chw/src/main/res/layout/pin_login_fragment.xml",
+      "message": "Missing `contentDescription` attribute on image",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "HardcodedText",
+      "file": "opensrp-chw/src/main/res/layout/activity_job_aids.xml",
+      "message": "Hardcoded string \"Refresh indicators\", should use `@string` resource",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "HardcodedText",
+      "file": "opensrp-chw/src/main/res/layout/choose_login_fragment.xml",
+      "message": "Hardcoded string \"Use pin or password to log in?\", should use `@string` resource",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "HardcodedText",
+      "file": "opensrp-chw/src/main/res/layout/choose_login_fragment.xml",
+      "message": "Hardcoded string \"Use pin number\", should use `@string` resource",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "HardcodedText",
+      "file": "opensrp-chw/src/main/res/layout/choose_login_fragment.xml",
+      "message": "Hardcoded string \"Use password\", should use `@string` resource",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "RelativeOverlap",
+      "file": "opensrp-chw/src/main/res/layout/activity_register_filter.xml",
+      "message": "`@id/title_hiv_status` can overlap `@id/hiv_status_filter` if @string/hiv_status_filter_title grows due to localized text expansion",
+      "count": 1
+    },
+    {
+      "severity": "Warning",
+      "id": "RelativeOverlap",
+      "file": "opensrp-chw/src/main/res/layout/activity_register_filter.xml",
+      "message": "`@id/title_prep_status` can overlap `@id/prep_status_filter` if @string/prep_status_filter_title grows due to localized text expansion",
+      "count": 1
+    },
+    {
+      "severity": "Error",
+      "id": "RtlCompat",
+      "file": "opensrp-chw/src/main/res/layout/activity_login.xml",
+      "message": "Inconsistent alignment specification between `textAlignment` and `gravity` attributes: was `center_vertical`, expected `end`",
+      "count": 1
+    }
+  ]
+}

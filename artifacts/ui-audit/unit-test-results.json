@@ -1,0 +1,17 @@
+{
+  "tests": 1067,
+  "failures": 3,
+  "errors": 0,
+  "skipped": 0,
+  "failed_cases": [
+    "org.smartregister.chw.adapter.GroupedNavigationMenuTest.restrictedRolesRetainOnlyTheirAvailableModules",
+    "org.smartregister.chw.adapter.GroupedNavigationMenuTest.refreshedRoleOptionsUpdateAnExistingAdapterWithoutExposingOldModules",
+    "org.smartregister.chw.adapter.GroupedNavigationMenuTest.disabledMotherMentorDoesNotRemoveOtherRoleModulesOrExposeChampion"
+  ],
+  "baseline_failed_cases": [
+    "org.smartregister.chw.adapter.GroupedNavigationMenuTest.restrictedRolesRetainOnlyTheirAvailableModules",
+    "org.smartregister.chw.adapter.GroupedNavigationMenuTest.refreshedRoleOptionsUpdateAnExistingAdapterWithoutExposingOldModules",
+    "org.smartregister.chw.adapter.GroupedNavigationMenuTest.disabledMotherMentorDoesNotRemoveOtherRoleModulesOrExposeChampion"
+  ],
+  "same_failures_as_baseline": true
+}
