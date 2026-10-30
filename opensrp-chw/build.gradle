@@ -310,7 +310,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '59'
+            buildConfigField "int", "DATABASE_VERSION", '60'
             // Gates the app-owned manual referral follow-up action in the Referral register.
             // NOTE: the chw-referral library reads its OWN BuildConfig field of the same name;
             // this one only controls NacpReferralRegisterProvider / ReferralRegisterFragment.
@@ -379,7 +379,7 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-14-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-15-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         // Pull opensrp-chw-ncd directly (below) instead of the version chw-core resolves to,
@@ -415,7 +415,7 @@ dependencies {
     }
 
     // The register DAO is supplied by the Mother Mentor library.
-    implementation('org.smartregister:opensrp-chw-mother-mentor:0.1.12-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-chw-mother-mentor:0.1.13-SNAPSHOT@aar') {
         transitive = false
     }
 

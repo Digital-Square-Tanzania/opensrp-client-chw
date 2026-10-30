@@ -36,4 +36,8 @@
     <color name="ui_action_primary">#0B6E9E</color>
     <color name="opensrp_primary">@color/ui_action_primary</color>
     <color name="text_blue">@color/ui_action_primary</color>
+    <!-- Intentional contrast overrides for the published Mother Mentor register. -->
+    <color name="mama_kinara_blue">@color/ui_action_primary</color>
+    <color name="mama_kinara_muted">@color/ui_text_secondary</color>
+    <color name="mama_kinara_search_hint">@color/ui_text_secondary</color>
 </resources>

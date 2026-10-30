@@ -92,6 +92,67 @@ public class KvpPrEPPreventiveServicesActionHelperTest {
         assertEquals("", KvpPrEPPreventiveServicesActionHelper.resolvePersistedTestDate(null, null));
     }
 
+    @Test
+    public void prepTypeIsRetainedOnlyForTheActivePrepBranch() throws Exception {
+        String[][] cases = {
+                {"yes", "negative", "yes", "", "", "", "", "oral_prep", ""},
+                {"yes", "negative", "yes", "", "", "", "", "injectable_prep", ""},
+                {"no", "", "", "yes", "yes", "negative", "yes", "", "oral_prep"},
+                {"no", "", "", "yes", "yes", "negative", "yes", "", "injectable_prep"},
+                {"yes", "negative", "no", "", "", "", "", "", ""},
+                {"yes", "negative", "", "", "", "", "", "", ""},
+                {"yes", "positive", "yes", "", "", "", "", "", ""},
+                {"yes", "", "yes", "", "", "", "", "", ""},
+                {"no", "", "", "no", "yes", "negative", "yes", "", ""},
+                {"no", "", "", "yes", "no", "negative", "yes", "", ""},
+                {"no", "", "", "yes", "yes", "positive", "yes", "", ""},
+                {"no", "", "", "yes", "yes", "", "yes", "", ""},
+                {"no", "", "", "yes", "yes", "negative", "no", "", ""},
+                {"no", "", "", "yes", "yes", "negative", "", "", ""},
+                {"", "negative", "yes", "yes", "yes", "negative", "yes", "", ""}
+        };
+        String[] keys = {"hiv_tested_within_last_3_months", "hiv_result_recent", "on_prep",
+                "referred_for_hiv_test", "tested_for_hiv", "hiv_result", "prep_follow_up"};
+        KvpPrEPPreventiveServicesActionHelper helper =
+                new KvpPrEPPreventiveServicesActionHelper("client-id", new HashMap<>());
+        Method clearInactive = KvpPrEPPreventiveServicesActionHelper.class
+                .getDeclaredMethod("clearInactiveBranchValues", JSONArray.class);
+        clearInactive.setAccessible(true);
+
+        for (String[] values : cases) {
+            JSONArray fields = new JSONArray();
+            for (int i = 0; i < keys.length; i++) {
+                fields.put(field(keys[i], "native_radio", false).put("value", values[i]));
+            }
+            String selectedType = "injectable_prep".equals(values[7]) || "injectable_prep".equals(values[8])
+                    ? "injectable_prep" : "oral_prep";
+            fields.put(field("prep_type_a", "native_radio", false).put("value", selectedType));
+            fields.put(field("prep_type_b", "native_radio", false).put("value", selectedType));
+            clearInactive.invoke(helper, fields);
+
+            assertEquals(java.util.Arrays.toString(values), values[7],
+                    fields.getJSONObject(keys.length).getString("value"));
+            assertEquals(java.util.Arrays.toString(values), values[8],
+                    fields.getJSONObject(keys.length + 1).getString("value"));
+        }
+    }
+
+    @Test
+    public void hivPositiveSuppressionHidesBothPrepTypeQuestions() throws Exception {
+        JSONObject form = formWithFields(field("prep_type_a", "native_radio", true),
+                field("prep_type_b", "native_radio", true));
+        Method suppress = KvpPrEPPreventiveServicesActionHelper.class
+                .getDeclaredMethod("suppressHivPrepFields", JSONObject.class);
+        suppress.setAccessible(true);
+        suppress.invoke(new KvpPrEPPreventiveServicesActionHelper("client-id", new HashMap<>()), form);
+
+        JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
+        for (int i = 0; i < fields.length(); i++) {
+            assertEquals("hidden", fields.getJSONObject(i).getString("type"));
+            assertFalse(fields.getJSONObject(i).has("relevance"));
+        }
+    }
+
     private JSONObject formWithFields(JSONObject... formFields) throws Exception {
         JSONArray fields = new JSONArray();
         for (JSONObject field : formFields) {
