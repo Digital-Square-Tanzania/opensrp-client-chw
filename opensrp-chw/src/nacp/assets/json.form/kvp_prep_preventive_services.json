@@ -137,6 +137,23 @@
         }
       },
       {
+        "key": "prep_type_a",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_type_a",
+        "label": "What type of PrEP did the RoC receive?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "oral_prep", "text": "Oral PrEP (Vidonge)", "openmrs_entity": "concept", "openmrs_entity_id": "oral_prep"},
+          {"key": "injectable_prep", "text": "Injectable PrEP (Sindano)", "openmrs_entity": "concept", "openmrs_entity_id": "injectable_prep"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:on_prep": {"type": "string", "ex": "equalTo(., \"yes\")"}
+        }
+      },
+      {
         "key": "prep_facility_a",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -328,6 +345,23 @@
         "v_required": {"value": "true", "err": "Please select an answer"},
         "relevance": {
           "step1:hiv_result": {"type": "string", "ex": "equalTo(., \"negative\")"}
+        }
+      },
+      {
+        "key": "prep_type_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep_type_b",
+        "label": "What type of PrEP did the RoC receive?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {"key": "oral_prep", "text": "Oral PrEP (Vidonge)", "openmrs_entity": "concept", "openmrs_entity_id": "oral_prep"},
+          {"key": "injectable_prep", "text": "Injectable PrEP (Sindano)", "openmrs_entity": "concept", "openmrs_entity_id": "injectable_prep"}
+        ],
+        "v_required": {"value": "true", "err": "Please select an answer"},
+        "relevance": {
+          "step1:prep_follow_up": {"type": "string", "ex": "equalTo(., \"yes\")"}
         }
       },
       {

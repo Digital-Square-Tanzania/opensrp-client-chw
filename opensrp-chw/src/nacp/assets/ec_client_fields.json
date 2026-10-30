@@ -5567,6 +5567,14 @@
           }
         },
         {
+          "column_name": "prep_type_a",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "prep_type_a"
+          }
+        },
+        {
           "column_name": "prep_facility_a",
           "type": "Event",
           "json_mapping": {
@@ -5652,6 +5660,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "prep_follow_up"
+          }
+        },
+        {
+          "column_name": "prep_type_b",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "prep_type_b"
           }
         },
         {

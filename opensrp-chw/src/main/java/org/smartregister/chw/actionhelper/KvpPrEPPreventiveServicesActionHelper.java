@@ -27,6 +27,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "branch_a_test_date",
             "ctc_number_a",
             "on_prep",
+            "prep_type_a",
             "prep_facility_a",
             "linked_to_prep_recent",
             "linked_to_prep_recent_prompt",
@@ -39,6 +40,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
+            "prep_type_b",
             "prep_facility_b",
             "linked_to_prep",
             "linked_to_prep_prompt",
@@ -50,6 +52,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "branch_a_test_date",
             "ctc_number_a",
             "on_prep",
+            "prep_type_a",
             "prep_facility_a",
             "linked_to_prep_recent"
     };
@@ -63,6 +66,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
+            "prep_type_b",
             "prep_facility_b",
             "linked_to_prep"
     };
@@ -75,6 +79,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
+            "prep_type_b",
             "prep_facility_b",
             "linked_to_prep"
     };
@@ -86,6 +91,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
             "hiv_result",
             "ctc_number_b",
             "prep_follow_up",
+            "prep_type_b",
             "prep_facility_b",
             "linked_to_prep"
     };
@@ -275,12 +281,12 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     private void clearBranchAValues(JSONArray formFields) throws JSONException {
         String hivResultRecent = getValue(formFields, "hiv_result_recent");
         if (StringUtils.equalsIgnoreCase(hivResultRecent, "positive")) {
-            clearValues(formFields, "on_prep", "prep_facility_a", "linked_to_prep_recent");
+            clearValues(formFields, "on_prep", "prep_type_a", "prep_facility_a", "linked_to_prep_recent");
         } else if (StringUtils.equalsIgnoreCase(hivResultRecent, "negative")) {
             clearValues(formFields, "ctc_number_a");
             clearPrEPBranchAValues(formFields);
         } else {
-            clearValues(formFields, "ctc_number_a", "on_prep", "prep_facility_a", "linked_to_prep_recent");
+            clearValues(formFields, "ctc_number_a", "on_prep", "prep_type_a", "prep_facility_a", "linked_to_prep_recent");
         }
     }
 
@@ -289,9 +295,9 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
         if (StringUtils.equalsIgnoreCase(onPrEP, "yes")) {
             clearValues(formFields, "linked_to_prep_recent");
         } else if (StringUtils.equalsIgnoreCase(onPrEP, "no")) {
-            clearValues(formFields, "prep_facility_a");
+            clearValues(formFields, "prep_type_a", "prep_facility_a");
         } else {
-            clearValues(formFields, "prep_facility_a", "linked_to_prep_recent");
+            clearValues(formFields, "prep_type_a", "prep_facility_a", "linked_to_prep_recent");
         }
     }
 
@@ -310,12 +316,12 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
 
         String hivResult = getValue(formFields, "hiv_result");
         if (StringUtils.equalsIgnoreCase(hivResult, "positive")) {
-            clearValues(formFields, "prep_follow_up", "prep_facility_b", "linked_to_prep");
+            clearValues(formFields, "prep_follow_up", "prep_type_b", "prep_facility_b", "linked_to_prep");
         } else if (StringUtils.equalsIgnoreCase(hivResult, "negative")) {
             clearValues(formFields, "ctc_number_b");
             clearPrEPBranchBValues(formFields);
         } else {
-            clearValues(formFields, "ctc_number_b", "prep_follow_up", "prep_facility_b", "linked_to_prep");
+            clearValues(formFields, "ctc_number_b", "prep_follow_up", "prep_type_b", "prep_facility_b", "linked_to_prep");
         }
     }
 
@@ -324,9 +330,9 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
         if (StringUtils.equalsIgnoreCase(prepFollowUp, "yes")) {
             clearValues(formFields, "linked_to_prep");
         } else if (StringUtils.equalsIgnoreCase(prepFollowUp, "no")) {
-            clearValues(formFields, "prep_facility_b");
+            clearValues(formFields, "prep_type_b", "prep_facility_b");
         } else {
-            clearValues(formFields, "prep_facility_b", "linked_to_prep");
+            clearValues(formFields, "prep_type_b", "prep_facility_b", "linked_to_prep");
         }
     }
 

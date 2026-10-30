@@ -438,6 +438,7 @@
     <string name="kvp_hiv_result_recent">Matokeo ya kipimo cha VVU:</string>
     <string name="kvp_ctc_number_a">Kitambulisho cha CTC:</string>
     <string name="kvp_on_prep">Anatumia PrEP kwa sasa:</string>
+    <string name="kvp_prep_type_a">Aina ya dawa kinga (PrEP) anayotumia:</string>
     <string name="kvp_prep_facility_a">Kituo alichopata PrEP:</string>
     <string name="kvp_linked_to_prep_recent">Ameunganishwa na huduma za PrEP:</string>
     <string name="kvp_referred_for_hiv_test">Alipewa rufaa kwenda kupima VVU:</string>
@@ -448,6 +449,7 @@
     <string name="kvp_hiv_result">Matokeo ya kipimo cha VVU:</string>
     <string name="kvp_ctc_number_b">Kitambulisho cha CTC:</string>
     <string name="kvp_prep_follow_up">Anatumia PrEP kwa sasa:</string>
+    <string name="kvp_prep_type_b">Aina ya dawa kinga (PrEP) anayotumia:</string>
     <string name="kvp_prep_facility_b">Kituo alichopata PrEP:</string>
     <string name="kvp_linked_to_prep">Ameunganishwa na huduma za PrEP:</string>
     <string name="kvp_next_visit_date">Tarehe ya tembeleo linalofuata:</string>
@@ -1910,4 +1912,6 @@
     <string name="diabetes_risk_assessment">Uchunguzi wa kisukari na shinikizo la damu</string>
     <string name="ncd_service_visit_in_progress">Huduma ya NCD inaendelea</string>
     <string name="ncd_procedure_visit_in_progress">Huduma ya NCD inaendelea</string>
+    <string name="oral_prep">Oral PrEP (Vidonge)</string>
+    <string name="injectable_prep">Injectable PrEP (Sindano)</string>
 </resources>

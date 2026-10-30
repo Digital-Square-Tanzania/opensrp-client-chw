@@ -3,6 +3,7 @@ package org.smartregister.chw.resources;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.smartregister.chw.BuildConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -82,8 +83,7 @@ public class KvpPrepPreventiveServicesConfigTest {
         assertTrue(repository.contains("upgradeToVersion50(db)"));
         assertTrue(repository.contains("addColumnIfMissing(db, \"ec_kvp_prep_followup\", \"branch_a_test_date\")"));
         assertTrue(repository.contains("addColumnIfMissing(db, \"ec_kvp_prep_followup\", \"branch_b_test_date\")"));
-        assertTrue(readText("build.gradle").contains(
-                "buildConfigField \"int\", \"DATABASE_VERSION\", '50'"));
+        assertTrue("The branch test-date migration must remain enabled", BuildConfig.DATABASE_VERSION >= 50);
     }
 
     private JSONObject form(String formPath) throws Exception {

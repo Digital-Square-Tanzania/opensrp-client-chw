@@ -191,6 +191,9 @@ public class ChwRepositoryFlv {
                 case 50:
                     upgradeToVersion50(db);
                     break;
+                case 51:
+                    upgradeToVersion51(db);
+                    break;
                 default:
                     break;
             }
@@ -1109,6 +1112,11 @@ public class ChwRepositoryFlv {
         addColumnIfMissing(db, tableName, "services_received");
         addColumnIfMissing(db, tableName, "client_condition");
         addColumnIfMissing(db, tableName, "client_satisfied");
+    }
+
+    private static void upgradeToVersion51(SQLiteDatabase db) {
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_a");
+        addColumnIfMissing(db, "ec_kvp_prep_followup", "prep_type_b");
     }
 
     private static void addColumnIfMissing(SQLiteDatabase db, String tableName, String columnName) {
