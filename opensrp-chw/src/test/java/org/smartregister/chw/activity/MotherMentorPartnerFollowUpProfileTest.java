@@ -187,17 +187,32 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
             activity.continueService();
             activity.continueContactVisit();
             activity.openTbContactFollowUpVisit();
+            activity.openRecordTbContactVisit();
 
             assertFalse(activity.isFinishing());
             assertFalse(button(activity).isEnabled());
             assertEquals(View.VISIBLE, button(activity).getVisibility());
             assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "manualProcessVisit")).getVisibility());
             assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "mothermentorServiceInProgress")).getVisibility());
+            assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "visitInProgress")).getVisibility());
+            assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "textViewVisitDoneEdit")).getVisibility());
             assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
             TextView banner = (TextView) bar.getChildAt(1);
             assertTrue(banner.getText().toString().contains("2026-11-04"));
             assertEquals(View.VISIBLE, banner.getVisibility());
         }
+    }
+
+    @Test
+    public void closedPartnerCanOpenRetainedMedicalHistory() {
+        PartnerProfileActivity activity = profile();
+        activity.closure = closed("moved");
+
+        activity.openMedicalHistory();
+
+        Intent history = Shadows.shadowOf(activity).getNextStartedActivity();
+        assertEquals(MotherMentorMedicalHistoryActivity.class.getName(), history.getComponent().getClassName());
+        assertFalse(activity.isFinishing());
     }
 
     @Test
@@ -276,6 +291,8 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
         ReflectionHelpers.setField(activity, "memberObject", member);
         ReflectionHelpers.setField(activity, "textViewRecordMotherMentor", new TextView(activity));
         ReflectionHelpers.setField(activity, "manualProcessVisit", new TextView(activity));
+        ReflectionHelpers.setField(activity, "textViewVisitDoneEdit", new TextView(activity));
+        ReflectionHelpers.setField(activity, "visitInProgress", new RelativeLayout(activity));
         ReflectionHelpers.setField(activity, "rlLastVisit", new RelativeLayout(activity));
         ReflectionHelpers.setField(
                 activity, "mothermentorServiceInProgress", new RelativeLayout(activity));

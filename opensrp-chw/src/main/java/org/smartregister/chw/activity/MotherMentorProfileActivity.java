@@ -939,6 +939,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private boolean isPartnerFollowUpClosed() {
+        if (isFinishing()) return true;
         if (!loadPartnerClosure().isClosed()) return false;
         setupButtons();
         return true;
@@ -1145,6 +1146,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (partnerClosed) {
             manualProcessVisit.setVisibility(View.GONE);
             mothermentorServiceInProgress.setVisibility(View.GONE);
+            if (visitInProgress != null) visitInProgress.setVisibility(View.GONE);
+            if (textViewVisitDoneEdit != null) textViewVisitDoneEdit.setVisibility(View.GONE);
             return;
         }
         Visit latestVisit = getServiceVisit();
@@ -1274,6 +1277,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openRecordTbContactVisit() {
+        if (isPartnerFollowUpClosed() || isClientDeceased()) return;
         MotherMentorVisitActivity.startMotherMentorVisitActivity(
                 this, memberObject.getBaseEntityId(), false);
     }
