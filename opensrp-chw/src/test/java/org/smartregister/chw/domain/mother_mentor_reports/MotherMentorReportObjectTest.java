@@ -363,6 +363,23 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void roleCounsellingRequiresWholeTokensAndKeepsValidSpacingAndDuplicates()
+            throws Exception {
+        roleHouseholdVisit("compound-child", "[mother, childchild]", null, null, null, null, null);
+        roleHouseholdVisit("compound-roles", "[mother, motherpartner]", null, null, null, null, null);
+        roleHouseholdVisit("split-word", "[mother, part ner]", null, null, null, null, null);
+        roleHouseholdVisit("spaced", "[  mother , partner  ]", null, null, null, null, null);
+        roleHouseholdVisit("duplicates", "[mother, mother, partner]", null, null, null, null, null);
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(3, counts.getInt("mm-14-missing-records"));
+        assertEquals("—", counts.getString("mm-14"));
+        assertEquals(4, counts.getInt("mm-14-known-total"));
+        assertEquals(5, counts.getInt("mm-14-role-visits"));
+        assertEquals(0, counts.getInt("query-errors"));
+    }
+
+    @Test
     public void roleCountsAreOncePerVisitAndFinalizedConsentMonthBoundariesRemain() throws Exception {
         roleHouseholdVisit("roles", "[mother, partner, child]", "2", null, null, null, null);
         detail("roles", "counselled_child_count", "2");
