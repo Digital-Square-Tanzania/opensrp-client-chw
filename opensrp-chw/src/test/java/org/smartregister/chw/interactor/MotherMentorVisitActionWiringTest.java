@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import android.app.Application;
+import android.database.MatrixCursor;
+
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,6 +37,7 @@ import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.repository.Repository;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -57,7 +61,7 @@ public class MotherMentorVisitActionWiringTest {
                 new PartnerFollowUpVisitInteractor("partner"),
                 new ChildEidFollowUpVisitInteractor("eid")
             };
-            int[] actionCounts = {6, 4, 4, 7, 5};
+            int[] actionCounts = {6, 5, 4, 7, 5};
             for (int i = 0; i < workflows.length; i++) {
                 assertEquals(
                         "org.smartregister.chw.mothermentor.interactor",
@@ -74,7 +78,7 @@ public class MotherMentorVisitActionWiringTest {
                             "Helper reused by different actions: " + helper, helpers.add(helper));
                 }
             }
-            assertEquals(26, helpers.size());
+            assertEquals(27, helpers.size());
         }
     }
 
@@ -306,6 +310,13 @@ public class MotherMentorVisitActionWiringTest {
         org.smartregister.Context context = mock(org.smartregister.Context.class);
         when(library.context()).thenReturn(context);
         when(context.applicationContext()).thenReturn(RuntimeEnvironment.application);
+        Repository repository = mock(Repository.class);
+        SQLiteDatabase database = mock(SQLiteDatabase.class);
+        when(library.getRepository()).thenReturn(repository);
+        when(repository.getReadableDatabase()).thenReturn(database);
+        // Wiring uses real interactors; its empty schema has no persisted household enrollment.
+        when(database.rawQuery(anyString(), any(String[].class)))
+                .thenAnswer(call -> new MatrixCursor(new String[] {"name"}));
         mocked.when(MotherMentorLibrary::getInstance).thenReturn(library);
         return mocked;
     }

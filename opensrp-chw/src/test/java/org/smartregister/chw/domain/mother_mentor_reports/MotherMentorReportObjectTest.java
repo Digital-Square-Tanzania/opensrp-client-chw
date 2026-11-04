@@ -861,6 +861,39 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void attendanceNoWithoutEducationIsKnownZeroAndPreservesHistoricalEducation() throws Exception {
+        member("not-attended", "Male", "1990-01-01");
+        partnerAttendance("not-attended", "not-attended", "2026-04-20", "episode", "link");
+        setDetail("not-attended", "partner_arrived_at_facility", "no");
+        setDetail("not-attended", "partner_education_provided", "");
+        JSONObject c = report.getIndicatorData();
+        assertEquals(0, c.getInt("mm-8"));
+        assertEquals(0, c.getInt("mm-8-missing-records"));
+        assertEquals(0, c.getInt("mm-12"));
+        assertEquals(0, c.getInt("mm-12-missing-records"));
+
+        member("educated-before-attendance", "Male", "1990-01-01");
+        partnerAttendance("historical-education", "educated-before-attendance", "2026-04-21", "episode", "link");
+        setDetail("historical-education", "partner_arrived_at_facility", "no");
+        partnerEducation("historical-education", "hiv");
+        c = report.getIndicatorData();
+        assertEquals(1, c.getInt("mm-12"));
+        assertEquals(1, c.getInt("mm-12-hiv"));
+        assertEquals(0, c.getInt("mm-12-missing-records"));
+    }
+
+    @Test
+    public void attendanceNoWithExplicitIncompleteEducationRemainsMissing() throws Exception {
+        member("not-attended", "Male", "1990-01-01");
+        partnerAttendance("not-attended", "not-attended", "2026-04-20", "episode", "link");
+        setDetail("not-attended", "partner_arrived_at_facility", "no");
+        setDetail("not-attended", "partner_education_provided", "yes");
+        JSONObject c = report.getIndicatorData();
+        assertEquals("—", c.getString("mm-12"));
+        assertEquals(1, c.getInt("mm-12-missing-records"));
+    }
+
+    @Test
     public void missingPartnerEducationTopicsAreNotReportedAsNoEducation() throws Exception {
         member("partner", "Male", "1990-01-01");
         partnerAttendance("missing-topics", "partner", "2026-04-20", "episode", "link");
