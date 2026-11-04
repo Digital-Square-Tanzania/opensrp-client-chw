@@ -24,6 +24,7 @@ import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdCounselling;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
@@ -35,6 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfileActivity {
@@ -387,9 +389,12 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
         try {
             JSONArray obsArray = new JSONObject(visit.getJson()).optJSONArray("obs");
-            return obsArray != null
-                    && getCompletedHouseholdServiceFields(obsArray)
-                            .containsAll(REQUIRED_HOUSEHOLD_SERVICE_FIELDS);
+            if (obsArray == null) return false;
+            Map<String, String> values =
+                    MotherMentorHouseholdCounselling.observationValues(obsArray);
+            return getCompletedHouseholdServiceFields(obsArray)
+                            .containsAll(REQUIRED_HOUSEHOLD_SERVICE_FIELDS)
+                    && MotherMentorHouseholdCounselling.isComplete(values);
         } catch (Exception e) {
             Timber.e(e);
             return false;
