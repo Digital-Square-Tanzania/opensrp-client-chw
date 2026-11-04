@@ -42,6 +42,8 @@ public class MotherMentorMotherChildMigrationTest {
         SQLiteDatabase db = mock(SQLiteDatabase.class);
         try (MockedStatic<DatabaseMigrationUtils> tables = mockStatic(DatabaseMigrationUtils.class);
                 MockedStatic<CoreChwApplication> application = mockStatic(CoreChwApplication.class);
+                MockedStatic<org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository> delivery =
+                        mockStatic(org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository.class);
                 MockedStatic<MotherMentorMotherChildRepository> migration =
                         mockStatic(MotherMentorMotherChildRepository.class)) {
             Method create = ChwRepositoryFlv.class.getDeclaredMethod("createMotherMentorTables", SQLiteDatabase.class);
