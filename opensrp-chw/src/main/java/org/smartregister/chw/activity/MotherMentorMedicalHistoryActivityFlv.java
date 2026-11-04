@@ -108,7 +108,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             boolean legacyFollowUp = followUpType != null
                     && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType());
             edit.setVisibility(
-                    i == visits.size() - 1 && !legacyFollowUp ? View.VISIBLE : View.GONE);
+                    i == visits.size() - 1 && !legacyFollowUp && !isReadOnlyLegacyHousehold(visit)
+                            ? View.VISIBLE : View.GONE);
             edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
             service.setText(String.format("%s - %s", getVisitType(context, visit.getVisitType()),
                     dateFormat.format(visit.getDate())));
@@ -140,7 +141,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     }
 
     private void editVisit(Activity activity, Visit visit) {
-        if (StringUtils.isBlank(visit.getBaseEntityId())) return;
+        if (StringUtils.isBlank(visit.getBaseEntityId()) || isReadOnlyLegacyHousehold(visit)) return;
         activity.finish();
         if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
             MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
@@ -156,6 +157,11 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             MotherMentorVisitActivity.startMotherMentorVisitActivity(
                     activity, visit.getBaseEntityId(), true);
         }
+    }
+
+    private boolean isReadOnlyLegacyHousehold(Visit visit) {
+        return Boolean.TRUE.equals(visit.getProcessed())
+                && MotherMentorHistoryMapper.isLegacyHouseholdVisit(visit);
     }
 
     private boolean isFollowUpVisit(String eventType) {

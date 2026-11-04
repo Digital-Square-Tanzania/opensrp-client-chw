@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdCounsellingDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
 import java.text.SimpleDateFormat;
@@ -99,7 +100,7 @@ public class MotherMentorReportObject extends ReportObject {
         putFinalChildHivIndicators(result);
         putPartnerEducationIndicators(result);
         putCommunityIndicators(result);
-        putAggregateIndicator(result, "mm-14", buildHouseholdCounsellingQuery());
+        putHouseholdCounsellingIndicator(result);
         putTracingCoverage(result);
         result.put("query-errors", failedQueries);
         return result;
@@ -983,14 +984,26 @@ public class MotherMentorReportObject extends ReportObject {
     }
 
     String buildHouseholdCounsellingQuery() {
-        return aggregateQuery(
-                "SELECT "
-                        + detail(DBConstants.KEY.COUNSELLED_MALE)
-                        + " AS male, "
-                        + detail(DBConstants.KEY.COUNSELLED_FEMALE)
-                        + " AS female FROM ("
-                        + householdVisits()
-                        + ") v");
+        return MotherMentorHouseholdCounsellingDao.reportQuery(householdVisits());
+    }
+
+    private void putHouseholdCounsellingIndicator(JSONObject result) throws JSONException {
+        Map<String, Integer> counts = query(buildHouseholdCounsellingQuery(),
+                MotherMentorHouseholdCounsellingDao.REPORT_COLUMNS);
+        if (counts == null) return;
+        result.put("mm-14-missing-records", value(counts, "missing"));
+        result.put("mm-14-known-total", value(counts, "total"));
+        result.put("mm-14-role-visits", value(counts, "role_visits"));
+        result.put("mm-14-legacy-visits", value(counts, "legacy_visits"));
+        result.put("mm-14-legacy-male-total", value(counts, "male_total"));
+        result.put("mm-14-legacy-female-total", value(counts, "female_total"));
+        if (value(counts, "missing") > 0) return;
+        result.put("mm-14", value(counts, "total"));
+        // Role counts do not capture a complete sex breakdown for the reporting month.
+        if (value(counts, "role_visits") == 0) {
+            result.put("mm-14-male-total", value(counts, "male_total"));
+            result.put("mm-14-female-total", value(counts, "female_total"));
+        }
     }
 
     private String aggregateQuery(String source) {

@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
@@ -143,6 +144,40 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         LinearLayout cards = render(activity, MotherMentorFollowUpType.MOTHER_IIT, legacy);
 
         assertEquals(View.GONE, edit(cards.getChildAt(0)).getVisibility());
+    }
+
+    @Test
+    public void finalizedLegacyHouseholdCountsRemainReadOnlyAndStaleEditKeepsHistoryOpen() {
+        Activity activity = activity();
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        add(visit, "household_members_found", "9", "");
+        add(visit, "counselled_male", "3", "");
+        add(visit, "counselled_female", "4", "");
+        add(visit, "counselled_total", "7", "");
+        add(visit, "participants", "[mother, partner]", "");
+        LinearLayout cards = render(activity, null, visit);
+        assertEquals(View.GONE, edit(cards.getChildAt(0)).getVisibility());
+        edit(cards.getChildAt(0)).performClick();
+        assertFalse(activity.isFinishing());
+        assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
+        TextView total = cards.getChildAt(0).findViewWithTag("counselled_total");
+        assertNotNull(total);
+        assertTrue(total.getText().toString().contains("legacy format"));
+        assertTrue(total.getText().toString().contains("7"));
+    }
+
+    @Test
+    public void roleBasedHouseholdVisitKeepsItsNormalEditPath() {
+        Activity activity = activity();
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        add(visit, "household_counselling_schema", "2", "");
+        add(visit, "participants", "[mother, partner]", "");
+        add(visit, "counselled_total", "2", "");
+        LinearLayout cards = render(activity, null, visit);
+        assertEquals(View.VISIBLE, edit(cards.getChildAt(0)).getVisibility());
+        edit(cards.getChildAt(0)).performClick();
+        assertVisitIntent(Shadows.shadowOf(activity).getNextStartedActivity(),
+                MotherMentorHouseholdVisitActivity.class);
     }
 
     private void assertLocalizedServiceHistory(String locale, String oppositeLocale) throws Exception {
