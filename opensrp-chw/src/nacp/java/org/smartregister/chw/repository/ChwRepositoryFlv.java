@@ -224,6 +224,9 @@ public class ChwRepositoryFlv {
                 case 59:
                     org.smartregister.chw.mothermentor.repository.VisitDetailsRepository.createReportIndex(db);
                     break;
+                case 64:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
+                    break;
                 case 60:
                     upgradeToVersion60(db);
                     break;
@@ -1154,6 +1157,7 @@ public class ChwRepositoryFlv {
                         "ec_mothermentor_enroll_partner",
                         "ec_mothermentor_enroll_child_eid")),
                 ChwApplication.createCommonFtsObject());
+        org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
     }
 
     private static void upgradeToVersion51(SQLiteDatabase db) {

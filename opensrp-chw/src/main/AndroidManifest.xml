@@ -411,6 +411,11 @@
                 android:value="org.smartregister.chw.activity.FamilyProfileActivity" />
         </activity>
         <activity
+            android:name=".activity.MotherMentorVisitWizardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FamilyTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
             android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
