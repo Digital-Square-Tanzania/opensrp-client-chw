@@ -14,6 +14,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 
@@ -288,6 +289,41 @@ public class MotherMentorHistoryMapperTest {
         assertEquals(Arrays.asList("service_interruption_reason_other", "comments"), keys(rows));
         assertEquals(Collections.singletonList("Old reason, original text"), row(rows, "service_interruption_reason_other").getValues());
         assertEquals(Collections.singletonList("Yes"), row(rows, "comments").getValues());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void statusOnlyHouseholdHistoryKeepsEnglishQuestionOrderAndHidesSchema() {
+        checkHouseholdStatusHistory(false);
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void statusOnlyHouseholdHistoryKeepsSwahiliQuestionOrderAndHidesSchema() {
+        checkHouseholdStatusHistory(true);
+    }
+
+    private void checkHouseholdStatusHistory(boolean swahili) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA, "2", "");
+        answer(visit, "step1:" + DBConstants.KEY.HOUSEHOLD_VISIT_TYPE, "repeat", "");
+        answer(visit, DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS, "not_found", "");
+        answer(visit, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON, "other", "");
+        answer(visit, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER, "Work, travel", "");
+        answer(visit, DBConstants.KEY.COMMENTS, "Return next week", "");
+        assertTrue(MotherMentorHistoryMapper.isHouseholdVisit(visit));
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList(DBConstants.KEY.HOUSEHOLD_VISIT_TYPE,
+                DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON,
+                DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER, DBConstants.KEY.COMMENTS), keys(rows));
+        assertEquals(Collections.singletonList(swahili ? "Tembeleo la Marudio" : "Follow-up Visit"),
+                row(rows, DBConstants.KEY.HOUSEHOLD_VISIT_TYPE).getValues());
+        assertEquals(Collections.singletonList(swahili ? "Haijapatikana" : "Not found"),
+                row(rows, DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS).getValues());
+        assertEquals(swahili ? "Hali ya Ziara ya Kaya" : "Household Visit Status",
+                row(rows, DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS).getLabel());
+        assertEquals(Collections.singletonList("Work, travel"),
+                row(rows, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER).getValues());
     }
 
     private MotherMentorHistoryMapper mapper() {

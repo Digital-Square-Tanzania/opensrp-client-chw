@@ -39,6 +39,11 @@ public final class MotherMentorHistoryMapper {
     private static final Set<String> HOUSEHOLD_FIELDS =
             new HashSet<>(
                     Arrays.asList(
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.HOUSEHOLD_VISIT_TYPE,
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS,
+                            DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON,
+                            DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER,
                             DBConstants.KEY.PURPOSE_OF_VISIT,
                             DBConstants.KEY.OTHER_PURPOSE,
                             DBConstants.KEY.PARTICIPANTS,
@@ -59,6 +64,7 @@ public final class MotherMentorHistoryMapper {
                             "start", "end", "today", "deviceid", "subscriberid", "simserial",
                             "encounter_date", "encounter_location", "encounter_type", "gps",
                             "latitude", "longitude", "location_id", "provider_id", "team_id",
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA,
                             DBConstants.KEY.MOTHERMENTOR_REPORTING_VERSION,
                             DBConstants.KEY.PRIMARY_MOTHERMENTOR_CLIENT,
                             DBConstants.KEY.IIT_ENROLLED,
@@ -142,6 +148,7 @@ public final class MotherMentorHistoryMapper {
         String type = visit.getVisitType();
         if (isHouseholdVisit(visit)) {
             return Arrays.asList(
+                    "mothermentor_household_follow_up_status",
                     "mothermentor_household_visit_purpose",
                     "mother_mentor_household_members_who_received_counselling",
                     "mother_mentor_household_visit_topics_taught",

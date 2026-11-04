@@ -146,6 +146,64 @@ public class MotherMentorHouseholdProfileActivityTest extends BaseUnitTest {
         }
     }
 
+    @Test
+    public void finalizedNotFoundVisitLocksSameDayAndReopensNextDay() throws Exception {
+        Visit visit = notFoundVisit();
+        try (MockedStatic<MotherMentorLibrary> ignored = persistedVisits(visit)) {
+            MotherMentorHouseholdProfileActivity activity = householdProfile();
+            activity.setupButtons();
+            assertFalse(recordButton(activity).isEnabled());
+            activity.openRecordClientVisit();
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+            Calendar tomorrow = Calendar.getInstance();
+            tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+            ((DailyHouseholdProfileActivity) activity).now = tomorrow.getTime();
+            activity.setupButtons();
+            assertTrue(recordButton(activity).isEnabled());
+        }
+    }
+
+    @Test
+    public void completePendingNotFoundVisitCanBeProcessedWithoutServiceAnswers() throws Exception {
+        Visit visit = notFoundVisit();
+        visit.setProcessed(false);
+        try (MockedStatic<MotherMentorLibrary> ignored = persistedVisits(visit)) {
+            MotherMentorHouseholdProfileActivity activity = householdProfile();
+            activity.setupButtons();
+            TextView process = ReflectionHelpers.getField(activity, "manualProcessVisit");
+            assertEquals(View.VISIBLE, process.getVisibility());
+            JSONObject event = new JSONObject(visit.getJson());
+            JSONArray obs = event.getJSONArray("obs");
+            for (int i = 0; i < obs.length(); i++) {
+                if (DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON.equals(obs.getJSONObject(i).optString("fieldCode"))) {
+                    obs.getJSONObject(i).put("values", new JSONArray().put("other"));
+                }
+            }
+            visit.setJson(event.toString());
+            activity.setupButtons();
+            assertEquals(View.GONE, process.getVisibility());
+        }
+    }
+
+    private Visit notFoundVisit() throws Exception {
+        Visit visit = householdVisit();
+        JSONArray obs = new JSONArray();
+        String[] fields = {
+            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA, "2",
+            DBConstants.KEY.HOUSEHOLD_VISIT_TYPE, "repeat",
+            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS, "not_found",
+            DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON, "house_closed",
+            DBConstants.KEY.MOTHERMENTOR_VISIT_DATE,
+                new SimpleDateFormat("dd-MM-yyyy", Locale.US).format(new Date())
+        };
+        for (int i = 0; i < fields.length; i += 2) {
+            obs.put(new JSONObject().put("fieldCode", fields[i])
+                    .put("values", new JSONArray().put(fields[i + 1])));
+        }
+        visit.setJson(new JSONObject().put("obs", obs).toString());
+        return visit;
+    }
+
     private MockedStatic<MotherMentorLibrary> persistedVisits(Visit visit) {
         MockedStatic<MotherMentorLibrary> mocked = Mockito.mockStatic(MotherMentorLibrary.class);
         MotherMentorLibrary library = Mockito.mock(MotherMentorLibrary.class);
