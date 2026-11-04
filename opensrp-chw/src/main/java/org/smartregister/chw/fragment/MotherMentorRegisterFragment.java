@@ -211,6 +211,7 @@ public class MotherMentorRegisterFragment extends BaseMotherMentorRegisterFragme
                         filter.isPregnant(),
                         filter.isBreastfeeding(),
                         filter.isUnderTwo(),
+                        filter.isClosed(),
                         limit,
                         offset);
         String countQuery =
@@ -221,7 +222,8 @@ public class MotherMentorRegisterFragment extends BaseMotherMentorRegisterFragme
                                 filter.isEnabled(),
                                 filter.isPregnant(),
                                 filter.isBreastfeeding(),
-                                filter.isUnderTwo())
+                                filter.isUnderTwo(),
+                                filter.isClosed())
                         : null;
         return new ClientLoader(
                 getActivity(), commonRepository(), ++loaderGeneration, query, countQuery);
@@ -240,7 +242,8 @@ public class MotherMentorRegisterFragment extends BaseMotherMentorRegisterFragme
                                 clientModel.countClients(
                                         presenter().getMainCondition(), searchText,
                                         filterState.isEnabled(), filterState.isPregnant(),
-                                        filterState.isBreastfeeding(), filterState.isUnderTwo()))) {
+                                        filterState.isBreastfeeding(), filterState.isUnderTwo(),
+                                        filterState.isClosed()))) {
             clientAdapter.setTotalcount(cursor.moveToFirst() ? cursor.getInt(0) : 0);
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);

@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
@@ -51,6 +52,8 @@ public class MotherMentorHouseholdEnrollmentProcessingTest extends BaseUnitTest 
         doAnswer(call -> { projected.set(true); return true; }).when(processor)
                 .processEvent(event, client, classification);
         try (MockedStatic<CoreLibrary> core = Mockito.mockStatic(CoreLibrary.class);
+             MockedStatic<MotherMentorMotherClosureRepository> mothers =
+                     Mockito.mockStatic(MotherMentorMotherClosureRepository.class);
              MockedStatic<MotherMentorHouseholdClosureRepository> closure =
                      Mockito.mockStatic(MotherMentorHouseholdClosureRepository.class)) {
             CoreLibrary library = mock(CoreLibrary.class);

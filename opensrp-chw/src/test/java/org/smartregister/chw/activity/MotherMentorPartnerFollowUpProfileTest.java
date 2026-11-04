@@ -197,7 +197,7 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
             assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "visitInProgress")).getVisibility());
             assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "textViewVisitDoneEdit")).getVisibility());
             assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
-            TextView banner = (TextView) bar.getChildAt(1);
+            TextView banner = ReflectionHelpers.getField(activity, "partnerClosureBanner");
             assertTrue(banner.getText().toString().contains("2026-11-04"));
             assertEquals(View.VISIBLE, banner.getVisibility());
         }
@@ -319,6 +319,13 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
     }
 
     public static class PartnerProfileActivity extends MotherMentorProfileActivity {
+        @Override
+        protected boolean isLinkedFollowUpCardClosed() {
+            // These availability/death fixtures use an open enrollment. Real closure mapping
+            // and stale linked-card guards are covered by the repository and closure UI tests.
+            return false;
+        }
+
         Date now = new Date();
         MotherMentorPartnerClosure closure = MotherMentorPartnerClosure.active();
 

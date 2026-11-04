@@ -8,17 +8,26 @@ public final class MotherMentorRegisterFilterState {
     private static final String PREGNANT = "pregnant";
     private static final String BREASTFEEDING = "breastfeeding";
     private static final String UNDER_TWO = "under_two";
+    private static final String CLOSED = "closed";
     private final boolean enabled;
     private final boolean pregnant;
     private final boolean breastfeeding;
     private final boolean underTwo;
+    private final boolean closed;
 
     public MotherMentorRegisterFilterState(
             boolean enabled, boolean pregnant, boolean breastfeeding, boolean underTwo) {
+        this(enabled, pregnant, breastfeeding, underTwo, false);
+    }
+
+    public MotherMentorRegisterFilterState(
+            boolean enabled, boolean pregnant, boolean breastfeeding, boolean underTwo,
+            boolean closed) {
         this.enabled = enabled;
         this.pregnant = pregnant;
         this.breastfeeding = breastfeeding;
         this.underTwo = underTwo;
+        this.closed = closed;
     }
 
     public static MotherMentorRegisterFilterState allClients() {
@@ -30,7 +39,8 @@ public final class MotherMentorRegisterFilterState {
                 ? allClients()
                 : new MotherMentorRegisterFilterState(
                         bundle.getBoolean(ENABLED), bundle.getBoolean(PREGNANT),
-                        bundle.getBoolean(BREASTFEEDING), bundle.getBoolean(UNDER_TWO));
+                        bundle.getBoolean(BREASTFEEDING), bundle.getBoolean(UNDER_TWO),
+                        bundle.getBoolean(CLOSED));
     }
 
     public Bundle toBundle() {
@@ -39,6 +49,7 @@ public final class MotherMentorRegisterFilterState {
         bundle.putBoolean(PREGNANT, pregnant);
         bundle.putBoolean(BREASTFEEDING, breastfeeding);
         bundle.putBoolean(UNDER_TWO, underTwo);
+        bundle.putBoolean(CLOSED, closed);
         return bundle;
     }
 
@@ -47,7 +58,7 @@ public final class MotherMentorRegisterFilterState {
     }
 
     public boolean isActive() {
-        return enabled && (pregnant || breastfeeding || underTwo);
+        return enabled && (pregnant || breastfeeding || underTwo || closed);
     }
 
     public boolean isEnabled() {
@@ -64,5 +75,9 @@ public final class MotherMentorRegisterFilterState {
 
     public boolean isUnderTwo() {
         return underTwo;
+    }
+
+    public boolean isClosed() {
+        return closed;
     }
 }

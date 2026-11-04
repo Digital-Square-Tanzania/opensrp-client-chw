@@ -24,6 +24,7 @@ public class MotherMentorRegisterFilterDialogFragment extends DialogFragment {
     private CheckBox pregnant;
     private CheckBox breastfeeding;
     private CheckBox underTwo;
+    private CheckBox closed;
 
     public interface Listener {
         void onFilterSaved(MotherMentorRegisterFilterState state);
@@ -65,10 +66,12 @@ public class MotherMentorRegisterFilterDialogFragment extends DialogFragment {
         pregnant = view.findViewById(R.id.mama_kinara_filter_pregnant);
         breastfeeding = view.findViewById(R.id.mama_kinara_filter_breastfeeding);
         underTwo = view.findViewById(R.id.mama_kinara_filter_under_two);
+        closed = view.findViewById(org.smartregister.chw.mothermentor.R.id.mama_kinara_filter_closed);
         enabled.setChecked(draft.isEnabled());
         pregnant.setChecked(draft.isPregnant());
         breastfeeding.setChecked(draft.isBreastfeeding());
         underTwo.setChecked(draft.isUnderTwo());
+        closed.setChecked(draft.isClosed());
         enabled.setOnCheckedChangeListener((button, checked) -> updateControls());
         view.findViewById(R.id.mama_kinara_filter_back).setOnClickListener(v -> dismiss());
         view.findViewById(R.id.mama_kinara_filter_save).setOnClickListener(v -> save());
@@ -83,7 +86,7 @@ public class MotherMentorRegisterFilterDialogFragment extends DialogFragment {
         getView()
                 .findViewById(R.id.mama_kinara_filter_options)
                 .setVisibility(enabled.isChecked() ? View.VISIBLE : View.GONE);
-        for (CheckBox option : new CheckBox[] {pregnant, breastfeeding, underTwo}) {
+        for (CheckBox option : new CheckBox[] {pregnant, breastfeeding, underTwo, closed}) {
             option.setEnabled(enabled.isChecked());
             option.setAlpha(enabled.isChecked() ? 1f : 0.45f);
         }
@@ -94,7 +97,8 @@ public class MotherMentorRegisterFilterDialogFragment extends DialogFragment {
                 enabled.isChecked(),
                 pregnant.isChecked(),
                 breastfeeding.isChecked(),
-                underTwo.isChecked());
+                underTwo.isChecked(),
+                closed.isChecked());
     }
 
     private void save() {
@@ -129,6 +133,7 @@ public class MotherMentorRegisterFilterDialogFragment extends DialogFragment {
         pregnant = null;
         breastfeeding = null;
         underTwo = null;
+        closed = null;
         super.onDestroyView();
     }
 }
