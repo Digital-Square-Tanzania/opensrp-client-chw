@@ -149,13 +149,13 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         Activity activity = activity();
         Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
         Map<String, String> expected = new LinkedHashMap<>();
-        answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_type",
+        answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_type_legacy",
                 "attendance_type", "repeat");
-        answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_type",
+        answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_type_legacy",
                 "follow_up_status", "continuing_services");
-        answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_group_linkage",
+        answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_group_linkage_legacy",
                 "has_been_linked_to_psychosocial_support_group", "yes");
-        answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_group_linkage",
+        answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_group_linkage_legacy",
                 "has_been_linked_to_iga_group", "already_in_group");
         answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_education_provided",
                 "education_provided", "yes");
