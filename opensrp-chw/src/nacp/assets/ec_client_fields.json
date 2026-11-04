@@ -4388,6 +4388,14 @@
       "name": "ec_mothermentor_enrollment",
       "columns": [
         {
+          "column_name": "mama_tarehe_kujifungua",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_tarehe_kujifungua"
+          }
+        },
+        {
           "column_name": "entity_id",
           "type": "Event",
           "json_mapping": {
