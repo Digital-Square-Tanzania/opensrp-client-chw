@@ -56,6 +56,7 @@ public class MotherMentorChildEidAutoEnrollmentTest {
         MotherMentorChildEidRepository.EnrollmentPlan plan = mock(MotherMentorChildEidRepository.EnrollmentPlan.class);
         when(plan.getChildId()).thenReturn("real-child");
         when(sync.getClient("real-child")).thenReturn(new JSONObject("{\"baseEntityId\":\"real-child\"}"));
+        when(plan.getStoredEventJson(db)).thenReturn(null, event("new-source"));
         when(plan.toEvent()).thenReturn(org.smartregister.chw.core.utils.CoreJsonFormUtils.gson.fromJson(
                 event("new-source").toString(), org.smartregister.clientandeventmodel.Event.class));
         try (MockedStatic<MotherMentorChildEidRepository> repo = mockStatic(MotherMentorChildEidRepository.class)) {
@@ -68,6 +69,30 @@ public class MotherMentorChildEidAutoEnrollmentTest {
         order.verify(processor).processClient(argThat(batch -> batch.size() == 1
                 && "new-source".equals(batch.get(0).getEvent().getFormSubmissionId())));
         verifyNoMoreInteractions(sync);
+    }
+
+    @Test
+    public void failedRawEventWriteCannotCreateAnEnrollmentProjection() throws Exception {
+        SQLiteDatabase db = mock(SQLiteDatabase.class);
+        ECSyncHelper sync = mock(ECSyncHelper.class);
+        ClientProcessorForJava processor = mock(ClientProcessorForJava.class);
+        MotherMentorChildEidRepository.EnrollmentPlan plan = mock(MotherMentorChildEidRepository.EnrollmentPlan.class);
+        when(plan.getChildId()).thenReturn("real-child");
+        when(sync.getClient("real-child")).thenReturn(new JSONObject("{\"baseEntityId\":\"real-child\"}"));
+        when(plan.toEvent()).thenReturn(org.smartregister.chw.core.utils.CoreJsonFormUtils.gson.fromJson(
+                event("new-source").toString(), org.smartregister.clientandeventmodel.Event.class));
+        try (MockedStatic<MotherMentorChildEidRepository> repo = mockStatic(MotherMentorChildEidRepository.class)) {
+            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlan(db, "mother")).thenReturn(plan);
+            try {
+                MotherMentorChildEidAutoEnrollment.process(db, "mother", sync, processor);
+                fail("A missing durable event must stop projection processing");
+            } catch (IllegalStateException expected) {
+                assertTrue(expected.getMessage().contains("not persisted"));
+            }
+        }
+        verify(sync).addEvent(eq("real-child"), any(JSONObject.class));
+        verify(plan, times(2)).getStoredEventJson(db);
+        verifyNoInteractions(processor);
     }
 
     @Test
@@ -90,6 +115,7 @@ public class MotherMentorChildEidAutoEnrollmentTest {
 
     private JSONObject event(String id) throws Exception {
         return new JSONObject("{\"baseEntityId\":\"real-child\",\"formSubmissionId\":\"" + id
-                + "\",\"eventType\":\"MotherMentor Enroll Child EID\",\"eventDate\":\"2026-11-04T15:00:00.000Z\",\"obs\":[]}");
+                + "\",\"eventType\":\"" + org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID
+                + "\",\"eventDate\":\"2026-11-04T15:00:00.000Z\",\"obs\":[]}");
     }
 }

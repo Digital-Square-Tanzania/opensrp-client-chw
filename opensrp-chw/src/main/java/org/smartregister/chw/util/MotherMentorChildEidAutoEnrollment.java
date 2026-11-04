@@ -31,6 +31,10 @@ public final class MotherMentorChildEidAutoEnrollment {
         if (eventJson == null) {
             eventJson = new JSONObject(CoreJsonFormUtils.gson.toJson(plan.toEvent()));
             sync.addEvent(plan.getChildId(), eventJson);
+            eventJson = plan.getStoredEventJson(db);
+            if (eventJson == null) {
+                throw new IllegalStateException("Child EID enrollment event was not persisted");
+            }
         }
         Event event = CoreJsonFormUtils.gson.fromJson(eventJson.toString(), Event.class);
         processor.processClient(Collections.singletonList(new EventClient(event, client)));
