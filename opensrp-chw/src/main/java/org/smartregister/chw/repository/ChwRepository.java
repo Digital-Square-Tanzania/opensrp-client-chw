@@ -74,6 +74,7 @@ public class ChwRepository extends CoreChwRepository {
         org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository.upgrade(database);
         org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(database);
         org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.upgrade(database);
+        org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgrade(database);
         createdWithCurrentCipher = true;
     }
 

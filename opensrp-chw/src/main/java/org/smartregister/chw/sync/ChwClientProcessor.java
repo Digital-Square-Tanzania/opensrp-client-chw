@@ -140,6 +140,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForChild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MAMA_KINARA_HOUSEHOLD_ENROLMENT:
                     // Generic EC projection reopens the row; replay finalized visits afterwards.
@@ -352,6 +354,12 @@ public class ChwClientProcessor extends CoreClientProcessor {
             }
         }
 
+        if (eventClient != null && eventClient.getEvent() != null
+                && org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository
+                        .isMotherEvent(eventClient.getEvent())) {
+            processMissedChildEidEnrollment(eventClient.getEvent().getBaseEntityId());
+        }
+
         if (!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             try {
                 ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
@@ -359,6 +367,13 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 Timber.e(e);
             }
         }
+    }
+
+    @VisibleForTesting
+    protected void processMissedChildEidEnrollment(String motherId) throws Exception {
+        org.smartregister.chw.util.MotherMentorChildEidAutoEnrollment.process(
+                ChwApplication.getInstance().getRepository().getWritableDatabase(), motherId,
+                ChwApplication.getInstance().getEcSyncHelper(), this);
     }
 
     @Override
