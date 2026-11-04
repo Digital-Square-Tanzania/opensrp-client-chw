@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import org.json.JSONObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.interactor.MotherMentorHouseholdVisitInteractor;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.family.util.JsonFormUtils;
@@ -18,9 +20,13 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
 public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitActivity {
+    private boolean submitting;
 
     public static void startMotherMentorHouseholdVisitActivity(
             Activity activity, String baseEntityId, Boolean editMode) {
+        if (MotherMentorHouseholdClosureRepository.getState(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityId, null)
+                .isClosed()) return;
         Intent intent = new Intent(activity, MotherMentorHouseholdVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
@@ -28,6 +34,27 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
                 Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE,
                 Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void submitVisit() {
+        if (submitting) return;
+        submitting = true;
+        if (tvSubmit != null) tvSubmit.setEnabled(false);
+        super.submitVisit();
+    }
+
+    @Override
+    protected void onSubmissionCancelled() {
+        submitting = false;
+        super.onSubmissionCancelled();
+    }
+
+    @Override
+    public void displayToast(String message) {
+        submitting = false;
+        if (tvSubmit != null) tvSubmit.setEnabled(true);
+        super.displayToast(message);
     }
 
     @Override

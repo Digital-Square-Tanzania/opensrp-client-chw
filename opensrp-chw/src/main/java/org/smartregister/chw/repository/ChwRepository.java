@@ -15,10 +15,10 @@ import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.exception.DatabaseMigrationException;
 import org.smartregister.reporting.ReportingLibrary;
 
+import timber.log.Timber;
+
 import java.util.Arrays;
 import java.util.Collections;
-
-import timber.log.Timber;
 
 public class ChwRepository extends CoreChwRepository {
     private Context context;
@@ -70,6 +70,7 @@ public class ChwRepository extends CoreChwRepository {
         super.onCreate(database);
         VisitDetailsRepository.createReportIndex(database);
         org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository.upgrade(database);
+        org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository.upgrade(database);
         createdWithCurrentCipher = true;
     }
 

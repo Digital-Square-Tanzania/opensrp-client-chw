@@ -24,11 +24,12 @@ import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.json.JSONObject;
 import org.json.JSONException;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
-import org.smartregister.chw.util.MotherMentorHistoryMapper;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
+import org.smartregister.chw.util.MotherMentorHistoryMapper;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -115,7 +116,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             boolean legacyFollowUp = followUpType != null
                     && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType());
             edit.setVisibility(
-                    i == visits.size() - 1 && !legacyFollowUp && !isPartnerClosed(visit)
+                    i == visits.size() - 1 && !legacyFollowUp
+                            && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit)
                             ? View.VISIBLE : View.GONE);
             edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
             service.setText(String.format("%s - %s", getVisitType(context, visit.getVisitType()),
@@ -148,7 +150,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     }
 
     private void editVisit(Activity activity, Visit visit) {
-        if (StringUtils.isBlank(visit.getBaseEntityId()) || isPartnerClosed(visit)) return;
+        if (StringUtils.isBlank(visit.getBaseEntityId())
+                || isHouseholdReadOnly(visit) || isPartnerClosed(visit)) return;
         activity.finish();
         if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
             MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
@@ -164,6 +167,15 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             MotherMentorVisitActivity.startMotherMentorVisitActivity(
                     activity, visit.getBaseEntityId(), true);
         }
+    }
+
+    private boolean isHouseholdReadOnly(Visit visit) {
+        if (!MotherMentorHistoryMapper.isHouseholdVisit(visit)) return false;
+        net.zetetic.database.sqlcipher.SQLiteDatabase database =
+                ChwApplication.getInstance().getRepository().getReadableDatabase();
+        return MotherMentorHouseholdClosureRepository.getState(database, visit.getBaseEntityId(), null)
+                .isClosed() || !MotherMentorHouseholdClosureRepository.belongsToCurrentEnrollment(
+                        database, visit.getBaseEntityId(), visit.getJson());
     }
 
     private boolean isPartnerClosed(Visit visit) {

@@ -2,6 +2,7 @@ package org.smartregister.chw.model;
 
 import androidx.annotation.NonNull;
 
+import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdFollowUpDao;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorContactsRegisterFragmentModel;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -26,7 +27,10 @@ public class MotherMentorHouseholdRegisterFragmentModel
             tableName + "." + DBConstants.KEY.UNIQUE_ID,
             tableName + "." + DBConstants.KEY.VILLAGE_TOWN,
             tableName + "." + DBConstants.KEY.FAMILY_HEAD,
-            tableName + "." + DBConstants.KEY.PRIMARY_CARE_GIVER
+            tableName + "." + DBConstants.KEY.PRIMARY_CARE_GIVER,
+            MotherMentorHouseholdFollowUpDao.summaryColumn(tableName, DBConstants.KEY.KAYA_STATUS),
+            MotherMentorHouseholdFollowUpDao.summaryColumn(tableName, DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA),
+            MotherMentorHouseholdFollowUpDao.summaryColumn(tableName, DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA)
         };
     }
 }
