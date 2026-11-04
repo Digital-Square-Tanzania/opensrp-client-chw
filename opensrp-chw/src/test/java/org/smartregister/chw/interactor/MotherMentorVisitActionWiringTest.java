@@ -32,6 +32,7 @@ import org.smartregister.chw.mothermentor.util.AppExecutors;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.clientandeventmodel.Event;
 
 import java.lang.reflect.Field;
@@ -83,7 +84,15 @@ public class MotherMentorVisitActionWiringTest {
             BaseMotherMentorServiceVisitInteractor[] workflows = {
                 new MotherMentorFollowUpVisitInteractor(
                         MotherMentorFollowUpType.MOTHER_IIT.getEventType()),
-                new PartnerFollowUpVisitInteractor(MotherMentorFollowUpType.PARTNER.getEventType()),
+                new PartnerFollowUpVisitInteractor(MotherMentorFollowUpType.PARTNER.getEventType()) {
+                    @Override
+                    protected MotherMentorPartnerClosure loadClosureState(
+                            String memberId, String excludedVisitId) {
+                        assertEquals("metadata-client", memberId);
+                        assertEquals("", excludedVisitId);
+                        return MotherMentorPartnerClosure.active();
+                    }
+                },
                 new ChildEidFollowUpVisitInteractor(
                         MotherMentorFollowUpType.CHILD_EID.getEventType())
             };
@@ -100,6 +109,9 @@ public class MotherMentorVisitActionWiringTest {
                 assertEquals(
                         Constants.TABLES.MOTHERMENTOR_FOLLOWUP_VISIT,
                         ReflectionHelpers.callInstanceMethod(workflows[i], "getTableName"));
+                MemberObject member = new MemberObject();
+                member.setBaseEntityId("metadata-client");
+                ReflectionHelpers.setField(workflows[i], "memberObject", member);
                 Event event = new Event();
                 ReflectionHelpers.callInstanceMethod(
                         workflows[i],
