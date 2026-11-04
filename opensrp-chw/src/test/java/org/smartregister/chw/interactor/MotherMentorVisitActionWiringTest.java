@@ -8,6 +8,7 @@ import android.database.MatrixCursor;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -31,6 +32,7 @@ import org.smartregister.chw.mothermentor.interactor.MotherMentorHouseholdVisitI
 import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.util.AppExecutors;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
@@ -61,13 +63,19 @@ public class MotherMentorVisitActionWiringTest {
                 new PartnerFollowUpVisitInteractor("partner"),
                 new ChildEidFollowUpVisitInteractor("eid")
             };
-            int[] actionCounts = {6, 5, 4, 7, 5};
+            int[] actionCounts = {6, 5, 4, 7, 2};
             for (int i = 0; i < workflows.length; i++) {
                 assertEquals(
                         "org.smartregister.chw.mothermentor.interactor",
                         workflows[i].getClass().getPackage().getName());
                 Map<String, BaseMotherMentorVisitAction> actions = actions(workflows[i]);
                 assertEquals(actionCounts[i], actions.size());
+                if (workflows[i] instanceof ChildEidFollowUpVisitInteractor) {
+                    answer(byForm(actions, "mothermentor_child_eid_follow_up_status"),
+                            DBConstants.KEY.FOLLOW_UP_STATUS, "found", DBConstants.KEY.MAMA_CHILD_STATUS, "alive");
+                    assertEquals(3, actions.size());
+                    assertNotNull(byForm(actions, "mothermentor_child_eid_hei"));
+                }
                 for (BaseMotherMentorVisitAction action : actions.values()) {
                     Class<?> helper = action.getMotherMentorVisitActionHelper().getClass();
                     assertEquals(
@@ -78,7 +86,7 @@ public class MotherMentorVisitActionWiringTest {
                             "Helper reused by different actions: " + helper, helpers.add(helper));
                 }
             }
-            assertEquals(27, helpers.size());
+            assertEquals(25, helpers.size());
         }
     }
 
@@ -174,13 +182,52 @@ public class MotherMentorVisitActionWiringTest {
                     DBConstants.KEY.EXPECTED_FACILITY_VISIT_DATE,
                     DBConstants.KEY.RETURNED_TO_FACILITY);
             checkPartnerTracingHiddenAnswers();
-            checkHiddenAnswers(
-                    new ChildEidFollowUpVisitInteractor("eid"),
-                    "mothermentor_child_eid_",
-                    DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
-                    DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE,
-                    DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY);
+            checkChildTracingHiddenAnswers();
         }
+    }
+
+    private void checkChildTracingHiddenAnswers() throws Exception {
+        LocalDate dob = LocalDate.now().minusMonths(10);
+        MotherMentorMotherChildRepository.State clinical = new MotherMentorMotherChildRepository.State(dob);
+        try (MockedStatic<MotherMentorMotherChildRepository> states =
+                Mockito.mockStatic(MotherMentorMotherChildRepository.class)) {
+            states.when(() -> MotherMentorMotherChildRepository.getStateForChild(
+                    any(SQLiteDatabase.class), eq("child"), nullable(String.class), any(LocalDate.class)))
+                    .thenReturn(clinical);
+            MemberObject member = new MemberObject(); member.setBaseEntityId("child"); member.setDob(dob.toString());
+            Map<String, BaseMotherMentorVisitAction> map = actions(new ChildEidFollowUpVisitInteractor("eid"), member);
+            BaseMotherMentorVisitAction status = byForm(map, "mothermentor_child_eid_follow_up_status");
+            BaseMotherMentorVisitAction comments = byForm(map, "mothermentor_child_eid_follow_up_comment");
+            assertEquals(2, map.size());
+            answer(comments, DBConstants.KEY.COMMENTS, "Keep these comments");
+            answer(status, DBConstants.KEY.FOLLOW_UP_STATUS, "found");
+            assertEquals(2, map.size());
+            answer(status, DBConstants.KEY.MAMA_CHILD_STATUS, "alive");
+            BaseMotherMentorVisitAction firstHei = byForm(map, "mothermentor_child_eid_hei");
+            answer(firstHei, DBConstants.KEY.MAMA_BREASTFEEDING_STATUS, "breastfeeding",
+                    DBConstants.KEY.MTOTO_REFERRAL_AGREEMENT, "agreed");
+            assertEquals(BaseMotherMentorVisitAction.Status.COMPLETED, firstHei.getActionStatus());
+            answer(status, DBConstants.KEY.FOLLOW_UP_STATUS, "not_found",
+                    DBConstants.KEY.MTOTO_NOT_FOUND_REASON, "other",
+                    DBConstants.KEY.MTOTO_NOT_FOUND_REASON_OTHER, "Away today");
+            assertEquals(2, map.size());
+            assertTrue(map.values().stream().noneMatch(action -> "mothermentor_child_eid_hei".equals(action.getFormName())));
+            assertEquals(BaseMotherMentorVisitAction.Status.COMPLETED, comments.getActionStatus());
+            answer(status, DBConstants.KEY.FOLLOW_UP_STATUS, "found", DBConstants.KEY.MAMA_CHILD_STATUS, "alive");
+            BaseMotherMentorVisitAction nextHei = byForm(map, "mothermentor_child_eid_hei");
+            assertNotSame(firstHei, nextHei);
+            assertEquals(BaseMotherMentorVisitAction.Status.PENDING, nextHei.getActionStatus());
+            assertEquals("", org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
+                    new JSONObject(nextHei.getJsonPayload()), DBConstants.KEY.MTOTO_REFERRAL_AGREEMENT));
+        }
+    }
+
+    private void answer(BaseMotherMentorVisitAction action, String... values) throws Exception {
+        JSONObject form = new JSONObject(action.getJsonPayload());
+        for (int i = 0; i < values.length; i += 2) {
+            com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(form, values[i]).put("value", values[i + 1]);
+        }
+        action.setJsonPayload(form.toString());
     }
 
     private void checkPartnerTracingHiddenAnswers() throws Exception {
@@ -283,6 +330,11 @@ public class MotherMentorVisitActionWiringTest {
 
     private Map<String, BaseMotherMentorVisitAction> actions(
             BaseMotherMentorServiceVisitInteractor interactor) throws Exception {
+        return actions(interactor, new MemberObject());
+    }
+
+    private Map<String, BaseMotherMentorVisitAction> actions(
+            BaseMotherMentorServiceVisitInteractor interactor, MemberObject member) throws Exception {
         AppExecutors executors = new AppExecutors(Runnable::run, Runnable::run, Runnable::run);
         // Both base interactors own an executor field; keep callbacks synchronous in this test.
         for (Class<?> type = interactor.getClass(); type != null; type = type.getSuperclass()) {
@@ -298,7 +350,7 @@ public class MotherMentorVisitActionWiringTest {
         when(view.getEditMode()).thenReturn(false);
         BaseMotherMentorVisitContract.InteractorCallBack callback =
                 mock(BaseMotherMentorVisitContract.InteractorCallBack.class);
-        interactor.calculateActions(view, new MemberObject(), callback);
+        interactor.calculateActions(view, member, callback);
         ArgumentCaptor<LinkedHashMap> captor = ArgumentCaptor.forClass(LinkedHashMap.class);
         verify(callback).preloadActions(captor.capture());
         return captor.getValue();
