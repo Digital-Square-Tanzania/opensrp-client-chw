@@ -1003,6 +1003,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (textViewRecordMotherMentor != null) textViewRecordMotherMentor.setVisibility(View.GONE);
         if (manualProcessVisit != null) manualProcessVisit.setVisibility(View.GONE);
         if (mothermentorServiceInProgress != null) mothermentorServiceInProgress.setVisibility(View.GONE);
+        if (visitInProgress != null) visitInProgress.setVisibility(View.GONE);
+        if (textViewVisitDoneEdit != null) textViewVisitDoneEdit.setVisibility(View.GONE);
     }
 
     void applyMotherMentorDeceasedHandling() {

@@ -276,6 +276,10 @@ public class MotherMentorDeceasedProfileTest extends BaseUnitTest {
         TextView record = new TextView(activity);
         TextView process = new TextView(activity);
         RelativeLayout draft = new RelativeLayout(activity);
+        RelativeLayout inheritedDraft = new RelativeLayout(activity);
+        TextView edit = new TextView(activity);
+        ReflectionHelpers.setField(activity, "visitInProgress", inheritedDraft);
+        ReflectionHelpers.setField(activity, "textViewVisitDoneEdit", edit);
         ReflectionHelpers.setField(activity, "textViewRecordMotherMentor", record);
         ReflectionHelpers.setField(activity, "manualProcessVisit", process);
         ReflectionHelpers.setField(activity, "mothermentorServiceInProgress", draft);
@@ -289,6 +293,8 @@ public class MotherMentorDeceasedProfileTest extends BaseUnitTest {
             assertEquals(View.GONE, record.getVisibility());
             assertEquals(View.GONE, process.getVisibility());
             assertEquals(View.GONE, draft.getVisibility());
+            assertEquals(View.GONE, inheritedDraft.getVisibility());
+            assertEquals(View.GONE, edit.getVisibility());
             activity.openRecordClientVisit();
             activity.continueService();
             activity.continueContactVisit();
