@@ -1,6 +1,7 @@
 package org.smartregister.chw.adapter;
 
 import android.content.Context;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,6 +13,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
 public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAdapter {
     private final Context context;
+    private boolean partnerHistoryMode;
     private final MotherMentorSecondaryEnrollmentRegisterFragment[] fragments = new MotherMentorSecondaryEnrollmentRegisterFragment[3];
 
     public MotherMentorSecondaryEnrollmentPagerAdapter(FragmentManager fragmentManager, Context context) {
@@ -31,6 +33,16 @@ public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAd
     }
 
     @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Object item = super.instantiateItem(container, position);
+        if (item instanceof MotherMentorSecondaryEnrollmentRegisterFragment) {
+            fragments[position] = (MotherMentorSecondaryEnrollmentRegisterFragment) item;
+            if (position == 1) fragments[position].setHistoryMode(partnerHistoryMode);
+        }
+        return item;
+    }
+
+    @Override
     public int getCount() {
         return 3;
     }
@@ -47,6 +59,11 @@ public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAd
             default:
                 return null;
         }
+    }
+
+    public void setPartnerHistoryMode(boolean historyMode) {
+        partnerHistoryMode = historyMode;
+        fragments[1].setHistoryMode(historyMode);
     }
 
     public void setSearchText(String searchText) {

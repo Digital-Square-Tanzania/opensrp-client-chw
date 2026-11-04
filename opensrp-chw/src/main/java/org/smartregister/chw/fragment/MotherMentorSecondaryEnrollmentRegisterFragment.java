@@ -31,6 +31,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
     private static final String ARG_TABLE_NAME = "table_name";
     private static final String ARG_FOLLOW_UP_TYPE = "follow_up_type";
     private String sharedSearchText = "";
+    private boolean historyMode;
     private final MotherMentorRegisterFragmentModel registerModel =
             new MotherMentorRegisterFragmentModel();
 
@@ -53,6 +54,8 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
         presenter =
                 new MotherMentorSecondaryEnrollmentRegisterFragmentPresenter(
                         this, new MotherMentorRegisterFragmentModel(), null, getTableName());
+        ((MotherMentorSecondaryEnrollmentRegisterFragmentPresenter) presenter)
+                .setHistoryMode(historyMode);
     }
 
     @Override
@@ -66,6 +69,15 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
     protected void openProfile(String baseEntityId) {
         MotherMentorProfileActivity.startFollowUpProfile(
                 requireActivity(), baseEntityId, getFollowUpType());
+    }
+
+    public void setHistoryMode(boolean historyMode) {
+        this.historyMode = historyMode;
+        if (presenter instanceof MotherMentorSecondaryEnrollmentRegisterFragmentPresenter) {
+            ((MotherMentorSecondaryEnrollmentRegisterFragmentPresenter) presenter)
+                    .setHistoryMode(historyMode);
+            applySharedSearchText();
+        }
     }
 
     public void setSharedSearchText(String searchText) {

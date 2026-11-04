@@ -11,6 +11,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter
             org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_IIT;
 
     private final String tableName;
+    private boolean historyMode;
 
     public MotherMentorSecondaryEnrollmentRegisterFragmentPresenter(
             MotherMentorRegisterFragmentContract.View view,
@@ -25,10 +26,17 @@ public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter
     public String getMainCondition() {
         if (org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER
                 .equals(getMainTable())) {
-            return org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao
-                    .activeEnrollmentCondition(getMainTable());
+            return historyMode
+                    ? org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao
+                            .closedEnrollmentCondition(getMainTable())
+                    : org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao
+                            .activeEnrollmentCondition(getMainTable());
         }
         return MotherMentorDao.getActiveClientCondition(getMainTable());
+    }
+
+    public void setHistoryMode(boolean historyMode) {
+        this.historyMode = historyMode;
     }
 
     @Override

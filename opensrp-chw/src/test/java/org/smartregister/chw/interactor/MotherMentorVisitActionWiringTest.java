@@ -8,8 +8,6 @@ import android.database.MatrixCursor;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
-import org.smartregister.repository.Repository;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -37,7 +35,9 @@ import org.smartregister.chw.mothermentor.util.AppExecutors;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.repository.Repository;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -61,7 +61,7 @@ public class MotherMentorVisitActionWiringTest {
                 new PartnerFollowUpVisitInteractor("partner"),
                 new ChildEidFollowUpVisitInteractor("eid")
             };
-            int[] actionCounts = {6, 4, 4, 7, 5};
+            int[] actionCounts = {6, 5, 4, 7, 5};
             for (int i = 0; i < workflows.length; i++) {
                 assertEquals(
                         "org.smartregister.chw.mothermentor.interactor",
@@ -78,7 +78,7 @@ public class MotherMentorVisitActionWiringTest {
                             "Helper reused by different actions: " + helper, helpers.add(helper));
                 }
             }
-            assertEquals(26, helpers.size());
+            assertEquals(27, helpers.size());
         }
     }
 
@@ -88,7 +88,15 @@ public class MotherMentorVisitActionWiringTest {
             BaseMotherMentorServiceVisitInteractor[] workflows = {
                 new MotherMentorFollowUpVisitInteractor(
                         MotherMentorFollowUpType.MOTHER_IIT.getEventType()),
-                new PartnerFollowUpVisitInteractor(MotherMentorFollowUpType.PARTNER.getEventType()),
+                new PartnerFollowUpVisitInteractor(MotherMentorFollowUpType.PARTNER.getEventType()) {
+                    @Override
+                    protected MotherMentorPartnerClosure loadClosureState(
+                            String memberId, String excludedVisitId) {
+                        assertEquals("metadata-client", memberId);
+                        assertEquals("", excludedVisitId);
+                        return MotherMentorPartnerClosure.active();
+                    }
+                },
                 new ChildEidFollowUpVisitInteractor(
                         MotherMentorFollowUpType.CHILD_EID.getEventType())
             };
@@ -105,6 +113,9 @@ public class MotherMentorVisitActionWiringTest {
                 assertEquals(
                         Constants.TABLES.MOTHERMENTOR_FOLLOWUP_VISIT,
                         ReflectionHelpers.callInstanceMethod(workflows[i], "getTableName"));
+                MemberObject member = new MemberObject();
+                member.setBaseEntityId("metadata-client");
+                ReflectionHelpers.setField(workflows[i], "memberObject", member);
                 Event event = new Event();
                 ReflectionHelpers.callInstanceMethod(
                         workflows[i],
