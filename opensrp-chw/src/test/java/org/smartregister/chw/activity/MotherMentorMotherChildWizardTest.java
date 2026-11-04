@@ -27,7 +27,7 @@ import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorMotherChildWizardTest {
     @Test
-    public void onlyNewMotherVisitFormsUseTheLibraryChildWizardDelegate() throws Exception {
+    public void onlyCurrentMotherAndChildAssessmentFormsUseTheirLibraryWizardDelegates() throws Exception {
         FamilyMetadata family = new FamilyMetadata(JsonWizardFormActivity.class,
                 FamilyWizardFormActivity.class, BaseProfileActivity.class, "unique_id", false);
         try (MockedStatic<Utils> metadata = mockStatic(Utils.class)) {
@@ -35,6 +35,8 @@ public class MotherMentorMotherChildWizardTest {
             assertLaunch(form("Mother Mentor Visit Type", "2"), MotherMentorVisitWizardActivity.class);
             assertLaunch(form("Mother Mentor Visit Type", ""), FamilyWizardFormActivity.class);
             assertLaunch(form("Mother Mentor Child EID Follow-up Visit", "2"), FamilyWizardFormActivity.class);
+            assertLaunch(childForm("3"), MotherMentorVisitWizardActivity.class);
+            assertLaunch(childForm("2"), FamilyWizardFormActivity.class);
         }
         assertTrue(FamilyWizardFormActivity.class.isAssignableFrom(MotherMentorVisitWizardActivity.class));
     }
@@ -50,6 +52,13 @@ public class MotherMentorMotherChildWizardTest {
     private JSONObject form(String encounter, String schema) throws Exception {
         JSONObject field = new JSONObject().put("key", DBConstants.KEY.MAMA_VISIT_SCHEMA).put("value", schema);
         return new JSONObject().put("encounter_type", encounter)
+                .put("step1", new JSONObject().put("fields", new JSONArray().put(field)));
+    }
+
+    private JSONObject childForm(String schema) throws Exception {
+        JSONObject field = new JSONObject().put("key", DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA)
+                .put("value", schema);
+        return new JSONObject().put("encounter_type", "Mother Mentor Child EID HEI")
                 .put("step1", new JSONObject().put("fields", new JSONArray().put(field)));
     }
 }
