@@ -12,6 +12,9 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
+
+import timber.log.Timber;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,8 +33,6 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import timber.log.Timber;
-
 /** Reads history questions and coded answers from the same localized forms used for visits. */
 public final class MotherMentorHistoryMapper {
     private static final String HISTORY_PREFIX = "mothermentor_history_";
@@ -39,6 +40,8 @@ public final class MotherMentorHistoryMapper {
     private static final Set<String> HOUSEHOLD_FIELDS =
             new HashSet<>(
                     Arrays.asList(
+                            DBConstants.KEY.KAYA_STATUS,
+                            DBConstants.KEY.HOUSEHOLD_ENROLLMENT_ID,
                             DBConstants.KEY.PURPOSE_OF_VISIT,
                             DBConstants.KEY.OTHER_PURPOSE,
                             DBConstants.KEY.PARTICIPANTS,
@@ -65,7 +68,14 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.PARTNER_ENROLLED,
                             DBConstants.KEY.CHILD_EID_ENROLLED,
                             DBConstants.KEY.ART_INITIATED_BEFORE_VISIT,
-                            DBConstants.KEY.MOTHERMENTOR_VISIT_DATE));
+                            DBConstants.KEY.MOTHERMENTOR_VISIT_DATE,
+                            DBConstants.KEY.HOUSEHOLD_ENROLLMENT_ID,
+                            DBConstants.KEY.KAYA_STATUS,
+                            DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA,
+                            DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA,
+                            DBConstants.KEY.KAYA_COUNTER_NYUMBA_IMEFUNGWA,
+                            DBConstants.KEY.KAYA_COUNTER_NYINGINE,
+                            DBConstants.KEY.KAYA_COUNTER_HAIJAPATIKANA));
 
     private final Context context;
     private final Context englishContext;
@@ -92,8 +102,22 @@ public final class MotherMentorHistoryMapper {
         List<Row> rows = new ArrayList<>();
         Row comments = addFormRows(rows, fields, recorded);
         addHistoricalRows(rows, fields, ignored, recorded);
+        addHouseholdClosureRows(rows, recorded);
         if (comments != null) rows.add(comments);
         return rows;
+    }
+
+    private void addHouseholdClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {
+        List<String> reasons = values(new Field(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA, "", false),
+                recorded.get(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA));
+        if (reasons.isEmpty()) return;
+        rows.add(new Row(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA,
+                context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_closure_reason),
+                Collections.singletonList(MotherMentorHouseholdClosureLabels.reason(context, reasons.get(0))), false));
+        List<String> dates = values(new Field(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA, "", false),
+                recorded.get(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA));
+        if (!dates.isEmpty()) rows.add(new Row(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA,
+                context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_closure_date), dates, false));
     }
 
     private Row addFormRows(
