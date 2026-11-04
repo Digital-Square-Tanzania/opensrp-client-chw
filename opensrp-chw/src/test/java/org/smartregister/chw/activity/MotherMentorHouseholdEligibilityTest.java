@@ -28,6 +28,7 @@ import org.robolectric.shadows.ShadowToast;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdEligibilityDao;
 
 @RunWith(RobolectricTestRunner.class)
@@ -119,6 +120,27 @@ public class MotherMentorHouseholdEligibilityTest {
         registration.onActivityResult(org.smartregister.chw.mothermentor.util.Constants.REQUEST_CODE_GET_JSON,
                 Activity.RESULT_OK, data);
         eligibility.verify(() -> MotherMentorHouseholdEligibilityDao.hasEligibleMother(FAMILY));
+        assertNull(ShadowToast.getTextOfLatestToast());
+        assertNull(Shadows.shadowOf(registration).getNextStartedActivity());
+    }
+
+    @Test
+    public void anEnrollmentArrivingWhileTheFormIsOpenCannotBeOverwritten() throws Exception {
+        MotherMentorRegisterActivity registration = Robolectric.buildActivity(MotherMentorRegisterActivity.class).get();
+        ReflectionHelpers.setField(registration, "BASE_ENTITY_ID", FAMILY);
+        ReflectionHelpers.setField(registration, "FORM_NAME", "mama_kinara_household_enrolment");
+        eligibility.when(() -> MotherMentorHouseholdEligibilityDao.hasEligibleMother(FAMILY)).thenReturn(true);
+        eligibility.when(() -> MotherMentorHouseholdEligibilityDao.isEnrolled(FAMILY)).thenReturn(true);
+        JSONObject form = new JSONObject().put("encounter_type", "mama_kinara_household_enrolment")
+                .put("count", "1").put("step1", new JSONObject().put("fields", new JSONArray()));
+        try (MockedStatic<MotherMentorLibrary> library = mockStatic(MotherMentorLibrary.class)) {
+            library.when(MotherMentorLibrary::getInstance)
+                    .thenThrow(new AssertionError("An existing enrollment must not reach persistence"));
+            registration.onActivityResult(org.smartregister.chw.mothermentor.util.Constants.REQUEST_CODE_GET_JSON,
+                    Activity.RESULT_OK, new Intent().putExtra("json", form.toString()));
+            library.verifyNoInteractions();
+        }
+        eligibility.verify(() -> MotherMentorHouseholdEligibilityDao.isEnrolled(FAMILY));
         assertNull(ShadowToast.getTextOfLatestToast());
         assertNull(Shadows.shadowOf(registration).getNextStartedActivity());
     }

@@ -326,7 +326,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                 }
                 if (EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT.equals(
                         form.optString(Constants.ENCOUNTER_TYPE))) {
-                    if (!MotherMentorHouseholdEligibilityDao.hasEligibleMother(BASE_ENTITY_ID)) return;
+                    if (MotherMentorHouseholdEligibilityDao.isEnrolled(BASE_ENTITY_ID)
+                            || !MotherMentorHouseholdEligibilityDao.hasEligibleMother(BASE_ENTITY_ID)) return;
                     boolean hasConsent = saveHouseholdEnrollment(form);
                     displayToast(
                             getString(
