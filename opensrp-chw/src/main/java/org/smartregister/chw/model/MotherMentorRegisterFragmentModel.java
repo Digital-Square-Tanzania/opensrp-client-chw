@@ -138,6 +138,12 @@ public class MotherMentorRegisterFragmentModel extends BaseMotherMentorRegisterF
             columnList.add("NULL as follow_up_expected_return_date");
         }
 
+        if (org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER
+                .equals(tableName)) {
+            columnList.add(tableName + "." + DBConstants.KEY.MWENZI_STATUS);
+            columnList.add(tableName + "." + DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA);
+            columnList.add(tableName + "." + DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA);
+        }
         return columnList.toArray(new String[0]);
     }
 }

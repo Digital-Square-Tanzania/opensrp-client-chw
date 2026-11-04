@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -30,23 +32,38 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
     private MotherMentorSecondaryEnrollmentPagerAdapter adapter;
     private View rootView;
     private ViewPager viewPager;
+    private static final String STATE_PARTNER_HISTORY = "partner_history";
+    private static final int PARTNER_HISTORY_MENU_ID =
+            org.smartregister.chw.mothermentor.R.id.action_mothermentor_partner_history;
+    private boolean partnerHistoryMode;
+    private MenuItem partnerHistoryMenuItem;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mothermentor_secondary_enrollments, container, false);
         rootView = view;
+        partnerHistoryMode = savedInstanceState != null
+                && savedInstanceState.getBoolean(STATE_PARTNER_HISTORY);
         setupToolbar(view);
         setupSearchBar(view);
 
         viewPager = view.findViewById(R.id.mothermentor_secondary_view_pager);
         adapter = new MotherMentorSecondaryEnrollmentPagerAdapter(getChildFragmentManager(), requireContext());
+        adapter.setPartnerHistoryMode(partnerHistoryMode);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
 
         TabLayout tabLayout = view.findViewById(R.id.mothermentor_secondary_tabs);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                updatePartnerHistoryMenu();
+            }
+        });
         applyPendingTabIndex();
+        updatePartnerHistoryMenu();
 
         return view;
     }
@@ -58,6 +75,21 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
             setupToolbar(rootView);
         }
         applyPendingTabIndex();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBoolean(STATE_PARTNER_HISTORY, partnerHistoryMode);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void updatePartnerHistoryMenu() {
+        if (partnerHistoryMenuItem == null) return;
+        partnerHistoryMenuItem.setVisible(viewPager != null
+                && viewPager.getCurrentItem() == MotherMentorRegisterActivity.TAB_INDEX_PARTNER);
+        partnerHistoryMenuItem.setTitle(partnerHistoryMode
+                ? org.smartregister.chw.mothermentor.R.string.mothermentor_partner_active_follow_up
+                : org.smartregister.chw.mothermentor.R.string.mothermentor_partner_history);
     }
 
     private void setupToolbar(View view) {
@@ -75,6 +107,20 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
         } catch (NullPointerException e) {
             Timber.e(e);
         }
+
+        partnerHistoryMenuItem = toolbar.getMenu().findItem(PARTNER_HISTORY_MENU_ID);
+        if (partnerHistoryMenuItem == null) {
+            partnerHistoryMenuItem = toolbar.getMenu().add(Menu.NONE, PARTNER_HISTORY_MENU_ID,
+                    Menu.NONE, org.smartregister.chw.mothermentor.R.string.mothermentor_partner_history);
+            partnerHistoryMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            partnerHistoryMenuItem.setOnMenuItemClickListener(item -> {
+                partnerHistoryMode = !partnerHistoryMode;
+                if (adapter != null) adapter.setPartnerHistoryMode(partnerHistoryMode);
+                updatePartnerHistoryMenu();
+                return true;
+            });
+        }
+        updatePartnerHistoryMenu();
 
         ImageView qrCodeScanImageView = view.findViewById(org.smartregister.R.id.scanQrCode);
         if (qrCodeScanImageView != null) {

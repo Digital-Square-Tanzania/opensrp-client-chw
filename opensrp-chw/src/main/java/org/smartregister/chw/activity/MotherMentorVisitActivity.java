@@ -17,6 +17,7 @@ import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInt
 import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.util.Constants;
@@ -67,6 +68,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             Boolean editMode,
             boolean followUpVisit,
             MotherMentorFollowUpType followUpType) {
+        if (followUpVisit && followUpType == MotherMentorFollowUpType.PARTNER
+                && MotherMentorPartnerClosureRepository.getState(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityId, null).isClosed()) return;
         Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
@@ -184,6 +189,12 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         submitting = true;
         tvSubmit.setEnabled(false);
         super.submitVisit();
+    }
+
+    @Override
+    protected void onSubmissionCancelled() {
+        submitting = false;
+        super.onSubmissionCancelled();
     }
 
     @Override
