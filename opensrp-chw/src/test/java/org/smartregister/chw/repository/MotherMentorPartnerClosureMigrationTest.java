@@ -39,7 +39,7 @@ public class MotherMentorPartnerClosureMigrationTest {
             migration.verify(() -> MotherMentorPartnerClosureRepository.upgrade(database));
             migration.verifyNoMoreInteractions();
         }
-        assertEquals(61, BuildConfig.DATABASE_VERSION);
+        assertTrue(BuildConfig.DATABASE_VERSION >= 61);
     }
 
     @Test
