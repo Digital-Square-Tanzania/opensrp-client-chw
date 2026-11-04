@@ -18,6 +18,8 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.LooperMode;
@@ -30,6 +32,8 @@ import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -147,16 +151,22 @@ public class MotherMentorChildEidFollowUpProfileTest extends BaseUnitTest {
 
     @Test
     public void childCompletionDoesNotDisableOtherFollowUpProfiles() throws Exception {
-        savedChildEidVisit(completedVisit());
-        for (MotherMentorFollowUpType type :
-                new MotherMentorFollowUpType[] {
-                    MotherMentorFollowUpType.MOTHER_IIT, MotherMentorFollowUpType.PARTNER
-                }) {
-            ChildEidProfileActivity activity = profile();
-            activity.getIntent()
-                    .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, type.getValue());
-            activity.setupButtons();
-            assertTrue(button(activity).isEnabled());
+        try (MockedStatic<MotherMentorPartnerClosureRepository> closure =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            closure.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("child-id"), Mockito.isNull()))
+                    .thenReturn(MotherMentorPartnerClosure.active());
+            savedChildEidVisit(completedVisit());
+            for (MotherMentorFollowUpType type :
+                    new MotherMentorFollowUpType[] {
+                        MotherMentorFollowUpType.MOTHER_IIT, MotherMentorFollowUpType.PARTNER
+                    }) {
+                ChildEidProfileActivity activity = profile();
+                activity.getIntent()
+                        .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, type.getValue());
+                activity.setupButtons();
+                assertTrue(button(activity).isEnabled());
+            }
         }
     }
 

@@ -17,18 +17,26 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
+import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
+import org.json.JSONObject;
+import org.json.JSONException;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
-import org.smartregister.chw.util.MotherMentorHistoryMapper;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
+import org.smartregister.chw.util.MotherMentorHistoryMapper;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -108,7 +116,9 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             boolean legacyFollowUp = followUpType != null
                     && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType());
             edit.setVisibility(
-                    i == visits.size() - 1 && !legacyFollowUp ? View.VISIBLE : View.GONE);
+                    i == visits.size() - 1 && !legacyFollowUp
+                            && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit)
+                            ? View.VISIBLE : View.GONE);
             edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
             service.setText(String.format("%s - %s", getVisitType(context, visit.getVisitType()),
                     dateFormat.format(visit.getDate())));
@@ -140,7 +150,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     }
 
     private void editVisit(Activity activity, Visit visit) {
-        if (StringUtils.isBlank(visit.getBaseEntityId())) return;
+        if (StringUtils.isBlank(visit.getBaseEntityId())
+                || isHouseholdReadOnly(visit) || isPartnerClosed(visit)) return;
         activity.finish();
         if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
             MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
@@ -156,6 +167,37 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             MotherMentorVisitActivity.startMotherMentorVisitActivity(
                     activity, visit.getBaseEntityId(), true);
         }
+    }
+
+    private boolean isHouseholdReadOnly(Visit visit) {
+        if (!MotherMentorHistoryMapper.isHouseholdVisit(visit)) return false;
+        net.zetetic.database.sqlcipher.SQLiteDatabase database =
+                ChwApplication.getInstance().getRepository().getReadableDatabase();
+        return MotherMentorHouseholdClosureRepository.getState(database, visit.getBaseEntityId(), null)
+                .isClosed() || !MotherMentorHouseholdClosureRepository.belongsToCurrentEnrollment(
+                        database, visit.getBaseEntityId(), visit.getJson());
+    }
+
+    private boolean isPartnerClosed(Visit visit) {
+        boolean partner = MotherMentorFollowUpType.PARTNER.getEventType().equals(visit.getVisitType())
+                || (followUpType == MotherMentorFollowUpType.PARTNER
+                        && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType()));
+        if (!partner || StringUtils.isBlank(visit.getBaseEntityId())) return false;
+        if (MotherMentorPartnerClosureRepository.getState(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                visit.getBaseEntityId(), null).isClosed()) return true;
+        String linkage = "legacy:" + visit.getBaseEntityId();
+        try {
+            String recorded = MotherMentorVisitCompletion.observationValues(
+                    new JSONObject(StringUtils.defaultIfBlank(visit.getJson(), "{}"))
+                            .optJSONArray("obs")).get(DBConstants.KEY.PARTNER_LINKAGE_ID);
+            if (StringUtils.isNotBlank(recorded)) linkage = recorded;
+        } catch (JSONException ignored) {
+            // Legacy history can lack a raw event; retain its original legacy linkage.
+        }
+        MotherMentorPartnerFollowUpDao.Context current = MotherMentorPartnerFollowUpDao.getContext(
+                visit.getBaseEntityId(), null, new Date());
+        return current == null || !linkage.equals(current.getLinkageId());
     }
 
     private boolean isFollowUpVisit(String eventType) {

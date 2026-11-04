@@ -17,13 +17,17 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
@@ -126,13 +130,15 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     @Override
     protected void setupButtons() {
         super.setupButtons();
+        MotherMentorHouseholdClosure closure = getHouseholdClosureState();
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
             textViewRecordMotherMentor.setText(R.string.mothermentor_household_record);
-            boolean canStartVisit = !hasCompletedHouseholdVisitToday();
+            boolean canStartVisit = !closure.isClosed() && !hasCompletedHouseholdVisitToday();
             textViewRecordMotherMentor.setEnabled(canStartVisit);
             textViewRecordMotherMentor.setAlpha(canStartVisit ? 1f : 0.5f);
         }
+        updateClosureBanner(closure);
         enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
     }
@@ -164,7 +170,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     @Override
     public void openRecordClientVisit() {
         // Re-read saved visits so a stale profile cannot start a duplicate on the same day.
-        if (hasCompletedHouseholdVisitToday()) {
+        if (getHouseholdClosureState().isClosed() || hasCompletedHouseholdVisitToday()) {
             setupButtons();
             return;
         }
@@ -208,6 +214,10 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void continueService() {
+        if (getHouseholdClosureState().isClosed()) {
+            setupButtons();
+            return;
+        }
         MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
                 this, memberObject.getBaseEntityId(), true);
     }
@@ -307,6 +317,14 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     private void enforceProcessVisitVisibility() {
+        if (getHouseholdClosureState().isClosed()) {
+            if (manualProcessVisit != null) manualProcessVisit.setVisibility(View.GONE);
+            if (mothermentorServiceInProgress != null) mothermentorServiceInProgress.setVisibility(View.GONE);
+            if (textViewContinueMotherMentorService != null) textViewContinueMotherMentorService.setVisibility(View.GONE);
+            if (visitInProgress != null) visitInProgress.setVisibility(View.GONE);
+            if (textViewVisitDoneEdit != null) textViewVisitDoneEdit.setVisibility(View.GONE);
+            return;
+        }
         Visit latestVisit = getServiceVisit();
         if (latestVisit == null) {
             manualProcessVisit.setVisibility(View.GONE);
@@ -338,6 +356,10 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
         if (shouldShowProcessVisit) {
             manualProcessVisit.setOnClickListener(
                     view -> {
+                        if (getHouseholdClosureState().isClosed()) {
+                            setupButtons();
+                            return;
+                        }
                         try {
                             MotherMentorVisitsUtil.manualProcessVisit(latestVisit);
                             Toast.makeText(
@@ -355,11 +377,38 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     protected Visit getServiceVisit() {
-        return MotherMentorLibrary.getInstance()
+        Visit visit = MotherMentorLibrary.getInstance()
                 .visitRepository()
                 .getLatestVisit(
                         memberObject.getBaseEntityId(),
                         Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        return visit != null && isCurrentHouseholdVisit(visit) ? visit : null;
+    }
+
+    protected boolean isCurrentHouseholdVisit(Visit visit) {
+        return MotherMentorHouseholdClosureRepository.belongsToCurrentEnrollment(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                memberObject.getBaseEntityId(), visit.getJson());
+    }
+
+    protected MotherMentorHouseholdClosure getHouseholdClosureState() {
+        return memberObject == null ? MotherMentorHouseholdClosure.active()
+                : MotherMentorHouseholdClosureRepository.getState(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        memberObject.getBaseEntityId(), null);
+    }
+
+    private void updateClosureBanner(MotherMentorHouseholdClosure closure) {
+        TextView banner = findViewById(
+                org.smartregister.chw.mothermentor.R.id.mothermentor_household_closed_banner);
+        if (banner == null) return;
+        banner.setVisibility(closure.isClosed() ? View.VISIBLE : View.GONE);
+        if (closure.isClosed()) {
+            banner.setText(getString(
+                    org.smartregister.chw.mothermentor.R.string.mothermentor_household_closed_banner,
+                    MotherMentorHouseholdClosureLabels.reason(this, closure.getClosureReason()),
+                    closure.getClosedDate()));
+        }
     }
 
     protected boolean isVisitOnProgress(Visit visit) {

@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
@@ -16,7 +17,10 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
@@ -25,14 +29,21 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.chw.util.MotherMentorTestAssets;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,10 +52,73 @@ import java.util.Map;
 public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     private static final String COMMENTS = "Counselled mother, partner and child, next visit agreed.";
     private final List<ActivityController<Activity>> controllers = new ArrayList<>();
+    private MockedStatic<MotherMentorHouseholdClosureRepository> closureRepository;
+    private MotherMentorHouseholdClosure closure = MotherMentorHouseholdClosure.active();
+    private boolean currentEnrollment = true;
+
+    @Before
+    public void configureHouseholdClosure() {
+        closureRepository = Mockito.mockStatic(MotherMentorHouseholdClosureRepository.class);
+        closureRepository.when(() -> MotherMentorHouseholdClosureRepository.getState(
+                Mockito.any(), Mockito.anyString(), Mockito.isNull())).thenAnswer(call -> closure);
+        closureRepository.when(() -> MotherMentorHouseholdClosureRepository.belongsToCurrentEnrollment(
+                Mockito.any(), Mockito.anyString(), Mockito.any())).thenAnswer(call -> currentEnrollment);
+    }
+
+    @After
+    public void closeHouseholdClosureFixture() {
+        closureRepository.close();
+    }
+
+    @Test
+    public void closedHouseholdAndPreviousEnrollmentHistoryAreReadOnly() {
+        Activity activity = activity();
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        add(visit, "purpose_of_visit", "routine_follow_up", "Routine follow-up");
+        closure = MotherMentorHouseholdClosure.active()
+                .advance("repeat", "not_found", "moved", "2026-11-01");
+        LinearLayout cards = render(activity, null, visit);
+        assertEquals(View.GONE, edit(cards.getChildAt(0)).getVisibility());
+        closure = MotherMentorHouseholdClosure.active();
+        currentEnrollment = false;
+        cards = render(activity, null, visit);
+        assertEquals(View.GONE, edit(cards.getChildAt(0)).getVisibility());
+    }
+
+    @Test
+    public void historyEditRechecksClosureAfterTheCardWasRendered() {
+        Activity activity = activity();
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        add(visit, "purpose_of_visit", "routine_follow_up", "Routine follow-up");
+        LinearLayout cards = render(activity, null, visit);
+        View edit = edit(cards.getChildAt(0));
+        assertEquals(View.VISIBLE, edit.getVisibility());
+        closure = MotherMentorHouseholdClosure.active()
+                .advance("repeat", "not_found", "moved", "2026-11-01");
+        edit.performClick();
+        org.junit.Assert.assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
+        assertFalse(activity.isFinishing());
+    }
+
+    private MockedStatic<MotherMentorPartnerFollowUpDao> partnerContext;
+
+    @Before
+    public void activePartnerLinkage() {
+        partnerContext = Mockito.mockStatic(MotherMentorPartnerFollowUpDao.class);
+        partnerContext.when(() -> MotherMentorPartnerFollowUpDao.getContext(
+                Mockito.eq("mother-mentor-client"), Mockito.isNull(), Mockito.any(Date.class)))
+                .thenReturn(context("legacy:mother-mentor-client"));
+    }
+
+    private MotherMentorPartnerFollowUpDao.Context context(String linkage) {
+        return new MotherMentorPartnerFollowUpDao.Context(
+                linkage, "mother", "episode", "yes", false, true);
+    }
 
     @After
     public void destroyActivities() {
         for (ActivityController<Activity> controller : controllers) controller.destroy();
+        partnerContext.close();
     }
 
     @Test
@@ -85,20 +159,155 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
 
     @Test
     public void explicitFollowUpEventDeterminesEditedWorkflow() {
-        for (MotherMentorFollowUpType type : MotherMentorFollowUpType.values()) {
-            Activity activity = activity();
-            Visit visit = visit(type.getEventType());
-            add(visit, "follow_up_status", "found", "Found");
-            LinearLayout cards = render(activity, MotherMentorFollowUpType.MOTHER_IIT, visit);
+        try (MockedStatic<MotherMentorPartnerClosureRepository> closure =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            closure.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
+                    .thenReturn(MotherMentorPartnerClosure.active());
+            for (MotherMentorFollowUpType type : MotherMentorFollowUpType.values()) {
+                Activity activity = activity();
+                Visit visit = visit(type.getEventType());
+                add(visit, "follow_up_status", "found", "Found");
+                LinearLayout cards = render(activity, MotherMentorFollowUpType.MOTHER_IIT, visit);
 
+                assertEquals(View.VISIBLE, edit(cards.getChildAt(0)).getVisibility());
+                assertTrue(edit(cards.getChildAt(0)).performClick());
+                Intent intent = Shadows.shadowOf(activity).getNextStartedActivity();
+                assertVisitIntent(intent, MotherMentorVisitActivity.class);
+                assertTrue(intent.getBooleanExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, false));
+                assertEquals(type.getValue(),
+                        intent.getStringExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
+            }
+        }
+    }
+
+    @Test
+    public void closedPartnerHistoryKeepsDetailsAndHidesEditForNativeAndLegacyVisits() {
+        try (MockedStatic<MotherMentorPartnerClosureRepository> closure =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            closure.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
+                    .thenReturn(closedPartner());
+            for (String event : Arrays.asList(MotherMentorFollowUpType.PARTNER.getEventType(),
+                    Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES)) {
+                Activity activity = activity();
+                Visit visit = visit(event);
+                add(visit, "comments", COMMENTS, COMMENTS);
+
+                LinearLayout cards = render(activity, MotherMentorFollowUpType.PARTNER, visit);
+
+                assertEquals(1, cards.getChildCount());
+                assertEquals(View.GONE, edit(cards.getChildAt(0)).getVisibility());
+                assertNotNull(cards.getChildAt(0).findViewWithTag("comments"));
+                assertFalse(activity.isFinishing());
+            }
+        }
+    }
+
+    @Test
+    public void partnerClosureDoesNotBlockNativeIitOrChildHistoryEditing() {
+        try (MockedStatic<MotherMentorPartnerClosureRepository> closure =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            closure.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
+                    .thenReturn(closedPartner());
+            for (MotherMentorFollowUpType type : Arrays.asList(
+                    MotherMentorFollowUpType.MOTHER_IIT, MotherMentorFollowUpType.CHILD_EID)) {
+                Activity activity = activity();
+                Visit visit = visit(type.getEventType());
+                LinearLayout cards = render(activity, MotherMentorFollowUpType.PARTNER, visit);
+
+                assertEquals(View.VISIBLE, edit(cards.getChildAt(0)).getVisibility());
+                assertTrue(edit(cards.getChildAt(0)).performClick());
+                Intent intent = Shadows.shadowOf(activity).getNextStartedActivity();
+                assertVisitIntent(intent, MotherMentorVisitActivity.class);
+                assertEquals(type.getValue(), intent.getStringExtra(
+                        MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
+            }
+        }
+    }
+
+    @Test
+    public void stalePartnerEditAfterClosureKeepsHistoryOpenWithoutLaunchingAVisit() {
+        try (MockedStatic<MotherMentorPartnerClosureRepository> closure =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            closure.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
+                    .thenReturn(MotherMentorPartnerClosure.active(), closedPartner());
+            Activity activity = activity();
+            Visit visit = visit(MotherMentorFollowUpType.PARTNER.getEventType());
+            LinearLayout cards = render(activity, MotherMentorFollowUpType.PARTNER, visit);
+            View edit = edit(cards.getChildAt(0));
+            assertEquals(View.VISIBLE, edit.getVisibility());
+
+            assertTrue(edit.performClick());
+
+            assertFalse(activity.isFinishing());
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
+        }
+    }
+
+    @Test
+    public void relinkKeepsPreviousAndLegacyPartnerVisitsReadOnlyButAllowsTheCurrentLinkage() throws Exception {
+        try (MockedStatic<MotherMentorPartnerClosureRepository> closure =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            closure.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
+                    .thenReturn(MotherMentorPartnerClosure.active());
+            partnerContext.when(() -> MotherMentorPartnerFollowUpDao.getContext(
+                    Mockito.eq("mother-mentor-client"), Mockito.isNull(), Mockito.any(Date.class)))
+                    .thenReturn(context("new-link"));
+            for (String linkage : Arrays.asList("old-link", "")) {
+                Activity activity = activity();
+                Visit visit = partnerVisit(linkage);
+                LinearLayout cards = render(activity, MotherMentorFollowUpType.PARTNER, visit);
+                assertEquals(View.GONE, edit(cards.getChildAt(0)).getVisibility());
+                assertFalse(activity.isFinishing());
+            }
+            Activity current = activity();
+            LinearLayout cards = render(current, MotherMentorFollowUpType.PARTNER, partnerVisit("new-link"));
             assertEquals(View.VISIBLE, edit(cards.getChildAt(0)).getVisibility());
             assertTrue(edit(cards.getChildAt(0)).performClick());
-            Intent intent = Shadows.shadowOf(activity).getNextStartedActivity();
-            assertVisitIntent(intent, MotherMentorVisitActivity.class);
-            assertTrue(intent.getBooleanExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, false));
-            assertEquals(type.getValue(),
-                    intent.getStringExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
+            assertVisitIntent(Shadows.shadowOf(current).getNextStartedActivity(), MotherMentorVisitActivity.class);
         }
+    }
+
+    @Test
+    public void stalePartnerEditAfterRelinkKeepsThePreviousVisitReadOnly() throws Exception {
+        try (MockedStatic<MotherMentorPartnerClosureRepository> closure =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            closure.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
+                    .thenReturn(MotherMentorPartnerClosure.active());
+            partnerContext.when(() -> MotherMentorPartnerFollowUpDao.getContext(
+                    Mockito.eq("mother-mentor-client"), Mockito.isNull(), Mockito.any(Date.class)))
+                    .thenReturn(context("old-link"), context("new-link"));
+            Activity activity = activity();
+            LinearLayout cards = render(activity, MotherMentorFollowUpType.PARTNER, partnerVisit("old-link"));
+            View edit = edit(cards.getChildAt(0));
+            assertEquals(View.VISIBLE, edit.getVisibility());
+
+            assertTrue(edit.performClick());
+
+            assertFalse(activity.isFinishing());
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
+        }
+    }
+
+    private Visit partnerVisit(String linkage) throws Exception {
+        Visit visit = visit(MotherMentorFollowUpType.PARTNER.getEventType());
+        visit.setJson(new JSONObject().put("obs", new JSONArray().put(new JSONObject()
+                .put("fieldCode", DBConstants.KEY.PARTNER_LINKAGE_ID)
+                .put("values", new JSONArray().put(linkage)))).toString());
+        return visit;
+    }
+
+    private MotherMentorPartnerClosure closedPartner() {
+        Map<String, String> answers = new HashMap<>();
+        answers.put(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE, "tracing");
+        answers.put(DBConstants.KEY.FOLLOW_UP_STATUS, "not_found");
+        answers.put(DBConstants.KEY.PARTNER_NOT_FOUND_REASON, "moved");
+        return MotherMentorPartnerClosure.active().advance(answers, "2026-11-04");
     }
 
     @Test

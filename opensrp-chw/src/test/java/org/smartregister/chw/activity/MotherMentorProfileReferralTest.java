@@ -22,12 +22,17 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /** Checks the real profile button-to-referral chooser route without requiring a phone number. */
 public class MotherMentorProfileReferralTest extends BaseUnitTest {
@@ -83,6 +88,35 @@ public class MotherMentorProfileReferralTest extends BaseUnitTest {
             } else {
                 assertEquals(Arrays.asList(CoreConstants.TASKS_FOCUS.PMTCT), focuses(types));
             }
+        }
+    }
+
+    @Test
+    public void closedLivingPartnerRetainsTheAdultReferralPencil() {
+        Intent intent = new Intent()
+                .putExtra(MotherMentorProfileActivity.EXTRA_FOLLOW_UP_PROFILE, true)
+                .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE,
+                        MotherMentorFollowUpType.PARTNER.getValue());
+        MotherMentorProfileActivity activity = profile(intent, "closed-partner");
+        Map<String, String> answers = new HashMap<>();
+        answers.put(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE, "tracing");
+        answers.put(DBConstants.KEY.FOLLOW_UP_STATUS, "not_found");
+        answers.put(DBConstants.KEY.PARTNER_NOT_FOUND_REASON, "moved");
+        MotherMentorPartnerClosure closure = MotherMentorPartnerClosure.active()
+                .advance(answers, "2026-11-04");
+        try (MockedStatic<MotherMentorPartnerClosureRepository> repository =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            repository.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("closed-partner"), Mockito.isNull())).thenReturn(closure);
+            assertTrue(activity.loadPartnerClosure().isClosed());
+
+            Intent referral = openReferralChooser(activity);
+
+            assertReferralIntent(referral, "closed-partner");
+            ArrayList<ReferralTypeModel> types = referral.getParcelableArrayListExtra(Constants.REFERRAL_TYPES);
+            assertEquals(Arrays.asList(CoreConstants.TASKS_FOCUS.SICK_HIV,
+                    CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST,
+                    CoreConstants.TASKS_FOCUS.TBLEPROSY, CoreConstants.TASKS_FOCUS.SUSPECTED_GBV), focuses(types));
         }
     }
 
