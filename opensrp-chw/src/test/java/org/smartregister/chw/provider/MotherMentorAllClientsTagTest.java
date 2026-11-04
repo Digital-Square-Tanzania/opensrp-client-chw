@@ -71,6 +71,9 @@ public class MotherMentorAllClientsTagTest {
                 "Tarehe mwenzi aliyotakiwa kituoni",
                 application.getString(
                         R.string.mothermentor_history_partner_expected_facility_visit_date));
+        assertEquals(
+                "Rudi kwa Wateja wote wa Ufuatiliaji wa Mwenzi",
+                application.getString(R.string.return_to_all_partner_followup_clients));
     }
 
     private String translated(String registerType) {
