@@ -69,6 +69,7 @@ public class ChwRepository extends CoreChwRepository {
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
         VisitDetailsRepository.createReportIndex(database);
+        org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository.upgrade(database);
         createdWithCurrentCipher = true;
     }
 

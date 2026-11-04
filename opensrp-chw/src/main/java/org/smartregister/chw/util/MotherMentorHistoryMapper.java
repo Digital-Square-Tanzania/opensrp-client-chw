@@ -59,6 +59,14 @@ public final class MotherMentorHistoryMapper {
                             "start", "end", "today", "deviceid", "subscriberid", "simserial",
                             "encounter_date", "encounter_location", "encounter_type", "gps",
                             "latitude", "longitude", "location_id", "provider_id", "team_id",
+                            DBConstants.KEY.MWENZI_STATUS,
+                            DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA,
+                            DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                            DBConstants.KEY.MWENZI_COUNTER_AMEKATAA,
+                            DBConstants.KEY.MWENZI_COUNTER_HAJAHUDHURIA,
+                            DBConstants.KEY.MWENZI_COUNTER_AMESAFIRI,
+                            DBConstants.KEY.MWENZI_COUNTER_NYINGINE,
+                            DBConstants.KEY.MWENZI_COUNTER_HAJAPATIKANA,
                             DBConstants.KEY.MOTHERMENTOR_REPORTING_VERSION,
                             DBConstants.KEY.PRIMARY_MOTHERMENTOR_CLIENT,
                             DBConstants.KEY.IIT_ENROLLED,
@@ -92,6 +100,7 @@ public final class MotherMentorHistoryMapper {
         List<Row> rows = new ArrayList<>();
         Row comments = addFormRows(rows, fields, recorded);
         addHistoricalRows(rows, fields, ignored, recorded);
+        addClosureRows(rows, recorded);
         if (comments != null) rows.add(comments);
         return rows;
     }
@@ -126,6 +135,24 @@ public final class MotherMentorHistoryMapper {
             List<String> values = values(field, recorded.get(key));
             if (!values.isEmpty()) rows.add(new Row(key, label, values, false));
         }
+    }
+
+    private void addClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {
+        addClosureRow(rows, recorded, DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                org.smartregister.chw.mothermentor.R.string.mothermentor_partner_closure_reason, true);
+        addClosureRow(rows, recorded, DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA,
+                org.smartregister.chw.mothermentor.R.string.mothermentor_partner_closure_date, false);
+    }
+
+    private void addClosureRow(List<Row> rows, Map<String, List<VisitDetail>> recorded,
+            String key, int label, boolean reason) {
+        List<VisitDetail> details = recorded.get(key);
+        if (details == null || details.isEmpty()) return;
+        VisitDetail detail = details.get(details.size() - 1);
+        String value = scalar(firstAnswer(detail.getDetails(), detail.getHumanReadable()));
+        if (StringUtils.isBlank(value)) return;
+        if (reason) value = MotherMentorPartnerClosureText.reason(context, value);
+        rows.add(new Row(key, context.getString(label), Collections.singletonList(value), false));
     }
 
     public static boolean isHouseholdVisit(Visit visit) {
