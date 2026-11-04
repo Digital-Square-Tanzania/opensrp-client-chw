@@ -4526,6 +4526,110 @@
           "json_mapping": {
             "field": "formSubmissionId"
           }
+        },
+        {
+          "column_name": "mama_child_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_child_status"
+          }
+        },
+        {
+          "column_name": "mama_breastfeeding_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_breastfeeding_status"
+          }
+        },
+        {
+          "column_name": "mama_tarehe_acha_kunyonyesha",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_tarehe_acha_kunyonyesha"
+          }
+        },
+        {
+          "column_name": "mama_tarehe_mtoto_alifariki",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_tarehe_mtoto_alifariki"
+          }
+        },
+        {
+          "column_name": "hei_chanya_imethibitishwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_chanya_imethibitishwa"
+          }
+        },
+        {
+          "column_name": "hei_test_wiki6_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_test_wiki6_result"
+          }
+        },
+        {
+          "column_name": "hei_test_wiki6_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_test_wiki6_date"
+          }
+        },
+        {
+          "column_name": "hei_test_miezi9_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_test_miezi9_result"
+          }
+        },
+        {
+          "column_name": "hei_test_miezi9_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_test_miezi9_date"
+          }
+        },
+        {
+          "column_name": "hei_test_miezi15_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_test_miezi15_result"
+          }
+        },
+        {
+          "column_name": "hei_test_miezi15_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_test_miezi15_date"
+          }
+        },
+        {
+          "column_name": "hei_test_miezi18_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_test_miezi18_result"
+          }
+        },
+        {
+          "column_name": "hei_test_miezi18_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hei_test_miezi18_date"
+          }
         }
       ]
     },

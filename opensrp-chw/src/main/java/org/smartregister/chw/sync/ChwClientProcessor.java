@@ -126,14 +126,27 @@ public class ChwClientProcessor extends CoreClientProcessor {
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
             switch (eventType) {
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_IIT:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    break;
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.rebuildForChild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForChild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MAMA_KINARA_HOUSEHOLD_ENROLMENT:
                     // Generic EC projection reopens the row; replay finalized visits afterwards.
                     MotherMentorHouseholdClosureRepository.rebuild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(),
                             baseEntityID);
-                    break;
-                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT:
-                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository.rebuild(
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForHousehold(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     break;
                 case CoreConstants.EventType.FAMILY_REGISTRATION:
@@ -542,8 +555,11 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
     private void processVisitEvent(EventClient eventClient) {
         try {
-            if (eventClient != null && org.smartregister.chw.mothermentor.repository
-                    .MotherMentorMotherDeliveryRepository.isMotherEvent(eventClient.getEvent())) {
+            if (eventClient != null && eventClient.getEvent() != null
+                    && (org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository
+                            .isMotherEvent(eventClient.getEvent())
+                            || org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType.CHILD_EID
+                                    .getEventType().equals(eventClient.getEvent().getEventType()))) {
                 org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(eventClient);
             } else {
                 NCUtils.processHomeVisit(eventClient);

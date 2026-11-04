@@ -44,7 +44,7 @@ public class MotherMentorVisitClientProcessorTest {
     }
 
     @Test
-    public void childEidFollowUpUsesTheExistingVisitProcessor() throws Exception {
+    public void childEidFollowUpUsesItsCanonicalVisitProcessor() throws Exception {
         assertVisitRouting(MotherMentorFollowUpType.CHILD_EID.getEventType());
     }
 
@@ -80,6 +80,8 @@ public class MotherMentorVisitClientProcessorTest {
 
     private void assertVisitRouting(String eventType) throws Exception {
         try (MockedStatic<CoreLibrary> core = peerProcessing();
+                MockedStatic<org.smartregister.chw.mothermentor.util.NCUtils> childVisits =
+                        mockStatic(org.smartregister.chw.mothermentor.util.NCUtils.class);
                 MockedStatic<NCUtils> visits = mockStatic(NCUtils.class)) {
             ChwClientProcessor processor = processor();
             EventClient eventClient = eventClient(eventType);
@@ -88,7 +90,14 @@ public class MotherMentorVisitClientProcessorTest {
             for (int delivery = 0; delivery < 2; delivery++) {
                 processor.processEvents(null, null, null, eventClient, eventClient.getEvent(), eventType);
             }
-            visits.verify(() -> NCUtils.processHomeVisit(eventClient), times(2));
+            if (MotherMentorFollowUpType.CHILD_EID.getEventType().equals(eventType)) {
+                childVisits.verify(() -> org.smartregister.chw.mothermentor.util.NCUtils
+                        .processHomeVisit(eventClient), times(2));
+                visits.verifyNoInteractions();
+            } else {
+                visits.verify(() -> NCUtils.processHomeVisit(eventClient), times(2));
+                childVisits.verifyNoInteractions();
+            }
         }
     }
 
