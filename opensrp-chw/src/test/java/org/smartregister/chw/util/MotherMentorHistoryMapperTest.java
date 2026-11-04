@@ -144,7 +144,7 @@ public class MotherMentorHistoryMapperTest {
                         "purpose_of_visit", "household_members_found", "counselled_male",
                         "participants", "topics_taught", "household_referral_given", "comments"),
                 keys(rows));
-        assertEquals(Collections.singletonList("Routine follow-up"), row(rows, "purpose_of_visit").getValues());
+        assertEquals(Collections.singletonList("Follow up household progress"), row(rows, "purpose_of_visit").getValues());
         assertEquals(Arrays.asList("Mother", "Partner"), row(rows, "participants").getValues());
         assertEquals(Collections.singletonList("3"), row(rows, "household_members_found").getValues());
         assertEquals(Collections.singletonList("Current comment, kept intact"), row(rows, "comments").getValues());
