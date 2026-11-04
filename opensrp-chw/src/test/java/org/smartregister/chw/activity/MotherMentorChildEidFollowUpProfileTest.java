@@ -217,6 +217,13 @@ public class MotherMentorChildEidFollowUpProfileTest extends BaseUnitTest {
     }
 
     public static class ChildEidProfileActivity extends MotherMentorProfileActivity {
+        @Override
+        protected boolean isLinkedFollowUpCardClosed() {
+            // These availability/death fixtures use an open enrollment. Real closure mapping
+            // and stale linked-card guards are covered by the repository and closure UI tests.
+            return false;
+        }
+
         Date now = new Date();
 
         @Override

@@ -323,6 +323,19 @@ public class MotherMentorDeceasedProfileTest extends BaseUnitTest {
 
     public static class DeceasedProfileActivity extends MotherMentorProfileActivity {
         @Override
+        protected boolean isLinkedFollowUpCardClosed() {
+            // These availability/death fixtures use an open enrollment. Real closure mapping
+            // and stale linked-card guards are covered by the repository and closure UI tests.
+            return false;
+        }
+
+        @Override
+        protected boolean isMotherCardClosed() {
+            // Isolate the established shared-death controls from the managed closure projection.
+            return false;
+        }
+
+        @Override
         protected MotherMentorPartnerClosure loadPartnerClosure() {
             // Closure replay is covered separately; these tests isolate shared death handling.
             return MotherMentorPartnerClosure.active();

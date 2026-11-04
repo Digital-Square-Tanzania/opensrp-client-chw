@@ -999,6 +999,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         motherClosureBanner.setVisibility(closed ? View.VISIBLE : View.GONE);
         if (!closed) return;
         MotherMentorMotherClosure state = getMotherClosureState();
+        if (TextUtils.isEmpty(state.getClosedDate())) {
+            motherClosureBanner.setText(org.smartregister.chw.mothermentor.R.string
+                    .mothermentor_mother_closed_message);
+            return;
+        }
         motherClosureBanner.setText(getString(
                 org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_banner,
                 MotherMentorMotherClosureLabels.label(this, state.isClosed() ? state.getStatus() : null),

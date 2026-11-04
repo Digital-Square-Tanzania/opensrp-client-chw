@@ -55,6 +55,7 @@ public class MotherMentorClientRegisterModel extends MotherMentorRegisterFragmen
         return MotherMentorClientRegisterDao.countClients(
                 mainCondition, search, filterOn, pregnant, breastfeeding, underTwo);
     }
+
     public String selectClientsPage(
             String mainCondition, String search, boolean filterOn, boolean pregnant,
             boolean breastfeeding, boolean underTwo, boolean closed, int limit, int offset) {
@@ -68,5 +69,4 @@ public class MotherMentorClientRegisterModel extends MotherMentorRegisterFragmen
         return MotherMentorClientRegisterDao.countClients(mainCondition, search, filterOn,
                 pregnant, breastfeeding, underTwo, closed);
     }
-
 }

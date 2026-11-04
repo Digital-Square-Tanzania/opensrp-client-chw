@@ -222,6 +222,35 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
         assertEquals(0.5f, record.getAlpha(), 0f);
     }
 
+    @Test
+    @Config(qualifiers = "en")
+    public void undatedLinkedClosureUsesTheCompleteEnglishClosedMessage() {
+        checkUndatedLinkedClosureBanner();
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void undatedLinkedClosureUsesTheCompleteSwahiliClosedMessage() {
+        checkUndatedLinkedClosureBanner();
+    }
+
+    private void checkUndatedLinkedClosureBanner() {
+        UndatedLinkedProfileActivity activity =
+                Robolectric.buildActivity(UndatedLinkedProfileActivity.class, new Intent()).get();
+        activity.setTheme(R.style.ChwTheme);
+        LinearLayout layout = new LinearLayout(activity);
+        layout.setId(org.smartregister.chw.mothermentor.R.id.profile_name_layout);
+        activity.setContentView(layout);
+        TextView record = new TextView(activity);
+        layout.addView(record);
+        ReflectionHelpers.setField(activity, "textViewRecordMotherMentor", record);
+        activity.updateMotherClosureBanner();
+        TextView banner = ReflectionHelpers.getField(activity, "motherClosureBanner");
+        assertEquals(View.VISIBLE, banner.getVisibility());
+        assertEquals(activity.getString(org.smartregister.chw.mothermentor.R.string
+                        .mothermentor_mother_closed_message), banner.getText().toString());
+    }
+
     private void checkClosedProfile() {
         ClosedProfileActivity activity =
                 Robolectric.buildActivity(ClosedProfileActivity.class, new Intent()).get();
@@ -403,6 +432,23 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
         public void refreshMedicalHistory(boolean hasHistory) {}
         @Override
         public void displayToast(int resource) {}
+    }
+
+    public static class UndatedLinkedProfileActivity extends MotherMentorProfileActivity {
+        @Override
+        protected boolean isMotherCardClosed() {
+            return false;
+        }
+
+        @Override
+        protected boolean isLinkedFollowUpCardClosed() {
+            return true;
+        }
+
+        @Override
+        protected MotherMentorMotherClosure getMotherClosureState() {
+            return MotherMentorMotherClosure.active();
+        }
     }
 
     public static class ClosedProfileActivity extends MotherMentorProfileActivity {
