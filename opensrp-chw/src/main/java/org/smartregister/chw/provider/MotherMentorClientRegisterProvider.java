@@ -15,7 +15,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.joda.time.LocalDate;
+import org.joda.time.Months;
 import org.joda.time.Years;
+import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.ISODateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.model.MotherMentorClientRegisterModel;
@@ -60,7 +62,10 @@ public class MotherMentorClientRegisterProvider
         String status = statusLabel(value(columns, MotherMentorClientRegisterModel.CURRENT_STATUS));
         List<String> metadata = new ArrayList<>();
         metadata.add(status);
-        addNonEmpty(metadata, sexLabel(value(columns, DBConstants.KEY.GENDER)));
+        String childAge = childAge(columns);
+        addNonEmpty(
+                metadata,
+                childAge.isEmpty() ? sexLabel(value(columns, DBConstants.KEY.GENDER)) : childAge);
         addNonEmpty(metadata, value(columns, DBConstants.KEY.VILLAGE_TOWN));
         SpannableString details = new SpannableString(TextUtils.join(" · ", metadata));
         details.setSpan(
@@ -70,6 +75,9 @@ public class MotherMentorClientRegisterProvider
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         holder.name.setText(nameAndAge(columns));
+        boolean closed = "1".equals(value(columns, DBConstants.KEY.IS_CLOSED));
+        holder.itemView.setAlpha(closed ? 0.55f : 1f);
+        holder.closedTag.setVisibility(closed ? View.VISIBLE : View.GONE);
         holder.metadata.setText(details);
         holder.ctcVisits.setText(
                 context.getString(
@@ -123,11 +131,40 @@ public class MotherMentorClientRegisterProvider
             case "pregnant":
                 return context.getString(R.string.mama_kinara_status_pregnant);
             case "breast_feeding":
+            case "bf":
                 return context.getString(R.string.mama_kinara_status_breastfeeding);
             case "not_pregnant":
+            case "none":
                 return context.getString(R.string.mama_kinara_status_not_pregnant);
             default:
                 return context.getString(R.string.mama_kinara_status_unknown);
+        }
+    }
+
+    private String childAge(Map<String, String> columns) {
+        String dob = value(columns, DBConstants.KEY.CHILD_DOB);
+        try {
+            LocalDate birthDate;
+            if (dob.matches("\\d{4}-\\d{2}-\\d{2}(T.+)?")) {
+                birthDate = ISODateTimeFormat.dateOptionalTimeParser().parseLocalDate(dob);
+            } else if (dob.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                birthDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(dob);
+            } else {
+                return "";
+            }
+            LocalDate today = LocalDate.now();
+            if (birthDate.isAfter(today)) {
+                return "";
+            }
+            int months = Months.monthsBetween(birthDate, today).getMonths();
+            return context.getResources()
+                    .getQuantityString(
+                            org.smartregister.chw.mothermentor.R.plurals
+                                    .mothermentor_register_child_age_months,
+                            months,
+                            months);
+        } catch (IllegalArgumentException e) {
+            return "";
         }
     }
 
@@ -229,12 +266,14 @@ public class MotherMentorClientRegisterProvider
         final TextView name;
         final TextView metadata;
         final TextView ctcVisits;
+        final TextView closedTag;
 
         ClientViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.patient_name_age);
             metadata = view.findViewById(R.id.mama_kinara_client_metadata);
             ctcVisits = view.findViewById(R.id.mama_kinara_ctc_visits);
+            closedTag = view.findViewById(org.smartregister.chw.mothermentor.R.id.mama_kinara_client_closed_tag);
         }
     }
 

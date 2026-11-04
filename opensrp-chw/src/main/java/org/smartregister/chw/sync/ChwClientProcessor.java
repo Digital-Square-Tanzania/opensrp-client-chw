@@ -125,6 +125,19 @@ public class ChwClientProcessor extends CoreClientProcessor {
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
             switch (eventType) {
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT:
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_IIT:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    break;
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForChild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    break;
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MAMA_KINARA_HOUSEHOLD_ENROLMENT:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForHousehold(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    break;
                 case CoreConstants.EventType.FAMILY_REGISTRATION:
                     // Ensure the new family points to the chosen existing head (if provided)
                     try {

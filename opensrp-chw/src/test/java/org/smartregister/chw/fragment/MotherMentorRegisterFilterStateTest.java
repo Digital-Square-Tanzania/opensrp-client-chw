@@ -14,6 +14,15 @@ import org.robolectric.annotation.Config;
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorRegisterFilterStateTest {
     @Test
+    public void closedChoiceSurvivesDialogDraftButDisabledAppliedFiltersReturnToActiveClients() {
+        MotherMentorRegisterFilterState draft = MotherMentorRegisterFilterState.fromBundle(
+                new MotherMentorRegisterFilterState(false, false, false, false, true).toBundle());
+        assertTrue(draft.isClosed());
+        assertFalse(draft.isActive());
+        assertFalse(draft.applied().isClosed());
+        assertTrue(new MotherMentorRegisterFilterState(true, false, false, false, true).isActive());
+    }
+    @Test
     public void disabledFiltersClearSavedChoicesWhenApplied() {
         MotherMentorRegisterFilterState state =
                 new MotherMentorRegisterFilterState(false, true, true, true).applied();
