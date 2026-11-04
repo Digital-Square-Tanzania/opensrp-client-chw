@@ -2,6 +2,8 @@ package org.smartregister.chw.fragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -26,7 +28,23 @@ import timber.log.Timber;
 import java.util.Set;
 
 public class MotherMentorContactRegisterFragment extends BaseMotherMentorContactFragment {
+    private static final String STATE_HISTORY = "household_history";
     private View view;
+    private boolean historyMode;
+    private MenuItem historyMenuItem;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        historyMode = savedInstanceState != null && savedInstanceState.getBoolean(STATE_HISTORY);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        state.putBoolean(STATE_HISTORY, historyMode);
+    }
+
     private final MotherMentorHouseholdRegisterFragmentModel model =
             new MotherMentorHouseholdRegisterFragmentModel();
 
@@ -111,6 +129,7 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
         presenter =
                 new MotherMentorHouseholdRegisterFragmentPresenter(
                         this, new MotherMentorHouseholdRegisterFragmentModel(), null);
+        ((MotherMentorHouseholdRegisterFragmentPresenter) presenter).setHistoryMode(historyMode);
     }
 
     @Override
@@ -182,6 +201,37 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
             NavigationMenu.getInstance(getActivity(), null, toolbar);
         } catch (NullPointerException e) {
             Timber.e(e);
+        }
+        int historyId = org.smartregister.chw.mothermentor.R.id.action_mothermentor_household_history;
+        historyMenuItem = toolbar.getMenu().findItem(historyId);
+        if (historyMenuItem == null) {
+            historyMenuItem = toolbar.getMenu().add(Menu.NONE, historyId, Menu.NONE,
+                    org.smartregister.chw.mothermentor.R.string.mothermentor_household_closed);
+            historyMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
+        historyMenuItem.setTitle(historyMode
+                ? org.smartregister.chw.mothermentor.R.string.mothermentor_household_active_follow_up
+                : org.smartregister.chw.mothermentor.R.string.mothermentor_household_closed);
+        historyMenuItem.setOnMenuItemClickListener(item -> {
+            setHistoryMode(!historyMode);
+            return true;
+        });
+    }
+
+    void setHistoryMode(boolean historyMode) {
+        this.historyMode = historyMode;
+        if (presenter instanceof MotherMentorHouseholdRegisterFragmentPresenter) {
+            ((MotherMentorHouseholdRegisterFragmentPresenter) presenter).setHistoryMode(historyMode);
+        }
+        if (historyMenuItem != null) {
+            historyMenuItem.setTitle(historyMode
+                    ? org.smartregister.chw.mothermentor.R.string.mothermentor_household_active_follow_up
+                    : org.smartregister.chw.mothermentor.R.string.mothermentor_household_closed);
+        }
+        if (clientAdapter != null) {
+            Bundle count = new Bundle();
+            count.putBoolean("count_execute", true);
+            filterandSortExecute(count);
         }
     }
 }

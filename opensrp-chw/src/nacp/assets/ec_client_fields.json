@@ -4972,6 +4972,70 @@
             "field": "obs.fieldCode",
             "concept": "partner_mother_pregnant"
           }
+        },
+        {
+          "column_name": "mwenzi_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_status"
+          }
+        },
+        {
+          "column_name": "mwenzi_tarehe_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_tarehe_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "mwenzi_sababu_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_sababu_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_amekataa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_amekataa"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_hajahudhuria",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_hajahudhuria"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_amesafiri",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_amesafiri"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_nyingine",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_nyingine"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_hajapatikana",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_hajapatikana"
+          }
         }
       ]
     },
@@ -14847,6 +14911,70 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "partner_hepatitis_b_not_tested_reason_other"
+          }
+        },
+        {
+          "column_name": "mwenzi_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_status"
+          }
+        },
+        {
+          "column_name": "mwenzi_tarehe_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_tarehe_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "mwenzi_sababu_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_sababu_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_amekataa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_amekataa"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_hajahudhuria",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_hajahudhuria"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_amesafiri",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_amesafiri"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_nyingine",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_nyingine"
+          }
+        },
+        {
+          "column_name": "mwenzi_counter_hajapatikana",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mwenzi_counter_hajapatikana"
           }
         }
       ]
