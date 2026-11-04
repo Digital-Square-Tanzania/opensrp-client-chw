@@ -1,8 +1,11 @@
 package org.smartregister.chw.repository;
 
 import android.app.Application;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,9 +13,15 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.mockito.Mockito;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.repository.VisitRepository;
+import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.*;
 
@@ -31,17 +40,24 @@ public class MotherMentorPartnerRepositoryTest {
         cipher = Mockito.mock(net.zetetic.database.sqlcipher.SQLiteDatabase.class);
         Mockito.when(cipher.rawQuery(anyString(), org.mockito.ArgumentMatchers.<String[]>any())).thenAnswer(call -> db.rawQuery(call.getArgument(0), call.getArgument(1)));
         Mockito.doAnswer(call -> { db.execSQL(call.getArgument(0)); return null; }).when(cipher).execSQL(anyString());
+        Mockito.when(cipher.update(anyString(), any(ContentValues.class), anyString(), any(String[].class)))
+                .thenAnswer(call -> db.update(call.getArgument(0), call.getArgument(1),
+                        call.getArgument(2), call.getArgument(3)));
         MotherMentorPartnerRepository.ensureColumns(cipher);
         db.execSQL("ALTER TABLE ec_mothermentor_enrollment ADD COLUMN pregnancy_status TEXT");
         db.execSQL("CREATE TABLE ec_mothermentor_followup_visit (base_entity_id TEXT, entity_id TEXT, follow_up_category TEXT, follow_up_status TEXT, partner_arrived_at_facility TEXT, partner_facility_arrival_date TEXT)");
-        db.execSQL("CREATE TABLE visits (form_submission_id TEXT, base_entity_id TEXT, processed INTEGER, visit_type TEXT)");
+        VisitRepository.createTable(cipher);
+        db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
         MotherMentorPartnerWorkflowMigration.upgrade(cipher);
+        MotherMentorPartnerClosureRepository.upgrade(cipher);
         repository = new MotherMentorPartnerRepository(cipher);
         db.execSQL("INSERT INTO ec_family VALUES ('family', 0), ('other-family', 0), ('closed-family', 1)");
         add("mother", "family", 0); add("household", "family", 0); add("other", "other-family", 0);
         add("legacy", "family", 0); add("linked", "family", 0); add("closed", "family", 1); add("closed-household", "closed-family", 0);
         db.execSQL("INSERT INTO ec_mothermentor_enrollment (base_entity_id, ctc_number, is_closed) VALUES ('mother', '12-34-5678-123456', 0)");
         db.execSQL("INSERT INTO ec_mothermentor_enroll_partner (base_entity_id, relational_id, is_closed, mother_base_entity_id) VALUES ('legacy', 'family', 0, NULL), ('linked', 'family', 0, 'mother')");
+        MotherMentorPartnerClosureRepository.rebuild(cipher, "legacy");
+        MotherMentorPartnerClosureRepository.rebuild(cipher, "linked");
     }
     @After public void cleanup() { db.close(); }
     @Test public void candidatesExcludeSelfClosedAndLinkedButAllowLegacy() {
@@ -74,7 +90,7 @@ public class MotherMentorPartnerRepositoryTest {
         MotherMentorPartnerRepository.ensureColumns(cipher);
         MotherMentorPartnerRepository.ensureColumns(cipher);
         assertEquals("family", repository.existingEnrollment("legacy").get("relational_id"));
-        try (Cursor cursor = db.rawQuery("PRAGMA table_info(ec_mothermentor_enroll_partner)", null)) { assertEquals(11, cursor.getCount()); }
+        try (Cursor cursor = db.rawQuery("PRAGMA table_info(ec_mothermentor_enroll_partner)", null)) { assertEquals(19, cursor.getCount()); }
     }
     @Test public void legacyEnrollmentCannotBypassEligibilityOrOverwriteExistingLink() {
         assertTrue(repository.canEnrollPartner("other"));
@@ -95,18 +111,18 @@ public class MotherMentorPartnerRepositoryTest {
         db.execSQL("UPDATE ec_mothermentor_enroll_partner SET mother_base_entity_id = 'mother' WHERE base_entity_id = 'legacy'");
         assertEquals(Arrays.asList("household"), ids(repository.candidates("mother", "family", true)));
     }
-    @Test public void completedLinkageAllowsRelinkingTheNextDayAndPreservesNewLinkage() {
+    @Test public void historicalLegacyCompletionAllowsRelinkingAndPreservesNewLinkage() throws Exception {
         completedVisit("completed", org.joda.time.LocalDate.now().minusDays(1).toString());
         assertTrue(repository.canEnrollPartner("linked"));
         assertTrue(ids(repository.candidates("mother", "family", true)).contains("linked"));
         assertTrue(repository.existingEnrollment("linked").isEmpty());
 
-        db.execSQL("UPDATE ec_mothermentor_enroll_partner SET partner_linkage_id = 'new-link' WHERE base_entity_id = 'linked'");
+        resetLinkage("new-link");
         assertFalse(repository.canEnrollPartner("linked"));
         assertFalse(ids(repository.candidates("mother", "family", true)).contains("linked"));
         assertEquals("new-link", repository.existingEnrollment("linked").get("partner_linkage_id"));
     }
-    @Test public void sameDayCompletionAndDraftCompletionKeepTheLinkageActive() {
+    @Test public void sameDayLegacyAllNoAndDraftCompletionKeepTheLinkageActive() throws Exception {
         completedVisit("completed", org.joda.time.LocalDate.now().toString());
         assertFalse(repository.canEnrollPartner("linked"));
         db.execSQL("UPDATE ec_mothermentor_followup_visit SET mothermentor_visit_date = ?",
@@ -115,12 +131,42 @@ public class MotherMentorPartnerRepositoryTest {
         assertFalse(repository.canEnrollPartner("linked"));
         assertFalse(ids(repository.candidates("mother", "family", true)).contains("linked"));
     }
+    @Test public void qualifyingTestClosesImmediatelyAndAllowsFutureLinkageWithoutDeletingHistory()
+            throws Exception {
+        attendanceVisit("tested", org.joda.time.LocalDate.now().toString(), true, true,
+                "completed", MotherMentorPartnerClosure.ATTENDED_TESTED);
+        assertTrue(repository.canEnrollPartner("linked"));
+        assertTrue(ids(repository.candidates("mother", "family", true)).contains("linked"));
+        assertTrue(repository.existingEnrollment("linked").isEmpty());
+        resetLinkage("new-link");
+        assertFalse(repository.canEnrollPartner("linked"));
+        assertEquals("new-link", repository.existingEnrollment("linked").get("partner_linkage_id"));
+        try (Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM visits", null)) {
+            assertTrue(cursor.moveToFirst());
+            assertEquals(1, cursor.getInt(0));
+        }
+    }
+    @Test public void draftQualifyingTestDoesNotCloseTheLinkage() throws Exception {
+        attendanceVisit("draft-tested", org.joda.time.LocalDate.now().toString(), true, false,
+                "completed", MotherMentorPartnerClosure.ATTENDED_TESTED);
+        assertFalse(repository.canEnrollPartner("linked"));
+        assertFalse(ids(repository.candidates("mother", "family", true)).contains("linked"));
+        assertFalse(repository.existingEnrollment("linked").isEmpty());
+    }
+    @Test public void currentAllNoAttendanceRemainsActiveEvenWhenServiceDateIsHistorical()
+            throws Exception {
+        attendanceVisit("ongoing", org.joda.time.LocalDate.now().minusDays(1).toString(), false,
+                true, "", MotherMentorPartnerClosure.ACTIVE);
+        assertFalse(repository.canEnrollPartner("linked"));
+        assertFalse(repository.existingEnrollment("linked").isEmpty());
+    }
     @Test public void finalizedPartnerDeathBlocksRelinkingAcrossLinkagesButDraftOrOtherCategoryDoesNot() {
         db.execSQL("INSERT INTO ec_mothermentor_followup_visit (base_entity_id, entity_id, follow_up_category, "
                 + "follow_up_status, partner_follow_up_schema, partner_follow_up_phase, partner_not_found_reason, "
                 + "partner_follow_up_end, partner_linkage_id) VALUES "
                 + "('death', 'other', 'PARTNER', 'not_found', '2', 'tracing', 'deceased', 'deceased', 'old-link')");
-        db.execSQL("INSERT INTO visits VALUES ('death', 'other', 0, 'MotherMentor Partner Follow-up Visit')");
+        db.execSQL("INSERT INTO visits (form_submission_id, base_entity_id, processed, visit_type) "
+                + "VALUES ('death', 'other', 0, 'MotherMentor Partner Follow-up Visit')");
         assertTrue(repository.canEnrollPartner("other"));
         db.execSQL("UPDATE visits SET processed = 1 WHERE form_submission_id = 'death'");
         assertFalse(repository.canEnrollPartner("other"));
@@ -129,18 +175,61 @@ public class MotherMentorPartnerRepositoryTest {
         assertTrue(repository.canEnrollPartner("other"));
         assertTrue(ids(repository.candidates("mother", "family", false)).contains("other"));
     }
-    private void completedVisit(String id, String day) {
-        db.execSQL("INSERT INTO ec_mothermentor_followup_visit (base_entity_id, entity_id, follow_up_category, "
-                + "follow_up_status, mothermentor_visit_date, partner_follow_up_schema, partner_follow_up_phase, "
-                + "partner_arrived_at_facility, partner_facility_arrival_date, partner_follow_up_end, "
-                + "partner_linkage_id, partner_education_provided, partner_hiv_tested, partner_hiv_not_tested_reason, "
-                + "partner_syphilis_tested, partner_syphilis_not_tested_reason, partner_hepatitis_b_tested, "
-                + "partner_hepatitis_b_not_tested_reason) VALUES "
-                + "(?, 'linked', 'PARTNER', 'found', ?, '2', 'attendance', 'yes', ?, 'completed', "
-                + "'legacy:linked', 'no', 'no', 'stock_out', 'no', 'stock_out', 'no', 'stock_out')",
-                new Object[]{id, day, day});
-        db.execSQL("INSERT INTO visits VALUES (?, 'linked', 1, 'MotherMentor Partner Follow-up Visit')",
-                new Object[]{id});
+    private void completedVisit(String id, String day) throws Exception {
+        attendanceVisit(id, day, false, true, "completed", null);
+    }
+    private void attendanceVisit(String id, String day, boolean tested, boolean processed,
+            String end, String status) throws Exception {
+        Map<String, String> values = new LinkedHashMap<>();
+        values.put(DBConstants.KEY.FOLLOW_UP_CATEGORY, "PARTNER");
+        values.put(DBConstants.KEY.FOLLOW_UP_STATUS, "found");
+        values.put(DBConstants.KEY.MOTHERMENTOR_VISIT_DATE, day);
+        values.put(DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA, "2");
+        values.put(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE, "attendance");
+        values.put(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY, "yes");
+        values.put(DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE, day);
+        values.put(DBConstants.KEY.PARTNER_FOLLOW_UP_END, end);
+        values.put(DBConstants.KEY.PARTNER_LINKAGE_ID, "legacy:linked");
+        values.put(DBConstants.KEY.PARTNER_EDUCATION_PROVIDED, "no");
+        values.put(DBConstants.KEY.PARTNER_HIV_TESTED, tested ? "yes" : "no");
+        values.put(DBConstants.KEY.PARTNER_HIV_NOT_TESTED_REASON, "stock_out");
+        if (tested) values.put(DBConstants.KEY.PARTNER_HIV_RESULT, "negative");
+        values.put(DBConstants.KEY.PARTNER_SYPHILIS_TESTED, "no");
+        values.put(DBConstants.KEY.PARTNER_SYPHILIS_NOT_TESTED_REASON, "stock_out");
+        values.put(DBConstants.KEY.PARTNER_HEPATITIS_B_TESTED, "no");
+        values.put(DBConstants.KEY.PARTNER_HEPATITIS_B_NOT_TESTED_REASON, "stock_out");
+        if (status != null) values.put(DBConstants.KEY.MWENZI_STATUS, status);
+        ContentValues projection = new ContentValues();
+        projection.put(DBConstants.KEY.BASE_ENTITY_ID, id);
+        projection.put(DBConstants.KEY.ENTITY_ID, "linked");
+        JSONArray observations = new JSONArray();
+        for (Map.Entry<String, String> value : values.entrySet()) {
+            projection.put(value.getKey(), value.getValue());
+            observations.put(new JSONObject().put("fieldCode", value.getKey())
+                    .put("values", new JSONArray().put(value.getValue())));
+        }
+        db.insertOrThrow("ec_mothermentor_followup_visit", null, projection);
+        ContentValues visit = new ContentValues();
+        visit.put(DBConstants.KEY.VISIT_ID, id);
+        visit.put(DBConstants.KEY.FORM_SUBMISSION_ID, id);
+        visit.put(DBConstants.KEY.BASE_ENTITY_ID, "linked");
+        visit.put(DBConstants.KEY.PROCESSED, processed ? 1 : 0);
+        visit.put(DBConstants.KEY.VISIT_TYPE, "MotherMentor Partner Follow-up Visit");
+        visit.put(DBConstants.KEY.VISIT_DATE,
+                org.joda.time.LocalDate.parse(day).toDateTimeAtStartOfDay().getMillis());
+        visit.put(DBConstants.KEY.VISIT_JSON, new JSONObject().put("obs", observations).toString());
+        db.insertOrThrow("visits", null, visit);
+        MotherMentorPartnerClosureRepository.rebuild(cipher, "linked");
+    }
+    private void resetLinkage(String linkage) {
+        ContentValues reset = new ContentValues();
+        reset.put(DBConstants.KEY.PARTNER_LINKAGE_ID, linkage);
+        for (Map.Entry<String, String> value : MotherMentorPartnerClosureRepository
+                .observationValues(MotherMentorPartnerClosure.active()).entrySet()) {
+            reset.put(value.getKey(), value.getValue());
+        }
+        db.update("ec_mothermentor_enroll_partner", reset, "base_entity_id = ?",
+                new String[]{"linked"});
     }
     @Test public void deceasedPartnerCannotBeSelectedOrEnrolledWhenMemberRecordRemainsOpen() {
         db.execSQL("UPDATE ec_family_member SET dod='2026-10-20' WHERE base_entity_id='household'");

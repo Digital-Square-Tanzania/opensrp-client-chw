@@ -3,21 +3,21 @@ package org.smartregister.chw.repository;
 
 import static org.smartregister.chw.BuildConfig.VERSION_CODE;
 
-import android.database.Cursor;
 import android.content.Context;
+import android.database.Cursor;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.chw.mothermentor.repository.MotherMentorReportingRepository;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.ncd.util.Constants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
@@ -31,13 +31,13 @@ import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
 
+import timber.log.Timber;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * Applies flavor-specific database upgrades, including HPS annual census migrations.
@@ -226,6 +226,12 @@ public class ChwRepositoryFlv {
                     break;
                 case 60:
                     upgradeToVersion60(db);
+                    break;
+                case 61:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository.upgrade(db);
+                    break;
+                case 62:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository.upgrade(db);
                     break;
                 default:
                     break;
