@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
+import org.robolectric.RuntimeEnvironment;
+import org.smartregister.util.LangUtils;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.mothermentor.domain.Visit;
@@ -27,22 +29,29 @@ import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
 public class MotherMentorChildEidStatusUiTest {
     @Test @Config(qualifiers = "en")
     public void closedChildStatusUsesTheEnglishRecordMessageAndDoesNotOpenTheForm() {
-        checkClosedChild("This record is closed; no further visits can be recorded.");
+        checkClosedChild("This record is closed; no further visits can be recorded.", "en");
     }
 
     @Test @Config(qualifiers = "sw")
     public void closedChildStatusUsesTheSwahiliRecordMessageAndDoesNotOpenTheForm() {
-        checkClosedChild("Rekodi hii imefungwa; haiwezi kurekodiwa tena.");
+        checkClosedChild("Rekodi hii imefungwa; haiwezi kurekodiwa tena.", "sw");
     }
 
-    private void checkClosedChild(String expected) {
-        ClosedVisitActivity activity = closedVisit(MotherMentorFollowUpType.CHILD_EID);
-        BaseMotherMentorVisitAction status = mock(BaseMotherMentorVisitAction.class);
-        activity.startForm(status);
-        assertEquals(expected, activity.message);
-        assertFalse(activity.button.isEnabled());
-        assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
-        verify(status, never()).setJsonPayload(anyString());
+    private void checkClosedChild(String expected, String language) {
+        android.content.Context context = RuntimeEnvironment.getApplication();
+        String originalLanguage = LangUtils.getLanguage(context);
+        try {
+            LangUtils.saveLanguage(context, language);
+            ClosedVisitActivity activity = closedVisit(MotherMentorFollowUpType.CHILD_EID);
+            BaseMotherMentorVisitAction status = mock(BaseMotherMentorVisitAction.class);
+            activity.startForm(status);
+            assertEquals(expected, activity.message);
+            assertFalse(activity.button.isEnabled());
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+            verify(status, never()).setJsonPayload(anyString());
+        } finally {
+            LangUtils.saveLanguage(context, originalLanguage);
+        }
     }
 
     @Test
