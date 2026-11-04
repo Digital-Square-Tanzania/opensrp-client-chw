@@ -14,6 +14,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 
@@ -27,6 +28,36 @@ import java.util.Locale;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorHistoryMapperTest {
+    @Test
+    @Config(qualifiers = "en")
+    public void newMotherEntryHistoryUsesItsReasonAndHidesInternalContext() {
+        checkNewMotherEntryHistory("Visit type", "Reason", "Transferred to another facility");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void newMotherEntryHistoryTranslatesReasonAndPreservesFacilityText() {
+        checkNewMotherEntryHistory("Aina ya Hudhurio", "Sababu", "Amehamia kituo kingine");
+    }
+
+    private void checkNewMotherEntryHistory(String attendance, String reason, String transfer) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.MAMA_VISIT_SCHEMA, "2", "");
+        answer(visit, DBConstants.KEY.MAMA_ENROLLMENT_ID, "private-enrollment-uuid", "");
+        answer(visit, DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS, "pregnant", "");
+        answer(visit, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, "not_found", "");
+        answer(visit, DBConstants.KEY.MAMA_NOT_FOUND_REASON, "moved_facility", "");
+        answer(visit, DBConstants.KEY.MAMA_KITUO_KIPYA, "Hospital A", "");
+        answer(visit, DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA, "internal auxiliary", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList(DBConstants.KEY.ATTENDANCE_TYPE, DBConstants.KEY.FOLLOW_UP_STATUS,
+                DBConstants.KEY.MAMA_NOT_FOUND_REASON, DBConstants.KEY.MAMA_KITUO_KIPYA), keys(rows));
+        assertEquals(attendance, row(rows, DBConstants.KEY.ATTENDANCE_TYPE).getLabel());
+        assertEquals(reason, row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getLabel());
+        assertEquals(Collections.singletonList(transfer), row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getValues());
+        assertEquals(Collections.singletonList("Hospital A"), row(rows, DBConstants.KEY.MAMA_KITUO_KIPYA).getValues());
+    }
     @Test
     @Config(qualifiers = "en")
     public void serviceQuestionsFollowActionAndFormOrderIncludingNewAttendanceFields() {

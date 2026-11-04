@@ -65,6 +65,10 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.PARTNER_ENROLLED,
                             DBConstants.KEY.CHILD_EID_ENROLLED,
                             DBConstants.KEY.ART_INITIATED_BEFORE_VISIT,
+                            DBConstants.KEY.MAMA_VISIT_SCHEMA,
+                            DBConstants.KEY.MAMA_ENROLLMENT_ID,
+                            DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS,
+                            DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA,
                             DBConstants.KEY.MOTHERMENTOR_VISIT_DATE));
 
     private final Context context;
@@ -195,9 +199,10 @@ public final class MotherMentorHistoryMapper {
                     "mothermentor_return_to_facility",
                     "mothermentor_follow_up_comment");
         }
+        boolean motherSchema2 = recorded.containsKey(DBConstants.KEY.MAMA_VISIT_SCHEMA);
         return Arrays.asList(
-                "mothermentor_visit_type",
-                "mothermentor_visit_group_linkage",
+                motherSchema2 ? "mothermentor_visit_type" : "mothermentor_visit_type_legacy",
+                motherSchema2 ? "mothermentor_visit_group_linkage" : "mothermentor_visit_group_linkage_legacy",
                 "mothermentor_visit_education_provided",
                 "mothermentor_visit_referal",
                 "mothermentor_next_visit_date",
@@ -218,6 +223,7 @@ public final class MotherMentorHistoryMapper {
         Map<String, JSONObject> translatedFields = formFields(translated);
         for (Map.Entry<String, JSONObject> entry : formFields(selected).entrySet()) {
             String key = entry.getKey();
+            if (DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA.equals(key)) continue;
             JSONObject definition = entry.getValue();
             String type = definition.optString("type");
             if ("hidden".equals(type) || "toaster_notes".equals(type)) {
