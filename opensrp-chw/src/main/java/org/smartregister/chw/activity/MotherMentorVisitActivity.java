@@ -22,6 +22,7 @@ import org.smartregister.chw.mothermentor.interactor.MotherMentorFollowUpVisitIn
 import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
@@ -67,8 +68,16 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 MotherMentorFollowUpType.MOTHER_IIT);
     }
 
-    private static void startMotherMentorVisitActivity(Activity activity, String baseEntityId,
-            Boolean editMode, boolean followUpVisit, MotherMentorFollowUpType followUpType) {
+    private static void startMotherMentorVisitActivity(
+            Activity activity,
+            String baseEntityId,
+            Boolean editMode,
+            boolean followUpVisit,
+            MotherMentorFollowUpType followUpType) {
+        if (followUpVisit && followUpType == MotherMentorFollowUpType.PARTNER
+                && MotherMentorPartnerClosureRepository.getState(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityId, null).isClosed()) return;
         Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
@@ -261,6 +270,12 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     protected void onResumption() {
         super.onResumption();
         blockClosedCard();
+    }
+
+    @Override
+    protected void onSubmissionCancelled() {
+        submitting = false;
+        super.onSubmissionCancelled();
     }
 
     @Override

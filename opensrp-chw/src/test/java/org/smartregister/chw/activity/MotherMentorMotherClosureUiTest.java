@@ -304,6 +304,17 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
         assertEquals(1, activity.persisted);
     }
 
+    @Test
+    public void closedLinkedFollowUpCannotManuallyFinalizeItsStaleDraft() {
+        ConfirmationProfileActivity activity = manualProfile();
+        activity.linkedClosed = true;
+        Visit draft = new Visit();
+        draft.setJson("unchanged linked follow-up draft");
+        activity.completeSavedMotherVisit(draft);
+        assertEquals(0, activity.persisted);
+        assertEquals("unchanged linked follow-up draft", draft.getJson());
+    }
+
     private ConfirmationProfileActivity manualProfile() {
         ConfirmationProfileActivity activity =
                 Robolectric.buildActivity(ConfirmationProfileActivity.class, new Intent()).get();
@@ -363,6 +374,7 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
     public static class ConfirmationProfileActivity extends MotherMentorProfileActivity {
         int persisted;
         boolean closed;
+        boolean linkedClosed;
         void prepare() {
             manualProcessVisit = new TextView(this);
         }
@@ -372,6 +384,10 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
         @Override
         protected boolean isMotherCardClosed() {
             return closed;
+        }
+        @Override
+        protected boolean isLinkedFollowUpCardClosed() {
+            return linkedClosed;
         }
         @Override
         protected MotherMentorMotherClosure getSavedMotherClosurePreview(Visit visit) {

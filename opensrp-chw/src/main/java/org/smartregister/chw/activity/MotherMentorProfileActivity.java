@@ -38,6 +38,7 @@ import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidFollowUpVisitUtils;
@@ -45,6 +46,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosureLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
@@ -53,6 +55,7 @@ import org.smartregister.chw.util.MotherMentorDailyVisitUtils;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
+import org.smartregister.chw.util.MotherMentorPartnerClosureText;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -116,6 +119,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private TextView followUpRoleView;
     private TextView motherClosureBanner;
     private boolean manualVisitCompletionInProgress;
+    private TextView partnerClosureBanner;
     private LinearLayout iitProfileImageRow;
     private final Handler visitAvailabilityHandler = new Handler(Looper.getMainLooper());
     private final Runnable refreshVisitAvailability =
@@ -209,7 +213,12 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             return memberObject;
         }
 
-        return getSecondaryEnrollmentMember(baseEntityId);
+        memberObject = getSecondaryEnrollmentMember(baseEntityId);
+        if (memberObject == null && isFollowUpProfile()
+                && getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+            memberObject = MotherMentorDao.getPartnerHistoryMember(baseEntityId);
+        }
+        return memberObject;
     }
 
     private MemberObject getHouseholdMember(String baseEntityId) {
@@ -794,7 +803,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        if (!isFollowUpProfile() && !isClientDeceased() && !isMotherCardClosed()) {
+        if (!isFollowUpProfile() && !isClientDeceased() && !isServiceCardClosed()) {
             menu.add(
                             Menu.NONE,
                             R.id.action_mothermentor_enroll_iit,
@@ -828,7 +837,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private void updateDeceasedMenuItems(Menu menu) {
-        boolean unavailable = isClientDeceased() || isMotherCardClosed();
+        boolean unavailable = isClientDeceased() || isServiceCardClosed();
         for (int itemId : new int[] {R.id.action_mothermentor_enroll_iit,
                 R.id.action_mothermentor_enroll_partner, R.id.action_mothermentor_enroll_child_eid}) {
             MenuItem item = menu.findItem(itemId);
@@ -838,7 +847,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (remove != null) {
             remove.setVisible(memberObject != null
                     && !TextUtils.equals(memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId())
-                    && !hasRecordedDeath() && !isMotherCardClosed());
+                    && !hasRecordedDeath() && !isServiceCardClosed());
         }
     }
 
@@ -846,13 +855,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_remove_member) {
-            if (!hasRecordedDeath() && !isMotherCardClosed()) openRemoveMember();
+            if (!hasRecordedDeath() && !isServiceCardClosed()) openRemoveMember();
             return true;
         }
         if ((itemId == R.id.action_mothermentor_enroll_iit
                 || itemId == R.id.action_mothermentor_enroll_partner
                 || itemId == R.id.action_mothermentor_enroll_child_eid)
-                && (isClientDeceased() || isMotherCardClosed())) {
+                && (isClientDeceased() || isServiceCardClosed())) {
             return true;
         }
         if (itemId == R.id.action_mothermentor_enroll_iit) {
@@ -884,7 +893,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     private boolean canLinkMotherMentorClient() {
         if (memberObject == null || TextUtils.isEmpty(memberObject.getBaseEntityId())
-                || isClientDeceased() || isMotherCardClosed()) return false;
+                || isClientDeceased() || isServiceCardClosed()) return false;
         try {
             return new org.smartregister.chw.repository.MotherMentorPartnerRepository(
                                     ChwApplication.getInstance()
@@ -900,12 +909,14 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     protected void setupButtons() {
-        if (returnIfPartnerFollowUpEnded()) return;
+        if (isFinishing()) return;
         super.setupButtons();
+        MotherMentorPartnerClosure closure = loadPartnerClosure();
+        updatePartnerClosureBanner(closure);
         boolean deceased = isClientDeceased();
         updateDeceasedClientStatusTag(deceased);
         updateMotherClosureBanner();
-        if (isMotherCardClosed()) {
+        if (isServiceCardClosed()) {
             hideDeceasedClientActionViews();
             refreshMedicalHistory(true);
             return;
@@ -918,9 +929,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
             boolean canStartVisit =
-                    isFollowUpProfile()
+                    !closure.isClosed() && (isFollowUpProfile()
                             ? !hasCompletedFollowUpVisitToday()
-                            : !hasCompletedServiceVisitToday();
+                            : !hasCompletedServiceVisitToday());
             textViewRecordMotherMentor.setEnabled(canStartVisit);
             textViewRecordMotherMentor.setAlpha(canStartVisit ? 1f : 0.5f);
             if (isFollowUpProfile()) {
@@ -934,7 +945,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                         org.smartregister.chw.mothermentor.R.string.record_mothermentor);
             }
         }
-        enforceProcessVisitVisibility();
+        enforceProcessVisitVisibility(closure.isClosed());
         refreshMedicalHistory(true);
     }
 
@@ -949,6 +960,18 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             Timber.e(e, "Unable to check the mother card closure state");
             return false;
         }
+    }
+
+    protected boolean isLinkedFollowUpCardClosed() {
+        if (!isFollowUpProfile() || memberObject == null
+                || TextUtils.isEmpty(memberObject.getBaseEntityId())) return false;
+        return MotherMentorMotherClosureRepository.isFollowUpEnrollmentClosed(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                memberObject.getBaseEntityId(), getFollowUpType());
+    }
+
+    private boolean isServiceCardClosed() {
+        return isMotherCardClosed() || isLinkedFollowUpCardClosed();
     }
 
     protected MotherMentorMotherClosure getMotherClosureState() {
@@ -972,7 +995,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             int afterButton = profile.indexOfChild(textViewRecordMotherMentor) + 1;
             profile.addView(motherClosureBanner, afterButton);
         }
-        boolean closed = isMotherCardClosed();
+        boolean closed = isServiceCardClosed();
         motherClosureBanner.setVisibility(closed ? View.VISIBLE : View.GONE);
         if (!closed) return;
         MotherMentorMotherClosure state = getMotherClosureState();
@@ -982,23 +1005,44 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 state.getClosedDate()));
     }
 
-    private boolean returnIfPartnerFollowUpEnded() {
-        if (isFinishing()) return true;
+    protected MotherMentorPartnerClosure loadPartnerClosure() {
         if (!isFollowUpProfile() || getFollowUpType() != MotherMentorFollowUpType.PARTNER
-                || memberObject == null) return false;
-        MotherMentorPartnerFollowUpDao.Context state = MotherMentorPartnerFollowUpDao.getContext(
-                memberObject.getBaseEntityId(), null, getVisitAvailabilityDate());
-        if (state == null || TextUtils.isEmpty(state.getLinkageId()) || state.isActive()) return false;
-        // Queue standard death registration before leaving; the captured client survives navigation.
-        applyMotherMentorDeceasedHandling();
-        Intent list = new Intent(this, MotherMentorRegisterActivity.class);
-        list.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        list.putExtra(MotherMentorRegisterActivity.EXTRA_OPEN_FOLLOW_UP_LIST, true);
-        list.putExtra(MotherMentorRegisterActivity.EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX,
-                MotherMentorRegisterActivity.TAB_INDEX_PARTNER);
-        startActivity(list);
-        finish();
+                || memberObject == null) return MotherMentorPartnerClosure.active();
+        return MotherMentorPartnerClosureRepository.getState(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                memberObject.getBaseEntityId(), null);
+    }
+
+    private boolean isPartnerFollowUpClosed() {
+        if (isFinishing()) return true;
+        if (!loadPartnerClosure().isClosed()) return false;
+        setupButtons();
         return true;
+    }
+
+    private void updatePartnerClosureBanner(MotherMentorPartnerClosure closure) {
+        if (!closure.isClosed()) {
+            if (partnerClosureBanner != null) partnerClosureBanner.setVisibility(View.GONE);
+            return;
+        }
+        if (partnerClosureBanner == null && textViewRecordMotherMentor != null
+                && textViewRecordMotherMentor.getParent() instanceof LinearLayout) {
+            partnerClosureBanner = new TextView(this);
+            int padding = (int) (16 * getResources().getDisplayMetrics().density);
+            partnerClosureBanner.setPadding(padding, padding / 2, padding, padding / 2);
+            partnerClosureBanner.setTextSize(14);
+            LinearLayout bar = (LinearLayout) textViewRecordMotherMentor.getParent();
+            bar.addView(partnerClosureBanner, bar.indexOfChild(textViewRecordMotherMentor) + 1,
+                    new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+        if (partnerClosureBanner != null) {
+            partnerClosureBanner.setVisibility(View.VISIBLE);
+            partnerClosureBanner.setText(getString(
+                    org.smartregister.chw.mothermentor.R.string.mothermentor_partner_closed_banner,
+                    MotherMentorPartnerClosureText.reason(this, closure.getClosureReason()),
+                    closure.getClosedDate()));
+        }
     }
 
     protected boolean isClientDeceased() {
@@ -1032,7 +1076,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     private void hideDeceasedClientActionViews() {
         if (textViewRecordMotherMentor != null) {
-            boolean closed = isMotherCardClosed();
+            boolean closed = isServiceCardClosed();
             textViewRecordMotherMentor.setVisibility(closed ? View.VISIBLE : View.GONE);
             if (closed) {
                 textViewRecordMotherMentor.setEnabled(false);
@@ -1041,6 +1085,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         }
         if (manualProcessVisit != null) manualProcessVisit.setVisibility(View.GONE);
         if (mothermentorServiceInProgress != null) mothermentorServiceInProgress.setVisibility(View.GONE);
+        if (visitInProgress != null) visitInProgress.setVisibility(View.GONE);
+        if (textViewVisitDoneEdit != null) textViewVisitDoneEdit.setVisibility(View.GONE);
     }
 
     void applyMotherMentorDeceasedHandling() {
@@ -1180,7 +1226,14 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         super.onClick(view);
     }
 
-    private void enforceProcessVisitVisibility() {
+    private void enforceProcessVisitVisibility(boolean partnerClosed) {
+        if (partnerClosed) {
+            manualProcessVisit.setVisibility(View.GONE);
+            mothermentorServiceInProgress.setVisibility(View.GONE);
+            if (visitInProgress != null) visitInProgress.setVisibility(View.GONE);
+            if (textViewVisitDoneEdit != null) textViewVisitDoneEdit.setVisibility(View.GONE);
+            return;
+        }
         Visit latestVisit = getServiceVisit();
         if (latestVisit == null) {
             manualProcessVisit.setVisibility(View.GONE);
@@ -1207,7 +1260,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     void completeSavedMotherVisit(Visit visit) {
-        if (manualVisitCompletionInProgress || isMotherCardClosed()) return;
+        if (manualVisitCompletionInProgress || isPartnerFollowUpClosed() || isServiceCardClosed()) return;
         manualVisitCompletionInProgress = true;
         if (manualProcessVisit != null) manualProcessVisit.setEnabled(false);
         try {
@@ -1241,7 +1294,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     private void finalizeSavedMotherVisit(Visit visit) {
         try {
-            if (isMotherCardClosed()) return;
+            if (isPartnerFollowUpClosed() || isServiceCardClosed()) return;
             persistSavedMotherVisit(visit);
             displayToast(org.smartregister.chw.mothermentor.R.string.mothermentor_visit_conducted);
             setupViews();
@@ -1338,7 +1391,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openFollowupVisit() {
-        if (isMotherCardClosed()) return;
+        if (isServiceCardClosed()) return;
         if (isFollowUpProfile()) {
             openRecordClientVisit();
         } else {
@@ -1348,7 +1401,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openRecordTbContactVisit() {
-        if (isMotherCardClosed()) return;
+        if (isPartnerFollowUpClosed() || isClientDeceased() || isServiceCardClosed()) return;
         MotherMentorVisitActivity.startMotherMentorVisitActivity(
                 this, memberObject.getBaseEntityId(), false);
     }
@@ -1365,13 +1418,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void openTbContactFollowUpVisit() {
-        if (isMotherCardClosed()) return;
+        if (isServiceCardClosed()) return;
         startForm(Constants.FORMS.MOTHERMENTOR_FOLLOWUP_VISIT);
     }
 
     @Override
     public void openRecordClientVisit() {
-        if (returnIfPartnerFollowUpEnded() || isClientDeceased() || isMotherCardClosed()) return;
+        if (isPartnerFollowUpClosed() || isClientDeceased() || isServiceCardClosed()) return;
         if (isFollowUpProfile()) {
             if (getFollowUpType() == MotherMentorFollowUpType.PARTNER
                     || getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
@@ -1453,7 +1506,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void continueService() {
-        if (returnIfPartnerFollowUpEnded() || isClientDeceased() || isMotherCardClosed()) return;
+        if (isPartnerFollowUpClosed() || isClientDeceased() || isServiceCardClosed()) return;
         if (isFollowUpProfile()) {
             MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                     this, memberObject.getBaseEntityId(), true, getFollowUpType());
@@ -1465,7 +1518,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     public void continueContactVisit() {
-        if (isClientDeceased() || isMotherCardClosed()) return;
+        if (isPartnerFollowUpClosed() || isClientDeceased() || isServiceCardClosed()) return;
         MotherMentorVisitActivity.startMotherMentorVisitActivity(
                 this, memberObject.getBaseEntityId(), true);
     }
@@ -1483,7 +1536,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private void startForm(String formName) {
-        if (isClientDeceased()) return;
+        if (isPartnerFollowUpClosed() || isClientDeceased()) return;
         try {
             JSONObject form = FormUtils.getFormUtils().getFormJson(formName);
             form.put(
@@ -1495,7 +1548,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private void startSecondaryEnrollment(String formName) {
-        if (isMotherCardClosed()) return;
+        if (isServiceCardClosed()) return;
         MotherMentorRegisterActivity.startRegistration(
                 this,
                 memberObject.getBaseEntityId(),

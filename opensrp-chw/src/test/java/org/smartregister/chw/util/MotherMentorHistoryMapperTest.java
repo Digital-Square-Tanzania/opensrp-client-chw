@@ -14,6 +14,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 
@@ -27,6 +28,62 @@ import java.util.Locale;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorHistoryMapperTest {
+    @Test
+    @Config(qualifiers = "en")
+    public void partnerClosureReasonAndDateRemainReadableWithoutExposingCounters() {
+        assertClosureHistory("Closure reason", "Moved from area");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void partnerClosureHistoryUsesSwahiliLabelsAndReason() {
+        assertClosureHistory("Sababu ya kufungwa", "Amehama eneo");
+    }
+
+    private void assertClosureHistory(String expectedLabel, String expectedReason) {
+        Visit visit = visit(MotherMentorFollowUpType.PARTNER.getEventType());
+        answer(visit, DBConstants.KEY.MWENZI_STATUS, "moved", "");
+        answer(visit, DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA, "[\"moved\"]", "");
+        answer(visit, DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, "2026-11-04", "");
+        answer(visit, DBConstants.KEY.MWENZI_COUNTER_HAJAPATIKANA, "1", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList(DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA), keys(rows));
+        assertEquals(expectedLabel, rows.get(0).getLabel());
+        assertEquals(Collections.singletonList(expectedReason), rows.get(0).getValues());
+        assertEquals(Collections.singletonList("2026-11-04"), rows.get(1).getValues());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void householdClosureHistoryShowsOnlyLocalizedReasonAndDate() {
+        assertHouseholdClosureHistory("Reason for closure", "Moved from area", "Closure date");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliHouseholdClosureHistoryShowsOnlyLocalizedReasonAndDate() {
+        assertHouseholdClosureHistory("Sababu ya kufungwa", "Imehama eneo", "Tarehe ya kufungwa");
+    }
+
+    private void assertHouseholdClosureHistory(String reasonLabel, String reason, String dateLabel) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, "household_enrollment_id", "enrollment-1", "");
+        answer(visit, "kaya_status", "moved", "");
+        answer(visit, "kaya_sababu_ya_kufungwa", "moved", "");
+        answer(visit, "kaya_tarehe_ya_kufungwa", "2026-11-01", "");
+        answer(visit, "kaya_counter_nyumba_imefungwa", "0", "");
+        answer(visit, "kaya_counter_nyingine", "0", "");
+        answer(visit, "kaya_counter_haijapatikana", "1", "");
+        answer(visit, "comments", "Original comment", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList("kaya_sababu_ya_kufungwa", "kaya_tarehe_ya_kufungwa", "comments"), keys(rows));
+        assertEquals(reasonLabel, row(rows, "kaya_sababu_ya_kufungwa").getLabel());
+        assertEquals(Collections.singletonList(reason), row(rows, "kaya_sababu_ya_kufungwa").getValues());
+        assertEquals(dateLabel, row(rows, "kaya_tarehe_ya_kufungwa").getLabel());
+        assertEquals(Collections.singletonList("2026-11-01"), row(rows, "kaya_tarehe_ya_kufungwa").getValues());
+    }
+
     @Test
     @Config(qualifiers = "en")
     public void serviceQuestionsFollowActionAndFormOrderIncludingNewAttendanceFields() {
