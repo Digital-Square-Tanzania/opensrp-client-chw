@@ -478,6 +478,37 @@ public class MotherMentorHistoryMapperTest {
                 row(mapper().map(visit), DBConstants.KEY.FOLLOW_UP_STATUS).getValues());
     }
 
+    @Test @Config(qualifiers = "en")
+    public void childHeiHistoryUsesEnglishQuestionsAndRetainsTheSavedAgreement() {
+        assertChildHeiHistory("Breastfeeding status", "Breastfed", "Test referral status",
+                "Caregiver agreed to take the child to the facility");
+    }
+
+    @Test @Config(qualifiers = "sw")
+    public void childHeiHistoryUsesSwahiliQuestionsAndRetainsTheSavedAgreement() {
+        assertChildHeiHistory("Hali ya unyonyeshaji", "Ananyonyeshwa", "Hali ya rufaa ya kipimo",
+                "Mlezi amekubali kumpeleka mtoto kituoni");
+    }
+
+    private void assertChildHeiHistory(String bfLabel, String bfValue, String agreementLabel, String agreementValue) {
+        Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+        answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3", "");
+        answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, "found", "");
+        answer(visit, DBConstants.KEY.MAMA_CHILD_STATUS, "alive", "");
+        answer(visit, DBConstants.KEY.MAMA_BREASTFEEDING_STATUS, "breastfeeding", "stale label");
+        answer(visit, DBConstants.KEY.MTOTO_REFERRAL_AGREEMENT, "agreed", "stale label");
+        answer(visit, DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE, "none", "");
+        answer(visit, DBConstants.KEY.MTOTO_RUFAA_TEST, "miezi9", "");
+        answer(visit, DBConstants.KEY.MAMA_HEI_TEST_HISTORY, "private context", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList(DBConstants.KEY.FOLLOW_UP_STATUS, DBConstants.KEY.MAMA_CHILD_STATUS,
+                DBConstants.KEY.MAMA_BREASTFEEDING_STATUS, DBConstants.KEY.MTOTO_REFERRAL_AGREEMENT), keys(rows));
+        assertEquals(bfLabel, row(rows, DBConstants.KEY.MAMA_BREASTFEEDING_STATUS).getLabel());
+        assertEquals(Collections.singletonList(bfValue), row(rows, DBConstants.KEY.MAMA_BREASTFEEDING_STATUS).getValues());
+        assertEquals(agreementLabel, row(rows, DBConstants.KEY.MTOTO_REFERRAL_AGREEMENT).getLabel());
+        assertEquals(Collections.singletonList(agreementValue), row(rows, DBConstants.KEY.MTOTO_REFERRAL_AGREEMENT).getValues());
+    }
+
     private MotherMentorHistoryMapper mapper() {
         return new MotherMentorHistoryMapper(RuntimeEnvironment.application);
     }

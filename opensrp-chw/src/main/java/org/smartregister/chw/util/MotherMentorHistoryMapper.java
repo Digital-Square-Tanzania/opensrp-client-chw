@@ -240,9 +240,11 @@ public final class MotherMentorHistoryMapper {
                                 DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY,
                                 DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
                                 DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE))) {
+            if (isChildEidSchema3(recorded)) return Arrays.asList(
+                    "mothermentor_child_eid_follow_up_status", "mothermentor_child_eid_hei",
+                    "mothermentor_child_eid_follow_up_comment");
             return Arrays.asList(
-                    isChildEidSchema3(recorded) ? "mothermentor_child_eid_follow_up_status"
-                            : "mothermentor_child_eid_follow_up_status_legacy",
+                    "mothermentor_child_eid_follow_up_status_legacy",
                     "mothermentor_child_eid_test_type",
                     "mothermentor_child_eid_non_attendance_reason",
                     "mothermentor_child_eid_arrival",
