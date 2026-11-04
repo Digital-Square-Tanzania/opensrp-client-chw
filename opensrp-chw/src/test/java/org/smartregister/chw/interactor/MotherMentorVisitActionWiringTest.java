@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import android.app.Application;
+import android.database.MatrixCursor;
+
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +35,9 @@ import org.smartregister.chw.mothermentor.util.AppExecutors;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.repository.Repository;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -83,7 +88,15 @@ public class MotherMentorVisitActionWiringTest {
             BaseMotherMentorServiceVisitInteractor[] workflows = {
                 new MotherMentorFollowUpVisitInteractor(
                         MotherMentorFollowUpType.MOTHER_IIT.getEventType()),
-                new PartnerFollowUpVisitInteractor(MotherMentorFollowUpType.PARTNER.getEventType()),
+                new PartnerFollowUpVisitInteractor(MotherMentorFollowUpType.PARTNER.getEventType()) {
+                    @Override
+                    protected MotherMentorPartnerClosure loadClosureState(
+                            String memberId, String excludedVisitId) {
+                        assertEquals("metadata-client", memberId);
+                        assertEquals("", excludedVisitId);
+                        return MotherMentorPartnerClosure.active();
+                    }
+                },
                 new ChildEidFollowUpVisitInteractor(
                         MotherMentorFollowUpType.CHILD_EID.getEventType())
             };
@@ -100,6 +113,9 @@ public class MotherMentorVisitActionWiringTest {
                 assertEquals(
                         Constants.TABLES.MOTHERMENTOR_FOLLOWUP_VISIT,
                         ReflectionHelpers.callInstanceMethod(workflows[i], "getTableName"));
+                MemberObject member = new MemberObject();
+                member.setBaseEntityId("metadata-client");
+                ReflectionHelpers.setField(workflows[i], "memberObject", member);
                 Event event = new Event();
                 ReflectionHelpers.callInstanceMethod(
                         workflows[i],
@@ -294,6 +310,13 @@ public class MotherMentorVisitActionWiringTest {
         org.smartregister.Context context = mock(org.smartregister.Context.class);
         when(library.context()).thenReturn(context);
         when(context.applicationContext()).thenReturn(RuntimeEnvironment.application);
+        Repository repository = mock(Repository.class);
+        SQLiteDatabase database = mock(SQLiteDatabase.class);
+        when(library.getRepository()).thenReturn(repository);
+        when(repository.getReadableDatabase()).thenReturn(database);
+        // Wiring uses real interactors; its empty schema has no persisted household enrollment.
+        when(database.rawQuery(anyString(), any(String[].class)))
+                .thenAnswer(call -> new MatrixCursor(new String[] {"name"}));
         mocked.when(MotherMentorLibrary::getInstance).thenReturn(library);
         return mocked;
     }

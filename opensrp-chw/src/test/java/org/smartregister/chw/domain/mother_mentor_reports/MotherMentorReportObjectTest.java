@@ -18,6 +18,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -741,6 +742,39 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void indicatorEightRetainsQualifyingTestsAfterThePartnerIsClosed() throws Exception {
+        member("closed-partner", "Male", "1990-01-01");
+        partnerAttendance("closing-visit", "closed-partner", "2026-04-20", "episode", "link");
+        partnerTest("closing-visit", "hiv", "positive");
+        partnerTest("closing-visit", "syphilis", "negative");
+        partnerTest("closing-visit", "hepatitis_b", "negative");
+        for (String field : new String[] {DBConstants.KEY.MWENZI_STATUS,
+                DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA}) {
+            database.execSQL("ALTER TABLE ec_mothermentor_enroll_partner ADD COLUMN " + field + " TEXT");
+        }
+        database.execSQL("INSERT INTO ec_mothermentor_enroll_partner (base_entity_id, is_closed, "
+                + DBConstants.KEY.MWENZI_STATUS + ") VALUES ('closed-partner', 0, 'active')");
+        JSONObject beforeClosure = report.getIndicatorData();
+        database.execSQL("UPDATE ec_mothermentor_enroll_partner SET is_closed = 1, "
+                + DBConstants.KEY.MWENZI_STATUS + " = 'attended_tested', "
+                + DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA + " = 'attended_tested', "
+                + DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA + " = '2026-04-20'");
+        detail("closing-visit", DBConstants.KEY.MWENZI_STATUS, "attended_tested");
+        detail("closing-visit", DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA, "attended_tested");
+        detail("closing-visit", DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, "2026-04-20");
+
+        JSONObject afterClosure = report.getIndicatorData();
+
+        for (String key : new String[] {"mm-8", "mm-8-hiv-positive",
+                "mm-8-syphilis-negative", "mm-8-hepatitis-b-negative"}) {
+            assertEquals(key, 1, beforeClosure.getInt(key));
+            assertEquals(key, beforeClosure.getInt(key), afterClosure.getInt(key));
+        }
+        assertEquals(0, afterClosure.getInt("mm-8-missing-records"));
+    }
+
+    @Test
     public void partnerTestsUseTheServiceDayForMonthAndAgeWithoutDoubleCountingBirthdays() throws Exception {
         member("birthday", "Male", "2001-04-15");
         partnerAttendance("hiv-before-birthday", "birthday", "2026-04-01", "episode", "link");
@@ -824,6 +858,39 @@ public class MotherMentorReportObjectTest {
         assertEquals(2, c.getInt("mm-12-hepatitis-b"));
         assertEquals(1, c.getInt("mm-12-hiv-male-20-24"));
         assertEquals(0, c.getInt("mm-12-hiv-male-25-59"));
+    }
+
+    @Test
+    public void attendanceNoWithoutEducationIsKnownZeroAndPreservesHistoricalEducation() throws Exception {
+        member("not-attended", "Male", "1990-01-01");
+        partnerAttendance("not-attended", "not-attended", "2026-04-20", "episode", "link");
+        setDetail("not-attended", "partner_arrived_at_facility", "no");
+        setDetail("not-attended", "partner_education_provided", "");
+        JSONObject c = report.getIndicatorData();
+        assertEquals(0, c.getInt("mm-8"));
+        assertEquals(0, c.getInt("mm-8-missing-records"));
+        assertEquals(0, c.getInt("mm-12"));
+        assertEquals(0, c.getInt("mm-12-missing-records"));
+
+        member("educated-before-attendance", "Male", "1990-01-01");
+        partnerAttendance("historical-education", "educated-before-attendance", "2026-04-21", "episode", "link");
+        setDetail("historical-education", "partner_arrived_at_facility", "no");
+        partnerEducation("historical-education", "hiv");
+        c = report.getIndicatorData();
+        assertEquals(1, c.getInt("mm-12"));
+        assertEquals(1, c.getInt("mm-12-hiv"));
+        assertEquals(0, c.getInt("mm-12-missing-records"));
+    }
+
+    @Test
+    public void attendanceNoWithExplicitIncompleteEducationRemainsMissing() throws Exception {
+        member("not-attended", "Male", "1990-01-01");
+        partnerAttendance("not-attended", "not-attended", "2026-04-20", "episode", "link");
+        setDetail("not-attended", "partner_arrived_at_facility", "no");
+        setDetail("not-attended", "partner_education_provided", "yes");
+        JSONObject c = report.getIndicatorData();
+        assertEquals("—", c.getString("mm-12"));
+        assertEquals(1, c.getInt("mm-12-missing-records"));
     }
 
     @Test

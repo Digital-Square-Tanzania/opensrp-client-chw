@@ -7,26 +7,34 @@ import static org.junit.Assert.assertTrue;
 
 import android.content.Intent;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.annotation.LooperMode;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +46,129 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class MotherMentorHouseholdProfileActivityTest extends BaseUnitTest {
+    private MockedStatic<MotherMentorHouseholdClosureRepository> closureRepository;
+    private MotherMentorHouseholdClosure closure = MotherMentorHouseholdClosure.active();
+    private boolean currentEnrollment = true;
+
+    @Before
+    public void configureHouseholdClosure() {
+        String language = RuntimeEnvironment.application.getResources()
+                .getConfiguration().locale.getLanguage();
+        new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(
+                RuntimeEnvironment.application)).saveLanguagePreference(language);
+        closureRepository = Mockito.mockStatic(MotherMentorHouseholdClosureRepository.class);
+        closureRepository.when(() -> MotherMentorHouseholdClosureRepository.getState(
+                Mockito.any(), Mockito.anyString(), Mockito.isNull()))
+                .thenAnswer(call -> closure);
+        closureRepository.when(() -> MotherMentorHouseholdClosureRepository.belongsToCurrentEnrollment(
+                Mockito.any(), Mockito.anyString(), Mockito.any()))
+                .thenAnswer(call -> currentEnrollment);
+    }
+
+    @After
+    public void closeHouseholdClosureFixture() {
+        closureRepository.close();
+    }
+
+    @Test
+    public void closureDisablesAllVisitEntryPointsAndPreservesHistoryAvailability() throws Exception {
+        Visit visit = householdVisit();
+        visit.setProcessed(false);
+        try (MockedStatic<MotherMentorLibrary> ignored = persistedVisits(visit)) {
+            MotherMentorHouseholdProfileActivity activity = householdProfile();
+            TextView continueVisit = new TextView(activity);
+            TextView edit = new TextView(activity);
+            RelativeLayout inheritedProgress = new RelativeLayout(activity);
+            ReflectionHelpers.setField(activity, "textViewContinueMotherMentorService", continueVisit);
+            ReflectionHelpers.setField(activity, "textViewVisitDoneEdit", edit);
+            ReflectionHelpers.setField(activity, "visitInProgress", inheritedProgress);
+            closure = MotherMentorHouseholdClosure.active()
+                    .advance("repeat", "not_found", "moved", "2026-11-01");
+            activity.setupButtons();
+            assertFalse(recordButton(activity).isEnabled());
+            assertEquals(View.GONE, continueVisit.getVisibility());
+            assertEquals(View.GONE, edit.getVisibility());
+            assertEquals(View.GONE, inheritedProgress.getVisibility());
+            TextView manual = ReflectionHelpers.getField(activity, "manualProcessVisit");
+            assertEquals(View.GONE, manual.getVisibility());
+            activity.openRecordClientVisit();
+            activity.openFollowupVisit();
+            activity.openRecordTbContactVisit();
+            activity.openTbContactFollowUpVisit();
+            activity.continueService();
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+        }
+    }
+
+    @Test
+    public void staleActiveControlsRecheckClosureAndReenrollmentDoesNotResumeOldDraft()
+            throws Exception {
+        Visit visit = householdVisit();
+        visit.setProcessed(false);
+        try (MockedStatic<MotherMentorLibrary> ignored = persistedVisits(visit)) {
+            MotherMentorHouseholdProfileActivity activity = householdProfile();
+            activity.setupButtons();
+            closure = MotherMentorHouseholdClosure.active()
+                    .advance("repeat", "not_found", "moved", "2026-11-01");
+            activity.openRecordClientVisit();
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+            assertFalse(recordButton(activity).isEnabled());
+            closure = MotherMentorHouseholdClosure.active();
+            currentEnrollment = false;
+            activity.setupButtons();
+            assertTrue(recordButton(activity).isEnabled());
+            assertEquals(View.VISIBLE, recordButton(activity).getVisibility());
+            RelativeLayout progress = ReflectionHelpers.getField(activity, "mothermentorServiceInProgress");
+            assertEquals(View.GONE, progress.getVisibility());
+            activity.openRecordClientVisit();
+            Intent intent = Shadows.shadowOf(activity).getNextStartedActivityForResult().intent;
+            assertFalse(intent.getBooleanExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, true));
+        }
+    }
+
+    @Test
+    public void directLaunchAlsoRejectsClosedNewAndEditVisits() {
+        MotherMentorHouseholdProfileActivity activity = householdProfile();
+        closure = MotherMentorHouseholdClosure.active()
+                .advance("repeat", "not_found", "moved", "2026-11-01");
+        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
+                activity, "test-household-id", false);
+        MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
+                activity, "test-household-id", true);
+        assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void englishClosedBannerShowsReasonAndDateAndHidesAfterReenrollment() throws Exception {
+        assertClosedBanner("Household record is closed", "Moved from area");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliClosedBannerShowsReasonAndDateAndHidesAfterReenrollment() throws Exception {
+        assertClosedBanner("Faili la Kaya limefungwa", "Imehama eneo");
+    }
+
+    private void assertClosedBanner(String expectedMessage, String expectedReason) throws Exception {
+        try (MockedStatic<MotherMentorLibrary> ignored = persistedVisits(householdVisit())) {
+            MotherMentorHouseholdProfileActivity activity = householdProfile();
+            TextView banner = new TextView(activity);
+            banner.setId(org.smartregister.chw.mothermentor.R.id.mothermentor_household_closed_banner);
+            activity.setContentView(banner);
+            closure = MotherMentorHouseholdClosure.active()
+                    .advance("repeat", "not_found", "moved", "2026-11-01");
+            activity.setupButtons();
+            assertEquals(View.VISIBLE, banner.getVisibility());
+            assertTrue(banner.getText().toString(), banner.getText().toString().contains(expectedMessage));
+            assertTrue(banner.getText().toString(), banner.getText().toString().contains(expectedReason));
+            assertTrue(banner.getText().toString().contains("2026-11-01"));
+            closure = MotherMentorHouseholdClosure.active();
+            activity.setupButtons();
+            assertEquals(View.GONE, banner.getVisibility());
+        }
+    }
+
     @Test
     public void completedHouseholdVisitDisablesButtonOnRecreatedProfile() throws Exception {
         Visit visit = householdVisit();

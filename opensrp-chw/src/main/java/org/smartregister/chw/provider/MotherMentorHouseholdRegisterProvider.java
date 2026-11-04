@@ -9,6 +9,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragment;
 import org.smartregister.chw.mothermentor.provider.MotherMentorRegisterProvider;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -36,9 +37,13 @@ public class MotherMentorHouseholdRegisterProvider extends MotherMentorRegisterP
             viewHolder.patientName.setText(
                     context.getString(R.string.household_register_row_title, householdName));
         }
-        viewHolder.textViewGender.setText("");
-        viewHolder.textViewVillage.setText(
-                Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
+        String reason = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA, true);
+        String closedDate = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA, true);
+        boolean closed = !TextUtils.isEmpty(reason);
+        viewHolder.textViewGender.setText(closed ? closedDate : "");
+        viewHolder.textViewVillage.setText(closed
+                ? MotherMentorHouseholdClosureLabels.reason(context, reason)
+                : Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
 
         viewHolder.dueWrapper.setVisibility(View.GONE);
         viewHolder.patientColumn.setOnClickListener(onClickListener);

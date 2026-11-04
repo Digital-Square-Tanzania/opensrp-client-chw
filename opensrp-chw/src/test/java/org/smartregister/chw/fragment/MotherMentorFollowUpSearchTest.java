@@ -28,6 +28,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.model.MotherMentorRegisterFragmentModel;
 import org.smartregister.chw.mothermentor.contract.MotherMentorRegisterFragmentContract;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 
@@ -62,6 +64,15 @@ public class MotherMentorFollowUpSearchTest {
                     + "is_closed INTEGER, weeks_lost TEXT, expected_return_date TEXT)");
             database.execSQL("INSERT INTO " + table + " VALUES "
                     + "(1, 'client-a', 0, '3', ''), (2, 'client-b', 0, '4', ''), (3, 'closed', 1, '5', '')");
+            if (PARTNER.equals(table)) {
+                for (String column : MotherMentorPartnerClosureRepository.CLOSURE_COLUMNS) {
+                    database.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column
+                            + (MotherMentorPartnerClosureRepository.COUNTER_COLUMNS.contains(column)
+                                    ? " INTEGER DEFAULT 0" : " TEXT DEFAULT ''"));
+                }
+                database.execSQL("UPDATE " + table + " SET " + DBConstants.KEY.MWENZI_STATUS
+                        + " = CASE WHEN is_closed = 0 THEN 'active' ELSE 'moved' END");
+            }
         }
     }
 

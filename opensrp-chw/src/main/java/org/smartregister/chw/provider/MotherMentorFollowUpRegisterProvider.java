@@ -19,6 +19,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragment;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorAgeUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
+import org.smartregister.chw.util.MotherMentorPartnerClosureText;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.util.Utils;
@@ -77,7 +79,14 @@ public class MotherMentorFollowUpRegisterProvider
                                     weeksLost >= 8
                                             ? R.string.mothermentor_risk_high
                                             : R.string.mothermentor_risk_low);
-            String metadata = join(risk, village, id);
+            String status = Utils.getValue(person.getColumnmaps(), DBConstants.KEY.MWENZI_STATUS, false);
+            boolean closed = !TextUtils.isEmpty(status) && !MotherMentorPartnerClosure.ACTIVE.equals(status);
+            if (closed) risk = "";
+            String metadata = closed
+                    ? join(MotherMentorPartnerClosureText.reason(context, status),
+                            Utils.getValue(person.getColumnmaps(), DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, false),
+                            village, id)
+                    : join(risk, village, id);
             SpannableString styled = new SpannableString(metadata);
             if (!TextUtils.isEmpty(risk))
                 styled.setSpan(
