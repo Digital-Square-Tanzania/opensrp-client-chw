@@ -25,7 +25,6 @@ import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdVisitUtils;
-import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
@@ -376,7 +375,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
         if (visit == null || TextUtils.isEmpty(visit.getJson())) return false;
         try {
             return MotherMentorHouseholdVisitUtils.isComplete(
-                    MotherMentorVisitCompletion.observationValues(
+                    MotherMentorHouseholdVisitUtils.observationValues(
                             new JSONObject(visit.getJson()).optJSONArray("obs")));
         } catch (Exception e) {
             Timber.e(e);
