@@ -12,6 +12,8 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
@@ -48,10 +50,32 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Scanner;
+import org.smartregister.util.FormUtils;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorVisitActionWiringTest {
+    private FormUtils previousForms;
+
+    @Before
+    public void loadTheActualLibraryFormsWithoutAnApplicationSession() throws Exception {
+        previousForms = ReflectionHelpers.getStaticField(FormUtils.class, "instance");
+        FormUtils forms = mock(FormUtils.class);
+        when(forms.getFormJson(anyString())).thenAnswer(call -> {
+            try (Scanner scanner = new Scanner(RuntimeEnvironment.getApplication().getAssets()
+                    .open("json.form/" + call.getArgument(0) + ".json"), "UTF-8").useDelimiter("\\A")) {
+                return new JSONObject(scanner.next());
+            }
+        });
+        ReflectionHelpers.setStaticField(FormUtils.class, "instance", forms);
+    }
+
+    @After
+    public void restoreForms() {
+        ReflectionHelpers.setStaticField(FormUtils.class, "instance", previousForms);
+    }
+
     @Test
     public void everyActionUsesItsOwnTopLevelLibraryHelper() throws Exception {
         try (MockedStatic<MotherMentorLibrary> library = mockLibrary()) {
@@ -330,7 +354,9 @@ public class MotherMentorVisitActionWiringTest {
 
     private Map<String, BaseMotherMentorVisitAction> actions(
             BaseMotherMentorServiceVisitInteractor interactor) throws Exception {
-        return actions(interactor, new MemberObject());
+        MemberObject member = new MemberObject();
+        member.setDob(LocalDate.now().minusMonths(10).toString());
+        return actions(interactor, member);
     }
 
     private Map<String, BaseMotherMentorVisitAction> actions(
