@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA;
 
 import android.app.Application;
+import android.database.MatrixCursor;
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,6 +41,9 @@ public class MotherMentorMotherDeliveryMigrationTest {
     @Test
     public void explicitTableCreationAlsoInitializesDeliveryProjection() throws Exception {
         SQLiteDatabase db = mock(SQLiteDatabase.class);
+        // Other composed projection upgrades see no enrolled clients in this dispatch fixture.
+        when(db.rawQuery(anyString(), org.mockito.ArgumentMatchers.<String[]>any()))
+                .thenAnswer(ignored -> new MatrixCursor(new String[] {"name"}));
         try (MockedStatic<DatabaseMigrationUtils> tables = mockStatic(DatabaseMigrationUtils.class);
                 MockedStatic<CoreChwApplication> application = mockStatic(CoreChwApplication.class);
                 MockedStatic<MotherMentorMotherDeliveryRepository> migration =
