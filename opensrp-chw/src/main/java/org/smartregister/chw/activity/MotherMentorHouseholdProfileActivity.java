@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -29,6 +28,7 @@ import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdVisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
@@ -37,12 +37,8 @@ import timber.log.Timber;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
 
 public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfileActivity {
-    private static final Set<String> REQUIRED_HOUSEHOLD_SERVICE_FIELDS = new HashSet<>();
     private final Handler visitAvailabilityHandler = new Handler(Looper.getMainLooper());
     private final Runnable refreshVisitAvailability =
             () -> {
@@ -59,11 +55,6 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
                 }
             };
 
-    static {
-        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.PURPOSE_OF_VISIT);
-        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.PARTICIPANTS);
-        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.TOPICS_TAUGHT);
-    }
 
     public static void startMe(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MotherMentorHouseholdProfileActivity.class);
@@ -430,43 +421,14 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     private boolean hasCompletedHouseholdServiceSections(Visit visit) {
-        if (visit == null || TextUtils.isEmpty(visit.getJson())) {
-            return false;
-        }
-
+        if (visit == null || TextUtils.isEmpty(visit.getJson())) return false;
         try {
-            JSONArray obsArray = new JSONObject(visit.getJson()).optJSONArray("obs");
-            return obsArray != null
-                    && getCompletedHouseholdServiceFields(obsArray)
-                            .containsAll(REQUIRED_HOUSEHOLD_SERVICE_FIELDS);
+            return MotherMentorHouseholdVisitUtils.isComplete(
+                    MotherMentorHouseholdVisitUtils.observationValues(
+                            new JSONObject(visit.getJson()).optJSONArray("obs")));
         } catch (Exception e) {
             Timber.e(e);
             return false;
         }
-    }
-
-    private Set<String> getCompletedHouseholdServiceFields(JSONArray obsArray) {
-        Set<String> completedFields = new HashSet<>();
-        for (int i = 0; i < obsArray.length(); i++) {
-            JSONObject obs = obsArray.optJSONObject(i);
-            if (!hasRequiredFieldValue(obs)) {
-                continue;
-            }
-
-            String fieldCode = obs.optString("fieldCode").toLowerCase(Locale.US);
-            if (REQUIRED_HOUSEHOLD_SERVICE_FIELDS.contains(fieldCode)) {
-                completedFields.add(fieldCode);
-            }
-        }
-        return completedFields;
-    }
-
-    private boolean hasRequiredFieldValue(JSONObject obs) {
-        if (obs == null) {
-            return false;
-        }
-
-        JSONArray values = obs.optJSONArray("values");
-        return values != null && values.length() > 0 && !TextUtils.isEmpty(values.optString(0));
     }
 }
