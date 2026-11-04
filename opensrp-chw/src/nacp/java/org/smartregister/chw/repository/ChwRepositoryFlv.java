@@ -227,6 +227,9 @@ public class ChwRepositoryFlv {
                 case 60:
                     upgradeToVersion60(db);
                     break;
+                case 61:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository.upgrade(db);
+                    break;
                 default:
                     break;
             }

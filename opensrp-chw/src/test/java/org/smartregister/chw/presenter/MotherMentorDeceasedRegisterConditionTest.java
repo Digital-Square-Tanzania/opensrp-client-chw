@@ -49,6 +49,8 @@ public class MotherMentorDeceasedRegisterConditionTest {
         }
         database.execSQL("ALTER TABLE " + Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER
                 + " ADD COLUMN " + DBConstants.KEY.PARTNER_LINKAGE_ID + " TEXT");
+        database.execSQL("ALTER TABLE " + Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER
+                + " ADD COLUMN " + DBConstants.KEY.MWENZI_STATUS + " TEXT");
         String[] followUpColumns = {
                 DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.ENTITY_ID, DBConstants.KEY.FOLLOW_UP_CATEGORY,
                 DBConstants.KEY.MOTHERMENTOR_VISIT_DATE, DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA,
@@ -88,6 +90,30 @@ public class MotherMentorDeceasedRegisterConditionTest {
     @Test
     public void partnerRegisterExcludesRecordedDeathsEvenWhenEnrollmentRemainsOpen() {
         assertLivingClients(secondaryPresenter(Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER));
+    }
+
+    @Test
+    public void partnerHistoryAndActiveRostersUseComplementaryLibraryConditions() {
+        String table = Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER;
+        database.execSQL("UPDATE " + table + " SET " + DBConstants.KEY.MWENZI_STATUS
+                + " = 'moved' WHERE base_entity_id = 'living'");
+        MotherMentorSecondaryEnrollmentRegisterFragmentPresenter presenter = secondaryPresenter(table);
+        List<String> active = clients(presenter);
+        assertEquals(Arrays.asList("empty-date", "legacy-null-date"), active);
+        presenter.setHistoryMode(true);
+        assertEquals(Arrays.asList("closed", "deceased", "living"), clients(presenter));
+        presenter.setHistoryMode(false);
+        assertEquals(active, clients(presenter));
+    }
+
+    private List<String> clients(BaseMotherMentorRegisterFragmentPresenter presenter) {
+        List<String> result = new ArrayList<>();
+        try (Cursor cursor = database.rawQuery("SELECT base_entity_id FROM "
+                + presenter.getMainTable() + " WHERE " + presenter.getMainCondition()
+                + " ORDER BY base_entity_id", null)) {
+            while (cursor.moveToNext()) result.add(cursor.getString(0));
+        }
+        return result;
     }
 
     @Test

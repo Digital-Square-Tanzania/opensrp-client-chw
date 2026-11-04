@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Looper;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -27,7 +28,8 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
-import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
@@ -37,15 +39,22 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /** Executes the real profile controls and guards stale taps after a completed partner visit. */
 public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
     private MotherMentorLibrary previousLibrary;
     private VisitRepository repository;
+    private MockedStatic<MotherMentorPartnerClosureRepository> closures;
 
     @Before
     public void useSavedVisits() {
+        closures = Mockito.mockStatic(MotherMentorPartnerClosureRepository.class);
+        closures.when(() -> MotherMentorPartnerClosureRepository.getState(
+                Mockito.any(), Mockito.anyString(), Mockito.isNull()))
+                .thenReturn(MotherMentorPartnerClosure.active());
         previousLibrary = ReflectionHelpers.getStaticField(MotherMentorLibrary.class, "instance");
         MotherMentorLibrary library = mock(MotherMentorLibrary.class);
         repository = mock(VisitRepository.class);
@@ -55,6 +64,7 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
 
     @After
     public void restoreLibrary() {
+        closures.close();
         ReflectionHelpers.setStaticField(MotherMentorLibrary.class, "instance", previousLibrary);
     }
 
@@ -164,73 +174,53 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
     }
 
     @Test
-    public void expiredPartnerCannotStartOrContinueAVisitAndReturnsToPartnerList() {
-        try (MockedStatic<MotherMentorPartnerFollowUpDao> dao =
-                Mockito.mockStatic(MotherMentorPartnerFollowUpDao.class)) {
-            dao.when(() -> MotherMentorPartnerFollowUpDao.getContext(
-                    Mockito.eq("partner-id"), Mockito.isNull(), Mockito.any(Date.class)))
-                    .thenReturn(new MotherMentorPartnerFollowUpDao.Context(
-                            "current-link", "mother", "episode", "yes", false, false));
-            for (boolean continueVisit : new boolean[] {false, true}) {
-                PartnerProfileActivity activity = profile();
-                if (continueVisit) activity.continueService();
-                else activity.openRecordClientVisit();
-                assertTrue(activity.isFinishing());
-                Intent list = Shadows.shadowOf(activity).getNextStartedActivity();
-                assertEquals(MotherMentorRegisterActivity.class.getName(), list.getComponent().getClassName());
-                assertEquals(MotherMentorRegisterActivity.TAB_INDEX_PARTNER,
-                        list.getIntExtra(MotherMentorRegisterActivity.EXTRA_SECONDARY_ENROLLMENT_TAB_INDEX, -1));
-                org.robolectric.shadows.ShadowActivity.IntentForResult launch =
-                        Shadows.shadowOf(activity).getNextStartedActivityForResult();
-                assertEquals(-1, launch.requestCode);
-                assertEquals(MotherMentorRegisterActivity.class.getName(),
-                        launch.intent.getComponent().getClassName());
-                assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
-            }
-        }
-    }
-
-    @Test
-    public void emptyContextDoesNotRedirectProfileOnMissingOrUnavailableDatabase() {
-        try (MockedStatic<MotherMentorPartnerFollowUpDao> dao =
-                Mockito.mockStatic(MotherMentorPartnerFollowUpDao.class)) {
-            dao.when(() -> MotherMentorPartnerFollowUpDao.getContext(
-                    Mockito.eq("partner-id"), Mockito.isNull(), Mockito.any(Date.class)))
-                    .thenReturn(new MotherMentorPartnerFollowUpDao.Context(
-                            "", "", "", "unknown", false, false));
+    public void closedPartnerStaysReadableAndCannotStartContinueOrManuallyProcessVisits() {
+        for (String reason : new String[] {"deceased", "moved"}) {
             PartnerProfileActivity activity = profile();
+            activity.closure = closed(reason);
+            LinearLayout bar = new LinearLayout(activity);
+            bar.setOrientation(LinearLayout.VERTICAL);
+            bar.addView(button(activity));
+
             activity.setupButtons();
+            activity.openRecordClientVisit();
+            activity.continueService();
+            activity.continueContactVisit();
+            activity.openTbContactFollowUpVisit();
+
             assertFalse(activity.isFinishing());
-            assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
+            assertFalse(button(activity).isEnabled());
+            assertEquals(View.VISIBLE, button(activity).getVisibility());
+            assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "manualProcessVisit")).getVisibility());
+            assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "mothermentorServiceInProgress")).getVisibility());
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+            TextView banner = (TextView) bar.getChildAt(1);
+            assertTrue(banner.getText().toString().contains("2026-11-04"));
+            assertEquals(View.VISIBLE, banner.getVisibility());
         }
     }
 
     @Test
-    @LooperMode(LooperMode.Mode.PAUSED)
-    public void completedNewWorkflowProfileReturnsToListAtMidnightWithoutAUserTap() throws Exception {
+    public void closureWhileProfileIsOpenDisablesStaleRecordAndContinueControlsWithoutNavigation() {
         PartnerProfileActivity activity = profile();
-        Calendar midnight = Calendar.getInstance();
-        midnight.setTime(activity.now);
-        midnight.set(Calendar.HOUR_OF_DAY, 23);
-        midnight.set(Calendar.MINUTE, 59);
-        midnight.set(Calendar.SECOND, 59);
-        midnight.set(Calendar.MILLISECOND, 0);
-        activity.now = midnight.getTime();
-        Date cutoff = new Date(activity.now.getTime() + 1000);
-        try (MockedStatic<MotherMentorPartnerFollowUpDao> dao =
-                Mockito.mockStatic(MotherMentorPartnerFollowUpDao.class)) {
-            dao.when(() -> MotherMentorPartnerFollowUpDao.getContext(
-                    Mockito.eq("partner-id"), Mockito.isNull(), Mockito.any(Date.class)))
-                    .thenAnswer(call -> new MotherMentorPartnerFollowUpDao.Context(
-                            "current-link", "mother", "episode", "yes", false,
-                            ((Date) call.getArgument(2)).before(cutoff)));
-            ReflectionHelpers.callInstanceMethod(activity, "scheduleVisitAvailabilityRefresh");
-            activity.now = cutoff;
-            Shadows.shadowOf(Looper.getMainLooper()).idleFor(1, TimeUnit.SECONDS);
-            assertTrue(activity.isFinishing());
-            assertEquals(MotherMentorRegisterActivity.class.getName(),
-                    Shadows.shadowOf(activity).getNextStartedActivity().getComponent().getClassName());
-        }
+        activity.setupButtons();
+        assertTrue(button(activity).isEnabled());
+        activity.closure = closed("moved");
+
+        activity.openRecordClientVisit();
+        activity.continueService();
+
+        assertFalse(activity.isFinishing());
+        assertFalse(button(activity).isEnabled());
+        assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+    }
+
+    private MotherMentorPartnerClosure closed(String reason) {
+        Map<String, String> values = new HashMap<>();
+        values.put(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE, "tracing");
+        values.put(DBConstants.KEY.FOLLOW_UP_STATUS, "not_found");
+        values.put(DBConstants.KEY.PARTNER_NOT_FOUND_REASON, reason);
+        return MotherMentorPartnerClosure.active().advance(values, "2026-11-04");
     }
 
     @Test
@@ -313,6 +303,12 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
 
     public static class PartnerProfileActivity extends MotherMentorProfileActivity {
         Date now = new Date();
+        MotherMentorPartnerClosure closure = MotherMentorPartnerClosure.active();
+
+        @Override
+        protected MotherMentorPartnerClosure loadPartnerClosure() {
+            return closure;
+        }
 
         @Override
         Date getVisitAvailabilityDate() {

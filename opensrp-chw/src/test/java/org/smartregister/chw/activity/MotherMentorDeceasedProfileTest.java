@@ -34,6 +34,7 @@ import java.util.Locale;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 
 /** A stale profile or saved draft must never restart services after a finalized death. */
 public class MotherMentorDeceasedProfileTest extends BaseUnitTest {
@@ -315,6 +316,12 @@ public class MotherMentorDeceasedProfileTest extends BaseUnitTest {
     }
 
     public static class DeceasedProfileActivity extends MotherMentorProfileActivity {
+        @Override
+        protected MotherMentorPartnerClosure loadPartnerClosure() {
+            // Closure replay is covered separately; these tests isolate shared death handling.
+            return MotherMentorPartnerClosure.active();
+        }
+
         boolean activeSession = true;
         String providerId = "initiating-provider";
 
