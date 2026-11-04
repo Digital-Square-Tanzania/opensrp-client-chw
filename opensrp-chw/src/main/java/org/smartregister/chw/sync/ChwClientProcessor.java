@@ -539,7 +539,13 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
     private void processVisitEvent(EventClient eventClient) {
         try {
-            NCUtils.processHomeVisit(eventClient);
+            if (eventClient != null && eventClient.getEvent() != null
+                    && org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType.CHILD_EID
+                            .getEventType().equals(eventClient.getEvent().getEventType())) {
+                org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(eventClient);
+            } else {
+                NCUtils.processHomeVisit(eventClient);
+            }
         } catch (Exception e) {
             String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
             Timber.e("Form id " + formID + ". " + e.toString());
