@@ -132,6 +132,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                             ChwApplication.getInstance().getRepository().getWritableDatabase(),
                             baseEntityID);
                     break;
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    break;
                 case CoreConstants.EventType.FAMILY_REGISTRATION:
                     // Ensure the new family points to the chosen existing head (if provided)
                     try {
@@ -538,7 +542,12 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
     private void processVisitEvent(EventClient eventClient) {
         try {
-            NCUtils.processHomeVisit(eventClient);
+            if (eventClient != null && org.smartregister.chw.mothermentor.repository
+                    .MotherMentorMotherDeliveryRepository.isMotherEvent(eventClient.getEvent())) {
+                org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(eventClient);
+            } else {
+                NCUtils.processHomeVisit(eventClient);
+            }
         } catch (Exception e) {
             String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
             Timber.e("Form id " + formID + ". " + e.toString());

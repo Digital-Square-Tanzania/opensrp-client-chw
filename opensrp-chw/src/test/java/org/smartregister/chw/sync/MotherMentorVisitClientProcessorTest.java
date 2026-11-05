@@ -1,5 +1,6 @@
 package org.smartregister.chw.sync;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
@@ -23,6 +24,10 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.util.JsonFormUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /** Exercises the app dispatch, leaving conversion/persistence to the existing visit processor. */
 @RunWith(RobolectricTestRunner.class)
@@ -54,6 +59,33 @@ public class MotherMentorVisitClientProcessorTest {
                 MockedStatic<NCUtils> visits = mockStatic(NCUtils.class)) {
             process(processor(), Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_PARTNER);
             visits.verifyNoInteractions();
+        }
+    }
+
+    @Test
+    public void routineMotherServicesUseLibraryReplayOncePerDelivery() throws Exception {
+        List<EventClient> deliveries = new ArrayList<>();
+        try (MockedStatic<CoreLibrary> core = peerProcessing();
+                MockedStatic<NCUtils> legacy = mockStatic(NCUtils.class);
+                MockedStatic<org.smartregister.chw.mothermentor.util.NCUtils> mother =
+                        mockStatic(org.smartregister.chw.mothermentor.util.NCUtils.class)) {
+            mother.when(() -> org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(any(EventClient.class)))
+                    .thenAnswer(invocation -> {
+                        deliveries.add(invocation.getArgument(0));
+                        return null;
+                    });
+            Event event = JsonFormUtils.gson.fromJson("{\"baseEntityId\":\"simulated-mother\","
+                    + "\"formSubmissionId\":\"mother-service-source\",\"eventType\":\""
+                    + Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES + "\","
+                    + "\"eventDate\":\"2026-11-04T12:00:00.000Z\",\"obs\":[{\"fieldCode\":\"attendance_type\","
+                    + "\"formSubmissionField\":\"attendance_type\",\"values\":[\"repeat\"]}]}", Event.class);
+            EventClient client = new EventClient(event);
+            ChwClientProcessor processor = processor();
+            for (int delivery = 0; delivery < 2; delivery++) {
+                processor.processEvents(null, null, null, client, event, event.getEventType());
+            }
+            assertEquals(Arrays.asList(client, client), deliveries);
+            legacy.verifyNoInteractions();
         }
     }
 
