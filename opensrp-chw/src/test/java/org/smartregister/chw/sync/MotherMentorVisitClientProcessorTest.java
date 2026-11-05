@@ -120,6 +120,7 @@ public class MotherMentorVisitClientProcessorTest {
     private ChwClientProcessor processor() throws Exception {
         ChwClientProcessor processor = mock(ChwClientProcessor.class, CALLS_REAL_METHODS);
         doReturn(true).when(processor).processEvent(any(Event.class), isNull(), isNull());
+        org.mockito.Mockito.doNothing().when(processor).processMissedChildEidEnrollment(any());
         return processor;
     }
 
