@@ -16,6 +16,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -61,6 +62,67 @@ public class MotherMentorDailyVisitUtilsTest {
         visit.setProcessed(false);
         assertFalse(locked(visit, "2026-10-21 12:00:00"));
         visit.setProcessed(null);
+        assertFalse(locked(visit, "2026-10-21 12:00:00"));
+    }
+
+    @Test
+    public void finalizedLegacyRepeatVisitLocksForItsServiceDay() throws Exception {
+        Visit visit = legacyRepeatVisit("repeat", "continuing_services");
+        assertTrue(locked(visit, "2026-10-21 12:00:00"));
+        assertFalse(locked(visit, "2026-10-22 00:00:00"));
+
+        assertFalse(MotherMentorVisitCompletion.isComplete(
+                new JSONObject(visit.getJson()).getJSONArray("obs")));
+    }
+
+    @Test
+    public void finalizedLegacyRepeatVisitAcceptsSavedLabels() throws Exception {
+        assertTrue(locked(legacyRepeatVisit("Repeat", "Continuing Services"),
+                "2026-10-21 12:00:00"));
+        assertTrue(locked(legacyRepeatVisit("Marudio", "Anaendelea na huduma"),
+                "2026-10-21 12:00:00"));
+    }
+
+    @Test
+    public void finalizedLegacyRepeatOutcomesWithHiddenServiceSectionsLockTheirDay()
+            throws Exception {
+        Visit visit = completedVisit("21-10-2026");
+        JSONArray observations = new JSONArray()
+                .put(observation(DBConstants.KEY.ATTENDANCE_TYPE, "repeat"))
+                .put(observation(DBConstants.KEY.MOTHERMENTOR_VISIT_DATE, "21-10-2026"));
+        JSONObject event = new JSONObject().put("obs", observations);
+        for (String outcome : new String[] {"deceased", "lost_to_follow_up", "relocated",
+                "transferred_to_another_facility", "stopped_services", "not_available"}) {
+            observations.put(2, observation(DBConstants.KEY.FOLLOW_UP_STATUS, outcome));
+            visit.setJson(event.toString());
+            assertTrue(outcome, locked(visit, "2026-10-21 12:00:00"));
+            assertFalse(outcome, MotherMentorVisitCompletion.isComplete(observations));
+        }
+
+        observations.put(2, observation(DBConstants.KEY.FOLLOW_UP_STATUS, "unknown"));
+        visit.setJson(event.toString());
+        assertFalse(locked(visit, "2026-10-21 12:00:00"));
+    }
+
+    @Test
+    public void pendingOrIncompleteLegacyRepeatVisitDoesNotLock() throws Exception {
+        Visit visit = legacyRepeatVisit("repeat", "continuing_services");
+        visit.setProcessed(false);
+        assertFalse(locked(visit, "2026-10-21 12:00:00"));
+
+        visit.setProcessed(true);
+        JSONObject event = new JSONObject(visit.getJson());
+        event.getJSONArray("obs").put(observation(DBConstants.KEY.NEXT_APPOINTMENT_DATE, ""));
+        visit.setJson(event.toString());
+        assertFalse(locked(visit, "2026-10-21 12:00:00"));
+    }
+
+    @Test
+    public void categorizedFollowUpDoesNotLockRoutineServicesWithLegacyAnswers() throws Exception {
+        Visit visit = legacyRepeatVisit("repeat", "continuing_services");
+        JSONObject event = new JSONObject(visit.getJson());
+        event.getJSONArray("obs").put(observation(DBConstants.KEY.FOLLOW_UP_CATEGORY, "MOTHER_IIT"));
+        visit.setJson(event.toString());
         assertFalse(locked(visit, "2026-10-21 12:00:00"));
     }
 
@@ -150,6 +212,20 @@ public class MotherMentorDailyVisitUtilsTest {
 
     private Date date(String value) throws Exception {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).parse(value);
+    }
+
+    private Visit legacyRepeatVisit(String attendance, String status) throws Exception {
+        Visit visit = completedVisit("21-10-2026");
+        JSONObject event = new JSONObject(visit.getJson());
+        JSONArray observations = event.getJSONArray("obs");
+        observations.put(0, observation(DBConstants.KEY.ATTENDANCE_TYPE, attendance));
+        observations.put(observation(DBConstants.KEY.FOLLOW_UP_STATUS, status));
+        visit.setJson(event.toString());
+        return visit;
+    }
+
+    private JSONObject observation(String field, String answer) throws Exception {
+        return new JSONObject().put("fieldCode", field).put("values", new JSONArray().put(answer));
     }
 
     private Visit completedVisit(String recordedDate) throws Exception {
