@@ -13,6 +13,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.CoreChwRepository;
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.exception.DatabaseMigrationException;
 import org.smartregister.reporting.ReportingLibrary;
 
@@ -73,6 +74,7 @@ public class ChwRepository extends CoreChwRepository {
         org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository.upgrade(database);
         org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository.upgrade(database);
         MotherMentorMotherDeliveryRepository.upgrade(database);
+        MotherMentorMotherChildRepository.upgrade(database);
         createdWithCurrentCipher = true;
     }
 

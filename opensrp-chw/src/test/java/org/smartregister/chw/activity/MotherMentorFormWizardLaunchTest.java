@@ -287,9 +287,11 @@ public class MotherMentorFormWizardLaunchTest {
     private void assertLaunch(Context context, Launch launch, JSONObject form) throws Exception {
         assertNotNull(launch.intent);
         assertEquals(JsonFormUtils.REQUEST_CODE_GET_JSON, launch.requestCode);
-        assertEquals(
-                FamilyWizardFormActivity.class.getName(),
-                launch.intent.getComponent().getClassName());
+        boolean childAssessment = "Mother Mentor Visit Type".equals(form.optString("encounter_type"))
+                && org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
+                        .field(form, org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_CHILD_STATUS) != null;
+        assertEquals((childAssessment ? MotherMentorVisitWizardActivity.class
+                : FamilyWizardFormActivity.class).getName(), launch.intent.getComponent().getClassName());
         assertEquals(form.toString(), launchedJson(launch).toString());
         assertNavigation(context, config(launch.intent));
     }
