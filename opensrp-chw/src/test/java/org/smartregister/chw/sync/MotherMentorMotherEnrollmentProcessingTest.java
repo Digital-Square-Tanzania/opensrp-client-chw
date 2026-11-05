@@ -12,7 +12,9 @@ import org.mockito.MockedStatic;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
@@ -56,7 +58,11 @@ public class MotherMentorMotherEnrollmentProcessingTest extends BaseUnitTest {
                 MockedStatic<MotherMentorHouseholdClosureRepository> households =
                         mockStatic(MotherMentorHouseholdClosureRepository.class);
                 MockedStatic<MotherMentorMotherClosureRepository> closure =
-                        mockStatic(MotherMentorMotherClosureRepository.class)) {
+                        mockStatic(MotherMentorMotherClosureRepository.class);
+                MockedStatic<MotherMentorMotherDeliveryRepository> delivery =
+                        mockStatic(MotherMentorMotherDeliveryRepository.class);
+                MockedStatic<MotherMentorMotherChildRepository> child =
+                        mockStatic(MotherMentorMotherChildRepository.class)) {
             CoreLibrary library = mock(CoreLibrary.class);
             core.when(CoreLibrary::getInstance).thenReturn(library);
             when(library.isPeerToPeerProcessing()).thenReturn(true);
@@ -66,8 +72,24 @@ public class MotherMentorMotherEnrollmentProcessingTest extends BaseUnitTest {
                     .thenAnswer(call -> { assertTrue(projected.get()); return null; });
             closure.when(() -> MotherMentorMotherClosureRepository.rebuildForHousehold(any(), eq("simulated-client")))
                     .thenAnswer(call -> { assertTrue(projected.get()); return null; });
+            delivery.when(() -> MotherMentorMotherDeliveryRepository.rebuild(any(), eq("simulated-client")))
+                    .thenAnswer(call -> { assertTrue(projected.get()); return null; });
+            child.when(() -> MotherMentorMotherChildRepository.rebuild(any(), eq("simulated-client")))
+                    .thenAnswer(call -> { assertTrue(projected.get()); return null; });
+            child.when(() -> MotherMentorMotherChildRepository.rebuildForChild(any(), eq("simulated-client")))
+                    .thenAnswer(call -> { assertTrue(projected.get()); return null; });
             processor.processEvents(classification, null, null, eventClient, event, eventType);
             assertTrue(projected.get());
+            if (Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT.equals(eventType)) {
+                delivery.verify(() -> MotherMentorMotherDeliveryRepository.rebuild(any(), eq("simulated-client")));
+                child.verify(() -> MotherMentorMotherChildRepository.rebuild(any(), eq("simulated-client")));
+            } else if ("child".equals(expected)) {
+                delivery.verifyNoInteractions();
+                child.verify(() -> MotherMentorMotherChildRepository.rebuildForChild(any(), eq("simulated-client")));
+            } else {
+                delivery.verifyNoInteractions();
+                child.verifyNoInteractions();
+            }
             if ("mother".equals(expected)) {
                 closure.verify(() -> MotherMentorMotherClosureRepository.rebuild(any(), eq("simulated-client")));
             } else if ("child".equals(expected)) {
