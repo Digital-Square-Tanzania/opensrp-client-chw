@@ -17,9 +17,8 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
-import org.joda.time.Months;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
+import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdEligibilityDao;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,10 +113,7 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     private static final String CONSENT_YES = "ndiyo";
     private static final String CHILD_OVER_18_MONTHS_MESSAGE =
             "Mother not enrolled — child is over 18 months of follow-up";
-    private static final DateTimeFormatter[] CHILD_DOB_FORMATTERS =
-            new DateTimeFormatter[] {
-                DateTimeFormat.forPattern("dd-MM-yyyy"), DateTimeFormat.forPattern("yyyy-MM-dd")
-            };
+
 
     public static void startRegistration(
             Activity activity, String baseEntityId, String gender, int age) {
@@ -164,6 +160,8 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     }
 
     public static void startHouseholdEnrollment(Activity activity, String householdBaseEntityId) {
+        if (!MotherMentorHouseholdEligibilityDao.hasEligibleMother(householdBaseEntityId)
+                || MotherMentorHouseholdEligibilityDao.isEnrolled(householdBaseEntityId)) return;
         Intent intent = new Intent(activity, MotherMentorRegisterActivity.class);
         intent.putExtra(
                 org.smartregister.chw.mothermentor.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID,
@@ -322,12 +320,14 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
-                if (isMotherMentorEnrollment(form) && isChildOver18Months(form)) {
+                if (isMotherMentorEnrollment(form) && !isEligibleMother(form)) {
                     displayToast(CHILD_OVER_18_MONTHS_MESSAGE);
                     return;
                 }
                 if (EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT.equals(
                         form.optString(Constants.ENCOUNTER_TYPE))) {
+                    if (MotherMentorHouseholdEligibilityDao.isEnrolled(BASE_ENTITY_ID)
+                            || !MotherMentorHouseholdEligibilityDao.hasEligibleMother(BASE_ENTITY_ID)) return;
                     boolean hasConsent = saveHouseholdEnrollment(form);
                     displayToast(
                             getString(
@@ -387,29 +387,12 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                 || Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT.equals(encounterType);
     }
 
-    private boolean isChildOver18Months(JSONObject form) {
-        String childDob =
+    private boolean isEligibleMother(JSONObject form) {
+        return MotherMentorEligibility.isEligibleMother(
                 org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
-                        form, DBConstants.KEY.CHILD_DOB);
-        if (StringUtils.isBlank(childDob)) {
-            return false;
-        }
-
-        LocalDate childDobDate = parseChildDob(childDob);
-        return childDobDate != null
-                && Months.monthsBetween(childDobDate, LocalDate.now()).getMonths() > 18;
-    }
-
-    private LocalDate parseChildDob(String childDob) {
-        for (DateTimeFormatter formatter : CHILD_DOB_FORMATTERS) {
-            try {
-                return formatter.parseLocalDate(childDob);
-            } catch (IllegalArgumentException e) {
-                // Try the next supported native-form date format.
-            }
-        }
-        Timber.w("Unable to parse Mother Mentor child DOB: %s", childDob);
-        return null;
+                        form, DBConstants.KEY.PREGNANCY_STATUS),
+                org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
+                        form, DBConstants.KEY.CHILD_DOB), LocalDate.now());
     }
 
     private boolean saveHouseholdEnrollment(JSONObject form) throws Exception {

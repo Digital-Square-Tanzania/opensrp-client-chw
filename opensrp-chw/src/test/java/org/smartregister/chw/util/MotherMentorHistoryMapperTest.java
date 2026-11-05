@@ -14,6 +14,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 
@@ -27,6 +28,62 @@ import java.util.Locale;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorHistoryMapperTest {
+    @Test
+    @Config(qualifiers = "en")
+    public void partnerClosureReasonAndDateRemainReadableWithoutExposingCounters() {
+        assertClosureHistory("Closure reason", "Moved from area");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void partnerClosureHistoryUsesSwahiliLabelsAndReason() {
+        assertClosureHistory("Sababu ya kufungwa", "Amehama eneo");
+    }
+
+    private void assertClosureHistory(String expectedLabel, String expectedReason) {
+        Visit visit = visit(MotherMentorFollowUpType.PARTNER.getEventType());
+        answer(visit, DBConstants.KEY.MWENZI_STATUS, "moved", "");
+        answer(visit, DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA, "[\"moved\"]", "");
+        answer(visit, DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, "2026-11-04", "");
+        answer(visit, DBConstants.KEY.MWENZI_COUNTER_HAJAPATIKANA, "1", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList(DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA), keys(rows));
+        assertEquals(expectedLabel, rows.get(0).getLabel());
+        assertEquals(Collections.singletonList(expectedReason), rows.get(0).getValues());
+        assertEquals(Collections.singletonList("2026-11-04"), rows.get(1).getValues());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void householdClosureHistoryShowsOnlyLocalizedReasonAndDate() {
+        assertHouseholdClosureHistory("Reason for closure", "Moved from area", "Closure date");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliHouseholdClosureHistoryShowsOnlyLocalizedReasonAndDate() {
+        assertHouseholdClosureHistory("Sababu ya kufungwa", "Imehama eneo", "Tarehe ya kufungwa");
+    }
+
+    private void assertHouseholdClosureHistory(String reasonLabel, String reason, String dateLabel) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, "household_enrollment_id", "enrollment-1", "");
+        answer(visit, "kaya_status", "moved", "");
+        answer(visit, "kaya_sababu_ya_kufungwa", "moved", "");
+        answer(visit, "kaya_tarehe_ya_kufungwa", "2026-11-01", "");
+        answer(visit, "kaya_counter_nyumba_imefungwa", "0", "");
+        answer(visit, "kaya_counter_nyingine", "0", "");
+        answer(visit, "kaya_counter_haijapatikana", "1", "");
+        answer(visit, "comments", "Original comment", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList("kaya_sababu_ya_kufungwa", "kaya_tarehe_ya_kufungwa", "comments"), keys(rows));
+        assertEquals(reasonLabel, row(rows, "kaya_sababu_ya_kufungwa").getLabel());
+        assertEquals(Collections.singletonList(reason), row(rows, "kaya_sababu_ya_kufungwa").getValues());
+        assertEquals(dateLabel, row(rows, "kaya_tarehe_ya_kufungwa").getLabel());
+        assertEquals(Collections.singletonList("2026-11-01"), row(rows, "kaya_tarehe_ya_kufungwa").getValues());
+    }
+
     @Test
     @Config(qualifiers = "en")
     public void serviceQuestionsFollowActionAndFormOrderIncludingNewAttendanceFields() {
@@ -288,6 +345,108 @@ public class MotherMentorHistoryMapperTest {
         assertEquals(Arrays.asList("service_interruption_reason_other", "comments"), keys(rows));
         assertEquals(Collections.singletonList("Old reason, original text"), row(rows, "service_interruption_reason_other").getValues());
         assertEquals(Collections.singletonList("Yes"), row(rows, "comments").getValues());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void statusOnlyHouseholdHistoryKeepsEnglishQuestionOrderAndHidesSchema() {
+        checkHouseholdStatusHistory(false);
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void statusOnlyHouseholdHistoryKeepsSwahiliQuestionOrderAndHidesSchema() {
+        checkHouseholdStatusHistory(true);
+    }
+
+    private void checkHouseholdStatusHistory(boolean swahili) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA, "2", "");
+        answer(visit, "step1:" + DBConstants.KEY.HOUSEHOLD_VISIT_TYPE, "repeat", "");
+        answer(visit, DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS, "not_found", "");
+        answer(visit, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON, "other", "");
+        answer(visit, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER, "Work, travel", "");
+        answer(visit, DBConstants.KEY.COMMENTS, "Return next week", "");
+        assertTrue(MotherMentorHistoryMapper.isHouseholdVisit(visit));
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList(DBConstants.KEY.HOUSEHOLD_VISIT_TYPE,
+                DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON,
+                DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER, DBConstants.KEY.COMMENTS), keys(rows));
+        assertEquals(Collections.singletonList(swahili ? "Tembeleo la Marudio" : "Follow-up Visit"),
+                row(rows, DBConstants.KEY.HOUSEHOLD_VISIT_TYPE).getValues());
+        assertEquals(Collections.singletonList(swahili ? "Haijapatikana" : "Not found"),
+                row(rows, DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS).getValues());
+        assertEquals(swahili ? "Hali ya Ziara ya Kaya" : "Household Visit Status",
+                row(rows, DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS).getLabel());
+        assertEquals(Collections.singletonList("Work, travel"),
+                row(rows, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER).getValues());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void newHouseholdRoleHistoryShowsCountsWithoutInternalFormatOrLegacySexFields() {
+        assertRoleHistory("Number — Child", "Number — Other", "Partner");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliRoleHistoryUsesMwenziAndRoleCountLabels() {
+        assertRoleHistory("Idadi — Mtoto", "Idadi — Mwingine", "Mwenzi");
+    }
+
+    private void assertRoleHistory(String childLabel, String otherLabel, String partnerLabel) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, "household_counselling_schema", "2", "");
+        answer(visit, "participants", "[mother, partner, child, other]", "");
+        answer(visit, "counselled_child_count", "2", "");
+        answer(visit, "counselled_other_count", "1", "");
+        answer(visit, "other", "Neighbour, original identification", "");
+        answer(visit, "counselled_total", "5", "");
+        List<Row> rows = mapper().map(visit);
+        assertTrue(MotherMentorHistoryMapper.isHouseholdVisit(visit));
+        assertFalse(MotherMentorHistoryMapper.isLegacyHouseholdVisit(visit));
+        assertEquals(childLabel, row(rows, "counselled_child_count").getLabel());
+        assertEquals(otherLabel, row(rows, "counselled_other_count").getLabel());
+        assertEquals(Collections.singletonList("2"), row(rows, "counselled_child_count").getValues());
+        assertEquals(Collections.singletonList("5"), row(rows, "counselled_total").getValues());
+        assertTrue(row(rows, "participants").getValues().contains(partnerLabel));
+        assertFalse(keys(rows).contains("household_counselling_schema"));
+        assertFalse(keys(rows).contains("counselled_male"));
+        assertFalse(keys(rows).contains("counselled_female"));
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void legacyHouseholdHistoryKeepsOriginalCountsWithLegacyLabels() {
+        assertLegacyHistory("legacy format", "Partner");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void legacySwahiliHistoryDisplaysCurrentMwenziWithoutRewritingSavedMwenza() {
+        assertLegacyHistory("muundo wa zamani", "Mwenzi");
+    }
+
+    private void assertLegacyHistory(String legacyLabel, String partnerLabel) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, "household_members_found", "9", "");
+        answer(visit, "counselled_male", "3", "");
+        answer(visit, "counselled_female", "4", "");
+        answer(visit, "counselled_total", "7", "");
+        answer(visit, "participants", "[mother, Mwenza]", "");
+        List<Row> rows = mapper().map(visit);
+        assertTrue(MotherMentorHistoryMapper.isLegacyHouseholdVisit(visit));
+        for (String key : Arrays.asList("household_members_found", "counselled_male",
+                "counselled_female", "counselled_total")) {
+            assertTrue(row(rows, key).getLabel().contains(legacyLabel));
+        }
+        assertEquals(Collections.singletonList("9"), row(rows, "household_members_found").getValues());
+        assertEquals(Collections.singletonList("3"), row(rows, "counselled_male").getValues());
+        assertEquals(Collections.singletonList("4"), row(rows, "counselled_female").getValues());
+        assertEquals(Collections.singletonList("7"), row(rows, "counselled_total").getValues());
+        assertTrue(row(rows, "participants").getValues().contains(partnerLabel));
+        assertEquals("[mother, Mwenza]", visit.getVisitDetails().get("participants").get(0).getDetails());
+        assertFalse(keys(rows).contains("counselled_child_count"));
     }
 
     private MotherMentorHistoryMapper mapper() {

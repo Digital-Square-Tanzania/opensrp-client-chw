@@ -26,6 +26,8 @@ import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 
 import java.text.SimpleDateFormat;
@@ -120,20 +122,26 @@ public class MotherMentorProfileActivityTest extends BaseUnitTest {
 
     @Test
     public void completedPrimaryServiceDoesNotDisableFollowUpCategory() throws Exception {
-        Visit visit = completedServiceVisit();
-        try (MockedStatic<MotherMentorLibrary> libraryMock = persistedVisits(visit)) {
-            MotherMentorProfileActivity activity = serviceProfile();
-            activity.setIntent(
-                    new Intent()
-                            .putExtra(MotherMentorProfileActivity.EXTRA_FOLLOW_UP_PROFILE, true)
-                            .putExtra(
-                                    MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE,
-                                    MotherMentorFollowUpType.PARTNER.getValue()));
-            activity.setupButtons();
-            assertTrue(recordButton(activity).isEnabled());
-            activity.openRecordClientVisit();
-            Intent intent = Shadows.shadowOf(activity).getNextStartedActivityForResult().intent;
-            assertTrue(intent.getBooleanExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, false));
+        try (MockedStatic<MotherMentorPartnerClosureRepository> closure =
+                     Mockito.mockStatic(MotherMentorPartnerClosureRepository.class)) {
+            closure.when(() -> MotherMentorPartnerClosureRepository.getState(
+                    Mockito.any(), Mockito.eq("test-client-id"), Mockito.isNull()))
+                    .thenReturn(MotherMentorPartnerClosure.active());
+            Visit visit = completedServiceVisit();
+            try (MockedStatic<MotherMentorLibrary> libraryMock = persistedVisits(visit)) {
+                MotherMentorProfileActivity activity = serviceProfile();
+                activity.setIntent(
+                        new Intent()
+                                .putExtra(MotherMentorProfileActivity.EXTRA_FOLLOW_UP_PROFILE, true)
+                                .putExtra(
+                                        MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE,
+                                        MotherMentorFollowUpType.PARTNER.getValue()));
+                activity.setupButtons();
+                assertTrue(recordButton(activity).isEnabled());
+                activity.openRecordClientVisit();
+                Intent intent = Shadows.shadowOf(activity).getNextStartedActivityForResult().intent;
+                assertTrue(intent.getBooleanExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, false));
+            }
         }
     }
 

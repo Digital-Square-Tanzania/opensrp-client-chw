@@ -18,6 +18,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -296,6 +297,121 @@ public class MotherMentorReportObjectTest {
         assertEquals(10, counts.getInt("mm-14"));
         detail("home2", "household_referral_given", "yes");
         assertEquals("—", report.getIndicatorData().getString("mm-17"));
+    }
+
+    @Test
+    public void roleCounsellingTotalsIgnoreStaleSexAndUntickedRoleCounts() throws Exception {
+        roleHouseholdVisit("roles", "[mother, partner, child, other]", "2", null, "99", "1", "Neighbour");
+        detail("roles", "counselled_male", "50");
+        detail("roles", "counselled_female", "60");
+        detail("roles", "counselled_total", "999");
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(5, counts.getInt("mm-14"));
+        assertEquals(5, counts.getInt("mm-14-known-total"));
+        assertEquals(0, counts.getInt("mm-14-missing-records"));
+        assertEquals(1, counts.getInt("mm-14-role-visits"));
+        assertEquals("—", counts.getString("mm-14-male-total"));
+        assertEquals("—", counts.getString("mm-14-female-total"));
+        assertEquals(0, counts.getInt("mm-14-legacy-male-total"));
+        assertEquals(0, counts.getInt("query-errors"));
+    }
+
+    @Test
+    public void mixedLegacyAndRoleVisitsKeepTheFullTotalAndOnlyKnownLegacySexCounts() throws Exception {
+        roleHouseholdVisit("roles", "[mother, child]", "2", null, null, null, null);
+        visit("legacy", "family", "2026-04-15", 1);
+        detail("legacy", "purpose_of_visit", "routine");
+        detail("legacy", "counselled_male", "2");
+        detail("legacy", "counselled_female", "3");
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(8, counts.getInt("mm-14"));
+        assertEquals(1, counts.getInt("mm-13"));
+        assertEquals("—", counts.getString("mm-14-male-total"));
+        assertEquals("—", counts.getString("mm-14-female-total"));
+        assertEquals(2, counts.getInt("mm-14-legacy-male-total"));
+        assertEquals(3, counts.getInt("mm-14-legacy-female-total"));
+        assertEquals(1, counts.getInt("mm-14-role-visits"));
+        assertEquals(1, counts.getInt("mm-14-legacy-visits"));
+    }
+
+    @Test
+    public void roleCounsellingRequiresEverySelectedCountAndOtherIdentification() throws Exception {
+        roleHouseholdVisit("incomplete", "[mother, child, other]", null, null, null, "1", null);
+        JSONObject counts = report.getIndicatorData();
+        assertEquals("—", counts.getString("mm-14"));
+        assertEquals(1, counts.getInt("mm-14-missing-records"));
+        assertEquals(0, counts.getInt("mm-14-known-total"));
+        detail("incomplete", "counselled_child_count", "2");
+        counts = report.getIndicatorData();
+        assertEquals("—", counts.getString("mm-14"));
+        detail("incomplete", "other", "Other person");
+        assertEquals(4, report.getIndicatorData().getInt("mm-14"));
+    }
+
+    @Test
+    public void roleCounsellingRejectsUnknownRolesEmptySelectionAndNonpositiveCounts() throws Exception {
+        for (String id : new String[] {"unknown", "empty", "zero", "negative", "fraction", "large"}) {
+            String roles = "unknown".equals(id) ? "[grandmother]" : "empty".equals(id) ? "[]" : "[child]";
+            String number = "zero".equals(id) ? "0" : "negative".equals(id) ? "-1"
+                    : "fraction".equals(id) ? "1.5" : "large".equals(id) ? "100000" : "1";
+            roleHouseholdVisit(id, roles, number, null, null, null, null);
+        }
+        JSONObject counts = report.getIndicatorData();
+        assertEquals("—", counts.getString("mm-14"));
+        assertEquals(6, counts.getInt("mm-14-missing-records"));
+        assertEquals(0, counts.getInt("mm-14-known-total"));
+        assertEquals(0, counts.getInt("query-errors"));
+    }
+
+    @Test
+    public void roleCounsellingRequiresWholeTokensAndKeepsValidSpacingAndDuplicates()
+            throws Exception {
+        roleHouseholdVisit("compound-child", "[mother, childchild]", null, null, null, null, null);
+        roleHouseholdVisit("compound-roles", "[mother, motherpartner]", null, null, null, null, null);
+        roleHouseholdVisit("split-word", "[mother, part ner]", null, null, null, null, null);
+        roleHouseholdVisit("spaced", "[  mother , partner  ]", null, null, null, null, null);
+        roleHouseholdVisit("duplicates", "[mother, mother, partner]", null, null, null, null, null);
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(3, counts.getInt("mm-14-missing-records"));
+        assertEquals("—", counts.getString("mm-14"));
+        assertEquals(4, counts.getInt("mm-14-known-total"));
+        assertEquals(5, counts.getInt("mm-14-role-visits"));
+        assertEquals(0, counts.getInt("query-errors"));
+    }
+
+    @Test
+    public void roleCountsAreOncePerVisitAndFinalizedConsentMonthBoundariesRemain() throws Exception {
+        roleHouseholdVisit("roles", "[mother, partner, child]", "2", null, null, null, null);
+        detail("roles", "counselled_child_count", "2");
+        visit("draft", "family", "2026-04-15", 0);
+        detail("draft", "purpose_of_visit", "routine");
+        detail("draft", "household_counselling_schema", "2");
+        detail("draft", "participants", "[mother]");
+        visit("outside", "family", "2026-05-01", 1);
+        detail("outside", "purpose_of_visit", "routine");
+        detail("outside", "household_counselling_schema", "2");
+        detail("outside", "participants", "[partner]");
+        household("no-consent", "hapana");
+        visit("refused", "no-consent", "2026-04-15", 1);
+        detail("refused", "purpose_of_visit", "routine");
+        detail("refused", "household_counselling_schema", "2");
+        detail("refused", "participants", "[mother]");
+        assertEquals(4, report.getIndicatorData().getInt("mm-14"));
+    }
+
+    private void roleHouseholdVisit(String id, String roles, String child, String relative,
+            String neighbour, String other, String otherIdentification) {
+        household("family", "ndiyo");
+        visit(id, "family", "2026-04-15", 1);
+        detail(id, "purpose_of_visit", "routine");
+        detail(id, "household_counselling_schema", "2");
+        detail(id, "participants", roles);
+        if (child != null) detail(id, "counselled_child_count", child);
+        if (relative != null) detail(id, "counselled_relative_count", relative);
+        if (neighbour != null) detail(id, "counselled_neighbour_count", neighbour);
+        if (other != null) detail(id, "counselled_other_count", other);
+        if (otherIdentification != null) detail(id, "other", otherIdentification);
     }
 
     @Test
@@ -741,6 +857,39 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void indicatorEightRetainsQualifyingTestsAfterThePartnerIsClosed() throws Exception {
+        member("closed-partner", "Male", "1990-01-01");
+        partnerAttendance("closing-visit", "closed-partner", "2026-04-20", "episode", "link");
+        partnerTest("closing-visit", "hiv", "positive");
+        partnerTest("closing-visit", "syphilis", "negative");
+        partnerTest("closing-visit", "hepatitis_b", "negative");
+        for (String field : new String[] {DBConstants.KEY.MWENZI_STATUS,
+                DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA}) {
+            database.execSQL("ALTER TABLE ec_mothermentor_enroll_partner ADD COLUMN " + field + " TEXT");
+        }
+        database.execSQL("INSERT INTO ec_mothermentor_enroll_partner (base_entity_id, is_closed, "
+                + DBConstants.KEY.MWENZI_STATUS + ") VALUES ('closed-partner', 0, 'active')");
+        JSONObject beforeClosure = report.getIndicatorData();
+        database.execSQL("UPDATE ec_mothermentor_enroll_partner SET is_closed = 1, "
+                + DBConstants.KEY.MWENZI_STATUS + " = 'attended_tested', "
+                + DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA + " = 'attended_tested', "
+                + DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA + " = '2026-04-20'");
+        detail("closing-visit", DBConstants.KEY.MWENZI_STATUS, "attended_tested");
+        detail("closing-visit", DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA, "attended_tested");
+        detail("closing-visit", DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, "2026-04-20");
+
+        JSONObject afterClosure = report.getIndicatorData();
+
+        for (String key : new String[] {"mm-8", "mm-8-hiv-positive",
+                "mm-8-syphilis-negative", "mm-8-hepatitis-b-negative"}) {
+            assertEquals(key, 1, beforeClosure.getInt(key));
+            assertEquals(key, beforeClosure.getInt(key), afterClosure.getInt(key));
+        }
+        assertEquals(0, afterClosure.getInt("mm-8-missing-records"));
+    }
+
+    @Test
     public void partnerTestsUseTheServiceDayForMonthAndAgeWithoutDoubleCountingBirthdays() throws Exception {
         member("birthday", "Male", "2001-04-15");
         partnerAttendance("hiv-before-birthday", "birthday", "2026-04-01", "episode", "link");
@@ -824,6 +973,39 @@ public class MotherMentorReportObjectTest {
         assertEquals(2, c.getInt("mm-12-hepatitis-b"));
         assertEquals(1, c.getInt("mm-12-hiv-male-20-24"));
         assertEquals(0, c.getInt("mm-12-hiv-male-25-59"));
+    }
+
+    @Test
+    public void attendanceNoWithoutEducationIsKnownZeroAndPreservesHistoricalEducation() throws Exception {
+        member("not-attended", "Male", "1990-01-01");
+        partnerAttendance("not-attended", "not-attended", "2026-04-20", "episode", "link");
+        setDetail("not-attended", "partner_arrived_at_facility", "no");
+        setDetail("not-attended", "partner_education_provided", "");
+        JSONObject c = report.getIndicatorData();
+        assertEquals(0, c.getInt("mm-8"));
+        assertEquals(0, c.getInt("mm-8-missing-records"));
+        assertEquals(0, c.getInt("mm-12"));
+        assertEquals(0, c.getInt("mm-12-missing-records"));
+
+        member("educated-before-attendance", "Male", "1990-01-01");
+        partnerAttendance("historical-education", "educated-before-attendance", "2026-04-21", "episode", "link");
+        setDetail("historical-education", "partner_arrived_at_facility", "no");
+        partnerEducation("historical-education", "hiv");
+        c = report.getIndicatorData();
+        assertEquals(1, c.getInt("mm-12"));
+        assertEquals(1, c.getInt("mm-12-hiv"));
+        assertEquals(0, c.getInt("mm-12-missing-records"));
+    }
+
+    @Test
+    public void attendanceNoWithExplicitIncompleteEducationRemainsMissing() throws Exception {
+        member("not-attended", "Male", "1990-01-01");
+        partnerAttendance("not-attended", "not-attended", "2026-04-20", "episode", "link");
+        setDetail("not-attended", "partner_arrived_at_facility", "no");
+        setDetail("not-attended", "partner_education_provided", "yes");
+        JSONObject c = report.getIndicatorData();
+        assertEquals("—", c.getString("mm-12"));
+        assertEquals(1, c.getInt("mm-12-missing-records"));
     }
 
     @Test

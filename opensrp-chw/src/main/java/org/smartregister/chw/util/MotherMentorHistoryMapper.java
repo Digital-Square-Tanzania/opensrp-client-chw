@@ -12,6 +12,9 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
+
+import timber.log.Timber;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,8 +33,6 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import timber.log.Timber;
-
 /** Reads history questions and coded answers from the same localized forms used for visits. */
 public final class MotherMentorHistoryMapper {
     private static final String HISTORY_PREFIX = "mothermentor_history_";
@@ -39,6 +40,13 @@ public final class MotherMentorHistoryMapper {
     private static final Set<String> HOUSEHOLD_FIELDS =
             new HashSet<>(
                     Arrays.asList(
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.HOUSEHOLD_VISIT_TYPE,
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS,
+                            DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON,
+                            DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER,
+                            DBConstants.KEY.KAYA_STATUS,
+                            DBConstants.KEY.HOUSEHOLD_ENROLLMENT_ID,
                             DBConstants.KEY.PURPOSE_OF_VISIT,
                             DBConstants.KEY.OTHER_PURPOSE,
                             DBConstants.KEY.PARTICIPANTS,
@@ -48,6 +56,11 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.COUNSELLED_MALE,
                             DBConstants.KEY.COUNSELLED_FEMALE,
                             DBConstants.KEY.COUNSELLED_TOTAL,
+                            DBConstants.KEY.HOUSEHOLD_COUNSELLING_SCHEMA,
+                            DBConstants.KEY.COUNSELLED_CHILD_COUNT,
+                            DBConstants.KEY.COUNSELLED_RELATIVE_COUNT,
+                            DBConstants.KEY.COUNSELLED_NEIGHBOUR_COUNT,
+                            DBConstants.KEY.COUNSELLED_OTHER_COUNT,
                             DBConstants.KEY.HOUSEHOLD_REFERRAL_GIVEN,
                             DBConstants.KEY.HOUSEHOLD_REFERRAL_SERVICES,
                             DBConstants.KEY.HOUSEHOLD_REFERRAL_OTHER));
@@ -59,13 +72,29 @@ public final class MotherMentorHistoryMapper {
                             "start", "end", "today", "deviceid", "subscriberid", "simserial",
                             "encounter_date", "encounter_location", "encounter_type", "gps",
                             "latitude", "longitude", "location_id", "provider_id", "team_id",
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.MWENZI_STATUS,
+                            DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA,
+                            DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                            DBConstants.KEY.MWENZI_COUNTER_AMEKATAA,
+                            DBConstants.KEY.MWENZI_COUNTER_HAJAHUDHURIA,
+                            DBConstants.KEY.MWENZI_COUNTER_AMESAFIRI,
+                            DBConstants.KEY.MWENZI_COUNTER_NYINGINE,
+                            DBConstants.KEY.MWENZI_COUNTER_HAJAPATIKANA,
                             DBConstants.KEY.MOTHERMENTOR_REPORTING_VERSION,
                             DBConstants.KEY.PRIMARY_MOTHERMENTOR_CLIENT,
                             DBConstants.KEY.IIT_ENROLLED,
                             DBConstants.KEY.PARTNER_ENROLLED,
                             DBConstants.KEY.CHILD_EID_ENROLLED,
                             DBConstants.KEY.ART_INITIATED_BEFORE_VISIT,
-                            DBConstants.KEY.MOTHERMENTOR_VISIT_DATE));
+                            DBConstants.KEY.MOTHERMENTOR_VISIT_DATE,
+                            DBConstants.KEY.HOUSEHOLD_ENROLLMENT_ID,
+                            DBConstants.KEY.KAYA_STATUS,
+                            DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA,
+                            DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA,
+                            DBConstants.KEY.KAYA_COUNTER_NYUMBA_IMEFUNGWA,
+                            DBConstants.KEY.KAYA_COUNTER_NYINGINE,
+                            DBConstants.KEY.KAYA_COUNTER_HAIJAPATIKANA));
 
     private final Context context;
     private final Context englishContext;
@@ -88,12 +117,39 @@ public final class MotherMentorHistoryMapper {
         Set<String> ignored = new HashSet<>(INTERNAL_FIELDS);
         LinkedHashMap<String, Field> fields = new LinkedHashMap<>();
         for (String form : workflowForms(visit, recorded)) addForm(fields, ignored, form);
+        if (isLegacyHouseholdVisit(visit)) {
+            for (String key : new String[] {DBConstants.KEY.HOUSEHOLD_MEMBERS_FOUND,
+                    DBConstants.KEY.COUNSELLED_MALE, DBConstants.KEY.COUNSELLED_FEMALE,
+                    DBConstants.KEY.COUNSELLED_TOTAL}) {
+                if (!fields.containsKey(key)) continue;
+                String label = DBConstants.KEY.COUNSELLED_TOTAL.equals(key)
+                        ? context.getString(org.smartregister.chw.mothermentor.R.string
+                                .mothermentor_household_counselling_legacy_total)
+                        : resource(HISTORY_PREFIX + key);
+                fields.put(key, new Field(key, label, false));
+            }
+        }
 
         List<Row> rows = new ArrayList<>();
         Row comments = addFormRows(rows, fields, recorded);
         addHistoricalRows(rows, fields, ignored, recorded);
+        addClosureRows(rows, recorded);
+        addHouseholdClosureRows(rows, recorded);
         if (comments != null) rows.add(comments);
         return rows;
+    }
+
+    private void addHouseholdClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {
+        List<String> reasons = values(new Field(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA, "", false),
+                recorded.get(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA));
+        if (reasons.isEmpty()) return;
+        rows.add(new Row(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA,
+                context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_closure_reason),
+                Collections.singletonList(MotherMentorHouseholdClosureLabels.reason(context, reasons.get(0))), false));
+        List<String> dates = values(new Field(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA, "", false),
+                recorded.get(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA));
+        if (!dates.isEmpty()) rows.add(new Row(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA,
+                context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_closure_date), dates, false));
     }
 
     private Row addFormRows(
@@ -128,6 +184,24 @@ public final class MotherMentorHistoryMapper {
         }
     }
 
+    private void addClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {
+        addClosureRow(rows, recorded, DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                org.smartregister.chw.mothermentor.R.string.mothermentor_partner_closure_reason, true);
+        addClosureRow(rows, recorded, DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA,
+                org.smartregister.chw.mothermentor.R.string.mothermentor_partner_closure_date, false);
+    }
+
+    private void addClosureRow(List<Row> rows, Map<String, List<VisitDetail>> recorded,
+            String key, int label, boolean reason) {
+        List<VisitDetail> details = recorded.get(key);
+        if (details == null || details.isEmpty()) return;
+        VisitDetail detail = details.get(details.size() - 1);
+        String value = scalar(firstAnswer(detail.getDetails(), detail.getHumanReadable()));
+        if (StringUtils.isBlank(value)) return;
+        if (reason) value = MotherMentorPartnerClosureText.reason(context, value);
+        rows.add(new Row(key, context.getString(label), Collections.singletonList(value), false));
+    }
+
     public static boolean isHouseholdVisit(Visit visit) {
         if (visit == null) return false;
         if (Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT.equals(visit.getVisitType())) return true;
@@ -138,12 +212,36 @@ public final class MotherMentorHistoryMapper {
         return false;
     }
 
+    /** Original aggregate records remain auditable without pretending they contain role counts. */
+    public static boolean isLegacyHouseholdVisit(Visit visit) {
+        if (!isHouseholdVisit(visit) || visit.getVisitDetails() == null) return false;
+        boolean aggregate = false;
+        for (Map.Entry<String, List<VisitDetail>> entry : visit.getVisitDetails().entrySet()) {
+            String key = canonicalKey(entry.getKey());
+            if (DBConstants.KEY.HOUSEHOLD_COUNSELLING_SCHEMA.equals(key) && entry.getValue() != null) {
+                for (VisitDetail detail : entry.getValue()) {
+                    if (detail == null) continue;
+                    String value = StringUtils.defaultIfBlank(detail.getDetails(), detail.getHumanReadable());
+                    if ("2".equals(StringUtils.strip(StringUtils.trimToEmpty(value), "[]\" "))) return false;
+                }
+            }
+            if (DBConstants.KEY.HOUSEHOLD_MEMBERS_FOUND.equals(key)
+                    || DBConstants.KEY.COUNSELLED_MALE.equals(key)
+                    || DBConstants.KEY.COUNSELLED_FEMALE.equals(key)
+                    || DBConstants.KEY.COUNSELLED_TOTAL.equals(key)) aggregate = true;
+        }
+        return aggregate;
+    }
+
     private List<String> workflowForms(Visit visit, Map<String, List<VisitDetail>> recorded) {
         String type = visit.getVisitType();
         if (isHouseholdVisit(visit)) {
             return Arrays.asList(
+                    "mothermentor_household_follow_up_status",
                     "mothermentor_household_visit_purpose",
-                    "mother_mentor_household_members_who_received_counselling",
+                    isLegacyHouseholdVisit(visit)
+                            ? "mother_mentor_household_members_who_received_counselling_legacy"
+                            : "mother_mentor_household_members_who_received_counselling",
                     "mother_mentor_household_visit_topics_taught",
                     "mothermentor_household_visit_comment");
         }

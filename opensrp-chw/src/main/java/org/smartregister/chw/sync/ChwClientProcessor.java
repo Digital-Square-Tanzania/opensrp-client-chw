@@ -24,6 +24,7 @@ import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
@@ -125,6 +126,12 @@ public class ChwClientProcessor extends CoreClientProcessor {
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
             switch (eventType) {
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MAMA_KINARA_HOUSEHOLD_ENROLMENT:
+                    // Generic EC projection reopens the row; replay finalized visits afterwards.
+                    MotherMentorHouseholdClosureRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(),
+                            baseEntityID);
+                    break;
                 case CoreConstants.EventType.FAMILY_REGISTRATION:
                     // Ensure the new family points to the chosen existing head (if provided)
                     try {
