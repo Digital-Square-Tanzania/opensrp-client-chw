@@ -30,8 +30,44 @@ import java.util.Locale;
 public class MotherMentorHistoryMapperTest {
     @Test
     @Config(qualifiers = "en")
+    public void newMotherEntryHistoryUsesItsReasonAndHidesInternalContext() {
+        List<Row> rows = newMotherEntryHistory();
+        assertEquals("Visit type", row(rows, DBConstants.KEY.ATTENDANCE_TYPE).getLabel());
+        assertEquals("Reason", row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getLabel());
+        assertEquals(Collections.singletonList("Transferred to another facility"),
+                row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getValues());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
     public void partnerClosureReasonAndDateRemainReadableWithoutExposingCounters() {
         assertClosureHistory("Closure reason", "Moved from area");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void newMotherEntryHistoryTranslatesReasonAndPreservesFacilityText() {
+        List<Row> rows = newMotherEntryHistory();
+        assertEquals("Aina ya Hudhurio", row(rows, DBConstants.KEY.ATTENDANCE_TYPE).getLabel());
+        assertEquals("Sababu", row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getLabel());
+        assertEquals(Collections.singletonList("Amehamia kituo kingine"),
+                row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getValues());
+    }
+
+    private List<Row> newMotherEntryHistory() {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.MAMA_ENROLLMENT_ID, "private-enrollment-uuid", "");
+        answer(visit, DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS, "pregnant", "");
+        answer(visit, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, "not_found", "");
+        answer(visit, DBConstants.KEY.MAMA_NOT_FOUND_REASON, "moved_facility", "");
+        answer(visit, DBConstants.KEY.MAMA_KITUO_KIPYA, "Hospital A", "");
+        answer(visit, DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA, "internal auxiliary", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList(DBConstants.KEY.ATTENDANCE_TYPE, DBConstants.KEY.FOLLOW_UP_STATUS,
+                DBConstants.KEY.MAMA_NOT_FOUND_REASON, DBConstants.KEY.MAMA_KITUO_KIPYA), keys(rows));
+        assertEquals(Collections.singletonList("Hospital A"), row(rows, DBConstants.KEY.MAMA_KITUO_KIPYA).getValues());
+        return rows;
     }
 
     @Test
@@ -99,20 +135,19 @@ public class MotherMentorHistoryMapperTest {
         answer(visit, "education_provided", "yes", "Ndiyo");
         answer(visit, "has_been_linked_to_psychosocial_support_group", "yes", "Ndiyo");
         answer(visit, "new_pmtct_art_initiation", "yes", "Ndiyo");
-        answer(visit, "visit_pregnancy_status", "pregnant", "Mjamzito");
         answer(visit, "attendance_type", "new", "Mpya");
 
         List<Row> rows = mapper().map(visit);
 
         assertEquals(
                 Arrays.asList(
-                        "attendance_type", "visit_pregnancy_status", "new_pmtct_art_initiation",
+                        "attendance_type", "new_pmtct_art_initiation",
                         "has_been_linked_to_psychosocial_support_group", "education_provided",
                         "way_education_provided", "topics_being_provided", "education_other",
                         "referral_given", "type_of_referral_given", "referral_other",
                         "next_appointment_date", "comments"),
                 keys(rows));
-        assertEquals("Attendance type", row(rows, "attendance_type").getLabel());
+        assertEquals("Visit type", row(rows, "attendance_type").getLabel());
         assertEquals(Collections.singletonList("Individual"), row(rows, "way_education_provided").getValues());
         assertEquals(Arrays.asList("Nutrition", "Medication adherence"), row(rows, "topics_being_provided").getValues());
         assertEquals(Collections.singletonList("Other topic, full text"), row(rows, "education_other").getValues());
@@ -125,19 +160,17 @@ public class MotherMentorHistoryMapperTest {
     @Config(qualifiers = "sw")
     public void rawOptionCodesTranslateToSwahiliWithoutTranslatingFreeText() {
         Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
-        answer(visit, "attendance_type", "new", "Repeat");
-        answer(visit, "follow_up_status", "continuing_services", "Continuing services");
-        answer(visit, "visit_pregnancy_status", "breast_feeding", "Breastfeeding");
+        answer(visit, "attendance_type", "repeat", "New");
+        answer(visit, "follow_up_status", "found", "Found");
         answer(visit, "way_education_provided", "personal", "Individual");
         answer(visit, "topics_being_provided", "[\"family_planning\",\"tb\"]", "");
         answer(visit, "comments", "yes, keep the original comment", "");
 
         List<Row> rows = mapper().map(visit);
 
-        assertEquals("Aina ya hudhurio", row(rows, "attendance_type").getLabel());
-        assertEquals(Collections.singletonList("Mpya"), row(rows, "attendance_type").getValues());
-        assertEquals(Collections.singletonList("Anaendelea na huduma"), row(rows, "follow_up_status").getValues());
-        assertEquals(Collections.singletonList("Ananyonyesha"), row(rows, "visit_pregnancy_status").getValues());
+        assertEquals("Aina ya Hudhurio", row(rows, "attendance_type").getLabel());
+        assertEquals(Collections.singletonList("Marudio"), row(rows, "attendance_type").getValues());
+        assertEquals(Collections.singletonList("Amepatikana"), row(rows, "follow_up_status").getValues());
         assertEquals(Collections.singletonList("Binafsi"), row(rows, "way_education_provided").getValues());
         assertEquals(Arrays.asList("Uzazi wa mpango", "Kifua kikuu"), row(rows, "topics_being_provided").getValues());
         assertEquals(Collections.singletonList("yes, keep the original comment"), row(rows, "comments").getValues());

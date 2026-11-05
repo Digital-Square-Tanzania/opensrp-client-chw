@@ -87,6 +87,9 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.PARTNER_ENROLLED,
                             DBConstants.KEY.CHILD_EID_ENROLLED,
                             DBConstants.KEY.ART_INITIATED_BEFORE_VISIT,
+                            DBConstants.KEY.MAMA_ENROLLMENT_ID,
+                            DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS,
+                            DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA,
                             DBConstants.KEY.MOTHERMENTOR_VISIT_DATE,
                             DBConstants.KEY.HOUSEHOLD_ENROLLMENT_ID,
                             DBConstants.KEY.KAYA_STATUS,
@@ -316,6 +319,7 @@ public final class MotherMentorHistoryMapper {
         Map<String, JSONObject> translatedFields = formFields(translated);
         for (Map.Entry<String, JSONObject> entry : formFields(selected).entrySet()) {
             String key = entry.getKey();
+            if (DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA.equals(key)) continue;
             JSONObject definition = entry.getValue();
             String type = definition.optString("type");
             if ("hidden".equals(type) || "toaster_notes".equals(type)) {

@@ -141,7 +141,7 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         first.setProcessed(false);
         Visit latest = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
         add(latest, "attendance_type", "repeat", "Repeat");
-        add(latest, "follow_up_status", "continuing_services", "Continuing services");
+        add(latest, "follow_up_status", "found", "Found");
         LinearLayout cards = render(activity, null, first, latest);
 
         assertEquals(2, cards.getChildCount());
@@ -395,7 +395,7 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_type",
                 "attendance_type", "repeat");
         answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_type",
-                "follow_up_status", "continuing_services");
+                "follow_up_status", "found");
         answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_group_linkage",
                 "has_been_linked_to_psychosocial_support_group", "yes");
         answer(visit, expected, locale, oppositeLocale, "mothermentor_visit_group_linkage",
