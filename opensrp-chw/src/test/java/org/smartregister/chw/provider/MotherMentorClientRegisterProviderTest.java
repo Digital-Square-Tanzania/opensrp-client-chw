@@ -115,6 +115,77 @@ public class MotherMentorClientRegisterProviderTest {
 
     @Test
     @Config(qualifiers = "en")
+    public void englishChildAgeReplacesSexAndPreservesTheCtcAndVisitRow() {
+        for (String dob : Arrays.asList("2026-05-23", "23-05-2026",
+                "2026-05-23T23:30:00-10:00")) {
+            Map<String, String> columns = clientColumns("breast_feeding", "6");
+            columns.put(DBConstants.KEY.CHILD_DOB, dob);
+            MotherMentorClientRegisterProvider.ClientViewHolder holder = bind(client("child-en", columns));
+
+            assertEquals("Breastfeeding · child 5 months · Mikocheni", holder.metadata.getText().toString());
+            assertEquals("CTC 12-34-567890-123456 · Visits 6", holder.ctcVisits.getText().toString());
+        }
+    }
+
+    @Test
+    public void closedRowsRemainTappableAndRecycledActiveRowsLoseTheClosedTag() {
+        Map<String, String> columns = clientColumns("not_pregnant", "6");
+        columns.put(DBConstants.KEY.IS_CLOSED, "1");
+        MotherMentorClientRegisterProvider.ClientViewHolder holder = bind(client("closed", columns));
+        assertEquals(View.VISIBLE, holder.closedTag.getVisibility());
+        assertEquals(0.55f, holder.itemView.getAlpha(), 0.001f);
+        assertTrue(holder.itemView.hasOnClickListeners());
+        columns.put(DBConstants.KEY.IS_CLOSED, "0");
+        provider.getView(null, client("active", columns), holder);
+        assertEquals(View.GONE, holder.closedTag.getVisibility());
+        assertEquals(1f, holder.itemView.getAlpha(), 0.001f);
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliChildAgeUsesTheRecordedBirthDateAndLocalizedMonthUnit() {
+        Map<String, String> columns = clientColumns("breast_feeding", "6");
+        columns.put(DBConstants.KEY.CHILD_DOB, "23-05-2026");
+        MotherMentorClientRegisterProvider.ClientViewHolder holder = bind(client("child-sw", columns));
+
+        assertEquals("Ananyonyesha · mtoto miezi 5 · Mikocheni", holder.metadata.getText().toString());
+        assertEquals("CTC 12-34-567890-123456 · Ziara 6", holder.ctcVisits.getText().toString());
+        assertTrue(holder.itemView.getContentDescription().toString().contains("mtoto miezi 5"));
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void childAgeUsesCompletedMonthsAndValidNewbornDates() {
+        Map<String, String> columns = clientColumns("not_pregnant", "0");
+        for (String[] example : new String[][] {
+                {"2026-09-23", "child 1 month"},
+                {"2026-09-24", "child 0 months"},
+                {"2026-10-23", "child 0 months"},
+                {"2025-04-23", "child 18 months"}}) {
+            columns.put(DBConstants.KEY.CHILD_DOB, example[0]);
+            assertEquals("Not pregnant · " + example[1] + " · Mikocheni",
+                    bind(client("child-boundary", columns)).metadata.getText().toString());
+        }
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void invalidOrFutureChildDatesKeepTheOriginalMetadataAndClearRecycledAge() {
+        Map<String, String> columns = clientColumns("not_pregnant", "0");
+        columns.put(DBConstants.KEY.CHILD_DOB, "2026-09-23");
+        MotherMentorClientRegisterProvider.ClientViewHolder holder = bind(client("child-recycle", columns));
+        assertEquals("Si mjamzito · mtoto mwezi 1 · Mikocheni", holder.metadata.getText().toString());
+
+        for (String dob : Arrays.asList(null, "", "not-a-date", "2026-02-30", "30-02-2026", "2026-10-24")) {
+            columns.put(DBConstants.KEY.CHILD_DOB, dob);
+            provider.getView(null, client("child-recycle", columns), holder);
+            assertEquals("Child DOB: " + dob, "Si mjamzito · Mwanamke · Mikocheni",
+                    holder.metadata.getText().toString());
+        }
+    }
+
+    @Test
+    @Config(qualifiers = "en")
     public void missingMalformedAndFutureBirthDatesNeverInventZeroAge() {
         for (String dob :
                 Arrays.asList(null, "", "   ", "not-a-date", "2026-02-30", "2026-10-24")) {

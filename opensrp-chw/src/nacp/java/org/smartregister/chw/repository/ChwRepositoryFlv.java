@@ -239,6 +239,9 @@ public class ChwRepositoryFlv {
                 case 64:
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
                     break;
+                case 65:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.upgrade(db);
+                    break;
                 default:
                     break;
             }
@@ -1168,6 +1171,7 @@ public class ChwRepositoryFlv {
                 ChwApplication.createCommonFtsObject());
         org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository.upgrade(db);
         org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
+        org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.upgrade(db);
     }
 
     private static void upgradeToVersion51(SQLiteDatabase db) {

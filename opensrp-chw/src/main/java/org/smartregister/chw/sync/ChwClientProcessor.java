@@ -131,9 +131,17 @@ public class ChwClientProcessor extends CoreClientProcessor {
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.rebuild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    break;
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_IIT:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID:
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.rebuildForChild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForChild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MAMA_KINARA_HOUSEHOLD_ENROLMENT:
@@ -141,6 +149,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     MotherMentorHouseholdClosureRepository.rebuild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(),
                             baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForHousehold(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     break;
                 case CoreConstants.EventType.FAMILY_REGISTRATION:
                     // Ensure the new family points to the chosen existing head (if provided)

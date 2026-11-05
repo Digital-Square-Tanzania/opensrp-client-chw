@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.mothermentor.contract.BaseMotherMentorVisitContract;
+import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.interactor.BaseMotherMentorServiceVisitInteractor;
@@ -54,13 +55,20 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         Map<String, BaseMotherMentorVisitAction> actions =
                 actions(
                         new MotherMentorServiceVisitInteractor(
-                                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES),
+                                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES) {
+                            @Override
+                            protected MotherMentorMotherVisitDao.Context loadMotherContext(String memberId) {
+                                return new MotherMentorMotherVisitDao.Context(
+                                        "test-enrollment", "", "pregnant", "", "", "", 0);
+                            }
+                        },
                         6);
         BaseMotherMentorVisitAction attendance = byForm(actions, "mothermentor_visit_type");
         BaseMotherMentorVisitAction education =
                 byForm(actions, "mothermentor_visit_education_provided");
         assertFalse(education.isValid());
-        answer(attendance, ATTENDANCE_TYPE, "repeat", FOLLOW_UP_STATUS, "found");
+        answer(attendance, ATTENDANCE_TYPE, "repeat", FOLLOW_UP_STATUS, "found",
+                VISIT_PREGNANCY_STATUS, "pregnant");
         answer(
                 byForm(actions, "mothermentor_visit_group_linkage"),
                 HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP,

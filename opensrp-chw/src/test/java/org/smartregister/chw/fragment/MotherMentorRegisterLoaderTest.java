@@ -58,9 +58,9 @@ public class MotherMentorRegisterLoaderTest {
         when(adapter.getCurrentlimit()).thenReturn(20);
         when(adapter.getCurrentoffset()).thenReturn(40);
         when(model.selectClientsPage(
-                        "old condition", "old search", true, true, false, false, 20, 40))
+                        "old condition", "old search", true, true, false, false, false, 20, 40))
                 .thenReturn("old page query");
-        when(model.countClients("old condition", "old search", true, true, false, false))
+        when(model.countClients("old condition", "old search", true, true, false, false, false))
                 .thenReturn("old count query");
         Bundle countArgs = new Bundle();
         countArgs.putBoolean("count_execute", true);
@@ -70,12 +70,12 @@ public class MotherMentorRegisterLoaderTest {
         ReflectionHelpers.setField(
                 fragment,
                 "filterState",
-                new MotherMentorRegisterFilterState(true, false, true, true));
+                new MotherMentorRegisterFilterState(true, false, true, true, true));
         when(presenter.getMainCondition()).thenReturn("new condition");
         when(adapter.getCurrentoffset()).thenReturn(0);
-        when(model.selectClientsPage("new condition", "new search", true, false, true, true, 20, 0))
+        when(model.selectClientsPage("new condition", "new search", true, false, true, true, true, 20, 0))
                 .thenReturn("new page query");
-        when(model.countClients("new condition", "new search", true, false, true, true))
+        when(model.countClients("new condition", "new search", true, false, true, true, true))
                 .thenReturn("new count query");
         Loader<Cursor> currentLoader = fragment.onCreateLoader(0, countArgs);
         MatrixCursor oldRows = rows("old client");
@@ -103,9 +103,9 @@ public class MotherMentorRegisterLoaderTest {
         verify(adapter).setTotalcount(5);
         verify(adapter).swapCursor(currentRows);
         verify(model)
-                .selectClientsPage("old condition", "old search", true, true, false, false, 20, 40);
+                .selectClientsPage("old condition", "old search", true, true, false, false, false, 20, 40);
         verify(model)
-                .selectClientsPage("new condition", "new search", true, false, true, true, 20, 0);
+                .selectClientsPage("new condition", "new search", true, false, true, true, true, 20, 0);
     }
 
     private MatrixCursor count(int value) {
