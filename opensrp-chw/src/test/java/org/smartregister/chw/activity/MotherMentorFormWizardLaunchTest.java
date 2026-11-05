@@ -288,8 +288,8 @@ public class MotherMentorFormWizardLaunchTest {
         assertNotNull(launch.intent);
         assertEquals(JsonFormUtils.REQUEST_CODE_GET_JSON, launch.requestCode);
         boolean childAssessment = "Mother Mentor Visit Type".equals(form.optString("encounter_type"))
-                && "2".equals(org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
-                        .values(form).get(org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_VISIT_SCHEMA));
+                && org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
+                        .field(form, org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_CHILD_STATUS) != null;
         assertEquals((childAssessment ? MotherMentorVisitWizardActivity.class
                 : FamilyWizardFormActivity.class).getName(), launch.intent.getComponent().getClassName());
         assertEquals(form.toString(), launchedJson(launch).toString());

@@ -20,7 +20,9 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
 import java.io.InputStream;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 @RunWith(RobolectricTestRunner.class)
@@ -39,8 +41,9 @@ public class MotherMentorMotherDeliveryMigrationTest {
     }
 
     @Test
-    public void explicitTableCreationAlsoInitializesDeliveryProjection() throws Exception {
+    public void explicitTableCreationAlsoInitializesDeliveryProjection() {
         SQLiteDatabase db = mock(SQLiteDatabase.class);
+        List<String> steps = new ArrayList<>();
         // Other composed projection upgrades see no enrolled clients in this dispatch fixture.
         when(db.rawQuery(anyString(), org.mockito.ArgumentMatchers.<String[]>any()))
                 .thenAnswer(ignored -> new MatrixCursor(new String[] {"name"}));
@@ -48,10 +51,20 @@ public class MotherMentorMotherDeliveryMigrationTest {
                 MockedStatic<CoreChwApplication> application = mockStatic(CoreChwApplication.class);
                 MockedStatic<MotherMentorMotherDeliveryRepository> migration =
                         mockStatic(MotherMentorMotherDeliveryRepository.class)) {
-            Method create = ChwRepositoryFlv.class.getDeclaredMethod("createMotherMentorTables", SQLiteDatabase.class);
-            create.setAccessible(true); create.invoke(null, db);
-            tables.verify(() -> DatabaseMigrationUtils.createAddedECTables(eq(db), anySet(), isNull()));
-            migration.verify(() -> MotherMentorMotherDeliveryRepository.upgrade(db), times(1));
+            tables.when(() -> DatabaseMigrationUtils.createAddedECTables(eq(db), anySet(), isNull()))
+                    .thenAnswer(invocation -> {
+                        steps.add("create tables");
+                        return null;
+                    });
+            migration.when(() -> MotherMentorMotherDeliveryRepository.upgrade(db))
+                    .thenAnswer(invocation -> {
+                        steps.add("initialize delivery projection");
+                        return null;
+                    });
+
+            ChwRepositoryFlv.onUpgrade(null, db, 49, 50);
+
+            assertEquals(Arrays.asList("create tables", "initialize delivery projection"), steps);
         }
     }
 

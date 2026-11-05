@@ -33,14 +33,17 @@ public final class MotherMentorFollowUpVisitUtils {
         try {
             JSONArray observations = new JSONObject(visit.getJson()).optJSONArray("obs");
             if (observations == null) return false;
+            boolean hasFollowUpStatus = false;
             for (int i = 0; i < observations.length(); i++) {
                 JSONObject observation = observations.optJSONObject(i);
-                if (observation != null
-                        && DBConstants.KEY.FOLLOW_UP_STATUS.equalsIgnoreCase(
-                                observation.optString("fieldCode"))) {
-                    return true;
+                if (observation == null) continue;
+                String field = observation.optString("fieldCode");
+                if (DBConstants.KEY.ATTENDANCE_TYPE.equalsIgnoreCase(field)) return false;
+                if (DBConstants.KEY.FOLLOW_UP_STATUS.equalsIgnoreCase(field)) {
+                    hasFollowUpStatus = true;
                 }
             }
+            return hasFollowUpStatus;
         } catch (Exception ignored) {
             // A malformed visit must not be counted as a category follow-up.
         }

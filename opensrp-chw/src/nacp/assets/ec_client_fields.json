@@ -4396,6 +4396,54 @@
           }
         },
         {
+          "column_name": "mama_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_status"
+          }
+        },
+        {
+          "column_name": "mama_tarehe_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_tarehe_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "mama_sababu_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_sababu_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "mama_sababu_nyingine_text",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_sababu_nyingine_text"
+          }
+        },
+        {
+          "column_name": "mama_kituo_kipya",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_kituo_kipya"
+          }
+        },
+        {
+          "column_name": "mama_counter_nyingine",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mama_counter_nyingine"
+          }
+        },
+        {
           "column_name": "entity_id",
           "type": "Event",
           "json_mapping": {
@@ -4629,54 +4677,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "hei_test_miezi18_date"
-          }
-        },
-        {
-          "column_name": "mama_status",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "mama_status"
-          }
-        },
-        {
-          "column_name": "mama_tarehe_ya_kufungwa",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "mama_tarehe_ya_kufungwa"
-          }
-        },
-        {
-          "column_name": "mama_sababu_ya_kufungwa",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "mama_sababu_ya_kufungwa"
-          }
-        },
-        {
-          "column_name": "mama_sababu_nyingine_text",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "mama_sababu_nyingine_text"
-          }
-        },
-        {
-          "column_name": "mama_kituo_kipya",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "mama_kituo_kipya"
-          }
-        },
-        {
-          "column_name": "mama_counter_nyingine",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "mama_counter_nyingine"
           }
         }
       ]
