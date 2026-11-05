@@ -31,7 +31,11 @@ public class MotherMentorHistoryMapperTest {
     @Test
     @Config(qualifiers = "en")
     public void newMotherEntryHistoryUsesItsReasonAndHidesInternalContext() {
-        checkNewMotherEntryHistory("Visit type", "Reason", "Transferred to another facility");
+        List<Row> rows = newMotherEntryHistory();
+        assertEquals("Visit type", row(rows, DBConstants.KEY.ATTENDANCE_TYPE).getLabel());
+        assertEquals("Reason", row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getLabel());
+        assertEquals(Collections.singletonList("Transferred to another facility"),
+                row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getValues());
     }
 
     @Test
@@ -43,10 +47,14 @@ public class MotherMentorHistoryMapperTest {
     @Test
     @Config(qualifiers = "sw")
     public void newMotherEntryHistoryTranslatesReasonAndPreservesFacilityText() {
-        checkNewMotherEntryHistory("Aina ya Hudhurio", "Sababu", "Amehamia kituo kingine");
+        List<Row> rows = newMotherEntryHistory();
+        assertEquals("Aina ya Hudhurio", row(rows, DBConstants.KEY.ATTENDANCE_TYPE).getLabel());
+        assertEquals("Sababu", row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getLabel());
+        assertEquals(Collections.singletonList("Amehamia kituo kingine"),
+                row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getValues());
     }
 
-    private void checkNewMotherEntryHistory(String attendance, String reason, String transfer) {
+    private List<Row> newMotherEntryHistory() {
         Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
         answer(visit, DBConstants.KEY.MAMA_ENROLLMENT_ID, "private-enrollment-uuid", "");
         answer(visit, DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS, "pregnant", "");
@@ -58,10 +66,8 @@ public class MotherMentorHistoryMapperTest {
         List<Row> rows = mapper().map(visit);
         assertEquals(Arrays.asList(DBConstants.KEY.ATTENDANCE_TYPE, DBConstants.KEY.FOLLOW_UP_STATUS,
                 DBConstants.KEY.MAMA_NOT_FOUND_REASON, DBConstants.KEY.MAMA_KITUO_KIPYA), keys(rows));
-        assertEquals(attendance, row(rows, DBConstants.KEY.ATTENDANCE_TYPE).getLabel());
-        assertEquals(reason, row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getLabel());
-        assertEquals(Collections.singletonList(transfer), row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getValues());
         assertEquals(Collections.singletonList("Hospital A"), row(rows, DBConstants.KEY.MAMA_KITUO_KIPYA).getValues());
+        return rows;
     }
 
     @Test
