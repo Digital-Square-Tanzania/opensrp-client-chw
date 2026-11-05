@@ -119,6 +119,22 @@ public class MotherMentorDailyVisitUtilsTest {
     }
 
     @Test
+    public void routineAttendanceDoesNotAppearInSectionedFollowUpHistory() throws Exception {
+        Visit visit = completedVisit("21-10-2026");
+        JSONArray observations = new JSONArray().put(new JSONObject()
+                .put("fieldCode", DBConstants.KEY.FOLLOW_UP_STATUS)
+                .put("values", new JSONArray().put("not_found")));
+        visit.setJson(new JSONObject().put("obs", observations).toString());
+        assertTrue(MotherMentorFollowUpVisitUtils.isSectionedFollowUp(visit));
+
+        observations.put(new JSONObject()
+                .put("fieldCode", DBConstants.KEY.ATTENDANCE_TYPE)
+                .put("values", new JSONArray().put("repeat")));
+        visit.setJson(new JSONObject().put("obs", observations).toString());
+        assertFalse(MotherMentorFollowUpVisitUtils.isSectionedFollowUp(visit));
+    }
+
+    @Test
     public void malformedRecordedDateDoesNotCreateLockFromImportTimestamp() throws Exception {
         Visit visit = completedVisit("32-10-2026");
         visit.setDate(date("2026-10-21 12:00:00"));
@@ -140,6 +156,7 @@ public class MotherMentorDailyVisitUtilsTest {
         JSONArray observations = new JSONArray();
         String[] fields = {
             DBConstants.KEY.ATTENDANCE_TYPE, "new",
+            DBConstants.KEY.NEW_PMTCT_ART_INITIATION, "no",
             DBConstants.KEY.COMMENTS, "Services provided",
             DBConstants.KEY.HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP, "no",
             DBConstants.KEY.HAS_BEEN_LINKED_TO_IGA_GROUP, "no",

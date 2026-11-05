@@ -233,6 +233,9 @@ public class ChwRepositoryFlv {
                 case 62:
                     org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository.upgrade(db);
                     break;
+                case 63:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository.upgrade(db);
+                    break;
                 case 64:
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
                     break;
@@ -1163,6 +1166,7 @@ public class ChwRepositoryFlv {
                         "ec_mothermentor_enroll_partner",
                         "ec_mothermentor_enroll_child_eid")),
                 ChwApplication.createCommonFtsObject());
+        org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository.upgrade(db);
         org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
     }
 

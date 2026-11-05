@@ -60,24 +60,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         BaseMotherMentorVisitAction education =
                 byForm(actions, "mothermentor_visit_education_provided");
         assertFalse(education.isValid());
-        answer(
-                attendance,
-                ATTENDANCE_TYPE,
-                "repeat",
-                FOLLOW_UP_STATUS,
-                "continuing_services",
-                MOTHERMENTOR_REPORTING_VERSION,
-                "2",
-                PRIMARY_MOTHERMENTOR_CLIENT,
-                "true",
-                VISIT_PREGNANCY_STATUS,
-                "breastfeeding",
-                NEW_PMTCT_ART_INITIATION,
-                "no",
-                IIT_ENROLLED,
-                "true",
-                IIT_TRACING_VISIT,
-                "no");
+        answer(attendance, ATTENDANCE_TYPE, "repeat", FOLLOW_UP_STATUS, "found");
         answer(
                 byForm(actions, "mothermentor_visit_group_linkage"),
                 HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP,
@@ -95,7 +78,8 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             assertTrue(action.getFormName(), action.isValid());
             completed(action);
         }
-        answer(attendance, ATTENDANCE_TYPE, "repeat", FOLLOW_UP_STATUS, "deceased");
+        answer(attendance, ATTENDANCE_TYPE, "repeat", FOLLOW_UP_STATUS, "not_found",
+                MAMA_NOT_FOUND_REASON, "deceased");
         assertFalse(education.isValid());
         assertFalse(byForm(actions, "mothermentor_visit_group_linkage").isValid());
         assertFalse(byForm(actions, "mothermentor_visit_referal").isValid());
