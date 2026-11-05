@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.smartregister.chw.mothermentor.actionhelper.MotherMentorHouseholdCounsellingActionHelper;
+import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,9 +17,41 @@ import static org.junit.Assert.*;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorVisitCompletionTest {
-    @Test public void householdAttendanceValidatesAgainstCalculatedCounsellingTotal() throws Exception {
+    @Test public void householdRoleCountsDetermineTheReadOnlyCounsellingTotal() throws Exception {
         for (String locale : new String[]{"json.form", "json.form-sw"}) {
-            JSONObject form = MotherMentorTestAssets.form(locale, "mother_mentor_household_members_who_received_counselling.json");
+            JSONObject form = MotherMentorTestAssets.form(locale,
+                    "mother_mentor_household_members_who_received_counselling.json");
+            Map<String, JSONObject> fields = new HashMap<>();
+            JSONArray definitions = form.getJSONObject("step1").getJSONArray("fields");
+            for (int index = 0; index < definitions.length(); index++) {
+                JSONObject field = definitions.getJSONObject(index);
+                fields.put(field.getString("key"), field);
+            }
+            assertFalse(fields.containsKey("household_members_found"));
+            assertFalse(fields.containsKey("counselled_male"));
+            assertFalse(fields.containsKey("counselled_female"));
+            assertTrue(fields.get("counselled_total").getBoolean("read_only"));
+            JSONArray options = fields.get("participants").getJSONArray("options");
+            for (int index = 0; index < options.length(); index++) {
+                JSONObject option = options.getJSONObject(index);
+                String key = option.getString("key");
+                option.put("value", "mother".equals(key) || "partner".equals(key) || "child".equals(key));
+            }
+            MotherMentorHouseholdCounsellingActionHelper helper =
+                    new MotherMentorHouseholdCounsellingActionHelper();
+            helper.onPayloadReceived(form.toString());
+            assertEquals(BaseMotherMentorVisitAction.Status.PENDING, helper.evaluateStatusOnPayload());
+            fields.get("counselled_child_count").put("value", "2");
+            helper.onPayloadReceived(form.toString());
+            assertEquals(BaseMotherMentorVisitAction.Status.COMPLETED, helper.evaluateStatusOnPayload());
+            JSONObject saved = new JSONObject(helper.postProcess(form.toString()));
+            assertEquals("4", com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(
+                    saved, "counselled_total").getString("value"));
+        }
+    }
+    @Test public void legacyHouseholdAttendanceStillValidatesAgainstItsCalculatedTotal() throws Exception {
+        for (String locale : new String[]{"json.form", "json.form-sw"}) {
+            JSONObject form = MotherMentorTestAssets.form(locale, "mother_mentor_household_members_who_received_counselling_legacy.json");
             JSONObject attendance = null;
             JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
             for (int i = 0; i < fields.length(); i++) {

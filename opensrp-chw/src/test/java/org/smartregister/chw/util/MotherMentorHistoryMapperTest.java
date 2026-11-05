@@ -382,6 +382,73 @@ public class MotherMentorHistoryMapperTest {
                 row(rows, DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER).getValues());
     }
 
+    @Test
+    @Config(qualifiers = "en")
+    public void newHouseholdRoleHistoryShowsCountsWithoutInternalFormatOrLegacySexFields() {
+        assertRoleHistory("Number — Child", "Number — Other", "Partner");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliRoleHistoryUsesMwenziAndRoleCountLabels() {
+        assertRoleHistory("Idadi — Mtoto", "Idadi — Mwingine", "Mwenzi");
+    }
+
+    private void assertRoleHistory(String childLabel, String otherLabel, String partnerLabel) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, "household_counselling_schema", "2", "");
+        answer(visit, "participants", "[mother, partner, child, other]", "");
+        answer(visit, "counselled_child_count", "2", "");
+        answer(visit, "counselled_other_count", "1", "");
+        answer(visit, "other", "Neighbour, original identification", "");
+        answer(visit, "counselled_total", "5", "");
+        List<Row> rows = mapper().map(visit);
+        assertTrue(MotherMentorHistoryMapper.isHouseholdVisit(visit));
+        assertFalse(MotherMentorHistoryMapper.isLegacyHouseholdVisit(visit));
+        assertEquals(childLabel, row(rows, "counselled_child_count").getLabel());
+        assertEquals(otherLabel, row(rows, "counselled_other_count").getLabel());
+        assertEquals(Collections.singletonList("2"), row(rows, "counselled_child_count").getValues());
+        assertEquals(Collections.singletonList("5"), row(rows, "counselled_total").getValues());
+        assertTrue(row(rows, "participants").getValues().contains(partnerLabel));
+        assertFalse(keys(rows).contains("household_counselling_schema"));
+        assertFalse(keys(rows).contains("counselled_male"));
+        assertFalse(keys(rows).contains("counselled_female"));
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void legacyHouseholdHistoryKeepsOriginalCountsWithLegacyLabels() {
+        assertLegacyHistory("legacy format", "Partner");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void legacySwahiliHistoryDisplaysCurrentMwenziWithoutRewritingSavedMwenza() {
+        assertLegacyHistory("muundo wa zamani", "Mwenzi");
+    }
+
+    private void assertLegacyHistory(String legacyLabel, String partnerLabel) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, "household_members_found", "9", "");
+        answer(visit, "counselled_male", "3", "");
+        answer(visit, "counselled_female", "4", "");
+        answer(visit, "counselled_total", "7", "");
+        answer(visit, "participants", "[mother, Mwenza]", "");
+        List<Row> rows = mapper().map(visit);
+        assertTrue(MotherMentorHistoryMapper.isLegacyHouseholdVisit(visit));
+        for (String key : Arrays.asList("household_members_found", "counselled_male",
+                "counselled_female", "counselled_total")) {
+            assertTrue(row(rows, key).getLabel().contains(legacyLabel));
+        }
+        assertEquals(Collections.singletonList("9"), row(rows, "household_members_found").getValues());
+        assertEquals(Collections.singletonList("3"), row(rows, "counselled_male").getValues());
+        assertEquals(Collections.singletonList("4"), row(rows, "counselled_female").getValues());
+        assertEquals(Collections.singletonList("7"), row(rows, "counselled_total").getValues());
+        assertTrue(row(rows, "participants").getValues().contains(partnerLabel));
+        assertEquals("[mother, Mwenza]", visit.getVisitDetails().get("participants").get(0).getDetails());
+        assertFalse(keys(rows).contains("counselled_child_count"));
+    }
+
     private MotherMentorHistoryMapper mapper() {
         return new MotherMentorHistoryMapper(RuntimeEnvironment.application);
     }
