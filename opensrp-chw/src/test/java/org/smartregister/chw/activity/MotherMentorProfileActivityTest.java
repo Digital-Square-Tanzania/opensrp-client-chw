@@ -198,7 +198,8 @@ public class MotherMentorProfileActivityTest extends BaseUnitTest {
         JSONArray observations = new JSONArray();
         String[] fields = {
             DBConstants.KEY.ATTENDANCE_TYPE, "repeat",
-            DBConstants.KEY.FOLLOW_UP_STATUS, "lost_to_follow_up",
+            DBConstants.KEY.FOLLOW_UP_STATUS, "not_found",
+            DBConstants.KEY.MAMA_NOT_FOUND_REASON, "moved_area",
             DBConstants.KEY.COMMENTS, "Client traced",
             DBConstants.KEY.MOTHERMENTOR_VISIT_DATE,
                     new SimpleDateFormat("dd-MM-yyyy", Locale.US).format(new Date())
