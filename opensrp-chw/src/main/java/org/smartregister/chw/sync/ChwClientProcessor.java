@@ -361,7 +361,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
             }
         }
 
-        if (eventClient != null && eventClient.getEvent() != null
+        if (org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(eventType)
+                && eventClient != null
                 && org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository
                         .isMotherEvent(eventClient.getEvent())) {
             processMissedChildEidEnrollment(eventClient.getEvent().getBaseEntityId());
