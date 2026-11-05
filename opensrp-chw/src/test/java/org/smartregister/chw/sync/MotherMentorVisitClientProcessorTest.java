@@ -1,5 +1,6 @@
 package org.smartregister.chw.sync;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
@@ -23,6 +24,10 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.util.JsonFormUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /** Exercises the app dispatch, leaving conversion/persistence to the existing visit processor. */
 @RunWith(RobolectricTestRunner.class)
@@ -59,10 +64,16 @@ public class MotherMentorVisitClientProcessorTest {
 
     @Test
     public void schema2MotherServicesUseLibraryReplayOncePerDelivery() throws Exception {
+        List<EventClient> deliveries = new ArrayList<>();
         try (MockedStatic<CoreLibrary> core = peerProcessing();
                 MockedStatic<NCUtils> legacy = mockStatic(NCUtils.class);
                 MockedStatic<org.smartregister.chw.mothermentor.util.NCUtils> mother =
                         mockStatic(org.smartregister.chw.mothermentor.util.NCUtils.class)) {
+            mother.when(() -> org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(any(EventClient.class)))
+                    .thenAnswer(invocation -> {
+                        deliveries.add(invocation.getArgument(0));
+                        return null;
+                    });
             Event event = JsonFormUtils.gson.fromJson("{\"baseEntityId\":\"simulated-mother\","
                     + "\"formSubmissionId\":\"mother-service-source\",\"eventType\":\""
                     + Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES + "\","
@@ -73,7 +84,7 @@ public class MotherMentorVisitClientProcessorTest {
             for (int delivery = 0; delivery < 2; delivery++) {
                 processor.processEvents(null, null, null, client, event, event.getEventType());
             }
-            mother.verify(() -> org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(client), times(2));
+            assertEquals(Arrays.asList(client, client), deliveries);
             legacy.verifyNoInteractions();
         }
     }
