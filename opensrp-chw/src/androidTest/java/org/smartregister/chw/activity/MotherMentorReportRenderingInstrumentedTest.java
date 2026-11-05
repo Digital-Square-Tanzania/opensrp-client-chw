@@ -67,6 +67,9 @@ public class MotherMentorReportRenderingInstrumentedTest {
                             + "partnerEducation:document.getElementById('mm-12')?.textContent,"
                             + "unavailable:document.getElementById('mm-12-hiv')?.textContent,"
                             + "households:document.getElementById('mm-13')?.textContent,"
+                            + "householdCounselled:document.getElementById('mm-14')?.textContent,"
+                            + "householdMale:document.getElementById('mm-14-male-total')?.textContent,"
+                            + "householdFemale:document.getElementById('mm-14-female-total')?.textContent,"
                             + "aggregate:document.getElementById('mm-16')?.textContent,"
                             + "unknownAge:document.getElementById('mm-16-female-25-59')?.textContent,"
                             + "coverage:document.getElementById('coverage_note')?.textContent,"
@@ -93,9 +96,13 @@ public class MotherMentorReportRenderingInstrumentedTest {
         assertEquals("—", rendered.getString("partnerEducation"));
         assertEquals("—", rendered.getString("unavailable"));
         assertEquals("2", rendered.getString("households"));
+        assertEquals("5", rendered.getString("householdCounselled"));
+        assertEquals("—", rendered.getString("householdMale"));
+        assertEquals("—", rendered.getString("householdFemale"));
         assertEquals("10", rendered.getString("aggregate"));
         assertEquals("—", rendered.getString("unknownAge"));
         assertTrue(rendered.getString("coverage").contains("Ind. 14"));
+        assertTrue(rendered.getString("coverage").contains("visits counted participants by role"));
         assertTrue(rendered.getString("coverage").contains("Ind. 5"));
         assertTrue(rendered.getString("coverage").contains("Ind. 12"));
         assertTrue(rendered.getString("coverage").contains("children with final test results recorded as pending"));
@@ -164,7 +171,7 @@ public class MotherMentorReportRenderingInstrumentedTest {
                     + "\"mm-8\":2,\"mm-11\":3,"
                     + "\"mm-11-positive-female-12-23m\":1,\"mm-11-negative-male-12-23m\":1,"
                     + "\"mm-11-pending-results\":1,\"mm-12-missing-records\":2,"
-                    + "\"mm-5-missing-records\":2,\"mm-10\":1,\"mm-10-girls-female-1-11m\":1,\"mm-7\":4,\"mm-7-unclassified\":1,\"mm-13\":2,\"mm-14-missing-records\":1,\"mm-16\":10,\"mm-16-male-total\":3,\"mm-16-female-total\":7}}";
+                    + "\"mm-5-missing-records\":2,\"mm-10\":1,\"mm-10-girls-female-1-11m\":1,\"mm-7\":4,\"mm-7-unclassified\":1,\"mm-13\":2,\"mm-14\":5,\"mm-14-role-visits\":1,\"mm-14-missing-records\":0,\"mm-16\":10,\"mm-16-male-total\":3,\"mm-16-female-total\":7}}";
         }
     }
 }

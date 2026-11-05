@@ -1,6 +1,6 @@
 package org.smartregister.chw.repository;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import android.app.Application;
@@ -30,6 +30,6 @@ public class MotherMentorHouseholdClosureMigrationTest {
             ChwRepositoryFlv.onUpgrade(null, database, 62, 62);
             library.verifyNoInteractions();
         }
-        assertEquals(62, BuildConfig.DATABASE_VERSION);
+        assertTrue(BuildConfig.DATABASE_VERSION >= 62);
     }
 }

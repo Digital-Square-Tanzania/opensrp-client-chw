@@ -44,7 +44,7 @@ public class MotherMentorVisitClientProcessorTest {
     }
 
     @Test
-    public void childEidFollowUpUsesTheExistingVisitProcessor() throws Exception {
+    public void childEidFollowUpUsesItsCanonicalVisitProcessor() throws Exception {
         assertVisitRouting(MotherMentorFollowUpType.CHILD_EID.getEventType());
     }
 
@@ -57,8 +57,31 @@ public class MotherMentorVisitClientProcessorTest {
         }
     }
 
+    @Test
+    public void routineMotherServicesUseLibraryReplayOncePerDelivery() throws Exception {
+        try (MockedStatic<CoreLibrary> core = peerProcessing();
+                MockedStatic<NCUtils> legacy = mockStatic(NCUtils.class);
+                MockedStatic<org.smartregister.chw.mothermentor.util.NCUtils> mother =
+                        mockStatic(org.smartregister.chw.mothermentor.util.NCUtils.class)) {
+            Event event = JsonFormUtils.gson.fromJson("{\"baseEntityId\":\"simulated-mother\","
+                    + "\"formSubmissionId\":\"mother-service-source\",\"eventType\":\""
+                    + Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES + "\","
+                    + "\"eventDate\":\"2026-11-04T12:00:00.000Z\",\"obs\":[{\"fieldCode\":\"attendance_type\","
+                    + "\"formSubmissionField\":\"attendance_type\",\"values\":[\"repeat\"]}]}", Event.class);
+            EventClient client = new EventClient(event);
+            ChwClientProcessor processor = processor();
+            for (int delivery = 0; delivery < 2; delivery++) {
+                processor.processEvents(null, null, null, client, event, event.getEventType());
+            }
+            mother.verify(() -> org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(client), times(2));
+            legacy.verifyNoInteractions();
+        }
+    }
+
     private void assertVisitRouting(String eventType) throws Exception {
         try (MockedStatic<CoreLibrary> core = peerProcessing();
+                MockedStatic<org.smartregister.chw.mothermentor.util.NCUtils> childVisits =
+                        mockStatic(org.smartregister.chw.mothermentor.util.NCUtils.class);
                 MockedStatic<NCUtils> visits = mockStatic(NCUtils.class)) {
             ChwClientProcessor processor = processor();
             EventClient eventClient = eventClient(eventType);
@@ -67,7 +90,14 @@ public class MotherMentorVisitClientProcessorTest {
             for (int delivery = 0; delivery < 2; delivery++) {
                 processor.processEvents(null, null, null, eventClient, eventClient.getEvent(), eventType);
             }
-            visits.verify(() -> NCUtils.processHomeVisit(eventClient), times(2));
+            if (MotherMentorFollowUpType.CHILD_EID.getEventType().equals(eventType)) {
+                childVisits.verify(() -> org.smartregister.chw.mothermentor.util.NCUtils
+                        .processHomeVisit(eventClient), times(2));
+                visits.verifyNoInteractions();
+            } else {
+                visits.verify(() -> NCUtils.processHomeVisit(eventClient), times(2));
+                childVisits.verifyNoInteractions();
+            }
         }
     }
 

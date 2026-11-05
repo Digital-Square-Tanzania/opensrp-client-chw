@@ -7,7 +7,9 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
+import org.smartregister.chw.activity.MotherMentorVisitWizardActivity;
 import org.smartregister.chw.core.R;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.Utils;
 
@@ -20,7 +22,11 @@ public final class MotherMentorFormWizardUtils {
     }
 
     public static Intent getFormIntent(Context context, JSONObject jsonForm) {
-        Intent intent = new Intent(context, Utils.metadata().familyMemberFormActivity);
+        boolean motherVisit = "Mother Mentor Visit Type".equals(jsonForm.optString("encounter_type"))
+                && org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
+                        .field(jsonForm, DBConstants.KEY.MAMA_CHILD_STATUS) != null;
+        Intent intent = new Intent(context, motherVisit ? MotherMentorVisitWizardActivity.class
+                : Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         return configureIntent(context, intent);
     }

@@ -56,6 +56,11 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.COUNSELLED_MALE,
                             DBConstants.KEY.COUNSELLED_FEMALE,
                             DBConstants.KEY.COUNSELLED_TOTAL,
+                            DBConstants.KEY.HOUSEHOLD_COUNSELLING_SCHEMA,
+                            DBConstants.KEY.COUNSELLED_CHILD_COUNT,
+                            DBConstants.KEY.COUNSELLED_RELATIVE_COUNT,
+                            DBConstants.KEY.COUNSELLED_NEIGHBOUR_COUNT,
+                            DBConstants.KEY.COUNSELLED_OTHER_COUNT,
                             DBConstants.KEY.HOUSEHOLD_REFERRAL_GIVEN,
                             DBConstants.KEY.HOUSEHOLD_REFERRAL_SERVICES,
                             DBConstants.KEY.HOUSEHOLD_REFERRAL_OTHER));
@@ -82,6 +87,9 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.PARTNER_ENROLLED,
                             DBConstants.KEY.CHILD_EID_ENROLLED,
                             DBConstants.KEY.ART_INITIATED_BEFORE_VISIT,
+                            DBConstants.KEY.MAMA_ENROLLMENT_ID,
+                            DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS,
+                            DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA,
                             DBConstants.KEY.MOTHERMENTOR_VISIT_DATE,
                             DBConstants.KEY.HOUSEHOLD_ENROLLMENT_ID,
                             DBConstants.KEY.KAYA_STATUS,
@@ -112,6 +120,18 @@ public final class MotherMentorHistoryMapper {
         Set<String> ignored = new HashSet<>(INTERNAL_FIELDS);
         LinkedHashMap<String, Field> fields = new LinkedHashMap<>();
         for (String form : workflowForms(visit, recorded)) addForm(fields, ignored, form);
+        if (isLegacyHouseholdVisit(visit)) {
+            for (String key : new String[] {DBConstants.KEY.HOUSEHOLD_MEMBERS_FOUND,
+                    DBConstants.KEY.COUNSELLED_MALE, DBConstants.KEY.COUNSELLED_FEMALE,
+                    DBConstants.KEY.COUNSELLED_TOTAL}) {
+                if (!fields.containsKey(key)) continue;
+                String label = DBConstants.KEY.COUNSELLED_TOTAL.equals(key)
+                        ? context.getString(org.smartregister.chw.mothermentor.R.string
+                                .mothermentor_household_counselling_legacy_total)
+                        : resource(HISTORY_PREFIX + key);
+                fields.put(key, new Field(key, label, false));
+            }
+        }
 
         List<Row> rows = new ArrayList<>();
         Row comments = addFormRows(rows, fields, recorded);
@@ -195,13 +215,36 @@ public final class MotherMentorHistoryMapper {
         return false;
     }
 
+    /** Original aggregate records remain auditable without pretending they contain role counts. */
+    public static boolean isLegacyHouseholdVisit(Visit visit) {
+        if (!isHouseholdVisit(visit) || visit.getVisitDetails() == null) return false;
+        boolean aggregate = false;
+        for (Map.Entry<String, List<VisitDetail>> entry : visit.getVisitDetails().entrySet()) {
+            String key = canonicalKey(entry.getKey());
+            if (DBConstants.KEY.HOUSEHOLD_COUNSELLING_SCHEMA.equals(key) && entry.getValue() != null) {
+                for (VisitDetail detail : entry.getValue()) {
+                    if (detail == null) continue;
+                    String value = StringUtils.defaultIfBlank(detail.getDetails(), detail.getHumanReadable());
+                    if ("2".equals(StringUtils.strip(StringUtils.trimToEmpty(value), "[]\" "))) return false;
+                }
+            }
+            if (DBConstants.KEY.HOUSEHOLD_MEMBERS_FOUND.equals(key)
+                    || DBConstants.KEY.COUNSELLED_MALE.equals(key)
+                    || DBConstants.KEY.COUNSELLED_FEMALE.equals(key)
+                    || DBConstants.KEY.COUNSELLED_TOTAL.equals(key)) aggregate = true;
+        }
+        return aggregate;
+    }
+
     private List<String> workflowForms(Visit visit, Map<String, List<VisitDetail>> recorded) {
         String type = visit.getVisitType();
         if (isHouseholdVisit(visit)) {
             return Arrays.asList(
                     "mothermentor_household_follow_up_status",
                     "mothermentor_household_visit_purpose",
-                    "mother_mentor_household_members_who_received_counselling",
+                    isLegacyHouseholdVisit(visit)
+                            ? "mother_mentor_household_members_who_received_counselling_legacy"
+                            : "mother_mentor_household_members_who_received_counselling",
                     "mother_mentor_household_visit_topics_taught",
                     "mothermentor_household_visit_comment");
         }
@@ -276,6 +319,7 @@ public final class MotherMentorHistoryMapper {
         Map<String, JSONObject> translatedFields = formFields(translated);
         for (Map.Entry<String, JSONObject> entry : formFields(selected).entrySet()) {
             String key = entry.getKey();
+            if (DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA.equals(key)) continue;
             JSONObject definition = entry.getValue();
             String type = definition.optString("type");
             if ("hidden".equals(type) || "toaster_notes".equals(type)) {

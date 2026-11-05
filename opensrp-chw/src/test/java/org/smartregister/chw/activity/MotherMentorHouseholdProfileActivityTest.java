@@ -255,6 +255,34 @@ public class MotherMentorHouseholdProfileActivityTest extends BaseUnitTest {
     }
 
     @Test
+    public void manualProcessingRequiresCountsAndDetailsForEverySelectedHouseholdRole()
+            throws Exception {
+        Visit visit = householdVisit();
+        visit.setProcessed(false);
+        setAnswer(visit, DBConstants.KEY.HOUSEHOLD_COUNSELLING_SCHEMA, "2");
+        setAnswer(visit, DBConstants.KEY.PARTICIPANTS, "mother", "child", "other");
+        setAnswer(visit, DBConstants.KEY.COUNSELLED_CHILD_COUNT, "2");
+        setAnswer(visit, DBConstants.KEY.COUNSELLED_OTHER_COUNT, "1");
+        setAnswer(visit, DBConstants.KEY.OTHER, "Household caregiver");
+
+        try (MockedStatic<MotherMentorLibrary> ignored = persistedVisits(visit)) {
+            MotherMentorHouseholdProfileActivity activity = householdProfile();
+            TextView manualProcessing = ReflectionHelpers.getField(activity, "manualProcessVisit");
+            activity.setupButtons();
+            assertEquals(View.VISIBLE, manualProcessing.getVisibility());
+
+            setAnswer(visit, DBConstants.KEY.COUNSELLED_CHILD_COUNT);
+            activity.setupButtons();
+            assertEquals(View.GONE, manualProcessing.getVisibility());
+
+            setAnswer(visit, DBConstants.KEY.COUNSELLED_CHILD_COUNT, "2");
+            setAnswer(visit, DBConstants.KEY.OTHER);
+            activity.setupButtons();
+            assertEquals(View.GONE, manualProcessing.getVisibility());
+        }
+    }
+
+    @Test
     @LooperMode(LooperMode.Mode.PAUSED)
     public void profileLeftOpenRefreshesAtLocalMidnight() throws Exception {
         Visit visit = householdVisit();
@@ -406,5 +434,26 @@ public class MotherMentorHouseholdProfileActivityTest extends BaseUnitTest {
         visit.setDate(new Date());
         visit.setJson(new JSONObject().put("obs", observations).toString());
         return visit;
+    }
+
+    private void setAnswer(Visit visit, String key, String... answers) throws Exception {
+        JSONObject event = new JSONObject(visit.getJson());
+        JSONArray observations = event.getJSONArray("obs");
+        JSONObject observation = null;
+        for (int index = 0; index < observations.length(); index++) {
+            JSONObject candidate = observations.getJSONObject(index);
+            if (key.equals(candidate.getString("fieldCode"))) {
+                observation = candidate;
+                break;
+            }
+        }
+        if (observation == null) {
+            observation = new JSONObject().put("fieldCode", key);
+            observations.put(observation);
+        }
+        JSONArray values = new JSONArray();
+        for (String answer : answers) values.put(answer);
+        observation.put("values", values);
+        visit.setJson(event.toString());
     }
 }
