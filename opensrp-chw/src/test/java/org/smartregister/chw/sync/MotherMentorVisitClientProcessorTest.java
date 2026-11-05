@@ -58,7 +58,7 @@ public class MotherMentorVisitClientProcessorTest {
     }
 
     @Test
-    public void schema2MotherServicesUseLibraryReplayOncePerDelivery() throws Exception {
+    public void routineMotherServicesUseLibraryReplayOncePerDelivery() throws Exception {
         try (MockedStatic<CoreLibrary> core = peerProcessing();
                 MockedStatic<NCUtils> legacy = mockStatic(NCUtils.class);
                 MockedStatic<org.smartregister.chw.mothermentor.util.NCUtils> mother =
@@ -66,8 +66,8 @@ public class MotherMentorVisitClientProcessorTest {
             Event event = JsonFormUtils.gson.fromJson("{\"baseEntityId\":\"simulated-mother\","
                     + "\"formSubmissionId\":\"mother-service-source\",\"eventType\":\""
                     + Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES + "\","
-                    + "\"eventDate\":\"2026-11-04T12:00:00.000Z\",\"obs\":[{\"fieldCode\":\"mama_visit_schema\","
-                    + "\"formSubmissionField\":\"mama_visit_schema\",\"values\":[\"2\"]}]}", Event.class);
+                    + "\"eventDate\":\"2026-11-04T12:00:00.000Z\",\"obs\":[{\"fieldCode\":\"attendance_type\","
+                    + "\"formSubmissionField\":\"attendance_type\",\"values\":[\"repeat\"]}]}", Event.class);
             EventClient client = new EventClient(event);
             ChwClientProcessor processor = processor();
             for (int delivery = 0; delivery < 2; delivery++) {
