@@ -278,8 +278,14 @@ public class MotherMentorReportObject extends ReportObject {
     private static String partnerEducationKnown() {
         String provided = partnerValue(DBConstants.KEY.PARTNER_EDUCATION_PROVIDED);
         String topics = partnerValue(DBConstants.KEY.PARTNER_EDUCATION_TOPICS);
+        String noAttendanceWithoutEducation = "("
+                + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE) + " = 'attendance' AND "
+                + partnerValue(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY) + " = 'no' AND NOT "
+                + answered("v." + DBConstants.KEY.PARTNER_EDUCATION_PROVIDED) + " AND NOT "
+                + answered("v." + DBConstants.KEY.PARTNER_EDUCATION_TOPICS) + ")";
         return partnerEvidenceKnown(false) + " AND (NOT " + partnerEducationPath() + " OR "
                 + partnerValue(DBConstants.KEY.PARTNER_MOTHER_PREGNANT) + " = 'no' OR "
+                + noAttendanceWithoutEducation + " OR "
                 + provided + " = 'no' OR (" + provided + " = 'yes' AND ("
                 + hasToken(topics, "hiv") + " OR " + hasToken(topics, "syphilis")
                 + " OR " + hasToken(topics, "hepatitis_b") + ")))";

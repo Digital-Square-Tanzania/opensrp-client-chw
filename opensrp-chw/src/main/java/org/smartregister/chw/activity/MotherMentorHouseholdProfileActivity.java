@@ -14,18 +14,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreMotherMentorProfileActivity;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
-import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdCounselling;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdVisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
@@ -34,13 +37,8 @@ import timber.log.Timber;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
 public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfileActivity {
-    private static final Set<String> REQUIRED_HOUSEHOLD_SERVICE_FIELDS = new HashSet<>();
     private final Handler visitAvailabilityHandler = new Handler(Looper.getMainLooper());
     private final Runnable refreshVisitAvailability =
             () -> {
@@ -57,11 +55,6 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
                 }
             };
 
-    static {
-        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.PURPOSE_OF_VISIT);
-        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.PARTICIPANTS);
-        REQUIRED_HOUSEHOLD_SERVICE_FIELDS.add(DBConstants.KEY.TOPICS_TAUGHT);
-    }
 
     public static void startMe(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MotherMentorHouseholdProfileActivity.class);
@@ -128,13 +121,15 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     @Override
     protected void setupButtons() {
         super.setupButtons();
+        MotherMentorHouseholdClosure closure = getHouseholdClosureState();
         if (textViewRecordMotherMentor != null) {
             textViewRecordMotherMentor.setVisibility(View.VISIBLE);
             textViewRecordMotherMentor.setText(R.string.mothermentor_household_record);
-            boolean canStartVisit = !hasCompletedHouseholdVisitToday();
+            boolean canStartVisit = !closure.isClosed() && !hasCompletedHouseholdVisitToday();
             textViewRecordMotherMentor.setEnabled(canStartVisit);
             textViewRecordMotherMentor.setAlpha(canStartVisit ? 1f : 0.5f);
         }
+        updateClosureBanner(closure);
         enforceProcessVisitVisibility();
         refreshMedicalHistory(true);
     }
@@ -166,7 +161,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     @Override
     public void openRecordClientVisit() {
         // Re-read saved visits so a stale profile cannot start a duplicate on the same day.
-        if (hasCompletedHouseholdVisitToday()) {
+        if (getHouseholdClosureState().isClosed() || hasCompletedHouseholdVisitToday()) {
             setupButtons();
             return;
         }
@@ -210,6 +205,10 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void continueService() {
+        if (getHouseholdClosureState().isClosed()) {
+            setupButtons();
+            return;
+        }
         MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
                 this, memberObject.getBaseEntityId(), true);
     }
@@ -309,6 +308,14 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     private void enforceProcessVisitVisibility() {
+        if (getHouseholdClosureState().isClosed()) {
+            if (manualProcessVisit != null) manualProcessVisit.setVisibility(View.GONE);
+            if (mothermentorServiceInProgress != null) mothermentorServiceInProgress.setVisibility(View.GONE);
+            if (textViewContinueMotherMentorService != null) textViewContinueMotherMentorService.setVisibility(View.GONE);
+            if (visitInProgress != null) visitInProgress.setVisibility(View.GONE);
+            if (textViewVisitDoneEdit != null) textViewVisitDoneEdit.setVisibility(View.GONE);
+            return;
+        }
         Visit latestVisit = getServiceVisit();
         if (latestVisit == null) {
             manualProcessVisit.setVisibility(View.GONE);
@@ -340,6 +347,10 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
         if (shouldShowProcessVisit) {
             manualProcessVisit.setOnClickListener(
                     view -> {
+                        if (getHouseholdClosureState().isClosed()) {
+                            setupButtons();
+                            return;
+                        }
                         try {
                             MotherMentorVisitsUtil.manualProcessVisit(latestVisit);
                             Toast.makeText(
@@ -357,11 +368,38 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     protected Visit getServiceVisit() {
-        return MotherMentorLibrary.getInstance()
+        Visit visit = MotherMentorLibrary.getInstance()
                 .visitRepository()
                 .getLatestVisit(
                         memberObject.getBaseEntityId(),
                         Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        return visit != null && isCurrentHouseholdVisit(visit) ? visit : null;
+    }
+
+    protected boolean isCurrentHouseholdVisit(Visit visit) {
+        return MotherMentorHouseholdClosureRepository.belongsToCurrentEnrollment(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                memberObject.getBaseEntityId(), visit.getJson());
+    }
+
+    protected MotherMentorHouseholdClosure getHouseholdClosureState() {
+        return memberObject == null ? MotherMentorHouseholdClosure.active()
+                : MotherMentorHouseholdClosureRepository.getState(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        memberObject.getBaseEntityId(), null);
+    }
+
+    private void updateClosureBanner(MotherMentorHouseholdClosure closure) {
+        TextView banner = findViewById(
+                org.smartregister.chw.mothermentor.R.id.mothermentor_household_closed_banner);
+        if (banner == null) return;
+        banner.setVisibility(closure.isClosed() ? View.VISIBLE : View.GONE);
+        if (closure.isClosed()) {
+            banner.setText(getString(
+                    org.smartregister.chw.mothermentor.R.string.mothermentor_household_closed_banner,
+                    MotherMentorHouseholdClosureLabels.reason(this, closure.getClosureReason()),
+                    closure.getClosedDate()));
+        }
     }
 
     protected boolean isVisitOnProgress(Visit visit) {
@@ -383,46 +421,14 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
     }
 
     private boolean hasCompletedHouseholdServiceSections(Visit visit) {
-        if (visit == null || TextUtils.isEmpty(visit.getJson())) {
-            return false;
-        }
-
+        if (visit == null || TextUtils.isEmpty(visit.getJson())) return false;
         try {
-            JSONArray obsArray = new JSONObject(visit.getJson()).optJSONArray("obs");
-            if (obsArray == null) return false;
-            Map<String, String> values =
-                    MotherMentorHouseholdCounselling.observationValues(obsArray);
-            return getCompletedHouseholdServiceFields(obsArray)
-                            .containsAll(REQUIRED_HOUSEHOLD_SERVICE_FIELDS)
-                    && MotherMentorHouseholdCounselling.isComplete(values);
+            return MotherMentorHouseholdVisitUtils.isComplete(
+                    MotherMentorHouseholdVisitUtils.observationValues(
+                            new JSONObject(visit.getJson()).optJSONArray("obs")));
         } catch (Exception e) {
             Timber.e(e);
             return false;
         }
-    }
-
-    private Set<String> getCompletedHouseholdServiceFields(JSONArray obsArray) {
-        Set<String> completedFields = new HashSet<>();
-        for (int i = 0; i < obsArray.length(); i++) {
-            JSONObject obs = obsArray.optJSONObject(i);
-            if (!hasRequiredFieldValue(obs)) {
-                continue;
-            }
-
-            String fieldCode = obs.optString("fieldCode").toLowerCase(Locale.US);
-            if (REQUIRED_HOUSEHOLD_SERVICE_FIELDS.contains(fieldCode)) {
-                completedFields.add(fieldCode);
-            }
-        }
-        return completedFields;
-    }
-
-    private boolean hasRequiredFieldValue(JSONObject obs) {
-        if (obs == null) {
-            return false;
-        }
-
-        JSONArray values = obs.optJSONArray("values");
-        return values != null && values.length() > 0 && !TextUtils.isEmpty(values.optString(0));
     }
 }
