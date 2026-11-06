@@ -482,6 +482,35 @@ public class MotherMentorHistoryMapperTest {
         assertFalse(keys(rows).contains("counselled_child_count"));
     }
 
+    @Test
+    @Config(qualifiers = "en")
+    public void mamaIitHistoryShowsTheEnglishReturnAgreement() {
+        assertIitAgreementHistory("Travelled", "Agreed to return to the facility");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void mamaIitHistoryShowsTheSwahiliReturnAgreement() {
+        assertIitAgreementHistory("Safari", "Amekubali kurudi kituoni");
+    }
+
+    private void assertIitAgreementHistory(String reason, String agreement) {
+        Visit visit = visit(MotherMentorFollowUpType.MOTHER_IIT.getEventType());
+        answer(visit, DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA, "2", "");
+        answer(visit, DBConstants.KEY.IIT_ENROLLMENT_ID, "private-episode", "");
+        answer(visit, DBConstants.KEY.IIT_RETURN_STATE, "none", "");
+        answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, "found", "");
+        answer(visit, DBConstants.KEY.SERVICE_INTERRUPTION_REASON, "travel_or_moved", "");
+        answer(visit, DBConstants.KEY.IIT_RETURN_AGREEMENT, "agreed", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Collections.singletonList(reason),
+                row(rows, DBConstants.KEY.SERVICE_INTERRUPTION_REASON).getValues());
+        assertEquals(Collections.singletonList(agreement),
+                row(rows, DBConstants.KEY.IIT_RETURN_AGREEMENT).getValues());
+        assertFalse(keys(rows).contains(DBConstants.KEY.IIT_RETURN_STATE));
+        assertFalse(keys(rows).contains(DBConstants.KEY.IIT_ENROLLMENT_ID));
+    }
+
     private MotherMentorHistoryMapper mapper() {
         return new MotherMentorHistoryMapper(RuntimeEnvironment.application);
     }

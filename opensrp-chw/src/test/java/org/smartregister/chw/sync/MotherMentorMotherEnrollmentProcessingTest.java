@@ -13,6 +13,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
@@ -61,6 +62,7 @@ public class MotherMentorMotherEnrollmentProcessingTest extends BaseUnitTest {
                 MockedStatic<MotherMentorMotherDeliveryRepository> delivery = mockStatic(MotherMentorMotherDeliveryRepository.class);
                 MockedStatic<MotherMentorMotherChildRepository> childClinical = mockStatic(MotherMentorMotherChildRepository.class);
                 MockedStatic<MotherMentorChildEidRepository> childTracing = mockStatic(MotherMentorChildEidRepository.class);
+                MockedStatic<MotherMentorIitRepository> iit = mockStatic(MotherMentorIitRepository.class);
                 MockedStatic<MotherMentorMotherClosureRepository> closure =
                         mockStatic(MotherMentorMotherClosureRepository.class)) {
             CoreLibrary library = mock(CoreLibrary.class);
@@ -80,6 +82,8 @@ public class MotherMentorMotherEnrollmentProcessingTest extends BaseUnitTest {
                     .thenAnswer(call -> { assertTrue(projected.get()); return null; });
             childTracing.when(() -> MotherMentorChildEidRepository.rebuild(any(), eq("simulated-client")))
                     .thenAnswer(call -> { assertTrue(projected.get()); return null; });
+            iit.when(() -> MotherMentorIitRepository.rebuild(any(), eq("simulated-client")))
+                    .thenAnswer(call -> { assertTrue(projected.get()); return null; });
             processor.processEvents(classification, null, null, eventClient, event, eventType);
             assertTrue(projected.get());
             if (Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT.equals(eventType)) {
@@ -96,6 +100,11 @@ public class MotherMentorMotherEnrollmentProcessingTest extends BaseUnitTest {
                 childTracing.verify(() -> MotherMentorChildEidRepository.rebuild(any(), eq("simulated-client")));
             } else {
                 childTracing.verifyNoInteractions();
+            }
+            if (Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_IIT.equals(eventType)) {
+                iit.verify(() -> MotherMentorIitRepository.rebuild(any(), eq("simulated-client")));
+            } else {
+                iit.verifyNoInteractions();
             }
             if ("mother".equals(expected)) {
                 closure.verify(() -> MotherMentorMotherClosureRepository.rebuild(any(), eq("simulated-client")));

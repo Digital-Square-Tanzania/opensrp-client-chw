@@ -39,7 +39,7 @@ public class MotherMentorVisitClientProcessorTest {
     }
 
     @Test
-    public void motherIitFollowUpUsesTheExistingVisitProcessor() throws Exception {
+    public void motherIitFollowUpUsesItsCanonicalVisitProcessor() throws Exception {
         assertVisitRouting(MotherMentorFollowUpType.MOTHER_IIT.getEventType());
     }
 
@@ -91,7 +91,7 @@ public class MotherMentorVisitClientProcessorTest {
 
     private void assertVisitRouting(String eventType) throws Exception {
         try (MockedStatic<CoreLibrary> core = peerProcessing();
-                MockedStatic<org.smartregister.chw.mothermentor.util.NCUtils> childVisits =
+                MockedStatic<org.smartregister.chw.mothermentor.util.NCUtils> canonicalVisits =
                         mockStatic(org.smartregister.chw.mothermentor.util.NCUtils.class);
                 MockedStatic<NCUtils> visits = mockStatic(NCUtils.class)) {
             ChwClientProcessor processor = processor();
@@ -101,13 +101,14 @@ public class MotherMentorVisitClientProcessorTest {
             for (int delivery = 0; delivery < 2; delivery++) {
                 processor.processEvents(null, null, null, eventClient, eventClient.getEvent(), eventType);
             }
-            if (MotherMentorFollowUpType.CHILD_EID.getEventType().equals(eventType)) {
-                childVisits.verify(() -> org.smartregister.chw.mothermentor.util.NCUtils
+            if (MotherMentorFollowUpType.CHILD_EID.getEventType().equals(eventType)
+                    || MotherMentorFollowUpType.MOTHER_IIT.getEventType().equals(eventType)) {
+                canonicalVisits.verify(() -> org.smartregister.chw.mothermentor.util.NCUtils
                         .processHomeVisit(eventClient), times(2));
                 visits.verifyNoInteractions();
             } else {
                 visits.verify(() -> NCUtils.processHomeVisit(eventClient), times(2));
-                childVisits.verifyNoInteractions();
+                canonicalVisits.verifyNoInteractions();
             }
         }
     }
