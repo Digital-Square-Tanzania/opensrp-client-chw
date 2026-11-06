@@ -88,6 +88,17 @@ public class MotherMentorDeceasedRegisterConditionTest {
     }
 
     @Test
+    public void iitHistoryShowsClosedRecordsWithoutMixingInTheActiveRoster() {
+        MotherMentorSecondaryEnrollmentRegisterFragmentPresenter presenter =
+                secondaryPresenter(Constants.TABLES.MOTHERMENTOR_ENROLL_IIT);
+        assertLivingClients(presenter);
+        presenter.setHistoryMode(true);
+        assertEquals(Arrays.asList("closed"), clients(presenter));
+        presenter.setHistoryMode(false);
+        assertLivingClients(presenter);
+    }
+
+    @Test
     public void partnerRegisterExcludesRecordedDeathsEvenWhenEnrollmentRemainsOpen() {
         assertLivingClients(secondaryPresenter(Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER));
     }

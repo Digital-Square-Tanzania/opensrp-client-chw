@@ -12,6 +12,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
@@ -19,17 +20,21 @@ import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.interactor.ChildEidFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.MotherMentorFollowUpVisitInteractor;
+import org.smartregister.chw.mothermentor.interactor.BaseMotherMentorFollowUpVisitInteractor;
+import org.smartregister.chw.mothermentor.interactor.MotherMentorIitVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherVisitUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
@@ -102,8 +107,30 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                         ? new PartnerFollowUpVisitInteractor(followUpType.getEventType())
                         : followUpType == MotherMentorFollowUpType.CHILD_EID
                         ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType())
-                        : new MotherMentorFollowUpVisitInteractor(
-                                  followUpType.getEventType(), followUpType.getValue()));
+                        : iitInteractor());
+    }
+
+    private BaseMotherMentorFollowUpVisitInteractor iitInteractor() {
+        MotherMentorFollowUpType iit = MotherMentorFollowUpType.MOTHER_IIT;
+        if (Boolean.TRUE.equals(isEditMode)) {
+            Visit latest = MotherMentorLibrary.getInstance().visitRepository()
+                    .getLatestVisit(baseEntityID, iit.getEventType());
+            if (latest != null && !isCurrentIitSchema(latest)) {
+                return new MotherMentorFollowUpVisitInteractor(iit.getEventType(), iit.getValue());
+            }
+        }
+        return new MotherMentorIitVisitInteractor();
+    }
+
+    static boolean isCurrentIitSchema(Visit visit) {
+        try {
+            Map<String, String> values = MotherMentorVisitCompletion.observationValues(
+                    new JSONObject(visit.getJson()).optJSONArray("obs"));
+            return "2".equals(values.get(DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA));
+        } catch (Exception e) {
+            Timber.e(e, "Unable to read saved IIT workflow schema");
+            return false;
+        }
     }
 
     @Override
@@ -224,8 +251,13 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     protected boolean isFollowUpCardClosed() {
-        return isFollowUpVisit() && baseEntityID != null
-                && MotherMentorMotherClosureRepository.isFollowUpEnrollmentClosed(
+        if (!isFollowUpVisit() || baseEntityID == null) return false;
+        if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
+            return MotherMentorIitRepository.getState(
+                    ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                    baseEntityID, null).isClosed();
+        }
+        return MotherMentorMotherClosureRepository.isFollowUpEnrollmentClosed(
                         ChwApplication.getInstance().getRepository().getReadableDatabase(),
                         baseEntityID, getFollowUpType());
     }

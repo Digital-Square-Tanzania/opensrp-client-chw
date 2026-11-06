@@ -32,7 +32,8 @@ public class MotherMentorRegisterFragmentModel extends BaseMotherMentorRegisterF
                         + DBConstants.KEY.BASE_ENTITY_ID
                         + " COLLATE NOCASE ");
         queryBuilder.customJoin(
-                "INNER JOIN "
+                (org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_IIT
+                        .equals(tableName) ? "LEFT JOIN " : "INNER JOIN ")
                         + Constants.TABLE_NAME.FAMILY
                         + " ON "
                         + Constants.TABLE_NAME.FAMILY_MEMBER

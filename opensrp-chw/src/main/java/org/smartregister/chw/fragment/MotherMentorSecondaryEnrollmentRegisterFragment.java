@@ -13,6 +13,7 @@ import org.smartregister.chw.model.MotherMentorRegisterFragmentModel;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.presenter.MotherMentorSecondaryEnrollmentRegisterFragmentPresenter;
 import org.smartregister.chw.provider.MotherMentorFollowUpRegisterProvider;
+import org.smartregister.chw.provider.MotherMentorIitRegisterProvider;
 import org.smartregister.chw.provider.MotherMentorChildEidRegisterProvider;
 import org.smartregister.chw.mothermentor.dao.MotherMentorChildEidDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
@@ -130,6 +131,9 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
         MotherMentorFollowUpRegisterProvider provider =
                 isChildEid()
                         ? new MotherMentorChildEidRegisterProvider(
+                                getActivity(), paginationViewHandler, registerActionHandler)
+                        : getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT
+                        ? new MotherMentorIitRegisterProvider(
                                 getActivity(), paginationViewHandler, registerActionHandler)
                         : new MotherMentorFollowUpRegisterProvider(
                                 getActivity(), paginationViewHandler, registerActionHandler);
