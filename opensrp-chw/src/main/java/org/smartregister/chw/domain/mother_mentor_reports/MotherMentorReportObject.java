@@ -749,13 +749,16 @@ public class MotherMentorReportObject extends ReportObject {
     }
 
     private String childAttendanceVisits() {
-        String stage =
-                "CASE "
-                        + detail(DBConstants.KEY.CHILD_EID_TEST_TYPE)
-                        + " WHEN 'six_weeks' THEN 'week_6' WHEN 'nine_months' THEN 'month_9' WHEN"
-                        + " 'three_months_after_weaning' THEN 'three_months_after_breastfeeding'"
-                        + " WHEN 'eighteen_months' THEN 'month_18' WHEN 'not_applicable' THEN"
-                        + " 'not_applicable' END";
+        String selectedStage = "coalesce(nullif(" + detail(DBConstants.KEY.CHILD_EID_TEST_TYPE)
+                + ", ''), CASE WHEN " + detail(DBConstants.KEY.MTOTO_RETURN_FLOW) + " = '1' THEN "
+                + detail(DBConstants.KEY.MTOTO_RUFAA_TEST) + " END)";
+        String stage = "CASE " + selectedStage
+                + " WHEN 'six_weeks' THEN 'week_6' WHEN 'wiki6' THEN 'week_6'"
+                + " WHEN 'nine_months' THEN 'month_9' WHEN 'miezi9' THEN 'month_9'"
+                + " WHEN 'three_months_after_weaning' THEN 'three_months_after_breastfeeding'"
+                + " WHEN 'miezi15' THEN 'three_months_after_breastfeeding'"
+                + " WHEN 'eighteen_months' THEN 'month_18' WHEN 'miezi18' THEN 'month_18'"
+                + " WHEN 'not_applicable' THEN 'not_applicable' END";
         MotherMentorFollowUpType type = MotherMentorFollowUpType.CHILD_EID;
         return "SELECT v.*, "
                 + serviceDate()
