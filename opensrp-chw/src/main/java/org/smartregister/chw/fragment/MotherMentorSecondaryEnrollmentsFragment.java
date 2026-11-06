@@ -33,6 +33,11 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
     private MotherMentorSecondaryEnrollmentPagerAdapter adapter;
     private View rootView;
     private ViewPager viewPager;
+    private static final String STATE_IIT_HISTORY = "iit_history";
+    private static final int IIT_FILTER_MENU_ID =
+            org.smartregister.chw.mothermentor.R.id.action_mothermentor_iit_filter;
+    private boolean iitHistoryMode;
+    private MenuItem iitFilterMenuItem;
     private static final String STATE_PARTNER_HISTORY = "partner_history";
     private static final int PARTNER_HISTORY_MENU_ID =
             org.smartregister.chw.mothermentor.R.id.action_mothermentor_partner_history;
@@ -49,6 +54,7 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mothermentor_secondary_enrollments, container, false);
         rootView = view;
+        iitHistoryMode = savedInstanceState != null && savedInstanceState.getBoolean(STATE_IIT_HISTORY);
         partnerHistoryMode = savedInstanceState != null
                 && savedInstanceState.getBoolean(STATE_PARTNER_HISTORY);
         childHistoryMode = savedInstanceState != null
@@ -58,6 +64,7 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
 
         viewPager = view.findViewById(R.id.mothermentor_secondary_view_pager);
         adapter = new MotherMentorSecondaryEnrollmentPagerAdapter(getChildFragmentManager(), requireContext());
+        adapter.setIitHistoryMode(iitHistoryMode);
         adapter.setPartnerHistoryMode(partnerHistoryMode);
         adapter.setChildHistoryMode(childHistoryMode);
         viewPager.setAdapter(adapter);
@@ -68,11 +75,11 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                updatePartnerHistoryMenu();
+                updateHistoryMenu();
             }
         });
         applyPendingTabIndex();
-        updatePartnerHistoryMenu();
+        updateHistoryMenu();
 
         return view;
     }
@@ -88,12 +95,15 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBoolean(STATE_IIT_HISTORY, iitHistoryMode);
         outState.putBoolean(STATE_PARTNER_HISTORY, partnerHistoryMode);
         outState.putBoolean(STATE_CHILD_HISTORY, childHistoryMode);
         super.onSaveInstanceState(outState);
     }
 
-    private void updatePartnerHistoryMenu() {
+    private void updateHistoryMenu() {
+        if (iitFilterMenuItem != null) iitFilterMenuItem.setVisible(viewPager != null
+                && viewPager.getCurrentItem() == MotherMentorRegisterActivity.TAB_INDEX_IIT);
         if (childFilterMenuItem != null) childFilterMenuItem.setVisible(viewPager != null
                 && viewPager.getCurrentItem() == MotherMentorRegisterActivity.TAB_INDEX_CHILD_EID);
         if (partnerHistoryMenuItem == null) return;
@@ -120,6 +130,16 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
             Timber.e(e);
         }
 
+        iitFilterMenuItem = toolbar.getMenu().findItem(IIT_FILTER_MENU_ID);
+        if (iitFilterMenuItem == null) {
+            iitFilterMenuItem = toolbar.getMenu().add(Menu.NONE, IIT_FILTER_MENU_ID,
+                    Menu.NONE, org.smartregister.chw.mothermentor.R.string.mothermentor_eid_filter);
+            iitFilterMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            iitFilterMenuItem.setOnMenuItemClickListener(item -> {
+                showClosedFilter(false);
+                return true;
+            });
+        }
         partnerHistoryMenuItem = toolbar.getMenu().findItem(PARTNER_HISTORY_MENU_ID);
         childFilterMenuItem = toolbar.getMenu().findItem(CHILD_FILTER_MENU_ID);
         if (childFilterMenuItem == null) {
@@ -127,7 +147,7 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
                     Menu.NONE, org.smartregister.chw.mothermentor.R.string.mothermentor_eid_filter);
             childFilterMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
             childFilterMenuItem.setOnMenuItemClickListener(item -> {
-                showChildFilter();
+                showClosedFilter(true);
                 return true;
             });
         }
@@ -138,11 +158,11 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
             partnerHistoryMenuItem.setOnMenuItemClickListener(item -> {
                 partnerHistoryMode = !partnerHistoryMode;
                 if (adapter != null) adapter.setPartnerHistoryMode(partnerHistoryMode);
-                updatePartnerHistoryMenu();
+                updateHistoryMenu();
                 return true;
             });
         }
-        updatePartnerHistoryMenu();
+        updateHistoryMenu();
 
         ImageView qrCodeScanImageView = view.findViewById(org.smartregister.R.id.scanQrCode);
         if (qrCodeScanImageView != null) {
@@ -162,8 +182,8 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
         }
     }
 
-    private void showChildFilter() {
-        boolean[] selected = {childHistoryMode};
+    private void showClosedFilter(boolean child) {
+        boolean[] selected = {child ? childHistoryMode : iitHistoryMode};
         new AlertDialog.Builder(requireContext())
                 .setTitle(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_filter)
                 .setMultiChoiceItems(new String[] {getString(org.smartregister.chw.mothermentor.R.string
@@ -171,8 +191,13 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
                         (dialog, which, checked) -> selected[0] = checked)
                 .setPositiveButton(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_apply_filter,
                         (dialog, which) -> {
-                            childHistoryMode = selected[0];
-                            if (adapter != null) adapter.setChildHistoryMode(childHistoryMode);
+                            if (child) {
+                                childHistoryMode = selected[0];
+                                if (adapter != null) adapter.setChildHistoryMode(childHistoryMode);
+                            } else {
+                                iitHistoryMode = selected[0];
+                                if (adapter != null) adapter.setIitHistoryMode(iitHistoryMode);
+                            }
                         })
                 .setNegativeButton(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_cancel_filter, null)
                 .show();
