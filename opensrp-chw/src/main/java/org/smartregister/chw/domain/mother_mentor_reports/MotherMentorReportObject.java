@@ -832,17 +832,34 @@ public class MotherMentorReportObject extends ReportObject {
                         + " THEN 'refused' WHEN 'under_follow_up' THEN 'still_followed' ELSE "
                         + detail(DBConstants.KEY.FOLLOW_UP_STATUS)
                         + " END";
+        String currentSchema = detail(DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA) + " = '2'";
+        String returnDecision = detail(DBConstants.KEY.IIT_RETURN_AGREEMENT);
+        String firstContact = detail(DBConstants.KEY.IIT_RETURN_STATE) + " = 'none'";
+        String currentOutcome = "CASE WHEN " + currentSchema + " THEN CASE "
+                + detail(DBConstants.KEY.FOLLOW_UP_STATUS)
+                + " WHEN 'found' THEN CASE WHEN " + firstContact + " AND " + returnDecision
+                + " = 'refused' THEN 'refused' ELSE 'found' END"
+                + " WHEN 'not_found' THEN CASE " + detail(DBConstants.KEY.IIT_NOT_FOUND_REASON)
+                + " WHEN 'deceased' THEN 'deceased' WHEN 'moved_facility' THEN 'transferred'"
+                + " WHEN 'moved_area' THEN 'not_found' WHEN 'travelled' THEN 'not_found'"
+                + " WHEN 'other' THEN 'not_found' END END ELSE " + outcome + " END";
+        String currentReturn = "CASE WHEN " + currentSchema + " THEN CASE "
+                + "WHEN " + firstContact + " AND " + returnDecision
+                + " IN ('agreed', 'refused') THEN 'not_applicable' WHEN "
+                + detail(DBConstants.KEY.IIT_RETURN_STATE) + " = 'referred' THEN "
+                + detail(DBConstants.KEY.RETURNED_TO_FACILITY) + " END ELSE "
+                + detail(DBConstants.KEY.RETURNED_TO_FACILITY) + " END";
         return "SELECT v.*, "
                 + serviceDate()
                 + " AS service_date, "
                 + workflowAnswer(type, DBConstants.KEY.IIT_TRACING_VISIT, "'yes'")
                 + " AS tracing_flag, "
-                + workflowAnswer(type, DBConstants.KEY.IIT_TRACING_OUTCOME, outcome)
+                + workflowAnswer(type, DBConstants.KEY.IIT_TRACING_OUTCOME, currentOutcome)
                 + " AS outcome, "
                 + workflowAnswer(
                         type,
                         DBConstants.KEY.RETURNED_TO_ART,
-                        whenFound(detail(DBConstants.KEY.RETURNED_TO_FACILITY)))
+                        whenFound(currentReturn))
                 + " AS "
                 + DBConstants.KEY.RETURNED_TO_ART
                 + ", "

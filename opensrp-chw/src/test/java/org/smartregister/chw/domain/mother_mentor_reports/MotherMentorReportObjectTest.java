@@ -21,6 +21,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -681,6 +682,42 @@ public class MotherMentorReportObjectTest {
         assertEquals(1, c.getInt("mm-18-other-outcomes"));
         assertEquals(1, c.getInt("mm-5"));
         for (int n : new int[]{4, 5, 18}) assertEquals(0, c.getInt("mm-" + n + "-missing-records"));
+    }
+
+    @Test
+    public void stagedIitVisitsReportObservedOutcomesAndIgnoreHiddenReturnAnswers() throws Exception {
+        for (String id : new String[]{"agreed", "refused", "returned", "not-returned", "death", "transfer", "travel"}) {
+            primary(id, "Female", "2000-01-01");
+            iit(id);
+            boolean found = Arrays.asList("agreed", "refused", "returned", "not-returned").contains(id);
+            currentVisit(id, id, "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT,
+                    found ? "found" : "not_found");
+            detail(id, "iit_follow_up_schema", "2");
+        }
+        for (String decision : new String[]{"agreed", "refused"}) {
+            detail(decision, "iit_return_state", "none");
+            detail(decision, "iit_return_agreement", decision);
+            detail(decision, "returned_to_facility", "yes"); // A hidden answer is stale.
+            detail(decision, "facility_return_date", "2026-04-20");
+        }
+        detail("returned", "iit_return_state", "referred");
+        detail("returned", "returned_to_facility", "yes");
+        detail("returned", "facility_return_date", "2026-04-18");
+        detail("not-returned", "iit_return_state", "referred");
+        detail("not-returned", "returned_to_facility", "no");
+        detail("death", "iit_sababu_kutopatikana", "deceased");
+        detail("transfer", "iit_sababu_kutopatikana", "moved_facility");
+        detail("travel", "iit_sababu_kutopatikana", "travelled");
+
+        JSONObject counts = report.getIndicatorData();
+        for (String outcome : new String[]{"returned", "not-found", "died", "refused"}) {
+            assertEquals(outcome, 1, counts.getInt("mm-4-" + outcome));
+        }
+        assertEquals(1, counts.getInt("mm-18-transferred"));
+        assertEquals(1, counts.getInt("mm-5"));
+        for (int indicator : new int[]{4, 5, 18}) {
+            assertEquals(0, counts.getInt("mm-" + indicator + "-missing-records"));
+        }
     }
 
     @Test
