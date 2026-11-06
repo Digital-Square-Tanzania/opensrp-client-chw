@@ -849,6 +849,11 @@ public class MotherMentorReportObject extends ReportObject {
                 + detail(DBConstants.KEY.IIT_RETURN_STATE) + " = 'referred' THEN "
                 + detail(DBConstants.KEY.RETURNED_TO_FACILITY) + " END ELSE "
                 + detail(DBConstants.KEY.RETURNED_TO_FACILITY) + " END";
+        String facilityReturn = detail(DBConstants.KEY.FACILITY_RETURN_DATE);
+        String missedAppointment = normalizeDate(detail(DBConstants.KEY.IIT_MISSED_APPOINTMENT_DATE));
+        String currentReturnDate = "CASE WHEN " + currentSchema + " AND " + validDate(missedAppointment)
+                + " AND " + normalizeDate(facilityReturn) + " < " + missedAppointment
+                + " THEN NULL ELSE " + facilityReturn + " END";
         return "SELECT v.*, "
                 + serviceDate()
                 + " AS service_date, "
@@ -867,9 +872,14 @@ public class MotherMentorReportObject extends ReportObject {
                         workflowAnswer(
                                 type,
                                 DBConstants.KEY.ART_RETURN_DATE,
-                                detail(DBConstants.KEY.FACILITY_RETURN_DATE)))
+                                currentReturnDate))
                 + " AS return_date FROM visits v WHERE "
                 + finalizedVisitInMonth(LEGACY_SERVICE, type.getEventType())
+                // IIT sync serializes voided revisions as compact Gson JSON. This also works
+                // on older SQLite builds without the JSON functions.
+                + " AND (v." + DBConstants.KEY.VISIT_TYPE + " <> '" + type.getEventType()
+                + "' OR instr(coalesce(v." + DBConstants.KEY.VISIT_JSON + ", ''), '\""
+                + DBConstants.KEY.EVENT_VOIDED + "\":true') = 0)"
                 + " AND "
                 + iitAt(serviceDate())
                 + " AND NOT coalesce(("

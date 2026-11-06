@@ -37,7 +37,8 @@ public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryAct
     @Override
     public void initializePresenter() {
         MotherMentorFollowUpType followUpType = getFollowUpType();
-        flavor = new MotherMentorMedicalHistoryActivityFlv(followUpType);
+        flavor = new MotherMentorMedicalHistoryActivityFlv(followUpType,
+                motherMentorMemberObject.getBaseEntityId());
         presenter = new BaseAncMedicalHistoryPresenter(
                 new MotherMentorMedicalHistoryInteractor(followUpType), this,
                 motherMentorMemberObject.getBaseEntityId());

@@ -44,6 +44,8 @@ public class MotherMentorFormAssetsInstrumentedTest {
         "mothermentor_follow_up_status",
         "mothermentor_household_visit_comment",
         "mothermentor_household_visit_purpose",
+        "mothermentor_iit_follow_up_status",
+        "mothermentor_iit_return_to_facility",
         "mothermentor_mobilization_session",
         "mothermentor_next_visit_date",
         "mothermentor_partner_arrival",
@@ -90,6 +92,10 @@ public class MotherMentorFormAssetsInstrumentedTest {
     @Test
     public void selectedClinicalAnswersKeepTheirCodesWhenSerialized() throws Exception {
         for (String directory : new String[] {"json.form", "json.form-sw"}) {
+            assertStoredAnswer(directory, "mothermentor_iit_follow_up_status",
+                    DBConstants.KEY.IIT_NOT_FOUND_REASON, "moved_facility");
+            assertStoredAnswer(directory, "mothermentor_iit_return_to_facility",
+                    DBConstants.KEY.IIT_RETURN_AGREEMENT, "agreed");
             assertStoredAnswer(
                     directory, "mothermentor_enroll_child_eid", DBConstants.KEY.LAST_TEST, "dbs_6");
             assertStoredAnswer(

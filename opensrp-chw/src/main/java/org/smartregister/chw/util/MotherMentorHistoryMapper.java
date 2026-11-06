@@ -86,6 +86,7 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.IIT_ENROLLED,
                             DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA,
                             DBConstants.KEY.IIT_ENROLLMENT_ID,
+                            DBConstants.KEY.IIT_MISSED_APPOINTMENT_DATE,
                             DBConstants.KEY.IIT_RETURN_STATE,
                             DBConstants.KEY.PARTNER_ENROLLED,
                             DBConstants.KEY.CHILD_EID_ENROLLED,
