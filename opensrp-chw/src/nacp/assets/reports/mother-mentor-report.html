@@ -205,6 +205,7 @@
                 const missing = values["mm-" + indicator + "-missing-records"];
                 if (missing > 0) coverage.push("Ind. " + indicator + ": rekodi " + missing + " hazina taarifa zote / records missing required data");
             });
+            if (values["mm-14-role-visits"] > 0) coverage.push("Ind. 14: ziara " + values["mm-14-role-visits"] + " zimehesabu washiriki kwa nafasi zao; jumla inapatikana bila mgawanyo kamili wa jinsia au umri / visits counted participants by role; totals have no complete sex or age breakdown");
             if (values["mm-11-pending-results"] > 0) coverage.push("Ind. 11: watoto " + values["mm-11-pending-results"] + " wanasubiri matokeo ya mwisho / children with final test results recorded as pending");
             [4, 18].forEach((indicator) => {
                 const other = values["mm-" + indicator + "-other-outcomes"];

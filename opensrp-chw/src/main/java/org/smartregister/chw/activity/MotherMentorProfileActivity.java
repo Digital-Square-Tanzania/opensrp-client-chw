@@ -34,18 +34,20 @@ import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorChildEidDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidFollowUpVisitUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidProfileUi;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidStatusUtils;
-import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
-import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosureLabels;
@@ -125,6 +127,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private boolean manualVisitCompletionInProgress;
     private TextView partnerClosureBanner;
     private LinearLayout iitProfileImageRow;
+    private final MotherMentorChildEidProfileUi childProfileUi = new MotherMentorChildEidProfileUi();
+    private final AppExecutors childProfileExecutors = new AppExecutors();
+    private volatile int childProfileLoadVersion;
     private final Handler visitAvailabilityHandler = new Handler(Looper.getMainLooper());
     private final Runnable refreshVisitAvailability =
             () -> {
@@ -221,6 +226,23 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (memberObject == null && isFollowUpProfile()
                 && getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
             memberObject = MotherMentorDao.getPartnerHistoryMember(baseEntityId);
+        }
+        if (memberObject == null && isChildEidProfile()) {
+            Map<String, String> values = loadChildEidCardValues(baseEntityId);
+            if (!values.isEmpty()) {
+                memberObject = new MemberObject();
+                memberObject.setBaseEntityId(baseEntityId);
+                memberObject.setFirstName(childValue(values, DBConstants.KEY.FIRST_NAME));
+                memberObject.setMiddleName(childValue(values, DBConstants.KEY.MIDDLE_NAME));
+                memberObject.setLastName(childValue(values, DBConstants.KEY.LAST_NAME));
+                memberObject.setDob(childValue(values, DBConstants.KEY.CHILD_DOB));
+                memberObject.setGender(childValue(values, DBConstants.KEY.GENDER));
+                memberObject.setPhoneNumber(childValue(values, DBConstants.KEY.PHONE_NUMBER));
+                memberObject.setFamilyBaseEntityId(childValue(values, DBConstants.KEY.RELATIONAL_ID));
+                memberObject.setRelationalId(childValue(values, DBConstants.KEY.RELATIONAL_ID));
+                memberObject.setAddress(childValue(values, DBConstants.KEY.VILLAGE_TOWN));
+                memberObject.setUniqueId(childValue(values, DBConstants.KEY.UNIQUE_ID));
+            }
         }
         return memberObject;
     }
@@ -547,6 +569,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                                     .return_to_mothermentor_clients);
         }
         updateFollowUpRole();
+        positionChildEidPill();
+        refreshChildEidDetails();
         updateIitHighRiskTag();
         updatePregnancyWeek();
         applyMotherMentorDeceasedHandling();
@@ -573,6 +597,67 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                             ? R.string.mothermentor_child_eid
                             : R.string.mothermentor_partner);
         }
+    }
+
+    private boolean isChildEidProfile() {
+        return isFollowUpProfile() && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID;
+    }
+
+    private void positionChildEidPill() {
+        if (!isChildEidProfile() || followUpRoleView == null || imageView == null
+                || !(imageView.getParent() instanceof ViewGroup)) return;
+        ensureProfileImageTagRow();
+        if (followUpRoleView.getParent() != iitProfileImageRow) {
+            ((ViewGroup) followUpRoleView.getParent()).removeView(followUpRoleView);
+            iitProfileImageRow.addView(followUpRoleView);
+        }
+    }
+
+    protected MotherMentorChildEidRepository.State loadChildEidState(String childId) {
+        return MotherMentorChildEidRepository.getState(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), childId, null);
+    }
+
+    protected Map<String, String> loadChildEidCardValues(String childId) {
+        return MotherMentorChildEidDao.cardValues(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), childId);
+    }
+
+    protected void refreshChildEidDetails() {
+        if (!isChildEidProfile() || memberObject == null
+                || findViewById(org.smartregister.chw.mothermentor.R.id.profile_name_layout) == null) {
+            childProfileUi.hide();
+            return;
+        }
+        final String childId = memberObject.getBaseEntityId();
+        final int request = ++childProfileLoadVersion;
+        childProfileExecutors.diskIO().execute(() -> {
+            if (request != childProfileLoadVersion) return;
+            try {
+                MotherMentorChildEidRepository.State child = loadChildEidState(childId);
+                Map<String, String> identity = loadChildEidCardValues(childId);
+                childProfileExecutors.mainThread().execute(() -> {
+                    if (request != childProfileLoadVersion || isFinishing() || isDestroyed()
+                            || !isChildEidProfile() || memberObject == null
+                            || !childId.equals(memberObject.getBaseEntityId())) return;
+                    childProfileUi.bind(this, child, identity,
+                            new org.joda.time.LocalDate(getVisitAvailabilityDate()), followUpRoleView);
+                });
+            } catch (Exception e) {
+                Timber.e(e, "Unable to load child EID tracing details");
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        childProfileLoadVersion++;
+        super.onDestroy();
+    }
+
+    private static String childValue(Map<String, String> values, String key) {
+        String value = values.get(key);
+        return value == null ? "" : value.trim();
     }
 
     private void updatePregnancyWeek() {
@@ -915,6 +1000,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     protected void setupButtons() {
         if (isFinishing()) return;
         super.setupButtons();
+        refreshChildEidDetails();
         MotherMentorPartnerClosure closure = loadPartnerClosure();
         updatePartnerClosureBanner(closure);
         boolean deceased = isClientDeceased();
@@ -985,6 +1071,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     void updateMotherClosureBanner() {
+        if (isChildEidProfile()) {
+            if (motherClosureBanner != null) motherClosureBanner.setVisibility(View.GONE);
+            return;
+        }
         ViewGroup profile = textViewRecordMotherMentor != null
                         && textViewRecordMotherMentor.getParent() instanceof LinearLayout
                 ? (ViewGroup) textViewRecordMotherMentor.getParent()

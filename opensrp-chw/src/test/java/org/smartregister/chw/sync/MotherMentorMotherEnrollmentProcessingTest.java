@@ -12,7 +12,10 @@ import org.mockito.MockedStatic;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
@@ -55,6 +58,9 @@ public class MotherMentorMotherEnrollmentProcessingTest extends BaseUnitTest {
         try (MockedStatic<CoreLibrary> core = mockStatic(CoreLibrary.class);
                 MockedStatic<MotherMentorHouseholdClosureRepository> households =
                         mockStatic(MotherMentorHouseholdClosureRepository.class);
+                MockedStatic<MotherMentorMotherDeliveryRepository> delivery = mockStatic(MotherMentorMotherDeliveryRepository.class);
+                MockedStatic<MotherMentorMotherChildRepository> childClinical = mockStatic(MotherMentorMotherChildRepository.class);
+                MockedStatic<MotherMentorChildEidRepository> childTracing = mockStatic(MotherMentorChildEidRepository.class);
                 MockedStatic<MotherMentorMotherClosureRepository> closure =
                         mockStatic(MotherMentorMotherClosureRepository.class)) {
             CoreLibrary library = mock(CoreLibrary.class);
@@ -66,8 +72,31 @@ public class MotherMentorMotherEnrollmentProcessingTest extends BaseUnitTest {
                     .thenAnswer(call -> { assertTrue(projected.get()); return null; });
             closure.when(() -> MotherMentorMotherClosureRepository.rebuildForHousehold(any(), eq("simulated-client")))
                     .thenAnswer(call -> { assertTrue(projected.get()); return null; });
+            delivery.when(() -> MotherMentorMotherDeliveryRepository.rebuild(any(), eq("simulated-client")))
+                    .thenAnswer(call -> { assertTrue(projected.get()); return null; });
+            childClinical.when(() -> MotherMentorMotherChildRepository.rebuild(any(), eq("simulated-client")))
+                    .thenAnswer(call -> { assertTrue(projected.get()); return null; });
+            childClinical.when(() -> MotherMentorMotherChildRepository.rebuildForChild(any(), eq("simulated-client")))
+                    .thenAnswer(call -> { assertTrue(projected.get()); return null; });
+            childTracing.when(() -> MotherMentorChildEidRepository.rebuild(any(), eq("simulated-client")))
+                    .thenAnswer(call -> { assertTrue(projected.get()); return null; });
             processor.processEvents(classification, null, null, eventClient, event, eventType);
             assertTrue(projected.get());
+            if (Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT.equals(eventType)) {
+                delivery.verify(() -> MotherMentorMotherDeliveryRepository.rebuild(any(), eq("simulated-client")));
+                childClinical.verify(() -> MotherMentorMotherChildRepository.rebuild(any(), eq("simulated-client")));
+            } else if ("child".equals(expected)) {
+                delivery.verifyNoInteractions();
+                childClinical.verify(() -> MotherMentorMotherChildRepository.rebuildForChild(any(), eq("simulated-client")));
+            } else {
+                delivery.verifyNoInteractions();
+                childClinical.verifyNoInteractions();
+            }
+            if (Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID.equals(eventType)) {
+                childTracing.verify(() -> MotherMentorChildEidRepository.rebuild(any(), eq("simulated-client")));
+            } else {
+                childTracing.verifyNoInteractions();
+            }
             if ("mother".equals(expected)) {
                 closure.verify(() -> MotherMentorMotherClosureRepository.rebuild(any(), eq("simulated-client")));
             } else if ("child".equals(expected)) {

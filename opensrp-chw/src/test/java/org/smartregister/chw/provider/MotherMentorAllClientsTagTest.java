@@ -44,7 +44,7 @@ public class MotherMentorAllClientsTagTest {
     public void swahiliMotherMentorTagsUseTheirLocalizedNames() {
         assertEquals("Mama Kinara", translated(CoreConstants.REGISTER_TYPE.MOTHER_MENTOR));
         assertEquals(
-                "Mama Kinara: Mwenza",
+                "Mama Kinara: Mwenzi",
                 translated(CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_PARTNER));
         assertEquals(
                 "Mtoto wa ufuatiliaji wa ukusanyaji wa DBS",
@@ -64,13 +64,16 @@ public class MotherMentorAllClientsTagTest {
 
     @Test
     @Config(qualifiers = "sw")
-    public void swahiliPartnerTitleAndHistoryUseMwenza() {
+    public void swahiliPartnerTitleAndHistoryUseMwenzi() {
         Application application = RuntimeEnvironment.getApplication();
-        assertEquals("MWENZA", application.getString(R.string.mothermentor_partner));
+        assertEquals("MWENZI", application.getString(R.string.mothermentor_partner));
         assertEquals(
-                "Tarehe mwenza aliyotakiwa kituoni",
+                "Tarehe mwenzi aliyotakiwa kituoni",
                 application.getString(
                         R.string.mothermentor_history_partner_expected_facility_visit_date));
+        assertEquals(
+                "Rudi kwa Wateja wote wa Ufuatiliaji wa Mwenzi",
+                application.getString(R.string.return_to_all_partner_followup_clients));
     }
 
     private String translated(String registerType) {

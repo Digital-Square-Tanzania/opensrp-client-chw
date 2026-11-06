@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
+import static org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
 
 import android.content.ContentValues;
@@ -22,6 +24,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
@@ -76,6 +80,8 @@ public class MotherMentorVisitSyncInstrumentedTest {
         for (String client : syntheticClients) {
             assertEquals("Synthetic visit must not survive rollback", 0,
                     count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, client));
+            assertEquals("Synthetic enrollment must not survive rollback", 0,
+                    count(Constants.TABLES.MOTHERMENTOR_ENROLLMENT, BASE_ENTITY_ID, client));
         }
     }
 
@@ -160,6 +166,102 @@ public class MotherMentorVisitSyncInstrumentedTest {
         process(enrollment);
         assertEquals(0, count(VisitRepository.VISIT_TABLE, FORM_SUBMISSION_ID,
                 enrollment.getEvent().getFormSubmissionId()));
+    }
+
+    @Test
+    public void syncedDeletionRebuildsDeliveryFromSurvivingVisitsAndThenEnrollment() throws Exception {
+        String mother = UUID.randomUUID().toString();
+        syntheticClients.add(mother);
+        ContentValues enrollment = new ContentValues();
+        enrollment.put(BASE_ENTITY_ID, mother);
+        enrollment.put(PREGNANCY_STATUS, "pregnant");
+        enrollment.put(IS_CLOSED, 0);
+        database.insertOrThrow(Constants.TABLES.MOTHERMENTOR_ENROLLMENT, null, enrollment);
+
+        String olderSource = UUID.randomUUID().toString();
+        String newerSource = UUID.randomUUID().toString();
+        String olderVisitId = saveDeliveryVisit(mother, olderSource, "20", "delivered");
+        String newerVisitId = saveDeliveryVisit(mother, newerSource, "22", "stillbirth");
+        MotherMentorMotherDeliveryRepository.rebuild(database, mother);
+        MotherMentorMotherClosureRepository.rebuild(database, mother);
+        assertProjection(mother, "2020-04-22", "", "not_pregnant", 1);
+
+        EventClient deletion = deleteEvent(mother, olderSource, newerSource);
+        for (int replay = 0; replay < 2; replay++) {
+            process(deletion);
+            assertEquals(0, count(VisitRepository.VISIT_TABLE, FORM_SUBMISSION_ID, newerSource));
+            assertEquals(0, count(VisitDetailsRepository.VISIT_DETAILS_TABLE, VISIT_ID, newerVisitId));
+            assertEquals(1, count(VisitRepository.VISIT_TABLE, FORM_SUBMISSION_ID, olderSource));
+            assertEquals(1, count(VisitDetailsRepository.VISIT_DETAILS_TABLE, VISIT_ID, olderVisitId));
+            assertProjection(mother, "2020-04-20", "2020-04-20", "breast_feeding", 0);
+        }
+
+        process(deleteEvent(mother, olderSource, null));
+        assertEquals(0, count(VisitRepository.VISIT_TABLE, FORM_SUBMISSION_ID, olderSource));
+        assertEquals(0, count(VisitDetailsRepository.VISIT_DETAILS_TABLE, VISIT_ID, olderVisitId));
+        assertProjection(mother, "", "", "pregnant", 0);
+    }
+
+    private String saveDeliveryVisit(String mother, String source, String day, String outcome)
+            throws Exception {
+        String visitId = UUID.randomUUID().toString();
+        String eventDate = "2020-04-" + day + "T12:00:00.000+03:00";
+        JSONArray observations = new JSONArray();
+        observation(observations, ATTENDANCE_TYPE, "repeat");
+        observation(observations, FOLLOW_UP_STATUS, "found");
+        observation(observations, MOTHERMENTOR_VISIT_DATE, day + "-04-2020");
+        observation(observations, VISIT_PREGNANCY_STATUS, "not_pregnant");
+        observation(observations, MAMA_PREGNANCY_OUTCOME, outcome);
+        observation(observations, MAMA_TAREHE_KUJIFUNGUA, day + "-04-2020");
+        JSONObject event = new JSONObject().put(EVENT_FORM_SUBMISSION_ID, source)
+                .put(EVENT_DATE_TIMESTAMP, eventDate).put("obs", observations);
+        long time = org.joda.time.DateTime.parse(eventDate).getMillis();
+        ContentValues row = new ContentValues();
+        row.put(VISIT_ID, visitId);
+        row.put(BASE_ENTITY_ID, mother);
+        row.put(FORM_SUBMISSION_ID, source);
+        row.put(VISIT_TYPE, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        row.put(VISIT_JSON, event.toString());
+        row.put(PROCESSED, 1);
+        row.put(VISIT_DATE, time);
+        row.put(CREATED_AT, time);
+        row.put(UPDATED_AT, time);
+        database.insertOrThrow(VisitRepository.VISIT_TABLE, null, row);
+        ContentValues detail = new ContentValues();
+        detail.put(VISIT_DETAILS_ID, UUID.randomUUID().toString());
+        detail.put(VISIT_ID, visitId);
+        detail.put(VISIT_KEY, MAMA_TAREHE_KUJIFUNGUA);
+        detail.put(DETAILS, day + "-04-2020");
+        database.insertOrThrow(VisitDetailsRepository.VISIT_DETAILS_TABLE, null, detail);
+        return visitId;
+    }
+
+    private EventClient deleteEvent(String mother, String submissionId, String target)
+            throws Exception {
+        JSONObject eventJson = new JSONObject().put(EVENT_BASE_ENTITY_ID, mother)
+                .put(EVENT_TYPE, DELETE_EVENT).put(EVENT_FORM_SUBMISSION_ID, submissionId)
+                .put(EVENT_DATE_TIMESTAMP, "2020-04-23T12:00:00.000+03:00");
+        if (target != null) {
+            eventJson.put("details", new JSONObject().put(DELETE_FORM_SUBMISSION_ID, target));
+        }
+        Event event = JsonFormUtils.gson.fromJson(eventJson.toString(), Event.class);
+        Client client = JsonFormUtils.gson.fromJson(
+                new JSONObject().put(EVENT_BASE_ENTITY_ID, mother).toString(), Client.class);
+        return new EventClient(event, client);
+    }
+
+    private void assertProjection(String mother, String delivery, String dob, String pregnancy,
+            int closed) {
+        try (Cursor row = database.rawQuery("SELECT " + MAMA_TAREHE_KUJIFUNGUA + ", " + CHILD_DOB
+                + ", " + PREGNANCY_STATUS + ", " + IS_CLOSED + " FROM "
+                + Constants.TABLES.MOTHERMENTOR_ENROLLMENT + " WHERE " + BASE_ENTITY_ID + " = ?",
+                new String[] {mother})) {
+            assertTrue(row.moveToFirst());
+            assertEquals("Projected delivery date", delivery, row.getString(0));
+            assertEquals("Projected child date of birth", dob, row.getString(1));
+            assertEquals("Projected pregnancy status", pregnancy, row.getString(2));
+            assertEquals("Projected closure", closed, row.getInt(3));
+        }
     }
 
     private void process(EventClient source) throws Exception {

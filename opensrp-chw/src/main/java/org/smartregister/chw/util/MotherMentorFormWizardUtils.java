@@ -26,7 +26,8 @@ public final class MotherMentorFormWizardUtils {
         Map<String, String> values = org.smartregister.chw.mothermentor.util
                 .MotherMentorMotherChildUtils.values(jsonForm);
         boolean motherVisit = "Mother Mentor Visit Type".equals(jsonForm.optString("encounter_type"))
-                && "2".equals(values.get(DBConstants.KEY.MAMA_VISIT_SCHEMA));
+                && org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
+                        .field(jsonForm, DBConstants.KEY.MAMA_CHILD_STATUS) != null;
         boolean childHei = "Mother Mentor Child EID HEI".equals(jsonForm.optString("encounter_type"))
                 && "3".equals(values.get(DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA));
         Intent intent = new Intent(context, motherVisit || childHei ? MotherMentorVisitWizardActivity.class

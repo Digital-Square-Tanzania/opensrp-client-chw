@@ -2,6 +2,7 @@ package org.smartregister.chw.sync;
 
 
 import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
+import static org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_FOLLOW_UP_VISIT;
 import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_MAT_CLIENTS_FOLLOWUP;
 import static org.smartregister.chw.harmreduction.util.Constants.EVENT_TYPE.HARM_REDUCTION_SOBER_HOUSE_VISIT;
@@ -10,6 +11,7 @@ import static org.smartregister.chw.hivst.util.Constants.EVENT_TYPE.HIVST_MOBILI
 import static org.smartregister.chw.tbleprosy.util.Constants.EVENT_TYPE.TB_LEPROSY_MOBILIZATION;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -23,8 +25,10 @@ import org.smartregister.chw.core.dao.EventDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.AypInSchoolGroupDetails;
@@ -131,6 +135,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.rebuild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_IIT:
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
@@ -139,6 +146,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.rebuildForChild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForChild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.rebuild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MAMA_KINARA_HOUSEHOLD_ENROLMENT:
@@ -352,6 +361,13 @@ public class ChwClientProcessor extends CoreClientProcessor {
             }
         }
 
+        if (org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(eventType)
+                && eventClient != null
+                && org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository
+                        .isMotherEvent(eventClient.getEvent())) {
+            processMissedChildEidEnrollment(eventClient.getEvent().getBaseEntityId());
+        }
+
         if (!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             try {
                 ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
@@ -359,6 +375,13 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 Timber.e(e);
             }
         }
+    }
+
+    @VisibleForTesting
+    protected void processMissedChildEidEnrollment(String motherId) throws Exception {
+        org.smartregister.chw.util.MotherMentorChildEidAutoEnrollment.process(
+                ChwApplication.getInstance().getRepository().getWritableDatabase(), motherId,
+                ChwApplication.getInstance().getEcSyncHelper(), this);
     }
 
     @Override
@@ -558,8 +581,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
             if (eventClient != null && eventClient.getEvent() != null
                     && (org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository
                             .isMotherEvent(eventClient.getEvent())
-                            || org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType.CHILD_EID
-                                    .getEventType().equals(eventClient.getEvent().getEventType()))) {
+                        || org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType.CHILD_EID
+                            .getEventType().equals(eventClient.getEvent().getEventType()))) {
                 org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(eventClient);
             } else {
                 NCUtils.processHomeVisit(eventClient);
@@ -670,38 +693,50 @@ public class ChwClientProcessor extends CoreClientProcessor {
     @Override
     public void processDeleteEvent(Event event) {
         try {
-            List<String> followupTables = Arrays.asList("ec_cecap_visit","ec_hps_client_services");
-            if (event.getDetails().containsKey(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID)) {
+            boolean hasExplicitTarget = event.getDetails() != null
+                    && event.getDetails().containsKey(DELETE_FORM_SUBMISSION_ID);
+            String submissionId = hasExplicitTarget ? event.getDetails().get(DELETE_FORM_SUBMISSION_ID)
+                    : event.getFormSubmissionId();
+            deleteMotherMentorVisitsBySubmissionId(submissionId);
+            if (hasExplicitTarget) {
                 // delete from vaccine table
-                EventDao.deleteVaccineByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+                EventDao.deleteVaccineByFormSubmissionId(submissionId);
                 // delete from visit table
-                EventDao.deleteVisitByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
+                EventDao.deleteVisitByFormSubmissionId(submissionId);
                 // delete from recurring service table
-                EventDao.deleteServiceByFormSubmissionId(event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
-
-                //delete from all  Case Based Management tables that use formSubmissionIds as primaryKeys
-                for (String tableName : followupTables) {
-                    try {
-                        PmtctDao.deleteEntryFromTableByFormSubmissionId(tableName, event.getDetails().get(org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID));
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-                }
+                EventDao.deleteServiceByFormSubmissionId(submissionId);
             } else {
                 super.processDeleteEvent(event);
-                //delete from all PMTCT Case Based Management tables that use formSubmissionIds as primaryKeys
-                for (String tableName : followupTables) {
-                    try {
-                        PmtctDao.deleteEntryFromTableByFormSubmissionId(tableName, event.getFormSubmissionId());
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
+            }
+            for (String tableName : Arrays.asList("ec_cecap_visit", "ec_hps_client_services")) {
+                try {
+                    PmtctDao.deleteEntryFromTableByFormSubmissionId(tableName, submissionId);
+                } catch (Exception e) {
+                    Timber.e(e);
                 }
             }
 
             Timber.d("Ending processDeleteEvent: %s", event.getEventId());
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private void deleteMotherMentorVisitsBySubmissionId(String submissionId) {
+        if (StringUtils.isBlank(submissionId)) return;
+        SQLiteDatabase database = ChwApplication.getInstance().getRepository().getWritableDatabase();
+        List<String> visitIds = new ArrayList<>();
+        try (Cursor rows = database.query(VisitRepository.VISIT_TABLE,
+                new String[] {DBConstants.KEY.VISIT_ID},
+                DBConstants.KEY.FORM_SUBMISSION_ID + " = ? AND " + DBConstants.KEY.VISIT_TYPE + " = ?",
+                new String[] {submissionId,
+                        org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES},
+                null, null, null)) {
+            while (rows.moveToNext()) visitIds.add(rows.getString(0));
+        }
+        // The shared Core deletion uses direct SQL and bypasses the Mother Mentor projections.
+        for (String visitId : visitIds) {
+            MotherMentorLibrary.getInstance().visitRepository().deleteVisit(visitId);
         }
     }
 

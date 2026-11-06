@@ -39,9 +39,7 @@ public class MotherMentorOptionalCommentTest extends BaseUnitTest {
             DBConstants.KEY.HAS_BEEN_LINKED_TO_IGA_GROUP,
             DBConstants.KEY.EDUCATION_PROVIDED,
             DBConstants.KEY.REFERRAL_GIVEN,
-            DBConstants.KEY.NEXT_APPOINTMENT_DATE,
-            DBConstants.KEY.VISIT_PREGNANCY_STATUS,
-            DBConstants.KEY.NEW_PMTCT_ART_INITIATION
+            DBConstants.KEY.NEXT_APPOINTMENT_DATE
         };
         for (String attendance : new String[] {"new", "repeat"}) {
             for (String required : requiredFields) {
@@ -57,10 +55,12 @@ public class MotherMentorOptionalCommentTest extends BaseUnitTest {
     }
 
     @Test
-    public void nonContinuingRepeatNeedsStatusButNoCommentOrHiddenSections() throws Exception {
+    public void notFoundRepeatNeedsAReasonButNoCommentOrHiddenSections() throws Exception {
         Map<String, String> values = new LinkedHashMap<>();
         values.put(DBConstants.KEY.ATTENDANCE_TYPE, "repeat");
-        values.put(DBConstants.KEY.FOLLOW_UP_STATUS, "lost_to_follow_up");
+        values.put(DBConstants.KEY.FOLLOW_UP_STATUS, "not_found");
+        assertFalse(isComplete(values, false));
+        values.put(DBConstants.KEY.MAMA_NOT_FOUND_REASON, "moved_area");
         assertTrue(isComplete(values, false));
         values.remove(DBConstants.KEY.FOLLOW_UP_STATUS);
         assertFalse(isComplete(values, false));
@@ -83,12 +83,10 @@ public class MotherMentorOptionalCommentTest extends BaseUnitTest {
         Map<String, String> values = new LinkedHashMap<>();
         values.put(DBConstants.KEY.ATTENDANCE_TYPE, attendance);
         if ("repeat".equals(attendance)) {
-            values.put(DBConstants.KEY.FOLLOW_UP_STATUS, "continuing_services");
+            values.put(DBConstants.KEY.FOLLOW_UP_STATUS, "found");
+        } else {
+            values.put(DBConstants.KEY.NEW_PMTCT_ART_INITIATION, "no");
         }
-        values.put(DBConstants.KEY.MOTHERMENTOR_REPORTING_VERSION, "2");
-        values.put(DBConstants.KEY.PRIMARY_MOTHERMENTOR_CLIENT, "true");
-        values.put(DBConstants.KEY.VISIT_PREGNANCY_STATUS, "pregnant");
-        values.put(DBConstants.KEY.NEW_PMTCT_ART_INITIATION, "no");
         values.put(DBConstants.KEY.HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP, "no");
         values.put(DBConstants.KEY.HAS_BEEN_LINKED_TO_IGA_GROUP, "no");
         values.put(DBConstants.KEY.EDUCATION_PROVIDED, "no");

@@ -2,7 +2,19 @@ package org.smartregister.chw.activity;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.ART_INITIATED_BEFORE_VISIT;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.ATTENDANCE_TYPE;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.EDUCATION_PROVIDED;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.FOLLOW_UP_STATUS;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.HAS_BEEN_LINKED_TO_IGA_GROUP;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_KITUO_KIPYA;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_NOT_FOUND_REASON;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_SABABU_NYINGINE_TEXT;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.NEW_PMTCT_ART_INITIATION;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.NEXT_APPOINTMENT_DATE;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.REFERRAL_GIVEN;
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.VISIT_ART_START_DATE;
 
 import android.app.Application;
 
@@ -56,8 +68,7 @@ public class MotherMentorMotherEntryCompletionTest {
 
     private boolean complete(String... answers) throws Exception {
         MotherMentorProfileActivity activity = Robolectric.buildActivity(MotherMentorProfileActivity.class).get();
-        JSONArray observations = new JSONArray().put(new JSONObject().put("fieldCode", MAMA_VISIT_SCHEMA)
-                .put("values", new JSONArray().put("2")));
+        JSONArray observations = new JSONArray();
         for (int i = 0; i < answers.length; i += 2) observations.put(new JSONObject()
                 .put("fieldCode", answers[i]).put("values", new JSONArray().put(answers[i + 1])));
         Visit visit = new Visit();
