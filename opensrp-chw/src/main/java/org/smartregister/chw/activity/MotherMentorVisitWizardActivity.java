@@ -1,11 +1,13 @@
 package org.smartregister.chw.activity;
 
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUi;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidHeiUi;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 
 /** Keeps mother HEI controls in the existing family wizard and delegates domain UI to the library. */
 public class MotherMentorVisitWizardActivity extends FamilyWizardFormActivity {
     private final MotherMentorMotherChildUi childUi = new MotherMentorMotherChildUi();
+    private final MotherMentorChildEidHeiUi childEidHeiUi = new MotherMentorChildEidHeiUi();
     private boolean refreshingChild;
 
     @Override
@@ -14,6 +16,11 @@ public class MotherMentorVisitWizardActivity extends FamilyWizardFormActivity {
         super.refreshCalculationLogic(parentKey, childKey, popup, stepName, isForNextStep);
         if (refreshingChild) return;
         refreshingChild = true;
-        try { childUi.refresh(this); } finally { refreshingChild = false; }
+        try {
+            childUi.refresh(this);
+            childEidHeiUi.refresh(this);
+        } finally {
+            refreshingChild = false;
+        }
     }
 }

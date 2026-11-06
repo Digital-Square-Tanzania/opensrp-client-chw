@@ -41,6 +41,7 @@ import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
@@ -1426,9 +1427,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             }
             if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
                 if (MotherMentorChildEidStatusUtils.isSchema3(values)) {
-                    return MotherMentorChildEidFollowUpVisitUtils.isComplete(values,
+                    MotherMentorMotherChildRepository.State clinical = getChildEidCompletionContext(visit);
+                    return clinical != null && MotherMentorChildEidFollowUpVisitUtils.isComplete(values,
                             MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visit.getVisitType()),
-                            getChildEidCompletionDob(visit), MotherMentorMotherVisitDao.getServiceDate(visit));
+                            clinical.getChildDob(), MotherMentorMotherVisitDao.getServiceDate(visit),
+                            clinical.getSamplingHistory());
                 }
                 return MotherMentorChildEidFollowUpVisitUtils.isComplete(
                         values, MotherMentorFollowUpType.CHILD_EID.getEventType()
@@ -1453,16 +1456,16 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         }
     }
 
-    /** Registered DOB is shared context, rather than a copied observation in the visit. */
-    protected LocalDate getChildEidCompletionDob(Visit visit) {
+    /** Clinical context ends before the saved visit, so later tests cannot complete an older visit. */
+    protected MotherMentorMotherChildRepository.State getChildEidCompletionContext(Visit visit) {
         if (visit == null || memberObject == null
                 || TextUtils.isEmpty(memberObject.getBaseEntityId())) return null;
         try {
             return MotherMentorChildEidRepository.getClinicalStateBeforeVisit(
                     ChwApplication.getInstance().getRepository().getReadableDatabase(),
-                    memberObject.getBaseEntityId(), visit.getVisitId()).getChildDob();
+                    memberObject.getBaseEntityId(), visit.getVisitId());
         } catch (Exception e) {
-            Timber.e(e, "Unable to load the Child EID birth date for visit completion");
+            Timber.e(e, "Unable to load Child EID clinical context for visit completion");
             return null;
         }
     }

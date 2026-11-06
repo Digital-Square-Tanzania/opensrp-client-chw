@@ -19,6 +19,10 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
+import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
+import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.TestRecord;
+import java.util.Collections;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -121,6 +125,20 @@ public class MotherMentorChildEidStatusUiTest {
         assertFalse(completeVisit(activity, invalid));
     }
 
+    @Test
+    public void fullManualCompletionRequiresTheEligibleStageAndSavedAgreement() throws Exception {
+        CompletionProfileActivity activity = completionProfile();
+        String[] first = {FOLLOW_UP_STATUS, "found", MAMA_CHILD_STATUS, "alive",
+                MAMA_BREASTFEEDING_STATUS, "breastfeeding", MTOTO_RUFAA_STATE_BEFORE, "none",
+                MTOTO_RUFAA_TEST, "miezi9", MTOTO_RUFAA_DUE, "2026-10-20", MTOTO_REFERRAL_AGREEMENT, "agreed"};
+        assertTrue(complete(activity, first));
+        activity.sampled = true;
+        assertFalse(complete(activity, first));
+        assertTrue(complete(activity, FOLLOW_UP_STATUS, "found", MAMA_CHILD_STATUS, "alive",
+                MAMA_BREASTFEEDING_STATUS, "breastfeeding", MTOTO_RUFAA_STATE_BEFORE, "referred",
+                CHILD_EID_TEST_TYPE, "nine_months", CHILD_EID_ARRIVED_AT_FACILITY, "no"));
+    }
+
     private ClosedVisitActivity closedVisit(MotherMentorFollowUpType type) {
         Intent intent = new Intent().putExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, true)
                 .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, type.getValue());
@@ -170,6 +188,15 @@ public class MotherMentorChildEidStatusUiTest {
     public static class CompletionProfileActivity extends MotherMentorProfileActivity {
         LocalDate dob = new LocalDate(2026, 1, 20);
         int dobReads;
-        @Override protected LocalDate getChildEidCompletionDob(Visit visit) { dobReads++; return dob; }
+        boolean sampled;
+        @Override protected MotherMentorMotherChildRepository.State getChildEidCompletionContext(Visit visit) {
+            dobReads++;
+            if (!sampled) return new MotherMentorMotherChildRepository.State(dob);
+            MotherMentorMotherChildRepository.State state = mock(MotherMentorMotherChildRepository.State.class);
+            when(state.getChildDob()).thenReturn(dob);
+            when(state.getSamplingHistory()).thenReturn(Collections.singletonMap(Stage.NINE_MONTHS,
+                    new TestRecord("pending", new LocalDate(2026, 10, 20), false, new LocalDate(2026, 10, 20))));
+            return state;
+        }
     }
 }
