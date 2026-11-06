@@ -292,59 +292,82 @@ public class MotherMentorReportObject extends ReportObject {
     }
 
     private void putFinalChildHivIndicators(JSONObject result) throws JSONException {
-        String visits = "SELECT v.*, " + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_TEST_DONE)
-                + " AS final_test_done, " + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_RESULT)
-                + " AS final_result, " + normalizeDate(detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_TEST_DATE))
-                + " AS final_test_date FROM (" + childAttendanceVisits() + ") v";
+        String returnFlow = detail(DBConstants.KEY.MTOTO_RETURN_FLOW) + " = '1'";
+        String prior = detail(DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE);
+        String newResult = "CASE " + prior + " WHEN 'awaiting_result' THEN "
+                + detail(DBConstants.KEY.MTOTO_RECEIVED_RESULT) + " WHEN 'awaiting_confirm' THEN "
+                + detail(DBConstants.KEY.MTOTO_CONFIRMATORY_RESULT) + " ELSE "
+                + detail(DBConstants.KEY.MAMA_HEI_TEST_RESULT) + " END";
+        String reviewed = "CASE " + prior + " WHEN 'awaiting_result' THEN "
+                + detail(DBConstants.KEY.MTOTO_RESULT_RECEIVED) + " ELSE "
+                + detail(DBConstants.KEY.MTOTO_CONFIRMATION_RECEIVED) + " END";
+        String tested = "CASE WHEN " + returnFlow + " THEN CASE WHEN v.result_review = 1 THEN "
+                + reviewed + " ELSE " + detail(DBConstants.KEY.MAMA_HEI_TEST_DONE)
+                + " END ELSE " + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_TEST_DONE) + " END";
+        String testDate = "CASE WHEN " + returnFlow + " THEN CASE WHEN v.result_review = 1 THEN "
+                + detail(DBConstants.KEY.MTOTO_PENDING_TEST_DATE) + " ELSE "
+                + detail(DBConstants.KEY.MAMA_HEI_TEST_DATE) + " END ELSE "
+                + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_TEST_DATE) + " END";
+        String finalVisits = "WITH attendance AS (" + childAttendanceVisits(true)
+                + "), answers AS (SELECT v.*, " + tested + " AS final_test_done, CASE WHEN " + returnFlow
+                + " THEN " + newResult + " ELSE " + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_RESULT)
+                + " END AS final_result, " + testDate + " AS raw_test_date FROM attendance v), "
+                + "final_visits AS (SELECT a.*, " + normalizeDate("a.raw_test_date")
+                + " AS final_test_date FROM answers a)";
         String knownStage = "v.test_stage IN ('week_6', 'month_9',"
                 + " 'three_months_after_breastfeeding', 'month_18', 'not_applicable')";
         String knownAttendance = "v.attendance IN ('yes', 'no', 'not_applicable') AND ("
                 + "v.attendance <> 'yes' OR (" + validDate("v.attendance_date")
                 + " AND v.attendance_date <= v.service_date AND " + childEidAt("v.attendance_date") + "))";
         String linkageKnown = knownStage + " AND (v.test_stage <> 'month_18' OR (" + knownAttendance + "))";
-        Integer missingLinkage = missingRecords(visits, "1 = 1", linkageKnown);
+        Integer missingLinkage = missingRecords(finalVisits, "final_visits", "v.result_review = 0", linkageKnown);
         if (missingLinkage == null) return;
         result.put("mm-11-linkage-missing-records", missingLinkage);
         if (missingLinkage > 0) {
             result.put("mm-11-missing-records", missingLinkage);
             return;
         }
-        String linked = "SELECT * FROM (" + visits + ") v WHERE v.test_stage = 'month_18'"
-                + " AND v.attendance = 'yes'";
-        putDemographicIndicator(result, "mm-11", demographicQuery(
-                serviceClientSource(firstClientVisit(linked), false), 1, 24));
+        String withLinked = finalVisits + ", linked AS (SELECT * FROM final_visits"
+                + " WHERE test_stage = 'month_18' AND attendance = 'yes')";
+        putDemographicIndicator(result, "mm-11", withLinked + " " + demographicQuery(
+                serviceClientSource(firstClientVisit("SELECT * FROM linked"), false), 1, 24));
         // A later confirmed result resolves an earlier pending record. A visit explicitly stating
         // that no new test was done must not erase a previously recorded final test result.
         String validTest = "v.final_test_done = 'yes' AND "
                 + "v.final_result IN ('positive', 'negative', 'pending') AND "
                 + validDate("v.final_test_date") + " AND v.final_test_date <= v.service_date";
         String knownResult = "v.final_test_done = 'no' OR (" + validTest + ")";
-        String states = "SELECT * FROM (" + linked + ") v WHERE " + validTest;
-        String latest = "SELECT v.* FROM (" + states + ") v WHERE NOT EXISTS (SELECT 1 FROM ("
-                + states + ") n WHERE n." + DBConstants.KEY.BASE_ENTITY_ID + " = v."
-                + DBConstants.KEY.BASE_ENTITY_ID + " AND " + laterVisit() + ")";
-        String unresolved = "NOT EXISTS (SELECT 1 FROM (" + states + ") n WHERE n."
+        String withStates = withLinked + ", states AS (SELECT * FROM final_visits v"
+                + " WHERE v.test_stage = 'month_18' AND " + validTest
+                + " AND (v.attendance = 'yes' OR (v.result_review = 1 AND EXISTS "
+                + "(SELECT 1 FROM linked l WHERE l." + DBConstants.KEY.BASE_ENTITY_ID + " = v."
+                + DBConstants.KEY.BASE_ENTITY_ID + " AND l.final_test_date = v.final_test_date))))";
+        String unresolved = "NOT EXISTS (SELECT 1 FROM states n WHERE n."
                 + DBConstants.KEY.BASE_ENTITY_ID + " = v." + DBConstants.KEY.BASE_ENTITY_ID
                 + " AND " + laterVisit() + ")";
-        Integer missingResult = missingRecords(linked, unresolved, knownResult);
+        String withLatest = withStates + ", latest AS (SELECT v.* FROM states v WHERE " + unresolved + ")";
+        Integer missingResult = missingRecords(withStates, "linked", unresolved, knownResult);
         if (missingResult == null) return;
         result.put("mm-11-missing-records", missingResult);
-        Map<String, Integer> pending = query("SELECT COUNT(DISTINCT v." + DBConstants.KEY.BASE_ENTITY_ID
-                + ") AS total FROM (" + latest + ") v WHERE v.final_result = 'pending'",
+        Map<String, Integer> pending = query(withLatest + " SELECT COUNT(DISTINCT " + DBConstants.KEY.BASE_ENTITY_ID
+                + ") AS total FROM latest WHERE final_result = 'pending'",
                 Collections.singletonList("total"));
         if (pending != null) result.put("mm-11-pending-results", value(pending, "total"));
         if (missingResult > 0) return;
         for (String outcome : new String[]{"positive", "negative"}) {
-            String source = "SELECT * FROM (" + latest + ") v WHERE v.final_test_done = 'yes'"
-                    + " AND v.final_result = '" + outcome + "'";
-            putDemographicIndicator(result, "mm-11-" + outcome,
-                    demographicQuery(serviceClientSource(source, false), 1, 24));
+            String source = "SELECT * FROM latest WHERE final_test_done = 'yes' AND final_result = '" + outcome + "'";
+            putDemographicIndicator(result, "mm-11-" + outcome, withLatest + " "
+                    + demographicQuery(serviceClientSource(source, false), 1, 24));
         }
     }
 
     private Integer missingRecords(String source, String condition, String known) {
-        Map<String, Integer> count = query("SELECT COUNT(DISTINCT v." + DBConstants.KEY.VISIT_ID
-                + ") AS total FROM (" + source + ") v WHERE (" + condition
+        return missingRecords("", "(" + source + ")", condition, known);
+    }
+
+    private Integer missingRecords(String commonTables, String source, String condition, String known) {
+        Map<String, Integer> count = query(commonTables + " SELECT COUNT(DISTINCT v." + DBConstants.KEY.VISIT_ID
+                + ") AS total FROM " + source + " v WHERE (" + condition
                 + ") AND NOT coalesce((" + known + "), 0)", Collections.singletonList("total"));
         return count == null ? null : value(count, "total");
     }
@@ -749,9 +772,17 @@ public class MotherMentorReportObject extends ReportObject {
     }
 
     private String childAttendanceVisits() {
+        return childAttendanceVisits(false);
+    }
+
+    private String childAttendanceVisits(boolean includeResultReview) {
+        String returnFlow = detail(DBConstants.KEY.MTOTO_RETURN_FLOW) + " = '1'";
+        String prior = detail(DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE);
+        String reviewing = "(" + returnFlow + " AND " + prior
+                + " IN ('awaiting_result', 'awaiting_confirm'))";
         String selectedStage = "coalesce(nullif(" + detail(DBConstants.KEY.CHILD_EID_TEST_TYPE)
-                + ", ''), CASE WHEN " + detail(DBConstants.KEY.MTOTO_RETURN_FLOW) + " = '1' THEN "
-                + detail(DBConstants.KEY.MTOTO_RUFAA_TEST) + " END)";
+                + ", ''), CASE WHEN " + reviewing + " THEN " + detail(DBConstants.KEY.MTOTO_PENDING_TEST)
+                + " WHEN " + returnFlow + " THEN " + detail(DBConstants.KEY.MTOTO_RUFAA_TEST) + " END)";
         String stage = "CASE " + selectedStage
                 + " WHEN 'six_weeks' THEN 'week_6' WHEN 'wiki6' THEN 'week_6'"
                 + " WHEN 'nine_months' THEN 'month_9' WHEN 'miezi9' THEN 'month_9'"
@@ -775,10 +806,10 @@ public class MotherMentorReportObject extends ReportObject {
                                 type,
                                 DBConstants.KEY.CHILD_FACILITY_DATE,
                                 detail(DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE)))
-                + " AS attendance_date FROM visits v WHERE "
-                + finalizedVisitInMonth(LEGACY_SERVICE, type.getEventType())
-                + " AND "
-                + childEidAt(serviceDate());
+                + " AS attendance_date, CASE WHEN " + reviewing + " THEN 1 ELSE 0 END AS result_review"
+                + " FROM visits v WHERE " + finalizedVisitInMonth(LEGACY_SERVICE, type.getEventType())
+                + " AND " + childEidAt(serviceDate())
+                + (includeResultReview ? "" : " AND NOT coalesce(" + reviewing + ", 0)");
     }
 
     String buildNewArtQuery() {
