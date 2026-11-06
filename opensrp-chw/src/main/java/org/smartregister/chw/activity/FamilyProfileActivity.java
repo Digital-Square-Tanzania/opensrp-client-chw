@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.model.FamilyProfileModel;
+import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdEligibilityDao;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.chw.tb.dao.TbDao;
@@ -46,6 +48,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 import java.util.Objects;
+
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
@@ -201,6 +204,13 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
+    protected void startMotherMentorHouseholdEnrollment(String baseEntityId) {
+        if (isHouseholdEnrolledForMotherMentor(baseEntityId)
+                || !MotherMentorHouseholdEligibilityDao.hasEligibleMother(baseEntityId)) return;
+        MotherMentorRegisterActivity.startHouseholdEnrollment(FamilyProfileActivity.this, baseEntityId);
+    }
+
+    @Override
     protected HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
         return getFamilyProfilePresenter().getAncFamilyHeadNameAndPhone(baseEntityId);
     }
@@ -275,6 +285,33 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         if (ChwApplication.getApplicationFlavor().hasHps()) {
             menu.findItem(R.id.action_hps_enrollment).setVisible(!HpsDao.isHouseholdRegisteredForHps(familyBaseEntityId));
         }
+        updateMotherMentorHouseholdEnrollment(menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean prepared = super.onPrepareOptionsMenu(menu);
+        updateMotherMentorHouseholdEnrollment(menu);
+        return prepared;
+    }
+
+    private void updateMotherMentorHouseholdEnrollment(Menu menu) {
+        MenuItem enrollment = menu.findItem(R.id.action_mother_mentor_household_enrollment);
+        if (enrollment != null) {
+            enrollment.setVisible(ChwApplication.getApplicationFlavor().hasMotherMentor()
+                    && !isHouseholdEnrolledForMotherMentor(familyBaseEntityId)
+                    && MotherMentorHouseholdEligibilityDao.hasEligibleMother(familyBaseEntityId));
+        }
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        invalidateOptionsMenu();
+    }
+
+    private boolean isHouseholdEnrolledForMotherMentor(String householdBaseEntityId) {
+        return MotherMentorHouseholdEligibilityDao.isEnrolled(householdBaseEntityId);
     }
 }

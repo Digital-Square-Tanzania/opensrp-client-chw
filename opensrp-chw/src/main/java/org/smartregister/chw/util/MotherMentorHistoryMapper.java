@@ -1,0 +1,637 @@
+package org.smartregister.chw.util;
+
+import android.content.Context;
+import android.content.res.Configuration;
+
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
+
+import timber.log.Timber;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/** Reads history questions and coded answers from the same localized forms used for visits. */
+public final class MotherMentorHistoryMapper {
+    private static final String HISTORY_PREFIX = "mothermentor_history_";
+    private static final Pattern BRACKET_GROUP = Pattern.compile("\\[([^\\]]*)\\]");
+    private static final Set<String> HOUSEHOLD_FIELDS =
+            new HashSet<>(
+                    Arrays.asList(
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.HOUSEHOLD_VISIT_TYPE,
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_STATUS,
+                            DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON,
+                            DBConstants.KEY.HOUSEHOLD_NOT_FOUND_REASON_OTHER,
+                            DBConstants.KEY.KAYA_STATUS,
+                            DBConstants.KEY.HOUSEHOLD_ENROLLMENT_ID,
+                            DBConstants.KEY.PURPOSE_OF_VISIT,
+                            DBConstants.KEY.OTHER_PURPOSE,
+                            DBConstants.KEY.PARTICIPANTS,
+                            DBConstants.KEY.TOPICS_TAUGHT,
+                            DBConstants.KEY.OTHER_TOPIC,
+                            DBConstants.KEY.HOUSEHOLD_MEMBERS_FOUND,
+                            DBConstants.KEY.COUNSELLED_MALE,
+                            DBConstants.KEY.COUNSELLED_FEMALE,
+                            DBConstants.KEY.COUNSELLED_TOTAL,
+                            DBConstants.KEY.HOUSEHOLD_COUNSELLING_SCHEMA,
+                            DBConstants.KEY.COUNSELLED_CHILD_COUNT,
+                            DBConstants.KEY.COUNSELLED_RELATIVE_COUNT,
+                            DBConstants.KEY.COUNSELLED_NEIGHBOUR_COUNT,
+                            DBConstants.KEY.COUNSELLED_OTHER_COUNT,
+                            DBConstants.KEY.HOUSEHOLD_REFERRAL_GIVEN,
+                            DBConstants.KEY.HOUSEHOLD_REFERRAL_SERVICES,
+                            DBConstants.KEY.HOUSEHOLD_REFERRAL_OTHER));
+    private static final Set<String> INTERNAL_FIELDS =
+            new HashSet<>(
+                    Arrays.asList(
+                            "visit_number", "visit_completion_state", "visit_id", "visit_type",
+                            "entity_id", "base_entity_id", "relational_id", "mother_base_entity_id",
+                            "start", "end", "today", "deviceid", "subscriberid", "simserial",
+                            "encounter_date", "encounter_location", "encounter_type", "gps",
+                            "latitude", "longitude", "location_id", "provider_id", "team_id",
+                            DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.MWENZI_STATUS,
+                            DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA,
+                            DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                            DBConstants.KEY.MWENZI_COUNTER_AMEKATAA,
+                            DBConstants.KEY.MWENZI_COUNTER_HAJAHUDHURIA,
+                            DBConstants.KEY.MWENZI_COUNTER_AMESAFIRI,
+                            DBConstants.KEY.MWENZI_COUNTER_NYINGINE,
+                            DBConstants.KEY.MWENZI_COUNTER_HAJAPATIKANA,
+                            DBConstants.KEY.MOTHERMENTOR_REPORTING_VERSION,
+                            DBConstants.KEY.PRIMARY_MOTHERMENTOR_CLIENT,
+                            DBConstants.KEY.IIT_ENROLLED,
+                            DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.IIT_ENROLLMENT_ID,
+                            DBConstants.KEY.IIT_MISSED_APPOINTMENT_DATE,
+                            DBConstants.KEY.IIT_RETURN_STATE,
+                            DBConstants.KEY.PARTNER_ENROLLED,
+                            DBConstants.KEY.CHILD_EID_ENROLLED,
+                            DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.MTOTO_ENROLLMENT_ID,
+                            DBConstants.KEY.MTOTO_MOTHER_ENROLLMENT_ID,
+                            DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE,
+                            DBConstants.KEY.ART_INITIATED_BEFORE_VISIT,
+                            DBConstants.KEY.MAMA_ENROLLMENT_ID,
+                            DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS,
+                            DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA,
+                            DBConstants.KEY.MOTHERMENTOR_VISIT_DATE,
+                            DBConstants.KEY.HOUSEHOLD_ENROLLMENT_ID,
+                            DBConstants.KEY.KAYA_STATUS,
+                            DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA,
+                            DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA,
+                            DBConstants.KEY.KAYA_COUNTER_NYUMBA_IMEFUNGWA,
+                            DBConstants.KEY.KAYA_COUNTER_NYINGINE,
+                            DBConstants.KEY.KAYA_COUNTER_HAIJAPATIKANA));
+
+    private final Context context;
+    private final Context englishContext;
+    private final Context swahiliContext;
+    private final boolean swahili;
+    private final Map<String, JSONObject> forms = new HashMap<>();
+
+    public MotherMentorHistoryMapper(Context context) {
+        this.context = context;
+        englishContext = localeContext(Locale.ENGLISH);
+        swahiliContext = localeContext(new Locale("sw"));
+        swahili =
+                "sw".equals(
+                        context.getResources().getConfiguration().locale.getLanguage());
+    }
+
+    public List<Row> map(Visit visit) {
+        if (visit == null || visit.getVisitDetails() == null) return Collections.emptyList();
+        Map<String, List<VisitDetail>> recorded = canonicalDetails(visit.getVisitDetails());
+        Set<String> ignored = new HashSet<>(INTERNAL_FIELDS);
+        LinkedHashMap<String, Field> fields = new LinkedHashMap<>();
+        for (String form : workflowForms(visit, recorded)) addForm(fields, ignored, form);
+        if (isLegacyHouseholdVisit(visit)) {
+            for (String key : new String[] {DBConstants.KEY.HOUSEHOLD_MEMBERS_FOUND,
+                    DBConstants.KEY.COUNSELLED_MALE, DBConstants.KEY.COUNSELLED_FEMALE,
+                    DBConstants.KEY.COUNSELLED_TOTAL}) {
+                if (!fields.containsKey(key)) continue;
+                String label = DBConstants.KEY.COUNSELLED_TOTAL.equals(key)
+                        ? context.getString(org.smartregister.chw.mothermentor.R.string
+                                .mothermentor_household_counselling_legacy_total)
+                        : resource(HISTORY_PREFIX + key);
+                fields.put(key, new Field(key, label, false));
+            }
+        }
+
+        List<Row> rows = new ArrayList<>();
+        Row comments = addFormRows(rows, fields, recorded);
+        addHistoricalRows(rows, fields, ignored, recorded);
+        addClosureRows(rows, recorded);
+        addHouseholdClosureRows(rows, recorded);
+        if (comments != null) rows.add(comments);
+        return rows;
+    }
+
+    private void addHouseholdClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {
+        List<String> reasons = values(new Field(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA, "", false),
+                recorded.get(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA));
+        if (reasons.isEmpty()) return;
+        rows.add(new Row(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA,
+                context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_closure_reason),
+                Collections.singletonList(MotherMentorHouseholdClosureLabels.reason(context, reasons.get(0))), false));
+        List<String> dates = values(new Field(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA, "", false),
+                recorded.get(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA));
+        if (!dates.isEmpty()) rows.add(new Row(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA,
+                context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_closure_date), dates, false));
+    }
+
+    private Row addFormRows(
+            List<Row> rows,
+            Map<String, Field> fields,
+            Map<String, List<VisitDetail>> recorded) {
+        Row comments = null;
+        for (Field field : fields.values()) {
+            List<String> values = values(field, recorded.get(field.key));
+            if (values.isEmpty()) continue;
+            Row row = new Row(field.key, field.label, values, field.multiple);
+            if (DBConstants.KEY.COMMENTS.equals(field.key)) comments = row;
+            else rows.add(row);
+        }
+        return comments;
+    }
+
+    private void addHistoricalRows(
+            List<Row> rows,
+            Map<String, Field> fields,
+            Set<String> ignored,
+            Map<String, List<VisitDetail>> recorded) {
+        // Historical fields outside the current form remain readable when an explicit history
+        // label exists. Do not turn arbitrary internal observation IDs into user-facing headings.
+        for (String key : new TreeSet<>(recorded.keySet())) {
+            if (fields.containsKey(key) || ignored.contains(key)) continue;
+            String label = resource(HISTORY_PREFIX + resourceName(key));
+            if (label == null) continue;
+            Field field = new Field(key, label, false);
+            List<String> values = values(field, recorded.get(key));
+            if (!values.isEmpty()) rows.add(new Row(key, label, values, false));
+        }
+    }
+
+    private void addClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {
+        addClosureRow(rows, recorded, DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
+                org.smartregister.chw.mothermentor.R.string.mothermentor_partner_closure_reason, true);
+        addClosureRow(rows, recorded, DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA,
+                org.smartregister.chw.mothermentor.R.string.mothermentor_partner_closure_date, false);
+    }
+
+    private void addClosureRow(List<Row> rows, Map<String, List<VisitDetail>> recorded,
+            String key, int label, boolean reason) {
+        List<VisitDetail> details = recorded.get(key);
+        if (details == null || details.isEmpty()) return;
+        VisitDetail detail = details.get(details.size() - 1);
+        String value = scalar(firstAnswer(detail.getDetails(), detail.getHumanReadable()));
+        if (StringUtils.isBlank(value)) return;
+        if (reason) value = MotherMentorPartnerClosureText.reason(context, value);
+        rows.add(new Row(key, context.getString(label), Collections.singletonList(value), false));
+    }
+
+    public static boolean isHouseholdVisit(Visit visit) {
+        if (visit == null) return false;
+        if (Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT.equals(visit.getVisitType())) return true;
+        if (visit.getVisitDetails() == null) return false;
+        for (String key : visit.getVisitDetails().keySet()) {
+            if (HOUSEHOLD_FIELDS.contains(canonicalKey(key))) return true;
+        }
+        return false;
+    }
+
+    /** Original aggregate records remain auditable without pretending they contain role counts. */
+    public static boolean isLegacyHouseholdVisit(Visit visit) {
+        if (!isHouseholdVisit(visit) || visit.getVisitDetails() == null) return false;
+        boolean aggregate = false;
+        for (Map.Entry<String, List<VisitDetail>> entry : visit.getVisitDetails().entrySet()) {
+            String key = canonicalKey(entry.getKey());
+            if (DBConstants.KEY.HOUSEHOLD_COUNSELLING_SCHEMA.equals(key) && entry.getValue() != null) {
+                for (VisitDetail detail : entry.getValue()) {
+                    if (detail == null) continue;
+                    String value = StringUtils.defaultIfBlank(detail.getDetails(), detail.getHumanReadable());
+                    if ("2".equals(StringUtils.strip(StringUtils.trimToEmpty(value), "[]\" "))) return false;
+                }
+            }
+            if (DBConstants.KEY.HOUSEHOLD_MEMBERS_FOUND.equals(key)
+                    || DBConstants.KEY.COUNSELLED_MALE.equals(key)
+                    || DBConstants.KEY.COUNSELLED_FEMALE.equals(key)
+                    || DBConstants.KEY.COUNSELLED_TOTAL.equals(key)) aggregate = true;
+        }
+        return aggregate;
+    }
+
+    private List<String> workflowForms(Visit visit, Map<String, List<VisitDetail>> recorded) {
+        String type = visit.getVisitType();
+        if (isHouseholdVisit(visit)) {
+            return Arrays.asList(
+                    "mothermentor_household_follow_up_status",
+                    "mothermentor_household_visit_purpose",
+                    isLegacyHouseholdVisit(visit)
+                            ? "mother_mentor_household_members_who_received_counselling_legacy"
+                            : "mother_mentor_household_members_who_received_counselling",
+                    "mother_mentor_household_visit_topics_taught",
+                    "mothermentor_household_visit_comment");
+        }
+        // Follow-ups were originally saved using the generic services encounter. Only infer a
+        // workflow when the normal attendance question is absent and category-specific data exists.
+        boolean legacy =
+                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(type)
+                        && !recorded.containsKey(DBConstants.KEY.ATTENDANCE_TYPE);
+        if (MotherMentorFollowUpType.PARTNER.getEventType().equals(type)
+                || (legacy
+                        && hasAny(
+                                recorded,
+                                DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY,
+                                DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE,
+                                DBConstants.KEY.PARTNER_NON_ATTENDANCE_REASON,
+                                DBConstants.KEY.PARTNER_EXPECTED_FACILITY_VISIT_DATE))) {
+            return Arrays.asList(
+                    "mothermentor_partner_follow_up_status",
+                    "mothermentor_partner_non_attendance_reason",
+                    "mothermentor_partner_arrival",
+                    "mothermentor_partner_follow_up_comment");
+        }
+        if (MotherMentorFollowUpType.CHILD_EID.getEventType().equals(type)
+                || (legacy
+                        && hasAny(
+                                recorded,
+                                DBConstants.KEY.CHILD_EID_TEST_TYPE,
+                                DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY,
+                                DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
+                                DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE))) {
+            if (hasSchema(recorded, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3")) return Arrays.asList(
+                    "mothermentor_child_eid_follow_up_status", "mothermentor_child_eid_hei",
+                    "mothermentor_child_eid_follow_up_comment");
+            return Arrays.asList(
+                    "mothermentor_child_eid_follow_up_status_legacy",
+                    "mothermentor_child_eid_test_type",
+                    "mothermentor_child_eid_non_attendance_reason",
+                    "mothermentor_child_eid_arrival",
+                    "mothermentor_child_eid_final_test",
+                    "mothermentor_child_eid_follow_up_comment");
+        }
+        if (Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT.equals(type)
+                || (legacy
+                        && hasAny(
+                                recorded,
+                                DBConstants.KEY.SERVICE_INTERRUPTION_REASON,
+                                DBConstants.KEY.SERVICE_INTERRUPTION_REASON_OTHER,
+                                DBConstants.KEY.RETURNED_TO_FACILITY,
+                                DBConstants.KEY.FACILITY_RETURN_DATE))) {
+            if (hasSchema(recorded, DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA, "2")) {
+                return Arrays.asList("mothermentor_iit_follow_up_status",
+                        "mothermentor_iit_return_to_facility", "mothermentor_follow_up_comment");
+            }
+            return Arrays.asList(
+                    "mothermentor_follow_up_status",
+                    "mothermentor_service_interruption_reason",
+                    "mothermentor_return_to_facility",
+                    "mothermentor_follow_up_comment");
+        }
+        return Arrays.asList(
+                "mothermentor_visit_type",
+                "mothermentor_visit_group_linkage",
+                "mothermentor_visit_education_provided",
+                "mothermentor_visit_referal",
+                "mothermentor_next_visit_date",
+                "mothermentor_visit_comment");
+    }
+
+    private boolean hasSchema(Map<String, List<VisitDetail>> recorded, String key, String version) {
+        List<VisitDetail> schema = recorded.get(key);
+        if (schema == null || schema.isEmpty()) return false;
+        VisitDetail latest = schema.get(schema.size() - 1);
+        return latest != null && version.equals(scalar(firstAnswer(
+                latest.getDetails(), latest.getHumanReadable())));
+    }
+
+    private boolean hasAny(Map<String, List<VisitDetail>> recorded, String... keys) {
+        for (String key : keys) if (recorded.containsKey(key)) return true;
+        return false;
+    }
+
+    private void addForm(Map<String, Field> fields, Set<String> ignored, String name) {
+        JSONObject english = form("json.form", name);
+        JSONObject translated = form("json.form-sw", name);
+        JSONObject selected = swahili && translated != null ? translated : english;
+        if (selected == null) return;
+        Map<String, JSONObject> englishFields = formFields(english);
+        Map<String, JSONObject> translatedFields = formFields(translated);
+        for (Map.Entry<String, JSONObject> entry : formFields(selected).entrySet()) {
+            String key = entry.getKey();
+            if (DBConstants.KEY.MAMA_KITUO_ANACHOHAMIA.equals(key)) continue;
+            JSONObject definition = entry.getValue();
+            String type = definition.optString("type");
+            if ("hidden".equals(type) || "toaster_notes".equals(type)) {
+                ignored.add(key);
+                continue;
+            }
+            String label = definition.optString("label", definition.optString("hint"));
+            if (StringUtils.isBlank(label)) label = resource(HISTORY_PREFIX + resourceName(key));
+            if (StringUtils.isBlank(label)) continue;
+            Field field = new Field(key, label, "check_box".equals(type));
+            field.addOptions(englishFields.get(key), definition);
+            field.addOptions(translatedFields.get(key), definition);
+            addHistoricalAliases(field, definition);
+            fields.put(key, field);
+        }
+    }
+
+    private void addHistoricalAliases(Field field, JSONObject definition) {
+        JSONArray options = definition.optJSONArray("options");
+        if (options == null) return;
+        for (int i = 0; i < options.length(); i++) {
+            JSONObject option = options.optJSONObject(i);
+            if (option != null) addHistoricalAlias(field, option.optString("key"));
+        }
+        // This was a recorded attendance status before it was removed from the visit form.
+        if (DBConstants.KEY.FOLLOW_UP_STATUS.equals(field.key)) {
+            addHistoricalAlias(field, "lost_to_follow_up");
+        }
+    }
+
+    private void addHistoricalAlias(Field field, String key) {
+        String name = HISTORY_PREFIX + resourceName(key);
+        String label = firstAnswer(field.option(key), resource(name));
+        if (StringUtils.isBlank(label)) return;
+        field.options.put(optionName(key), label);
+        for (Context locale : Arrays.asList(englishContext, swahiliContext)) {
+            String oldLabel = resource(locale, name);
+            if (StringUtils.isNotBlank(oldLabel)) field.options.put(optionName(oldLabel), label);
+        }
+    }
+
+    private JSONObject form(String directory, String name) {
+        String path = directory + "/" + name + ".json";
+        if (!forms.containsKey(path)) {
+            try (InputStream input = context.getAssets().open(path);
+                    Scanner scanner = new Scanner(input, "UTF-8").useDelimiter("\\A")) {
+                forms.put(path, new JSONObject(scanner.next()));
+            } catch (Exception e) {
+                Timber.w(e, "Unable to read Mother Mentor history form %s", path);
+                forms.put(path, null);
+            }
+        }
+        return forms.get(path);
+    }
+
+    private Map<String, JSONObject> formFields(JSONObject form) {
+        Map<String, JSONObject> fields = new LinkedHashMap<>();
+        if (form == null) return fields;
+        for (int step = 1; step <= form.optInt("count", 1); step++) {
+            JSONObject page = form.optJSONObject("step" + step);
+            JSONArray items = page == null ? null : page.optJSONArray("fields");
+            if (items == null) continue;
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject field = items.optJSONObject(i);
+                if (field != null) fields.put(field.optString("key"), field);
+            }
+        }
+        return fields;
+    }
+
+    private Map<String, List<VisitDetail>> canonicalDetails(Map<String, List<VisitDetail>> details) {
+        Map<String, List<VisitDetail>> result = new LinkedHashMap<>();
+        for (Map.Entry<String, List<VisitDetail>> entry : details.entrySet()) {
+            String key = canonicalKey(entry.getKey());
+            if (!result.containsKey(key)
+                    || (hasAnswer(entry.getValue())
+                            && (!hasAnswer(result.get(key)) || key.equals(entry.getKey())))) {
+                result.put(key, entry.getValue());
+            }
+        }
+        return result;
+    }
+
+    private boolean hasAnswer(List<VisitDetail> details) {
+        if (details == null) return false;
+        for (VisitDetail detail : details) {
+            if (detail != null
+                    && (StringUtils.isNotBlank(detail.getDetails())
+                            || StringUtils.isNotBlank(detail.getHumanReadable()))) return true;
+        }
+        return false;
+    }
+
+    private static String canonicalKey(String key) {
+        return key == null ? "" : key.replaceFirst("^step\\d+:", "");
+    }
+
+    private List<String> values(Field field, List<VisitDetail> details) {
+        if (details == null) return Collections.emptyList();
+        List<String> result = new ArrayList<>();
+        for (VisitDetail detail : details) {
+            if (detail == null) continue;
+            if (field.multiple) {
+                result.addAll(selectionValues(field, detail));
+            } else {
+                String text = singleValue(field, detail);
+                if (StringUtils.isNotBlank(text)) result.add(text);
+            }
+        }
+        return field.multiple ? new ArrayList<>(new LinkedHashSet<>(result)) : result;
+    }
+
+    private List<String> selectionValues(Field field, VisitDetail detail) {
+        List<String> selections =
+                selections(
+                        StringUtils.isNotBlank(scalar(detail.getDetails()))
+                                ? detail.getDetails()
+                                : detail.getHumanReadable());
+        List<String> savedLabels = selections(detail.getHumanReadable());
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < selections.size(); i++) {
+            String saved = savedLabels.size() == selections.size() ? savedLabels.get(i) : "";
+            String translated = translatedValue(field, selections.get(i), saved);
+            if (StringUtils.isNotBlank(translated)) result.add(translated);
+        }
+        return result;
+    }
+
+    private String singleValue(Field field, VisitDetail detail) {
+        if (field.options.isEmpty()) {
+            return firstAnswer(detail.getDetails(), detail.getHumanReadable());
+        }
+        return translatedValue(field, scalar(detail.getDetails()), scalar(detail.getHumanReadable()));
+    }
+
+    private String translatedValue(Field field, String raw, String readable) {
+        String translated = field.option(raw);
+        if (translated == null) translated = field.option(readable);
+        if (translated != null) return translated;
+        String legacy = resource(HISTORY_PREFIX + resourceName(raw));
+        return legacy != null ? legacy : firstAnswer(readable, raw);
+    }
+
+    private String firstAnswer(String first, String second) {
+        return StringUtils.isNotBlank(first) ? first : second;
+    }
+
+    private String scalar(String value) {
+        if (StringUtils.isBlank(value)) return "";
+        String trimmed = value.trim();
+        try {
+            JSONArray array = new JSONArray(trimmed);
+            if (array.length() == 0) return "";
+            if (array.length() == 1 && !(array.opt(0) instanceof JSONArray)) {
+                return array.optString(0).trim();
+            }
+        } catch (Exception ignored) {
+            // Plain free text, including commas and literal brackets, is not an array.
+        }
+        return trimmed;
+    }
+
+    private List<String> selections(String value) {
+        if (StringUtils.isBlank(value)) return Collections.emptyList();
+        String trimmed = value.trim();
+        List<String> arrayValues = arraySelections(trimmed);
+        if (arrayValues != null) return arrayValues;
+        List<String> result = new ArrayList<>();
+        Matcher groups = BRACKET_GROUP.matcher(trimmed);
+        if (groups.find()
+                && groups.replaceAll("").replace(",", "").trim().isEmpty()) {
+            groups.reset();
+            while (groups.find()) result.addAll(selections(groups.group(1)));
+            return result;
+        }
+        for (String item : trimmed.split(",")) {
+            String clean = item.trim();
+            if (!clean.isEmpty()) result.add(clean);
+        }
+        return result;
+    }
+
+    private List<String> arraySelections(String value) {
+        try {
+            JSONTokener tokens = new JSONTokener(value);
+            Object parsed = tokens.nextValue();
+            if (!(parsed instanceof JSONArray) || tokens.nextClean() != '\0') return null;
+            List<String> result = new ArrayList<>();
+            JSONArray array = (JSONArray) parsed;
+            for (int i = 0; i < array.length(); i++) {
+                Object item = array.opt(i);
+                if (item instanceof JSONArray) result.addAll(selections(item.toString()));
+                else if (item != null && item != JSONObject.NULL && !item.toString().trim().isEmpty()) {
+                    result.add(item.toString().trim());
+                }
+            }
+            return result;
+        } catch (Exception ignored) {
+            // Historical visits also store checkbox values as bracketed or plain CSV.
+            return null;
+        }
+    }
+
+    private String resource(String name) {
+        return resource(context, name);
+    }
+
+    private String resource(Context locale, String name) {
+        int id = locale.getResources().getIdentifier(name, "string", locale.getPackageName());
+        return id == 0 ? null : locale.getString(id);
+    }
+
+    private Context localeContext(Locale locale) {
+        Configuration configuration = new Configuration(context.getResources().getConfiguration());
+        configuration.setLocale(locale);
+        return context.createConfigurationContext(configuration);
+    }
+
+    private static String resourceName(String value) {
+        return value == null
+                ? ""
+                : value.toLowerCase(Locale.ROOT)
+                        .replaceAll("[^a-z0-9]+", "_")
+                        .replaceAll("^_+|_+$", "");
+    }
+
+    private static String optionName(String value) {
+        return value == null ? "" : value.trim().toLowerCase(Locale.ROOT).replaceAll("\\s+", " ");
+    }
+
+    private static final class Field {
+        private final String key;
+        private final String label;
+        private final boolean multiple;
+        private final Map<String, String> options = new HashMap<>();
+
+        private Field(String key, String label, boolean multiple) {
+            this.key = key;
+            this.label = label;
+            this.multiple = multiple;
+        }
+
+        private void addOptions(JSONObject aliases, JSONObject current) {
+            if (aliases == null) return;
+            JSONArray aliasOptions = aliases.optJSONArray("options");
+            JSONArray currentOptions = current.optJSONArray("options");
+            if (aliasOptions == null || currentOptions == null) return;
+            Map<String, String> labels = new HashMap<>();
+            for (int i = 0; i < currentOptions.length(); i++) {
+                JSONObject option = currentOptions.optJSONObject(i);
+                if (option != null) labels.put(option.optString("key"), option.optString("text"));
+            }
+            for (int i = 0; i < aliasOptions.length(); i++) {
+                JSONObject option = aliasOptions.optJSONObject(i);
+                if (option == null) continue;
+                String key = option.optString("key");
+                String label = labels.get(key);
+                if (label != null) {
+                    options.put(optionName(key), label);
+                    options.put(optionName(option.optString("text")), label);
+                }
+            }
+        }
+
+        private String option(String value) {
+            return options.get(optionName(value));
+        }
+    }
+
+    public static final class Row {
+        private final String key;
+        private final String label;
+        private final List<String> values;
+        private final boolean multiValue;
+
+        public Row(String key, String label, List<String> values, boolean multiValue) {
+            this.key = key;
+            this.label = label;
+            this.values = Collections.unmodifiableList(new ArrayList<>(values));
+            this.multiValue = multiValue;
+        }
+
+        public String getKey() { return key; }
+
+        public String getLabel() { return label; }
+
+        public List<String> getValues() { return values; }
+
+        public boolean isMultiValue() { return multiValue; }
+    }
+}

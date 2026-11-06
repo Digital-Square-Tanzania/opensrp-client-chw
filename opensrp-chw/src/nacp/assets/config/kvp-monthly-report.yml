@@ -9536,7 +9536,7 @@ indicators:
                                INNER JOIN ec_family_member efm on efm.base_entity_id = ekr.base_entity_id
                                INNER JOIN task t on efm.base_entity_id = t.for
                       WHERE
-                      date(efm.dob, '+10 years') <= date('now'))
+                      (date(efm.dob, '+10 years') <= date('now'))
                       AND (date(efm.dob, '+15 years') > date('now'))
                       AND ekr.client_group ='pwid'
                       AND (efm.gender='Male')
@@ -9912,7 +9912,7 @@ indicators:
                                INNER JOIN ec_family_member efm on efm.base_entity_id = ekr.base_entity_id
                                INNER JOIN task t on efm.base_entity_id = t.for
                       WHERE
-                      date(efm.dob, '+10 years') <= date('now'))
+                      (date(efm.dob, '+10 years') <= date('now'))
                       AND (date(efm.dob, '+15 years') > date('now'))
                       AND ekr.client_group ='pwud'
                       AND (efm.gender='Male')
@@ -10440,7 +10440,7 @@ indicators:
                                INNER JOIN ec_family_member efm on efm.base_entity_id = ekr.base_entity_id
                                INNER JOIN task t on efm.base_entity_id = t.for
                       WHERE
-                      date(efm.dob, '+10 years') <= date('now'))
+                      (date(efm.dob, '+10 years') <= date('now'))
                       AND (date(efm.dob, '+15 years') > date('now'))
                       AND ekr.client_group ='msm'
                       AND (efm.gender='Male')
@@ -10647,7 +10647,7 @@ indicators:
                                INNER JOIN ec_family_member efm on efm.base_entity_id = ekr.base_entity_id
                                INNER JOIN task t on efm.base_entity_id = t.for
                       WHERE
-                      date(efm.dob, '+10 years') <= date('now'))
+                      (date(efm.dob, '+10 years') <= date('now'))
                       AND (date(efm.dob, '+15 years') > date('now'))
                       AND (ekr.client_group ='prisoners' OR ekr.client_group ='inmate' OR ekr.client_group ='discordant_couples' OR ekr.client_group ='fisherman' OR ekr.client_group ='truck_drivers' OR ekr.client_group ='miners' OR ekr.client_group ='other')
                       AND (efm.gender='Male')

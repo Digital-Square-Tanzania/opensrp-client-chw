@@ -45,7 +45,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op10 = new NavigationOption(R.drawable.sidemenu_all_clients, R.drawable.sidemenu_all_clients_active, R.string.menu_all_clients, CoreConstants.DrawerMenu.ALL_CLIENTS, 0);
             NavigationOption op11 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hiv, CoreConstants.DrawerMenu.CBHS_CLIENTS, 0);
             NavigationOption op12 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hiv_index_contacts, CoreConstants.DrawerMenu.HIV_INDEX_CLIENTS, 0);
-            NavigationOption op13 = new NavigationOption(R.drawable.sidemenu_pmtct, R.drawable.sidemenu_pmtct_active, R.string.mother_champion, CoreConstants.DrawerMenu.MOTHER_CHAMPION, 0);
+            NavigationOption op13 = new NavigationOption(R.drawable.sidemenu_pmtct, R.drawable.sidemenu_pmtct_active, R.string.mother_mentor, CoreConstants.DrawerMenu.MOTHER_MENTOR, 0);
             NavigationOption op14 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tb, CoreConstants.DrawerMenu.TB_CLIENTS, 0);
             NavigationOption op15 = new NavigationOption(R.mipmap.sidemenu_referrals, R.mipmap.sidemenu_referrals_active, R.string.menu_ltfu, Constants.DrawerMenu.LTFU, 0);
             NavigationOption op16 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hivst, CoreConstants.DrawerMenu.HIV_SELF_TESTING, 0);
@@ -78,8 +78,12 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
             if (!teamRoleIdentifier.isEmpty()) {
                 switch (teamRoleIdentifier) {
-                    case "mother_champion":
-                        navigationOptions.addAll(Arrays.asList(op10, op13, op8, op9));
+                    case "PE_MAMA_KINARA":
+                        navigationOptions.addAll(Arrays.asList(op10,op1));
+                        if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                            navigationOptions.add(op13);
+                        }
+                        navigationOptions.addAll(Arrays.asList(op8, op9));
                         break;
                     case "cbhs_provider":
                         navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op9, op15));
@@ -94,7 +98,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         navigationOptions.addAll(Arrays.asList(op10, op28, op16, op9, op8));
                         break;
                     default:
-                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                        navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2));
+                        if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                            navigationOptions.add(op13);
+                        }
                         if (ChwApplication.getApplicationFlavor().hasNCD()) {
                             navigationOptions.add(3, op33);
                         }
@@ -147,11 +154,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                         if (ChwApplication.getApplicationFlavor().hasADDO()) {
                             navigationOptions.add(op26);
                         }
+
                         navigationOptions.addAll(Arrays.asList(op8, op9, op15));
                         break;
                 }
             } else {
-                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13));
+                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2));
+                if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
+                    navigationOptions.add(op13);
+                }
                 if (ChwApplication.getApplicationFlavor().hasNCD()) {
                     navigationOptions.add(3, op33);
                 }

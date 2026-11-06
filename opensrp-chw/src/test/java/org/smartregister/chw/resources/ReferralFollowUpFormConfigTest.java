@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.smartregister.chw.BuildConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -14,8 +15,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Guards the manual referral follow-up form (WAJA "Manual Closure of Referrals") against the three
@@ -24,14 +23,12 @@ import java.util.regex.Pattern;
  */
 public class ReferralFollowUpFormConfigTest {
 
-    private static final String BUILD_GRADLE_PATH = "build.gradle";
     private static final String EC_CLIENT_FIELDS_PATH = "src/nacp/assets/ec_client_fields.json";
     private static final String EC_CLIENT_CLASSIFICATION_PATH = "src/nacp/assets/ec_client_classification.json";
     private static final String FORM_PATH = "src/nacp/assets/json.form/referral_followup_form.json";
     private static final String FORM_SW_PATH = "src/nacp/assets/json.form-sw/referral_followup_form.json";
     private static final String REFERRAL_FORM_PATH = "src/nacp/assets/json.form/referral_followup_referral_form.json";
     private static final String REFERRAL_FORM_SW_PATH = "src/nacp/assets/json.form-sw/referral_followup_referral_form.json";
-    private static final String REPOSITORY_FLV_PATH = "src/nacp/java/org/smartregister/chw/repository/ChwRepositoryFlv.java";
     private static final String REGISTER_MODEL_PATH = "src/main/java/org/smartregister/chw/model/ReferralRegisterFragmentModel.java";
     private static final String REGISTER_FRAGMENT_PATH = "src/main/java/org/smartregister/chw/fragment/ReferralRegisterFragment.java";
 
@@ -128,7 +125,7 @@ public class ReferralFollowUpFormConfigTest {
     }
 
     @Test
-    public void answersShouldBeMappedRoutedAndMigrated() throws Exception {
+    public void answersShouldBeMappedAndRoutedWithSupportedDatabaseVersion() throws Exception {
         JSONArray bindObjects = new JSONObject(readText(EC_CLIENT_FIELDS_PATH)).getJSONArray("bindobjects");
         JSONArray columns = findBindObject(bindObjects, TABLE).getJSONArray("columns");
 
@@ -141,20 +138,11 @@ public class ReferralFollowUpFormConfigTest {
                 readText(EC_CLIENT_CLASSIFICATION_PATH).contains(ENCOUNTER_TYPE)
         );
 
-        String repositoryFlv = readText(REPOSITORY_FLV_PATH);
-        for (String key : ANSWER_KEYS) {
-            Assert.assertTrue(
-                    "NACP migration should add " + key + " for upgraded installations",
-                    repositoryFlv.contains("addColumnIfMissing(db, tableName, \"" + key + "\")")
-            );
-        }
-        Assert.assertTrue(
-                "the referral follow-up migration should be reachable from onUpgrade",
-                repositoryFlv.contains("upgradeToVersion49(db)")
-        );
+        // MotherMentorDevelopmentMigrationTest verifies actual referral-column creation and
+        // data preservation from both development and Mother Mentor upgrade histories.
         Assert.assertTrue(
                 "DATABASE_VERSION should be bumped so the referral follow-up migration runs",
-                extractDatabaseVersion(readText(BUILD_GRADLE_PATH)) >= 49
+                BuildConfig.DATABASE_VERSION >= 49
         );
     }
 
@@ -334,15 +322,6 @@ public class ReferralFollowUpFormConfigTest {
             }
         }
         return false;
-    }
-
-    private int extractDatabaseVersion(String buildGradle) {
-        Matcher matcher = Pattern.compile("buildConfigField\\s+\"int\",\\s+\"DATABASE_VERSION\",\\s+'(\\d+)'")
-                .matcher(buildGradle);
-        if (!matcher.find()) {
-            throw new AssertionError("Could not find DATABASE_VERSION buildConfigField");
-        }
-        return Integer.parseInt(matcher.group(1));
     }
 
     private String readText(String relativePath) throws Exception {
