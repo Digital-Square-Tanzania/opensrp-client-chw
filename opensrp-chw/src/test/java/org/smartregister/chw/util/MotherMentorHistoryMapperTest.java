@@ -486,6 +486,71 @@ public class MotherMentorHistoryMapperTest {
         return new MotherMentorHistoryMapper(RuntimeEnvironment.application);
     }
 
+    @Test
+    @Config(qualifiers = "en")
+    public void legacyChildStatusOptionsStayReadableAfterTheNewStatusFormReplacesThem() {
+        assertLegacyChildStatuses(new String[] {"Deceased", "Moved to another facility",
+                "Refused to return", "Still being followed up"});
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void legacyChildStatusOptionsUseTheOriginalSwahiliTranslations() {
+        assertLegacyChildStatuses(new String[] {"Amefariki", "Amehamia kituo kingine",
+                "Amekataa kurudi", "Bado anafuatiliwa"});
+    }
+
+    private void assertLegacyChildStatuses(String[] expected) {
+        String[] codes = {"deceased", "transferred_facility", "refused_return", "under_follow_up"};
+        for (String schema : new String[] {"", "2"}) {
+            for (int i = 0; i < codes.length; i++) {
+                Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+                if (!schema.isEmpty()) answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, schema, "");
+                answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, codes[i], "stale untranslated label");
+                List<Row> rows = mapper().map(visit);
+                assertEquals(Collections.singletonList(DBConstants.KEY.FOLLOW_UP_STATUS), keys(rows));
+                assertEquals(Collections.singletonList(expected[i]), rows.get(0).getValues());
+            }
+        }
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void newChildHistoryUsesNestedQuestionsAndHidesEpisodeMetadata() {
+        assertNewChildHistory("Child status", "Child is alive");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void newChildHistoryUsesNestedSwahiliQuestionsAndHidesEpisodeMetadata() {
+        assertNewChildHistory("Hali ya mtoto", "Mtoto yupo hai");
+    }
+
+    private void assertNewChildHistory(String label, String expectedValue) {
+        Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+        answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3", "");
+        answer(visit, DBConstants.KEY.MTOTO_ENROLLMENT_ID, "private-child-episode", "");
+        answer(visit, DBConstants.KEY.MTOTO_MOTHER_ENROLLMENT_ID, "private-mother-episode", "");
+        answer(visit, DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE, "none", "");
+        answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, "found", "");
+        answer(visit, DBConstants.KEY.MAMA_CHILD_STATUS, "alive", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Arrays.asList(DBConstants.KEY.FOLLOW_UP_STATUS, DBConstants.KEY.MAMA_CHILD_STATUS), keys(rows));
+        assertEquals(label, row(rows, DBConstants.KEY.MAMA_CHILD_STATUS).getLabel());
+        assertEquals(Collections.singletonList(expectedValue), row(rows, DBConstants.KEY.MAMA_CHILD_STATUS).getValues());
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void legacyGenericChildVisitStillUsesItsLegacyStatusForm() {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "2", "");
+        answer(visit, DBConstants.KEY.CHILD_EID_TEST_TYPE, "nine_months", "");
+        answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, "transferred_facility", "stale untranslated label");
+        assertEquals(Collections.singletonList("Amehamia kituo kingine"),
+                row(mapper().map(visit), DBConstants.KEY.FOLLOW_UP_STATUS).getValues());
+    }
+
     private Visit visit(String type) {
         Visit visit = new Visit();
         visit.setVisitType(type);

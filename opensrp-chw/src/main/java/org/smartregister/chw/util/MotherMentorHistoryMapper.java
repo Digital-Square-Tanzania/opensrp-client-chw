@@ -86,6 +86,10 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.IIT_ENROLLED,
                             DBConstants.KEY.PARTNER_ENROLLED,
                             DBConstants.KEY.CHILD_EID_ENROLLED,
+                            DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.MTOTO_ENROLLMENT_ID,
+                            DBConstants.KEY.MTOTO_MOTHER_ENROLLMENT_ID,
+                            DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE,
                             DBConstants.KEY.ART_INITIATED_BEFORE_VISIT,
                             DBConstants.KEY.MAMA_ENROLLMENT_ID,
                             DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS,
@@ -276,10 +280,12 @@ public final class MotherMentorHistoryMapper {
                                 DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
                                 DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE))) {
             return Arrays.asList(
-                    "mothermentor_child_eid_follow_up_status",
+                    isChildEidSchema3(recorded) ? "mothermentor_child_eid_follow_up_status"
+                            : "mothermentor_child_eid_follow_up_status_legacy",
                     "mothermentor_child_eid_test_type",
                     "mothermentor_child_eid_non_attendance_reason",
                     "mothermentor_child_eid_arrival",
+                    "mothermentor_child_eid_final_test",
                     "mothermentor_child_eid_follow_up_comment");
         }
         if (Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT.equals(type)
@@ -303,6 +309,14 @@ public final class MotherMentorHistoryMapper {
                 "mothermentor_visit_referal",
                 "mothermentor_next_visit_date",
                 "mothermentor_visit_comment");
+    }
+
+    private boolean isChildEidSchema3(Map<String, List<VisitDetail>> recorded) {
+        List<VisitDetail> schema = recorded.get(DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA);
+        if (schema == null || schema.isEmpty()) return false;
+        VisitDetail latest = schema.get(schema.size() - 1);
+        return latest != null && "3".equals(scalar(firstAnswer(
+                latest.getDetails(), latest.getHumanReadable())));
     }
 
     private boolean hasAny(Map<String, List<VisitDetail>> recorded, String... keys) {

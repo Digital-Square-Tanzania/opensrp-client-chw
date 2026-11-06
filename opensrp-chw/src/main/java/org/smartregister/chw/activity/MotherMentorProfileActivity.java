@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -45,6 +46,7 @@ import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidProfileUi;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidStatusUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosureLabels;
@@ -1423,6 +1425,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                                 .equals(visit.getVisitType()));
             }
             if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+                if (MotherMentorChildEidStatusUtils.isSchema3(values)) {
+                    return MotherMentorChildEidFollowUpVisitUtils.isComplete(values,
+                            MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visit.getVisitType()),
+                            getChildEidCompletionDob(visit), MotherMentorMotherVisitDao.getServiceDate(visit));
+                }
                 return MotherMentorChildEidFollowUpVisitUtils.isComplete(
                         values, MotherMentorFollowUpType.CHILD_EID.getEventType()
                                 .equals(visit.getVisitType()));
@@ -1443,6 +1450,20 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         } catch (Exception e) {
             Timber.e(e);
             return false;
+        }
+    }
+
+    /** Registered DOB is shared context, rather than a copied observation in the visit. */
+    protected LocalDate getChildEidCompletionDob(Visit visit) {
+        if (visit == null || memberObject == null
+                || TextUtils.isEmpty(memberObject.getBaseEntityId())) return null;
+        try {
+            return MotherMentorChildEidRepository.getClinicalStateBeforeVisit(
+                    ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                    memberObject.getBaseEntityId(), visit.getVisitId()).getChildDob();
+        } catch (Exception e) {
+            Timber.e(e, "Unable to load the Child EID birth date for visit completion");
+            return null;
         }
     }
 

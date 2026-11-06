@@ -233,8 +233,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     private boolean blockClosedCard() {
         if (!isMotherCardClosed() && !isFollowUpCardClosed()) return false;
         resetSubmission();
-        displayToast(getString(
-                org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_message));
+        displayToast(getString(isFollowUpVisit()
+                        && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
+                ? org.smartregister.chw.mothermentor.R.string.mothermentor_child_eid_closed_message
+                : org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_message));
         lockMotherVisitSubmit();
         return true;
     }
