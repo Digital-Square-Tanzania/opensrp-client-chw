@@ -24,12 +24,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
@@ -166,6 +168,74 @@ public class MotherMentorVisitSyncInstrumentedTest {
         process(enrollment);
         assertEquals(0, count(VisitRepository.VISIT_TABLE, FORM_SUBMISSION_ID,
                 enrollment.getEvent().getFormSubmissionId()));
+    }
+
+    @Test
+    public void standaloneIitSyncReplaysAgreementReturnAndDeletion() throws Exception {
+        String mother = UUID.randomUUID().toString();
+        syntheticClients.add(mother);
+        ContentValues enrollment = new ContentValues();
+        enrollment.put(BASE_ENTITY_ID, mother);
+        enrollment.put(IIT_EXPECTED_RETURN_DATE, "2020-04-01");
+        enrollment.put(IS_CLOSED, 0);
+        database.insertOrThrow(Constants.TABLES.MOTHERMENTOR_ENROLL_IIT, null, enrollment);
+
+        EventClient agreement = iitVisit(mother, "10", MotherMentorIitState.NONE,
+                IIT_RETURN_AGREEMENT, "agreed", SERVICE_INTERRUPTION_REASON, "forgot");
+        process(agreement);
+        process(agreement);
+        assertCompletedVisit(agreement.getEvent());
+        MotherMentorIitState state = MotherMentorIitRepository.getState(database, mother, null);
+        assertEquals(MotherMentorIitState.REFERRED, state.getReturnState());
+        assertEquals(1, state.getVisitCount());
+        assertFalse(state.isClosed());
+
+        EventClient returned = iitVisit(mother, "20", MotherMentorIitState.REFERRED,
+                RETURNED_TO_FACILITY, "yes", FACILITY_RETURN_DATE, "2020-04-18");
+        process(returned);
+        String visitId = assertCompletedVisit(returned.getEvent());
+        assertEquals(MotherMentorIitState.RETURNED_TO_CARE,
+                MotherMentorIitRepository.getState(database, mother, null).getStatus());
+        assertIitEnrollmentClosed(mother, true);
+
+        process(deleteEvent(mother, UUID.randomUUID().toString(), returned.getEvent().getFormSubmissionId()));
+        assertEquals(0, count(VisitDetailsRepository.VISIT_DETAILS_TABLE, VISIT_ID, visitId));
+        state = MotherMentorIitRepository.getState(database, mother, null);
+        assertEquals(MotherMentorIitState.REFERRED, state.getReturnState());
+        assertEquals(1, state.getVisitCount());
+        assertIitEnrollmentClosed(mother, false);
+    }
+
+    private EventClient iitVisit(String mother, String day, String returnState,
+            String question, String answer, String detailKey, String detailAnswer) throws Exception {
+        String eventType = MotherMentorFollowUpType.MOTHER_IIT.getEventType();
+        JSONArray observations = new JSONArray();
+        observation(observations, MOTHERMENTOR_VISIT_DATE, day + "-04-2020");
+        observation(observations, FOLLOW_UP_CATEGORY, MotherMentorFollowUpType.MOTHER_IIT.getValue());
+        observation(observations, IIT_FOLLOW_UP_SCHEMA, "2");
+        observation(observations, FOLLOW_UP_STATUS, "found");
+        observation(observations, IIT_RETURN_STATE, returnState);
+        observation(observations, question, answer);
+        observation(observations, detailKey, detailAnswer);
+        JSONObject json = new JSONObject().put(EVENT_BASE_ENTITY_ID, mother)
+                .put(EVENT_TYPE, eventType).put(EVENT_FORM_SUBMISSION_ID, UUID.randomUUID().toString())
+                .put("eventId", UUID.randomUUID().toString())
+                .put(EVENT_DATE_TIMESTAMP, "2020-04-" + day + "T12:00:00.000+03:00")
+                .put("entityType", Constants.TABLES.MOTHERMENTOR_FOLLOWUP_VISIT)
+                .put("obs", observations);
+        Event event = JsonFormUtils.gson.fromJson(json.toString(), Event.class);
+        Client client = JsonFormUtils.gson.fromJson(
+                new JSONObject().put(EVENT_BASE_ENTITY_ID, mother).toString(), Client.class);
+        return new EventClient(event, client);
+    }
+
+    private void assertIitEnrollmentClosed(String mother, boolean expected) {
+        try (Cursor row = database.rawQuery("SELECT " + IS_CLOSED + " FROM "
+                + Constants.TABLES.MOTHERMENTOR_ENROLL_IIT + " WHERE " + BASE_ENTITY_ID + " = ?",
+                new String[] {mother})) {
+            assertTrue(row.moveToFirst());
+            assertEquals(expected, row.getInt(0) == 1);
+        }
     }
 
     @Test

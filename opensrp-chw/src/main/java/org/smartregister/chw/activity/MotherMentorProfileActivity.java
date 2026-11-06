@@ -40,21 +40,21 @@ import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
-import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidProfileUi;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidStatusUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosureLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
-import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitText;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
@@ -63,6 +63,7 @@ import org.smartregister.chw.util.MarkClientAsDeceasedHelper;
 import org.smartregister.chw.util.MotherMentorDailyVisitUtils;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorIitClosureDialog;
 import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
 import org.smartregister.chw.util.MotherMentorPartnerClosureText;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -1021,6 +1022,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         updateDeceasedClientStatusTag(deceased);
         updateMotherClosureBanner();
         if (isServiceCardClosed()) {
+            if (isIitProfile() && textViewRecordMotherMentor != null) {
+                textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
+            }
             hideDeceasedClientActionViews();
             refreshMedicalHistory(true);
             return;
@@ -1168,7 +1172,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         String counters = MotherMentorIitText.counters(this, state);
         String details = missed + "\n"
                 + getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_return_status)
-                + " · " + MotherMentorIitText.returnState(this, state) + "\n"
+                + " · " + (state.isClosed() ? MotherMentorIitText.reason(this, state.getStatus())
+                        : MotherMentorIitText.returnState(this, state)) + "\n"
                 + getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_counter_label)
                 + " · " + (counters.isEmpty()
                         ? getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_no_counter)
@@ -1398,12 +1403,19 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (isFollowUpProfile() && memberObject != null) {
             // Legacy sectioned follow-ups were stored as MotherMentor Services. Keep them in
             // history, but do not resume them with a different category schema.
-            return MotherMentorLibrary.getInstance()
+            Visit latest = MotherMentorLibrary.getInstance()
                     .visitRepository()
                     .getLatestVisit(
                             memberObject.getBaseEntityId(), getFollowUpType().getEventType());
+            return isEarlierIitVisit(latest) ? null : latest;
         }
         return super.getServiceVisit();
+    }
+
+    private boolean isEarlierIitVisit(Visit visit) {
+        return isIitProfile() && visit != null && !MotherMentorIitRepository.belongsToCurrentEnrollment(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                visit.getBaseEntityId(), visit.getJson());
     }
 
     @Override
@@ -1459,7 +1471,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     void completeSavedMotherVisit(Visit visit) {
-        if (manualVisitCompletionInProgress || isPartnerFollowUpClosed() || isServiceCardClosed()) return;
+        if (manualVisitCompletionInProgress || isPartnerFollowUpClosed() || isServiceCardClosed()
+                || isEarlierIitVisit(visit)) return;
         manualVisitCompletionInProgress = true;
         if (manualProcessVisit != null) manualProcessVisit.setEnabled(false);
         try {
@@ -1467,6 +1480,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 MotherMentorMotherClosure preview = getSavedMotherClosurePreview(visit);
                 if (preview.isClosed()) {
                     MotherMentorMotherClosureDialog.show(this, preview,
+                            () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
+                    return;
+                }
+            } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
+                MotherMentorIitState preview = getSavedIitClosurePreview(visit);
+                if (preview.requiresConfirmation()) {
+                    MotherMentorIitClosureDialog.show(this, preview,
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }
@@ -1487,13 +1507,22 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 MotherMentorMotherVisitDao.getServiceDate(visit));
     }
 
+    protected MotherMentorIitState getSavedIitClosurePreview(Visit visit) throws Exception {
+        Map<String, String> values = MotherMentorVisitCompletion.observationValues(
+                new JSONObject(visit.getJson()).optJSONArray("obs"));
+        return MotherMentorIitRepository.preview(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                memberObject.getBaseEntityId(), visit.getVisitId(), values,
+                MotherMentorMotherVisitDao.getServiceDate(visit));
+    }
+
     protected void persistSavedMotherVisit(Visit visit) throws Exception {
         MotherMentorVisitsUtil.manualProcessVisit(visit);
     }
 
     private void finalizeSavedMotherVisit(Visit visit) {
         try {
-            if (isPartnerFollowUpClosed() || isServiceCardClosed()) return;
+            if (isPartnerFollowUpClosed() || isServiceCardClosed() || isEarlierIitVisit(visit)) return;
             persistSavedMotherVisit(visit);
             displayToast(org.smartregister.chw.mothermentor.R.string.mothermentor_visit_conducted);
             setupViews();
@@ -1681,7 +1710,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
         int visitCount = getMotherMentorVisitHistoryCount();
-        if (visitCount > 0) {
+        if (visitCount > 0 || isIitProfile() && loadIitState(null).isClosed()) {
             rlLastVisit.setVisibility(View.VISIBLE);
             view_last_visit_row.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
@@ -1731,6 +1760,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     public void continueService() {
         if (isPartnerFollowUpClosed() || isClientDeceased() || isServiceCardClosed()) return;
         if (isFollowUpProfile()) {
+            if (isIitProfile() && getServiceVisit() == null) return;
             MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                     this, memberObject.getBaseEntityId(), true, getFollowUpType());
         } else {

@@ -41,7 +41,7 @@ public class MotherMentorReportObjectTest {
         database.execSQL("CREATE TABLE ec_mothermentor_enrollment (base_entity_id TEXT, is_closed INTEGER, art_status TEXT, art_start_date TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_secondary_enrollment (base_entity_id TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_household_enrolment (base_entity_id TEXT, consent TEXT)");
-        database.execSQL("CREATE TABLE visits (visit_id TEXT, base_entity_id TEXT, visit_type TEXT, processed INTEGER, visit_date INTEGER)");
+        database.execSQL("CREATE TABLE visits (visit_id TEXT, base_entity_id TEXT, visit_type TEXT, processed INTEGER, visit_date INTEGER, visit_json TEXT)");
         database.execSQL("CREATE TABLE visit_details (visit_id TEXT, visit_key TEXT, details TEXT, processed INTEGER)");
         database.execSQL("CREATE TABLE event (baseEntityId TEXT, eventType TEXT, eventDate TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_enroll_child_eid (base_entity_id TEXT)");
@@ -738,6 +738,41 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void correctedIitReturnBeforeItsMissedAppointmentDoesNotCountAsReturned() throws Exception {
+        primary("mother", "Female", "2000-01-01");
+        iit("mother");
+        currentVisit("return", "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "found");
+        detail("return", "iit_follow_up_schema", "2");
+        detail("return", "iit_return_state", "referred");
+        detail("return", "iit_tarehe_miadi_aliyokosa", "2026-04-10");
+        detail("return", "returned_to_facility", "yes");
+        detail("return", "facility_return_date", "09-04-2026");
+
+        JSONObject counts = report.getIndicatorData();
+        for (int indicator : new int[]{4, 5, 18}) {
+            assertEquals("—", counts.getString("mm-" + indicator));
+            assertEquals(1, counts.getInt("mm-" + indicator + "-missing-records"));
+        }
+    }
+
+    @Test
+    public void voidedIitRevisionDoesNotMaskTheSurvivingConfirmedReturn() throws Exception {
+        primary("mother", "Female", "2000-01-01");
+        iit("mother");
+        currentVisit("returned", "mother", "2026-04-10", MotherMentorFollowUpType.MOTHER_IIT, "found");
+        detail("returned", "returned_to_facility", "yes");
+        detail("returned", "facility_return_date", "2026-04-10");
+        currentVisit("voided", "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "");
+        database.execSQL("UPDATE visits SET visit_json = ? WHERE visit_id = 'voided'",
+                new Object[]{"{\"voided\":true}"});
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-4-returned"));
+        assertEquals(1, counts.getInt("mm-5"));
+        assertEquals(1, counts.getInt("mm-18-returned"));
+    }
+
+    @Test
     public void currentFoundRequiresExplicitDatedReturnAndDoesNotReuseLegacyAnswers() throws Exception {
         primary("mother", "Female", "2000-01-01"); iit("mother");
         currentVisit("new", "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "found");
@@ -1204,7 +1239,7 @@ public class MotherMentorReportObjectTest {
     }
 
     private void visit(String visitId, String clientId, String serviceDate, int processed) {
-        database.execSQL("INSERT INTO visits VALUES (?, ?, 'MotherMentor Services', ?, 0)", new Object[]{visitId, clientId, processed});
+        database.execSQL("INSERT INTO visits (visit_id, base_entity_id, visit_type, processed, visit_date) VALUES (?, ?, 'MotherMentor Services', ?, 0)", new Object[]{visitId, clientId, processed});
         detail(visitId, "mothermentor_visit_date", serviceDate);
     }
 

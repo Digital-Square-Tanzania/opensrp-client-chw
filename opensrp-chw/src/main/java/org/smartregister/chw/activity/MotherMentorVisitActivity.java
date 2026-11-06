@@ -25,18 +25,20 @@ import org.smartregister.chw.mothermentor.interactor.MotherMentorIitVisitInterac
 import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
-import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorIitClosureDialog;
 import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;
@@ -208,6 +210,17 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 }, this::resetSubmission);
                 return;
             }
+        } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
+            MotherMentorIitState preview = getIitClosurePreview();
+            if (preview.requiresConfirmation()) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                MotherMentorIitClosureDialog.show(this, preview, () -> {
+                    closureConfirmationOpen = false;
+                    submitConfirmedVisit();
+                }, this::resetSubmission);
+                return;
+            }
         }
         submitConfirmedVisit();
     }
@@ -220,16 +233,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     protected MotherMentorMotherClosure getMotherClosurePreview() {
-        Map<String, String> answers = new HashMap<>();
-        for (BaseMotherMentorVisitAction action : actionList.values()) {
-            if (!action.isValid()) continue;
-            try {
-                answers.putAll(MotherMentorMotherVisitUtils.formValues(
-                        new JSONObject(action.getJsonPayload())));
-            } catch (Exception e) {
-                Timber.e(e, "Unable to read mother visit answers for closure confirmation");
-            }
-        }
+        Map<String, String> answers = stagedAnswers();
         Visit editing = Boolean.TRUE.equals(isEditMode)
                 ? org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance()
                           .visitRepository()
@@ -241,6 +245,33 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         return MotherMentorMotherClosureRepository.preview(
                 ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
                 editing == null ? null : editing.getVisitId(), answers, serviceDate);
+    }
+
+    protected MotherMentorIitState getIitClosurePreview() {
+        Visit editing = Boolean.TRUE.equals(isEditMode)
+                ? org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance()
+                          .visitRepository().getLatestVisit(baseEntityID,
+                                  MotherMentorFollowUpType.MOTHER_IIT.getEventType())
+                : null;
+        LocalDate serviceDate = editing == null
+                ? LocalDate.now() : MotherMentorMotherVisitDao.getServiceDate(editing);
+        return MotherMentorIitRepository.preview(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
+                editing == null ? null : editing.getVisitId(), stagedAnswers(), serviceDate);
+    }
+
+    private Map<String, String> stagedAnswers() {
+        Map<String, String> answers = new HashMap<>();
+        for (BaseMotherMentorVisitAction action : actionList.values()) {
+            if (!action.isValid()) continue;
+            try {
+                answers.putAll(MotherMentorMotherVisitUtils.formValues(
+                        new JSONObject(action.getJsonPayload())));
+            } catch (Exception e) {
+                Timber.e(e, "Unable to read Mother Mentor answers for closure confirmation");
+            }
+        }
+        return answers;
     }
 
     protected boolean isMotherCardClosed() {

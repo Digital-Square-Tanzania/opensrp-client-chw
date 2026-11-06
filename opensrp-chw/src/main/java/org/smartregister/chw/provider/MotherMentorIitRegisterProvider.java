@@ -64,19 +64,19 @@ public class MotherMentorIitRegisterProvider extends MotherMentorFollowUpRegiste
         } catch (Exception e) {
             Timber.e(e, "Unable to load the IIT register summary");
         }
-        String status = MotherMentorIitText.returnState(context, state);
-        String counters = MotherMentorIitText.counters(context, state);
-        if (!counters.isEmpty()) status += " · " + counters;
         if (state.isClosed()) {
             String tag = context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed);
-            SpannableString metadata = new SpannableString(tag + " · " + status);
+            String reason = MotherMentorIitText.reason(context, state.getStatus());
+            SpannableString metadata = new SpannableString(tag.equals(reason) ? tag : tag + " · " + reason);
             int color = MotherMentorIitState.RETURNED_TO_CARE.equals(state.getStatus())
                     ? 0xff21663e : 0xff9d1b29;
             metadata.setSpan(new ForegroundColorSpan(color), 0, tag.length(),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.metadata.setText(metadata);
         } else {
-            holder.metadata.setText(status);
+            String status = MotherMentorIitText.returnState(context, state);
+            String counters = MotherMentorIitText.counters(context, state);
+            holder.metadata.setText(counters.isEmpty() ? status : status + " · " + counters);
         }
         holder.pregnancy.setText(MotherMentorIitText.missedAppointment(context,
                 state.getMissedAppointmentDate(), LocalDate.now()));
