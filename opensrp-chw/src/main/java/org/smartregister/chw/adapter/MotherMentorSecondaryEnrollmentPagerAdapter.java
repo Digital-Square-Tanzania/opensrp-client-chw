@@ -14,6 +14,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAdapter {
     private final Context context;
     private boolean partnerHistoryMode;
+    private boolean childHistoryMode;
     private final MotherMentorSecondaryEnrollmentRegisterFragment[] fragments = new MotherMentorSecondaryEnrollmentRegisterFragment[3];
 
     public MotherMentorSecondaryEnrollmentPagerAdapter(FragmentManager fragmentManager, Context context) {
@@ -38,6 +39,7 @@ public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAd
         if (item instanceof MotherMentorSecondaryEnrollmentRegisterFragment) {
             fragments[position] = (MotherMentorSecondaryEnrollmentRegisterFragment) item;
             if (position == 1) fragments[position].setHistoryMode(partnerHistoryMode);
+            if (position == 2) fragments[position].setHistoryMode(childHistoryMode);
         }
         return item;
     }
@@ -64,6 +66,11 @@ public class MotherMentorSecondaryEnrollmentPagerAdapter extends FragmentPagerAd
     public void setPartnerHistoryMode(boolean historyMode) {
         partnerHistoryMode = historyMode;
         fragments[1].setHistoryMode(historyMode);
+    }
+
+    public void setChildHistoryMode(boolean historyMode) {
+        childHistoryMode = historyMode;
+        fragments[2].setHistoryMode(historyMode);
     }
 
     public void setSearchText(String searchText) {

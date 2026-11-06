@@ -1,10 +1,13 @@
 package org.smartregister.chw.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 
 import java.text.ParsePosition;
@@ -28,9 +31,11 @@ public final class MotherMentorDailyVisitUtils {
             }
             try {
                 JSONObject event = new JSONObject(visit.getJson());
-                if (!MotherMentorVisitCompletion.isComplete(event.optJSONArray("obs"))) continue;
+                JSONArray observations = event.optJSONArray("obs");
                 Map<String, String> values =
-                        MotherMentorVisitCompletion.observationValues(event.optJSONArray("obs"));
+                        MotherMentorVisitCompletion.observationValues(observations);
+                if (!MotherMentorVisitCompletion.isComplete(observations)
+                        && !isCompleteLegacyRepeatVisit(values)) continue;
                 Date visitDate = getVisitDate(visit, event, values);
                 if (visitDate != null && isSameDay(visitDate, now)) return true;
             } catch (Exception ignored) {
@@ -38,6 +43,33 @@ public final class MotherMentorDailyVisitUtils {
             }
         }
         return false;
+    }
+
+    private static boolean isCompleteLegacyRepeatVisit(Map<String, String> values) {
+        String attendance = StringUtils.trimToEmpty(values.get(DBConstants.KEY.ATTENDANCE_TYPE));
+        if (!("repeat".equalsIgnoreCase(attendance) || "marudio".equalsIgnoreCase(attendance))
+                || StringUtils.isNotBlank(values.get(DBConstants.KEY.FOLLOW_UP_CATEGORY))) return false;
+
+        switch (StringUtils.trimToEmpty(values.get(DBConstants.KEY.FOLLOW_UP_STATUS))
+                .toLowerCase(Locale.ROOT)) {
+            case "continuing_services":
+            case "continuing services":
+            case "anaendelea na huduma":
+                // Reuse the service sections for a found repeat visit. The old entry did not
+                // include the clinical questions now required by the submission validator.
+                values.put(DBConstants.KEY.ATTENDANCE_TYPE, "repeat");
+                values.put(DBConstants.KEY.FOLLOW_UP_STATUS, "found");
+                return MotherMentorMotherVisitUtils.isComplete(values);
+            case "deceased":
+            case "lost_to_follow_up":
+            case "relocated":
+            case "transferred_to_another_facility":
+            case "stopped_services":
+            case "not_available":
+                return true; // The old form skipped service sections for these outcomes.
+            default:
+                return false;
+        }
     }
 
     private static Date getVisitDate(Visit visit, JSONObject event, Map<String, String> values) {

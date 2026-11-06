@@ -27,14 +27,14 @@ import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorMotherChildWizardTest {
     @Test
-    public void onlyNewMotherVisitFormsUseTheLibraryChildWizardDelegate() throws Exception {
+    public void onlyRoutineMotherFormsWithChildAssessmentUseTheChildWizard() throws Exception {
         FamilyMetadata family = new FamilyMetadata(JsonWizardFormActivity.class,
                 FamilyWizardFormActivity.class, BaseProfileActivity.class, "unique_id", false);
         try (MockedStatic<Utils> metadata = mockStatic(Utils.class)) {
             metadata.when(Utils::metadata).thenReturn(family);
-            assertLaunch(form("Mother Mentor Visit Type", "2"), MotherMentorVisitWizardActivity.class);
-            assertLaunch(form("Mother Mentor Visit Type", ""), FamilyWizardFormActivity.class);
-            assertLaunch(form("Mother Mentor Child EID Follow-up Visit", "2"), FamilyWizardFormActivity.class);
+            assertLaunch(form("Mother Mentor Visit Type", true), MotherMentorVisitWizardActivity.class);
+            assertLaunch(form("Mother Mentor Visit Type", false), FamilyWizardFormActivity.class);
+            assertLaunch(form("Mother Mentor Child EID Follow-up Visit", true), FamilyWizardFormActivity.class);
         }
         assertTrue(FamilyWizardFormActivity.class.isAssignableFrom(MotherMentorVisitWizardActivity.class));
     }
@@ -47,9 +47,10 @@ public class MotherMentorMotherChildWizardTest {
         assertTrue(config.isWizard());
     }
 
-    private JSONObject form(String encounter, String schema) throws Exception {
-        JSONObject field = new JSONObject().put("key", DBConstants.KEY.MAMA_VISIT_SCHEMA).put("value", schema);
+    private JSONObject form(String encounter, boolean childAssessment) throws Exception {
+        JSONArray fields = new JSONArray();
+        if (childAssessment) fields.put(new JSONObject().put("key", DBConstants.KEY.MAMA_CHILD_STATUS));
         return new JSONObject().put("encounter_type", encounter)
-                .put("step1", new JSONObject().put("fields", new JSONArray().put(field)));
+                .put("step1", new JSONObject().put("fields", fields));
     }
 }

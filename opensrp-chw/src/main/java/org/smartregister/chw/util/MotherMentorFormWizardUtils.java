@@ -23,8 +23,8 @@ public final class MotherMentorFormWizardUtils {
 
     public static Intent getFormIntent(Context context, JSONObject jsonForm) {
         boolean motherVisit = "Mother Mentor Visit Type".equals(jsonForm.optString("encounter_type"))
-                && "2".equals(org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
-                        .values(jsonForm).get(DBConstants.KEY.MAMA_VISIT_SCHEMA));
+                && org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
+                        .field(jsonForm, DBConstants.KEY.MAMA_CHILD_STATUS) != null;
         Intent intent = new Intent(context, motherVisit ? MotherMentorVisitWizardActivity.class
                 : Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
