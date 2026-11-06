@@ -1136,16 +1136,24 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         LinearLayout profile = findViewById(org.smartregister.chw.mothermentor.R.id.profile_name_layout);
         if (profile == null) return;
         MotherMentorIitState state = loadIitState(null);
-        boolean referred = MotherMentorIitState.REFERRED.equals(state.getReturnState());
-        int red = getResources().getColor(R.color.mothermentor_risk_high);
-        int green = getResources().getColor(R.color.mothermentor_risk_low);
-        int amber = getResources().getColor(org.smartregister.chw.mothermentor.R.color.mothermentor_iit_amber);
-        showIitRiskTag(getString(state.isClosed()
-                ? org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed
-                : referred ? org.smartregister.chw.mothermentor.R.string.mothermentor_iit_agreed
-                : org.smartregister.chw.mothermentor.R.string.mothermentor_iit_badge),
-                state.isClosed() ? red : referred ? amber : red);
+        updateIitStatusPill(state);
+        updateIitDetails(profile, state);
+        updateIitClosureBanner(profile, state);
+    }
 
+    private void updateIitStatusPill(MotherMentorIitState state) {
+        int label = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_badge;
+        int color = R.color.mothermentor_risk_high;
+        if (state.isClosed()) {
+            label = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed;
+        } else if (MotherMentorIitState.REFERRED.equals(state.getReturnState())) {
+            label = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_agreed;
+            color = org.smartregister.chw.mothermentor.R.color.mothermentor_iit_amber;
+        }
+        showIitRiskTag(getString(label), getResources().getColor(color));
+    }
+
+    private void updateIitDetails(LinearLayout profile, MotherMentorIitState state) {
         if (iitDetailsView == null) {
             iitDetailsView = new TextView(this);
             iitDetailsView.setTextSize(14);
@@ -1156,7 +1164,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
         String missed = MotherMentorIitText.missedAppointmentDetails(this, state.getMissedAppointmentDate(),
-                new org.joda.time.LocalDate(getVisitAvailabilityDate()));
+                new LocalDate(getVisitAvailabilityDate()));
         String counters = MotherMentorIitText.counters(this, state);
         String details = missed + "\n"
                 + getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_return_status)
@@ -1170,8 +1178,14 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                     org.smartregister.chw.mothermentor.R.string.mothermentor_iit_linked_card_note);
         }
         iitDetailsView.setText(details);
+    }
 
-        if (state.isClosed() && iitClosureBanner == null) {
+    private void updateIitClosureBanner(LinearLayout profile, MotherMentorIitState state) {
+        if (!state.isClosed()) {
+            if (iitClosureBanner != null) iitClosureBanner.setVisibility(View.GONE);
+            return;
+        }
+        if (iitClosureBanner == null) {
             iitClosureBanner = new TextView(this);
             iitClosureBanner.setTextColor(Color.WHITE);
             iitClosureBanner.setTextSize(14);
@@ -1180,15 +1194,14 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             profile.addView(iitClosureBanner, new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
-        if (iitClosureBanner != null) {
-            iitClosureBanner.setVisibility(state.isClosed() ? View.VISIBLE : View.GONE);
-            iitClosureBanner.setBackground(createRiskTagBackground(
-                    MotherMentorIitState.RETURNED_TO_CARE.equals(state.getStatus()) ? green : red));
-            String reason = MotherMentorIitText.reason(this, state.getStatus());
-            iitClosureBanner.setText(state.getClosedDate().isEmpty() ? reason
-                    : getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed_banner,
-                            reason, state.getClosedDate()));
-        }
+        iitClosureBanner.setVisibility(View.VISIBLE);
+        int color = MotherMentorIitState.RETURNED_TO_CARE.equals(state.getStatus())
+                ? R.color.mothermentor_risk_low : R.color.mothermentor_risk_high;
+        iitClosureBanner.setBackground(createRiskTagBackground(getResources().getColor(color)));
+        String reason = MotherMentorIitText.reason(this, state.getStatus());
+        iitClosureBanner.setText(state.getClosedDate().isEmpty() ? reason
+                : getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed_banner,
+                        reason, state.getClosedDate()));
     }
 
     protected MotherMentorPartnerClosure loadPartnerClosure() {
