@@ -12,7 +12,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tool_bar_size"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,22 +22,26 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/detail_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/tool_bar_size"
-            app:popupTheme="@style/ChwTheme">
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/ChwTheme"
+            android:minHeight="?attr/actionBarSize">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/close"
-                    android:layout_width="@dimen/tool_bar_image"
-                    android:layout_height="@dimen/tool_bar_image"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
                     android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
-                    app:srcCompat="@drawable/ic_action_close" />
+                    app:srcCompat="@drawable/ic_action_close"
+            android:padding="12dp"
+            android:contentDescription="@android:string/cancel"
+            android:focusable="true" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/textview_title"
@@ -51,7 +55,11 @@
                     android:text="@string/all_male_clients"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/tool_bar_title" />
+                    android:textSize="@dimen/tool_bar_title"
+            android:singleLine="false"
+            android:maxLines="100"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
 
             </RelativeLayout>
 

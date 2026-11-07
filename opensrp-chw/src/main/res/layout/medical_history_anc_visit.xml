@@ -14,7 +14,9 @@
         android:paddingBottom="10dp"
         android:text="@string/anc_visit_date"
         android:textColor="@color/medical_text_inner"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+            android:singleLine="false"
+            android:maxLines="100" />
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/gest_age"

@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/login_background"
-    android:isScrollContainer="true">
+    android:isScrollContainer="true"
+    android:clipToPadding="false">
 
     <RelativeLayout
         android:id="@+id/login_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.0"
+        android:layout_height="wrap_content"
         android:background="@color/login_background"
         android:paddingBottom="@dimen/login_bottom_margin">
 
@@ -29,9 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_logo_height"
                 android:layout_gravity="center"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="60dp"
-                android:layout_weight="1"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
                 android:contentDescription="@string/logo"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_logo_ba" />
@@ -55,7 +54,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/app_version"
-                android:textColor="#999999"
+                android:textColor="@color/ui_text_secondary"
                 android:textSize="@dimen/login_build_text_view_textSize" />
 
         </LinearLayout>
@@ -74,29 +73,29 @@
             <EditText
                 android:id="@+id/login_user_name_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/login_view_component_height"
-                android:layout_weight="8"
+                android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_edit_text_bg"
                 android:cursorVisible="true"
                 android:ems="10"
                 android:hint="@string/username"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="textVisiblePassword"
                 android:lines="1"
                 android:paddingLeft="10dp"
                 android:textColor="#666666"
-                android:textColorHint="#bfbfbf"
+                android:textColorHint="@color/ui_text_secondary"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/login_edit_text_textSize"
-                android:typeface="sans" />
+                android:typeface="sans"
+                android:minHeight="56dp"
+                android:autofillHints="username" />
 
             <EditText
                 android:id="@+id/login_password_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/login_view_component_height"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:layout_weight="8"
                 android:background="@drawable/rounded_corner_edit_text_bg"
                 android:cursorVisible="true"
                 android:ems="10"
@@ -106,10 +105,12 @@
                 android:lines="1"
                 android:paddingLeft="10dp"
                 android:textColor="#666666"
-                android:textColorHint="#bfbfbf"
+                android:textColorHint="@color/ui_text_secondary"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/login_edit_text_textSize"
-                android:typeface="sans" />
+                android:typeface="sans"
+                android:minHeight="56dp"
+                android:imeOptions="actionDone" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -118,13 +119,14 @@
 
                 <CheckBox
                     android:id="@+id/login_show_password_checkbox"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="3dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="5dp"
-                    android:button="@drawable/white_checkbox_bg_selector" />
+                    android:button="@drawable/white_checkbox_bg_selector"
+                    android:contentDescription="@string/show_password_text" />
 
                 <TextView
                     android:id="@+id/login_show_password_text_view"
@@ -134,17 +136,18 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/login_show_password_checkbox"
                     android:text="@string/show_password_text"
-                    android:textColor="#585858"
-                    android:textSize="@dimen/login_edit_text_textSize" />
+                    android:textColor="@color/ui_text_secondary"
+                    android:textSize="@dimen/login_edit_text_textSize"
+                    android:minHeight="48dp"
+                    android:gravity="center_vertical" />
             </RelativeLayout>
 
             <Button
                 android:id="@+id/login_login_btn"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_weight="8"
                 android:background="@drawable/login_button_bg"
                 android:ems="10"
                 android:shadowColor="#ffffff"
@@ -154,19 +157,25 @@
                 android:text="@string/login_text"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:minHeight="56dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp" />
 
             <TextView
                 android:id="@+id/forgot_password"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:gravity="end|center_vertical"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:text="@string/forgot_your_password"
                 android:textAlignment="textEnd"
-                android:textColor="#585858" />
+                android:textColor="@color/ui_text_secondary"
+                android:minHeight="48dp"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground" />
 
         </LinearLayout>
         <!-- Bottom section -->
@@ -176,7 +185,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/middle_section"
-            android:layout_alignParentBottom="true"
+
             android:orientation="vertical"
             android:paddingTop="30dp">
 
@@ -188,7 +197,7 @@
                 android:paddingBottom="5dp"
                 android:text="@string/powered_by"
                 android:textAlignment="center"
-                android:textColor="#585858" />
+                android:textColor="@color/ui_text_secondary" />
 
             <ImageView
                 android:id="@+id/opensrp_logo_image_view"
@@ -199,7 +208,8 @@
                 android:adjustViewBounds="false"
                 android:cropToPadding="false"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_opensrp_logo" />
+                android:src="@drawable/ic_opensrp_logo"
+                android:importantForAccessibility="no" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

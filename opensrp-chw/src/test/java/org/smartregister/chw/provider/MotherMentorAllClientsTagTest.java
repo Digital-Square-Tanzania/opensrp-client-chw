@@ -29,13 +29,13 @@ public class MotherMentorAllClientsTagTest {
 
     @Test
     @Config(qualifiers = "en")
-    public void englishMotherMentorTagsRetainTheirExistingNames() {
+    public void englishMotherMentorTagsUseEidTerminology() {
         assertEquals("Mother Mentor", translated(CoreConstants.REGISTER_TYPE.MOTHER_MENTOR));
         assertEquals(
                 "Mother Mentor Partner",
                 translated(CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_PARTNER));
         assertEquals(
-                "Mother Mentor Child IED",
+                "Mother Mentor Child EID",
                 translated(CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_CHILD_EID));
     }
 

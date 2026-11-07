@@ -83,13 +83,16 @@
         <org.smartregister.view.customcontrols.CustomFontTextView
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:padding="8dp"
+            android:singleLine="false" android:maxLines="100"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="#eeeeee"
             android:gravity="center_vertical"
             android:text="@string/immunisation_and_services"
-            android:textColor="#919191"
+            android:textColor="@color/ui_text_secondary"
             android:textSize="@dimen/activity_sub_title_size" />
 
         <androidx.cardview.widget.CardView

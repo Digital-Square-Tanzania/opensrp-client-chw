@@ -23,26 +23,43 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/back_to_nav_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:contentInsetEnd="0dp"
             app:contentInsetLeft="0dp"
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp"
-            app:layout_collapseMode="pin">
+            app:layout_collapseMode="pin"
+            android:minHeight="?attr/actionBarSize">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/toolbar_title"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
                 android:paddingEnd="0dp"
                 android:text="@string/harm_reduction_reports_title"
                 android:textColor="@color/white"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+            android:singleLine="false"
+            android:maxLines="100"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ui_report_scroll"
+        android:layout_width="0dp" android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/harm_reduction_report"
@@ -55,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0">
 
         <ImageView
@@ -81,17 +98,21 @@
 
         <TextView
             android:id="@+id/report_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:text="@string/harm_reduction_reports_title"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
+            android:gravity="start|center_vertical"
             android:textAppearance="?attr/textAppearanceHeadline2"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/go_to"
             app:layout_constraintStart_toEndOf="@id/report_icon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:singleLine="false"
+            android:maxLines="100" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -103,4 +124,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/harm_reduction_report" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

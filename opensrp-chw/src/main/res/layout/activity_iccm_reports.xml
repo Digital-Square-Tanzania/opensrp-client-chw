@@ -23,26 +23,43 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/back_to_nav_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:contentInsetEnd="0dp"
             app:contentInsetLeft="0dp"
             app:contentInsetRight="0dp"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp"
-            app:layout_collapseMode="pin">
+            app:layout_collapseMode="pin"
+            android:minHeight="?attr/actionBarSize">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/toolbar_title"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical|start"
                 android:paddingEnd="0dp"
                 android:text="@string/iccm_reports_title"
                 android:textColor="@color/white"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+            android:singleLine="false"
+            android:maxLines="100"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ui_report_scroll"
+        android:layout_width="0dp" android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/iccm_client_report"
@@ -56,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0">
 
         <ImageView
@@ -82,17 +99,21 @@
 
         <TextView
             android:id="@+id/report_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:text="@string/iccm_client_report"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
+            android:gravity="start|center_vertical"
             android:textAppearance="?attr/textAppearanceHeadline2"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/go_to"
             app:layout_constraintStart_toEndOf="@id/report_icon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:singleLine="false"
+            android:maxLines="100" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -120,7 +141,7 @@
         app:layout_constraintVertical_bias="0">
 
         <ImageView
-            android:id="@+id/report_icon"
+            android:id="@+id/iccm_dispensing_summary_report_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sidemenu_reports_active"
@@ -129,7 +150,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/go_to"
+            android:id="@+id/iccm_dispensing_summary_go_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/row_goto"
@@ -137,22 +158,26 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@id/report_title"
+            app:layout_constraintStart_toEndOf="@id/iccm_dispensing_summary_report_title"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/report_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/iccm_dispensing_summary_report_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:text="@string/iccm_dispensing_summary"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
+            android:gravity="start|center_vertical"
             android:textAppearance="?attr/textAppearanceHeadline2"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/report_icon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/iccm_dispensing_summary_go_to"
+            app:layout_constraintStart_toEndOf="@id/iccm_dispensing_summary_report_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            android:singleLine="false"
+            android:maxLines="100" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -180,7 +205,7 @@
         app:layout_constraintVertical_bias="0">
 
         <ImageView
-            android:id="@+id/report_icon"
+            android:id="@+id/iccm_malaria_report_report_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sidemenu_reports_active"
@@ -189,7 +214,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/go_to"
+            android:id="@+id/iccm_malaria_report_go_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/row_goto"
@@ -197,22 +222,26 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@id/report_title"
+            app:layout_constraintStart_toEndOf="@id/iccm_malaria_report_report_title"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/report_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/iccm_malaria_report_report_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:text="@string/iccm_malaria_report"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
+            android:gravity="start|center_vertical"
             android:textAppearance="?attr/textAppearanceHeadline2"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/report_icon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/iccm_malaria_report_go_to"
+            app:layout_constraintStart_toEndOf="@id/iccm_malaria_report_report_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            android:singleLine="false"
+            android:maxLines="100" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -226,4 +255,6 @@
 
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
