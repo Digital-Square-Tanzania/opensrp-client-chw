@@ -40,6 +40,7 @@ import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
@@ -49,10 +50,12 @@ import org.smartregister.chw.mothermentor.util.MotherMentorChildEidFollowUpVisit
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidProfileUi;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidStatusUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosureLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitText;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.VisitUtils;
@@ -60,6 +63,7 @@ import org.smartregister.chw.util.MarkClientAsDeceasedHelper;
 import org.smartregister.chw.util.MotherMentorDailyVisitUtils;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorIitClosureDialog;
 import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
 import org.smartregister.chw.util.MotherMentorPartnerClosureText;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -121,6 +125,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private final AppExecutors deathRecordExecutors = new AppExecutors();
     private boolean deathRecordInProgress;
     private TextView iitRiskTag;
+    private TextView iitDetailsView;
+    private TextView iitClosureBanner;
     private TextView pregnancyWeekView;
     private TextView followUpRoleView;
     private TextView motherClosureBanner;
@@ -208,6 +214,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     protected MemberObject getMemberObject(String baseEntityId) {
+        if (isIitProfile()) {
+            return MotherMentorDao.getIitHistoryMember(baseEntityId);
+        }
         if (!isFollowUpProfile()) {
             MemberObject mother = MotherMentorDao.getPrimaryMemberForHistory(baseEntityId);
             if (mother != null) return mother;
@@ -599,6 +608,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         }
     }
 
+    private boolean isIitProfile() {
+        return isFollowUpProfile() && getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT;
+    }
+
     private boolean isChildEidProfile() {
         return isFollowUpProfile() && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID;
     }
@@ -713,7 +726,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private void updateIitHighRiskTag() {
-        if (isFollowUpProfile() && getFollowUpType() != MotherMentorFollowUpType.MOTHER_IIT) {
+        if (isIitProfile()) return;
+        if (isFollowUpProfile()) {
             hideIitRiskTag();
             return;
         }
@@ -755,7 +769,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             iitRiskTag.setTextColor(Color.WHITE);
             iitRiskTag.setTextSize(12);
             iitRiskTag.setTypeface(Typeface.DEFAULT_BOLD);
-            iitRiskTag.setAllCaps(true);
+            iitRiskTag.setAllCaps(!isIitProfile());
             iitRiskTag.setPadding(dpToPx(12), dpToPx(4), dpToPx(12), dpToPx(4));
 
             LinearLayout.LayoutParams params =
@@ -1003,10 +1017,14 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         refreshChildEidDetails();
         MotherMentorPartnerClosure closure = loadPartnerClosure();
         updatePartnerClosureBanner(closure);
+        updateIitCard();
         boolean deceased = isClientDeceased();
         updateDeceasedClientStatusTag(deceased);
         updateMotherClosureBanner();
         if (isServiceCardClosed()) {
+            if (isIitProfile() && textViewRecordMotherMentor != null) {
+                textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
+            }
             hideDeceasedClientActionViews();
             refreshMedicalHistory(true);
             return;
@@ -1055,6 +1073,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     protected boolean isLinkedFollowUpCardClosed() {
         if (!isFollowUpProfile() || memberObject == null
                 || TextUtils.isEmpty(memberObject.getBaseEntityId())) return false;
+        if (isIitProfile()) return loadIitState(null).isClosed();
         return MotherMentorMotherClosureRepository.isFollowUpEnrollmentClosed(
                 ChwApplication.getInstance().getRepository().getReadableDatabase(),
                 memberObject.getBaseEntityId(), getFollowUpType());
@@ -1071,7 +1090,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     void updateMotherClosureBanner() {
-        if (isChildEidProfile()) {
+        if (isChildEidProfile() || isIitProfile()) {
             if (motherClosureBanner != null) motherClosureBanner.setVisibility(View.GONE);
             return;
         }
@@ -1102,6 +1121,92 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_banner,
                 MotherMentorMotherClosureLabels.label(this, state.isClosed() ? state.getStatus() : null),
                 state.getClosedDate()));
+    }
+
+    protected MotherMentorIitState loadIitState(String excludedVisitId) {
+        if (memberObject == null) return MotherMentorIitState.active();
+        try {
+            return MotherMentorIitRepository.getState(
+                    ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                    memberObject.getBaseEntityId(), excludedVisitId);
+        } catch (Exception e) {
+            Timber.e(e, "Unable to load the IIT card state");
+            return MotherMentorIitState.active();
+        }
+    }
+
+    private void updateIitCard() {
+        if (!isIitProfile() || memberObject == null) return;
+        LinearLayout profile = findViewById(org.smartregister.chw.mothermentor.R.id.profile_name_layout);
+        if (profile == null) return;
+        MotherMentorIitState state = loadIitState(null);
+        updateIitStatusPill(state);
+        updateIitDetails(profile, state);
+        updateIitClosureBanner(profile, state);
+    }
+
+    private void updateIitStatusPill(MotherMentorIitState state) {
+        int label = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_badge;
+        int color = R.color.mothermentor_risk_high;
+        if (state.isClosed()) {
+            label = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed;
+        } else if (MotherMentorIitState.REFERRED.equals(state.getReturnState())) {
+            label = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_agreed;
+            color = org.smartregister.chw.mothermentor.R.color.mothermentor_iit_amber;
+        }
+        showIitRiskTag(getString(label), getResources().getColor(color));
+    }
+
+    private void updateIitDetails(LinearLayout profile, MotherMentorIitState state) {
+        if (iitDetailsView == null) {
+            iitDetailsView = new TextView(this);
+            iitDetailsView.setTextSize(14);
+            iitDetailsView.setPadding(dpToPx(12), dpToPx(8), dpToPx(12), dpToPx(8));
+            iitDetailsView.setTextColor(Color.DKGRAY);
+            iitDetailsView.setBackground(createRiskTagBackground(0xffeef3f8));
+            profile.addView(iitDetailsView, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+        String missed = MotherMentorIitText.missedAppointmentDetails(this, state.getMissedAppointmentDate(),
+                new LocalDate(getVisitAvailabilityDate()));
+        String counters = MotherMentorIitText.counters(this, state);
+        String details = missed + "\n"
+                + getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_return_status)
+                + " · " + (state.isClosed() ? MotherMentorIitText.reason(this, state.getStatus())
+                        : MotherMentorIitText.returnState(this, state)) + "\n"
+                + getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_counter_label)
+                + " · " + (counters.isEmpty()
+                        ? getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_no_counter)
+                        : counters);
+        if (state.isMamaKinaraLinked()) {
+            details += "\n" + getString(
+                    org.smartregister.chw.mothermentor.R.string.mothermentor_iit_linked_card_note);
+        }
+        iitDetailsView.setText(details);
+    }
+
+    private void updateIitClosureBanner(LinearLayout profile, MotherMentorIitState state) {
+        if (!state.isClosed()) {
+            if (iitClosureBanner != null) iitClosureBanner.setVisibility(View.GONE);
+            return;
+        }
+        if (iitClosureBanner == null) {
+            iitClosureBanner = new TextView(this);
+            iitClosureBanner.setTextColor(Color.WHITE);
+            iitClosureBanner.setTextSize(14);
+            iitClosureBanner.setTypeface(Typeface.DEFAULT_BOLD);
+            iitClosureBanner.setPadding(dpToPx(12), dpToPx(8), dpToPx(12), dpToPx(8));
+            profile.addView(iitClosureBanner, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+        iitClosureBanner.setVisibility(View.VISIBLE);
+        int color = MotherMentorIitState.RETURNED_TO_CARE.equals(state.getStatus())
+                ? R.color.mothermentor_risk_low : R.color.mothermentor_risk_high;
+        iitClosureBanner.setBackground(createRiskTagBackground(getResources().getColor(color)));
+        String reason = MotherMentorIitText.reason(this, state.getStatus());
+        iitClosureBanner.setText(state.getClosedDate().isEmpty() ? reason
+                : getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed_banner,
+                        reason, state.getClosedDate()));
     }
 
     protected MotherMentorPartnerClosure loadPartnerClosure() {
@@ -1298,12 +1403,19 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (isFollowUpProfile() && memberObject != null) {
             // Legacy sectioned follow-ups were stored as MotherMentor Services. Keep them in
             // history, but do not resume them with a different category schema.
-            return MotherMentorLibrary.getInstance()
+            Visit latest = MotherMentorLibrary.getInstance()
                     .visitRepository()
                     .getLatestVisit(
                             memberObject.getBaseEntityId(), getFollowUpType().getEventType());
+            return isEarlierIitVisit(latest) ? null : latest;
         }
         return super.getServiceVisit();
+    }
+
+    private boolean isEarlierIitVisit(Visit visit) {
+        return isIitProfile() && visit != null && !MotherMentorIitRepository.belongsToCurrentEnrollment(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                visit.getBaseEntityId(), visit.getJson());
     }
 
     @Override
@@ -1359,7 +1471,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     void completeSavedMotherVisit(Visit visit) {
-        if (manualVisitCompletionInProgress || isPartnerFollowUpClosed() || isServiceCardClosed()) return;
+        if (manualVisitCompletionInProgress || isPartnerFollowUpClosed() || isServiceCardClosed()
+                || isEarlierIitVisit(visit)) return;
         manualVisitCompletionInProgress = true;
         if (manualProcessVisit != null) manualProcessVisit.setEnabled(false);
         try {
@@ -1367,6 +1480,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 MotherMentorMotherClosure preview = getSavedMotherClosurePreview(visit);
                 if (preview.isClosed()) {
                     MotherMentorMotherClosureDialog.show(this, preview,
+                            () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
+                    return;
+                }
+            } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
+                MotherMentorIitState preview = getSavedIitClosurePreview(visit);
+                if (preview.requiresConfirmation()) {
+                    MotherMentorIitClosureDialog.show(this, preview,
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }
@@ -1387,13 +1507,22 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 MotherMentorMotherVisitDao.getServiceDate(visit));
     }
 
+    protected MotherMentorIitState getSavedIitClosurePreview(Visit visit) throws Exception {
+        Map<String, String> values = MotherMentorVisitCompletion.observationValues(
+                new JSONObject(visit.getJson()).optJSONArray("obs"));
+        return MotherMentorIitRepository.preview(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                memberObject.getBaseEntityId(), visit.getVisitId(), values,
+                MotherMentorMotherVisitDao.getServiceDate(visit));
+    }
+
     protected void persistSavedMotherVisit(Visit visit) throws Exception {
         MotherMentorVisitsUtil.manualProcessVisit(visit);
     }
 
     private void finalizeSavedMotherVisit(Visit visit) {
         try {
-            if (isPartnerFollowUpClosed() || isServiceCardClosed()) return;
+            if (isPartnerFollowUpClosed() || isServiceCardClosed() || isEarlierIitVisit(visit)) return;
             persistSavedMotherVisit(visit);
             displayToast(org.smartregister.chw.mothermentor.R.string.mothermentor_visit_conducted);
             setupViews();
@@ -1436,6 +1565,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 return MotherMentorChildEidFollowUpVisitUtils.isComplete(
                         values, MotherMentorFollowUpType.CHILD_EID.getEventType()
                                 .equals(visit.getVisitType()));
+            }
+            if (isIitProfile() && "2".equals(values.get(DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA))) {
+                return MotherMentorIitRepository.isComplete(values, loadIitState(visit.getVisitId()));
             }
             String status = values.get(FOLLOW_UP_STATUS);
             if (!TextUtils.isEmpty(status)) {
@@ -1578,7 +1710,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
         int visitCount = getMotherMentorVisitHistoryCount();
-        if (visitCount > 0) {
+        if (visitCount > 0 || isIitProfile() && loadIitState(null).isClosed()) {
             rlLastVisit.setVisibility(View.VISIBLE);
             view_last_visit_row.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
@@ -1628,6 +1760,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     public void continueService() {
         if (isPartnerFollowUpClosed() || isClientDeceased() || isServiceCardClosed()) return;
         if (isFollowUpProfile()) {
+            if (isIitProfile() && getServiceVisit() == null) return;
             MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                     this, memberObject.getBaseEntityId(), true, getFollowUpType());
         } else {

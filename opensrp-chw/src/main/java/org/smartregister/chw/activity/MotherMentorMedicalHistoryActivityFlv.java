@@ -25,9 +25,12 @@ import org.json.JSONObject;
 import org.json.JSONException;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitText;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 import org.smartregister.chw.util.MotherMentorHistoryMapper;
 
@@ -43,13 +46,21 @@ import java.util.Map;
 public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
     private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
     private final MotherMentorFollowUpType followUpType;
+    private final String baseEntityId;
+    private boolean iitClosed;
 
     public MotherMentorMedicalHistoryActivityFlv() {
         this(null);
     }
 
     public MotherMentorMedicalHistoryActivityFlv(MotherMentorFollowUpType followUpType) {
+        this(followUpType, null);
+    }
+
+    public MotherMentorMedicalHistoryActivityFlv(MotherMentorFollowUpType followUpType,
+            String baseEntityId) {
         this.followUpType = followUpType;
+        this.baseEntityId = baseEntityId;
     }
 
     @Override
@@ -65,7 +76,12 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
 
     @Override
     public void processViewData(List<Visit> visits, Context context) {
-        if (visits == null || visits.isEmpty()) return;
+        MotherMentorIitState closure = iitState();
+        iitClosed = closure.isClosed();
+        if (visits == null || visits.isEmpty()) {
+            showIitClosure(context, closure);
+            return;
+        }
 
         int days = Days.daysBetween(
                 new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
@@ -86,6 +102,33 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         }
         processLastVisit(days, context);
         processVisit(visitDetails, context, visits);
+        showIitClosure(context, closure);
+    }
+
+    private MotherMentorIitState iitState() {
+        if (followUpType != MotherMentorFollowUpType.MOTHER_IIT || StringUtils.isBlank(baseEntityId)) {
+            return MotherMentorIitState.active();
+        }
+        return MotherMentorIitRepository.getState(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityId, null);
+    }
+
+    private void showIitClosure(Context context, MotherMentorIitState closure) {
+        if (!closure.isClosed()) return;
+        int reasonLabel = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closure_reason;
+        int dateLabel = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closure_date;
+        String summary = context.getString(reasonLabel) + "\n"
+                + MotherMentorIitText.reason(context, closure.getStatus());
+        if (StringUtils.isNotBlank(closure.getClosedDate())) {
+            summary += "\n" + context.getString(dateLabel) + "\n" + closure.getClosedDate();
+        }
+        if (StringUtils.isNotBlank(closure.getNewFacility())) {
+            summary += "\n" + closure.getNewFacility();
+        }
+        TextView closureDetails = new TextView(context);
+        closureDetails.setText(summary);
+        linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
+        linearLayoutHealthFacilityVisitDetails.addView(closureDetails, 0);
     }
 
     private void processLastVisit(int days, Context context) {
@@ -118,7 +161,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             edit.setVisibility(
                     i == visits.size() - 1 && !legacyFollowUp
                             && !isReadOnlyLegacyHousehold(visit)
-                            && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit)
+                            && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit) && !iitClosed
+                            && !isEarlierIitEnrollment(visit)
                             ? View.VISIBLE : View.GONE);
             edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
             service.setText(String.format("%s - %s", getVisitType(context, visit.getVisitType()),
@@ -153,7 +197,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     private void editVisit(Activity activity, Visit visit) {
         if (StringUtils.isBlank(visit.getBaseEntityId())
                 || isReadOnlyLegacyHousehold(visit)
-                || isHouseholdReadOnly(visit) || isPartnerClosed(visit)) return;
+                || isHouseholdReadOnly(visit) || isPartnerClosed(visit) || iitState().isClosed()
+                || isEarlierIitEnrollment(visit)) return;
         activity.finish();
         if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
             MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
@@ -174,6 +219,14 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     private boolean isReadOnlyLegacyHousehold(Visit visit) {
         return Boolean.TRUE.equals(visit.getProcessed())
                 && MotherMentorHistoryMapper.isLegacyHouseholdVisit(visit);
+    }
+
+    private boolean isEarlierIitEnrollment(Visit visit) {
+        return followUpType == MotherMentorFollowUpType.MOTHER_IIT
+                && StringUtils.isNotBlank(baseEntityId)
+                && !MotherMentorIitRepository.belongsToCurrentEnrollment(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityId, visit.getJson());
     }
 
     private boolean isHouseholdReadOnly(Visit visit) {

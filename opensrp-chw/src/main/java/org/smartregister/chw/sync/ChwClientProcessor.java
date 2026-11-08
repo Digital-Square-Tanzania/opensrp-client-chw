@@ -28,6 +28,7 @@ import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.dao.PmtctDao;
@@ -139,8 +140,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_IIT:
+                    SQLiteDatabase database = ChwApplication.getInstance().getRepository().getWritableDatabase();
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuild(
-                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                            database, baseEntityID);
+                    MotherMentorIitRepository.rebuild(database, baseEntityID);
                     break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID:
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.rebuildForChild(
@@ -582,7 +585,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     && (org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository
                             .isMotherEvent(eventClient.getEvent())
                         || org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType.CHILD_EID
-                            .getEventType().equals(eventClient.getEvent().getEventType()))) {
+                            .getEventType().equals(eventClient.getEvent().getEventType())
+                        || org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT
+                            .equals(eventClient.getEvent().getEventType()))) {
                 org.smartregister.chw.mothermentor.util.NCUtils.processHomeVisit(eventClient);
             } else {
                 NCUtils.processHomeVisit(eventClient);
@@ -728,9 +733,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
         List<String> visitIds = new ArrayList<>();
         try (Cursor rows = database.query(VisitRepository.VISIT_TABLE,
                 new String[] {DBConstants.KEY.VISIT_ID},
-                DBConstants.KEY.FORM_SUBMISSION_ID + " = ? AND " + DBConstants.KEY.VISIT_TYPE + " = ?",
+                DBConstants.KEY.FORM_SUBMISSION_ID + " = ? AND " + DBConstants.KEY.VISIT_TYPE + " IN (?, ?)",
                 new String[] {submissionId,
-                        org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES},
+                        org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES,
+                        org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT},
                 null, null, null)) {
             while (rows.moveToNext()) visitIds.add(rows.getString(0));
         }

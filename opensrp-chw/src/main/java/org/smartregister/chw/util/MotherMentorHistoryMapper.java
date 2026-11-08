@@ -84,6 +84,10 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.MOTHERMENTOR_REPORTING_VERSION,
                             DBConstants.KEY.PRIMARY_MOTHERMENTOR_CLIENT,
                             DBConstants.KEY.IIT_ENROLLED,
+                            DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.IIT_ENROLLMENT_ID,
+                            DBConstants.KEY.IIT_MISSED_APPOINTMENT_DATE,
+                            DBConstants.KEY.IIT_RETURN_STATE,
                             DBConstants.KEY.PARTNER_ENROLLED,
                             DBConstants.KEY.CHILD_EID_ENROLLED,
                             DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA,
@@ -283,7 +287,7 @@ public final class MotherMentorHistoryMapper {
                                 DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY,
                                 DBConstants.KEY.CHILD_EID_NON_ATTENDANCE_REASON,
                                 DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE))) {
-            if (isChildEidSchema3(recorded)) return Arrays.asList(
+            if (hasSchema(recorded, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3")) return Arrays.asList(
                     "mothermentor_child_eid_follow_up_status", "mothermentor_child_eid_hei",
                     "mothermentor_child_eid_follow_up_comment");
             return Arrays.asList(
@@ -302,6 +306,10 @@ public final class MotherMentorHistoryMapper {
                                 DBConstants.KEY.SERVICE_INTERRUPTION_REASON_OTHER,
                                 DBConstants.KEY.RETURNED_TO_FACILITY,
                                 DBConstants.KEY.FACILITY_RETURN_DATE))) {
+            if (hasSchema(recorded, DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA, "2")) {
+                return Arrays.asList("mothermentor_iit_follow_up_status",
+                        "mothermentor_iit_return_to_facility", "mothermentor_follow_up_comment");
+            }
             return Arrays.asList(
                     "mothermentor_follow_up_status",
                     "mothermentor_service_interruption_reason",
@@ -317,11 +325,11 @@ public final class MotherMentorHistoryMapper {
                 "mothermentor_visit_comment");
     }
 
-    private boolean isChildEidSchema3(Map<String, List<VisitDetail>> recorded) {
-        List<VisitDetail> schema = recorded.get(DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA);
+    private boolean hasSchema(Map<String, List<VisitDetail>> recorded, String key, String version) {
+        List<VisitDetail> schema = recorded.get(key);
         if (schema == null || schema.isEmpty()) return false;
         VisitDetail latest = schema.get(schema.size() - 1);
-        return latest != null && "3".equals(scalar(firstAnswer(
+        return latest != null && version.equals(scalar(firstAnswer(
                 latest.getDetails(), latest.getHumanReadable())));
     }
 

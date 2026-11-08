@@ -21,6 +21,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +41,7 @@ public class MotherMentorReportObjectTest {
         database.execSQL("CREATE TABLE ec_mothermentor_enrollment (base_entity_id TEXT, is_closed INTEGER, art_status TEXT, art_start_date TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_secondary_enrollment (base_entity_id TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_household_enrolment (base_entity_id TEXT, consent TEXT)");
-        database.execSQL("CREATE TABLE visits (visit_id TEXT, base_entity_id TEXT, visit_type TEXT, processed INTEGER, visit_date INTEGER)");
+        database.execSQL("CREATE TABLE visits (visit_id TEXT, base_entity_id TEXT, visit_type TEXT, processed INTEGER, visit_date INTEGER, visit_json TEXT)");
         database.execSQL("CREATE TABLE visit_details (visit_id TEXT, visit_key TEXT, details TEXT, processed INTEGER)");
         database.execSQL("CREATE TABLE event (baseEntityId TEXT, eventType TEXT, eventDate TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_enroll_child_eid (base_entity_id TEXT)");
@@ -684,6 +685,42 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void stagedIitVisitsReportObservedOutcomesAndIgnoreHiddenReturnAnswers() throws Exception {
+        for (String id : new String[]{"agreed", "refused", "returned", "not-returned", "death", "transfer", "travel"}) {
+            primary(id, "Female", "2000-01-01");
+            iit(id);
+            boolean found = Arrays.asList("agreed", "refused", "returned", "not-returned").contains(id);
+            currentVisit(id, id, "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT,
+                    found ? "found" : "not_found");
+            detail(id, "iit_follow_up_schema", "2");
+        }
+        for (String decision : new String[]{"agreed", "refused"}) {
+            detail(decision, "iit_return_state", "none");
+            detail(decision, "iit_return_agreement", decision);
+            detail(decision, "returned_to_facility", "yes"); // A hidden answer is stale.
+            detail(decision, "facility_return_date", "2026-04-20");
+        }
+        detail("returned", "iit_return_state", "referred");
+        detail("returned", "returned_to_facility", "yes");
+        detail("returned", "facility_return_date", "2026-04-18");
+        detail("not-returned", "iit_return_state", "referred");
+        detail("not-returned", "returned_to_facility", "no");
+        detail("death", "iit_sababu_kutopatikana", "deceased");
+        detail("transfer", "iit_sababu_kutopatikana", "moved_facility");
+        detail("travel", "iit_sababu_kutopatikana", "travelled");
+
+        JSONObject counts = report.getIndicatorData();
+        for (String outcome : new String[]{"returned", "not-found", "died", "refused"}) {
+            assertEquals(outcome, 1, counts.getInt("mm-4-" + outcome));
+        }
+        assertEquals(1, counts.getInt("mm-18-transferred"));
+        assertEquals(1, counts.getInt("mm-5"));
+        for (int indicator : new int[]{4, 5, 18}) {
+            assertEquals(0, counts.getInt("mm-" + indicator + "-missing-records"));
+        }
+    }
+
+    @Test
     public void currentTracingSupersedesLegacyOutcomeWithoutErasingMonthlyReturn() throws Exception {
         primary("mother", "Female", "2000-01-01"); iit("mother");
         tracing("old", "mother", "2026-04-10", "found", "yes", "2026-04-10");
@@ -698,6 +735,41 @@ public class MotherMentorReportObjectTest {
         c = report.getIndicatorData();
         assertEquals(1, c.getInt("mm-4-died"));
         assertEquals(0, c.getInt("mm-4-not-found"));
+    }
+
+    @Test
+    public void correctedIitReturnBeforeItsMissedAppointmentDoesNotCountAsReturned() throws Exception {
+        primary("mother", "Female", "2000-01-01");
+        iit("mother");
+        currentVisit("return", "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "found");
+        detail("return", "iit_follow_up_schema", "2");
+        detail("return", "iit_return_state", "referred");
+        detail("return", "iit_tarehe_miadi_aliyokosa", "2026-04-10");
+        detail("return", "returned_to_facility", "yes");
+        detail("return", "facility_return_date", "09-04-2026");
+
+        JSONObject counts = report.getIndicatorData();
+        for (int indicator : new int[]{4, 5, 18}) {
+            assertEquals("—", counts.getString("mm-" + indicator));
+            assertEquals(1, counts.getInt("mm-" + indicator + "-missing-records"));
+        }
+    }
+
+    @Test
+    public void voidedIitRevisionDoesNotMaskTheSurvivingConfirmedReturn() throws Exception {
+        primary("mother", "Female", "2000-01-01");
+        iit("mother");
+        currentVisit("returned", "mother", "2026-04-10", MotherMentorFollowUpType.MOTHER_IIT, "found");
+        detail("returned", "returned_to_facility", "yes");
+        detail("returned", "facility_return_date", "2026-04-10");
+        currentVisit("voided", "mother", "2026-04-20", MotherMentorFollowUpType.MOTHER_IIT, "");
+        database.execSQL("UPDATE visits SET visit_json = ? WHERE visit_id = 'voided'",
+                new Object[]{"{\"voided\":true}"});
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-4-returned"));
+        assertEquals(1, counts.getInt("mm-5"));
+        assertEquals(1, counts.getInt("mm-18-returned"));
     }
 
     @Test
@@ -1190,7 +1262,7 @@ public class MotherMentorReportObjectTest {
     }
 
     private void visit(String visitId, String clientId, String serviceDate, int processed) {
-        database.execSQL("INSERT INTO visits VALUES (?, ?, 'MotherMentor Services', ?, 0)", new Object[]{visitId, clientId, processed});
+        database.execSQL("INSERT INTO visits (visit_id, base_entity_id, visit_type, processed, visit_date) VALUES (?, ?, 'MotherMentor Services', ?, 0)", new Object[]{visitId, clientId, processed});
         detail(visitId, "mothermentor_visit_date", serviceDate);
     }
 

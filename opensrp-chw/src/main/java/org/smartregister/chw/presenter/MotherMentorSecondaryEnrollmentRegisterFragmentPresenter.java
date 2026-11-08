@@ -3,6 +3,7 @@ package org.smartregister.chw.presenter;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.mothermentor.contract.MotherMentorRegisterFragmentContract;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorIitFollowUpDao;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorRegisterFragmentPresenter;
 
 public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter
@@ -31,6 +32,9 @@ public class MotherMentorSecondaryEnrollmentRegisterFragmentPresenter
                             .closedEnrollmentCondition(getMainTable())
                     : org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao
                             .activeEnrollmentCondition(getMainTable());
+        }
+        if (DEFAULT_TABLE_NAME.equals(getMainTable())) {
+            return MotherMentorIitFollowUpDao.registerCondition(historyMode);
         }
         return MotherMentorDao.getActiveClientCondition(getMainTable());
     }

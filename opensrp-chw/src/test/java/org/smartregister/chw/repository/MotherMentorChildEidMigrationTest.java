@@ -35,7 +35,7 @@ public class MotherMentorChildEidMigrationTest {
             ChwRepositoryFlv.onUpgrade(null, db, 65, 66);
             ChwRepositoryFlv.onUpgrade(null, db, 66, 66);
             migration.verify(() -> org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgrade(db), times(1));
-            assertEquals(66, BuildConfig.DATABASE_VERSION);
+            assertTrue("The app still includes the Child EID migration", BuildConfig.DATABASE_VERSION >= 66);
         }
     }
 

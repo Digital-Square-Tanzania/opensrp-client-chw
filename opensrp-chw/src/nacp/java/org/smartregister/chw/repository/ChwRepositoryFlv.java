@@ -15,6 +15,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorReportingRepository;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.ncd.util.Constants;
@@ -244,6 +245,10 @@ public class ChwRepositoryFlv {
                     break;
                 case 66:
                     org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgrade(db);
+                    break;
+                case 68:
+                    // Backfill reciprocal exits even on devices that already ran the return-only migration.
+                    MotherMentorIitRepository.upgrade(db);
                     break;
                 default:
                     break;
