@@ -186,6 +186,7 @@
     <string name="select_clients">Chagua mkuu wa kaya</string>
     <string name="search_hint">Tafuta jina au nambari ya utambulisho</string>
     <string name="no_record">Hakuna rekodi</string>
+    <string name="mothermentor_household_no_results">Hakuna kaya zilizopatikana</string>
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Dalili za hatari</string>
