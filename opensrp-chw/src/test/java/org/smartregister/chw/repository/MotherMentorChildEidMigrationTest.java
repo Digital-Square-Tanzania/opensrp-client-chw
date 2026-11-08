@@ -36,6 +36,20 @@ public class MotherMentorChildEidMigrationTest {
             ChwRepositoryFlv.onUpgrade(null, db, 66, 66);
             migration.verify(() -> org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgrade(db), times(1));
             assertTrue("The app still includes the Child EID migration", BuildConfig.DATABASE_VERSION >= 66);
+            migration.verifyNoMoreInteractions();
+        }
+    }
+
+    @Test
+    public void database69RunsOnlyTheNewExitMigration() {
+        SQLiteDatabase db = mock(SQLiteDatabase.class);
+        try (MockedStatic<org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository> migration =
+                mockStatic(org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.class)) {
+            ChwRepositoryFlv.onUpgrade(null, db, 68, 69);
+            ChwRepositoryFlv.onUpgrade(null, db, 69, 69);
+            migration.verify(() -> org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgradeExitSchema(db), times(1));
+            migration.verifyNoMoreInteractions();
+            assertTrue("The app still includes the Child EID exit migration", BuildConfig.DATABASE_VERSION >= 69);
         }
     }
 
@@ -61,6 +75,8 @@ public class MotherMentorChildEidMigrationTest {
                 Scanner scanner = new Scanner(input, "UTF-8").useDelimiter("\\A")) {
             JSONArray tables = new JSONObject(scanner.next()).getJSONArray("bindobjects");
             Set<String> found = new HashSet<>();
+            Set<String> expected = new HashSet<>(org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.COLUMNS);
+            expected.addAll(org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.EXIT_COLUMNS);
             for (int i = 0; i < tables.length(); i++) {
                 JSONObject table = tables.getJSONObject(i);
                 if (!"ec_mothermentor_enroll_child_eid".equals(table.getString("name"))) continue;
@@ -68,13 +84,13 @@ public class MotherMentorChildEidMigrationTest {
                 for (int j = 0; j < columns.length(); j++) {
                     JSONObject column = columns.getJSONObject(j);
                     String key = column.getString("column_name");
-                    if (!org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.COLUMNS.contains(key)) continue;
+                    if (!expected.contains(key)) continue;
                     assertTrue("Duplicate " + key, found.add(key));
                     assertEquals("obs.fieldCode", column.getJSONObject("json_mapping").getString("field"));
                     assertEquals(key, column.getJSONObject("json_mapping").getString("concept"));
                 }
             }
-            assertEquals(new HashSet<>(org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.COLUMNS), found);
+            assertEquals(expected, found);
         }
     }
 }

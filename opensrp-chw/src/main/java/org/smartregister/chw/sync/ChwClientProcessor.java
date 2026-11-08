@@ -733,10 +733,11 @@ public class ChwClientProcessor extends CoreClientProcessor {
         List<String> visitIds = new ArrayList<>();
         try (Cursor rows = database.query(VisitRepository.VISIT_TABLE,
                 new String[] {DBConstants.KEY.VISIT_ID},
-                DBConstants.KEY.FORM_SUBMISSION_ID + " = ? AND " + DBConstants.KEY.VISIT_TYPE + " IN (?, ?)",
+                DBConstants.KEY.FORM_SUBMISSION_ID + " = ? AND " + DBConstants.KEY.VISIT_TYPE + " IN (?, ?, ?)",
                 new String[] {submissionId,
                         org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES,
-                        org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT},
+                        org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_FOLLOW_UP_VISIT,
+                        org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType.CHILD_EID.getEventType()},
                 null, null, null)) {
             while (rows.moveToNext()) visitIds.add(rows.getString(0));
         }

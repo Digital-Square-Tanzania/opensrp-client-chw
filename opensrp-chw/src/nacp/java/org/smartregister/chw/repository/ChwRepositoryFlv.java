@@ -250,6 +250,9 @@ public class ChwRepositoryFlv {
                     // Backfill reciprocal exits even on devices that already ran the return-only migration.
                     MotherMentorIitRepository.upgrade(db);
                     break;
+                case 69:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgradeExitSchema(db);
+                    break;
                 default:
                     break;
             }

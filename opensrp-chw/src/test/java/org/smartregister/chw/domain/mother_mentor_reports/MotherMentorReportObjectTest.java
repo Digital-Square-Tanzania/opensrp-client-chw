@@ -1156,6 +1156,59 @@ public class MotherMentorReportObjectTest {
         }
     }
 
+    @Test
+    public void childEidReturnReportPreservesAttendanceAndUsesTheLatestResultForItsSample() throws Exception {
+        eid("child", "Female", "2024-10-01");
+        currentChildAttendance("sample", "child", "eighteen_months", "yes", "2026-04-20");
+        detail("sample", "mtoto_return_flow", "1");
+        detail("sample", "mtoto_rufaa_state_before", "referred");
+        detail("sample", "mama_hei_test_done", "yes");
+        detail("sample", "mama_hei_test_result", "pending");
+        detail("sample", "mama_hei_test_date", "2026-04-20");
+        currentVisit("result", "child", "2026-04-22", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("result", "mtoto_return_flow", "1");
+        detail("result", "mtoto_rufaa_state_before", "awaiting_result");
+        detail("result", "mtoto_pending_test", "miezi18");
+        detail("result", "mtoto_pending_test_date", "2026-04-20");
+        detail("result", "mtoto_result_received", "yes");
+        detail("result", "mtoto_received_result", "negative");
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-11"));
+        assertEquals(1, counts.getInt("mm-11-negative"));
+        assertEquals(0, counts.getInt("mm-11-pending-results"));
+        assertEquals(0, counts.getInt("mm-11-linkage-missing-records"));
+    }
+
+    @Test
+    public void childEidPositiveResultRemainsPendingUntilConfirmed() throws Exception {
+        eid("child", "Female", "2024-10-01");
+        currentChildAttendance("sample", "child", "eighteen_months", "yes", "2026-04-20");
+        detail("sample", "mtoto_return_flow", "1");
+        detail("sample", "mtoto_rufaa_state_before", "referred");
+        detail("sample", "mama_hei_test_done", "yes");
+        detail("sample", "mama_hei_test_result", "positive");
+        detail("sample", "mama_hei_test_date", "2026-04-20");
+        detail("sample", "mtoto_confirmation_received", "no");
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-11"));
+        assertEquals(0, counts.getInt("mm-11-positive"));
+        assertEquals(1, counts.getInt("mm-11-pending-results"));
+
+        currentVisit("confirmation", "child", "2026-04-22", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("confirmation", "mtoto_return_flow", "1");
+        detail("confirmation", "mtoto_rufaa_state_before", "awaiting_confirm");
+        detail("confirmation", "mtoto_pending_test", "miezi18");
+        detail("confirmation", "mtoto_pending_test_date", "2026-04-20");
+        detail("confirmation", "mtoto_confirmation_received", "yes");
+        detail("confirmation", "mtoto_confirmatory_result", "positive");
+
+        counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-11"));
+        assertEquals(1, counts.getInt("mm-11-positive"));
+        assertEquals(0, counts.getInt("mm-11-pending-results"));
+    }
+
     private void partnerTest(String id, String test, String result) {
         setDetail(id, "partner_" + test + "_tested", "yes");
         setDetail(id, "partner_" + test + "_result", result);

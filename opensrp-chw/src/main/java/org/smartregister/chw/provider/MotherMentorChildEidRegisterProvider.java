@@ -59,6 +59,15 @@ public class MotherMentorChildEidRegisterProvider extends MotherMentorFollowUpRe
                 : MotherMentorChildEidLabels.referral(context, state, referredTest);
         holder.metadata.setText(join(status, value(values, DBConstants.KEY.VILLAGE_TOWN)));
         holder.closedTag.setVisibility(closed ? View.VISIBLE : View.GONE);
+        if (closed) {
+            boolean success = MotherMentorChildEidLabels.isSuccessfulClose(value(values, DBConstants.KEY.MTOTO_STATUS));
+            holder.closedTag.setTextColor(context.getResources().getColor(success
+                    ? org.smartregister.chw.mothermentor.R.color.mothermentor_eid_success
+                    : org.smartregister.chw.mothermentor.R.color.mothermentor_eid_alert));
+            holder.closedTag.setBackgroundColor(context.getResources().getColor(success
+                    ? org.smartregister.chw.mothermentor.R.color.mothermentor_eid_success_background
+                    : org.smartregister.chw.mothermentor.R.color.mothermentor_eid_alert_background));
+        }
         holder.row.setAlpha(closed ? 0.55f : 1f);
 
         String missed = MotherMentorChildEidLabels.missed(context,
@@ -101,7 +110,7 @@ public class MotherMentorChildEidRegisterProvider extends MotherMentorFollowUpRe
     static class ChildHolder extends Holder {
         final TextView missed;
         final TextView summary;
-        final View closedTag;
+        final TextView closedTag;
 
         ChildHolder(View view) {
             super(view);
