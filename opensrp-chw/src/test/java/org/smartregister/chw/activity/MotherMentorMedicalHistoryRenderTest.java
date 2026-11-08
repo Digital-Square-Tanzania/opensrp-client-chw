@@ -29,6 +29,7 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
@@ -98,6 +99,79 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         edit.performClick();
         org.junit.Assert.assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
         assertFalse(activity.isFinishing());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void closedChildHistoryShowsEnglishReasonAndDateWithoutEdit() {
+        assertClosedChildHistory("Tested — back on the HEI schedule\nClosed on 2026-11-08");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void closedChildHistoryShowsSwahiliReasonAndDateWithoutEdit() {
+        assertClosedChildHistory("Amepimwa — amerudi kwenye ratiba ya HEI\nImefungwa tarehe 2026-11-08");
+    }
+
+    private void assertClosedChildHistory(String summary) {
+        try (MockedStatic<MotherMentorChildEidRepository> repository =
+                     Mockito.mockStatic(MotherMentorChildEidRepository.class)) {
+            MotherMentorChildEidRepository.State closed = closedChildEid();
+            repository.when(() -> MotherMentorChildEidRepository.getState(
+                    Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
+                    .thenReturn(closed);
+            Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+            add(visit, "comments", COMMENTS, COMMENTS);
+            Activity activity = activity();
+            LinearLayout cards = renderChildEidHistory(activity, visit);
+
+            assertEquals(2, cards.getChildCount());
+            assertEquals(summary, ((TextView) cards.getChildAt(0)).getText().toString());
+            assertEquals(View.GONE, edit(cards.getChildAt(1)).getVisibility());
+            assertNotNull(cards.getChildAt(1).findViewWithTag("comments"));
+
+            LinearLayout historyWithoutVisits = renderChildEidHistory(activity);
+            assertEquals(1, historyWithoutVisits.getChildCount());
+            assertEquals(summary, ((TextView) historyWithoutVisits.getChildAt(0)).getText().toString());
+        }
+    }
+
+    @Test
+    public void childHistoryEditRemainsAvailableUntilClosure() {
+        try (MockedStatic<MotherMentorChildEidRepository> repository =
+                     Mockito.mockStatic(MotherMentorChildEidRepository.class)) {
+            MotherMentorChildEidRepository.State active =
+                    Mockito.mock(MotherMentorChildEidRepository.State.class);
+            MotherMentorChildEidRepository.State closed = closedChildEid();
+            repository.when(() -> MotherMentorChildEidRepository.getState(
+                    Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
+                    .thenReturn(active, active, active, closed);
+            Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+            Activity current = activity();
+            View editCurrent = edit(renderChildEidHistory(current, visit).getChildAt(0));
+            assertEquals(View.VISIBLE, editCurrent.getVisibility());
+            assertTrue(editCurrent.performClick());
+            Intent intent = Shadows.shadowOf(current).getNextStartedActivity();
+            assertVisitIntent(intent, MotherMentorVisitActivity.class);
+            assertEquals(MotherMentorFollowUpType.CHILD_EID.getValue(),
+                    intent.getStringExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
+
+            Activity stale = activity();
+            View staleEdit = edit(renderChildEidHistory(stale, visit).getChildAt(0));
+            assertEquals(View.VISIBLE, staleEdit.getVisibility());
+            assertTrue(staleEdit.performClick());
+            assertFalse(stale.isFinishing());
+            assertNull(Shadows.shadowOf(stale).getNextStartedActivity());
+        }
+    }
+
+    private MotherMentorChildEidRepository.State closedChildEid() {
+        MotherMentorChildEidRepository.State closed =
+                Mockito.mock(MotherMentorChildEidRepository.State.class);
+        Mockito.when(closed.isClosed()).thenReturn(true);
+        Mockito.when(closed.getClosedStatus()).thenReturn("tested_negative");
+        Mockito.when(closed.getClosedDate()).thenReturn("2026-11-08");
+        return closed;
     }
 
     private MockedStatic<MotherMentorPartnerFollowUpDao> partnerContext;
@@ -504,7 +578,16 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     }
 
     private LinearLayout render(Activity activity, MotherMentorFollowUpType type, Visit... visits) {
-        MotherMentorMedicalHistoryActivityFlv flavor = new MotherMentorMedicalHistoryActivityFlv(type);
+        return renderHistory(activity, new MotherMentorMedicalHistoryActivityFlv(type), visits);
+    }
+
+    private LinearLayout renderChildEidHistory(Activity activity, Visit... visits) {
+        return renderHistory(activity, new MotherMentorMedicalHistoryActivityFlv(
+                MotherMentorFollowUpType.CHILD_EID, "mother-mentor-client"), visits);
+    }
+
+    private LinearLayout renderHistory(Activity activity, MotherMentorMedicalHistoryActivityFlv flavor,
+            Visit... visits) {
         View view = flavor.bindViews(activity);
         flavor.processViewData(Arrays.asList(visits), activity);
         return view.findViewById(org.smartregister.chw.core.R.id.linearLayoutHealthFacilityVisitDetails);
