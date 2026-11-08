@@ -66,47 +66,36 @@ public class MotherMentorContactRegisterFragment extends BaseMotherMentorContact
 
     @Override
     public void countExecute() {
-        Cursor c = null;
-        try {
-            String query =
-                    "select count(*) from "
-                            + presenter().getMainTable()
-                            + " where "
-                            + presenter().getMainCondition();
-            if (StringUtils.isNotBlank(filters)) {
-                query = query + " and ( " + filters + " ) ";
-            }
-            c = commonRepository().rawCustomQueryForAdapter(query);
-            if (c.moveToFirst()) {
-                clientAdapter.setTotalcount(c.getInt(0));
+        String tableName = presenter().getMainTable();
+        countExecute(tableName, model.searchCondition(tableName, presenter().getMainCondition(), filters));
+    }
+
+    private void countExecute(String tableName, String condition) {
+        String query = "select count(*) from " + tableName + " where " + condition;
+        try (Cursor cursor = commonRepository().rawCustomQueryForAdapter(query)) {
+            if (cursor.moveToFirst()) {
+                clientAdapter.setTotalcount(cursor.getInt(0));
             }
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
         } catch (Exception e) {
             Timber.e(e);
-        } finally {
-            if (c != null) {
-                c.close();
-            }
         }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
         if (id == LOADER_ID) {
+            String tableName = presenter().getMainTable();
+            String condition = model.searchCondition(tableName, presenter().getMainCondition(), filters);
             return new CursorLoader(getActivity()) {
                 @Override
                 public Cursor loadInBackground() {
                     if (args != null && args.getBoolean("count_execute")) {
-                        countExecute();
+                        countExecute(tableName, condition);
                     }
-                    String mainSelect =
-                            model.mainSelect(
-                                    presenter().getMainTable(), presenter().getMainCondition());
+                    String mainSelect = model.mainSelect(tableName, condition);
                     SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
-                    if (StringUtils.isNotBlank(filters)) {
-                        sqb.addCondition(filters);
-                    }
                     String query = sqb.orderbyCondition(Sortqueries);
                     query =
                             sqb.Endquery(
