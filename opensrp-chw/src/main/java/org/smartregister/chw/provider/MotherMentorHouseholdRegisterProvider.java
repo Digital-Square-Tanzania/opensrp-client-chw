@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragment;
 import org.smartregister.chw.mothermentor.provider.MotherMentorRegisterProvider;
@@ -26,6 +28,22 @@ public class MotherMentorHouseholdRegisterProvider extends MotherMentorRegisterP
             Set visibleColumns) {
         super(context, paginationClickListener, onClickListener, visibleColumns);
         this.context = context;
+    }
+
+    @Override
+    public void getFooterView(
+            RecyclerView.ViewHolder viewHolder,
+            int currentPageCount,
+            int totalPageCount,
+            boolean hasNext,
+            boolean hasPrevious) {
+        boolean hasPages = totalPageCount > 0;
+        super.getFooterView(
+                viewHolder, currentPageCount, totalPageCount,
+                hasPages && hasNext, hasPages && hasPrevious);
+        if (!hasPages) {
+            ((FooterViewHolder) viewHolder).pageInfoView.setText(R.string.mothermentor_household_no_results);
+        }
     }
 
     @Override
