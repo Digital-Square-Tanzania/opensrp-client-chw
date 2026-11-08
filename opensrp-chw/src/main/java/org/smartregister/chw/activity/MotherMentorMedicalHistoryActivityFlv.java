@@ -27,6 +27,7 @@ import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
@@ -192,7 +193,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
                     i == visits.size() - 1 && !legacyFollowUp
                             && !isReadOnlyLegacyHousehold(visit)
                             && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit) && !followUpClosed
-                            && !isEarlierIitEnrollment(visit)
+                            && !isMotherCardClosed(visit) && !isEarlierIitEnrollment(visit)
                             ? View.VISIBLE : View.GONE);
             edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
             service.setText(String.format("%s - %s", getVisitType(context, visit.getVisitType()),
@@ -228,7 +229,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         if (StringUtils.isBlank(visit.getBaseEntityId())
                 || isReadOnlyLegacyHousehold(visit)
                 || isHouseholdReadOnly(visit) || isPartnerClosed(visit) || iitState().isClosed()
-                || isChildEidClosed(childEidState())
+                || isChildEidClosed(childEidState()) || isMotherCardClosed(visit)
                 || isEarlierIitEnrollment(visit)) return;
         activity.finish();
         if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
@@ -250,6 +251,16 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     private boolean isReadOnlyLegacyHousehold(Visit visit) {
         return Boolean.TRUE.equals(visit.getProcessed())
                 && MotherMentorHistoryMapper.isLegacyHouseholdVisit(visit);
+    }
+
+    private boolean isMotherCardClosed(Visit visit) {
+        return followUpType == null
+                && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType())
+                && !MotherMentorHistoryMapper.isHouseholdVisit(visit)
+                && StringUtils.isNotBlank(visit.getBaseEntityId())
+                && MotherMentorMotherClosureRepository.isClosed(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        visit.getBaseEntityId());
     }
 
     private boolean isEarlierIitEnrollment(Visit visit) {

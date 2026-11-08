@@ -31,6 +31,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
@@ -54,12 +55,14 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     private static final String COMMENTS = "Counselled mother, partner and child, next visit agreed.";
     private final List<ActivityController<Activity>> controllers = new ArrayList<>();
     private MockedStatic<MotherMentorHouseholdClosureRepository> closureRepository;
+    private MockedStatic<MotherMentorMotherClosureRepository> motherClosureRepository;
     private MotherMentorHouseholdClosure closure = MotherMentorHouseholdClosure.active();
     private boolean currentEnrollment = true;
 
     @Before
-    public void configureHouseholdClosure() {
+    public void configureClosureRepositories() {
         closureRepository = Mockito.mockStatic(MotherMentorHouseholdClosureRepository.class);
+        motherClosureRepository = Mockito.mockStatic(MotherMentorMotherClosureRepository.class);
         closureRepository.when(() -> MotherMentorHouseholdClosureRepository.getState(
                 Mockito.any(), Mockito.anyString(), Mockito.isNull())).thenAnswer(call -> closure);
         closureRepository.when(() -> MotherMentorHouseholdClosureRepository.belongsToCurrentEnrollment(
@@ -67,8 +70,9 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     }
 
     @After
-    public void closeHouseholdClosureFixture() {
+    public void closeClosureRepositories() {
         closureRepository.close();
+        motherClosureRepository.close();
     }
 
     @Test
@@ -99,6 +103,32 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         edit.performClick();
         org.junit.Assert.assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
         assertFalse(activity.isFinishing());
+    }
+
+    @Test
+    public void closedMotherHistoryKeepsVisitDetailsWithoutEdit() {
+        motherClosureRepository.when(() -> MotherMentorMotherClosureRepository.isClosed(
+                Mockito.any(), Mockito.eq("mother-mentor-client"))).thenReturn(true);
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        add(visit, "comments", COMMENTS, COMMENTS);
+        View card = render(activity(), null, visit).getChildAt(0);
+
+        assertNotNull(card.findViewWithTag("comments"));
+        assertEquals(View.GONE, edit(card).getVisibility());
+    }
+
+    @Test
+    public void motherHistoryEditRechecksClosureBeforeLeavingHistory() {
+        motherClosureRepository.when(() -> MotherMentorMotherClosureRepository.isClosed(
+                Mockito.any(), Mockito.eq("mother-mentor-client"))).thenReturn(false, true);
+        Activity activity = activity();
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        View edit = edit(render(activity, null, visit).getChildAt(0));
+
+        assertEquals(View.VISIBLE, edit.getVisibility());
+        edit.performClick();
+        assertFalse(activity.isFinishing());
+        assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
     }
 
     @Test
