@@ -4962,6 +4962,126 @@
             "field": "obs.fieldCode",
             "concept": "mtoto_visit_count"
           }
+        },
+        {
+          "column_name": "mtoto_counter_hajafika",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_counter_hajafika"
+          }
+        },
+        {
+          "column_name": "mtoto_eid_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_eid_status"
+          }
+        },
+        {
+          "column_name": "mtoto_eid_tarehe_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_eid_tarehe_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "mtoto_eid_sababu_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_eid_sababu_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "mtoto_exit_source",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_exit_source"
+          }
+        },
+        {
+          "column_name": "mtoto_pending_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_pending_test"
+          }
+        },
+        {
+          "column_name": "mtoto_pending_test_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_pending_test_date"
+          }
+        },
+        {
+          "column_name": "mtoto_tarehe_kufika",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_tarehe_kufika"
+          }
+        },
+        {
+          "column_name": "mtoto_sababu_kutofika",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_sababu_kutofika"
+          }
+        },
+        {
+          "column_name": "mtoto_sababu_kutofika_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_sababu_kutofika_other"
+          }
+        },
+        {
+          "column_name": "mtoto_sababu_kutopimwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_sababu_kutopimwa"
+          }
+        },
+        {
+          "column_name": "mtoto_sababu_kutopimwa_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_sababu_kutopimwa_other"
+          }
+        },
+        {
+          "column_name": "mtoto_kituo_kipya",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_kituo_kipya"
+          }
+        },
+        {
+          "column_name": "mtoto_tarehe_alifariki",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_tarehe_alifariki"
+          }
+        },
+        {
+          "column_name": "mtoto_suppressed_tests",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_suppressed_tests"
+          }
         }
       ]
     },

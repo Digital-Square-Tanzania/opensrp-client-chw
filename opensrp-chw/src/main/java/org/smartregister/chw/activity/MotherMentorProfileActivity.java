@@ -46,6 +46,8 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepo
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidClosureDialog;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidProfileUi;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidStatusUtils;
@@ -1490,12 +1492,29 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }
+            } else if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+                MotherMentorChildEidExit exit = getSavedChildEidClosurePreview(visit);
+                if (exit != null && exit.needsConfirmation()) {
+                    MotherMentorChildEidClosureDialog.show(this, exit,
+                            () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
+                    return;
+                }
             }
             finalizeSavedMotherVisit(visit);
         } catch (Exception e) {
             resetManualVisitCompletion();
             Timber.e(e, "Unable to complete the saved mother visit");
         }
+    }
+
+    protected MotherMentorChildEidExit getSavedChildEidClosurePreview(Visit visit) throws Exception {
+        Map<String, String> values = MotherMentorVisitCompletion.observationValues(
+                new JSONObject(visit.getJson()).optJSONArray("obs"));
+        if (!MotherMentorChildEidStatusUtils.isSchema3(values)) return null;
+        return MotherMentorChildEidRepository.previewExit(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                memberObject.getBaseEntityId(), visit.getVisitId(), values,
+                MotherMentorMotherVisitDao.getServiceDate(visit));
     }
 
     protected MotherMentorMotherClosure getSavedMotherClosurePreview(Visit visit) throws Exception {
