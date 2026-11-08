@@ -1,7 +1,10 @@
 package org.smartregister.chw.model;
 
+import android.database.DatabaseUtils;
+
 import androidx.annotation.NonNull;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdFollowUpDao;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorContactsRegisterFragmentModel;
 import org.smartregister.chw.mothermentor.util.DBConstants;
@@ -9,6 +12,19 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
 public class MotherMentorHouseholdRegisterFragmentModel
         extends BaseMotherMentorContactsRegisterFragmentModel {
+    public String searchCondition(String tableName, String enrollmentCondition, String search) {
+        String term = StringUtils.trimToEmpty(search);
+        if (term.isEmpty()) {
+            return enrollmentCondition;
+        }
+        String escaped = term.replace("!", "!!").replace("%", "!%").replace("_", "!_");
+        String match = " LIKE " + DatabaseUtils.sqlEscapeString("%" + escaped + "%") + " ESCAPE '!'";
+        return enrollmentCondition + " AND ("
+                + tableName + "." + DBConstants.KEY.FIRST_NAME + match + " OR "
+                + tableName + "." + DBConstants.KEY.UNIQUE_ID + match + " OR "
+                + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + match + ")";
+    }
+
     @Override
     public String mainSelect(@NonNull String tableName, @NonNull String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
