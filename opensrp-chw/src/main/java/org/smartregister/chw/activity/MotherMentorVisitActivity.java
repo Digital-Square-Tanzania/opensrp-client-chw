@@ -25,12 +25,15 @@ import org.smartregister.chw.mothermentor.interactor.MotherMentorIitVisitInterac
 import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
-import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
-import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidClosureDialog;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
@@ -52,6 +55,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     static final String EXTRA_FOLLOW_UP_VISIT = "extra_follow_up_visit";
     private boolean submitting;
     private boolean closureConfirmationOpen;
+    private boolean childEidSuccess;
 
     public static void startMotherMentorVisitActivity(
             Activity activity, String baseEntityId, Boolean editMode) {
@@ -221,8 +225,31 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 }, this::resetSubmission);
                 return;
             }
+        } else if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+            MotherMentorChildEidExit exit = getChildEidClosurePreview();
+            childEidSuccess = exit != null && exit.isSuccess();
+            if (exit != null && exit.needsConfirmation()) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                MotherMentorChildEidClosureDialog.show(this, exit, () -> {
+                    closureConfirmationOpen = false;
+                    submitConfirmedVisit();
+                }, this::resetSubmission);
+                return;
+            }
         }
         submitConfirmedVisit();
+    }
+
+    protected MotherMentorChildEidExit getChildEidClosurePreview() {
+        Visit editing = Boolean.TRUE.equals(isEditMode)
+                ? MotherMentorLibrary.getInstance().visitRepository()
+                        .getLatestVisit(baseEntityID, MotherMentorFollowUpType.CHILD_EID.getEventType())
+                : null;
+        return MotherMentorChildEidRepository.previewExit(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
+                editing == null ? null : editing.getVisitId(), stagedAnswers(),
+                editing == null ? LocalDate.now() : MotherMentorMotherVisitDao.getServiceDate(editing));
     }
 
     protected void submitConfirmedVisit() {
@@ -323,6 +350,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     private void resetSubmission() {
         closureConfirmationOpen = false;
         submitting = false;
+        childEidSuccess = false;
         if (tvSubmit != null) tvSubmit.setEnabled(true);
     }
 
@@ -373,6 +401,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     public void submittedAndClose(String results) {
+        if (childEidSuccess) {
+            displayToast(getString(
+                    org.smartregister.chw.mothermentor.R.string.mothermentor_eid_exit_success_toast));
+        }
         Intent returnIntent = new Intent();
         returnIntent.putExtra(Constants.JSON_FORM_EXTRA.JSON, results);
         setResult(Activity.RESULT_OK, returnIntent);

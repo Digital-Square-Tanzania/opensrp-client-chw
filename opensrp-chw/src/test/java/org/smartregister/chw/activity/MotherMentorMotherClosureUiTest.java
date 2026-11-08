@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import org.junit.Test;
 import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowAlertDialog;
@@ -24,10 +25,12 @@ import org.smartregister.chw.mothermentor.contract.BaseMotherMentorVisitContract
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure.VisitOutcome;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosureLabels;
+import org.smartregister.util.LangUtils;
 
 /** The same terminal preview must be confirmed before either workflow finalizes a visit. */
 public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
@@ -352,6 +355,53 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
         return activity;
     }
 
+    @Test
+    @Config(qualifiers = "sw")
+    public void childTransferRequiresConfirmationAndCancelPreservesTheAnswers() {
+        LangUtils.saveLanguage(RuntimeEnvironment.getApplication(), "sw");
+        ConfirmationVisitActivity activity = childVisit(MotherMentorChildEidExit.E7);
+        BaseMotherMentorVisitAction answer = mock(BaseMotherMentorVisitAction.class);
+        when(answer.getJsonPayload()).thenReturn("saved HEI answers");
+        activity.answer(answer);
+        activity.submitVisit();
+        AlertDialog dialog = (AlertDialog) ShadowAlertDialog.getLatestDialog();
+        assertTrue(dialog.isShowing());
+        assertEquals("Thibitisha kufunga rekodi",
+                activity.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_exit_confirm_title));
+        verifyNoInteractions(activity.submitter);
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick();
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        assertTrue(activity.submitButton().isEnabled());
+        assertEquals("saved HEI answers", answer.getJsonPayload());
+        verifyNoInteractions(activity.submitter);
+        activity.submitVisit();
+        ((AlertDialog) ShadowAlertDialog.getLatestDialog()).getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        verify(activity.submitter).submitVisit();
+    }
+
+    @Test
+    public void childSuccessAndStrikeOutcomesFinalizeWithoutAConfirmation() {
+        for (MotherMentorChildEidExit exit : new MotherMentorChildEidExit[] {
+                MotherMentorChildEidExit.E1, MotherMentorChildEidExit.E2,
+                MotherMentorChildEidExit.E8, MotherMentorChildEidExit.E9, MotherMentorChildEidExit.E10}) {
+            ConfirmationVisitActivity activity = childVisit(exit);
+            activity.submitVisit();
+            verify(activity.submitter).submitVisit();
+        }
+    }
+
+    private ConfirmationVisitActivity childVisit(MotherMentorChildEidExit exit) {
+        Intent intent = new Intent()
+                .putExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, true)
+                .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, MotherMentorFollowUpType.CHILD_EID.getValue());
+        ConfirmationVisitActivity activity = Robolectric.buildActivity(ConfirmationVisitActivity.class, intent).get();
+        activity.setTheme(R.style.ChwTheme);
+        activity.prepare();
+        activity.childExit = exit;
+        return activity;
+    }
+
     private ConfirmationVisitActivity visit() {
         ConfirmationVisitActivity activity =
                 Robolectric.buildActivity(ConfirmationVisitActivity.class, new Intent()).get();
@@ -362,6 +412,7 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
 
     public static class ConfirmationVisitActivity extends MotherMentorVisitActivity {
         MotherMentorMotherClosure preview = MotherMentorMotherClosure.active();
+        MotherMentorChildEidExit childExit;
         boolean closed;
         boolean followUpClosed;
         final BaseMotherMentorVisitContract.Presenter submitter =
@@ -378,6 +429,10 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
         @Override
         protected MotherMentorMotherClosure getMotherClosurePreview() {
             return preview;
+        }
+        @Override
+        protected MotherMentorChildEidExit getChildEidClosurePreview() {
+            return childExit;
         }
         @Override
         protected boolean isMotherCardClosed() {

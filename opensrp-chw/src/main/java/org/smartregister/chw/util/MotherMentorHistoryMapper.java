@@ -98,6 +98,8 @@ public final class MotherMentorHistoryMapper {
                             DBConstants.KEY.MTOTO_PENDING_TEST,
                             DBConstants.KEY.MTOTO_PENDING_TEST_DATE,
                             DBConstants.KEY.MTOTO_RETURN_RESULT_NOTE,
+                            DBConstants.KEY.MTOTO_SUPPRESSED_TESTS,
+                            DBConstants.KEY.MTOTO_CLOSED_FOLLOWUP_NOTE,
                             DBConstants.KEY.ART_INITIATED_BEFORE_VISIT,
                             DBConstants.KEY.MAMA_ENROLLMENT_ID,
                             DBConstants.KEY.MAMA_ENROLLMENT_PREGNANCY_STATUS,
