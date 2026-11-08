@@ -24,11 +24,13 @@ import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.json.JSONObject;
 import org.json.JSONException;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitText;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
@@ -47,7 +49,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     private final StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
     private final MotherMentorFollowUpType followUpType;
     private final String baseEntityId;
-    private boolean iitClosed;
+    private boolean followUpClosed;
 
     public MotherMentorMedicalHistoryActivityFlv() {
         this(null);
@@ -77,9 +79,11 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     @Override
     public void processViewData(List<Visit> visits, Context context) {
         MotherMentorIitState closure = iitState();
-        iitClosed = closure.isClosed();
+        MotherMentorChildEidRepository.State childEid = childEidState();
+        followUpClosed = closure.isClosed() || isChildEidClosed(childEid);
         if (visits == null || visits.isEmpty()) {
             showIitClosure(context, closure);
+            showChildEidClosure(context, childEid);
             return;
         }
 
@@ -103,6 +107,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         processLastVisit(days, context);
         processVisit(visitDetails, context, visits);
         showIitClosure(context, closure);
+        showChildEidClosure(context, childEid);
     }
 
     private MotherMentorIitState iitState() {
@@ -111,6 +116,18 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         }
         return MotherMentorIitRepository.getState(
                 ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityId, null);
+    }
+
+    private MotherMentorChildEidRepository.State childEidState() {
+        if (followUpType != MotherMentorFollowUpType.CHILD_EID || StringUtils.isBlank(baseEntityId)) {
+            return null;
+        }
+        return MotherMentorChildEidRepository.getState(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityId, null);
+    }
+
+    private boolean isChildEidClosed(MotherMentorChildEidRepository.State childEid) {
+        return childEid != null && childEid.isClosed();
     }
 
     private void showIitClosure(Context context, MotherMentorIitState closure) {
@@ -125,6 +142,19 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         if (StringUtils.isNotBlank(closure.getNewFacility())) {
             summary += "\n" + closure.getNewFacility();
         }
+        showClosureSummary(context, summary);
+    }
+
+    private void showChildEidClosure(Context context, MotherMentorChildEidRepository.State childEid) {
+        if (!isChildEidClosed(childEid)) return;
+        String reason = MotherMentorChildEidLabels.closedReason(context, childEid.getClosedStatus());
+        String closedDate = childEid.getClosedDate();
+        String summary = StringUtils.isBlank(closedDate) ? reason : context.getString(
+                org.smartregister.chw.mothermentor.R.string.mothermentor_eid_closed_on, reason, closedDate);
+        showClosureSummary(context, summary);
+    }
+
+    private void showClosureSummary(Context context, String summary) {
         TextView closureDetails = new TextView(context);
         closureDetails.setText(summary);
         linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
@@ -161,7 +191,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             edit.setVisibility(
                     i == visits.size() - 1 && !legacyFollowUp
                             && !isReadOnlyLegacyHousehold(visit)
-                            && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit) && !iitClosed
+                            && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit) && !followUpClosed
                             && !isEarlierIitEnrollment(visit)
                             ? View.VISIBLE : View.GONE);
             edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
@@ -198,6 +228,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         if (StringUtils.isBlank(visit.getBaseEntityId())
                 || isReadOnlyLegacyHousehold(visit)
                 || isHouseholdReadOnly(visit) || isPartnerClosed(visit) || iitState().isClosed()
+                || isChildEidClosed(childEidState())
                 || isEarlierIitEnrollment(visit)) return;
         activity.finish();
         if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
