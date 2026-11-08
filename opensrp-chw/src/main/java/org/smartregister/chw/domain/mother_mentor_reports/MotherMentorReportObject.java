@@ -308,11 +308,15 @@ public class MotherMentorReportObject extends ReportObject {
                 + detail(DBConstants.KEY.MTOTO_PENDING_TEST_DATE) + " ELSE "
                 + detail(DBConstants.KEY.MAMA_HEI_TEST_DATE) + " END ELSE "
                 + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_TEST_DATE) + " END";
+        String needsConfirmation = returnFlow + " AND coalesce(" + prior + ", '') <> 'awaiting_confirm'"
+                + " AND coalesce(" + detail(DBConstants.KEY.MTOTO_CONFIRMATION_RECEIVED) + ", '') <> 'yes'";
         String finalVisits = "WITH attendance AS (" + childAttendanceVisits(true)
                 + "), answers AS (SELECT v.*, " + tested + " AS final_test_done, CASE WHEN " + returnFlow
                 + " THEN " + newResult + " ELSE " + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_RESULT)
-                + " END AS final_result, " + testDate + " AS raw_test_date FROM attendance v), "
-                + "final_visits AS (SELECT a.*, " + normalizeDate("a.raw_test_date")
+                + " END AS raw_result, " + testDate + " AS raw_test_date, CASE WHEN " + needsConfirmation
+                + " THEN 1 ELSE 0 END AS needs_confirmation FROM attendance v), "
+                + "final_visits AS (SELECT a.*, CASE WHEN a.raw_result = 'positive' AND a.needs_confirmation = 1"
+                + " THEN 'pending' ELSE a.raw_result END AS final_result, " + normalizeDate("a.raw_test_date")
                 + " AS final_test_date FROM answers a)";
         String knownStage = "v.test_stage IN ('week_6', 'month_9',"
                 + " 'three_months_after_breastfeeding', 'month_18', 'not_applicable')";
