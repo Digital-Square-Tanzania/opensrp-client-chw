@@ -26,6 +26,7 @@ import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureUndo;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
@@ -35,6 +36,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdVisitUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
+import org.smartregister.util.AppExecutors;
 
 import timber.log.Timber;
 
@@ -42,6 +44,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfileActivity {
+    private final AppExecutors closureExecutors = new AppExecutors();
+    private boolean undoClosureInProgress;
     private final Handler visitAvailabilityHandler = new Handler(Looper.getMainLooper());
     private final Runnable refreshVisitAvailability =
             () -> {
@@ -403,6 +407,38 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
                     MotherMentorHouseholdClosureLabels.reason(this, closure.getClosureReason()),
                     displayDate(parseDate(closure.getClosedDate()))));
         }
+        View undo = findViewById(org.smartregister.chw.mothermentor.R.id.mothermentor_undo_household_closure);
+        if (undo == null) return;
+        boolean canUndo = memberObject != null && MotherMentorHouseholdClosure.isMemberClosure(closure.getStatus())
+                && MotherMentorHouseholdClosureUndo.canUndo(ChwApplication.getInstance().getRepository()
+                        .getReadableDatabase(), memberObject.getBaseEntityId());
+        undo.setVisibility(canUndo ? View.VISIBLE : View.GONE);
+        undo.setEnabled(canUndo && !undoClosureInProgress);
+        undo.setOnClickListener(canUndo ? view -> undoClosure(view) : null);
+    }
+
+    private void undoClosure(View button) {
+        if (memberObject == null || undoClosureInProgress) return;
+        String householdId = memberObject.getBaseEntityId();
+        undoClosureInProgress = true;
+        button.setEnabled(false);
+        closureExecutors.diskIO().execute(() -> {
+            boolean reopened = false;
+            try {
+                reopened = MotherMentorHouseholdClosureUndo.undo(ChwApplication.getInstance().getRepository()
+                        .getWritableDatabase(), householdId);
+            } catch (Exception error) {
+                Timber.e(error, "Unable to undo the automatic household closure");
+            }
+            boolean success = reopened;
+            closureExecutors.mainThread().execute(() -> {
+                undoClosureInProgress = false;
+                if (isFinishing() || isDestroyed()) return;
+                setupButtons();
+                if (!success) Toast.makeText(this, org.smartregister.chw.mothermentor.R.string
+                        .mothermentor_undo_household_closure_failed, Toast.LENGTH_SHORT).show();
+            });
+        });
     }
 
     protected boolean isVisitOnProgress(Visit visit) {
