@@ -147,7 +147,10 @@ public class MotherMentorIitDailyVisitTest extends BaseUnitTest {
 
         @Override Date getVisitAvailabilityDate() { return day.toDate(); }
         @Override protected boolean isLinkedFollowUpCardClosed() { return false; }
-        @Override public void refreshMedicalHistory(boolean hasHistory) {}
+        @Override
+        public void refreshMedicalHistory(boolean hasHistory) {
+            // This fixture exercises visit availability without inflating history views.
+        }
     }
 
     public static class VisitActivity extends MotherMentorVisitActivity {
