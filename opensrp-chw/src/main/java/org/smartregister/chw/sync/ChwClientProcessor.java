@@ -148,9 +148,13 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID:
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.rebuildForChild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
+                    org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.rebuild(
+                            ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository.rebuildForChild(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
-                    org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.rebuild(
+                    break;
+                case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MAMA_KINARA_HOUSEHOLD_CLOSURE_UNDO:
+                    MotherMentorHouseholdClosureRepository.rebuildMemberExit(
                             ChwApplication.getInstance().getRepository().getWritableDatabase(), baseEntityID);
                     break;
                 case org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MAMA_KINARA_HOUSEHOLD_ENROLMENT:

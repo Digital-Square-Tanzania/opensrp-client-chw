@@ -253,6 +253,9 @@ public class ChwRepositoryFlv {
                 case 69:
                     org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgradeExitSchema(db);
                     break;
+                case 70:
+                    org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository.rebuildMemberExits(db);
+                    break;
                 default:
                     break;
             }
