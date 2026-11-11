@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.parseDate;
+import static org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils.displayDate;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -1114,7 +1117,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         motherClosureBanner.setVisibility(closed ? View.VISIBLE : View.GONE);
         if (!closed) return;
         MotherMentorMotherClosure state = getMotherClosureState();
-        if (TextUtils.isEmpty(state.getClosedDate())) {
+        String closedDate = displayDate(parseDate(state.getClosedDate()));
+        if (closedDate.isEmpty()) {
             motherClosureBanner.setText(org.smartregister.chw.mothermentor.R.string
                     .mothermentor_mother_closed_message);
             return;
@@ -1122,7 +1126,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         motherClosureBanner.setText(getString(
                 org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_banner,
                 MotherMentorMotherClosureLabels.label(this, state.isClosed() ? state.getStatus() : null),
-                state.getClosedDate()));
+                closedDate));
     }
 
     protected MotherMentorIitState loadIitState(String excludedVisitId) {
@@ -1206,9 +1210,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 ? R.color.mothermentor_risk_low : R.color.mothermentor_risk_high;
         iitClosureBanner.setBackground(createRiskTagBackground(getResources().getColor(color)));
         String reason = MotherMentorIitText.reason(this, state.getStatus());
-        iitClosureBanner.setText(state.getClosedDate().isEmpty() ? reason
+        String closedDate = displayDate(parseDate(state.getClosedDate()));
+        iitClosureBanner.setText(closedDate.isEmpty() ? reason
                 : getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed_banner,
-                        reason, state.getClosedDate()));
+                        reason, closedDate));
     }
 
     protected MotherMentorPartnerClosure loadPartnerClosure() {
@@ -1247,7 +1252,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             partnerClosureBanner.setText(getString(
                     org.smartregister.chw.mothermentor.R.string.mothermentor_partner_closed_banner,
                     MotherMentorPartnerClosureText.reason(this, closure.getClosureReason()),
-                    closure.getClosedDate()));
+                    displayDate(parseDate(closure.getClosedDate()))));
         }
     }
 

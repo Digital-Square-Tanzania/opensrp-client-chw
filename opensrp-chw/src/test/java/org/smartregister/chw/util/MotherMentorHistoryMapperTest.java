@@ -87,7 +87,7 @@ public class MotherMentorHistoryMapperTest {
                 DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA), keys(rows));
         assertEquals(expectedLabel, rows.get(0).getLabel());
         assertEquals(Collections.singletonList(expectedReason), rows.get(0).getValues());
-        assertEquals(Collections.singletonList("2026-11-04"), rows.get(1).getValues());
+        assertEquals(Collections.singletonList("04-11-2026"), rows.get(1).getValues());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class MotherMentorHistoryMapperTest {
         assertEquals(reasonLabel, row(rows, "kaya_sababu_ya_kufungwa").getLabel());
         assertEquals(Collections.singletonList(reason), row(rows, "kaya_sababu_ya_kufungwa").getValues());
         assertEquals(dateLabel, row(rows, "kaya_tarehe_ya_kufungwa").getLabel());
-        assertEquals(Collections.singletonList("2026-11-01"), row(rows, "kaya_tarehe_ya_kufungwa").getValues());
+        assertEquals(Collections.singletonList("01-11-2026"), row(rows, "kaya_tarehe_ya_kufungwa").getValues());
     }
 
     @Test

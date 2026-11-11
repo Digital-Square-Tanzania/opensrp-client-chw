@@ -198,7 +198,7 @@ public class MotherMentorPartnerFollowUpProfileTest extends BaseUnitTest {
             assertEquals(View.GONE, ((View) ReflectionHelpers.getField(activity, "textViewVisitDoneEdit")).getVisibility());
             assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
             TextView banner = ReflectionHelpers.getField(activity, "partnerClosureBanner");
-            assertTrue(banner.getText().toString().contains("2026-11-04"));
+            assertTrue(banner.getText().toString().contains("04-11-2026"));
             assertEquals(View.VISIBLE, banner.getVisibility());
         }
     }

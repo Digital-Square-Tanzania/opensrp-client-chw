@@ -1,5 +1,8 @@
 package org.smartregister.chw.util;
 
+import static org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.parseBirthDate;
+import static org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils.displayDate;
+
 import android.content.Context;
 import android.content.res.Configuration;
 
@@ -143,7 +146,7 @@ public final class MotherMentorHistoryMapper {
                         ? context.getString(org.smartregister.chw.mothermentor.R.string
                                 .mothermentor_household_counselling_legacy_total)
                         : resource(HISTORY_PREFIX + key);
-                fields.put(key, new Field(key, label, false));
+                fields.put(key, new Field(key, label, false, false));
             }
         }
 
@@ -157,13 +160,13 @@ public final class MotherMentorHistoryMapper {
     }
 
     private void addHouseholdClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {
-        List<String> reasons = values(new Field(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA, "", false),
+        List<String> reasons = values(new Field(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA, "", false, false),
                 recorded.get(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA));
         if (reasons.isEmpty()) return;
         rows.add(new Row(DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA,
                 context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_closure_reason),
                 Collections.singletonList(MotherMentorHouseholdClosureLabels.reason(context, reasons.get(0))), false));
-        List<String> dates = values(new Field(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA, "", false),
+        List<String> dates = values(new Field(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA, "", false, true),
                 recorded.get(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA));
         if (!dates.isEmpty()) rows.add(new Row(DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA,
                 context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_closure_date), dates, false));
@@ -195,7 +198,7 @@ public final class MotherMentorHistoryMapper {
             if (fields.containsKey(key) || ignored.contains(key)) continue;
             String label = resource(HISTORY_PREFIX + resourceName(key));
             if (label == null) continue;
-            Field field = new Field(key, label, false);
+            Field field = new Field(key, label, false, key.endsWith("_date"));
             List<String> values = values(field, recorded.get(key));
             if (!values.isEmpty()) rows.add(new Row(key, label, values, false));
         }
@@ -215,7 +218,7 @@ public final class MotherMentorHistoryMapper {
         VisitDetail detail = details.get(details.size() - 1);
         String value = scalar(firstAnswer(detail.getDetails(), detail.getHumanReadable()));
         if (StringUtils.isBlank(value)) return;
-        if (reason) value = MotherMentorPartnerClosureText.reason(context, value);
+        value = reason ? MotherMentorPartnerClosureText.reason(context, value) : formatRecordedDate(value);
         rows.add(new Row(key, context.getString(label), Collections.singletonList(value), false));
     }
 
@@ -359,7 +362,8 @@ public final class MotherMentorHistoryMapper {
             String label = definition.optString("label", definition.optString("hint"));
             if (StringUtils.isBlank(label)) label = resource(HISTORY_PREFIX + resourceName(key));
             if (StringUtils.isBlank(label)) continue;
-            Field field = new Field(key, label, "check_box".equals(type));
+            Field field = new Field(key, label, "check_box".equals(type),
+                    "date_picker".equals(type));
             field.addOptions(englishFields.get(key), definition);
             field.addOptions(translatedFields.get(key), definition);
             addHistoricalAliases(field, definition);
@@ -480,9 +484,15 @@ public final class MotherMentorHistoryMapper {
 
     private String singleValue(Field field, VisitDetail detail) {
         if (field.options.isEmpty()) {
-            return firstAnswer(detail.getDetails(), detail.getHumanReadable());
+            String answer = firstAnswer(detail.getDetails(), detail.getHumanReadable());
+            return field.date ? formatRecordedDate(answer) : answer;
         }
         return translatedValue(field, scalar(detail.getDetails()), scalar(detail.getHumanReadable()));
+    }
+
+    private String formatRecordedDate(String value) {
+        String formatted = displayDate(parseBirthDate(scalar(value)));
+        return formatted.isEmpty() ? value : formatted;
     }
 
     private String translatedValue(Field field, String raw, String readable) {
@@ -584,12 +594,14 @@ public final class MotherMentorHistoryMapper {
         private final String key;
         private final String label;
         private final boolean multiple;
+        private final boolean date;
         private final Map<String, String> options = new HashMap<>();
 
-        private Field(String key, String label, boolean multiple) {
+        private Field(String key, String label, boolean multiple, boolean date) {
             this.key = key;
             this.label = label;
             this.multiple = multiple;
+            this.date = date;
         }
 
         private void addOptions(JSONObject aliases, JSONObject current) {

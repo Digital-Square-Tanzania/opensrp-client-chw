@@ -134,13 +134,13 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     @Test
     @Config(qualifiers = "en")
     public void closedChildHistoryShowsEnglishReasonAndDateWithoutEdit() {
-        assertClosedChildHistory("Tested — back on the HEI schedule\nClosed on 2026-11-08");
+        assertClosedChildHistory("Tested — back on the HEI schedule\nClosed on 08-11-2026");
     }
 
     @Test
     @Config(qualifiers = "sw")
     public void closedChildHistoryShowsSwahiliReasonAndDateWithoutEdit() {
-        assertClosedChildHistory("Amepimwa — amerudi kwenye ratiba ya HEI\nImefungwa tarehe 2026-11-08");
+        assertClosedChildHistory("Amepimwa — amerudi kwenye ratiba ya HEI\nImefungwa tarehe 08-11-2026");
     }
 
     private void assertClosedChildHistory(String summary) {
@@ -517,7 +517,7 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         add(visit, "next_appointment_date", "2026-11-20", "2026-11-20");
         expected.put("next_appointment_date",
                 label(field(locale, "mothermentor_next_visit_date", "next_appointment_date"))
-                        + "\n2026-11-20");
+                        + "\n20-11-2026");
         add(visit, "comments", COMMENTS, COMMENTS);
         expected.put("comments", label(field(locale, "mothermentor_visit_comment", "comments"))
                 + "\n" + COMMENTS);

@@ -1,5 +1,8 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.parseDate;
+import static org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils.displayDate;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
@@ -58,7 +61,7 @@ public class MotherMentorHouseholdRegisterProvider extends MotherMentorRegisterP
         String reason = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA, true);
         String closedDate = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA, true);
         boolean closed = !TextUtils.isEmpty(reason);
-        viewHolder.textViewGender.setText(closed ? closedDate : "");
+        viewHolder.textViewGender.setText(closed ? displayDate(parseDate(closedDate)) : "");
         viewHolder.textViewVillage.setText(closed
                 ? MotherMentorHouseholdClosureLabels.reason(context, reason)
                 : Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));

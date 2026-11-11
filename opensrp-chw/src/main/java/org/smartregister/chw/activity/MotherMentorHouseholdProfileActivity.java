@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.parseDate;
+import static org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils.displayDate;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -398,7 +401,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
             banner.setText(getString(
                     org.smartregister.chw.mothermentor.R.string.mothermentor_household_closed_banner,
                     MotherMentorHouseholdClosureLabels.reason(this, closure.getClosureReason()),
-                    closure.getClosedDate()));
+                    displayDate(parseDate(closure.getClosedDate()))));
         }
     }
 
