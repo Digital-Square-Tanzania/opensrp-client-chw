@@ -1173,22 +1173,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             profile.addView(iitDetailsView, new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
-        String missed = MotherMentorIitText.missedAppointmentDetails(this, state.getMissedAppointmentDate(),
-                new LocalDate(getVisitAvailabilityDate()));
-        String counters = MotherMentorIitText.counters(this, state);
-        String details = missed + "\n"
-                + getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_return_status)
-                + " · " + (state.isClosed() ? MotherMentorIitText.reason(this, state.getStatus())
-                        : MotherMentorIitText.returnState(this, state)) + "\n"
-                + getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_counter_label)
-                + " · " + (counters.isEmpty()
-                        ? getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_no_counter)
-                        : counters);
-        if (state.isMamaKinaraLinked()) {
-            details += "\n" + getString(
-                    org.smartregister.chw.mothermentor.R.string.mothermentor_iit_linked_card_note);
-        }
-        iitDetailsView.setText(details);
+        iitDetailsView.setText(MotherMentorIitText.missedAppointmentDetails(this,
+                state.getMissedAppointmentDate(), new LocalDate(getVisitAvailabilityDate())));
     }
 
     private void updateIitClosureBanner(LinearLayout profile, MotherMentorIitState state) {
