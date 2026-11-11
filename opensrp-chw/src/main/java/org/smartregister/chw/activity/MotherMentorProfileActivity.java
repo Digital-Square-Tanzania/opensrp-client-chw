@@ -1374,6 +1374,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             return MotherMentorDao.hasCompletedPartnerFollowUpVisitToday(
                     memberObject.getBaseEntityId(), getVisitAvailabilityDate());
         }
+        if (isIitProfile()) {
+            return MotherMentorFollowUpVisitUtils.hasCompletedIitVisitToday(
+                    memberObject.getBaseEntityId(), getVisitAvailabilityDate());
+        }
         return getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
                 && MotherMentorDao.hasCompletedChildEidFollowUpVisitToday(
                         memberObject.getBaseEntityId(), getVisitAvailabilityDate());
@@ -1688,13 +1692,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     public void openRecordClientVisit() {
         if (isPartnerFollowUpClosed() || isClientDeceased() || isServiceCardClosed()) return;
         if (isFollowUpProfile()) {
+            // A stale profile must re-read the saved visits before opening another follow-up.
+            if (hasCompletedFollowUpVisitToday()) {
+                setupButtons();
+                return;
+            }
             if (getFollowUpType() == MotherMentorFollowUpType.PARTNER
                     || getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
-                // Re-read saved records to guard stale button taps after a completed visit.
-                if (hasCompletedFollowUpVisitToday()) {
-                    setupButtons();
-                    return;
-                }
                 if (isVisitOnProgress(getServiceVisit())) {
                     continueService();
                     return;

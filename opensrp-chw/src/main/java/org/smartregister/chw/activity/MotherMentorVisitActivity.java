@@ -46,6 +46,7 @@ import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,7 +102,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     protected void registerPresenter() {
-        if (blockClosedCard()) {
+        if (blockClosedCard() || blockDuplicateIitVisit()) {
             finish();
             return;
         }
@@ -202,7 +203,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     public void submitVisit() {
-        if (submitting || closureConfirmationOpen || blockClosedCard()) return;
+        if (submitting || closureConfirmationOpen || blockClosedCard() || blockDuplicateIitVisit()) return;
         if (!isFollowUpVisit()) {
             MotherMentorMotherClosure preview = getMotherClosurePreview();
             if (preview.isClosed()) {
@@ -253,7 +254,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     protected void submitConfirmedVisit() {
-        if (submitting || blockClosedCard()) return;
+        if (submitting || blockClosedCard() || blockDuplicateIitVisit()) return;
         submitting = true;
         if (tvSubmit != null) tvSubmit.setEnabled(false);
         super.submitVisit();
@@ -328,6 +329,17 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 ? org.smartregister.chw.mothermentor.R.string.mothermentor_child_eid_closed_message
                 : org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_message));
         lockMotherVisitSubmit();
+        return true;
+    }
+
+    private boolean blockDuplicateIitVisit() {
+        if (!isFollowUpVisit() || getFollowUpType() != MotherMentorFollowUpType.MOTHER_IIT
+                || Boolean.TRUE.equals(isEditMode)
+                || !MotherMentorFollowUpVisitUtils.hasCompletedIitVisitToday(baseEntityID, new Date())) {
+            return false;
+        }
+        displayToast(getString(org.smartregister.chw.mothermentor.R.string.mothermentor_visit_conducted));
+        finish();
         return true;
     }
 
