@@ -463,7 +463,8 @@ public final class MotherMentorHistoryMapper {
                 if (StringUtils.isNotBlank(text)) result.add(text);
             }
         }
-        return field.multiple ? new ArrayList<>(new LinkedHashSet<>(result)) : result;
+        return field.multiple || DBConstants.KEY.ATTENDANCE_TYPE.equals(field.key)
+                ? new ArrayList<>(new LinkedHashSet<>(result)) : result;
     }
 
     private List<String> selectionValues(Field field, VisitDetail detail) {

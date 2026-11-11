@@ -161,6 +161,7 @@ public class MotherMentorHistoryMapperTest {
     public void rawOptionCodesTranslateToSwahiliWithoutTranslatingFreeText() {
         Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
         answer(visit, "attendance_type", "repeat", "New");
+        answer(visit, "attendance_type", "repeat", "Marudio");
         answer(visit, "follow_up_status", "found", "Found");
         answer(visit, "way_education_provided", "personal", "Individual");
         answer(visit, "topics_being_provided", "[\"family_planning\",\"tb\"]", "");
