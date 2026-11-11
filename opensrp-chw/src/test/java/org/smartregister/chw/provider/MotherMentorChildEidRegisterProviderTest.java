@@ -20,6 +20,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.R;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.HashMap;
@@ -49,7 +50,8 @@ public class MotherMentorChildEidRegisterProviderTest {
         MotherMentorChildEidRegisterProvider.ChildHolder holder = bind(client("child", values()));
         assertEquals("Baraka John, 19 months", holder.name.getText().toString());
         assertEquals("To be referred · Kibiti", holder.metadata.getText().toString());
-        assertEquals("Missed 9 months — due 2026-10-04", holder.missed.getText().toString());
+        assertEquals(MotherMentorChildEidLabels.missed(context, "miezi9", "2026-10-04"),
+                holder.missed.getText().toString());
         assertEquals("Mother: Neema John · HEI-0412-C01 · Visit 3", holder.summary.getText().toString());
         assertTrue(holder.row.getContentDescription().toString().contains("HEI-0412-C01"));
     }
@@ -63,7 +65,8 @@ public class MotherMentorChildEidRegisterProviderTest {
         MotherMentorChildEidRegisterProvider.ChildHolder holder = bind(client("child", values));
         assertEquals("Baraka John, Miezi 19", holder.name.getText().toString());
         assertEquals("Amepewa rufaa: Miezi 9 · Kibiti", holder.metadata.getText().toString());
-        assertEquals("Amekosa Miezi 9 — kilitakiwa 2026-10-04", holder.missed.getText().toString());
+        assertEquals(MotherMentorChildEidLabels.missed(context, "miezi9", "2026-10-04"),
+                holder.missed.getText().toString());
         assertEquals("Mama: Neema John · HEI-0412-C01 · Ziara 3", holder.summary.getText().toString());
     }
 

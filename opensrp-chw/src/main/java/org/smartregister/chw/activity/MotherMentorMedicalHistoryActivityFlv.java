@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.parseDate;
+import static org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils.displayDate;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -137,8 +140,9 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         int dateLabel = org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closure_date;
         String summary = context.getString(reasonLabel) + "\n"
                 + MotherMentorIitText.reason(context, closure.getStatus());
-        if (StringUtils.isNotBlank(closure.getClosedDate())) {
-            summary += "\n" + context.getString(dateLabel) + "\n" + closure.getClosedDate();
+        String closedDate = displayDate(parseDate(closure.getClosedDate()));
+        if (!closedDate.isEmpty()) {
+            summary += "\n" + context.getString(dateLabel) + "\n" + closedDate;
         }
         if (StringUtils.isNotBlank(closure.getNewFacility())) {
             summary += "\n" + closure.getNewFacility();
@@ -149,7 +153,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     private void showChildEidClosure(Context context, MotherMentorChildEidRepository.State childEid) {
         if (!isChildEidClosed(childEid)) return;
         String reason = MotherMentorChildEidLabels.closedReason(context, childEid.getClosedStatus());
-        String closedDate = childEid.getClosedDate();
+        String closedDate = displayDate(parseDate(childEid.getClosedDate()));
         String summary = StringUtils.isBlank(closedDate) ? reason : context.getString(
                 org.smartregister.chw.mothermentor.R.string.mothermentor_eid_closed_on, reason, closedDate);
         showClosureSummary(context, summary);

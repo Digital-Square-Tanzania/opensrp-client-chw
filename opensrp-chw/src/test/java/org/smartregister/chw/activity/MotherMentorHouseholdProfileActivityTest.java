@@ -162,7 +162,7 @@ public class MotherMentorHouseholdProfileActivityTest extends BaseUnitTest {
             assertEquals(View.VISIBLE, banner.getVisibility());
             assertTrue(banner.getText().toString(), banner.getText().toString().contains(expectedMessage));
             assertTrue(banner.getText().toString(), banner.getText().toString().contains(expectedReason));
-            assertTrue(banner.getText().toString().contains("2026-11-01"));
+            assertTrue(banner.getText().toString().contains("01-11-2026"));
             closure = MotherMentorHouseholdClosure.active();
             activity.setupButtons();
             assertEquals(View.GONE, banner.getVisibility());
