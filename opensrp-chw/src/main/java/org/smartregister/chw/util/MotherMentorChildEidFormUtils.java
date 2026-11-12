@@ -148,6 +148,69 @@ public final class MotherMentorChildEidFormUtils {
         normalizeLastTestResult(form);
     }
 
+    public static void prefillRegistrationLocation(JSONObject form, Map<String, String> location)
+            throws JSONException {
+        prefillLocationField(field(form, "fam_village"), location.get(DBConstants.KEY.VILLAGE_TOWN));
+        prefillLocationField(field(form, "landmark"), location.get("landmark"));
+        String gps = location.get(DBConstants.KEY.GPS);
+        if (validGps(gps)) {
+            prefillLocationField(field(form, DBConstants.KEY.GPS), gps.trim().replaceAll("\\s+", " "));
+        }
+        JSONObject hamlet = field(form, "nearest_facility");
+        String savedPath = location.get("nearest_facility");
+        if (savedPath != null && !savedPath.trim().isEmpty()) {
+            JSONArray path;
+            try {
+                path = new JSONArray(savedPath);
+            } catch (JSONException invalidPath) {
+                return;
+            }
+            if (matchesHamletPath(hamlet.optJSONArray("tree"), path)) {
+                prefillLocationField(hamlet, path.toString());
+            }
+        }
+    }
+
+    private static void prefillLocationField(JSONObject field, String value) throws JSONException {
+        if (value != null && !value.trim().isEmpty()
+                && (field.isNull("value") || field.optString("value").trim().isEmpty())) {
+            field.put("value", value.trim());
+        }
+    }
+
+    private static boolean validGps(String gps) {
+        if (gps == null) return false;
+        String[] coordinates = gps.trim().split("\\s+");
+        if (coordinates.length != 4) return false;
+        try {
+            double latitude = Double.parseDouble(coordinates[0]);
+            double longitude = Double.parseDouble(coordinates[1]);
+            double altitude = Double.parseDouble(coordinates[2]);
+            double accuracy = Double.parseDouble(coordinates[3]);
+            return Math.abs(latitude) <= 90 && Math.abs(longitude) <= 180
+                    && Math.abs(altitude) <= Double.MAX_VALUE
+                    && accuracy >= 0 && accuracy <= Double.MAX_VALUE;
+        } catch (NumberFormatException invalidCoordinates) {
+            return false;
+        }
+    }
+
+    private static boolean matchesHamletPath(JSONArray nodes, JSONArray path) {
+        for (int level = 0; level < path.length(); level++) {
+            JSONObject selected = null;
+            for (int i = 0; nodes != null && i < nodes.length(); i++) {
+                JSONObject node = nodes.optJSONObject(i);
+                if (node != null && path.optString(level).equals(node.optString("key"))) {
+                    selected = node;
+                    break;
+                }
+            }
+            if (selected == null) return false;
+            nodes = selected.optJSONArray("nodes");
+        }
+        return path.length() > 0 && (nodes == null || nodes.length() == 0);
+    }
+
     private static void normalizeLastTestResult(JSONObject form) throws JSONException {
         String lastTest = field(form, DBConstants.KEY.LAST_TEST).optString("value");
         String returned = field(form, DBConstants.KEY.LAST_TEST_RESULTS_RETURNED).optString("value");
