@@ -41,6 +41,11 @@ public final class MotherMentorChildEidFormUtils {
 
     public static void configureNewClientForm(JSONObject form, String ageError)
             throws JSONException {
+        configureNewClientForm(form, ageError, null);
+    }
+
+    public static void configureNewClientForm(JSONObject form, String ageError, LocalDate delivery)
+            throws JSONException {
         LocalDate today = LocalDate.now();
         LocalDate earliestBirthDate = today.minusMonths(18).plusDays(1);
         while (!isEligibleChildOn(earliestBirthDate.toString(), today)) {
@@ -51,6 +56,10 @@ public final class MotherMentorChildEidFormUtils {
         dob.put("max_date", "today");
         dob.remove("relevance");
         dob.put("v_required", new JSONObject().put("value", true).put("err", ageError));
+        if (dob.optString("value").trim().isEmpty()
+                && delivery != null && isEligibleChildOn(delivery.toString(), today)) {
+            dob.put("value", delivery.toString("dd-MM-yyyy"));
+        }
         // An age rounded to years cannot establish the under-18-month boundary.
         JSONObject unknown = field(form, DBConstants.KEY.DOB_UNKNOWN);
         unknown.put("type", "hidden");

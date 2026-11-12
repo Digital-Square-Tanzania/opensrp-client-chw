@@ -4,10 +4,17 @@ import android.database.Cursor;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.joda.time.LocalDate;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
+import org.smartregister.chw.mothermentor.domain.Visit;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorUtil;
+import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.util.MotherMentorChildEidFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
@@ -70,6 +77,32 @@ public class MotherMentorChildEidRepository {
                         + DBConstants.KEY.IS_CLOSED
                         + " = 0",
                 new String[] {id});
+    }
+
+    public LocalDate findDeliveryDateForNewChild(String motherId) {
+        MotherMentorMotherDeliveryRepository.State state =
+                MotherMentorMotherDeliveryRepository.getState(database, motherId, null);
+        LocalDate delivery = state.getDeliveryDate();
+        if (delivery == null
+                || !delivery.equals(MotherMentorMotherPregnancyUtils.parseDate(state.getChildDob()))) {
+            return null;
+        }
+        if (MotherMentorMotherPregnancyUtils.isLiveBirth(state.getAnswers())) return delivery;
+
+        // A postnatal enrollment can supply a date before any visit confirms it.
+        for (Visit visit : MotherMentorMotherVisitDao.getFinalizedVisits(database, motherId, null)) {
+            try {
+                Map<String, String> answers = MotherMentorVisitCompletion.observationValues(
+                        new JSONObject(visit.getJson()).optJSONArray("obs"));
+                if (MotherMentorMotherPregnancyUtils.isFound(answers)
+                        && delivery.equals(MotherMentorMotherPregnancyUtils.deliveryDate(answers))) {
+                    return delivery;
+                }
+            } catch (JSONException ignored) {
+                // A malformed visit cannot confirm the child's date of birth.
+            }
+        }
+        return null;
     }
 
     public Person findClient(String id) {

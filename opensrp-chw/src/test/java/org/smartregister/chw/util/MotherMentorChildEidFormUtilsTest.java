@@ -55,6 +55,33 @@ public class MotherMentorChildEidFormUtilsTest {
         }
     }
 
+    @Test
+    public void newChildUsesEligibleDeliveryDateAndKeepsAnExistingDob() throws Exception {
+        for (String locale : new String[] {"json.form", "json.form-sw"}) {
+            JSONObject form = MotherMentorTestAssets.form(locale, "all_clients_registration_form.json");
+            LocalDate delivery = LocalDate.now().minusMonths(3);
+            MotherMentorChildEidFormUtils.configureNewClientForm(form, "Invalid age", delivery);
+            assertEquals(delivery.toString("dd-MM-yyyy"), value(form, "dob"));
+            assertFalse(field(form, "dob").optBoolean("read_only"));
+
+            String corrected = delivery.minusDays(1).toString("dd-MM-yyyy");
+            field(form, "dob").put("value", corrected);
+            MotherMentorChildEidFormUtils.configureNewClientForm(form, "Invalid age", delivery);
+            assertEquals(corrected, value(form, "dob"));
+        }
+    }
+
+    @Test
+    public void missingAndIneligibleDeliveryDatesLeaveManualEntryAvailable() throws Exception {
+        for (LocalDate delivery : new LocalDate[] {null, LocalDate.now().plusDays(1),
+                LocalDate.now().minusMonths(19)}) {
+            JSONObject form = MotherMentorTestAssets.form("json.form", "all_clients_registration_form.json");
+            MotherMentorChildEidFormUtils.configureNewClientForm(form, "Invalid age", delivery);
+            assertEquals("", field(form, "dob").optString("value"));
+            assertFalse(field(form, "dob").optBoolean("read_only"));
+        }
+    }
+
     @Test public void bothLibraryFormsBindChildAndMotherWithoutOverwritingClinicalAnswers() throws Exception {
         for (String locale : new String[]{"json.form", "json.form-sw"}) {
             JSONObject form = MotherMentorTestAssets.form(locale, "mothermentor_enroll_child_eid.json");

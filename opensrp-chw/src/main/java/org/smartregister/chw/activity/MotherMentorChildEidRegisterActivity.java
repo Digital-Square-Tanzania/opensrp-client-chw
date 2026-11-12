@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
@@ -365,9 +366,27 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
     @Override
     public void startFormActivity(
             @NonNull JSONObject form, @Nullable HashMap<String, String> extras) {
+        executors.diskIO().execute(() -> {
+            LocalDate delivery = null;
+            try {
+                delivery = repository.findDeliveryDateForNewChild(motherId);
+            } catch (RuntimeException e) {
+                Timber.e(e, "Unable to load the mother's recorded delivery date");
+            }
+            LocalDate recordedDelivery = delivery;
+            executors.mainThread().execute(() -> {
+                if (!isFinishing() && !isDestroyed()) {
+                    launchNewClientForm(form, extras, recordedDelivery);
+                }
+            });
+        });
+    }
+
+    private void launchNewClientForm(JSONObject form, HashMap<String, String> extras,
+            LocalDate delivery) {
         try {
             MotherMentorChildEidFormUtils.configureNewClientForm(
-                    form, getString(R.string.mothermentor_child_eid_age_error));
+                    form, getString(R.string.mothermentor_child_eid_age_error), delivery);
         } catch (Exception e) {
             fail(e, org.smartregister.chw.core.R.string.error_unable_to_start_form);
             return;
