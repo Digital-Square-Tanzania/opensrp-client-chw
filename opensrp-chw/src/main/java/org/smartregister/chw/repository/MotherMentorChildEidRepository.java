@@ -20,6 +20,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -241,6 +242,16 @@ public class MotherMentorChildEidRepository {
                         child.values.get(DBConstants.KEY.DOB_UNKNOWN))
                 || (linkedMother != null && !linkedMother.trim().isEmpty())) {
             throw new IllegalArgumentException("Mother or child is no longer eligible for linking");
+        }
+    }
+
+    public Map<String, String> findMotherRegistrationLocation(String motherId) {
+        Person mother = findMother(motherId);
+        if (mother == null) return Collections.emptyMap();
+        try (Cursor cursor = database.rawQuery(
+                "SELECT * FROM ec_family WHERE " + DBConstants.KEY.BASE_ENTITY_ID + " = ?",
+                new String[] {mother.familyId()})) {
+            return cursor.moveToFirst() ? values(cursor) : Collections.emptyMap();
         }
     }
 

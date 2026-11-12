@@ -116,6 +116,41 @@ public class MotherMentorChildEidFormUtilsTest {
         }
     }
 
+    @Test
+    public void newChildLocationUsesMappedMotherValuesInBothLocales() throws Exception {
+        Map<String, String> location = new HashMap<>();
+        location.put("village_town", "Mama Street");
+        location.put("landmark", "Mama landmark");
+        location.put("gps", "-6.81 39.28 12.0 8.0");
+        location.put("nearest_facility", "[\"Ward A\",\"Hamlet B\"]");
+        for (String locale : new String[] {"json.form", "json.form-sw"}) {
+            JSONObject form = MotherMentorTestAssets.form(locale, "all_clients_registration_form.json");
+            JSONObject hamlet = field(form, "nearest_facility");
+            hamlet.put("tree", new JSONArray("[{\"key\":\"Ward A\",\"nodes\":[{\"key\":\"Hamlet B\"}]}]"));
+            MotherMentorChildEidFormUtils.prefillRegistrationLocation(form, location);
+            assertEquals("Mama Street", value(form, "fam_village"));
+            assertEquals("Mama landmark", value(form, "landmark"));
+            assertEquals("-6.81 39.28 12.0 8.0", value(form, "gps"));
+            assertEquals(location.get("nearest_facility"), value(form, "nearest_facility"));
+            assertFalse(hamlet.optBoolean("read_only"));
+        }
+    }
+
+    @Test
+    public void locationKeepsChildValuesAndIgnoresInvalidMotherDetails() throws Exception {
+        JSONObject form = MotherMentorTestAssets.form("json.form", "all_clients_registration_form.json");
+        field(form, "fam_village").put("value", "Child Street");
+        Map<String, String> location = new HashMap<>();
+        location.put("village_town", "Mama Street");
+        location.put("gps", "-6.81 39.28 12.0 8.0 9.0");
+        location.put("nearest_facility", "[\"Unknown Hamlet\"]");
+        MotherMentorChildEidFormUtils.prefillRegistrationLocation(form, location);
+        assertEquals("Child Street", value(form, "fam_village"));
+        assertEquals("", field(form, "landmark").optString("value"));
+        assertEquals("", field(form, "gps").optString("value"));
+        assertEquals("", field(form, "nearest_facility").optString("value"));
+    }
+
     @Test(expected = IllegalArgumentException.class) public void motherCannotBeHerOwnChild() throws Exception {
         Map<String, String> mother = person("mother", "family", "Neema");
         MotherMentorChildEidFormUtils.bindIdentity(MotherMentorTestAssets.form("json.form", "mothermentor_enroll_child_eid.json"), mother, mother);

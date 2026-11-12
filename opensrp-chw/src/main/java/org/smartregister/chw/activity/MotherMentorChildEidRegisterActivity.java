@@ -77,7 +77,7 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
                         ChwApplication.getInstance().getRepository().getWritableDatabase());
         registerPresenter =
                 new MotherMentorChildEidRegisterPresenter(
-                        this, new ChwAllClientsRegisterModel(this), this);
+                        this, newClientRegistrationModel(), this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -86,6 +86,24 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
         findViewById(R.id.child_from_all_clients).setOnClickListener(view -> loadCandidates(false));
         findViewById(R.id.child_register_new).setOnClickListener(view -> registerNewClient());
         if (motherId == null) finish();
+    }
+
+    private ChwAllClientsRegisterModel newClientRegistrationModel() {
+        return new ChwAllClientsRegisterModel(this) {
+            @Override
+            public JSONObject getFormAsJson(String name, String id, String locationId) {
+                JSONObject form = super.getFormAsJson(name, id, locationId);
+                if (form != null) {
+                    try {
+                        MotherMentorChildEidFormUtils.prefillRegistrationLocation(
+                                form, repository.findMotherRegistrationLocation(motherId));
+                    } catch (Exception e) {
+                        Timber.e(e, "Unable to prefill the child's registration location");
+                    }
+                }
+                return form;
+            }
+        };
     }
 
     @Override
