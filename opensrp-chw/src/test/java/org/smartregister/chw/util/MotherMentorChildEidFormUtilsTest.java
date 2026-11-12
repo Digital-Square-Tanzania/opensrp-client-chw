@@ -94,6 +94,36 @@ public class MotherMentorChildEidFormUtilsTest {
         MotherMentorChildEidFormUtils.bindIdentity(MotherMentorTestAssets.form("json.form", "mothermentor_enroll_child_eid.json"), mother, mother);
     }
 
+    @Test
+    public void newChildCaregiverUsesMothersNameRelationshipAndPhoneInBothLocales() throws Exception {
+        Map<String, String> mother = person("mother", "family", "Neema");
+        mother.put(DBConstants.KEY.PHONE_NUMBER, "0712345678");
+        for (String locale : new String[] {"json.form", "json.form-sw"}) {
+            JSONObject form = MotherMentorTestAssets.form(locale, "all_clients_registration_form.json");
+            MotherMentorChildEidFormUtils.prefillRegistrationCaregiver(form, mother);
+            assertEquals("Yes", value(form, "has_primary_caregiver"));
+            assertEquals("Neema Mtemi", value(form, "primary_caregiver_name"));
+            assertEquals("Mother", value(form, "caregiver_relationship_base"));
+            assertEquals("0712345678", value(form, "other_phone_number"));
+            assertFalse(field(form, "primary_caregiver_name").optBoolean("read_only"));
+        }
+    }
+
+    @Test
+    public void caregiverPrefillKeepsAnotherCaregiverAndSkipsInvalidPhone() throws Exception {
+        Map<String, String> mother = person("mother", "family", "Neema");
+        mother.put(DBConstants.KEY.PHONE_NUMBER, "invalid");
+        JSONObject form = MotherMentorTestAssets.form("json.form", "all_clients_registration_form.json");
+        MotherMentorChildEidFormUtils.prefillRegistrationCaregiver(form, mother);
+        assertEquals("", field(form, "other_phone_number").optString("value"));
+
+        field(form, "primary_caregiver_name").put("value", "Another Caregiver");
+        field(form, "caregiver_relationship_base").put("value", "Guardian");
+        MotherMentorChildEidFormUtils.prefillRegistrationCaregiver(form, mother);
+        assertEquals("Another Caregiver", value(form, "primary_caregiver_name"));
+        assertEquals("Guardian", value(form, "caregiver_relationship_base"));
+    }
+
     private Map<String, String> person(String id, String family, String name) {
         Map<String, String> result = new HashMap<>();
         result.put("base_entity_id", id); result.put("relational_id", family);
