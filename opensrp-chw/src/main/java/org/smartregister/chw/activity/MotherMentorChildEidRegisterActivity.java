@@ -349,6 +349,16 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
 
     @Override
     public void startFormActivity(JSONObject form) {
+        if (form != null) {
+            try {
+                Person mother = repository.findMother(motherId);
+                if (mother != null) {
+                    MotherMentorChildEidFormUtils.prefillRegistrationCaregiver(form, mother.values);
+                }
+            } catch (Exception e) {
+                Timber.e(e, "Unable to prefill the child's caregiver");
+            }
+        }
         startFormActivity(form, null);
     }
 

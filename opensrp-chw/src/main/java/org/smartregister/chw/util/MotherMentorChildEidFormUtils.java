@@ -191,6 +191,33 @@ public final class MotherMentorChildEidFormUtils {
         set(form, DBConstants.KEY.HEI_NUMBER, heiNumber, true);
     }
 
+    public static void prefillRegistrationCaregiver(JSONObject form, Map<String, String> mother)
+            throws JSONException {
+        JSONObject hasCaregiver = field(form, "has_primary_caregiver");
+        JSONObject caregiverName = field(form, "primary_caregiver_name");
+        JSONObject relationship = field(form, "caregiver_relationship_base");
+        JSONObject caregiverPhone = field(form, DBConstants.KEY.OTHER_PHONE_NUMBER);
+        String motherName = name(mother);
+        if (motherName.trim().isEmpty() || !isBlankValue(hasCaregiver)
+                || !isBlankValue(caregiverName) || !isBlankValue(relationship)
+                || !isBlankValue(caregiverPhone)) {
+            return;
+        }
+        hasCaregiver.put("value", "Yes");
+        caregiverName.put("value", motherName);
+        relationship.put("value", "Mother");
+        String phone = mother.get(DBConstants.KEY.PHONE_NUMBER);
+        JSONObject validation = caregiverPhone.optJSONObject("v_regex");
+        if (phone != null && !phone.trim().isEmpty()
+                && (validation == null || phone.trim().matches(validation.optString("value")))) {
+            caregiverPhone.put("value", phone.trim());
+        }
+    }
+
+    private static boolean isBlankValue(JSONObject field) {
+        return field.isNull("value") || field.optString("value").trim().isEmpty();
+    }
+
     public static String name(Map<String, String> person) {
         return MotherMentorPartnerFormUtils.name(person);
     }
