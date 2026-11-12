@@ -195,7 +195,8 @@ public final class MotherMentorChildEidFormUtils {
         }
     }
 
-    private static boolean matchesHamletPath(JSONArray nodes, JSONArray path) {
+    private static boolean matchesHamletPath(JSONArray tree, JSONArray path) {
+        JSONArray nodes = tree;
         for (int level = 0; level < path.length(); level++) {
             JSONObject selected = null;
             for (int i = 0; nodes != null && i < nodes.length(); i++) {
