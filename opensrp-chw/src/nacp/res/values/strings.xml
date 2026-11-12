@@ -36,8 +36,6 @@
     <string name="select_reporting_month">Select Reporting Month</string>
     <string name="monthly_report">Monthly Report</string>
     <string name="print_report">Print</string>
-    <string name="mother_champion_reports_subtitle">View Mother Champion Reports</string>
-    <string name="mother_champion_reports">Mother Champion Reports</string>
 
 
     <string name="partner_registration_action_title">Partner Registration</string>
@@ -513,6 +511,7 @@
     <string name="kvp_hiv_result_recent">Recent HIV test result:</string>
     <string name="kvp_ctc_number_a">CTC ID:</string>
     <string name="kvp_on_prep">Currently using PrEP:</string>
+    <string name="kvp_prep_type_a">Type of PrEP received:</string>
     <string name="kvp_prep_facility_a">PrEP facility:</string>
     <string name="kvp_linked_to_prep_recent">Linked to PrEP services:</string>
     <string name="kvp_referred_for_hiv_test">Referred for HIV testing:</string>
@@ -523,6 +522,7 @@
     <string name="kvp_hiv_result">HIV test result:</string>
     <string name="kvp_ctc_number_b">CTC ID:</string>
     <string name="kvp_prep_follow_up">Currently using PrEP:</string>
+    <string name="kvp_prep_type_b">Type of PrEP received:</string>
     <string name="kvp_prep_facility_b">PrEP facility:</string>
     <string name="kvp_linked_to_prep">Linked to PrEP services:</string>
     <string name="kvp_next_visit_date">Next visit date:</string>
@@ -1293,6 +1293,11 @@
     <string name="pnc_mother_home_visit_facility_referral">Refer Mother to facility</string>
 
     <string name="nav_menu_linkage">Linkage</string>
+
+    <!---Mother Mentor Strings -->
+    <string name="mother_mentor">Mother Mentor</string>
+
+
     <!--    HPS -->
     <string name="hps_client_criteria">Client Criteria:</string>
     <string name="hps_person_living_with_hiv">Person living with HIV (PLHIV)</string>
@@ -2064,4 +2069,6 @@
     <string name="ayp_client">client</string>
 
 
+    <string name="oral_prep">Oral PrEP (Vidonge)</string>
+    <string name="injectable_prep">Injectable PrEP (Sindano)</string>
 </resources>

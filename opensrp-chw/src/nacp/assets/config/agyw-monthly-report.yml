@@ -208,9 +208,10 @@ indicators:
                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                       date(substr(ear.enrollment_date, 7, 4) || '-' || substr(ear.enrollment_date, 4, 2) || '-' || '01')"
   #  Question 7
+  # Keep each cell marker: reporting deduplicates executed SQL text across indicators.
   - key: "agyw-7-10-14"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-7-10-14 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -223,12 +224,12 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
+					  /* primary packages */
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -236,22 +237,22 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
+					  /* Secondary packages */
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -267,7 +268,7 @@ indicators:
                                   '-' || '01') "
   - key: "agyw-7-15-19"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-7-15-19 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -280,12 +281,12 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
+					  /* primary packages */
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -293,22 +294,22 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
+					  /* Secondary packages */
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -324,7 +325,7 @@ indicators:
                                   '-' || '01') "
   - key: "agyw-7-20-24"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-7-20-24 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -338,12 +339,12 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
+					  /* primary packages */
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -351,22 +352,22 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
+					  /* Secondary packages */
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -383,7 +384,7 @@ indicators:
   #  Question 8
   - key: "agyw-8-10-14"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-8-10-14 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -397,14 +398,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -412,24 +413,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -445,7 +446,7 @@ indicators:
                                   '-' || '01') "
   - key: "agyw-8-15-19"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-8-15-19 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -459,14 +460,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -474,24 +475,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -507,7 +508,7 @@ indicators:
                                   '-' || '01') "
   - key: "agyw-8-20-24"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-8-20-24 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -521,14 +522,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -536,24 +537,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -570,7 +571,7 @@ indicators:
   #  Question 9
   - key: "agyw-9-10-14"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-9-10-14 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -584,14 +585,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -599,24 +600,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -632,7 +633,7 @@ indicators:
                                   '-' || '01') "
   - key: "agyw-9-15-19"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-9-15-19 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -646,14 +647,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -661,24 +662,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -694,7 +695,7 @@ indicators:
                                   '-' || '01') "
   - key: "agyw-9-20-24"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-9-20-24 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -708,14 +709,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -723,24 +724,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -757,7 +758,7 @@ indicators:
   #  Question 9
   - key: "agyw-10-10-14"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-10-10-14 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -771,14 +772,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -786,24 +787,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -819,7 +820,7 @@ indicators:
                                   '-' || '01') "
   - key: "agyw-10-15-19"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-10-15-19 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -833,14 +834,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -848,24 +849,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
@@ -881,7 +882,7 @@ indicators:
                                   '-' || '01') "
   - key: "agyw-10-20-24"
     description: "Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume"
-    indicatorQuery: "SELECT count(DISTINCT efm.base_entity_id) as count
+    indicatorQuery: "/* AGYW report cell: agyw-10-20-24 */ SELECT count(DISTINCT efm.base_entity_id) as count
                       FROM ec_agyw_register ear
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
@@ -895,14 +896,14 @@ indicators:
 					  WHEN ((date(efm.dob, '+10 years') <= date('now'))AND (date(efm.dob, '+14 years') > date('now')))
 					  THEN (
 
-					  --primary packages
-					  --must be only dreams
+					  /* primary packages */
+					  /* must be only dreams */
 					  program_name='dreams'
 
-					  -- BIO MEdical  contains
+					  /* BIO MEdical  contains */
 					  AND chw_referral_service='Conventional HIV Test'
 
-					  -- SBCC Behavioral contains
+					  /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'prep_education')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
@@ -910,24 +911,24 @@ indicators:
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0
 					  )
 					  ELSE (
-					  -- Secondary packages
-					  --can be for both drams and non drams
+					  /* Secondary packages */
+					  /* can be for both drams and non drams */
 					   (program_name='dreams' OR program_name != 'dreams')
 
-					   -- SBCC Behavioral contains
+					   /* SBCC Behavioral contains */
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'education_hiv_testing')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'sti_hiv_aids')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'reproductive_health')>0
 					  AND instr(eabs1.sbcc_intervention_provided,'good_relationships')>0
 
-					  -- Structural contains
+					  /* Structural contains */
 					  AND instr(eass1.education_materials,'yes')>0
 					  AND instr(eass1.given_capital,'yes')>0
 					  AND instr(eass1.nurturing_and_upb_edu,'yes')>0

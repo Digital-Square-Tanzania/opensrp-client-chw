@@ -115,9 +115,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     @Override
     protected void onCreation() {
         super.onCreation();
-        // SecuredActivity skips this hook when the session has expired.
-        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
-        notificationListAdapter.setOnClickListener(this);
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addAncReferralTypes();
         }
@@ -126,6 +123,15 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             addAncADDOReferralTypes();
         }
 
+    }
+
+    @Override
+    protected void initializeNotificationReferralRecyclerView() {
+        super.initializeNotificationReferralRecyclerView();
+        if (notificationAndReferralRecyclerView != null) {
+            notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+            notificationListAdapter.setOnClickListener(this);
+        }
     }
 
     @Override

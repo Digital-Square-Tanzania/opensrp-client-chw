@@ -186,6 +186,7 @@
     <string name="select_clients">Chagua mkuu wa kaya</string>
     <string name="search_hint">Tafuta jina au nambari ya utambulisho</string>
     <string name="no_record">Hakuna rekodi</string>
+    <string name="mothermentor_household_no_results">Hakuna kaya zilizopatikana</string>
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Dalili za hatari</string>
@@ -461,7 +462,7 @@
     <string name="lost_to_followup_child">Mtoto Aliyepotea</string>
     <string name="missed_appointment_child">Mtoto Amekosa Miadi</string>
     <string name="child_name">Mtoto : %s</string>
-    <string name="return_to_all_partner_followup_clients">Rudi kwa Wateja wote wa Ufuatiliaji wa Mwenza</string>
+    <string name="return_to_all_partner_followup_clients">Rudi kwa Wateja wote wa Ufuatiliaji wa Mwenzi</string>
     <string name="pnc_referral">Rufaa ya PNC </string>
     <string name="ctc_number">Namba ya CTC</string>
     <string name="enrolled_clinic">Amesajiliwa Kliniki</string>
@@ -1088,6 +1089,8 @@
     <string name="tbleprosy_record_visit_extra_sputum_container_required">Je, mteja anahitaji kontena la ziada la makohozi?</string>
     <string name="tbleprosy_record_visit_yes">Ndiyo</string>
     <string name="tbleprosy_record_visit_no">Hapana</string>
+
+    <!-- Mother Mentor -->
 
     <string name="ncd_at_risk_clients">Walio katika hatari</string>
     <string name="ncd_confirmed_clients">Waliothibitishwa</string>
