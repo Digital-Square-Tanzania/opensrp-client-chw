@@ -17,12 +17,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
     <LinearLayout
         android:id="@+id/pref_master_switch_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/master_switch_container"
@@ -72,10 +80,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
-                    android:singleLine="true"
+                    android:singleLine="false"
                     android:text="@string/filter_status_off"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:accessibilityLiveRegion="polite" />
 
             </RelativeLayout>
 
@@ -97,7 +106,9 @@
                     android:paddingStart="6dp"
                     android:paddingEnd="6dp"
                     android:checked="false"
-                    android:text="" />
+                    android:text=""
+                    android:minHeight="48dp"
+                    android:contentDescription="@string/ui_enable_filters" />
             </LinearLayout>
 
         </LinearLayout>
@@ -234,7 +245,7 @@
                 android:layout_height="1dp"
                 android:background="#ccc" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/hiv_status_filter_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -253,26 +264,27 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:text="@string/hiv_status_filter_title"
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:labelFor="@id/hiv_status_filter" />
 
                 <Spinner
                     android:id="@+id/hiv_status_filter"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/hiv_status_filter_options"
+                    android:entries="@array/ui_hiv_status_filter_labels"
                     android:maxLines="100"
                     android:textAppearance="?android:attr/textAppearanceListItemSecondary"
-                    android:textColor="?android:attr/textColorSecondary" />
-            </RelativeLayout>
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:minHeight="48dp" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#ccc" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/prep_client_status_filter_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -291,19 +303,20 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:text="@string/prep_status_filter_title"
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:labelFor="@id/prep_status_filter" />
 
                 <Spinner
                     android:id="@+id/prep_status_filter"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:drawSelectorOnTop="true"
-                    android:entries="@array/prep_status_filter_options"
+                    android:entries="@array/ui_prep_status_filter_labels"
                     android:maxLines="100"
                     android:textAppearance="?android:attr/textAppearanceListItemSecondary"
-                    android:textColor="?android:attr/textColorSecondary" />
-            </RelativeLayout>
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:minHeight="48dp" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -313,5 +326,6 @@
 
     </LinearLayout>
 
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

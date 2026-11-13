@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
+import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
@@ -34,6 +37,14 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        // Core gives this register a white search surface; keep its hint and icon legible.
+        EditText search = view.findViewById(R.id.edt_search);
+        int hintColor = ContextCompat.getColor(requireContext(), R.color.ui_text_secondary);
+        search.setHintTextColor(hintColor);
+        search.setTextColor(ContextCompat.getColor(requireContext(), R.color.medical_text_inner));
+        for (Drawable icon : search.getCompoundDrawablesRelative()) {
+            if (icon != null) icon.mutate().setTint(hintColor);
+        }
         View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.GONE);
     }

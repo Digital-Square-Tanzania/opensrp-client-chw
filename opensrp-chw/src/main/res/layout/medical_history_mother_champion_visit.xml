@@ -14,7 +14,9 @@
         android:paddingBottom="10dp"
         android:text="@string/mother_champion_visit_title"
         android:textColor="@color/medical_text_inner"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+            android:singleLine="false"
+            android:maxLines="100" />
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/type_of_service"

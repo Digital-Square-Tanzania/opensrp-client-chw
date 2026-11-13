@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/collapsing_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:contentInsetStart="0dp"
         android:contentInsetLeft="0dp"
         android:contentInsetEnd="0dp"
@@ -21,19 +21,24 @@
         app:contentInsetRight="0dp"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp"
-        app:layout_collapseMode="pin">
+        app:layout_collapseMode="pin"
+            android:minHeight="?attr/actionBarSize">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/tvTitle"
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical|left"
             android:paddingStart="0dp"
             android:paddingLeft="0dp"
             android:text="@string/back_to"
             android:textColor="@color/customAppThemeBlue"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+            android:singleLine="false"
+            android:maxLines="100"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
 
     </androidx.appcompat.widget.Toolbar>
 

@@ -39,26 +39,28 @@
 
             <RelativeLayout
                 android:id="@+id/refreshIndicatorsLayout"
-                android:layout_width="40dp"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="20dp">
 
                 <ImageView
                     android:id="@+id/refreshIndicatorsIcon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:clickable="true"
-                    android:contentDescription="Refresh indicators"
+                    android:contentDescription="@string/ui_refresh_indicators"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp"
                     android:focusable="true"
                     app:srcCompat="@mipmap/sidemenu_sync" />
 
                 <ProgressBar
                     android:id="@+id/refreshIndicatorsPB"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:indeterminate="true" />
@@ -75,7 +77,7 @@
             app:tabIndicatorColor="#E2E363"
             app:tabIndicatorHeight="6dp"
             app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/CustomFontTextViewStyle.tabIndicator.sub.white">
 
