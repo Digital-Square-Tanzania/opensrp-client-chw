@@ -18,6 +18,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 
@@ -1260,6 +1261,42 @@ public class MotherMentorReportObjectTest {
         assertEquals(1, counts.getInt("mm-11-negative"));
         assertEquals(0, counts.getInt("mm-11-positive"));
         assertEquals(0, counts.getInt("mm-11-pending-results"));
+    }
+
+    @Test
+    public void directReferralAndBirthSampleConfirmationDoNotAffectScheduledAttendance() throws Exception {
+        eid("child", "Male", "2026-02-20");
+        currentVisit("referral", "child", "2026-04-11", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("referral", DBConstants.KEY.MTOTO_ENTRY_SOURCE, MotherMentorChildEidDirectEnrollment.SOURCE);
+        detail("referral", DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE,
+                MotherMentorChildEidDirectEnrollment.CONFIRMATION_NEEDED);
+        detail("referral", DBConstants.KEY.MTOTO_RUFAA_TEST, "at_birth");
+
+        currentVisit("confirmation", "child", "2026-04-16", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("confirmation", DBConstants.KEY.MTOTO_ENTRY_SOURCE, MotherMentorChildEidDirectEnrollment.SOURCE);
+        detail("confirmation", DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE,
+                MotherMentorChildEidDirectEnrollment.CONFIRMATION_REFERRED);
+        detail("confirmation", DBConstants.KEY.MTOTO_RUFAA_TEST, "at_birth");
+        detail("confirmation", DBConstants.KEY.MTOTO_RETURN_FLOW, "1");
+        detail("confirmation", DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY, "yes");
+        detail("confirmation", DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE, "2026-04-16");
+        detail("confirmation", DBConstants.KEY.MAMA_HEI_TEST_DONE, "yes");
+        detail("confirmation", DBConstants.KEY.MAMA_HEI_TEST_DATE, "2026-04-16");
+        detail("confirmation", DBConstants.KEY.MAMA_HEI_TEST_RESULT, "negative");
+
+        eid("another-child", "Female", "2026-02-20");
+        currentVisit("missed-referral", "another-child", "2026-04-16", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("missed-referral", DBConstants.KEY.MTOTO_ENTRY_SOURCE, MotherMentorChildEidDirectEnrollment.SOURCE);
+        detail("missed-referral", DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE, "none");
+        currentChildAttendance("week-six", "another-child", "six_weeks", "yes", "2026-04-20");
+        detail("week-six", DBConstants.KEY.MTOTO_ENTRY_SOURCE, MotherMentorChildEidDirectEnrollment.SOURCE);
+        detail("week-six", DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE, "referred");
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(0, counts.getInt("query-errors"));
+        assertEquals(1, counts.getInt("mm-9"));
+        assertEquals(0, counts.getInt("mm-10"));
+        assertEquals(0, counts.getInt("mm-11"));
     }
 
     private void pendingFinalSample(String id, String child, String date, String sampleId) {

@@ -22,18 +22,27 @@ public final class MotherMentorChildEidFormUtils {
     }
 
     public static boolean isEligibleChild(String dob, String approximate) {
-        return !"true".equalsIgnoreCase(approximate)
-                && !"1".equals(approximate)
-                && !DBConstants.KEY.DOB_UNKNOWN.equalsIgnoreCase(approximate)
-                && isEligibleChild(dob);
+        return hasExactBirthDate(approximate) && isEligibleChild(dob);
     }
 
     static boolean isEligibleChildOn(String dob, LocalDate today) {
+        return isUnderMonths(dob, today, 18);
+    }
+
+    public static boolean isEligibleForDirectEnrollment(String dob, String approximate, LocalDate today) {
+        return hasExactBirthDate(approximate) && isUnderMonths(dob, today, 24);
+    }
+
+    private static boolean hasExactBirthDate(String approximate) {
+        return !"true".equalsIgnoreCase(approximate) && !"1".equals(approximate)
+                && !DBConstants.KEY.DOB_UNKNOWN.equalsIgnoreCase(approximate);
+    }
+
+    private static boolean isUnderMonths(String dob, LocalDate today, int months) {
         if (dob == null || dob.length() < 10) return false;
         try {
             LocalDate birthDate = LocalDate.parse(dob.substring(0, 10));
-            // Compare the actual 18-month anniversary, including month-end birthdays.
-            return !birthDate.isAfter(today) && today.isBefore(birthDate.plusMonths(18));
+            return !birthDate.isAfter(today) && today.isBefore(birthDate.plusMonths(months));
         } catch (IllegalArgumentException e) {
             return false;
         }

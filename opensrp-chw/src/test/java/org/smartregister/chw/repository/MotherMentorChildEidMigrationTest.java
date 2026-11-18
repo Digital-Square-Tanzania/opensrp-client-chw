@@ -16,6 +16,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.io.InputStream;
@@ -54,6 +55,19 @@ public class MotherMentorChildEidMigrationTest {
     }
 
     @Test
+    public void database71RunsOnlyTheDirectEnrollmentMigration() {
+        SQLiteDatabase db = mock(SQLiteDatabase.class);
+        try (MockedStatic<org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository> migration =
+                mockStatic(org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.class)) {
+            ChwRepositoryFlv.onUpgrade(null, db, 70, 71);
+            ChwRepositoryFlv.onUpgrade(null, db, 71, 71);
+            migration.verify(() -> org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgradeDirectEnrollmentSchema(db));
+            migration.verifyNoMoreInteractions();
+            assertTrue("The app still includes the direct Child EID enrollment migration", BuildConfig.DATABASE_VERSION >= 71);
+        }
+    }
+
+    @Test
     public void freshTableCreationCallsTheSameExplicitLibraryUpgrade() throws Exception {
         SQLiteDatabase db = mock(SQLiteDatabase.class);
         when(db.rawQuery(anyString(), org.mockito.ArgumentMatchers.<String[]>any()))
@@ -77,6 +91,9 @@ public class MotherMentorChildEidMigrationTest {
             Set<String> found = new HashSet<>();
             Set<String> expected = new HashSet<>(org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.COLUMNS);
             expected.addAll(org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.EXIT_COLUMNS);
+            java.util.Collections.addAll(expected, DBConstants.KEY.MTOTO_CAREGIVER_NAME,
+                    DBConstants.KEY.MTOTO_CAREGIVER_RELATIONSHIP, DBConstants.KEY.MTOTO_CAREGIVER_PHONE,
+                    DBConstants.KEY.MTOTO_ENTRY_TEST, DBConstants.KEY.MTOTO_ENTRY_RESULT);
             for (int i = 0; i < tables.length(); i++) {
                 JSONObject table = tables.getJSONObject(i);
                 if (!"ec_mothermentor_enroll_child_eid".equals(table.getString("name"))) continue;

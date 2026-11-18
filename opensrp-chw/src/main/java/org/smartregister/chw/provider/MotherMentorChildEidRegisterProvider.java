@@ -81,9 +81,7 @@ public class MotherMentorChildEidRegisterProvider extends MotherMentorFollowUpRe
         } catch (NumberFormatException ignored) {
             // An unavailable count is omitted rather than inventing a visit total.
         }
-        holder.summary.setText(MotherMentorChildEidLabels.summary(context,
-                value(values, DBConstants.KEY.MOTHER_NAME),
-                value(values, DBConstants.KEY.HEI_NUMBER), visits));
+        holder.summary.setText(MotherMentorChildEidLabels.registerSummary(context, values, visits));
         holder.row.setContentDescription(join(holder.name.getText().toString(),
                 holder.metadata.getText().toString(), missed, holder.summary.getText().toString()));
         holder.row.setTag(person);

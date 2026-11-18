@@ -234,7 +234,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             if (exit != null && exit.needsConfirmation()) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
-                MotherMentorChildEidClosureDialog.show(this, exit, () -> {
+                boolean directEnrollment = baseEntityID != null && MotherMentorChildEidRepository.getState(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityID, null).isDirectEnrollment();
+                MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, () -> {
                     closureConfirmationOpen = false;
                     submitConfirmedVisit();
                 }, this::resetSubmission);
