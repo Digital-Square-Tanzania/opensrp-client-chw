@@ -593,6 +593,33 @@ public class MotherMentorHistoryMapperTest {
                 "Mlezi amekubali kumpeleka mtoto kituoni");
     }
 
+    @Test @Config(qualifiers = "en")
+    public void linkedChildResultAndReceiptDateAreShownOnTheOriginalVisitInEnglish() {
+        assertLinkedChildResult("Negative", "Date results were received at the facility");
+    }
+
+    @Test @Config(qualifiers = "sw")
+    public void linkedChildResultAndReceiptDateAreShownOnTheOriginalVisitInSwahili() {
+        assertLinkedChildResult("Hasi", "Tarehe majibu yalipopokelewa kituoni");
+    }
+
+    private void assertLinkedChildResult(String result, String dateLabel) {
+        Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+        answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3", "");
+        answer(visit, DBConstants.KEY.MAMA_HEI_TEST_DATE, "2026-11-01", "");
+        answer(visit, DBConstants.KEY.MAMA_HEI_TEST_RESULT, "pending", "");
+        answer(visit, DBConstants.KEY.MTOTO_RECEIVED_RESULT, "negative", "");
+        answer(visit, DBConstants.KEY.MTOTO_RESULT_RECEIVED_DATE, "2026-11-13", "");
+        List<Row> rows = mapper().map(visit);
+        assertEquals(Collections.singletonList("01-11-2026"),
+                row(rows, DBConstants.KEY.MAMA_HEI_TEST_DATE).getValues());
+        assertEquals(Collections.singletonList(result),
+                row(rows, DBConstants.KEY.MTOTO_RECEIVED_RESULT).getValues());
+        Row received = row(rows, DBConstants.KEY.MTOTO_RESULT_RECEIVED_DATE);
+        assertEquals(dateLabel, received.getLabel());
+        assertEquals(Collections.singletonList("13-11-2026"), received.getValues());
+    }
+
     private void assertChildHeiHistory(String bfLabel, String bfValue, String agreementLabel, String agreementValue) {
         Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
         answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3", "");

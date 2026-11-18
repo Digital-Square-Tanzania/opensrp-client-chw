@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -45,6 +46,8 @@ import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent.PendingSample;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
@@ -53,11 +56,13 @@ import org.smartregister.chw.mothermentor.util.MotherMentorChildEidClosureDialog
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidProfileUi;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidStatusUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosureLabels;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitText;
@@ -96,6 +101,8 @@ import timber.log.Timber;
 public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity {
     static final String EXTRA_FOLLOW_UP_PROFILE = "extra_follow_up_profile";
     private static final String FORM_MOTHERMENTOR_ENROLL_IIT = "mothermentor_enroll_iit";
+    private static final int REQUEST_CHILD_EID_RESULT = 1196;
+    private static final String STATE_CHILD_EID_RESULT_SOURCE = "child_eid_result_source";
     private static final String ATTENDANCE_TYPE = DBConstants.KEY.ATTENDANCE_TYPE;
     private static final String PSYCHOSOCIAL_GROUP_LINKAGE =
             DBConstants.KEY.HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP;
@@ -141,6 +148,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private final MotherMentorChildEidProfileUi childProfileUi = new MotherMentorChildEidProfileUi();
     private final AppExecutors childProfileExecutors = new AppExecutors();
     private volatile int childProfileLoadVersion;
+    private String[] childEidResultSource;
+    private boolean childEidResultBusy;
     private final Handler visitAvailabilityHandler = new Handler(Looper.getMainLooper());
     private final Runnable refreshVisitAvailability =
             () -> {
@@ -156,6 +165,20 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                     refreshVisitAvailability.run();
                 }
             };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            childEidResultSource = savedInstanceState.getStringArray(STATE_CHILD_EID_RESULT_SOURCE);
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArray(STATE_CHILD_EID_RESULT_SOURCE, childEidResultSource);
+    }
 
     @Override
     protected void onResume() {
@@ -645,6 +668,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (!isChildEidProfile() || memberObject == null
                 || findViewById(org.smartregister.chw.mothermentor.R.id.profile_name_layout) == null) {
             childProfileUi.hide();
+            showChildEidResultAction(false);
             return;
         }
         final String childId = memberObject.getBaseEntityId();
@@ -654,17 +678,194 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             try {
                 MotherMentorChildEidRepository.State child = loadChildEidState(childId);
                 Map<String, String> identity = loadChildEidCardValues(childId);
+                boolean pending = child.getPendingSample() != null && !MotherMentorDao.isClientDeceased(childId);
                 childProfileExecutors.mainThread().execute(() -> {
                     if (request != childProfileLoadVersion || isFinishing() || isDestroyed()
                             || !isChildEidProfile() || memberObject == null
                             || !childId.equals(memberObject.getBaseEntityId())) return;
                     childProfileUi.bind(this, child, identity,
                             new org.joda.time.LocalDate(getVisitAvailabilityDate()), followUpRoleView);
+                    showChildEidResultAction(pending);
                 });
             } catch (Exception e) {
                 Timber.e(e, "Unable to load child EID tracing details");
             }
         });
+    }
+
+    private TextView childEidResultButton() {
+        return findViewById(org.smartregister.chw.mothermentor.R.id.textview_record_child_eid_result);
+    }
+
+    private void showChildEidResultAction(boolean available) {
+        TextView action = childEidResultButton();
+        if (action == null) return;
+        action.setVisibility(available ? View.VISIBLE : View.GONE);
+        action.setEnabled(!childEidResultBusy && childEidResultSource == null);
+        action.setOnClickListener(view -> openChildEidResultForm());
+    }
+
+    private PendingSample pendingChildEidResult(String childId) {
+        return MotherMentorChildEidResultEvent.pending(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), childId);
+    }
+
+    private void openChildEidResultForm() {
+        if (memberObject == null || childEidResultBusy || childEidResultSource != null) return;
+        setChildEidResultBusy(true);
+        String childId = memberObject.getBaseEntityId();
+        childProfileExecutors.diskIO().execute(() -> {
+            try {
+                PendingSample sample = pendingChildEidResult(childId);
+                childProfileExecutors.mainThread().execute(() -> openChildEidResultForm(sample));
+            } catch (Exception error) {
+                childEidResultFailed(error);
+            }
+        });
+    }
+
+    private void openChildEidResultForm(PendingSample sample) {
+        if (isFinishing() || isDestroyed()) return;
+        if (sample == null || !matchesChildEidProfile(sample.getChildId())) {
+            handleChildEidResultError(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_result_unavailable);
+            return;
+        }
+        try {
+            JSONObject form = FormUtils.getFormUtils().getFormJson(MotherMentorChildEidResultForm.FORM_NAME);
+            form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, sample.getChildId());
+            MotherMentorChildEidResultForm.prepare(form, this, sample.getStage().getCode(),
+                    sample.getSampleDate(), sample.getState());
+            launchChildEidResultForm(form, childEidResultSource(sample));
+        } catch (Exception error) {
+            childEidResultFailed(error);
+        }
+    }
+
+    private static String[] childEidResultSource(PendingSample sample) {
+        return new String[] {sample.getChildId(), sample.getEnrollmentId(), sample.getParentSubmissionId(),
+                sample.getSampleSubmissionId(), sample.getStage().getCode(), sample.getSampleDate().toString(),
+                sample.getState()};
+    }
+
+    private boolean matchesChildEidProfile(String childId) {
+        return isChildEidProfile() && memberObject != null && childId.equals(memberObject.getBaseEntityId());
+    }
+
+    private void launchChildEidResultForm(JSONObject form, String[] source) {
+        childEidResultSource = source;
+        setChildEidResultBusy(false);
+        startActivityForResult(MotherMentorFormWizardUtils.getFormIntent(this, form), REQUEST_CHILD_EID_RESULT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != REQUEST_CHILD_EID_RESULT) {
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+        String[] source = childEidResultSource;
+        childEidResultSource = null;
+        if (resultCode != RESULT_OK || data == null || source == null) {
+            setChildEidResultBusy(false);
+            return;
+        }
+        setChildEidResultBusy(true);
+        String payload = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+        childProfileExecutors.diskIO().execute(() -> validateChildEidResult(source, payload));
+    }
+
+    private void validateChildEidResult(String[] source, String payload) {
+        try {
+            JSONObject form = new JSONObject(payload);
+            String childId = form.optString(org.smartregister.util.JsonFormUtils.ENTITY_ID);
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+            PendingSample sample = MotherMentorChildEidResultEvent.pending(db, childId);
+            if (!MotherMentorChildEidResultEvent.EVENT_TYPE.equals(form.optString("encounter_type"))
+                    || sample == null || !Arrays.equals(source, childEidResultSource(sample))) {
+                childProfileExecutors.mainThread().execute(() -> handleChildEidResultError(
+                        org.smartregister.chw.mothermentor.R.string.mothermentor_eid_result_unavailable));
+                return;
+            }
+            Map<String, String> answers = MotherMentorMotherChildUtils.values(form);
+            int dateError = MotherMentorChildEidResultForm.receiptDateError(answers, sample.getSampleDate());
+            if (dateError != 0) {
+                MotherMentorMotherChildUtils.put(form, DBConstants.KEY.MTOTO_RESULT_RECEIVED_DATE, "");
+                childProfileExecutors.mainThread().execute(() -> retryChildEidResult(form, source, dateError));
+                return;
+            }
+            LocalDate day = LocalDate.now();
+            if (!MotherMentorChildEidResultEvent.validate(db, sample, answers, day)) {
+                childProfileExecutors.mainThread().execute(() -> retryChildEidResult(form, source,
+                        org.smartregister.chw.mothermentor.R.string.mothermentor_eid_result_required));
+                return;
+            }
+            MotherMentorChildEidExit exit = MotherMentorChildEidResultEvent.preview(db, sample, answers, day);
+            childProfileExecutors.mainThread().execute(() -> {
+                if (isFinishing() || isDestroyed() || !matchesChildEidProfile(childId)) return;
+                Runnable save = () -> saveChildEidResult(sample, answers, day, exit);
+                if (exit != null && exit.needsConfirmation()) {
+                    MotherMentorChildEidClosureDialog.show(this, exit, save,
+                            () -> retryChildEidResult(form, source, 0));
+                } else {
+                    save.run();
+                }
+            });
+        } catch (Exception error) {
+            childEidResultFailed(error);
+        }
+    }
+
+    private void retryChildEidResult(JSONObject form, String[] source, int message) {
+        if (isFinishing() || isDestroyed()) return;
+        try {
+            if (message != 0) displayToast(message);
+            launchChildEidResultForm(form, source);
+        } catch (Exception error) {
+            childEidResultFailed(error);
+        }
+    }
+
+    private void saveChildEidResult(PendingSample sample, Map<String, String> answers,
+            LocalDate day, MotherMentorChildEidExit exit) {
+        childProfileExecutors.diskIO().execute(() -> {
+            try {
+                boolean saved = MotherMentorChildEidResultEvent.save(
+                        ChwApplication.getInstance().getRepository().getWritableDatabase(), sample, answers, day);
+                childProfileExecutors.mainThread().execute(() -> {
+                    if (isFinishing() || isDestroyed()) return;
+                    if (!saved) {
+                        handleChildEidResultError(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_result_unavailable);
+                        return;
+                    }
+                    setChildEidResultBusy(false);
+                    if (exit != null && exit.isSuccess()) displayToast(
+                            org.smartregister.chw.mothermentor.R.string.mothermentor_eid_exit_success_toast);
+                    setupButtons();
+                });
+            } catch (Exception error) {
+                childEidResultFailed(error);
+            }
+        });
+    }
+
+    private void setChildEidResultBusy(boolean busy) {
+        childEidResultBusy = busy;
+        TextView action = childEidResultButton();
+        if (action != null) action.setEnabled(!busy && childEidResultSource == null);
+    }
+
+    private void childEidResultFailed(Exception error) {
+        Timber.e(error, "Unable to record the Child EID result");
+        childProfileExecutors.mainThread().execute(() -> handleChildEidResultError(
+                org.smartregister.chw.mothermentor.R.string.mothermentor_eid_result_save_failed));
+    }
+
+    private void handleChildEidResultError(int message) {
+        if (isFinishing() || isDestroyed()) return;
+        childEidResultSource = null;
+        setChildEidResultBusy(false);
+        displayToast(message);
+        setupButtons();
     }
 
     @Override
@@ -1272,6 +1473,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private void hideDeceasedClientActionViews() {
+        showChildEidResultAction(false);
         if (textViewRecordMotherMentor != null) {
             boolean closed = isServiceCardClosed();
             textViewRecordMotherMentor.setVisibility(closed ? View.VISIBLE : View.GONE);
@@ -1503,12 +1705,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     protected MotherMentorChildEidExit getSavedChildEidClosurePreview(Visit visit) throws Exception {
-        Map<String, String> values = MotherMentorVisitCompletion.observationValues(
-                new JSONObject(visit.getJson()).optJSONArray("obs"));
+        SQLiteDatabase database = ChwApplication.getInstance().getRepository().getReadableDatabase();
+        Map<String, String> values = MotherMentorChildEidResultEvent.isSplitVisit(visit)
+                ? MotherMentorChildEidResultEvent.visitAnswers(database, visit)
+                : MotherMentorVisitCompletion.observationValues(new JSONObject(visit.getJson()).optJSONArray("obs"));
         if (!MotherMentorChildEidStatusUtils.isSchema3(values)) return null;
         return MotherMentorChildEidRepository.previewExit(
-                ChwApplication.getInstance().getRepository().getReadableDatabase(),
-                memberObject.getBaseEntityId(), visit.getVisitId(), values,
+                database, memberObject.getBaseEntityId(), visit.getVisitId(), values,
                 MotherMentorMotherVisitDao.getServiceDate(visit));
     }
 
@@ -1569,6 +1772,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                                 .equals(visit.getVisitType()));
             }
             if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+                if (MotherMentorChildEidResultEvent.isSplitVisit(visit)) {
+                    values = MotherMentorChildEidResultEvent.visitAnswers(
+                            ChwApplication.getInstance().getRepository().getReadableDatabase(), visit);
+                }
                 if (MotherMentorChildEidStatusUtils.isSchema3(values)) {
                     MotherMentorMotherChildRepository.State clinical = getChildEidCompletionContext(visit);
                     return clinical != null && MotherMentorChildEidFollowUpVisitUtils.isComplete(values,
