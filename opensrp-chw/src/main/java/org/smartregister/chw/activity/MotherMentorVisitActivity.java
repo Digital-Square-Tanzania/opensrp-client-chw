@@ -27,6 +27,7 @@ import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInterac
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
@@ -102,7 +103,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     protected void registerPresenter() {
-        if (blockClosedCard() || blockDuplicateIitVisit()) {
+        if (blockClosedCard() || blockDuplicateIitVisit() || blockNewChildEidVisitWhilePending()) {
             finish();
             return;
         }
@@ -203,7 +204,8 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     public void submitVisit() {
-        if (submitting || closureConfirmationOpen || blockClosedCard() || blockDuplicateIitVisit()) return;
+        if (submitting || closureConfirmationOpen || blockClosedCard() || blockDuplicateIitVisit()
+                || blockNewChildEidVisitWhilePending()) return;
         if (!isFollowUpVisit()) {
             MotherMentorMotherClosure preview = getMotherClosurePreview();
             if (preview.isClosed()) {
@@ -254,7 +256,8 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     protected void submitConfirmedVisit() {
-        if (submitting || blockClosedCard() || blockDuplicateIitVisit()) return;
+        if (submitting || blockClosedCard() || blockDuplicateIitVisit()
+                || blockNewChildEidVisitWhilePending()) return;
         submitting = true;
         if (tvSubmit != null) tvSubmit.setEnabled(false);
         super.submitVisit();
@@ -339,6 +342,17 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             return false;
         }
         displayToast(getString(org.smartregister.chw.mothermentor.R.string.mothermentor_visit_conducted));
+        finish();
+        return true;
+    }
+
+    private boolean blockNewChildEidVisitWhilePending() {
+        if (!isFollowUpVisit() || getFollowUpType() != MotherMentorFollowUpType.CHILD_EID
+                || Boolean.TRUE.equals(isEditMode) || baseEntityID == null
+                || MotherMentorChildEidResultEvent.pending(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityID) == null) return false;
+        displayToast(getString(org.smartregister.chw.R.string.mothermentor_child_follow_up_wait_for_result));
         finish();
         return true;
     }

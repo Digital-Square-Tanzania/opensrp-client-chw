@@ -682,6 +682,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                             || !childId.equals(memberObject.getBaseEntityId())) return;
                     childProfileUi.bind(this, child, identity,
                             new org.joda.time.LocalDate(getVisitAvailabilityDate()), followUpRoleView);
+                    if (pending && textViewRecordMotherMentor != null) {
+                        textViewRecordMotherMentor.setVisibility(View.GONE);
+                    }
                     showChildEidResultAction(pending);
                 });
             } catch (Exception e) {
@@ -702,7 +705,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         action.setOnClickListener(view -> openChildEidResultForm());
     }
 
-    private PendingSample pendingChildEidResult(String childId) {
+    protected PendingSample pendingChildEidResult(String childId) {
         return MotherMentorChildEidResultEvent.pending(
                 ChwApplication.getInstance().getRepository().getReadableDatabase(), childId);
     }
@@ -1907,6 +1910,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                     continueService();
                     return;
                 }
+            }
+            if (isChildEidProfile() && pendingChildEidResult(memberObject.getBaseEntityId()) != null) {
+                setupButtons();
+                return;
             }
             MotherMentorVisitActivity.startMotherMentorFollowUpVisitActivity(
                     this, memberObject.getBaseEntityId(), false, getFollowUpType());
