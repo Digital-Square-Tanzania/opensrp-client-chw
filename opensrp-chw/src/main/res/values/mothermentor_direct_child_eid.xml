@@ -1,0 +1,7 @@
+<resources>
+    <item name="action_mothermentor_direct_child_eid" type="id" />
+    <string name="mothermentor_direct_child_eid">Follow-up for children who missed testing</string>
+    <string name="mothermentor_direct_child_eid_unavailable">This child is no longer eligible for direct Child EID enrollment.</string>
+    <string name="mothermentor_direct_child_eid_saved">Child enrolled for EID follow-up.</string>
+    <string name="mothermentor_direct_child_eid_edit">Edit enrollment</string>
+</resources>

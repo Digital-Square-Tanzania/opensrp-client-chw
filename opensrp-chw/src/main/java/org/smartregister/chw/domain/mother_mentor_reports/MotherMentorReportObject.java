@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdCounsellingDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
@@ -325,7 +326,7 @@ public class MotherMentorReportObject extends ReportObject {
                 + " WHEN a.confirmatory_result = 'negative' THEN 'negative' ELSE 'positive' END"
                 + " ELSE a.raw_result END AS final_result, " + normalizeDate("a.raw_test_date")
                 + " AS final_test_date FROM answers a)";
-        String knownStage = "v.test_stage IN ('week_6', 'month_9',"
+        String knownStage = "v.test_stage IN ('at_birth', 'week_6', 'month_9',"
                 + " 'three_months_after_breastfeeding', 'month_18', 'not_applicable')";
         String knownAttendance = "v.attendance IN ('yes', 'no', 'not_applicable') AND ("
                 + "v.attendance <> 'yes' OR (" + validDate("v.attendance_date")
@@ -731,7 +732,7 @@ public class MotherMentorReportObject extends ReportObject {
         String visits = "(" + childAttendanceVisits() + ")";
         String knownStage =
                 selectedStage
-                        + " IN ('week_6', 'month_9', 'three_months_after_breastfeeding',"
+                        + " IN ('at_birth', 'week_6', 'month_9', 'three_months_after_breastfeeding',"
                         + " 'month_18', 'not_applicable')";
         String knownAttendance =
                 attendance
@@ -807,10 +808,16 @@ public class MotherMentorReportObject extends ReportObject {
         String prior = detail(DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE);
         String reviewing = "(" + returnFlow + " AND " + prior
                 + " IN ('awaiting_result', 'awaiting_confirm'))";
+        // Direct referral and confirmation are for an existing sample and have no scheduled attendance.
+        String directReferral = detail(DBConstants.KEY.MTOTO_ENTRY_SOURCE) + " = '"
+                + MotherMentorChildEidDirectEnrollment.SOURCE + "' AND " + prior + " IN ('none', '"
+                + MotherMentorChildEidDirectEnrollment.CONFIRMATION_NEEDED + "', '"
+                + MotherMentorChildEidDirectEnrollment.CONFIRMATION_REFERRED + "')";
         String selectedStage = "coalesce(nullif(" + detail(DBConstants.KEY.CHILD_EID_TEST_TYPE)
                 + ", ''), CASE WHEN " + reviewing + " THEN " + detail(DBConstants.KEY.MTOTO_PENDING_TEST)
                 + " WHEN " + returnFlow + " THEN " + detail(DBConstants.KEY.MTOTO_RUFAA_TEST) + " END)";
         String stage = "CASE " + selectedStage
+                + " WHEN 'at_birth' THEN 'at_birth'"
                 + " WHEN 'six_weeks' THEN 'week_6' WHEN 'wiki6' THEN 'week_6'"
                 + " WHEN 'nine_months' THEN 'month_9' WHEN 'miezi9' THEN 'month_9'"
                 + " WHEN 'three_months_after_weaning' THEN 'three_months_after_breastfeeding'"
@@ -848,6 +855,7 @@ public class MotherMentorReportObject extends ReportObject {
                 + " AS attendance_date, CASE WHEN " + reviewing + " THEN 1 ELSE 0 END AS result_review"
                 + " FROM visits v WHERE " + finalized
                 + " AND " + childEidAt(serviceDate())
+                + " AND NOT coalesce((" + directReferral + "), 0)"
                 + (includeResultReview ? "" : " AND NOT coalesce(" + reviewing + ", 0)");
     }
 
