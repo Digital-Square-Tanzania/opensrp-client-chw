@@ -223,7 +223,7 @@ public class MotherMentorChildEidRepository {
     }
 
     private String householdName(Person child) {
-        try (Cursor cursor = database.rawQuery("SELECT " + DBConstants.KEY.FAMILY_NAME
+        try (Cursor cursor = database.rawQuery("SELECT " + DBConstants.KEY.FIRST_NAME
                 + " FROM ec_family WHERE " + DBConstants.KEY.BASE_ENTITY_ID + " = ?",
                 new String[]{child.familyId()})) {
             return cursor.moveToFirst() ? cursor.getString(0) : "";
