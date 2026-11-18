@@ -24,6 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.joda.time.LocalDate;
@@ -599,14 +601,19 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         super.setupViews();
         TextView toolbarTitle = findViewById(org.smartregister.chw.mothermentor.R.id.toolbar_title);
         if (toolbarTitle != null) {
-            toolbarTitle.setText(
-                    isFollowUpProfile()
-                            ? R.string.mothermentor_back_to_follow_up_clients
-                            : org.smartregister.chw.mothermentor.R.string
-                                    .return_to_mothermentor_clients);
+            if (isChildEidProfile()) {
+                toolbarTitle.setText(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_title);
+                Toolbar toolbar = findViewById(org.smartregister.chw.mothermentor.R.id.collapsing_toolbar);
+                if (toolbar != null) {
+                    toolbar.setNavigationContentDescription(R.string.mothermentor_back_to_follow_up_clients);
+                }
+            } else {
+                toolbarTitle.setText(isFollowUpProfile() ? R.string.mothermentor_back_to_follow_up_clients
+                        : org.smartregister.chw.mothermentor.R.string.return_to_mothermentor_clients);
+            }
         }
         updateFollowUpRole();
-        positionChildEidPill();
+        if (isChildEidProfile()) childProfileUi.positionHeader(this, followUpRoleView);
         refreshChildEidDetails();
         updateIitHighRiskTag();
         updatePregnancyWeek();
@@ -642,16 +649,6 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     private boolean isChildEidProfile() {
         return isFollowUpProfile() && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID;
-    }
-
-    private void positionChildEidPill() {
-        if (!isChildEidProfile() || followUpRoleView == null || imageView == null
-                || !(imageView.getParent() instanceof ViewGroup)) return;
-        ensureProfileImageTagRow();
-        if (followUpRoleView.getParent() != iitProfileImageRow) {
-            ((ViewGroup) followUpRoleView.getParent()).removeView(followUpRoleView);
-            iitProfileImageRow.addView(followUpRoleView);
-        }
     }
 
     protected MotherMentorChildEidRepository.State loadChildEidState(String childId) {
@@ -1475,9 +1472,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private void hideDeceasedClientActionViews() {
         showChildEidResultAction(false);
         if (textViewRecordMotherMentor != null) {
-            boolean closed = isServiceCardClosed();
-            textViewRecordMotherMentor.setVisibility(closed ? View.VISIBLE : View.GONE);
-            if (closed) {
+            boolean showDisabled = !isChildEidProfile() && isServiceCardClosed();
+            textViewRecordMotherMentor.setVisibility(showDisabled ? View.VISIBLE : View.GONE);
+            if (showDisabled) {
                 textViewRecordMotherMentor.setEnabled(false);
                 textViewRecordMotherMentor.setAlpha(0.5f);
             }
@@ -1935,8 +1932,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             rlLastVisit.setVisibility(View.VISIBLE);
             view_last_visit_row.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
-            ((TextView) findViewById(org.smartregister.chw.mothermentor.R.id.ivViewHistoryArrow))
-                    .setText(getString(R.string.mothermentor_view_visit_history, visitCount));
+            TextView history = findViewById(org.smartregister.chw.mothermentor.R.id.ivViewHistoryArrow);
+            history.setText(getString(R.string.mothermentor_view_visit_history, visitCount));
+            if (isChildEidProfile()) {
+                history.setTextColor(getResources().getColor(org.smartregister.chw.mothermentor.R.color.mama_kinara_text));
+            }
             rlLastVisit.setOnClickListener(view -> openMedicalHistory());
             ivViewHistoryArrow.setOnClickListener(view -> openMedicalHistory());
         } else {
