@@ -2,8 +2,14 @@ package org.smartregister.chw.interactor;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.Visibility.VISIBLE;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.*;
 import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
 
@@ -376,6 +382,34 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             }
         }
         return null;
+    }
+
+    @Test
+    public void wikiSixPendingAnswerImmediatelyShowsTheFacilityPrompt() throws Exception {
+        String originalLanguage = LangUtils.getLanguage(context);
+        LangUtils.saveLanguage(context, "sw");
+        useLanguage("sw");
+        try {
+            LocalDate dob = LocalDate.now().minusDays(70);
+            BaseMotherMentorVisitAction attendance = byForm(
+                    actions(new MotherServiceFixture("breast_feeding", dob.toString()), 7),
+                    "mothermentor_visit_type");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "repeat");
+                select(activity, FOLLOW_UP_STATUS, "found");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                select(activity, MAMA_HEI_TEST_DONE, "yes");
+                String prompt = "Fuatilia majibu kituoni.";
+                onView(allOf(withText(prompt), withEffectiveVisibility(VISIBLE))).check(doesNotExist());
+                select(activity, MAMA_HEI_TEST_RESULT, "pending");
+                onView(allOf(withText(prompt), withEffectiveVisibility(VISIBLE))).check(matches(withText(prompt)));
+                select(activity, MAMA_HEI_TEST_RESULT, "negative");
+                onView(allOf(withText(prompt), withEffectiveVisibility(VISIBLE))).check(doesNotExist());
+            });
+        } finally {
+            LangUtils.saveLanguage(context, originalLanguage);
+        }
     }
 
     private void withWizard(BaseMotherMentorVisitAction action,

@@ -70,12 +70,9 @@ public class MotherMentorClientRegisterProvider
                 metadata,
                 childAge.isEmpty() ? sexLabel(value(columns, DBConstants.KEY.GENDER)) : childAge);
         addNonEmpty(metadata, value(columns, DBConstants.KEY.VILLAGE_TOWN));
-        if (!closed && "pending".equals(value(columns, DBConstants.KEY.MAMA_BIRTH_TEST_RESULT))
-                && MotherMentorChildEidResultOverdue.isOverdue(MotherMentorHeiSchedule.Stage.AT_BIRTH,
-                        MotherMentorHeiSchedule.parseDate(value(columns, DBConstants.KEY.MAMA_BIRTH_TEST_DATE)),
-                        LocalDate.now())) {
-            metadata.add(context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_result_overdue));
-        }
+        LocalDate resultDeadline = MotherMentorHeiSchedule.parseDate(
+                value(columns, DBConstants.KEY.MAMA_HEI_RESULT_DEADLINE));
+        boolean overdue = !closed && MotherMentorChildEidResultOverdue.isOverdue(resultDeadline, LocalDate.now());
         SpannableString details = new SpannableString(TextUtils.join(" · ", metadata));
         details.setSpan(
                 new ForegroundColorSpan(ContextCompat.getColor(context, R.color.mama_kinara_blue)),
@@ -87,6 +84,7 @@ public class MotherMentorClientRegisterProvider
         holder.itemView.setAlpha(closed ? 0.55f : 1f);
         holder.closedTag.setVisibility(closed ? View.VISIBLE : View.GONE);
         holder.metadata.setText(details);
+        holder.overdueTag.setVisibility(overdue ? View.VISIBLE : View.GONE);
         holder.ctcVisits.setText(
                 context.getString(
                         R.string.mama_kinara_ctc_and_visits,
@@ -98,14 +96,12 @@ public class MotherMentorClientRegisterProvider
                 org.smartregister.chw.mothermentor.R.id.VIEW_ID,
                 BaseMotherMentorRegisterFragment.CLICK_VIEW_NORMAL);
         holder.itemView.setOnClickListener(rowListener);
-        holder.itemView.setContentDescription(
-                TextUtils.join(
-                        ". ",
-                        new CharSequence[] {
-                            holder.name.getText(),
-                            holder.metadata.getText(),
-                            holder.ctcVisits.getText()
-                        }));
+        List<CharSequence> summary = new ArrayList<>();
+        summary.add(holder.name.getText());
+        summary.add(details);
+        if (overdue) summary.add(holder.overdueTag.getText());
+        summary.add(holder.ctcVisits.getText());
+        holder.itemView.setContentDescription(TextUtils.join(". ", summary));
     }
 
     private String nameAndAge(Map<String, String> columns) {
@@ -275,6 +271,7 @@ public class MotherMentorClientRegisterProvider
         final TextView metadata;
         final TextView ctcVisits;
         final TextView closedTag;
+        final TextView overdueTag;
 
         ClientViewHolder(View view) {
             super(view);
@@ -282,6 +279,7 @@ public class MotherMentorClientRegisterProvider
             metadata = view.findViewById(R.id.mama_kinara_client_metadata);
             ctcVisits = view.findViewById(R.id.mama_kinara_ctc_visits);
             closedTag = view.findViewById(org.smartregister.chw.mothermentor.R.id.mama_kinara_client_closed_tag);
+            overdueTag = view.findViewById(org.smartregister.chw.mothermentor.R.id.mama_kinara_client_result_overdue);
         }
     }
 

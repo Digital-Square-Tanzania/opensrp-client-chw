@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
@@ -287,6 +288,8 @@ public class MotherMentorVisitSyncInstrumentedTest {
                 .put(EVENT_DATE_TIMESTAMP, visitDay.toString()).put("obs", answers).toString());
         database.insertOrThrow(VisitRepository.VISIT_TABLE, null, visit);
 
+        MotherMentorMotherChildRepository.rebuild(database, mother);
+        assertEquals(dob.plusDays(7).toString(), resultDeadline(mother));
         List<PendingTest> pending = MotherMentorMotherResultEvent.pending(database, mother, today);
         assertEquals(2, pending.size());
         PendingTest birth = pending.get(0);
@@ -299,12 +302,26 @@ public class MotherMentorVisitSyncInstrumentedTest {
         pending = MotherMentorMotherResultEvent.pending(database, mother, today);
         assertEquals(1, pending.size());
         assertEquals(Stage.SIX_WEEKS, pending.get(0).getStage());
+        assertFalse(pending.get(0).isOverdue(today));
+        assertEquals(visitDay.plusDays(14).toString(), resultDeadline(mother));
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, pending.get(0), returned, today));
+        assertTrue(MotherMentorMotherResultEvent.pending(database, mother, today).isEmpty());
+        assertEquals("", resultDeadline(mother));
         assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
         try (Cursor row = database.rawQuery("SELECT " + MAMA_BIRTH_TEST_RESULT + " FROM "
                 + Constants.TABLES.MOTHERMENTOR_ENROLLMENT + " WHERE " + BASE_ENTITY_ID + " = ?",
                 new String[] {mother})) {
             assertTrue(row.moveToFirst());
             assertEquals("negative", row.getString(0));
+        }
+    }
+
+    private String resultDeadline(String mother) {
+        try (Cursor row = database.rawQuery("SELECT " + MAMA_HEI_RESULT_DEADLINE + " FROM "
+                + Constants.TABLES.MOTHERMENTOR_ENROLLMENT + " WHERE " + BASE_ENTITY_ID + " = ?",
+                new String[] {mother})) {
+            assertTrue(row.moveToFirst());
+            return row.getString(0);
         }
     }
 
