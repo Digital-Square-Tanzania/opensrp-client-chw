@@ -5254,6 +5254,14 @@
           }
         },
         {
+          "column_name": "partner_next_follow_up_phase",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_next_follow_up_phase"
+          }
+        },
+        {
           "column_name": "mwenzi_status",
           "type": "Event",
           "json_mapping": {

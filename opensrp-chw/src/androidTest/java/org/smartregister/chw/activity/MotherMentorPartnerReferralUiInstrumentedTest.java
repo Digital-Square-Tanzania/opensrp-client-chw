@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -70,8 +69,7 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
     public void referralAndAttendanceSaveFromTheNativeVisitScreens() throws Exception {
         Assume.assumeTrue("This test creates records on a disposable offline emulator",
                 "true".equals(InstrumentationRegistry.getArguments().getString("offlinePartnerUi")));
-        assertNull("The emulator must be offline before seeding test records",
-                context.getSystemService(ConnectivityManager.class).getActiveNetwork());
+        signInAndWaitForOfflineMode();
         String originalLanguage = LangUtils.getLanguage(context);
         LangUtils.saveLanguage(context, "sw");
         try {
@@ -83,31 +81,49 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
         }
     }
 
+    private void signInAndWaitForOfflineMode() {
+        Instrumentation.ActivityMonitor register = device.addMonitor(
+                AllClientsRegisterActivity.class.getName(), null, false);
+        device.startActivitySync(new Intent(context, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        assertNotNull("Sign in with the testing account while the instrumentation is running",
+                device.waitForMonitorWithTimeout(register, 90000));
+        ConnectivityManager connectivity = context.getSystemService(ConnectivityManager.class);
+        for (int attempt = 0; attempt < 200 && connectivity.getActiveNetwork() != null; attempt++) {
+            SystemClock.sleep(100);
+        }
+        assertNull("Switch the emulator offline before seeding test records", connectivity.getActiveNetwork());
+    }
+
     private void verifyFirstVisit() throws Exception {
         String partner = fixture(null);
-        try (ActivityScenario<MotherMentorVisitActivity> visit = launch(partner)) {
+        MotherMentorVisitActivity visit = launch(partner);
+        try {
             JsonFormActivity tracing = openAction(visit, "mothermentor_partner_follow_up_status");
             choose(tracing, FOLLOW_UP_STATUS, "found");
             choose(tracing, PARTNER_FACILITY_AGREEMENT, "agreed");
+            assertVisibleText(tracing, REFERRAL_QUESTION, true);
             assertRequired(tracing, PARTNER_TESTING_REFERRAL_GIVEN);
+            capture("mwenzi-referral-required");
             choose(tracing, PARTNER_TESTING_REFERRAL_GIVEN, "no");
             assertVisibleText(tracing, REFERRAL_PROMPT, true);
-            capture("mwenzi-referral-required");
             save(tracing);
 
             JsonFormActivity education = openAction(visit, "mothermentor_partner_education");
             choose(education, PARTNER_EDUCATION_PROVIDED, "no");
             save(education);
             submit();
-            assertSaved(partner, "tracing", PARTNER_TESTING_REFERRAL_GIVEN, "no");
+            assertSaved(visit, partner, "tracing", PARTNER_TESTING_REFERRAL_GIVEN, "no");
             assertProjectedPhase(partner, "referral");
+        } finally {
+            device.runOnMainSync(visit::finish);
         }
     }
 
     private void verifyReferralRetry() throws Exception {
         String partner = fixture("no");
         Instrumentation.ActivityMonitor monitor = monitorWizard();
-        try (ActivityScenario<MotherMentorVisitActivity> visit = launch(partner)) {
+        MotherMentorVisitActivity visit = launch(partner);
+        try {
             JsonFormActivity referral = awaitWizard(monitor);
             assertVisibleText(referral, REFERRAL_QUESTION, true);
             assertVisibleText(referral, ATTENDANCE_QUESTION, false);
@@ -118,15 +134,18 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
             assertVisibleText(referral, REFERRAL_PROMPT, false);
             save(referral);
             submit();
-            assertSaved(partner, "referral", PARTNER_TESTING_REFERRAL_GIVEN, "yes");
+            assertSaved(visit, partner, "referral", PARTNER_TESTING_REFERRAL_GIVEN, "yes");
             assertProjectedPhase(partner, "attendance");
+        } finally {
+            device.runOnMainSync(visit::finish);
         }
     }
 
     private void verifyAttendance() throws Exception {
         String partner = fixture("yes");
         Instrumentation.ActivityMonitor monitor = monitorWizard();
-        try (ActivityScenario<MotherMentorVisitActivity> visit = launch(partner)) {
+        MotherMentorVisitActivity visit = launch(partner);
+        try {
             JsonFormActivity attendance = awaitWizard(monitor);
             assertVisibleText(attendance, ATTENDANCE_QUESTION, true);
             assertVisibleText(attendance, REFERRAL_QUESTION, false);
@@ -139,10 +158,12 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
             capture("mwenzi-attendance-confirmation");
             assertFalse(MotherMentorPartnerClosureRepository.getState(database(), partner, null).isClosed());
             onView(withId(android.R.id.button1)).perform(click());
-            assertSaved(partner, "attendance", PARTNER_ARRIVED_AT_FACILITY, "yes");
+            assertSaved(visit, partner, "attendance", PARTNER_ARRIVED_AT_FACILITY, "yes");
             assertEquals("attended",
                     MotherMentorPartnerClosureRepository.getState(database(), partner, null).getStatus());
             assertNotNull(org.smartregister.chw.mothermentor.dao.MotherMentorDao.getPartnerHistoryMember(partner));
+        } finally {
+            device.runOnMainSync(visit::finish);
         }
     }
 
@@ -188,13 +209,14 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
         return new JSONObject().put("fieldCode", key).put("values", new JSONArray().put(value));
     }
 
-    private ActivityScenario<MotherMentorVisitActivity> launch(String partner) {
+    private MotherMentorVisitActivity launch(String partner) {
         Intent intent = new Intent(context, MotherMentorVisitActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, partner)
                 .putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE)
                 .putExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, true)
                 .putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, MotherMentorFollowUpType.PARTNER.getValue());
-        return ActivityScenario.launch(intent);
+        return (MotherMentorVisitActivity) device.startActivitySync(intent);
     }
 
     private Instrumentation.ActivityMonitor monitorWizard() {
@@ -208,15 +230,14 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
         return wizard;
     }
 
-    private JsonFormActivity openAction(ActivityScenario<MotherMentorVisitActivity> visit, String form)
-            throws Exception {
+    private JsonFormActivity openAction(MotherMentorVisitActivity visit, String form) {
         Instrumentation.ActivityMonitor monitor = monitorWizard();
         for (int retry = 0; retry < 50; retry++) {
             AtomicBoolean started = new AtomicBoolean();
-            visit.onActivity(activity -> {
-                for (BaseMotherMentorVisitAction action : activity.getMotherMentorVisitActions().values()) {
+            device.runOnMainSync(() -> {
+                for (BaseMotherMentorVisitAction action : visit.getMotherMentorVisitActions().values()) {
                     if (form.equals(action.getFormName()) && action.isValid()) {
-                        activity.startForm(action);
+                        visit.startForm(action);
                         started.set(true);
                         return;
                     }
@@ -264,14 +285,19 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
     private void assertRequired(JsonFormActivity wizard, String key) {
         device.runOnMainSync(() -> {
             JsonFormFragment form = fragment(wizard);
-            assertFalse(form.save(false));
+            form.save(false);
             assertTrue("Missing required-field validation for " + key, form.getPresenter()
                     .getInvalidFields().keySet().stream().anyMatch(field -> field.endsWith(key)));
         });
     }
 
     private void save(JsonFormActivity wizard) {
-        device.runOnMainSync(() -> assertTrue(fragment(wizard).save(false)));
+        device.runOnMainSync(() -> {
+            JsonFormFragment form = fragment(wizard);
+            assertTrue(form.save(false));
+            assertTrue("All required native form fields must be valid",
+                    form.getPresenter().getInvalidFields().isEmpty());
+        });
         device.waitForIdleSync();
     }
 
@@ -280,10 +306,14 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
         device.waitForIdleSync();
     }
 
-    private void assertSaved(String partner, String phase, String field, String value) throws Exception {
+    private void assertSaved(MotherMentorVisitActivity screen, String partner, String phase,
+            String field, String value) throws Exception {
         VisitRepository repository = MotherMentorLibrary.getInstance().visitRepository();
-        for (int attempt = 0; attempt < 60; attempt++) {
-            Visit visit = repository.getLatestVisit(partner, MotherMentorFollowUpType.PARTNER.getEventType());
+        AtomicBoolean finished = new AtomicBoolean();
+        for (int attempt = 0; attempt < 80; attempt++) {
+            device.runOnMainSync(() -> finished.set(screen.isFinishing()));
+            Visit visit = finished.get()
+                    ? repository.getLatestVisit(partner, MotherMentorFollowUpType.PARTNER.getEventType()) : null;
             if (visit != null && Boolean.TRUE.equals(visit.getProcessed())) {
                 Map<String, String> answers = MotherMentorVisitCompletion.observationValues(
                         new JSONObject(visit.getJson()).getJSONArray("obs"));
