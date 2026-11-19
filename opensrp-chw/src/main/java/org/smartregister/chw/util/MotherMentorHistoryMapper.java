@@ -76,6 +76,11 @@ public final class MotherMentorHistoryMapper {
                             "encounter_date", "encounter_location", "encounter_type", "gps",
                             "latitude", "longitude", "location_id", "provider_id", "team_id",
                             DBConstants.KEY.HOUSEHOLD_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA,
+                            DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE,
+                            DBConstants.KEY.PARTNER_LINKAGE_ID,
+                            DBConstants.KEY.PARTNER_MOTHER_PREGNANT,
+                            DBConstants.KEY.PARTNER_FOLLOW_UP_END,
                             DBConstants.KEY.MWENZI_STATUS,
                             DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA,
                             DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
@@ -281,7 +286,12 @@ public final class MotherMentorHistoryMapper {
             return Arrays.asList(
                     "mothermentor_partner_follow_up_status",
                     "mothermentor_partner_non_attendance_reason",
+                    "mothermentor_partner_testing_referral",
                     "mothermentor_partner_arrival",
+                    "mothermentor_partner_education",
+                    "mothermentor_partner_hiv_test",
+                    "mothermentor_partner_syphilis_test",
+                    "mothermentor_partner_hepatitis_b_test",
                     "mothermentor_partner_follow_up_comment");
         }
         if (MotherMentorFollowUpType.CHILD_EID.getEventType().equals(type)

@@ -32,12 +32,6 @@ public class MotherMentorReportObject extends ReportObject {
         "4-not-found",
         "4-died",
         "4-refused",
-        "8-hiv-positive",
-        "8-hiv-negative",
-        "8-syphilis-positive",
-        "8-syphilis-negative",
-        "8-hepatitis-b-positive",
-        "8-hepatitis-b-negative",
         "9-boys",
         "9-girls",
         "10-boys",
@@ -54,19 +48,6 @@ public class MotherMentorReportObject extends ReportObject {
         "18-refused"
     };
     private static final List<String> RESULT_COLUMNS = createResultColumns();
-    private static final String[][] PARTNER_TESTS = {
-        {"hiv", DBConstants.KEY.PARTNER_HIV_TESTED, DBConstants.KEY.PARTNER_HIV_RESULT,
-                DBConstants.KEY.PARTNER_HIV_NOT_TESTED_REASON,
-                DBConstants.KEY.PARTNER_HIV_NOT_TESTED_REASON_OTHER},
-        {"syphilis", DBConstants.KEY.PARTNER_SYPHILIS_TESTED, DBConstants.KEY.PARTNER_SYPHILIS_RESULT,
-                DBConstants.KEY.PARTNER_SYPHILIS_NOT_TESTED_REASON,
-                DBConstants.KEY.PARTNER_SYPHILIS_NOT_TESTED_REASON_OTHER},
-        {"hepatitis_b", DBConstants.KEY.PARTNER_HEPATITIS_B_TESTED,
-                DBConstants.KEY.PARTNER_HEPATITIS_B_RESULT,
-                DBConstants.KEY.PARTNER_HEPATITIS_B_NOT_TESTED_REASON,
-                DBConstants.KEY.PARTNER_HEPATITIS_B_NOT_TESTED_REASON_OTHER}
-    };
-
     public MotherMentorReportObject(Date reportDate) {
         super(reportDate);
     }
@@ -96,7 +77,7 @@ public class MotherMentorReportObject extends ReportObject {
         putTracingIndicators(result, 18, false);
         putChildAttendanceIndicator(result, 9, "week_6", 0);
         putChildAttendanceIndicator(result, 10, "month_9", 1);
-        putPartnerTestingIndicators(result);
+        putPartnerReferralIndicator(result);
         putFinalChildHivIndicators(result);
         putPartnerEducationIndicators(result);
         putCommunityIndicators(result);
@@ -106,45 +87,20 @@ public class MotherMentorReportObject extends ReportObject {
         return result;
     }
 
-    private void putPartnerTestingIndicators(JSONObject result) throws JSONException {
-        String visits = partnerReportVisits();
-        Integer missing = missingRecords(visits, inMonth("v.service_date"), partnerEvidenceKnown(true));
-        if (missing == null) return;
-        result.put("mm-8-missing-records", missing);
-        if (missing > 0) return;
-
-        StringBuilder tests = new StringBuilder();
-        for (String[] test : PARTNER_TESTS) {
-            if (tests.length() > 0) tests.append(" UNION ALL ");
-            tests.append("SELECT v.*, '").append(test[0]).append("' AS disease, ")
-                    .append(partnerValue(test[2])).append(" AS result FROM partner_visits v WHERE ")
-                    .append(partnerTestAttendance()).append(" AND ")
-                    .append(partnerValue(test[1])).append(" = 'yes'");
-        }
-        // First qualifying test in the maternal enrollment episode wins across all history.
-        // Filtering the month before this step would recount tests on a later follow-up/linkage.
-        String cte = "WITH partner_visits AS (" + visits + "), test_results AS (" + tests
-                + "), first_results AS (SELECT v.* FROM test_results v WHERE NOT EXISTS"
-                + " (SELECT 1 FROM test_results n WHERE n." + DBConstants.KEY.BASE_ENTITY_ID
-                + " = v." + DBConstants.KEY.BASE_ENTITY_ID + " AND n."
-                + DBConstants.KEY.MOTHER_PREGNANCY_EPISODE_ID + " = v."
-                + DBConstants.KEY.MOTHER_PREGNANCY_EPISODE_ID
-                + " AND n.disease = v.disease AND " + earlierVisit() + ")) ";
-        String month = "SELECT * FROM first_results v WHERE " + inMonth("v.service_date");
-        putDemographicIndicator(result, "mm-8", cte + demographicQuery(
-                serviceClientSource(firstClientVisit(month), true), 180, Integer.MAX_VALUE));
-        for (String[] test : PARTNER_TESTS) {
-            for (String outcome : new String[]{"positive", "negative"}) {
-                String source = month + " AND v.disease = '" + test[0]
-                        + "' AND v.result = '" + outcome + "'";
-                String key = "mm-8-" + test[0].replace('_', '-') + "-" + outcome;
-                // Different pregnancy episodes can contribute separate first tests for the same
-                // partner. Only the summary counts distinct people rather than qualifying tests.
-                putDemographicIndicator(result, key, cte + demographicQuery(
-                        serviceClientSource(source, true), 180, Integer.MAX_VALUE,
-                        DBConstants.KEY.VISIT_ID + " || ':' || disease"));
-            }
-        }
+    private void putPartnerReferralIndicator(JSONObject result) throws JSONException {
+        String answer = partnerValue(DBConstants.KEY.PARTNER_TESTING_REFERRAL_GIVEN);
+        String phase = partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE);
+        String visits = "SELECT * FROM (" + partnerReportVisits() + ") v WHERE "
+                + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA) + " = '3' AND ("
+                + phase + " = 'referral' OR (" + phase + " = 'tracing' AND "
+                + partnerValue(DBConstants.KEY.FOLLOW_UP_STATUS) + " = 'found' AND "
+                + partnerValue(DBConstants.KEY.PARTNER_FACILITY_AGREEMENT) + " = 'agreed'))";
+        Integer missing = missingRecords(visits, inMonth("v.service_date"), answer + " IN ('yes', 'no')");
+        if (missing != null) result.put("mm-8-missing-records", missing);
+        String referred = "SELECT * FROM (" + visits + ") v WHERE "
+                + inMonth("v.service_date") + " AND " + answer + " = 'yes'";
+        putDemographicIndicator(result, "mm-8", demographicQuery(
+                serviceClientSource(firstClientVisit(referred), true), 180, Integer.MAX_VALUE));
     }
 
     private void putPartnerEducationIndicators(JSONObject result) throws JSONException {
@@ -154,7 +110,7 @@ public class MotherMentorReportObject extends ReportObject {
         result.put("mm-12-missing-records", missing);
         if (missing > 0) return;
         String source = "SELECT * FROM (" + visits + ") v WHERE "
-                + inMonth("v.service_date") + " AND " + partnerPregnant(false)
+                + inMonth("v.service_date") + " AND " + partnerPregnant()
                 + " AND " + partnerEducationPath() + " AND "
                 + partnerValue(DBConstants.KEY.PARTNER_EDUCATION_PROVIDED) + " = 'yes'";
         putDemographicIndicator(result, "mm-12", demographicQuery(
@@ -169,21 +125,16 @@ public class MotherMentorReportObject extends ReportObject {
 
     private String partnerReportVisits() {
         String[] fields = {
-            DBConstants.KEY.FOLLOW_UP_CATEGORY, DBConstants.KEY.FOLLOW_UP_STATUS,
-            DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA, DBConstants.KEY.PARTNER_LINKAGE_ID,
-            DBConstants.KEY.MOTHER_BASE_ENTITY_ID, DBConstants.KEY.MOTHER_PREGNANCY_EPISODE_ID,
+            DBConstants.KEY.FOLLOW_UP_STATUS, DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA,
+            DBConstants.KEY.MOTHER_BASE_ENTITY_ID,
             DBConstants.KEY.PARTNER_MOTHER_PREGNANT, DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE,
-            DBConstants.KEY.PARTNER_FACILITY_AGREEMENT, DBConstants.KEY.PARTNER_NOT_FOUND_REASON,
+            DBConstants.KEY.PARTNER_FACILITY_AGREEMENT, DBConstants.KEY.PARTNER_TESTING_REFERRAL_GIVEN,
+            DBConstants.KEY.PARTNER_NOT_FOUND_REASON,
             DBConstants.KEY.PARTNER_NOT_FOUND_REASON_OTHER, DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY,
             DBConstants.KEY.PARTNER_EDUCATION_PROVIDED, DBConstants.KEY.PARTNER_EDUCATION_TOPICS
         };
         StringBuilder selected = new StringBuilder("SELECT v.*, " + serviceDate() + " AS service_date");
         for (String key : fields) selected.append(", ").append(detail(key)).append(" AS ").append(key);
-        for (String[] test : PARTNER_TESTS) {
-            for (int field = 1; field < test.length; field++) {
-                selected.append(", ").append(detail(test[field])).append(" AS ").append(test[field]);
-            }
-        }
         selected.append(", ").append(normalizeDate(detail(DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE)))
                 .append(" AS ").append(DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE);
         String category = "upper(trim(ifnull(" + detail(DBConstants.KEY.FOLLOW_UP_CATEGORY) + ", '')))";
@@ -207,40 +158,14 @@ public class MotherMentorReportObject extends ReportObject {
         return "trim(ifnull(" + column + ", '')) <> ''";
     }
 
-    private static String partnerPregnant(boolean episodeRequired) {
+    private static String partnerPregnant() {
         return partnerValue(DBConstants.KEY.PARTNER_MOTHER_PREGNANT) + " = 'yes' AND "
-                + answered("v." + DBConstants.KEY.MOTHER_BASE_ENTITY_ID)
-                + (episodeRequired ? " AND " + answered("v." + DBConstants.KEY.MOTHER_PREGNANCY_EPISODE_ID) : "");
-    }
-
-    private static String partnerTestAttendance() {
-        return partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA) + " = '2' AND "
-                + partnerPregnant(true) + " AND "
-                + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE) + " = 'attendance' AND "
-                + partnerValue(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY) + " = 'yes' AND "
-                + partnerArrivalKnown() + " AND " + partnerTestsKnown();
+                + answered("v." + DBConstants.KEY.MOTHER_BASE_ENTITY_ID);
     }
 
     private static String partnerArrivalKnown() {
         String date = "v." + DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE;
         return "(" + validDate(date) + " AND " + date + " <= v.service_date)";
-    }
-
-    private static String partnerTestsKnown() {
-        StringBuilder known = new StringBuilder();
-        for (String[] test : PARTNER_TESTS) {
-            if (known.length() > 0) known.append(" AND ");
-            String tested = partnerValue(test[1]);
-            String reason = partnerValue(test[3]);
-            known.append("((").append(tested).append(" = 'yes' AND ")
-                    .append(partnerValue(test[2])).append(" IN ('positive', 'negative')) OR (")
-                    .append(tested).append(" = 'no' AND ").append(reason)
-                    .append(" IN ('stock_out', 'refused', 'other'")
-                    .append("hiv".equals(test[0]) ? ", 'already_infected')" : ")")
-                    .append(" AND (").append(reason).append(" <> 'other' OR ")
-                    .append(answered("v." + test[4])).append(")))");
-        }
-        return known.toString();
     }
 
     private static String partnerTracingKnown() {
@@ -255,22 +180,20 @@ public class MotherMentorReportObject extends ReportObject {
                 + answered("v." + DBConstants.KEY.PARTNER_NOT_FOUND_REASON_OTHER) + ")))";
     }
 
-    private static String partnerBranchKnown(boolean requireTests) {
+    private static String partnerEvidenceKnown() {
+        String phase = partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE);
         String arrival = partnerValue(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY);
-        return "((" + partnerTracingKnown() + ") OR ("
-                + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE) + " = 'attendance' AND ("
-                + arrival + " = 'no' OR (" + arrival + " = 'yes' AND " + partnerArrivalKnown()
-                + (requireTests ? " AND " + partnerTestsKnown() : "") + "))))";
-    }
-
-    private static String partnerEvidenceKnown(boolean requireTests) {
-        return partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA) + " = '2' AND ("
+        String referral = partnerValue(DBConstants.KEY.PARTNER_TESTING_REFERRAL_GIVEN);
+        return partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA) + " IN ('2', '3') AND ("
                 + partnerValue(DBConstants.KEY.PARTNER_MOTHER_PREGNANT) + " = 'no' OR ("
-                + partnerPregnant(requireTests) + " AND " + partnerBranchKnown(requireTests) + "))";
+                + partnerPregnant() + " AND ((" + partnerTracingKnown() + ") OR ("
+                + phase + " = 'referral' AND " + referral + " IN ('yes', 'no')) OR ("
+                + phase + " = 'attendance' AND (" + arrival + " = 'no' OR (" + arrival
+                + " = 'yes' AND " + partnerArrivalKnown() + "))))))";
     }
 
     private static String partnerEducationPath() {
-        return "(" + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE) + " = 'attendance' OR ("
+        return "(" + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE) + " IN ('attendance', 'referral') OR ("
                 + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE) + " = 'tracing' AND "
                 + partnerValue(DBConstants.KEY.FOLLOW_UP_STATUS) + " = 'found'))";
     }
@@ -278,14 +201,16 @@ public class MotherMentorReportObject extends ReportObject {
     private static String partnerEducationKnown() {
         String provided = partnerValue(DBConstants.KEY.PARTNER_EDUCATION_PROVIDED);
         String topics = partnerValue(DBConstants.KEY.PARTNER_EDUCATION_TOPICS);
-        String noAttendanceWithoutEducation = "("
-                + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE) + " = 'attendance' AND "
-                + partnerValue(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY) + " = 'no' AND NOT "
+        String phase = partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE);
+        String optionalEducation = "((" + phase + " = 'referral' OR (" + phase
+                + " = 'attendance' AND (" + partnerValue(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY)
+                + " = 'no' OR " + partnerValue(DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA)
+                + " = '3'))) AND NOT "
                 + answered("v." + DBConstants.KEY.PARTNER_EDUCATION_PROVIDED) + " AND NOT "
                 + answered("v." + DBConstants.KEY.PARTNER_EDUCATION_TOPICS) + ")";
-        return partnerEvidenceKnown(false) + " AND (NOT " + partnerEducationPath() + " OR "
+        return partnerEvidenceKnown() + " AND (NOT " + partnerEducationPath() + " OR "
                 + partnerValue(DBConstants.KEY.PARTNER_MOTHER_PREGNANT) + " = 'no' OR "
-                + noAttendanceWithoutEducation + " OR "
+                + optionalEducation + " OR "
                 + provided + " = 'no' OR (" + provided + " = 'yes' AND ("
                 + hasToken(topics, "hiv") + " OR " + hasToken(topics, "syphilis")
                 + " OR " + hasToken(topics, "hepatitis_b") + ")))";

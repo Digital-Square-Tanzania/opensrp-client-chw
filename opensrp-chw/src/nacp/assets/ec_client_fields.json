@@ -15026,6 +15026,14 @@
           }
         },
         {
+          "column_name": "partner_testing_referral_given",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_testing_referral_given"
+          }
+        },
+        {
           "column_name": "partner_not_found_reason",
           "type": "Event",
           "json_mapping": {
