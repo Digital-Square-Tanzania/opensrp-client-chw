@@ -583,7 +583,7 @@ public class MotherMentorHistoryMapperTest {
 
     @Test @Config(qualifiers = "en")
     public void childHeiHistoryUsesEnglishQuestionsAndRetainsTheSavedAgreement() {
-        assertChildHeiHistory("Breastfeeding status", "Breastfed", "Test referral status",
+        assertChildHeiHistory("Breastfeeding status", "Breastfeeding", "Test referral status",
                 "Caregiver agreed to take the child to the facility");
     }
 
@@ -591,6 +591,26 @@ public class MotherMentorHistoryMapperTest {
     public void childHeiHistoryUsesSwahiliQuestionsAndRetainsTheSavedAgreement() {
         assertChildHeiHistory("Hali ya unyonyeshaji", "Ananyonyeshwa", "Hali ya rufaa ya kipimo",
                 "Mlezi amekubali kumpeleka mtoto kituoni");
+    }
+
+    @Test @Config(qualifiers = "en")
+    public void mamaKadiHistoryDistinguishesNeverBreastfedFromStoppedInEnglish() {
+        assertMamaKadiFeedingAnswer("never_breastfed", "Never breastfed");
+        assertMamaKadiFeedingAnswer("not_breastfeeding", "Stopped breastfeeding");
+    }
+
+    @Test @Config(qualifiers = "sw")
+    public void mamaKadiHistoryDistinguishesNeverBreastfedFromStoppedInSwahili() {
+        assertMamaKadiFeedingAnswer("never_breastfed", "Hajawahi kunyonyesha");
+        assertMamaKadiFeedingAnswer("not_breastfeeding", "Ameacha kunyonyesha");
+    }
+
+    private void assertMamaKadiFeedingAnswer(String value, String label) {
+        String key = DBConstants.KEY.MAMA_BREASTFEEDING_STATUS;
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        answer(visit, key, value, "stale label");
+        assertEquals(Collections.singletonList(label), row(mapper().map(visit), key).getValues());
     }
 
     @Test @Config(qualifiers = "en")

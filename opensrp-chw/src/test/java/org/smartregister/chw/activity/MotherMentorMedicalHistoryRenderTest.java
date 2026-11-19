@@ -238,6 +238,26 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     }
 
     @Test
+    @Config(qualifiers = "sw")
+    public void firstVisitHistoryRendersTheChildBirthTestWithLocalizedLabels() throws Exception {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        add(visit, "attendance_type", "new", "New");
+        add(visit, "mama_first_visit_assessment", "true", "");
+        Map<String, String> expected = new LinkedHashMap<>();
+        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_child",
+                "mama_birth_test_done", "yes");
+        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_child",
+                "mama_birth_test_result", "pending");
+        LinearLayout cards = render(activity(), null, visit);
+        LinearLayout details = cards.getChildAt(0).findViewById(R.id.visit_details_layout);
+        for (Map.Entry<String, String> entry : expected.entrySet()) {
+            TextView row = details.findViewWithTag(entry.getKey());
+            assertEquals(entry.getValue(), row.getText().toString().trim());
+        }
+        assertNull(details.findViewWithTag("mama_first_visit_assessment"));
+    }
+
+    @Test
     public void onlyLatestVisitCanBeEditedAndRepeatServicesStayInServicesWorkflow() {
         Activity activity = activity();
         Visit first = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);

@@ -23,6 +23,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.model.MotherMentorClientRegisterModel;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragment;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultOverdue;
+import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -59,6 +61,7 @@ public class MotherMentorClientRegisterProvider
     public void getView(Cursor cursor, SmartRegisterClient client, ClientViewHolder holder) {
         CommonPersonObjectClient person = (CommonPersonObjectClient) client;
         Map<String, String> columns = person.getColumnmaps();
+        boolean closed = "1".equals(value(columns, DBConstants.KEY.IS_CLOSED));
         String status = statusLabel(value(columns, MotherMentorClientRegisterModel.CURRENT_STATUS));
         List<String> metadata = new ArrayList<>();
         metadata.add(status);
@@ -67,6 +70,12 @@ public class MotherMentorClientRegisterProvider
                 metadata,
                 childAge.isEmpty() ? sexLabel(value(columns, DBConstants.KEY.GENDER)) : childAge);
         addNonEmpty(metadata, value(columns, DBConstants.KEY.VILLAGE_TOWN));
+        if (!closed && "pending".equals(value(columns, DBConstants.KEY.MAMA_BIRTH_TEST_RESULT))
+                && MotherMentorChildEidResultOverdue.isOverdue(MotherMentorHeiSchedule.Stage.AT_BIRTH,
+                        MotherMentorHeiSchedule.parseDate(value(columns, DBConstants.KEY.MAMA_BIRTH_TEST_DATE)),
+                        LocalDate.now())) {
+            metadata.add(context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_result_overdue));
+        }
         SpannableString details = new SpannableString(TextUtils.join(" · ", metadata));
         details.setSpan(
                 new ForegroundColorSpan(ContextCompat.getColor(context, R.color.mama_kinara_blue)),
@@ -75,7 +84,6 @@ public class MotherMentorClientRegisterProvider
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         holder.name.setText(nameAndAge(columns));
-        boolean closed = "1".equals(value(columns, DBConstants.KEY.IS_CLOSED));
         holder.itemView.setAlpha(closed ? 0.55f : 1f);
         holder.closedTag.setVisibility(closed ? View.VISIBLE : View.GONE);
         holder.metadata.setText(details);

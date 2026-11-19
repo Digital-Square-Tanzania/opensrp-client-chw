@@ -1,21 +1,43 @@
 package org.smartregister.chw.interactor;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
 
+import android.app.Instrumentation;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
+
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
+
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.smartregister.chw.activity.MotherMentorVisitWizardActivity;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.contract.BaseMotherMentorVisitContract;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.interactor.BaseMotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.ChildEidFollowUpVisitInteractor;
@@ -24,8 +46,12 @@ import org.smartregister.chw.mothermentor.interactor.MotherMentorHouseholdVisitI
 import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
 import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInteractor;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
+import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
+import org.smartregister.util.LangUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Proxy;
@@ -37,13 +63,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Exercises the installed library, packaged forms and real executor callbacks on Android. These
- * component tests do not log in, submit visits or modify client records.
+ * Exercises the installed library, packaged forms and real executor callbacks on Android.
+ * Database fixtures are local and use synthetic records.
  */
 @RunWith(AndroidJUnit4.class)
 public class MotherMentorVisitInteractorsInstrumentedTest {
@@ -52,23 +81,15 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
 
     @Test
     public void serviceActionsCompleteAndFollowAttendanceVisibility() throws Exception {
-        Map<String, BaseMotherMentorVisitAction> actions =
-                actions(
-                        new MotherMentorServiceVisitInteractor(
-                                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES) {
-                            @Override
-                            protected MotherMentorMotherVisitDao.Context loadMotherContext(String memberId) {
-                                return new MotherMentorMotherVisitDao.Context(
-                                        "test-enrollment", "", "pregnant", "", "", "", 0);
-                            }
-                        },
-                        6);
+        Map<String, BaseMotherMentorVisitAction> actions = actions(new MotherServiceFixture("pregnant", ""), 7);
         BaseMotherMentorVisitAction attendance = byForm(actions, "mothermentor_visit_type");
         BaseMotherMentorVisitAction education =
                 byForm(actions, "mothermentor_visit_education_provided");
         assertFalse(education.isValid());
         answer(attendance, ATTENDANCE_TYPE, "repeat", FOLLOW_UP_STATUS, "found",
                 VISIT_PREGNANCY_STATUS, "pregnant");
+        BaseMotherMentorVisitAction child = byForm(actions, "mothermentor_visit_child");
+        assertFalse(child.isValid());
         answer(
                 byForm(actions, "mothermentor_visit_group_linkage"),
                 HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP,
@@ -83,6 +104,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 "26-10-2026");
         answer(byForm(actions, "mothermentor_visit_comment"), COMMENTS, "Emulator component test");
         for (BaseMotherMentorVisitAction action : actions.values()) {
+            if (action == child) continue;
             assertTrue(action.getFormName(), action.isValid());
             completed(action);
         }
@@ -93,6 +115,344 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         assertFalse(byForm(actions, "mothermentor_visit_referal").isValid());
         assertFalse(byForm(actions, "mothermentor_next_visit_date").isValid());
         assertTrue(byForm(actions, "mothermentor_visit_comment").isValid());
+    }
+
+    @Test
+    public void mpyaPregnancyAndNewbornAnswersAreRequiredInTheNativeWizard() throws Exception {
+        String originalLanguage = LangUtils.getLanguage(context);
+        LangUtils.saveLanguage(context, "sw");
+        useLanguage("sw");
+        try {
+            Map<String, BaseMotherMentorVisitAction> pregnant = actions(new MotherServiceFixture("pregnant", ""), 7);
+            BaseMotherMentorVisitAction entry = byForm(pregnant, "mothermentor_visit_type");
+            withWizard(entry, activity -> {
+                select(activity, ATTENDANCE_TYPE, "new");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertNull(visibleRadio(root, FOLLOW_UP_STATUS, "found"));
+                    assertNotNull(visibleRadio(root, VISIT_PREGNANCY_STATUS, "pregnant"));
+                    assertSaveBlocked(activity, VISIT_PREGNANCY_STATUS);
+                });
+                select(activity, VISIT_PREGNANCY_STATUS, "pregnant");
+                save(activity, entry);
+            });
+            completed(entry);
+            assertFalse(byForm(pregnant, "mothermentor_visit_child").isValid());
+
+            BaseMotherMentorVisitAction returning = byForm(
+                    actions(new MotherServiceFixture("pregnant", ""), 7), "mothermentor_visit_type");
+            withWizard(returning, activity -> {
+                select(activity, ATTENDANCE_TYPE, "repeat");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertNotNull(visibleRadio(root, FOLLOW_UP_STATUS, "found"));
+                    assertNull(visibleRadio(root, VISIT_PREGNANCY_STATUS, "pregnant"));
+                });
+                select(activity, FOLLOW_UP_STATUS, "found");
+                select(activity, VISIT_PREGNANCY_STATUS, "pregnant");
+                save(activity, returning);
+            });
+            completed(returning);
+
+            String dob = LocalDate.now().minusDays(1).toString();
+            Map<String, BaseMotherMentorVisitAction> postDelivery =
+                    actions(new MotherServiceFixture("breast_feeding", dob), 7);
+            BaseMotherMentorVisitAction attendance = byForm(postDelivery, "mothermentor_visit_type");
+            BaseMotherMentorVisitAction child = byForm(postDelivery, "mothermentor_visit_child");
+            assertFalse(child.isValid());
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "new");
+                onMain(() -> assertNull(visibleRadio(
+                        activity.getWindow().getDecorView(), MAMA_CHILD_STATUS, "alive")));
+                save(activity, attendance);
+            });
+            assertEquals("Mtoto wa 1", child.getTitle());
+            assertTrue(child.isValid());
+            pending(child);
+            withWizard(child, activity -> {
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertNull(visibleRadio(root, MAMA_HEI_TEST_DONE, "no"));
+                    assertNotNull(visibleRadio(root, MAMA_BIRTH_TEST_DONE, "no"));
+                    assertSaveBlocked(activity, MAMA_BIRTH_TEST_DONE);
+                });
+                select(activity, MAMA_BIRTH_TEST_DONE, "yes");
+                onMain(() -> {
+                    assertNotNull(visibleRadio(activity.getWindow().getDecorView(),
+                            MAMA_BIRTH_TEST_RESULT, "pending"));
+                    assertSaveBlocked(activity, MAMA_BIRTH_TEST_DATE);
+                });
+                select(activity, MAMA_BIRTH_TEST_DONE, "no");
+                save(activity, child);
+            });
+            completed(child);
+        } finally {
+            LangUtils.saveLanguage(context, originalLanguage);
+        }
+    }
+
+    @Test
+    public void mamaKadiChangesFeedingOptionsAfterABreastfeedingVisitIsSaved() throws Exception {
+        String originalLanguage = LangUtils.getLanguage(context);
+        LangUtils.saveLanguage(context, "sw");
+        useLanguage("sw");
+        SQLiteDatabase database = ChwApplication.getInstance().getRepository().getWritableDatabase();
+        String motherId = UUID.randomUUID().toString();
+        LocalDate today = LocalDate.now();
+        LocalDate dob = today.minusDays(50);
+        String enrollmentTable = Constants.TABLES.MOTHERMENTOR_ENROLLMENT;
+        try {
+            ContentValues enrollment = new ContentValues();
+            enrollment.put(BASE_ENTITY_ID, motherId);
+            enrollment.put(PREGNANCY_STATUS, "not_pregnant");
+            enrollment.put(CHILD_DOB, dob.toString());
+            enrollment.put(IS_CLOSED, 0);
+            database.insertOrThrow(enrollmentTable, null, enrollment);
+
+            Map<String, BaseMotherMentorVisitAction> firstVisit = mamaKadiActions(motherId);
+            BaseMotherMentorVisitAction attendance = byForm(firstVisit, "mothermentor_visit_type");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "new");
+                save(activity, attendance);
+            });
+            BaseMotherMentorVisitAction child = byForm(firstVisit, "mothermentor_visit_child");
+            assertTrue(child.isValid());
+            withWizard(child, activity -> {
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertFeedingOption(root, "breastfeeding", "Ananyonyesha");
+                    assertFeedingOption(root, "never_breastfed", "Hajawahi kunyonyesha");
+                    assertFeedingOption(root, "not_breastfeeding", "Ameacha kunyonyesha");
+                });
+                select(activity, MAMA_BIRTH_TEST_DONE, "no");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "not_breastfeeding");
+                onMain(() -> assertSaveBlocked(activity, MAMA_TAREHE_ACHA_KUNYONYESHA));
+                select(activity, MAMA_BREASTFEEDING_STATUS, "never_breastfed");
+                select(activity, MAMA_HEI_TEST_DONE, "no");
+                save(activity, child);
+            });
+            completed(child);
+            Map<String, String> answers = MotherMentorMotherChildUtils.values(new JSONObject(child.getJsonPayload()));
+            assertEquals("never_breastfed", answers.get(MAMA_BREASTFEEDING_STATUS));
+            assertEquals("", answers.get(MAMA_TAREHE_ACHA_KUNYONYESHA));
+            assertEquals("six_weeks", answers.get(MAMA_HEI_DUE_TEST));
+
+            saveMotherVisit(database, motherId, today.minusDays(2), answers);
+            assertEquals("never_breastfed", MotherMentorMotherChildRepository.getState(database, motherId, null)
+                    .getBreastfeedingStatus());
+            BaseMotherMentorVisitAction started = byForm(mamaKadiActions(motherId), "mothermentor_visit_type");
+            withWizard(started, activity -> {
+                select(activity, FOLLOW_UP_STATUS, "found");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                assertNeverBreastfedVisible(activity, true);
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                select(activity, MAMA_HEI_TEST_DONE, "no");
+                save(activity, started);
+            });
+            completed(started);
+            saveMotherVisit(database, motherId, today.minusDays(1),
+                    MotherMentorMotherChildUtils.values(new JSONObject(started.getJsonPayload())));
+
+            BaseMotherMentorVisitAction returning = byForm(mamaKadiActions(motherId), "mothermentor_visit_type");
+            withWizard(returning, activity -> {
+                select(activity, FOLLOW_UP_STATUS, "found");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                assertNeverBreastfedVisible(activity, false);
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertFeedingOption(root, "breastfeeding", "Ananyonyesha");
+                    assertFeedingOption(root, "not_breastfeeding", "Ameacha kunyonyesha");
+                });
+            });
+        } finally {
+            database.delete(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID + " = ?", new String[]{motherId});
+            database.delete(enrollmentTable, BASE_ENTITY_ID + " = ?", new String[]{motherId});
+            database.delete(Constants.TABLES.MOTHERMENTOR_MOTHER_CONTEXT, BASE_ENTITY_ID + " = ?",
+                    new String[]{motherId});
+            LangUtils.saveLanguage(context, originalLanguage);
+        }
+    }
+
+    private Map<String, BaseMotherMentorVisitAction> mamaKadiActions(String motherId) throws Exception {
+        MemberObject member = new MemberObject();
+        member.setBaseEntityId(motherId);
+        return actions(new MotherMentorServiceVisitInteractor(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES), 7,
+                member);
+    }
+
+    private void assertFeedingOption(View root, String value, String label) {
+        RadioButton option = visibleRadio(root, MAMA_BREASTFEEDING_STATUS, value);
+        assertNotNull(label, option);
+        assertEquals(label, option.getText().toString());
+    }
+
+    private void assertNeverBreastfedVisible(MotherMentorVisitWizardActivity activity, boolean visible) {
+        onMain(() -> assertEquals(visible, visibleRadio(activity.getWindow().getDecorView(),
+                MAMA_BREASTFEEDING_STATUS, "never_breastfed") != null));
+    }
+
+    private void saveMotherVisit(SQLiteDatabase database, String motherId, LocalDate date,
+            Map<String, String> answers) throws Exception {
+        answers.put(MAMA_ENROLLMENT_ID, MotherMentorMotherVisitDao.getContext(database, motherId).getEnrollmentId());
+        answers.put(MOTHERMENTOR_VISIT_DATE, date.toString());
+        JSONArray observations = new JSONArray();
+        for (Map.Entry<String, String> answer : answers.entrySet()) {
+            if (!answer.getValue().isEmpty()) {
+                observations.put(new JSONObject().put("fieldCode", answer.getKey())
+                        .put("values", new JSONArray().put(answer.getValue())));
+            }
+        }
+        String visitId = UUID.randomUUID().toString();
+        Visit visit = new Visit();
+        visit.setVisitId(visitId);
+        visit.setFormSubmissionId(visitId);
+        visit.setVisitType(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        visit.setBaseEntityId(motherId);
+        Date timestamp = date.toDate();
+        visit.setDate(timestamp);
+        visit.setCreatedAt(timestamp);
+        visit.setUpdatedAt(timestamp);
+        visit.setProcessed(true);
+        visit.setJson(new JSONObject().put(EVENT_FORM_SUBMISSION_ID, visitId)
+                .put(EVENT_DATE_TIMESTAMP, date.toString()).put("obs", observations).toString());
+        MotherMentorLibrary.getInstance().visitRepository().addVisit(visit, database);
+    }
+
+    @Test
+    public void marudioAtSevenWeeksOffersBothTestsAndBoundsTheBirthDatePicker() throws Exception {
+        String originalLanguage = LangUtils.getLanguage(context);
+        LangUtils.saveLanguage(context, "sw");
+        useLanguage("sw");
+        try {
+            LocalDate today = LocalDate.now();
+            LocalDate dob = today.minusDays(49);
+            BaseMotherMentorVisitAction attendance = byForm(
+                    actions(new MotherServiceFixture("breast_feeding", dob.toString()), 7),
+                    "mothermentor_visit_type");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "repeat");
+                select(activity, FOLLOW_UP_STATUS, "found");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                select(activity, MAMA_BIRTH_TEST_DONE, "yes");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertNotNull(visibleRadio(root, MAMA_HEI_TEST_DONE, "no"));
+                    EditText date = birthDateInput(root);
+                    assertNotNull(date);
+                    date.performClick();
+                });
+                onView(isAssignableFrom(DatePicker.class)).check((view, missing) -> {
+                    assertNotNull(view);
+                    DatePicker picker = (DatePicker) view;
+                    assertEquals(dob, new LocalDate(picker.getMinDate()));
+                    assertEquals(dob.plusDays(2), new LocalDate(picker.getMaxDate()));
+                });
+                onView(withId(android.R.id.button1)).perform(click());
+                onMain(() -> assertSaveBlocked(activity, MAMA_BIRTH_TEST_RESULT));
+                select(activity, MAMA_BIRTH_TEST_RESULT, "pending");
+                select(activity, MAMA_HEI_TEST_DONE, "no");
+                save(activity, attendance);
+            });
+            completed(attendance);
+        } finally {
+            LangUtils.saveLanguage(context, originalLanguage);
+        }
+    }
+
+    private EditText birthDateInput(View view) {
+        if (!view.isShown()) return null;
+        if (view instanceof EditText && MAMA_BIRTH_TEST_DATE.equals(view.getTag(com.vijay.jsonwizard.R.id.key))) {
+            return (EditText) view;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int index = 0; index < group.getChildCount(); index++) {
+                EditText date = birthDateInput(group.getChildAt(index));
+                if (date != null) return date;
+            }
+        }
+        return null;
+    }
+
+    private void withWizard(BaseMotherMentorVisitAction action,
+            java.util.function.Consumer<MotherMentorVisitWizardActivity> verify) throws Exception {
+        Intent intent = MotherMentorFormWizardUtils.getFormIntent(context, new JSONObject(action.getJsonPayload()));
+        assertEquals(MotherMentorVisitWizardActivity.class.getName(), intent.getComponent().getClassName());
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        MotherMentorVisitWizardActivity activity =
+                (MotherMentorVisitWizardActivity) instrumentation.startActivitySync(intent);
+        try {
+            instrumentation.waitForIdleSync();
+            verify.accept(activity);
+        } finally {
+            onMain(activity::finish);
+        }
+    }
+
+    private void select(MotherMentorVisitWizardActivity activity, String key, String value) {
+        onMain(() -> {
+            RadioButton option = visibleRadio(activity.getWindow().getDecorView(), key, value);
+            assertNotNull(key + "=" + value, option);
+            option.performClick();
+        });
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+    }
+
+    private void save(MotherMentorVisitWizardActivity activity, BaseMotherMentorVisitAction action) {
+        AtomicReference<String> saved = new AtomicReference<>();
+        onMain(() -> {
+            JsonFormFragment form = fragment(activity);
+            assertTrue(form.save(false));
+            assertTrue(form.getPresenter().getInvalidFields().keySet().toString(),
+                    form.getPresenter().getInvalidFields().isEmpty());
+            saved.set(activity.currentJsonState());
+        });
+        action.setJsonPayload(saved.get());
+    }
+
+    private void assertSaveBlocked(MotherMentorVisitWizardActivity activity, String key) {
+        JsonFormFragment form = fragment(activity);
+        form.save(false);
+        assertTrue(key, form.getPresenter().getInvalidFields().keySet().stream()
+                .anyMatch(field -> field.endsWith(key)));
+        assertFalse(activity.isFinishing());
+    }
+
+    private void onMain(Runnable action) {
+        FutureTask<Void> task = new FutureTask<>(action, null);
+        InstrumentationRegistry.getInstrumentation().runOnMainSync(task);
+        try {
+            task.get();
+        } catch (ExecutionException failure) {
+            throw new AssertionError(failure.getCause());
+        } catch (InterruptedException interrupted) {
+            Thread.currentThread().interrupt();
+            throw new AssertionError(interrupted);
+        }
+    }
+
+    private RadioButton visibleRadio(View view, String key, String value) {
+        if (!view.isShown()) return null;
+        if (view instanceof RadioButton && key.equals(view.getTag(com.vijay.jsonwizard.R.id.key))
+                && value.equals(view.getTag(com.vijay.jsonwizard.R.id.childKey))) return (RadioButton) view;
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                RadioButton candidate = visibleRadio(group.getChildAt(i), key, value);
+                if (candidate != null) return candidate;
+            }
+        }
+        return null;
+    }
+
+    private JsonFormFragment fragment(MotherMentorVisitWizardActivity activity) {
+        return (JsonFormFragment) activity.getSupportFragmentManager()
+                .findFragmentById(com.vijay.jsonwizard.R.id.container);
     }
 
     @Test
@@ -307,7 +667,12 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
 
     private Map<String, BaseMotherMentorVisitAction> actions(
             BaseMotherMentorServiceVisitInteractor interactor, int count) throws Exception {
-        Class<?> implementation = interactor instanceof PartnerFixture
+        return actions(interactor, count, new MemberObject());
+    }
+
+    private Map<String, BaseMotherMentorVisitAction> actions(
+            BaseMotherMentorServiceVisitInteractor interactor, int count, MemberObject member) throws Exception {
+        Class<?> implementation = interactor instanceof PartnerFixture || interactor instanceof MotherServiceFixture
                 ? interactor.getClass().getSuperclass() : interactor.getClass();
         assertEquals("org.smartregister.chw.mothermentor.interactor",
                 implementation.getPackage().getName());
@@ -328,7 +693,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 new AtomicReference<>();
         interactor.calculateActions(
                 view,
-                new MemberObject(),
+                member,
                 new BaseMotherMentorVisitContract.InteractorCallBack() {
                     public void onMemberDetailsReloaded(MemberObject member) {}
 
@@ -410,6 +775,22 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 String partnerId, String excludedVisitId, Date serviceDate) {
             return new MotherMentorPartnerFollowUpDao.Context(
                     "component-link", "component-mother", "component-pregnancy", "yes", attendance, true);
+        }
+    }
+
+    private static final class MotherServiceFixture extends MotherMentorServiceVisitInteractor {
+        private final String pregnancyStatus;
+        private final String dob;
+
+        MotherServiceFixture(String pregnancyStatus, String dob) {
+            super(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+            this.pregnancyStatus = pregnancyStatus;
+            this.dob = dob;
+        }
+
+        @Override
+        protected MotherMentorMotherVisitDao.Context loadMotherContext(String memberId) {
+            return new MotherMentorMotherVisitDao.Context("test-enrollment", "", pregnancyStatus, dob, dob, "", 0);
         }
     }
 
