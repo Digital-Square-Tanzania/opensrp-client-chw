@@ -27,6 +27,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.harmreduction.dao.HarmReductionDao;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
@@ -87,6 +88,12 @@ public class ChwClientProcessor extends CoreClientProcessor {
         if (VaccineIntentService.EVENT_TYPE.equals(eventType)
                 || VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT.equals(eventType)) {
             processVaccinationEvent(eventClient, VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT.equals(eventType));
+            return;
+        }
+
+        if (MotherMentorChildEidResultEvent.EVENT_TYPE.equals(eventType)) {
+            MotherMentorChildEidResultEvent.processEvent(
+                    ChwApplication.getInstance().getRepository().getWritableDatabase(), event);
             return;
         }
 
@@ -706,6 +713,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     && event.getDetails().containsKey(DELETE_FORM_SUBMISSION_ID);
             String submissionId = hasExplicitTarget ? event.getDetails().get(DELETE_FORM_SUBMISSION_ID)
                     : event.getFormSubmissionId();
+            if (MotherMentorChildEidResultEvent.processDeletion(
+                    ChwApplication.getInstance().getRepository().getWritableDatabase(), submissionId)) return;
             deleteMotherMentorVisitsBySubmissionId(submissionId);
             if (hasExplicitTarget) {
                 // delete from vaccine table

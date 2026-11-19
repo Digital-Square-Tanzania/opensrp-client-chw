@@ -1,5 +1,6 @@
 package org.smartregister.chw.repository;
 
+import android.content.Context;
 import android.database.Cursor;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
@@ -7,17 +8,24 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 import org.joda.time.LocalDate;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
+import org.smartregister.chw.mothermentor.dao.MotherMentorChildEidDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
 import org.smartregister.chw.mothermentor.domain.Visit;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
+import org.smartregister.chw.mothermentor.util.MotherMentorJsonFormUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorUtil;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.util.MotherMentorChildEidFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -195,6 +203,71 @@ public class MotherMentorChildEidRepository {
                                 + " = 0",
                         new String[] {childId})) {
             return cursor.moveToFirst() ? values(cursor) : new HashMap<>();
+        }
+    }
+
+    public boolean canEnrollDirectChild(String childId) {
+        return findDirectChild(childId) != null;
+    }
+
+    private Person findDirectChild(String childId) {
+        if (database == null || childId == null || childId.trim().isEmpty()) return null;
+        Person child = findClient(childId);
+        if (child == null || !MotherMentorChildEidFormUtils.isEligibleForDirectEnrollment(
+                child.values.get(DBConstants.KEY.DOB), child.values.get(DBConstants.KEY.DOB_UNKNOWN),
+                LocalDate.now()) || !existingEnrollment(childId).isEmpty()) return null;
+
+        String motherId = MotherMentorChildEidDao.motherId(database, childId);
+        Person mother = motherId == null || motherId.isEmpty() ? null : findMother(motherId);
+        return mother != null && mother.familyId().equals(child.familyId()) ? null : child;
+    }
+
+    private String householdName(Person child) {
+        try (Cursor cursor = database.rawQuery("SELECT " + DBConstants.KEY.FIRST_NAME
+                + " FROM ec_family WHERE " + DBConstants.KEY.BASE_ENTITY_ID + " = ?",
+                new String[]{child.familyId()})) {
+            return cursor.moveToFirst() ? cursor.getString(0) : "";
+        }
+    }
+
+    public JSONObject prepareDirectForm(Context context, JSONObject form, String childId) throws JSONException {
+        Person child = findDirectChild(childId);
+        if (child == null) throw new IllegalArgumentException(context.getString(R.string.mothermentor_direct_child_eid_unavailable));
+        return MotherMentorChildEidDirectEnrollment.prepareForm(context, form, child.values, householdName(child));
+    }
+
+    public void saveDirect(Context context, JSONObject form, String childId, AllSharedPreferences preferences)
+            throws Exception {
+        ClientProcessorForJava processor = MotherMentorUtil.getClientProcessorForJava();
+        synchronized (processor) {
+            database.beginTransaction();
+            try {
+                Person child = findDirectChild(childId);
+                if (child == null)
+                    throw new IllegalArgumentException(context.getString(R.string.mothermentor_direct_child_eid_unavailable));
+                MotherMentorChildEidDirectEnrollment.prepareForEvent(context, database, form,
+                        child.values, householdName(child));
+                Event event = org.smartregister.chw.mothermentor.util.JsonFormUtils.processJsonForm(
+                        preferences, form.toString(), TABLE);
+                if (event == null || !childId.equals(event.getBaseEntityId())
+                        || event.getFormSubmissionId() == null || event.getFormSubmissionId().isEmpty())
+                    throw new IllegalStateException("Invalid direct Child EID event");
+
+                MotherMentorJsonFormUtils.tagEvent(preferences, event);
+                ECSyncHelper sync = MotherMentorUtil.getSyncHelper();
+                sync.addEvent(childId, new JSONObject(MotherMentorJsonFormUtils.gson.toJson(event)),
+                        BaseRepository.TYPE_Unprocessed);
+                String submissionId = event.getFormSubmissionId();
+                processor.processClient(sync.getEvents(Collections.singletonList(submissionId)));
+                Map<String, String> persisted = existingEnrollment(childId);
+                if (!submissionId.equals(persisted.get(DBConstants.KEY.MTOTO_ENROLLMENT_ID))
+                        || !MotherMentorChildEidDirectEnrollment.SOURCE.equals(
+                                persisted.get(DBConstants.KEY.MTOTO_ENTRY_SOURCE)))
+                    throw new IllegalStateException("Direct Child EID enrollment was not projected");
+                database.setTransactionSuccessful();
+            } finally {
+                database.endTransaction();
+            }
         }
     }
 

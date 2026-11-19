@@ -187,6 +187,7 @@
     <string name="search_hint">Tafuta jina au nambari ya utambulisho</string>
     <string name="no_record">Hakuna rekodi</string>
     <string name="mothermentor_household_no_results">Hakuna kaya zilizopatikana</string>
+    <string name="mothermentor_child_follow_up_wait_for_result">Rekodi majibu ya kipimo yanayosubiri kabla ya kuanza ziara nyingine ya ufuatiliaji.</string>
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Dalili za hatari</string>

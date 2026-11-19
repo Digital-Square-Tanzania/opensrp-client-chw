@@ -153,6 +153,13 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean prepared = super.onPrepareOptionsMenu(menu);
+        MotherMentorChildEidRegisterActivity.updateDirectEnrollmentMenu(this, menu, baseEntityId);
+        return prepared;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_mother_mentor_enroll_iit) {
