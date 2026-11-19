@@ -18,7 +18,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import java.util.List;
 
 public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
-    private MemberObject motherMentorMemberObject;
+    private static final String HISTORY_MEMBER = "mother_mentor_history_member";
     private Flavor flavor;
     private ProgressBar progressBar;
 
@@ -28,7 +28,7 @@ public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryAct
 
     public static void startMe(Activity activity, MemberObject memberObject, MotherMentorFollowUpType followUpType) {
         Intent intent = new Intent(activity, MotherMentorMedicalHistoryActivity.class);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(HISTORY_MEMBER, memberObject);
         if (followUpType != null) {
             intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
         }
@@ -37,14 +37,17 @@ public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryAct
 
     @Override
     public void initializePresenter() {
-        motherMentorMemberObject = (MemberObject) getIntent().getSerializableExtra(
-                Constants.ACTIVITY_PAYLOAD.MEMBER_PROFILE_OBJECT);
+        MemberObject mother = historyMember();
         MotherMentorFollowUpType followUpType = getFollowUpType();
         flavor = new MotherMentorMedicalHistoryActivityFlv(followUpType,
-                motherMentorMemberObject.getBaseEntityId());
+                mother.getBaseEntityId());
         presenter = new BaseAncMedicalHistoryPresenter(
                 new MotherMentorMedicalHistoryInteractor(followUpType), this,
-                motherMentorMemberObject.getBaseEntityId());
+                mother.getBaseEntityId());
+    }
+
+    private MemberObject historyMember() {
+        return (MemberObject) getIntent().getSerializableExtra(HISTORY_MEMBER);
     }
 
     private MotherMentorFollowUpType getFollowUpType() {
@@ -57,13 +60,11 @@ public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryAct
 
     @Override
     public void setUpView() {
-        motherMentorMemberObject = (MemberObject) getIntent().getSerializableExtra(
-                Constants.ACTIVITY_PAYLOAD.MEMBER_PROFILE_OBJECT);
         linearLayout = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.linearLayoutMedicalHistory);
         progressBar = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.progressBarMedicalHistory);
 
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
-        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, motherMentorMemberObject.getFullName()));
+        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, historyMember().getFullName()));
 
         ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.visits_history));
     }

@@ -29,6 +29,7 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
@@ -73,6 +74,19 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     public void closeClosureRepositories() {
         closureRepository.close();
         motherClosureRepository.close();
+    }
+
+    @Test
+    public void motherHistoryUsesItsOwnMemberArgument() {
+        Activity activity = activity();
+        MemberObject mother = new MemberObject();
+
+        MotherMentorMedicalHistoryActivity.startMe(activity, mother);
+        Intent intent = Shadows.shadowOf(activity).getNextStartedActivity();
+
+        assertEquals(MotherMentorMedicalHistoryActivity.class.getName(), intent.getComponent().getClassName());
+        assertFalse(intent.hasExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT));
+        assertEquals(mother, intent.getSerializableExtra("mother_mentor_history_member"));
     }
 
     @Test
