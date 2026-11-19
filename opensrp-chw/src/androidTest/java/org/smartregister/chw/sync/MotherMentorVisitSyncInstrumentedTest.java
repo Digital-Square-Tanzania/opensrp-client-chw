@@ -17,6 +17,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
@@ -24,14 +25,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
+import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
@@ -42,7 +48,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /** Exercises the real app processor and shared visit cache using rolled-back UUID fixtures only. */
@@ -235,6 +243,85 @@ public class MotherMentorVisitSyncInstrumentedTest {
                 new String[] {mother})) {
             assertTrue(row.moveToFirst());
             assertEquals(expected, row.getInt(0) == 1);
+        }
+    }
+
+    @Test
+    public void recordingTheBirthResultKeepsWikiSixPendingAndDoesNotCreateAVisit() throws Exception {
+        String mother = UUID.randomUUID().toString();
+        syntheticClients.add(mother);
+        LocalDate today = LocalDate.now();
+        LocalDate visitDay = today.minusDays(1);
+        LocalDate dob = today.minusDays(49);
+        ContentValues enrollment = new ContentValues();
+        enrollment.put(BASE_ENTITY_ID, mother);
+        enrollment.put(PREGNANCY_STATUS, "breast_feeding");
+        enrollment.put(CHILD_DOB, dob.toString());
+        enrollment.put(IS_CLOSED, 0);
+        database.insertOrThrow(Constants.TABLES.MOTHERMENTOR_ENROLLMENT, null, enrollment);
+
+        JSONArray answers = new JSONArray();
+        observation(answers, MOTHERMENTOR_VISIT_DATE, visitDay.toString());
+        observation(answers, MAMA_ENROLLMENT_ID, MotherMentorMotherVisitDao.getContext(database, mother).getEnrollmentId());
+        observation(answers, ATTENDANCE_TYPE, "repeat");
+        observation(answers, FOLLOW_UP_STATUS, "found");
+        observation(answers, MAMA_TAREHE_KUJIFUNGUA, dob.toString());
+        observation(answers, MAMA_CHILD_STATUS, "alive");
+        observation(answers, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+        observation(answers, MAMA_BIRTH_TEST_WORKFLOW, "true");
+        observation(answers, MAMA_BIRTH_TEST_DONE, "yes");
+        observation(answers, MAMA_BIRTH_TEST_DATE, dob.toString());
+        observation(answers, MAMA_BIRTH_TEST_RESULT, "pending");
+        observation(answers, MAMA_HEI_TEST_DONE, "yes");
+        observation(answers, MAMA_HEI_TEST_TYPE, "six_weeks");
+        observation(answers, MAMA_HEI_TEST_DATE, visitDay.toString());
+        observation(answers, MAMA_HEI_TEST_RESULT, "pending");
+        String source = UUID.randomUUID().toString();
+        ContentValues visit = new ContentValues();
+        visit.put(VISIT_ID, UUID.randomUUID().toString());
+        visit.put(BASE_ENTITY_ID, mother);
+        visit.put(FORM_SUBMISSION_ID, source);
+        visit.put(VISIT_TYPE, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        visit.put(PROCESSED, 1);
+        visit.put(VISIT_DATE, visitDay.toDate().getTime());
+        visit.put(VISIT_JSON, new JSONObject().put(EVENT_FORM_SUBMISSION_ID, source)
+                .put(EVENT_DATE_TIMESTAMP, visitDay.toString()).put("obs", answers).toString());
+        database.insertOrThrow(VisitRepository.VISIT_TABLE, null, visit);
+
+        MotherMentorMotherChildRepository.rebuild(database, mother);
+        assertEquals(dob.plusDays(7).toString(), resultDeadline(mother));
+        List<PendingTest> pending = MotherMentorMotherResultEvent.pending(database, mother, today);
+        assertEquals(2, pending.size());
+        PendingTest birth = pending.get(0);
+        assertEquals(Stage.AT_BIRTH, birth.getStage());
+        assertTrue(birth.isOverdue(today));
+        Map<String, String> returned = new HashMap<>();
+        returned.put(MTOTO_RECEIVED_RESULT, "negative");
+        returned.put(MTOTO_RESULT_RECEIVED_DATE, today.toString());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, birth, returned, today));
+        pending = MotherMentorMotherResultEvent.pending(database, mother, today);
+        assertEquals(1, pending.size());
+        assertEquals(Stage.SIX_WEEKS, pending.get(0).getStage());
+        assertFalse(pending.get(0).isOverdue(today));
+        assertEquals(visitDay.plusDays(14).toString(), resultDeadline(mother));
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, pending.get(0), returned, today));
+        assertTrue(MotherMentorMotherResultEvent.pending(database, mother, today).isEmpty());
+        assertEquals("", resultDeadline(mother));
+        assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
+        try (Cursor row = database.rawQuery("SELECT " + MAMA_BIRTH_TEST_RESULT + " FROM "
+                + Constants.TABLES.MOTHERMENTOR_ENROLLMENT + " WHERE " + BASE_ENTITY_ID + " = ?",
+                new String[] {mother})) {
+            assertTrue(row.moveToFirst());
+            assertEquals("negative", row.getString(0));
+        }
+    }
+
+    private String resultDeadline(String mother) {
+        try (Cursor row = database.rawQuery("SELECT " + MAMA_HEI_RESULT_DEADLINE + " FROM "
+                + Constants.TABLES.MOTHERMENTOR_ENROLLMENT + " WHERE " + BASE_ENTITY_ID + " = ?",
+                new String[] {mother})) {
+            assertTrue(row.moveToFirst());
+            return row.getString(0);
         }
     }
 

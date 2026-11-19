@@ -23,6 +23,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.model.MotherMentorClientRegisterModel;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragment;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultOverdue;
+import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -59,6 +61,7 @@ public class MotherMentorClientRegisterProvider
     public void getView(Cursor cursor, SmartRegisterClient client, ClientViewHolder holder) {
         CommonPersonObjectClient person = (CommonPersonObjectClient) client;
         Map<String, String> columns = person.getColumnmaps();
+        boolean closed = "1".equals(value(columns, DBConstants.KEY.IS_CLOSED));
         String status = statusLabel(value(columns, MotherMentorClientRegisterModel.CURRENT_STATUS));
         List<String> metadata = new ArrayList<>();
         metadata.add(status);
@@ -67,6 +70,9 @@ public class MotherMentorClientRegisterProvider
                 metadata,
                 childAge.isEmpty() ? sexLabel(value(columns, DBConstants.KEY.GENDER)) : childAge);
         addNonEmpty(metadata, value(columns, DBConstants.KEY.VILLAGE_TOWN));
+        LocalDate resultDeadline = MotherMentorHeiSchedule.parseDate(
+                value(columns, DBConstants.KEY.MAMA_HEI_RESULT_DEADLINE));
+        boolean overdue = !closed && MotherMentorChildEidResultOverdue.isOverdue(resultDeadline, LocalDate.now());
         SpannableString details = new SpannableString(TextUtils.join(" · ", metadata));
         details.setSpan(
                 new ForegroundColorSpan(ContextCompat.getColor(context, R.color.mama_kinara_blue)),
@@ -75,10 +81,10 @@ public class MotherMentorClientRegisterProvider
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         holder.name.setText(nameAndAge(columns));
-        boolean closed = "1".equals(value(columns, DBConstants.KEY.IS_CLOSED));
         holder.itemView.setAlpha(closed ? 0.55f : 1f);
         holder.closedTag.setVisibility(closed ? View.VISIBLE : View.GONE);
         holder.metadata.setText(details);
+        holder.overdueTag.setVisibility(overdue ? View.VISIBLE : View.GONE);
         holder.ctcVisits.setText(
                 context.getString(
                         R.string.mama_kinara_ctc_and_visits,
@@ -90,14 +96,12 @@ public class MotherMentorClientRegisterProvider
                 org.smartregister.chw.mothermentor.R.id.VIEW_ID,
                 BaseMotherMentorRegisterFragment.CLICK_VIEW_NORMAL);
         holder.itemView.setOnClickListener(rowListener);
-        holder.itemView.setContentDescription(
-                TextUtils.join(
-                        ". ",
-                        new CharSequence[] {
-                            holder.name.getText(),
-                            holder.metadata.getText(),
-                            holder.ctcVisits.getText()
-                        }));
+        List<CharSequence> summary = new ArrayList<>();
+        summary.add(holder.name.getText());
+        summary.add(details);
+        if (overdue) summary.add(holder.overdueTag.getText());
+        summary.add(holder.ctcVisits.getText());
+        holder.itemView.setContentDescription(TextUtils.join(". ", summary));
     }
 
     private String nameAndAge(Map<String, String> columns) {
@@ -267,6 +271,7 @@ public class MotherMentorClientRegisterProvider
         final TextView metadata;
         final TextView ctcVisits;
         final TextView closedTag;
+        final TextView overdueTag;
 
         ClientViewHolder(View view) {
             super(view);
@@ -274,6 +279,7 @@ public class MotherMentorClientRegisterProvider
             metadata = view.findViewById(R.id.mama_kinara_client_metadata);
             ctcVisits = view.findViewById(R.id.mama_kinara_ctc_visits);
             closedTag = view.findViewById(org.smartregister.chw.mothermentor.R.id.mama_kinara_client_closed_tag);
+            overdueTag = view.findViewById(org.smartregister.chw.mothermentor.R.id.mama_kinara_client_result_overdue);
         }
     }
 

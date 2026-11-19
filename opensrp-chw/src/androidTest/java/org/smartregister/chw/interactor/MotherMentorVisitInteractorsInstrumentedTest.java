@@ -1,5 +1,15 @@
 package org.smartregister.chw.interactor;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.Visibility.VISIBLE;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.*;
 import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
 
@@ -10,6 +20,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -313,6 +325,91 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         visit.setJson(new JSONObject().put(EVENT_FORM_SUBMISSION_ID, visitId)
                 .put(EVENT_DATE_TIMESTAMP, date.toString()).put("obs", observations).toString());
         MotherMentorLibrary.getInstance().visitRepository().addVisit(visit, database);
+    }
+
+    @Test
+    public void marudioAtSevenWeeksOffersBothTestsAndBoundsTheBirthDatePicker() throws Exception {
+        String originalLanguage = LangUtils.getLanguage(context);
+        LangUtils.saveLanguage(context, "sw");
+        useLanguage("sw");
+        try {
+            LocalDate today = LocalDate.now();
+            LocalDate dob = today.minusDays(49);
+            BaseMotherMentorVisitAction attendance = byForm(
+                    actions(new MotherServiceFixture("breast_feeding", dob.toString()), 7),
+                    "mothermentor_visit_type");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "repeat");
+                select(activity, FOLLOW_UP_STATUS, "found");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                select(activity, MAMA_BIRTH_TEST_DONE, "yes");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertNotNull(visibleRadio(root, MAMA_HEI_TEST_DONE, "no"));
+                    EditText date = birthDateInput(root);
+                    assertNotNull(date);
+                    date.performClick();
+                });
+                onView(isAssignableFrom(DatePicker.class)).check((view, missing) -> {
+                    assertNotNull(view);
+                    DatePicker picker = (DatePicker) view;
+                    assertEquals(dob, new LocalDate(picker.getMinDate()));
+                    assertEquals(dob.plusDays(2), new LocalDate(picker.getMaxDate()));
+                });
+                onView(withId(android.R.id.button1)).perform(click());
+                onMain(() -> assertSaveBlocked(activity, MAMA_BIRTH_TEST_RESULT));
+                select(activity, MAMA_BIRTH_TEST_RESULT, "pending");
+                select(activity, MAMA_HEI_TEST_DONE, "no");
+                save(activity, attendance);
+            });
+            completed(attendance);
+        } finally {
+            LangUtils.saveLanguage(context, originalLanguage);
+        }
+    }
+
+    private EditText birthDateInput(View view) {
+        if (!view.isShown()) return null;
+        if (view instanceof EditText && MAMA_BIRTH_TEST_DATE.equals(view.getTag(com.vijay.jsonwizard.R.id.key))) {
+            return (EditText) view;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int index = 0; index < group.getChildCount(); index++) {
+                EditText date = birthDateInput(group.getChildAt(index));
+                if (date != null) return date;
+            }
+        }
+        return null;
+    }
+
+    @Test
+    public void wikiSixPendingAnswerImmediatelyShowsTheFacilityPrompt() throws Exception {
+        String originalLanguage = LangUtils.getLanguage(context);
+        LangUtils.saveLanguage(context, "sw");
+        useLanguage("sw");
+        try {
+            LocalDate dob = LocalDate.now().minusDays(70);
+            BaseMotherMentorVisitAction attendance = byForm(
+                    actions(new MotherServiceFixture("breast_feeding", dob.toString()), 7),
+                    "mothermentor_visit_type");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "repeat");
+                select(activity, FOLLOW_UP_STATUS, "found");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                select(activity, MAMA_HEI_TEST_DONE, "yes");
+                String prompt = "Fuatilia majibu kituoni.";
+                onView(allOf(withText(prompt), withEffectiveVisibility(VISIBLE))).check(doesNotExist());
+                select(activity, MAMA_HEI_TEST_RESULT, "pending");
+                onView(allOf(withText(prompt), withEffectiveVisibility(VISIBLE))).check(matches(withText(prompt)));
+                select(activity, MAMA_HEI_TEST_RESULT, "negative");
+                onView(allOf(withText(prompt), withEffectiveVisibility(VISIBLE))).check(doesNotExist());
+            });
+        } finally {
+            LangUtils.saveLanguage(context, originalLanguage);
+        }
     }
 
     private void withWizard(BaseMotherMentorVisitAction action,

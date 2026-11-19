@@ -262,6 +262,11 @@ public class ChwRepositoryFlv {
                 case 72:
                     MotherMentorPartnerWorkflowMigration.upgradeReferralSchema(db);
                     break;
+                case 73:
+                case 74:
+                    if (upgradeTo == 74 && oldVersion < 73) break;
+                    org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
+                    break;
                 default:
                     break;
             }

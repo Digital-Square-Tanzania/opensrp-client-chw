@@ -143,6 +143,26 @@ public class MotherMentorClientRegisterProviderTest {
 
     @Test
     @Config(qualifiers = "sw")
+    public void rowShowsOverdueResultOnlyPastItsDeadlineAndClearsWhenReboundAfterSave() {
+        Map<String, String> columns = clientColumns("breast_feeding", "6");
+        columns.put(DBConstants.KEY.MAMA_HEI_RESULT_DEADLINE, "2026-10-23");
+        MotherMentorClientRegisterProvider.ClientViewHolder holder = bind(client("mother", columns));
+        assertEquals(View.GONE, holder.overdueTag.getVisibility());
+
+        columns.put(DBConstants.KEY.MAMA_HEI_RESULT_DEADLINE, "2026-10-22");
+        provider.getView(null, client("mother", columns), holder);
+        assertEquals(View.VISIBLE, holder.overdueTag.getVisibility());
+        assertEquals("Majibu yamechelewa", holder.overdueTag.getText().toString());
+        assertTrue(holder.itemView.getContentDescription().toString().contains("Majibu yamechelewa"));
+
+        columns.remove(DBConstants.KEY.MAMA_HEI_RESULT_DEADLINE);
+        provider.getView(null, client("mother", columns), holder);
+        assertEquals(View.GONE, holder.overdueTag.getVisibility());
+        assertFalse(holder.itemView.getContentDescription().toString().contains("Majibu yamechelewa"));
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
     public void swahiliChildAgeUsesTheRecordedBirthDateAndLocalizedMonthUnit() {
         Map<String, String> columns = clientColumns("breast_feeding", "6");
         columns.put(DBConstants.KEY.CHILD_DOB, "23-05-2026");
