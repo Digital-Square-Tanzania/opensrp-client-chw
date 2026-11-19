@@ -87,7 +87,7 @@ public class MotherMentorVisitActionWiringTest {
                 new PartnerFollowUpVisitInteractor("partner"),
                 new ChildEidFollowUpVisitInteractor("eid")
             };
-            int[] actionCounts = {6, 5, 4, 5, 2};
+            int[] actionCounts = {7, 5, 4, 5, 2};
             for (int i = 0; i < workflows.length; i++) {
                 assertEquals(
                         "org.smartregister.chw.mothermentor.interactor",
@@ -110,7 +110,7 @@ public class MotherMentorVisitActionWiringTest {
                             "Helper reused by different actions: " + helper, helpers.add(helper));
                 }
             }
-            assertEquals(23, helpers.size());
+            assertEquals(24, helpers.size());
         }
     }
 
