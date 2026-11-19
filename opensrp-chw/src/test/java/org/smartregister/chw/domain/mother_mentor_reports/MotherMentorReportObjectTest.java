@@ -1,6 +1,7 @@
 package org.smartregister.chw.domain.mother_mentor_reports;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Application;
@@ -65,7 +66,7 @@ public class MotherMentorReportObjectTest {
     @Test
     public void emptyMonthDistinguishesZeroFromIndicatorsNotCaptured() throws Exception {
         JSONObject counts = report.getIndicatorData();
-        for (String key : new String[]{"mm-1", "mm-2", "mm-3", "mm-4", "mm-5", "mm-6", "mm-7", "mm-8", "mm-8-hiv-positive", "mm-8-syphilis-negative", "mm-9", "mm-9-boys", "mm-10", "mm-10-girls", "mm-11", "mm-11-positive", "mm-11-negative", "mm-12", "mm-12-syphilis", "mm-13", "mm-14", "mm-15", "mm-16", "mm-17", "mm-18", "mm-1-unclassified"}) {
+        for (String key : new String[]{"mm-1", "mm-2", "mm-3", "mm-4", "mm-5", "mm-6", "mm-7", "mm-8", "mm-9", "mm-9-boys", "mm-10", "mm-10-girls", "mm-11", "mm-11-positive", "mm-11-negative", "mm-12", "mm-12-syphilis", "mm-13", "mm-14", "mm-15", "mm-16", "mm-17", "mm-18", "mm-1-unclassified"}) {
             assertEquals(key, 0, counts.getInt(key));
         }
         for (String key : new String[]{"mm-14-female-25-59", "mm-16-male-20-24"}) {
@@ -902,126 +903,65 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
-    public void partnerTestsUseFirstQualifyingResultsBeforeFilteringTheServiceMonth() throws Exception {
-        member("partner", "Male", "1990-01-01");
-        partnerAttendance("before", "partner", "2026-03-31", "episode-1", "link-1");
-        partnerTest("before", "hiv", "positive");
-        partnerAttendance("repeat", "partner", "2026-04-01", "episode-1", "link-2");
-        partnerTest("repeat", "hiv", "negative");
-        partnerAttendance("new-pregnancy", "partner", "2026-04-20", "episode-2", "link-3");
-        partnerTest("new-pregnancy", "hiv", "positive");
-        partnerAttendance("new-repeat", "partner", "2026-04-21", "episode-2", "link-4");
-        partnerTest("new-repeat", "hiv", "negative");
-        partnerAttendance("another-pregnancy", "partner", "2026-04-22", "episode-3", "link-5");
-        partnerTest("another-pregnancy", "hiv", "positive");
-        member("three-tests", "Male", "1980-01-01");
-        partnerAttendance("all-tests", "three-tests", "2026-04-25", "other-episode", "link");
-        partnerTest("all-tests", "hiv", "negative");
-        partnerTest("all-tests", "syphilis", "positive");
-        partnerTest("all-tests", "hepatitis_b", "negative");
-        database.execSQL("INSERT INTO ec_mothermentor_enroll_partner VALUES ('partner', 1)");
-
-        JSONObject c = report.getIndicatorData();
-        assertEquals(2, c.getInt("mm-8"));
-        assertEquals(2, c.getInt("mm-8-hiv-positive"));
-        assertEquals(1, c.getInt("mm-8-hiv-negative"));
-        assertEquals(1, c.getInt("mm-8-syphilis-positive"));
-        assertEquals(1, c.getInt("mm-8-hepatitis-b-negative"));
-        assertEquals(0, c.getInt("mm-8-missing-records"));
-    }
-
-    @Test
-    public void indicatorEightRetainsQualifyingTestsAfterThePartnerIsClosed() throws Exception {
-        member("closed-partner", "Male", "1990-01-01");
-        partnerAttendance("closing-visit", "closed-partner", "2026-04-20", "episode", "link");
-        partnerTest("closing-visit", "hiv", "positive");
-        partnerTest("closing-visit", "syphilis", "negative");
-        partnerTest("closing-visit", "hepatitis_b", "negative");
-        for (String field : new String[] {DBConstants.KEY.MWENZI_STATUS,
-                DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA,
-                DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA}) {
-            database.execSQL("ALTER TABLE ec_mothermentor_enroll_partner ADD COLUMN " + field + " TEXT");
-        }
-        database.execSQL("INSERT INTO ec_mothermentor_enroll_partner (base_entity_id, is_closed, "
-                + DBConstants.KEY.MWENZI_STATUS + ") VALUES ('closed-partner', 0, 'active')");
-        JSONObject beforeClosure = report.getIndicatorData();
-        database.execSQL("UPDATE ec_mothermentor_enroll_partner SET is_closed = 1, "
-                + DBConstants.KEY.MWENZI_STATUS + " = 'attended_tested', "
-                + DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA + " = 'attended_tested', "
-                + DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA + " = '2026-04-20'");
-        detail("closing-visit", DBConstants.KEY.MWENZI_STATUS, "attended_tested");
-        detail("closing-visit", DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA, "attended_tested");
-        detail("closing-visit", DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, "2026-04-20");
-
-        JSONObject afterClosure = report.getIndicatorData();
-
-        for (String key : new String[] {"mm-8", "mm-8-hiv-positive",
-                "mm-8-syphilis-negative", "mm-8-hepatitis-b-negative"}) {
-            assertEquals(key, 1, beforeClosure.getInt(key));
-            assertEquals(key, beforeClosure.getInt(key), afterClosure.getInt(key));
-        }
-        assertEquals(0, afterClosure.getInt("mm-8-missing-records"));
-    }
-
-    @Test
-    public void partnerTestsUseTheServiceDayForMonthAndAgeWithoutDoubleCountingBirthdays() throws Exception {
+    public void referralsUseTheServiceMonthAndCountEachPartnerOnce() throws Exception {
         member("birthday", "Male", "2001-04-15");
-        partnerAttendance("hiv-before-birthday", "birthday", "2026-04-01", "episode", "link");
-        setDetail("hiv-before-birthday", "partner_facility_arrival_date", "2026-03-31");
-        partnerTest("hiv-before-birthday", "hiv", "positive");
-        partnerAttendance("syphilis-after-birthday", "birthday", "2026-04-20", "episode", "link");
-        partnerTest("syphilis-after-birthday", "syphilis", "negative");
-        partnerAttendance("next-month", "birthday", "2026-05-01", "episode", "link");
-        setDetail("next-month", "partner_facility_arrival_date", "2026-04-30");
-        partnerTest("next-month", "hepatitis_b", "positive");
+        partnerReferral("before-birthday", "birthday", "2026-04-01", "tracing", "yes");
+        partnerReferral("after-birthday", "birthday", "2026-04-20", "referral", "yes");
+        member("other", "Male", "1990-01-01");
+        partnerReferral("next-month", "other", "2026-05-01", "referral", "yes");
+        database.execSQL("INSERT INTO ec_mothermentor_enroll_partner VALUES ('birthday', 1)");
         database.execSQL("UPDATE visits SET visit_date = 1780272000000");
 
-        JSONObject c = report.getIndicatorData();
-        assertEquals(1, c.getInt("mm-8"));
-        assertEquals(1, c.getInt("mm-8-male-20-24"));
-        assertEquals(0, c.getInt("mm-8-male-25-59"));
-        assertEquals(1, c.getInt("mm-8-hiv-positive-male-20-24"));
-        assertEquals(1, c.getInt("mm-8-syphilis-negative-male-25-59"));
-        assertEquals(0, c.getInt("mm-8-hepatitis-b-positive"));
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-8"));
+        assertEquals(1, counts.getInt("mm-8-male-20-24"));
+        assertEquals(0, counts.getInt("mm-8-male-25-59"));
+        assertEquals(0, counts.getInt("mm-8-missing-records"));
+        assertFalse(counts.has("mm-8-hiv-positive"));
     }
 
     @Test
-    public void partnerTestsExcludeUntestedDraftNonPregnantAndNonAttendancePaths() throws Exception {
-        for (String id : new String[]{"untested", "draft", "not-pregnant", "not-attended", "agreed"}) {
-            member(id, "Male", "1990-01-01");
-            partnerAttendance(id, id, "2026-04-20", "episode", "link");
-            if (!"untested".equals(id)) partnerTest(id, "hiv", "positive");
-        }
+    public void onlyExplicitFinalizedReferralsCount() throws Exception {
+        member("partner", "Male", "1990-01-01");
+        partnerAttendance("historical-test", "partner", "2026-04-17", "episode", "link");
+        detail("historical-test", DBConstants.KEY.PARTNER_HIV_RESULT, "positive");
+        partnerReferral("refused", "partner", "2026-04-18", "tracing", "yes");
+        setDetail("refused", "partner_facility_agreement", "refused");
+        partnerReferral("draft", "partner", "2026-04-19", "referral", "yes");
         database.execSQL("UPDATE visits SET processed = 0 WHERE visit_id = 'draft'");
-        setDetail("not-pregnant", "partner_mother_pregnant", "no");
-        setDetail("not-attended", "partner_arrived_at_facility", "no");
-        setDetail("agreed", "partner_follow_up_phase", "tracing");
-        setDetail("agreed", "follow_up_status", "found");
-        setDetail("agreed", "partner_facility_agreement", "agreed");
-        JSONObject c = report.getIndicatorData();
-        assertEquals(0, c.getInt("mm-8"));
-        assertEquals(0, c.getInt("mm-8-hiv-positive"));
-        assertEquals(0, c.getInt("mm-8-missing-records"));
+        partnerReferral("no-referral", "partner", "2026-04-20", "referral", "no");
+        partnerReferral("incomplete", "partner", "2026-04-21", "referral", "");
+        partnerReferral("attendance-only", "partner", "2026-04-22", "attendance", "yes");
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(0, counts.getInt("mm-8"));
+        assertEquals(1, counts.getInt("mm-8-missing-records"));
+
+        partnerReferral("confirmed", "partner", "2026-04-23", "referral", "yes");
+        setDetail("confirmed", "partner_mother_pregnant", "no");
+        counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-8"));
+        assertEquals(1, counts.getInt("mm-8-missing-records"));
     }
 
     @Test
-    public void oldPartnerVisitsAndUnknownPregnancyEpisodesRemainExplicitlyUnavailable() throws Exception {
+    public void oldPartnerVisitsStillSignalUnknownEducationWithoutChangingReferralCounts() throws Exception {
         member("legacy", "Male", "1990-01-01");
         currentVisit("legacy", "legacy", "2026-04-20", MotherMentorFollowUpType.PARTNER, "found");
         setDetail("legacy", "partner_arrived_at_facility", "yes");
-        JSONObject c = report.getIndicatorData();
-        assertEquals("—", c.getString("mm-8"));
-        assertEquals("—", c.getString("mm-12-hiv"));
-        assertEquals(1, c.getInt("mm-8-missing-records"));
-        assertEquals(1, c.getInt("mm-12-missing-records"));
-        database.execSQL("DELETE FROM visits");
-        database.execSQL("DELETE FROM visit_details");
-        partnerAttendance("unknown-episode", "legacy", "2026-04-20", "", "link");
-        partnerTest("unknown-episode", "hiv", "positive");
-        c = report.getIndicatorData();
-        assertEquals("—", c.getString("mm-8-hiv-positive"));
-        assertEquals(1, c.getInt("mm-8-missing-records"));
-        assertEquals(0, c.getInt("mm-12"));
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(0, counts.getInt("mm-8"));
+        assertEquals("—", counts.getString("mm-12-hiv"));
+        assertEquals(0, counts.getInt("mm-8-missing-records"));
+        assertEquals(1, counts.getInt("mm-12-missing-records"));
+    }
+
+    private void partnerReferral(String id, String partner, String date, String phase, String answer) {
+        currentVisit(id, partner, date, MotherMentorFollowUpType.PARTNER, "found");
+        setDetail(id, "partner_follow_up_schema", "3");
+        setDetail(id, "partner_follow_up_phase", phase);
+        setDetail(id, "partner_facility_agreement", "agreed");
+        setDetail(id, "partner_education_provided", "no");
+        setDetail(id, DBConstants.KEY.PARTNER_TESTING_REFERRAL_GIVEN, answer);
     }
 
     @Test
@@ -1328,11 +1268,6 @@ public class MotherMentorReportObjectTest {
         detail(id, "mtoto_result_received", "yes");
         detail(id, "mtoto_received_result", result);
         detail(id, "mtoto_confirmation_received", "yes");
-    }
-
-    private void partnerTest(String id, String test, String result) {
-        setDetail(id, "partner_" + test + "_tested", "yes");
-        setDetail(id, "partner_" + test + "_result", result);
     }
 
     private void partnerEducation(String id, String topics) {

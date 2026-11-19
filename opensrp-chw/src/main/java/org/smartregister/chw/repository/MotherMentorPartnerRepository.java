@@ -10,6 +10,7 @@ import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorUtil;
 import org.smartregister.chw.util.MotherMentorPartnerFormUtils;
 import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 
@@ -47,6 +48,9 @@ public class MotherMentorPartnerRepository {
         for (String column : LINK_COLUMNS) {
             if (!columns.contains(column))
                 database.execSQL("ALTER TABLE " + TABLE + " ADD COLUMN " + column + " VARCHAR");
+        }
+        if (!columns.contains(DBConstants.KEY.PARTNER_NEXT_FOLLOW_UP_PHASE)) {
+            MotherMentorPartnerClosureRepository.upgrade(database);
         }
     }
 

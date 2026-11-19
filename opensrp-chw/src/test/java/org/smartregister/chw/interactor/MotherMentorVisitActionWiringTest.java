@@ -87,7 +87,7 @@ public class MotherMentorVisitActionWiringTest {
                 new PartnerFollowUpVisitInteractor("partner"),
                 new ChildEidFollowUpVisitInteractor("eid")
             };
-            int[] actionCounts = {7, 5, 4, 7, 2};
+            int[] actionCounts = {7, 5, 4, 5, 2};
             for (int i = 0; i < workflows.length; i++) {
                 assertEquals(
                         "org.smartregister.chw.mothermentor.interactor",
@@ -110,7 +110,7 @@ public class MotherMentorVisitActionWiringTest {
                             "Helper reused by different actions: " + helper, helpers.add(helper));
                 }
             }
-            assertEquals(26, helpers.size());
+            assertEquals(24, helpers.size());
         }
     }
 
@@ -267,6 +267,10 @@ public class MotherMentorVisitActionWiringTest {
             assertFalse(education.isValid());
             status.setJsonPayload(form(DBConstants.KEY.FOLLOW_UP_STATUS, "found",
                     DBConstants.KEY.PARTNER_FACILITY_AGREEMENT, "agreed"));
+            assertEquals(BaseMotherMentorVisitAction.Status.PENDING, status.getActionStatus());
+            status.setJsonPayload(form(DBConstants.KEY.FOLLOW_UP_STATUS, "found",
+                    DBConstants.KEY.PARTNER_FACILITY_AGREEMENT, "agreed",
+                    DBConstants.KEY.PARTNER_TESTING_REFERRAL_GIVEN, "yes"));
             assertEquals(BaseMotherMentorVisitAction.Status.COMPLETED, status.getActionStatus());
             assertTrue(education.isValid());
             assertFalse("Tracing never reveals same-visit attendance",
@@ -283,9 +287,8 @@ public class MotherMentorVisitActionWiringTest {
                     DBConstants.KEY.PARTNER_FACILITY_AGREEMENT, "refused"));
             assertTrue(education.isValid());
             assertEquals(BaseMotherMentorVisitAction.Status.PENDING, education.getActionStatus());
-            for (String disease : new String[] {"hiv", "syphilis", "hepatitis_b"}) {
-                assertFalse(byForm(map, "mothermentor_partner_" + disease + "_test").isValid());
-            }
+            assertFalse(map.values().stream().anyMatch(
+                    action -> action.getFormName().endsWith("_test")));
             assertTrue(byForm(map, "mothermentor_partner_follow_up_comment").isOptional());
         }
     }
