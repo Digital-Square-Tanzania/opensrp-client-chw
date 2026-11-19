@@ -54,6 +54,7 @@ public class MotherMentorFormAssetsInstrumentedTest {
         "mothermentor_partner_non_attendance_reason",
         "mothermentor_return_to_facility",
         "mothermentor_service_interruption_reason",
+        "mothermentor_visit_child",
         "mothermentor_visit_comment",
         "mothermentor_visit_education_provided",
         "mothermentor_visit_group_linkage",
