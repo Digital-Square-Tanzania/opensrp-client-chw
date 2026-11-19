@@ -52,7 +52,7 @@ public class MotherMentorPartnerProjectionInstrumentedTest {
     private final Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
     @Test
-    public void projectedPartnerResultsExpireByLinkageAndReportFirstTestPerPregnancy() throws Exception {
+    public void legacyPartnerResultsExpireByLinkageAndRetainEducationReporting() throws Exception {
         SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
         assertTrue(db.getVersion() >= 58);
         String partner = UUID.randomUUID().toString();
@@ -90,8 +90,7 @@ public class MotherMentorPartnerProjectionInstrumentedTest {
             assertTrue(active(db, partner, "2099-04-20"));
             assertFalse(active(db, partner, "2099-04-21"));
             JSONObject first = report.getIndicatorData();
-            assertDelta(before, first, "mm-8", 1);
-            assertDelta(before, first, "mm-8-hiv-negative", 1);
+            assertDelta(before, first, "mm-8", 0);
             assertDelta(before, first, "mm-12", 1);
             assertDelta(before, first, "mm-12-hiv", 1);
             assertDelta(before, first, "mm-12-hepatitis-b", 1);
@@ -104,12 +103,10 @@ public class MotherMentorPartnerProjectionInstrumentedTest {
             projectVisit(db, processor, followUp, partner, mother, relinkage, episode,
                     "2099-04-21", true, "positive", "syphilis");
             JSONObject repeated = report.getIndicatorData();
-            assertDelta(before, repeated, "mm-8-hiv-negative", 1);
-            assertDelta(before, repeated, "mm-8-hiv-positive", 0);
             assertDelta(before, repeated, "mm-12", 1);
             assertDelta(before, repeated, "mm-12-syphilis", 1);
 
-            // Importing an earlier qualifying test moves this pregnancy's first tests out of April.
+            // Importing an earlier historical test adds no referral to April.
             projectVisit(db, processor, followUp, partner, mother, linkage, episode,
                     "2099-03-20", true, "negative", "hiv");
             JSONObject earlier = report.getIndicatorData();
@@ -118,8 +115,7 @@ public class MotherMentorPartnerProjectionInstrumentedTest {
             projectVisit(db, processor, followUp, partner, mother, UUID.randomUUID().toString(),
                     UUID.randomUUID().toString(), "2099-04-22", true, "positive", "hiv");
             JSONObject nextPregnancy = report.getIndicatorData();
-            assertDelta(before, nextPregnancy, "mm-8", 1);
-            assertDelta(before, nextPregnancy, "mm-8-hiv-positive", 1);
+            assertDelta(before, nextPregnancy, "mm-8", 0);
             assertEquals(0, nextPregnancy.getInt("query-errors"));
         } finally {
             // Never commit these synthetic records or alter any existing client.
@@ -211,9 +207,7 @@ public class MotherMentorPartnerProjectionInstrumentedTest {
         JSONObject reportReceipt = new JSONObject().put("month", reportMonth)
                 .put("scope", "Monthly aggregate; cohort details above are anchored to the exact synthetic mother WAJA");
         for (String key : new String[]{"mm-1", "mm-2", "mm-3", "mm-6", "mm-7",
-                "mm-8", "mm-8-hiv-positive", "mm-8-hiv-negative",
-                "mm-8-syphilis-positive", "mm-8-syphilis-negative", "mm-8-hepatitis-b-positive",
-                "mm-8-hepatitis-b-negative", "mm-8-missing-records", "mm-11", "mm-11-positive",
+                "mm-8", "mm-8-missing-records", "mm-11", "mm-11-positive",
                 "mm-11-negative", "mm-11-pending-results", "mm-11-missing-records",
                 "mm-11-linkage-missing-records", "mm-12", "mm-12-hiv", "mm-12-syphilis",
                 "mm-12-hepatitis-b", "mm-12-missing-records", "query-errors"}) {
