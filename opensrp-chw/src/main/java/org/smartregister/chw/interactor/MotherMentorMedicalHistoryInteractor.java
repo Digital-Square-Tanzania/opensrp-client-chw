@@ -21,6 +21,7 @@ import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +68,7 @@ public class MotherMentorMedicalHistoryInteractor extends CoreBaseAncMedicalHist
             sortableVisits.add(sortableVisit);
         }
 
-        Collections.sort(sortableVisits);
+        sortableVisits.sort(Comparator.comparing(Visit::getDate));
         return sortableVisits;
     }
 
