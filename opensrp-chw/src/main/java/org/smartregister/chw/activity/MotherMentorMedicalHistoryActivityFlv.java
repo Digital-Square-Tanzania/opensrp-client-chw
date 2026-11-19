@@ -287,13 +287,15 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     }
 
     private void editVisit(Activity activity, Visit visit) {
+        boolean motherClosed = isMotherCardClosed(visit);
         if (StringUtils.isBlank(visit.getBaseEntityId())
                 || isReadOnlyLegacyHousehold(visit)
                 || isHouseholdReadOnly(visit) || isPartnerClosed(visit) || iitState().isClosed()
                 || isChildEidClosed(childEidState())
-                || (isMotherCardClosed(visit) && !canEditClosingMotherVisit(visit))
+                || (motherClosed && !canEditClosingMotherVisit(visit))
                 || isEarlierIitEnrollment(visit)) return;
         if (isMotherVisit(visit)) {
+            if (!motherClosed) activity.finish();
             MotherMentorVisitActivity.editFromHistory(activity, visit.getBaseEntityId(), visit.getVisitId());
             return;
         }

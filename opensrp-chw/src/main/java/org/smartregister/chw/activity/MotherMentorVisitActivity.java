@@ -79,6 +79,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, motherId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, true);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, false);
         intent.putExtra(HISTORY_VISIT_ID, visitId);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
