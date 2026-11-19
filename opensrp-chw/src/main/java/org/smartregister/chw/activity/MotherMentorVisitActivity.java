@@ -205,9 +205,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     @Override
     public void submitVisit() {
         if (submitting || closureConfirmationOpen || blockClosedCard() || blockDuplicateIitVisit()
-                || blockNewChildEidVisitWhilePending()) {
-            return;
-        }
+                || blockNewChildEidVisitWhilePending()) return;
         if (!isFollowUpVisit()) {
             MotherMentorMotherClosure preview = getMotherClosurePreview();
             if (preview.isClosed()) {
@@ -262,9 +260,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     protected void submitConfirmedVisit() {
         if (submitting || blockClosedCard() || blockDuplicateIitVisit()
-                || blockNewChildEidVisitWhilePending()) {
-            return;
-        }
+                || blockNewChildEidVisitWhilePending()) return;
         submitting = true;
         if (tvSubmit != null) tvSubmit.setEnabled(false);
         super.submitVisit();
@@ -358,11 +354,8 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 || Boolean.TRUE.equals(isEditMode) || baseEntityID == null
                 || MotherMentorChildEidResultEvent.pending(
                         ChwApplication.getInstance().getRepository().getReadableDatabase(),
-                        baseEntityID) == null) {
-            return false;
-        }
-        displayToast(getString(
-                org.smartregister.chw.R.string.mothermentor_child_follow_up_wait_for_result));
+                        baseEntityID) == null) return false;
+        displayToast(getString(org.smartregister.chw.R.string.mothermentor_child_follow_up_wait_for_result));
         finish();
         return true;
     }
