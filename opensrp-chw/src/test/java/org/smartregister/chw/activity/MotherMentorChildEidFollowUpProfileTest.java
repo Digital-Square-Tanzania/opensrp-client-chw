@@ -28,6 +28,7 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.domain.Visit;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent.PendingSample;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
@@ -106,6 +107,22 @@ public class MotherMentorChildEidFollowUpProfileTest extends BaseUnitTest {
         assertEquals(
                 MotherMentorFollowUpType.CHILD_EID.getValue(),
                 launch.getStringExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
+    }
+
+    @Test
+    public void pendingResultBlocksStaleVisitActionUntilResultIsRecorded() {
+        ChildEidProfileActivity activity = profile();
+        activity.setupButtons();
+        assertTrue(button(activity).isEnabled());
+
+        activity.pendingSample = mock(PendingSample.class);
+        activity.openRecordClientVisit();
+        assertNull(Shadows.shadowOf(activity).getNextStartedActivityForResult());
+
+        activity.pendingSample = null;
+        activity.openRecordClientVisit();
+        Intent launch = Shadows.shadowOf(activity).getNextStartedActivityForResult().intent;
+        assertFalse(launch.getBooleanExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, true));
     }
 
     @Test
@@ -217,6 +234,9 @@ public class MotherMentorChildEidFollowUpProfileTest extends BaseUnitTest {
     }
 
     public static class ChildEidProfileActivity extends MotherMentorProfileActivity {
+        Date now = new Date();
+        PendingSample pendingSample;
+
         @Override
         protected boolean isLinkedFollowUpCardClosed() {
             // These availability/death fixtures use an open enrollment. Real closure mapping
@@ -224,7 +244,10 @@ public class MotherMentorChildEidFollowUpProfileTest extends BaseUnitTest {
             return false;
         }
 
-        Date now = new Date();
+        @Override
+        protected PendingSample pendingChildEidResult(String childId) {
+            return pendingSample;
+        }
 
         @Override
         Date getVisitAvailabilityDate() {

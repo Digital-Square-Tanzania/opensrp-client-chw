@@ -18,6 +18,8 @@ import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.dao.ReportDao;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 
@@ -42,7 +44,7 @@ public class MotherMentorReportObjectTest {
         database.execSQL("CREATE TABLE ec_mothermentor_enrollment (base_entity_id TEXT, is_closed INTEGER, art_status TEXT, art_start_date TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_secondary_enrollment (base_entity_id TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_household_enrolment (base_entity_id TEXT, consent TEXT)");
-        database.execSQL("CREATE TABLE visits (visit_id TEXT, base_entity_id TEXT, visit_type TEXT, processed INTEGER, visit_date INTEGER, visit_json TEXT)");
+        database.execSQL("CREATE TABLE visits (visit_id TEXT, base_entity_id TEXT, visit_type TEXT, processed INTEGER, visit_date INTEGER, visit_json TEXT, form_submission_id TEXT)");
         database.execSQL("CREATE TABLE visit_details (visit_id TEXT, visit_key TEXT, details TEXT, processed INTEGER)");
         database.execSQL("CREATE TABLE event (baseEntityId TEXT, eventType TEXT, eventDate TEXT)");
         database.execSQL("CREATE TABLE ec_mothermentor_enroll_child_eid (base_entity_id TEXT)");
@@ -1149,6 +1151,124 @@ public class MotherMentorReportObjectTest {
         assertEquals(0, counts.getInt("mm-11-pending-results"));
     }
 
+    @Test
+    public void linkedCardResultUpdatesAttendanceMonthAndPreservesAllThreeAttendanceCounts() throws Exception {
+        eid("six-week-child", "Male", "2026-03-01");
+        eid("nine-month-child", "Female", "2025-07-20");
+        eid("final-test-child", "Female", "2024-05-01");
+        currentChildAttendance("week-six", "six-week-child", "six_weeks", "yes", "2026-04-20");
+        currentChildAttendance("month-nine", "nine-month-child", "nine_months", "yes", "2026-04-20");
+        pendingFinalSample("sample", "final-test-child", "2026-04-20", "hei-sample");
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-11-pending-results"));
+
+        cardFinalResult("result", "final-test-child", "2026-05-03", "sample", "hei-sample", "negative", 1);
+        counts = report.getIndicatorData();
+        assertEquals(0, counts.getInt("query-errors"));
+        assertEquals(1, counts.getInt("mm-9"));
+        assertEquals(1, counts.getInt("mm-10"));
+        assertEquals(1, counts.getInt("mm-11"));
+        assertEquals(1, counts.getInt("mm-11-negative-female-12-23m"));
+        assertEquals(0, counts.getInt("mm-11-pending-results"));
+
+        MotherMentorReportObject may = new MotherMentorReportObject(
+                new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse("2026-05-15"));
+        JSONObject mayCounts = may.getIndicatorData();
+        assertEquals(0, mayCounts.getInt("query-errors"));
+        assertEquals(0, mayCounts.getInt("mm-11"));
+        assertEquals(0, mayCounts.getInt("mm-11-negative"));
+    }
+
+    @Test
+    public void linkedResultRequiresTheOriginalParentSampleAndFinalization() throws Exception {
+        eid("child", "Male", "2024-10-01");
+        pendingFinalSample("sample", "child", "2026-04-20", null);
+        cardFinalResult("wrong-parent", "child", "2026-04-22", "different-visit", "sample", "positive", 1);
+        cardFinalResult("wrong-sample", "child", "2026-04-22", "sample", "different-sample", "negative", 1);
+        cardFinalResult("draft", "child", "2026-04-22", "sample", "sample", "negative", 0);
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-11"));
+        assertEquals(1, counts.getInt("mm-11-pending-results"));
+
+        currentVisit("later-visit", "child", "2026-05-02", MotherMentorFollowUpType.CHILD_EID, "found");
+        finalResultAnswers("later-visit", "negative");
+        detail("later-visit", DBConstants.KEY.CHILD_EID_SAMPLE_SUBMISSION_ID, "sample");
+
+        counts = report.getIndicatorData();
+        assertEquals(0, counts.getInt("query-errors"));
+        assertEquals(1, counts.getInt("mm-11-negative"));
+        assertEquals(0, counts.getInt("mm-11-positive"));
+        assertEquals(0, counts.getInt("mm-11-pending-results"));
+    }
+
+    @Test
+    public void directReferralAndBirthSampleConfirmationDoNotAffectScheduledAttendance() throws Exception {
+        eid("child", "Male", "2026-02-20");
+        currentVisit("referral", "child", "2026-04-11", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("referral", DBConstants.KEY.MTOTO_ENTRY_SOURCE, MotherMentorChildEidDirectEnrollment.SOURCE);
+        detail("referral", DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE,
+                MotherMentorChildEidDirectEnrollment.CONFIRMATION_NEEDED);
+        detail("referral", DBConstants.KEY.MTOTO_RUFAA_TEST, "at_birth");
+
+        currentVisit("confirmation", "child", "2026-04-16", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("confirmation", DBConstants.KEY.MTOTO_ENTRY_SOURCE, MotherMentorChildEidDirectEnrollment.SOURCE);
+        detail("confirmation", DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE,
+                MotherMentorChildEidDirectEnrollment.CONFIRMATION_REFERRED);
+        detail("confirmation", DBConstants.KEY.MTOTO_RUFAA_TEST, "at_birth");
+        detail("confirmation", DBConstants.KEY.MTOTO_RETURN_FLOW, "1");
+        detail("confirmation", DBConstants.KEY.CHILD_EID_ARRIVED_AT_FACILITY, "yes");
+        detail("confirmation", DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE, "2026-04-16");
+        detail("confirmation", DBConstants.KEY.MAMA_HEI_TEST_DONE, "yes");
+        detail("confirmation", DBConstants.KEY.MAMA_HEI_TEST_DATE, "2026-04-16");
+        detail("confirmation", DBConstants.KEY.MAMA_HEI_TEST_RESULT, "negative");
+
+        eid("another-child", "Female", "2026-02-20");
+        currentVisit("missed-referral", "another-child", "2026-04-16", MotherMentorFollowUpType.CHILD_EID, "found");
+        detail("missed-referral", DBConstants.KEY.MTOTO_ENTRY_SOURCE, MotherMentorChildEidDirectEnrollment.SOURCE);
+        detail("missed-referral", DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE, "none");
+        currentChildAttendance("week-six", "another-child", "six_weeks", "yes", "2026-04-20");
+        detail("week-six", DBConstants.KEY.MTOTO_ENTRY_SOURCE, MotherMentorChildEidDirectEnrollment.SOURCE);
+        detail("week-six", DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE, "referred");
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(0, counts.getInt("query-errors"));
+        assertEquals(1, counts.getInt("mm-9"));
+        assertEquals(0, counts.getInt("mm-10"));
+        assertEquals(0, counts.getInt("mm-11"));
+    }
+
+    private void pendingFinalSample(String id, String child, String date, String sampleId) {
+        currentChildAttendance(id, child, "eighteen_months", "yes", date);
+        database.execSQL("UPDATE visits SET form_submission_id = ? WHERE visit_id = ?", new Object[]{id, id});
+        detail(id, "mtoto_return_flow", "1");
+        detail(id, "mtoto_rufaa_state_before", "referred");
+        detail(id, "mama_hei_test_done", "yes");
+        detail(id, "mama_hei_test_result", "pending");
+        detail(id, "mama_hei_test_date", date);
+        if (sampleId != null) detail(id, DBConstants.KEY.CHILD_EID_SAMPLE_SUBMISSION_ID, sampleId);
+    }
+
+    private void cardFinalResult(String id, String child, String date, String parent, String sample, String result, int processed) {
+        visit(id, child, date, processed);
+        database.execSQL("UPDATE visits SET visit_type = ? WHERE visit_id = ?",
+                new Object[]{MotherMentorChildEidResultEvent.EVENT_TYPE, id});
+        detail(id, DBConstants.KEY.CHILD_EID_RESULT_ENTRY, MotherMentorChildEidResultEvent.STANDALONE);
+        detail(id, DBConstants.KEY.CHILD_EID_PARENT_SUBMISSION_ID, parent);
+        detail(id, DBConstants.KEY.CHILD_EID_SAMPLE_SUBMISSION_ID, sample);
+        finalResultAnswers(id, result);
+    }
+
+    private void finalResultAnswers(String id, String result) {
+        detail(id, "mtoto_return_flow", "1");
+        detail(id, "mtoto_rufaa_state_before", "awaiting_result");
+        detail(id, "mtoto_pending_test", "miezi18");
+        detail(id, "mtoto_pending_test_date", "2026-04-20");
+        detail(id, "mtoto_result_received", "yes");
+        detail(id, "mtoto_received_result", result);
+        detail(id, "mtoto_confirmation_received", "yes");
+    }
 
     private void partnerEducation(String id, String topics) {
         setDetail(id, "partner_education_provided", "yes");

@@ -14,6 +14,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
 
@@ -304,6 +305,7 @@ public final class MotherMentorHistoryMapper {
                                 DBConstants.KEY.CHILD_EID_EXPECTED_FACILITY_VISIT_DATE))) {
             if (hasSchema(recorded, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3")) return Arrays.asList(
                     "mothermentor_child_eid_follow_up_status", "mothermentor_child_eid_hei",
+                    MotherMentorChildEidResultForm.FORM_NAME,
                     "mothermentor_child_eid_follow_up_comment");
             return Arrays.asList(
                     "mothermentor_child_eid_follow_up_status_legacy",

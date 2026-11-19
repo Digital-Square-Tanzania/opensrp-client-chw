@@ -4,6 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.ReportObject;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdCounsellingDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
@@ -233,17 +235,23 @@ public class MotherMentorReportObject extends ReportObject {
                 + detail(DBConstants.KEY.MTOTO_PENDING_TEST_DATE) + " ELSE "
                 + detail(DBConstants.KEY.MAMA_HEI_TEST_DATE) + " END ELSE "
                 + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_TEST_DATE) + " END";
-        String needsConfirmation = returnFlow + " AND coalesce(" + prior + ", '') <> 'awaiting_confirm'"
-                + " AND coalesce(" + detail(DBConstants.KEY.MTOTO_CONFIRMATION_RECEIVED) + ", '') <> 'yes'";
+        String needsConfirmation = returnFlow + " AND coalesce(" + prior + ", '') <> 'awaiting_confirm'";
         String finalVisits = "WITH attendance AS (" + childAttendanceVisits(true)
                 + "), answers AS (SELECT v.*, " + tested + " AS final_test_done, CASE WHEN " + returnFlow
                 + " THEN " + newResult + " ELSE " + detail(DBConstants.KEY.CHILD_EID_FINAL_HIV_RESULT)
                 + " END AS raw_result, " + testDate + " AS raw_test_date, CASE WHEN " + needsConfirmation
-                + " THEN 1 ELSE 0 END AS needs_confirmation FROM attendance v), "
+                + " THEN 1 ELSE 0 END AS needs_confirmation, "
+                + detail(DBConstants.KEY.MTOTO_CONFIRMATION_RECEIVED) + " AS confirmation_received, "
+                + detail(DBConstants.KEY.MTOTO_CONFIRMATORY_RESULT) + " AS confirmatory_result, "
+                + detail(DBConstants.KEY.CHILD_EID_SAMPLE_SUBMISSION_ID) + " AS sample_submission_id, "
+                + detail(DBConstants.KEY.CHILD_EID_PARENT_SUBMISSION_ID) + " AS parent_submission_id"
+                + " FROM attendance v), "
                 + "final_visits AS (SELECT a.*, CASE WHEN a.raw_result = 'positive' AND a.needs_confirmation = 1"
-                + " THEN 'pending' ELSE a.raw_result END AS final_result, " + normalizeDate("a.raw_test_date")
+                + " THEN CASE WHEN coalesce(a.confirmation_received, '') <> 'yes' THEN 'pending'"
+                + " WHEN a.confirmatory_result = 'negative' THEN 'negative' ELSE 'positive' END"
+                + " ELSE a.raw_result END AS final_result, " + normalizeDate("a.raw_test_date")
                 + " AS final_test_date FROM answers a)";
-        String knownStage = "v.test_stage IN ('week_6', 'month_9',"
+        String knownStage = "v.test_stage IN ('at_birth', 'week_6', 'month_9',"
                 + " 'three_months_after_breastfeeding', 'month_18', 'not_applicable')";
         String knownAttendance = "v.attendance IN ('yes', 'no', 'not_applicable') AND ("
                 + "v.attendance <> 'yes' OR (" + validDate("v.attendance_date")
@@ -257,34 +265,50 @@ public class MotherMentorReportObject extends ReportObject {
             return;
         }
         String withLinked = finalVisits + ", linked AS (SELECT * FROM final_visits"
-                + " WHERE test_stage = 'month_18' AND attendance = 'yes')";
+                + " WHERE test_stage = 'month_18' AND attendance = 'yes' AND result_review = 0)";
         putDemographicIndicator(result, "mm-11", withLinked + " " + demographicQuery(
                 serviceClientSource(firstClientVisit("SELECT * FROM linked"), false), 1, 24));
-        // A later confirmed result resolves an earlier pending record. A visit explicitly stating
-        // that no new test was done must not erase a previously recorded final test result.
         String validTest = "v.final_test_done = 'yes' AND "
                 + "v.final_result IN ('positive', 'negative', 'pending') AND "
                 + validDate("v.final_test_date") + " AND v.final_test_date <= v.service_date";
-        String knownResult = "v.final_test_done = 'no' OR (" + validTest + ")";
-        String withStates = withLinked + ", states AS (SELECT * FROM final_visits v"
-                + " WHERE v.test_stage = 'month_18' AND " + validTest
-                + " AND (v.attendance = 'yes' OR (v.result_review = 1 AND EXISTS "
-                + "(SELECT 1 FROM linked l WHERE l." + DBConstants.KEY.BASE_ENTITY_ID + " = v."
-                + DBConstants.KEY.BASE_ENTITY_ID + " AND l.final_test_date = v.final_test_date))))";
-        String unresolved = "NOT EXISTS (SELECT 1 FROM states n WHERE n."
+        // Apply results to the original sample and keep the sample's service date and demographics.
+        String evidence = "v.service_date AS evidence_date, coalesce(CAST(v." + DBConstants.KEY.VISIT_DATE
+                + " AS INTEGER), 0) AS evidence_time, v." + DBConstants.KEY.VISIT_ID
+                + " AS evidence_id, v.final_result AS resolved_result";
+        String standaloneType = "v." + DBConstants.KEY.VISIT_TYPE + " = '" + MotherMentorChildEidResultEvent.EVENT_TYPE + "'";
+        String exactSample = "v.sample_submission_id = coalesce(nullif(l.sample_submission_id, ''), l."
+                + DBConstants.KEY.FORM_SUBMISSION_ID + ") AND (NOT (" + standaloneType + ")"
+                + " OR v.parent_submission_id = l." + DBConstants.KEY.FORM_SUBMISSION_ID + ")";
+        String legacySample = "NOT (" + standaloneType + ") AND coalesce(v.sample_submission_id, '') = ''"
+                + " AND " + inMonth("v.service_date");
+        String withStates = withLinked + ", states AS (SELECT v.*, " + evidence + " FROM linked v WHERE " + validTest
+                + " UNION ALL SELECT l.*, " + evidence + " FROM linked l JOIN final_visits v ON v."
+                + DBConstants.KEY.BASE_ENTITY_ID + " = l." + DBConstants.KEY.BASE_ENTITY_ID
+                + " AND v.final_test_date = l.final_test_date AND v.service_date >= l.service_date"
+                + " WHERE v.result_review = 1 AND v.test_stage = 'month_18' AND " + validTest
+                + " AND ((" + exactSample + ") OR (" + legacySample + "))),"
+                + " resolved AS (SELECT v.*, s.resolved_result FROM linked v LEFT JOIN states s ON s."
+                + DBConstants.KEY.VISIT_ID + " = v." + DBConstants.KEY.VISIT_ID
+                + " AND NOT EXISTS (SELECT 1 FROM states newer WHERE newer." + DBConstants.KEY.VISIT_ID
+                + " = s." + DBConstants.KEY.VISIT_ID
+                + " AND (newer.evidence_date, newer.evidence_time, newer.evidence_id)"
+                + " > (s.evidence_date, s.evidence_time, s.evidence_id)))";
+        String unresolved = "NOT EXISTS (SELECT 1 FROM resolved n WHERE n.resolved_result IS NOT NULL AND n."
                 + DBConstants.KEY.BASE_ENTITY_ID + " = v." + DBConstants.KEY.BASE_ENTITY_ID
                 + " AND " + laterVisit() + ")";
-        String withLatest = withStates + ", latest AS (SELECT v.* FROM states v WHERE " + unresolved + ")";
-        Integer missingResult = missingRecords(withStates, "linked", unresolved, knownResult);
+        String withLatest = withStates + ", latest AS (SELECT v.* FROM resolved v WHERE v.resolved_result IS NOT NULL"
+                + " AND " + unresolved + ")";
+        Integer missingResult = missingRecords(withStates, "resolved", unresolved,
+                "v.final_test_done = 'no' OR v.resolved_result IS NOT NULL");
         if (missingResult == null) return;
         result.put("mm-11-missing-records", missingResult);
         Map<String, Integer> pending = query(withLatest + " SELECT COUNT(DISTINCT " + DBConstants.KEY.BASE_ENTITY_ID
-                + ") AS total FROM latest WHERE final_result = 'pending'",
+                + ") AS total FROM latest WHERE resolved_result = 'pending'",
                 Collections.singletonList("total"));
         if (pending != null) result.put("mm-11-pending-results", value(pending, "total"));
         if (missingResult > 0) return;
         for (String outcome : new String[]{"positive", "negative"}) {
-            String source = "SELECT * FROM latest WHERE final_test_done = 'yes' AND final_result = '" + outcome + "'";
+            String source = "SELECT * FROM latest WHERE resolved_result = '" + outcome + "'";
             putDemographicIndicator(result, "mm-11-" + outcome, withLatest + " "
                     + demographicQuery(serviceClientSource(source, false), 1, 24));
         }
@@ -633,7 +657,7 @@ public class MotherMentorReportObject extends ReportObject {
         String visits = "(" + childAttendanceVisits() + ")";
         String knownStage =
                 selectedStage
-                        + " IN ('week_6', 'month_9', 'three_months_after_breastfeeding',"
+                        + " IN ('at_birth', 'week_6', 'month_9', 'three_months_after_breastfeeding',"
                         + " 'month_18', 'not_applicable')";
         String knownAttendance =
                 attendance
@@ -709,10 +733,16 @@ public class MotherMentorReportObject extends ReportObject {
         String prior = detail(DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE);
         String reviewing = "(" + returnFlow + " AND " + prior
                 + " IN ('awaiting_result', 'awaiting_confirm'))";
+        // Direct referral and confirmation are for an existing sample and have no scheduled attendance.
+        String directReferral = detail(DBConstants.KEY.MTOTO_ENTRY_SOURCE) + " = '"
+                + MotherMentorChildEidDirectEnrollment.SOURCE + "' AND " + prior + " IN ('none', '"
+                + MotherMentorChildEidDirectEnrollment.CONFIRMATION_NEEDED + "', '"
+                + MotherMentorChildEidDirectEnrollment.CONFIRMATION_REFERRED + "')";
         String selectedStage = "coalesce(nullif(" + detail(DBConstants.KEY.CHILD_EID_TEST_TYPE)
                 + ", ''), CASE WHEN " + reviewing + " THEN " + detail(DBConstants.KEY.MTOTO_PENDING_TEST)
                 + " WHEN " + returnFlow + " THEN " + detail(DBConstants.KEY.MTOTO_RUFAA_TEST) + " END)";
         String stage = "CASE " + selectedStage
+                + " WHEN 'at_birth' THEN 'at_birth'"
                 + " WHEN 'six_weeks' THEN 'week_6' WHEN 'wiki6' THEN 'week_6'"
                 + " WHEN 'nine_months' THEN 'month_9' WHEN 'miezi9' THEN 'month_9'"
                 + " WHEN 'three_months_after_weaning' THEN 'three_months_after_breastfeeding'"
@@ -720,10 +750,22 @@ public class MotherMentorReportObject extends ReportObject {
                 + " WHEN 'eighteen_months' THEN 'month_18' WHEN 'miezi18' THEN 'month_18'"
                 + " WHEN 'not_applicable' THEN 'not_applicable' END";
         MotherMentorFollowUpType type = MotherMentorFollowUpType.CHILD_EID;
+        String finalized = finalizedVisitInMonth(LEGACY_SERVICE, type.getEventType());
+        String reportedStage = workflowAnswer(type, DBConstants.KEY.CHILD_FOLLOWUP_TEST_STAGE, whenFound(stage));
+        if (includeResultReview) {
+            String standAlone = "v." + DBConstants.KEY.VISIT_TYPE + " = '" + MotherMentorChildEidResultEvent.EVENT_TYPE
+                    + "' AND " + detail(DBConstants.KEY.CHILD_EID_RESULT_ENTRY) + " = '"
+                    + MotherMentorChildEidResultEvent.STANDALONE + "'";
+            reportedStage = "CASE WHEN " + standAlone + " THEN " + stage + " ELSE " + reportedStage + " END";
+            // A linked result can be saved after the attendance month. Its source sample selects the cohort.
+            finalized = "(" + finalized + " OR (v." + DBConstants.KEY.PROCESSED + " = 1 AND " + reviewing
+                    + " AND " + validDate(serviceDate()) + " AND " + answered(detail(DBConstants.KEY.CHILD_EID_SAMPLE_SUBMISSION_ID))
+                    + " AND (v." + DBConstants.KEY.VISIT_TYPE + " = '" + type.getEventType() + "' OR (" + standAlone + "))))";
+        }
         return "SELECT v.*, "
                 + serviceDate()
                 + " AS service_date, "
-                + workflowAnswer(type, DBConstants.KEY.CHILD_FOLLOWUP_TEST_STAGE, whenFound(stage))
+                + reportedStage
                 + " AS test_stage, "
                 + workflowAnswer(
                         type,
@@ -736,8 +778,9 @@ public class MotherMentorReportObject extends ReportObject {
                                 DBConstants.KEY.CHILD_FACILITY_DATE,
                                 detail(DBConstants.KEY.CHILD_EID_FACILITY_ARRIVAL_DATE)))
                 + " AS attendance_date, CASE WHEN " + reviewing + " THEN 1 ELSE 0 END AS result_review"
-                + " FROM visits v WHERE " + finalizedVisitInMonth(LEGACY_SERVICE, type.getEventType())
+                + " FROM visits v WHERE " + finalized
                 + " AND " + childEidAt(serviceDate())
+                + " AND NOT coalesce((" + directReferral + "), 0)"
                 + (includeResultReview ? "" : " AND NOT coalesce(" + reviewing + ", 0)");
     }
 

@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -58,12 +61,36 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
                 MotherMentorChildEidRegisterPresenter.Callback {
     public static final String MOTHER_ID = DBConstants.KEY.MOTHER_BASE_ENTITY_ID;
     private static final String CHILD_ID = "selected_child_id";
+    private static final String DIRECT_CHILD_ID = "direct_child_id";
+    private static final String DIRECT_FORM_LAUNCHED = "direct_form_launched";
     private final AppExecutors executors = new AppExecutors();
     private MotherMentorChildEidRepository repository;
     private MotherMentorChildEidRegisterPresenter registerPresenter;
     private String motherId;
     private String childId;
+    private String directChildId;
+    private boolean directFormLaunched;
     private ProgressDialog progressDialog;
+
+    static void updateDirectEnrollmentMenu(Activity activity, Menu menu, String childId) {
+        if (childId == null || !ChwApplication.getApplicationFlavor().hasMotherMentor()) return;
+        MenuItem item = menu.findItem(R.id.action_mothermentor_direct_child_eid);
+        MotherMentorChildEidRepository repository = new MotherMentorChildEidRepository(
+                ChwApplication.getInstance().getRepository().getReadableDatabase());
+        boolean eligible = repository.canEnrollDirectChild(childId);
+        if (item == null && eligible) {
+            item = menu.add(Menu.NONE, R.id.action_mothermentor_direct_child_eid, Menu.NONE,
+                    R.string.mothermentor_direct_child_eid);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            item.setOnMenuItemClickListener(selected -> {
+                Intent intent = new Intent(activity, MotherMentorChildEidRegisterActivity.class);
+                intent.putExtra(DIRECT_CHILD_ID, childId);
+                activity.startActivity(intent);
+                return true;
+            });
+        }
+        if (item != null) item.setVisible(eligible);
+    }
 
     @Override
     protected void onCreate(Bundle state) {
@@ -72,6 +99,8 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
         motherId =
                 state == null ? getIntent().getStringExtra(MOTHER_ID) : state.getString(MOTHER_ID);
         childId = state == null ? null : state.getString(CHILD_ID);
+        directChildId = getIntent().getStringExtra(DIRECT_CHILD_ID);
+        directFormLaunched = state != null && state.getBoolean(DIRECT_FORM_LAUNCHED);
         repository =
                 new MotherMentorChildEidRepository(
                         ChwApplication.getInstance().getRepository().getWritableDatabase());
@@ -82,6 +111,14 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
+        if (directChildId != null) {
+            toolbar.setTitle(R.string.mothermentor_direct_child_eid);
+            findViewById(R.id.child_from_household).setVisibility(View.GONE);
+            findViewById(R.id.child_from_all_clients).setVisibility(View.GONE);
+            findViewById(R.id.child_register_new).setVisibility(View.GONE);
+            if (!directFormLaunched) openChildForm(directChildId);
+            return;
+        }
         findViewById(R.id.child_from_household).setOnClickListener(view -> loadCandidates(true));
         findViewById(R.id.child_from_all_clients).setOnClickListener(view -> loadCandidates(false));
         findViewById(R.id.child_register_new).setOnClickListener(view -> registerNewClient());
@@ -116,6 +153,7 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
     protected void onSaveInstanceState(@NonNull Bundle state) {
         state.putString(MOTHER_ID, motherId);
         state.putString(CHILD_ID, childId);
+        state.putBoolean(DIRECT_FORM_LAUNCHED, directFormLaunched);
         super.onSaveInstanceState(state);
     }
 
@@ -212,7 +250,8 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
     }
 
     private void openChildForm(String id) {
-        showProgressDialog(R.string.mothermentor_link_child_eid);
+        showProgressDialog(directChildId == null ? R.string.mothermentor_link_child_eid
+                : R.string.mothermentor_direct_child_eid);
         executors
                 .diskIO()
                 .execute(
@@ -221,7 +260,8 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
                                 JSONObject form =
                                         FormUtils.getFormUtils()
                                                 .getFormJson(MotherMentorChildEidFormUtils.FORM);
-                                repository.prepareForm(form, motherId, id);
+                                if (directChildId == null) repository.prepareForm(form, motherId, id);
+                                else repository.prepareDirectForm(this, form, directChildId);
                                 form.getJSONObject("metadata")
                                         .put(
                                                 "encounter_location",
@@ -235,24 +275,36 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
                                                     hideProgressDialog();
                                                     if (isFinishing() || isDestroyed()) return;
                                                     childId = id;
-                                                    Intent intent =
-                                                            Utils.formActivityIntent(
-                                                                    this, form.toString());
-                                                    startActivityForResult(
-                                                            MotherMentorFormWizardUtils
-                                                                    .configureIntent(
-                                                                            this, intent),
-                                                            JsonFormUtils.REQUEST_CODE_GET_JSON);
+                                                    launchEnrollmentForm(form);
                                                 });
                             } catch (Exception e) {
-                                fail(e, R.string.mothermentor_child_eid_unavailable);
+                                if (directChildId == null) fail(e, R.string.mothermentor_child_eid_unavailable);
+                                else executors.mainThread().execute(() -> {
+                                    if (isFinishing() || isDestroyed()) return;
+                                    hideProgressDialog();
+                                    displayToast(R.string.mothermentor_direct_child_eid_unavailable);
+                                    finish();
+                                });
                             }
                         });
+    }
+
+    private void launchEnrollmentForm(JSONObject form) {
+        Intent intent = Utils.formActivityIntent(this, form.toString());
+        directFormLaunched = directChildId != null;
+        startActivityForResult(MotherMentorFormWizardUtils.configureIntent(this, intent),
+                JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && directChildId != null) {
+            directFormLaunched = false;
+            if (resultCode == RESULT_OK && data != null) saveDirectEnrollment(data);
+            else finish();
+            return;
+        }
         if (requestCode != JsonFormUtils.REQUEST_CODE_GET_JSON
                 || resultCode != RESULT_OK
                 || data == null) return;
@@ -303,6 +355,42 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
         } catch (Exception e) {
             fail(e, org.smartregister.chw.core.R.string.error_unable_to_save_form);
         }
+    }
+
+    private void saveDirectEnrollment(Intent data) {
+        showProgressDialog(org.smartregister.chw.core.R.string.saving_dialog_title);
+        executors.diskIO().execute(() -> {
+            try {
+                JSONObject form = new JSONObject(data.getStringExtra("json"));
+                try {
+                    repository.saveDirect(this, form, directChildId, Utils.getAllSharedPreferences());
+                } catch (IllegalArgumentException invalid) {
+                    executors.mainThread().execute(() -> showDirectValidationError(invalid.getMessage(), form));
+                    return;
+                }
+                executors.mainThread().execute(() -> {
+                    if (isFinishing() || isDestroyed()) return;
+                    hideProgressDialog();
+                    displayToast(R.string.mothermentor_direct_child_eid_saved);
+                    setResult(RESULT_OK);
+                    finish();
+                });
+            } catch (Exception error) {
+                fail(error, org.smartregister.chw.core.R.string.error_unable_to_save_form);
+                executors.mainThread().execute(this::finish);
+            }
+        });
+    }
+
+    private void showDirectValidationError(String message, JSONObject form) {
+        if (isFinishing() || isDestroyed()) return;
+        hideProgressDialog();
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton(R.string.mothermentor_direct_child_eid_edit, (dialog, which) -> launchEnrollmentForm(form))
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> finish())
+                .setOnCancelListener(dialog -> finish())
+                .show();
     }
 
     @Override

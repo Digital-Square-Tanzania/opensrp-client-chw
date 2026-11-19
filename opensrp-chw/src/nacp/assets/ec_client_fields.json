@@ -4956,6 +4956,46 @@
           }
         },
         {
+          "column_name": "mtoto_caregiver_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_caregiver_name"
+          }
+        },
+        {
+          "column_name": "mtoto_caregiver_relationship",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_caregiver_relationship"
+          }
+        },
+        {
+          "column_name": "mtoto_caregiver_phone",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_caregiver_phone"
+          }
+        },
+        {
+          "column_name": "mtoto_entry_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_entry_test"
+          }
+        },
+        {
+          "column_name": "mtoto_entry_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mtoto_entry_result"
+          }
+        },
+        {
           "column_name": "mtoto_visit_count",
           "type": "Event",
           "json_mapping": {

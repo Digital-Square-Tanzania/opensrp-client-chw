@@ -37,6 +37,16 @@ public class MotherMentorChildEidFormUtilsTest {
         assertTrue(MotherMentorChildEidFormUtils.isEligibleChild(dob, "false"));
     }
 
+    @Test public void directEnrollmentAllowsEighteenThroughTwentyThreeMonthsWithExactBirthdate() {
+        LocalDate today = new LocalDate(2026, 10, 16);
+        String twentyThreeMonths = "2024-10-17T00:00:00.000+03:00";
+        assertTrue(MotherMentorChildEidFormUtils.isEligibleForDirectEnrollment(twentyThreeMonths, "false", today));
+        assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn(twentyThreeMonths, today));
+        assertFalse(MotherMentorChildEidFormUtils.isEligibleForDirectEnrollment(twentyThreeMonths, "true", today));
+        assertFalse(MotherMentorChildEidFormUtils.isEligibleForDirectEnrollment("2024-10-16", "false", today));
+        assertFalse(MotherMentorChildEidFormUtils.isEligibleForDirectEnrollment("2026-10-17", "false", today));
+    }
+
     @Test public void registrationRequiresDobAndRetainsBothSexesInBothLocales() throws Exception {
         for (String locale : new String[]{"json.form", "json.form-sw"}) {
             JSONObject form = MotherMentorTestAssets.form(locale, "all_clients_registration_form.json");
