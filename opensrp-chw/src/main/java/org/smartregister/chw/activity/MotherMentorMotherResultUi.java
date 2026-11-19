@@ -167,8 +167,7 @@ final class MotherMentorMotherResultUi {
             return;
         }
         if (!MotherMentorMotherResultEvent.isComplete(test, answers, day)) {
-            int dateError = test.isAwaitingConfirmation() ? 0
-                    : MotherMentorChildEidResultForm.receiptDateError(answers, test.getTestDate());
+            int dateError = MotherMentorChildEidResultForm.receiptDateError(answers, test.getTestDate());
             if (dateError != 0) MotherMentorMotherChildUtils.put(form, MTOTO_RESULT_RECEIVED_DATE, "");
             message(dateError == 0 ? R.string.mothermentor_eid_result_required : dateError);
             launch(form);
