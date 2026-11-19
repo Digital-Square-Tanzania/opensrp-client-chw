@@ -323,6 +323,7 @@ public final class MotherMentorHistoryMapper {
         }
         return Arrays.asList(
                 "mothermentor_visit_type",
+                "mothermentor_visit_child",
                 "mothermentor_visit_group_linkage",
                 "mothermentor_visit_education_provided",
                 "mothermentor_visit_referal",
