@@ -244,9 +244,9 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         add(visit, "attendance_type", "new", "New");
         add(visit, "mama_first_visit_assessment", "true", "");
         Map<String, String> expected = new LinkedHashMap<>();
-        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_child",
+        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_type",
                 "mama_birth_test_done", "yes");
-        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_child",
+        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_type",
                 "mama_birth_test_result", "pending");
         LinearLayout cards = render(activity(), null, visit);
         LinearLayout details = cards.getChildAt(0).findViewById(R.id.visit_details_layout);
