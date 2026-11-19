@@ -19,10 +19,10 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultRepository;
-import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultRepository.Answers;
-import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultRepository.Entry;
-import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultRepository.Sample;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.util.AppExecutors;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
@@ -104,7 +104,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
         if (sampleId == null) {
             executors.diskIO().execute(() -> {
                 try {
-                    List<Entry> entries = MotherMentorMotherResultRepository.visible(database(), motherId, LocalDate.now());
+                    List<Entry> entries = MotherMentorMotherResultEvent.visible(database(), motherId, LocalDate.now());
                     executors.mainThread().execute(() -> renderList(entries));
                 } catch (RuntimeException error) {
                     failedToLoad(error);
@@ -113,7 +113,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
         } else if (entry == null) {
             executors.diskIO().execute(() -> {
                 try {
-                    Entry editable = MotherMentorMotherResultRepository.editable(database(), motherId, sampleId, LocalDate.now());
+                    Entry editable = MotherMentorMotherResultEvent.editable(database(), motherId, sampleId, LocalDate.now());
                     executors.mainThread().execute(() -> renderForm(editable));
                 } catch (RuntimeException error) {
                     failedToLoad(error);
@@ -126,7 +126,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
         if (entry == null || result == null) return;
-        state.putString(REVISION, entry.getRevision());
+        state.putLong(REVISION, entry.getRevision());
         state.putInt(RESULT, result.getCheckedRadioButtonId());
         state.putString(DATE, receivedDate == null ? "" : receivedDate.toString());
         state.putInt(CONFIRMATION_DONE, confirmationDone.getCheckedRadioButtonId());
@@ -154,7 +154,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
         for (Entry item : entries) {
             View row = getLayoutInflater().inflate(R.layout.mothermentor_test_result_row, content, false);
             String type = testLabel(this, item.getSample());
-            String summary = field(R.string.mama_results_date, dateLabel(item.getSample().getDate())) + "\n"
+            String summary = field(R.string.mama_results_date, dateLabel(item.getSample().getTestDate())) + "\n"
                     + field(R.string.mama_results_type, type);
             TextView note = row.findViewById(R.id.mama_results_note);
             if (item.isRecorded()) {
@@ -170,7 +170,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             Button action = row.findViewById(R.id.mama_results_action);
             action.setText(item.isRecorded() ? R.string.mama_results_edit : R.string.mama_results_record);
             action.setContentDescription(action.getText() + " · " + type);
-            action.setOnClickListener(view -> startActivity(formIntent(this, motherId, item.getSample().getId())));
+            action.setOnClickListener(view -> startActivity(formIntent(this, motherId, item.getId())));
             content.addView(row);
         }
     }
@@ -178,7 +178,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     private void renderForm(Entry editable) {
         if (isFinishing() || isDestroyed()) return;
         if (editable == null || (restoredForm != null && restoredForm.containsKey(REVISION)
-                && !editable.getRevision().equals(restoredForm.getString(REVISION)))) {
+                && editable.getRevision() != restoredForm.getLong(REVISION))) {
             unavailable();
             return;
         }
@@ -221,7 +221,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     }
 
     private void updateConfirmation() {
-        boolean show = !entry.getSample().isConfirmation()
+        boolean show = !entry.getSample().isAwaitingConfirmation()
                 && result.getCheckedRadioButtonId() == R.id.mama_results_answer_positive;
         if (!show && confirmationDone.getCheckedRadioButtonId() != -1) confirmationDone.clearCheck();
         boolean showResult = show && confirmationDone.getCheckedRadioButtonId() == R.id.mama_results_confirmation_yes;
@@ -237,7 +237,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             receivedDate = new LocalDate(year, month + 1, day);
             updateDate();
         }, selected.getYear(), selected.getMonthOfYear() - 1, selected.getDayOfMonth());
-        picker.getDatePicker().setMinDate(entry.getSample().getDate().toDate().getTime());
+        picker.getDatePicker().setMinDate(entry.getSample().getTestDate().toDate().getTime());
         picker.getDatePicker().setMaxDate(today.toDate().getTime());
         picker.show();
     }
@@ -250,7 +250,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     private void submit() {
         if (entry == null || saving) return;
         LocalDate today = LocalDate.now();
-        if (!MotherMentorHeiSchedule.validDate(receivedDate, entry.getSample().getDate(), today)) {
+        if (!MotherMentorHeiSchedule.validDate(receivedDate, entry.getSample().getTestDate(), today)) {
             toast(R.string.mama_results_select_date_error);
             return;
         }
@@ -267,7 +267,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             return;
         }
         setSaving(true);
-        if (answers.closesFollowUp(entry.getSample())) {
+        if (answers.closesFollowUp(entry.getSample(), today)) {
             MotherMentorMotherClosureDialog.show(this, MotherMentorMotherClosure.active()
                     .advance(MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE, today.toString()),
                     () -> save(answers), () -> setSaving(false));
@@ -279,7 +279,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     private void save(Answers answers) {
         executors.diskIO().execute(() -> {
             try {
-                boolean saved = MotherMentorMotherResultRepository.save(database(), motherId, sampleId,
+                boolean saved = MotherMentorMotherResultEvent.save(database(), motherId, sampleId,
                         entry.getRevision(), answers);
                 executors.mainThread().execute(() -> {
                     if (isFinishing() || isDestroyed()) return;
@@ -330,9 +330,9 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
         return "";
     }
 
-    static String testLabel(Context context, Sample sample) {
+    static String testLabel(Context context, PendingTest sample) {
         String stage = stageLabel(context, sample.getStage());
-        return sample.isConfirmation() ? context.getString(R.string.mama_results_confirmation_type, stage) : stage;
+        return sample.isAwaitingConfirmation() ? context.getString(R.string.mama_results_confirmation_type, stage) : stage;
     }
 
     static String stageLabel(Context context, MotherMentorHeiSchedule.Stage stage) {
