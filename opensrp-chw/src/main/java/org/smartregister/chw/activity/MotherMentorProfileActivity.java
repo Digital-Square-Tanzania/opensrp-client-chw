@@ -1690,8 +1690,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         try {
             if (!isFollowUpProfile()) {
                 MotherMentorMotherClosure preview = getSavedMotherClosurePreview(visit);
-                JSONObject event = TextUtils.isEmpty(visit.getJson()) ? new JSONObject() : new JSONObject(visit.getJson());
-                Map<String, String> values = MotherMentorVisitCompletion.observationValues(event.optJSONArray("obs"));
+                Map<String, String> values = MotherMentorVisitCompletion.observationValues(
+                        MotherMentorChildEidDao.json(visit).optJSONArray("obs"));
                 boolean confirmedPositive = MotherMentorMotherClosureRepository.outcome(values)
                         == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE;
                 if (preview.isClosed() && (!confirmedPositive
