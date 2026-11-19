@@ -29,6 +29,7 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
@@ -73,6 +74,19 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     public void closeClosureRepositories() {
         closureRepository.close();
         motherClosureRepository.close();
+    }
+
+    @Test
+    public void motherHistoryUsesItsOwnMemberArgument() {
+        Activity activity = activity();
+        MemberObject mother = new MemberObject();
+
+        MotherMentorMedicalHistoryActivity.startMe(activity, mother);
+        Intent intent = Shadows.shadowOf(activity).getNextStartedActivity();
+
+        assertEquals(MotherMentorMedicalHistoryActivity.class.getName(), intent.getComponent().getClassName());
+        assertFalse(intent.hasExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT));
+        assertEquals(mother, intent.getSerializableExtra("mother_mentor_history_member"));
     }
 
     @Test
@@ -244,9 +258,9 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         add(visit, "attendance_type", "new", "New");
         add(visit, "mama_first_visit_assessment", "true", "");
         Map<String, String> expected = new LinkedHashMap<>();
-        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_child",
+        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_type",
                 "mama_birth_test_done", "yes");
-        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_child",
+        answer(visit, expected, "json.form-sw", "json.form", "mothermentor_visit_type",
                 "mama_birth_test_result", "pending");
         LinearLayout cards = render(activity(), null, visit);
         LinearLayout details = cards.getChildAt(0).findViewById(R.id.visit_details_layout);

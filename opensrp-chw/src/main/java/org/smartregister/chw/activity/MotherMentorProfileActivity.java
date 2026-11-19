@@ -144,11 +144,13 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private TextView pregnancyWeekView;
     private TextView followUpRoleView;
     private TextView motherClosureBanner;
+    private TextView motherClosureEditNotice;
     private boolean manualVisitCompletionInProgress;
     private TextView partnerClosureBanner;
     private LinearLayout iitProfileImageRow;
     private final MotherMentorChildEidProfileUi childProfileUi = new MotherMentorChildEidProfileUi();
     private final AppExecutors childProfileExecutors = new AppExecutors();
+    private final MotherMentorMotherResultUi motherResults = new MotherMentorMotherResultUi(this);
     private volatile int childProfileLoadVersion;
     private String[] childEidResultSource;
     private boolean childEidResultBusy;
@@ -1229,6 +1231,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         boolean deceased = isClientDeceased();
         updateDeceasedClientStatusTag(deceased);
         updateMotherClosureBanner();
+        motherResults.refresh();
         if (isServiceCardClosed()) {
             if (isIitProfile() && textViewRecordMotherMentor != null) {
                 textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
@@ -1263,6 +1266,26 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         }
         enforceProcessVisitVisibility(closure.isClosed());
         refreshMedicalHistory(true);
+    }
+
+    String motherResultId() {
+        return memberObject == null || isFollowUpProfile() || isClientDeceased()
+                ? "" : memberObject.getBaseEntityId();
+    }
+
+    void showMotherClosureEditNotice(int notice) {
+        if (motherClosureEditNotice != null) motherClosureEditNotice.setVisibility(View.GONE);
+        if (notice == 0 || motherClosureBanner == null
+                || !(motherClosureBanner.getParent() instanceof ViewGroup)) return;
+        ViewGroup profile = (ViewGroup) motherClosureBanner.getParent();
+        if (motherClosureEditNotice == null) {
+            motherClosureEditNotice = new TextView(this);
+            motherClosureEditNotice.setGravity(android.view.Gravity.CENTER);
+            motherClosureEditNotice.setPadding(dpToPx(16), dpToPx(6), dpToPx(16), dpToPx(6));
+            profile.addView(motherClosureEditNotice, profile.indexOfChild(motherClosureBanner) + 1);
+        }
+        motherClosureEditNotice.setText(notice);
+        motherClosureEditNotice.setVisibility(View.VISIBLE);
     }
 
     protected boolean isMotherCardClosed() {

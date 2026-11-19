@@ -18,6 +18,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.application.ChwApplication;
@@ -31,6 +32,9 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidReposit
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
+import org.smartregister.chw.mothermentor.dao.MotherMentorChildEidDao;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
@@ -44,6 +48,7 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Date;
 import java.util.Locale;
@@ -183,9 +188,14 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         SimpleDateFormat dateFormat =
                 new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
+        List<Entry> results = motherResultHistory();
+        int nextResult = 0;
         for (int i = 0; i < history.size(); i++) {
             List<Row> rows = history.get(i);
             Visit visit = visits.get(i);
+            while (nextResult < results.size() && results.get(nextResult).getRecordedAt() <= visit.getDate().getTime()) {
+                addResultHistoryRow(context, results.get(nextResult++));
+            }
             View view = inflater.inflate(R.layout.medical_history_visit, null);
             view.findViewById(R.id.title).setVisibility(View.GONE);
             TextView service = view.findViewById(R.id.type_of_service);
@@ -193,11 +203,13 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             TextView edit = view.findViewById(R.id.textview_edit);
             boolean legacyFollowUp = followUpType != null
                     && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType());
+            boolean closingMotherVisit = i == visits.size() - 1 && canEditClosingMotherVisit(visit);
+            if (isMotherVisit(visit)) edit.setText(R.string.mama_results_edit_visit);
             edit.setVisibility(
                     i == visits.size() - 1 && !legacyFollowUp
                             && !isReadOnlyLegacyHousehold(visit)
                             && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit) && !followUpClosed
-                            && !isMotherCardClosed(visit) && !isEarlierIitEnrollment(visit)
+                            && (closingMotherVisit || !isMotherCardClosed(visit)) && !isEarlierIitEnrollment(visit)
                             ? View.VISIBLE : View.GONE);
             edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
             service.setText(String.format("%s - %s", getVisitType(context, visit.getVisitType()),
@@ -227,14 +239,66 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             }
             linearLayoutHealthFacilityVisitDetails.addView(view, 0);
         }
+        while (nextResult < results.size()) {
+            addResultHistoryRow(context, results.get(nextResult++));
+        }
+    }
+
+    private List<Entry> motherResultHistory() {
+        if (followUpType != null || StringUtils.isBlank(baseEntityId)) return Collections.emptyList();
+        List<Entry> results = new ArrayList<>(MotherMentorMotherResultEvent.history(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityId, LocalDate.now()));
+        results.sort(Comparator.comparingLong(Entry::getRecordedAt));
+        return results;
+    }
+
+    private void addResultHistoryRow(Context context, Entry entry) {
+        View view = inflater.inflate(R.layout.medical_history_visit, linearLayoutHealthFacilityVisitDetails, false);
+        view.findViewById(R.id.title).setVisibility(View.GONE);
+        TextView service = view.findViewById(R.id.type_of_service);
+        service.setText(context.getString(R.string.mama_results_history_entry,
+                MotherMentorTestResultsActivity.testLabel(context, entry.getSample()),
+                MotherMentorTestResultsActivity.answerLabel(context, entry.getAnswers().getResult())));
+        LinearLayout details = view.findViewById(R.id.visit_details_layout);
+        TextView summary = new TextView(context);
+        int padding = (int) (20 * context.getResources().getDisplayMetrics().density + 0.5f);
+        summary.setPaddingRelative(padding, 0, padding, 0);
+        String text = resultDate(context, R.string.mama_results_date, entry.getSample().getTestDate());
+        if (entry.getAnswers().getReceivedDate() != null) {
+            text += "\n" + resultDate(context, R.string.mama_results_received, entry.getAnswers().getReceivedDate());
+        }
+        text += "\n" + resultDate(context, R.string.mama_results_recorded, entry.getRecordedDate());
+        if (entry.isCorrected()) text += "\n" + context.getString(R.string.mama_results_edited);
+        summary.setText(text);
+        details.addView(summary);
+        TextView edit = view.findViewById(R.id.textview_edit);
+        if (LocalDate.now().equals(entry.getRecordedDate())) {
+            edit.setText(R.string.mama_results_edit);
+            edit.setVisibility(View.VISIBLE);
+            edit.setOnClickListener(ignored -> MotherMentorTestResultsActivity.editFromHistory(
+                    (Activity) context, baseEntityId, entry.getId()));
+        }
+        linearLayoutHealthFacilityVisitDetails.addView(view, 0);
+    }
+
+    private String resultDate(Context context, int label, LocalDate date) {
+        return context.getString(R.string.mama_results_field_value, context.getString(label),
+                MotherMentorTestResultsActivity.dateLabel(date));
     }
 
     private void editVisit(Activity activity, Visit visit) {
+        boolean motherClosed = isMotherCardClosed(visit);
         if (StringUtils.isBlank(visit.getBaseEntityId())
                 || isReadOnlyLegacyHousehold(visit)
                 || isHouseholdReadOnly(visit) || isPartnerClosed(visit) || iitState().isClosed()
-                || isChildEidClosed(childEidState()) || isMotherCardClosed(visit)
+                || isChildEidClosed(childEidState())
+                || (motherClosed && !canEditClosingMotherVisit(visit))
                 || isEarlierIitEnrollment(visit)) return;
+        if (isMotherVisit(visit)) {
+            if (!motherClosed) activity.finish();
+            MotherMentorVisitActivity.editFromHistory(activity, visit.getBaseEntityId(), visit.getVisitId());
+            return;
+        }
         activity.finish();
         if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
             MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
@@ -257,12 +321,21 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
                 && MotherMentorHistoryMapper.isLegacyHouseholdVisit(visit);
     }
 
+    private boolean isMotherVisit(Visit visit) {
+        return followUpType == null && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType())
+                && !MotherMentorHistoryMapper.isHouseholdVisit(visit) && StringUtils.isNotBlank(visit.getBaseEntityId());
+    }
+
+    private boolean canEditClosingMotherVisit(Visit visit) {
+        if (!isMotherVisit(visit)) return false;
+        net.zetetic.database.sqlcipher.SQLiteDatabase db =
+                ChwApplication.getInstance().getRepository().getReadableDatabase();
+        return MotherMentorMotherClosureRepository.isSameDayClosingVisit(
+                db, MotherMentorChildEidDao.findVisit(db, visit.getVisitId()), LocalDate.now());
+    }
+
     private boolean isMotherCardClosed(Visit visit) {
-        return followUpType == null
-                && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType())
-                && !MotherMentorHistoryMapper.isHouseholdVisit(visit)
-                && StringUtils.isNotBlank(visit.getBaseEntityId())
-                && MotherMentorMotherClosureRepository.isClosed(
+        return isMotherVisit(visit) && MotherMentorMotherClosureRepository.isClosed(
                         ChwApplication.getInstance().getRepository().getReadableDatabase(),
                         visit.getBaseEntityId());
     }
