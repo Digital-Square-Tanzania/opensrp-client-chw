@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -188,6 +189,66 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
     }
 
     @Test
+    public void mamaKadiRequiresReceiptDatesOnlyForAvailableTestResults() throws Exception {
+        String originalLanguage = LangUtils.getLanguage(context);
+        LangUtils.saveLanguage(context, "sw");
+        useLanguage("sw");
+        try {
+            LocalDate today = LocalDate.now();
+            LocalDate dob = today.minusDays(49);
+            Map<String, BaseMotherMentorVisitAction> actions =
+                    actions(new MotherServiceFixture("breast_feeding", dob.toString()), 7);
+            BaseMotherMentorVisitAction attendance = byForm(actions, "mothermentor_visit_type");
+            answer(attendance, ATTENDANCE_TYPE, "new");
+            BaseMotherMentorVisitAction child = byForm(actions, "mothermentor_visit_child");
+            assertTrue(child.isValid());
+
+            withWizard(child, activity -> {
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                select(activity, MAMA_BIRTH_TEST_DONE, "yes");
+                LocalDate birthSample = dob.plusDays(1);
+                setDate(activity, MAMA_BIRTH_TEST_DATE, birthSample);
+                onMain(() -> assertNull(visibleDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE)));
+                select(activity, MAMA_BIRTH_TEST_RESULT, "negative");
+                onMain(() -> assertSaveBlocked(activity, MAMA_BIRTH_TEST_RECEIVED_DATE));
+                setDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE, dob);
+                onMain(() -> assertEquals("Tarehe ya kupokea majibu haiwezi kuwa kabla ya tarehe ya kipimo",
+                        visibleDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE).getError().toString()));
+                setDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE, birthSample);
+                select(activity, MAMA_BIRTH_TEST_RESULT, "pending");
+                onMain(() -> assertNull(visibleDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE)));
+                select(activity, MAMA_BIRTH_TEST_RESULT, "negative");
+                onMain(() -> assertSaveBlocked(activity, MAMA_BIRTH_TEST_RECEIVED_DATE));
+                setDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE, birthSample);
+
+                select(activity, MAMA_HEI_TEST_DONE, "yes");
+                setDate(activity, MAMA_HEI_TEST_DATE, today.minusDays(1));
+                onMain(() -> assertNull(visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE)));
+                select(activity, MAMA_HEI_TEST_RESULT, "positive");
+                select(activity, HEI_CHANYA_IMETHIBITISHWA, "no");
+                onMain(() -> assertSaveBlocked(activity, MAMA_HEI_TEST_RECEIVED_DATE));
+                setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today.plusDays(1));
+                onMain(() -> assertEquals("Weka tarehe sahihi ya kupokea majibu ambayo haipo katika siku zijazo",
+                        visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE).getError().toString()));
+                setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today);
+                select(activity, MAMA_HEI_TEST_RESULT, "pending");
+                onMain(() -> assertNull(visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE)));
+                select(activity, MAMA_HEI_TEST_RESULT, "negative");
+                onMain(() -> assertSaveBlocked(activity, MAMA_HEI_TEST_RECEIVED_DATE));
+                setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today);
+                save(activity, child);
+            });
+            completed(child);
+            Map<String, String> answers = MotherMentorMotherChildUtils.values(new JSONObject(child.getJsonPayload()));
+            assertEquals(dob.plusDays(1).toString("dd-MM-yyyy"), answers.get(MAMA_BIRTH_TEST_RECEIVED_DATE));
+            assertEquals(today.toString("dd-MM-yyyy"), answers.get(MAMA_HEI_TEST_RECEIVED_DATE));
+        } finally {
+            LangUtils.saveLanguage(context, originalLanguage);
+        }
+    }
+
+    @Test
     public void mamaKadiChangesFeedingOptionsAfterABreastfeedingVisitIsSaved() throws Exception {
         String originalLanguage = LangUtils.getLanguage(context);
         LangUtils.saveLanguage(context, "sw");
@@ -338,6 +399,24 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             option.performClick();
         });
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+    }
+
+    private void setDate(MotherMentorVisitWizardActivity activity, String key, LocalDate day) {
+        onMain(() -> {
+            EditText field = visibleDate(activity, key);
+            assertNotNull(key, field);
+            field.setTag(com.vijay.jsonwizard.R.id.locale_independent_value, day.toString("dd-MM-yyyy"));
+            field.setText(day.toString("dd/MM/yyyy"));
+        });
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+    }
+
+    private EditText visibleDate(MotherMentorVisitWizardActivity activity, String key) {
+        for (View view : activity.getFormDataViews()) {
+            if (view instanceof EditText && view.isShown()
+                    && key.equals(view.getTag(com.vijay.jsonwizard.R.id.key))) return (EditText) view;
+        }
+        return null;
     }
 
     private void save(MotherMentorVisitWizardActivity activity, BaseMotherMentorVisitAction action) {
