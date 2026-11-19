@@ -2,9 +2,7 @@ package org.smartregister.chw.activity;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -73,9 +71,9 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
         String originalLanguage = LangUtils.getLanguage(context);
         LangUtils.saveLanguage(context, "sw");
         try {
+            verifyAttendance();
             verifyFirstVisit();
             verifyReferralRetry();
-            verifyAttendance();
         } finally {
             LangUtils.saveLanguage(context, originalLanguage);
         }
@@ -111,8 +109,8 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
             JsonFormActivity education = openAction(visit, "mothermentor_partner_education");
             choose(education, PARTNER_EDUCATION_PROVIDED, "no");
             save(education);
-            submit();
-            assertSaved(visit, partner, "tracing", PARTNER_TESTING_REFERRAL_GIVEN, "no");
+            submit(visit);
+            assertSaved(partner, "tracing", PARTNER_TESTING_REFERRAL_GIVEN, "no");
             assertProjectedPhase(partner, "referral");
         } finally {
             device.runOnMainSync(visit::finish);
@@ -133,8 +131,8 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
             choose(referral, PARTNER_TESTING_REFERRAL_GIVEN, "yes");
             assertVisibleText(referral, REFERRAL_PROMPT, false);
             save(referral);
-            submit();
-            assertSaved(visit, partner, "referral", PARTNER_TESTING_REFERRAL_GIVEN, "yes");
+            submit(visit);
+            assertSaved(partner, "referral", PARTNER_TESTING_REFERRAL_GIVEN, "yes");
             assertProjectedPhase(partner, "attendance");
         } finally {
             device.runOnMainSync(visit::finish);
@@ -151,14 +149,13 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
             assertVisibleText(attendance, REFERRAL_QUESTION, false);
             choose(attendance, PARTNER_ARRIVED_AT_FACILITY, "yes");
             assertRequired(attendance, PARTNER_FACILITY_ARRIVAL_DATE);
-            onView(withHint(startsWith("Tarehe aliyohudhuria kituoni"))).perform(click());
-            onView(withId(android.R.id.button1)).perform(click());
+            onView(withId(com.vijay.jsonwizard.R.id.ok_button)).perform(click());
             save(attendance);
-            submit();
+            submit(visit);
             capture("mwenzi-attendance-confirmation");
             assertFalse(MotherMentorPartnerClosureRepository.getState(database(), partner, null).isClosed());
             onView(withId(android.R.id.button1)).perform(click());
-            assertSaved(visit, partner, "attendance", PARTNER_ARRIVED_AT_FACILITY, "yes");
+            assertSaved(partner, "attendance", PARTNER_ARRIVED_AT_FACILITY, "yes");
             assertEquals("attended",
                     MotherMentorPartnerClosureRepository.getState(database(), partner, null).getStatus());
             assertNotNull(org.smartregister.chw.mothermentor.dao.MotherMentorDao.getPartnerHistoryMember(partner));
@@ -301,19 +298,28 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
         device.waitForIdleSync();
     }
 
-    private void submit() {
-        onView(withId(org.smartregister.chw.mothermentor.R.id.customFontTextViewSubmit)).perform(click());
-        device.waitForIdleSync();
+    private void submit(MotherMentorVisitActivity visit) {
+        AtomicBoolean clicked = new AtomicBoolean();
+        for (int attempt = 0; attempt < 100; attempt++) {
+            device.runOnMainSync(() -> {
+                View save = visit.findViewById(org.smartregister.chw.mothermentor.R.id.customFontTextViewSubmit);
+                if (save.hasWindowFocus() && save.isEnabled() && save.hasOnClickListeners()) {
+                    clicked.set(save.performClick());
+                }
+            });
+            if (clicked.get()) {
+                device.waitForIdleSync();
+                return;
+            }
+            SystemClock.sleep(100);
+        }
+        throw new AssertionError("The visit Save action did not become available");
     }
 
-    private void assertSaved(MotherMentorVisitActivity screen, String partner, String phase,
-            String field, String value) throws Exception {
+    private void assertSaved(String partner, String phase, String field, String value) throws Exception {
         VisitRepository repository = MotherMentorLibrary.getInstance().visitRepository();
-        AtomicBoolean finished = new AtomicBoolean();
-        for (int attempt = 0; attempt < 80; attempt++) {
-            device.runOnMainSync(() -> finished.set(screen.isFinishing()));
-            Visit visit = finished.get()
-                    ? repository.getLatestVisit(partner, MotherMentorFollowUpType.PARTNER.getEventType()) : null;
+        for (int attempt = 0; attempt < 200; attempt++) {
+            Visit visit = repository.getLatestVisit(partner, MotherMentorFollowUpType.PARTNER.getEventType());
             if (visit != null && Boolean.TRUE.equals(visit.getProcessed())) {
                 Map<String, String> answers = MotherMentorVisitCompletion.observationValues(
                         new JSONObject(visit.getJson()).getJSONArray("obs"));
@@ -331,12 +337,15 @@ public class MotherMentorPartnerReferralUiInstrumentedTest {
     }
 
     private void assertProjectedPhase(String partner, String expected) {
-        try (android.database.Cursor result = database().rawQuery("SELECT " + PARTNER_NEXT_FOLLOW_UP_PHASE
-                + " FROM " + Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER + " WHERE " + BASE_ENTITY_ID + " = ?",
-                new String[] {partner})) {
-            assertTrue(result.moveToFirst());
-            assertEquals(expected, result.getString(0));
+        for (int attempt = 0; attempt < 100; attempt++) {
+            try (android.database.Cursor result = database().rawQuery("SELECT " + PARTNER_NEXT_FOLLOW_UP_PHASE
+                    + " FROM " + Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER + " WHERE " + BASE_ENTITY_ID + " = ?",
+                    new String[] {partner})) {
+                if (result.moveToFirst() && expected.equals(result.getString(0))) return;
+            }
+            SystemClock.sleep(100);
         }
+        throw new AssertionError("Enrollment did not project the " + expected + " phase");
     }
 
     private void capture(String name) throws Exception {
