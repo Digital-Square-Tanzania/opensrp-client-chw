@@ -802,13 +802,16 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 return;
             }
             MotherMentorChildEidExit exit = MotherMentorChildEidResultEvent.preview(db, sample, answers, day);
-            boolean directEnrollment = exit != null && exit.needsConfirmation()
-                    && MotherMentorChildEidRepository.getState(db, childId, null).isDirectEnrollment();
+            MotherMentorChildEidRepository.State child = exit != null && exit.needsConfirmation()
+                    ? MotherMentorChildEidRepository.getState(db, childId, null) : null;
+            boolean directEnrollment = child != null && child.isDirectEnrollment();
+            boolean motherContinues = child != null
+                    && MotherMentorMotherClosureRepository.hasOpenSibling(db, child.getMotherId(), childId);
             childProfileExecutors.mainThread().execute(() -> {
                 if (isFinishing() || isDestroyed() || !matchesChildEidProfile(childId)) return;
                 Runnable save = () -> saveChildEidResult(sample, answers, day, exit);
                 if (exit != null && exit.needsConfirmation()) {
-                    MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, save,
+                    MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, motherContinues, save,
                             () -> retryChildEidResult(form, source, 0));
                 } else {
                     save.run();
@@ -1692,6 +1695,14 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }
+                Map<String, String> values = MotherMentorVisitCompletion.observationValues(
+                        new JSONObject(visit.getJson()).optJSONArray("obs"));
+                if (MotherMentorMotherClosureRepository.outcome(values)
+                        == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE) {
+                    MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, true,
+                            () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
+                    return;
+                }
             } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
                 MotherMentorIitState preview = getSavedIitClosurePreview(visit);
                 if (preview.requiresConfirmation()) {
@@ -1702,8 +1713,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             } else if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
                 MotherMentorChildEidExit exit = getSavedChildEidClosurePreview(visit);
                 if (exit != null && exit.needsConfirmation()) {
-                    boolean directEnrollment = loadChildEidState(memberObject.getBaseEntityId()).isDirectEnrollment();
-                    MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment,
+                    String childId = memberObject.getBaseEntityId();
+                    MotherMentorChildEidRepository.State child = loadChildEidState(childId);
+                    boolean motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(
+                            ChwApplication.getInstance().getRepository().getReadableDatabase(), child.getMotherId(), childId);
+                    MotherMentorChildEidClosureDialog.show(this, exit, child.isDirectEnrollment(), motherContinues,
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }

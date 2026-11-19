@@ -16,9 +16,12 @@ import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.mothermentor.R;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidClosureDialog;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
@@ -120,11 +123,6 @@ final class MotherMentorMotherResultUi {
             form.put("encounter_type", MotherMentorMotherResultEvent.EVENT_TYPE);
             MotherMentorChildEidResultForm.prepare(form, profile, test.getStage().getCode(),
                     test.getTestDate(), test.getState());
-            if (test.isAwaitingConfirmation()) {
-                JSONObject receipt = MotherMentorMotherChildUtils.field(form, MTOTO_RESULT_RECEIVED_DATE);
-                receipt.put("type", "hidden");
-                receipt.remove("v_required");
-            }
             launch(form);
         } catch (Exception error) {
             failure(error);
@@ -148,17 +146,20 @@ final class MotherMentorMotherResultUi {
             JSONObject form = new JSONObject(payload);
             String motherId = form.getString(ENTITY_ID);
             LocalDate day = new LocalDate(profile.getVisitAvailabilityDate());
-            PendingTest test = MotherMentorMotherResultEvent.pending(
-                    ChwApplication.getInstance().getRepository().getReadableDatabase(), motherId,
-                    form.getString(TEST_KEY), day);
+            net.zetetic.database.sqlcipher.SQLiteDatabase db =
+                    ChwApplication.getInstance().getRepository().getReadableDatabase();
+            PendingTest test = MotherMentorMotherResultEvent.pending(db, motherId, form.getString(TEST_KEY), day);
             Map<String, String> answers = MotherMentorMotherChildUtils.values(form);
-            executors.mainThread().execute(() -> review(form, motherId, test, answers, day));
+            boolean motherContinues = test != null && MotherMentorMotherResultEvent.confirmsPositive(test, answers, day)
+                    && MotherMentorMotherClosureRepository.hasOpenSibling(db, motherId, null);
+            executors.mainThread().execute(() -> review(form, motherId, test, answers, day, motherContinues));
         } catch (Exception error) {
             failure(error);
         }
     }
 
-    private void review(JSONObject form, String motherId, PendingTest test, Map<String, String> answers, LocalDate day) {
+    private void review(JSONObject form, String motherId, PendingTest test, Map<String, String> answers,
+            LocalDate day, boolean motherContinues) {
         if (!isActive(motherId)) return;
         if (test == null) {
             message(R.string.mothermentor_mother_result_unavailable);
@@ -174,7 +175,12 @@ final class MotherMentorMotherResultUi {
             return;
         }
         Runnable save = () -> save(motherId, test, answers, day);
-        if (MotherMentorMotherResultEvent.closesCard(test, answers, day)) {
+        if (MotherMentorMotherResultEvent.confirmsPositive(test, answers, day)) {
+            if (motherContinues) {
+                MotherMentorChildEidClosureDialog.show(profile, MotherMentorChildEidExit.E4, false, true,
+                        save, () -> launch(form));
+                return;
+            }
             MotherMentorMotherClosure closure = MotherMentorMotherClosure.active().advance(
                     MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE, day.toString());
             MotherMentorMotherClosureDialog.show(profile, closure, save, () -> launch(form));

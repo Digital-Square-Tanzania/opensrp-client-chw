@@ -258,6 +258,16 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 }, this::resetSubmission);
                 return;
             }
+            if (MotherMentorMotherClosureRepository.outcome(stagedAnswers())
+                    == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, true, () -> {
+                    closureConfirmationOpen = false;
+                    submitConfirmedVisit();
+                }, this::resetSubmission);
+                return;
+            }
         } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
             MotherMentorIitState preview = getIitClosurePreview();
             if (preview.requiresConfirmation()) {
@@ -293,10 +303,12 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             if (exit != null && exit.needsConfirmation()) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
-                boolean directEnrollment = baseEntityID != null && MotherMentorChildEidRepository.getState(
-                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
-                        baseEntityID, null).isDirectEnrollment();
-                MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, () -> {
+                net.zetetic.database.sqlcipher.SQLiteDatabase db =
+                        ChwApplication.getInstance().getRepository().getReadableDatabase();
+                MotherMentorChildEidRepository.State child = MotherMentorChildEidRepository.getState(db, baseEntityID, null);
+                boolean motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(
+                        db, child.getMotherId(), baseEntityID);
+                MotherMentorChildEidClosureDialog.show(this, exit, child.isDirectEnrollment(), motherContinues, () -> {
                     closureConfirmationOpen = false;
                     submitConfirmedVisit();
                 }, this::resetSubmission);
