@@ -249,7 +249,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 || blockNewChildEidVisitWhilePending()) return;
         if (!isFollowUpVisit()) {
             MotherMentorMotherClosure preview = getMotherClosurePreview();
-            if (preview.isClosed()) {
+            boolean confirmedPositive = MotherMentorMotherClosureRepository.outcome(stagedAnswers())
+                    == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE;
+            if (preview.isClosed() && (!confirmedPositive
+                    || MotherMentorMotherClosure.CHILD_CONFIRMED_POSITIVE.equals(preview.getStatus()))) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
                 MotherMentorMotherClosureDialog.show(this, preview, () -> {
@@ -258,14 +261,14 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 }, this::resetSubmission);
                 return;
             }
-            if (MotherMentorMotherClosureRepository.outcome(stagedAnswers())
-                    == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE) {
+            if (confirmedPositive) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
-                MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, true, () -> {
-                    closureConfirmationOpen = false;
-                    submitConfirmedVisit();
-                }, this::resetSubmission);
+                MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false,
+                        !preview.isClosed(), () -> {
+                            closureConfirmationOpen = false;
+                            submitConfirmedVisit();
+                        }, this::resetSubmission);
                 return;
             }
         } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {

@@ -1690,16 +1690,18 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         try {
             if (!isFollowUpProfile()) {
                 MotherMentorMotherClosure preview = getSavedMotherClosurePreview(visit);
-                if (preview.isClosed()) {
+                JSONObject event = TextUtils.isEmpty(visit.getJson()) ? new JSONObject() : new JSONObject(visit.getJson());
+                Map<String, String> values = MotherMentorVisitCompletion.observationValues(event.optJSONArray("obs"));
+                boolean confirmedPositive = MotherMentorMotherClosureRepository.outcome(values)
+                        == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE;
+                if (preview.isClosed() && (!confirmedPositive
+                        || MotherMentorMotherClosure.CHILD_CONFIRMED_POSITIVE.equals(preview.getStatus()))) {
                     MotherMentorMotherClosureDialog.show(this, preview,
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }
-                Map<String, String> values = MotherMentorVisitCompletion.observationValues(
-                        new JSONObject(visit.getJson()).optJSONArray("obs"));
-                if (MotherMentorMotherClosureRepository.outcome(values)
-                        == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE) {
-                    MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, true,
+                if (confirmedPositive) {
+                    MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, !preview.isClosed(),
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }
