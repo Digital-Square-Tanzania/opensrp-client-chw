@@ -32,8 +32,8 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidReposit
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
-import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultRepository;
-import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultRepository.Entry;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
 import org.smartregister.chw.mothermentor.dao.MotherMentorChildEidDao;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
@@ -246,7 +246,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
 
     private List<Entry> motherResultHistory() {
         if (followUpType != null || StringUtils.isBlank(baseEntityId)) return Collections.emptyList();
-        List<Entry> results = new ArrayList<>(MotherMentorMotherResultRepository.history(
+        List<Entry> results = new ArrayList<>(MotherMentorMotherResultEvent.history(
                 ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityId, LocalDate.now()));
         results.sort(Comparator.comparingLong(Entry::getRecordedAt));
         return results;
@@ -263,9 +263,11 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         TextView summary = new TextView(context);
         int padding = (int) (20 * context.getResources().getDisplayMetrics().density + 0.5f);
         summary.setPaddingRelative(padding, 0, padding, 0);
-        String text = resultDate(context, R.string.mama_results_date, entry.getSample().getDate()) + "\n"
-                + resultDate(context, R.string.mama_results_received, entry.getAnswers().getReceivedDate()) + "\n"
-                + resultDate(context, R.string.mama_results_recorded, entry.getRecordedDate());
+        String text = resultDate(context, R.string.mama_results_date, entry.getSample().getTestDate());
+        if (entry.getAnswers().getReceivedDate() != null) {
+            text += "\n" + resultDate(context, R.string.mama_results_received, entry.getAnswers().getReceivedDate());
+        }
+        text += "\n" + resultDate(context, R.string.mama_results_recorded, entry.getRecordedDate());
         if (entry.isCorrected()) text += "\n" + context.getString(R.string.mama_results_edited);
         summary.setText(text);
         details.addView(summary);
@@ -274,7 +276,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             edit.setText(R.string.mama_results_edit);
             edit.setVisibility(View.VISIBLE);
             edit.setOnClickListener(ignored -> MotherMentorTestResultsActivity.editFromHistory(
-                    (Activity) context, baseEntityId, entry.getSample().getId()));
+                    (Activity) context, baseEntityId, entry.getId()));
         }
         linearLayoutHealthFacilityVisitDetails.addView(view, 0);
     }
