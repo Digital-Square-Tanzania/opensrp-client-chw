@@ -149,6 +149,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private LinearLayout iitProfileImageRow;
     private final MotherMentorChildEidProfileUi childProfileUi = new MotherMentorChildEidProfileUi();
     private final AppExecutors childProfileExecutors = new AppExecutors();
+    private final MotherMentorMotherResultUi motherResults = new MotherMentorMotherResultUi(this);
     private volatile int childProfileLoadVersion;
     private String[] childEidResultSource;
     private boolean childEidResultBusy;
@@ -759,6 +760,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (motherResults.onActivityResult(requestCode, resultCode, data)) return;
         if (requestCode != REQUEST_CHILD_EID_RESULT) {
             super.onActivityResult(requestCode, resultCode, data);
             return;
@@ -1229,6 +1231,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         boolean deceased = isClientDeceased();
         updateDeceasedClientStatusTag(deceased);
         updateMotherClosureBanner();
+        motherResults.refresh();
         if (isServiceCardClosed()) {
             if (isIitProfile() && textViewRecordMotherMentor != null) {
                 textViewRecordMotherMentor.setText(R.string.mothermentor_record_follow_up);
@@ -1263,6 +1266,11 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         }
         enforceProcessVisitVisibility(closure.isClosed());
         refreshMedicalHistory(true);
+    }
+
+    String activeMotherResultId() {
+        return memberObject == null || isFollowUpProfile() || isServiceCardClosed() || isClientDeceased()
+                ? "" : memberObject.getBaseEntityId();
     }
 
     protected boolean isMotherCardClosed() {
