@@ -357,7 +357,10 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 select(activity, MAMA_HEI_TEST_DONE, "no");
                 save(activity, attendance);
             });
-            completed(attendance);
+            assertEquals(
+                    attendance.getFormName(),
+                    BaseMotherMentorVisitAction.Status.COMPLETED,
+                    attendance.getActionStatus());
         } finally {
             LangUtils.saveLanguage(context, originalLanguage);
         }
