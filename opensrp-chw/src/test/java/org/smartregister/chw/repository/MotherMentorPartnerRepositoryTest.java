@@ -90,7 +90,7 @@ public class MotherMentorPartnerRepositoryTest {
         MotherMentorPartnerRepository.ensureColumns(cipher);
         MotherMentorPartnerRepository.ensureColumns(cipher);
         assertEquals("family", repository.existingEnrollment("legacy").get("relational_id"));
-        try (Cursor cursor = db.rawQuery("PRAGMA table_info(ec_mothermentor_enroll_partner)", null)) { assertEquals(19, cursor.getCount()); }
+        try (Cursor cursor = db.rawQuery("PRAGMA table_info(ec_mothermentor_enroll_partner)", null)) { assertEquals(20, cursor.getCount()); }
     }
     @Test public void legacyEnrollmentCannotBypassEligibilityOrOverwriteExistingLink() {
         assertTrue(repository.canEnrollPartner("other"));

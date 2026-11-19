@@ -259,6 +259,9 @@ public class ChwRepositoryFlv {
                 case 71:
                     org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository.upgradeDirectEnrollmentSchema(db);
                     break;
+                case 72:
+                    MotherMentorPartnerWorkflowMigration.upgradeReferralSchema(db);
+                    break;
                 default:
                     break;
             }

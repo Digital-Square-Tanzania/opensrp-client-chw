@@ -300,7 +300,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
     public void partnerTracingCollectsAgreementWithoutSameVisitAttendanceInBothLanguages() throws Exception {
         for (String language : new String[] {"en", "sw"}) {
             useLanguage(language);
-            Map<String, BaseMotherMentorVisitAction> map = actions(new PartnerFixture(false), 7);
+            Map<String, BaseMotherMentorVisitAction> map = actions(new PartnerFixture(false), 5);
             BaseMotherMentorVisitAction status = byForm(map, "mothermentor_partner_follow_up_status");
             BaseMotherMentorVisitAction arrival = byForm(map, "mothermentor_partner_arrival");
             BaseMotherMentorVisitAction education = byForm(map, "mothermentor_partner_education");
@@ -309,6 +309,9 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             answer(status, FOLLOW_UP_STATUS, "found");
             pending(status);
             answer(status, FOLLOW_UP_STATUS, "found", PARTNER_FACILITY_AGREEMENT, "agreed");
+            pending(status);
+            answer(status, FOLLOW_UP_STATUS, "found", PARTNER_FACILITY_AGREEMENT, "agreed",
+                    PARTNER_TESTING_REFERRAL_GIVEN, "no");
             completed(status);
             assertFalse("Attendance belongs to the next visit", arrival.isValid());
             assertTrue(education.isValid());
@@ -328,48 +331,26 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
     }
 
     @Test
-    public void partnerAttendanceRequiresAllTestBranchesAndClearsHiddenResultsInBothLanguages() throws Exception {
+    public void partnerAttendanceRequiresADateWithoutAnyTestActionsInBothLanguages() throws Exception {
         for (String language : new String[] {"en", "sw"}) {
             useLanguage(language);
-            Map<String, BaseMotherMentorVisitAction> map = actions(new PartnerFixture(true), 7);
+            Map<String, BaseMotherMentorVisitAction> map = actions(new PartnerFixture(true), 5);
             BaseMotherMentorVisitAction arrival = byForm(map, "mothermentor_partner_arrival");
             assertFalse(byForm(map, "mothermentor_partner_follow_up_status").isValid());
+            assertFalse(byForm(map, "mothermentor_partner_testing_referral").isValid());
             assertTrue(arrival.isValid());
+            assertFalse(map.values().stream().anyMatch(action -> action.getFormName().endsWith("_test")));
             answer(arrival, PARTNER_ARRIVED_AT_FACILITY, "yes");
             pending(arrival);
-            assertFalse(byForm(map, "mothermentor_partner_hiv_test").isValid());
             answer(arrival, PARTNER_ARRIVED_AT_FACILITY, "yes",
                     PARTNER_FACILITY_ARRIVAL_DATE, "28-10-2026");
             completed(arrival);
-            BaseMotherMentorVisitAction hiv = byForm(map, "mothermentor_partner_hiv_test");
-            BaseMotherMentorVisitAction syphilis = byForm(map, "mothermentor_partner_syphilis_test");
-            BaseMotherMentorVisitAction hepatitis = byForm(map, "mothermentor_partner_hepatitis_b_test");
-            assertTrue(hiv.isValid());
-            assertFalse(syphilis.isValid());
-            answer(hiv, PARTNER_HIV_TESTED, "no", PARTNER_HIV_NOT_TESTED_REASON, "already_infected");
-            completed(hiv);
-            assertTrue(syphilis.isValid());
-            answer(syphilis, PARTNER_SYPHILIS_TESTED, "no", PARTNER_SYPHILIS_NOT_TESTED_REASON, "other");
-            pending(syphilis);
-            assertFalse(hepatitis.isValid());
-            answer(syphilis, PARTNER_SYPHILIS_TESTED, "no", PARTNER_SYPHILIS_NOT_TESTED_REASON, "other",
-                    PARTNER_SYPHILIS_NOT_TESTED_REASON_OTHER, "Component fixture reason");
-            completed(syphilis);
-            assertTrue(hepatitis.isValid());
-            answer(hepatitis, PARTNER_HEPATITIS_B_TESTED, "yes");
-            pending(hepatitis);
-            answer(hepatitis, PARTNER_HEPATITIS_B_TESTED, "yes", PARTNER_HEPATITIS_B_RESULT, "negative");
-            completed(hepatitis);
             BaseMotherMentorVisitAction education = byForm(map, "mothermentor_partner_education");
-            answer(education, PARTNER_EDUCATION_PROVIDED, "yes",
-                    PARTNER_EDUCATION_TOPICS, new JSONArray().put("hiv").put("syphilis").put("hepatitis_b"));
-            completed(education);
+            assertTrue(education.isValid());
+            assertTrue(education.isOptional());
             answer(arrival, PARTNER_ARRIVED_AT_FACILITY, "no");
             completed(arrival);
-            for (BaseMotherMentorVisitAction test : Arrays.asList(hiv, syphilis, hepatitis)) {
-                assertFalse(test.isValid());
-                assertNull(test.getJsonPayload());
-            }
+            assertFalse(education.isValid());
         }
     }
 

@@ -583,7 +583,7 @@ public class MotherMentorHistoryMapperTest {
 
     @Test @Config(qualifiers = "en")
     public void childHeiHistoryUsesEnglishQuestionsAndRetainsTheSavedAgreement() {
-        assertChildHeiHistory("Breastfeeding status", "Breastfed", "Test referral status",
+        assertChildHeiHistory("Breastfeeding status", "Breastfeeding", "Test referral status",
                 "Caregiver agreed to take the child to the facility");
     }
 

@@ -141,6 +141,7 @@ public class MotherMentorRegisterFragmentModel extends BaseMotherMentorRegisterF
 
         if (org.smartregister.chw.mothermentor.util.Constants.TABLES.MOTHERMENTOR_ENROLL_PARTNER
                 .equals(tableName)) {
+            columnList.add(tableName + "." + DBConstants.KEY.PARTNER_NEXT_FOLLOW_UP_PHASE);
             columnList.add(tableName + "." + DBConstants.KEY.MWENZI_STATUS);
             columnList.add(tableName + "." + DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA);
             columnList.add(tableName + "." + DBConstants.KEY.MWENZI_SABABU_YA_KUFUNGWA);

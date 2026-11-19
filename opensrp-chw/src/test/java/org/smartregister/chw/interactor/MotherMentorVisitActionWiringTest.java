@@ -287,7 +287,8 @@ public class MotherMentorVisitActionWiringTest {
                     DBConstants.KEY.PARTNER_FACILITY_AGREEMENT, "refused"));
             assertTrue(education.isValid());
             assertEquals(BaseMotherMentorVisitAction.Status.PENDING, education.getActionStatus());
-            assertFalse(map.values().stream().anyMatch(action -> action.getFormName().endsWith("_test")));
+            assertFalse(map.values().stream().anyMatch(
+                    action -> action.getFormName().endsWith("_test")));
             assertTrue(byForm(map, "mothermentor_partner_follow_up_comment").isOptional());
         }
     }

@@ -20,6 +20,7 @@ import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragm
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorAgeUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorPartnerClosureText;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
@@ -86,7 +87,7 @@ public class MotherMentorFollowUpRegisterProvider
                     ? join(MotherMentorPartnerClosureText.reason(context, status),
                             Utils.getValue(person.getColumnmaps(), DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, false),
                             village, id)
-                    : join(risk, village, id);
+                    : join(risk, partnerReferralStatus(person), village, id);
             SpannableString styled = new SpannableString(metadata);
             if (!TextUtils.isEmpty(risk))
                 styled.setSpan(
@@ -148,6 +149,17 @@ public class MotherMentorFollowUpRegisterProvider
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private String partnerReferralStatus(CommonPersonObjectClient person) {
+        String phase = Utils.getValue(person.getColumnmaps(), DBConstants.KEY.PARTNER_NEXT_FOLLOW_UP_PHASE, false);
+        if (MotherMentorPartnerFollowUpVisitUtils.ATTENDANCE.equals(phase)) {
+            return context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_referred_status);
+        }
+        if (MotherMentorPartnerFollowUpVisitUtils.REFERRAL.equals(phase)) {
+            return context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_referral_pending_status);
+        }
+        return "";
     }
 
     private String join(String... values) {
