@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.text.TextUtils;
+
+import androidx.appcompat.app.AlertDialog;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
@@ -39,6 +43,8 @@ import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherVisitUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
@@ -49,12 +55,15 @@ import org.smartregister.util.LangUtils;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import timber.log.Timber;
 
 public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     static final String EXTRA_FOLLOW_UP_VISIT = "extra_follow_up_visit";
+    private static final String PARTNER_STARTED_ACTION = "partner_started_action";
+    private boolean partnerFormOpened;
     private boolean submitting;
     private boolean closureConfirmationOpen;
     private boolean childEidSuccess;
@@ -138,6 +147,38 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         } catch (Exception e) {
             Timber.e(e, "Unable to read saved IIT workflow schema");
             return false;
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(PARTNER_STARTED_ACTION)) {
+            partnerFormOpened = true;
+            current_action = savedInstanceState.getString(PARTNER_STARTED_ACTION);
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (partnerFormOpened) outState.putString(PARTNER_STARTED_ACTION, current_action);
+    }
+
+    @Override
+    public void initializeActions(LinkedHashMap<String, BaseMotherMentorVisitAction> actions) {
+        super.initializeActions(actions);
+        if (partnerFormOpened || isFinishing() || !isFollowUpVisit()
+                || getFollowUpType() != MotherMentorFollowUpType.PARTNER
+                || Boolean.TRUE.equals(isEditMode)) return;
+        for (BaseMotherMentorVisitAction action : actions.values()) {
+            String form = action.getFormName();
+            if (action.isValid() && ("mothermentor_partner_testing_referral".equals(form)
+                    || "mothermentor_partner_arrival".equals(form))) {
+                partnerFormOpened = true;
+                startForm(action);
+                break;
+            }
         }
     }
 
@@ -228,6 +269,24 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 }, this::resetSubmission);
                 return;
             }
+        } else if (getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+            if (requiresPartnerAttendanceConfirmation()) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                new AlertDialog.Builder(this)
+                        .setTitle(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_close_confirmation_title)
+                        .setMessage(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_close_confirmation_message)
+                        .setPositiveButton(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_close_confirm,
+                                (dialog, which) -> {
+                                    closureConfirmationOpen = false;
+                                    submitConfirmedVisit();
+                                })
+                        .setNegativeButton(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_close_cancel,
+                                (dialog, which) -> resetSubmission())
+                        .setCancelable(false)
+                        .show();
+                return;
+            }
         } else if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
             MotherMentorChildEidExit exit = getChildEidClosurePreview();
             childEidSuccess = exit != null && exit.isSuccess();
@@ -245,6 +304,24 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             }
         }
         submitConfirmedVisit();
+    }
+
+    private boolean requiresPartnerAttendanceConfirmation() {
+        Map<String, String> answers = stagedAnswers();
+        String attended = answers.get(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY);
+        if ("yes".equals(attended)) {
+            return MotherMentorPartnerFollowUpVisitUtils.validRecordedDate(
+                    answers.get(DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE));
+        }
+        if (!"no".equals(attended)) return false;
+        Visit editing = Boolean.TRUE.equals(isEditMode)
+                ? MotherMentorLibrary.getInstance().visitRepository().getLatestVisit(
+                        baseEntityID, MotherMentorFollowUpType.PARTNER.getEventType())
+                : null;
+        MotherMentorPartnerClosure closure = MotherMentorPartnerClosureRepository.getState(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                baseEntityID, editing == null ? null : editing.getVisitId());
+        return closure.getNonAttendanceCount() >= 2;
     }
 
     protected MotherMentorChildEidExit getChildEidClosurePreview() {
@@ -297,7 +374,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     private Map<String, String> stagedAnswers() {
         Map<String, String> answers = new HashMap<>();
         for (BaseMotherMentorVisitAction action : actionList.values()) {
-            if (!action.isValid()) continue;
+            if (!action.isValid() || TextUtils.isEmpty(action.getJsonPayload())) continue;
             try {
                 answers.putAll(MotherMentorMotherVisitUtils.formValues(
                         new JSONObject(action.getJsonPayload())));

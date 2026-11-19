@@ -74,7 +74,14 @@ final class MotherMentorPartnerWorkflowMigration {
         }
         if (!tableExists(db, "event")) return;
         backfillMaternalEpisodes(db);
-        backfillCapturedFollowUpValues(db);
+        backfillCapturedFollowUpValues(db, FOLLOW_UP_COLUMNS);
+    }
+
+    static void upgradeReferralSchema(SQLiteDatabase db) {
+        String referral = DBConstants.KEY.PARTNER_TESTING_REFERRAL_GIVEN;
+        addColumn(db, FOLLOW_UP, referral);
+        if (tableExists(db, "event")) backfillCapturedFollowUpValues(db, referral);
+        org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository.upgrade(db);
     }
 
     private static void addColumn(SQLiteDatabase db, String table, String column) {
@@ -115,7 +122,7 @@ final class MotherMentorPartnerWorkflowMigration {
         }
     }
 
-    private static void backfillCapturedFollowUpValues(SQLiteDatabase db) {
+    private static void backfillCapturedFollowUpValues(SQLiteDatabase db, String... fields) {
         if (!tableExists(db, FOLLOW_UP)) return;
         try (Cursor cursor = db.rawQuery(
                 "SELECT e.json, e.formSubmissionId, e.baseEntityId FROM event e JOIN "
@@ -125,7 +132,7 @@ final class MotherMentorPartnerWorkflowMigration {
             while (cursor.moveToNext()) {
                 JSONObject event = retainedEvent(cursor.getString(0));
                 if (event == null) continue;
-                for (String column : FOLLOW_UP_COLUMNS) {
+                for (String column : fields) {
                     String value = observation(event, column);
                     if (value == null) continue;
                     db.execSQL("UPDATE " + FOLLOW_UP + " SET " + column + " = ? WHERE "
