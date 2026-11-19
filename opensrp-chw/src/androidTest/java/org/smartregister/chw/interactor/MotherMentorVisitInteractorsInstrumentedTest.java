@@ -202,7 +202,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             enrollment.put(BASE_ENTITY_ID, motherId);
             enrollment.put(PREGNANCY_STATUS, "not_pregnant");
             enrollment.put(CHILD_DOB, dob.toString());
-            enrollment.put(ENROLLMENT_DATE, dob.toString());
+            enrollment.put(IS_CLOSED, 0);
             database.insertOrThrow(enrollmentTable, null, enrollment);
 
             Map<String, BaseMotherMentorVisitAction> firstVisit = mamaKadiActions(motherId);
@@ -221,6 +221,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                     assertFeedingOption(root, "never_breastfed", "Hajawahi kunyonyesha");
                     assertFeedingOption(root, "not_breastfeeding", "Ameacha kunyonyesha");
                 });
+                select(activity, MAMA_BIRTH_TEST_DONE, "no");
                 select(activity, MAMA_BREASTFEEDING_STATUS, "not_breastfeeding");
                 onMain(() -> assertSaveBlocked(activity, MAMA_TAREHE_ACHA_KUNYONYESHA));
                 select(activity, MAMA_BREASTFEEDING_STATUS, "never_breastfed");
@@ -263,6 +264,8 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         } finally {
             database.delete(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID + " = ?", new String[]{motherId});
             database.delete(enrollmentTable, BASE_ENTITY_ID + " = ?", new String[]{motherId});
+            database.delete(Constants.TABLES.MOTHERMENTOR_MOTHER_CONTEXT, BASE_ENTITY_ID + " = ?",
+                    new String[]{motherId});
             LangUtils.saveLanguage(context, originalLanguage);
         }
     }
@@ -302,7 +305,10 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         visit.setFormSubmissionId(visitId);
         visit.setVisitType(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
         visit.setBaseEntityId(motherId);
-        visit.setDate(date.toDate());
+        Date timestamp = date.toDate();
+        visit.setDate(timestamp);
+        visit.setCreatedAt(timestamp);
+        visit.setUpdatedAt(timestamp);
         visit.setProcessed(true);
         visit.setJson(new JSONObject().put(EVENT_FORM_SUBMISSION_ID, visitId)
                 .put(EVENT_DATE_TIMESTAMP, date.toString()).put("obs", observations).toString());
@@ -339,7 +345,8 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         onMain(() -> {
             JsonFormFragment form = fragment(activity);
             assertTrue(form.save(false));
-            assertTrue(form.getPresenter().getInvalidFields().isEmpty());
+            assertTrue(form.getPresenter().getInvalidFields().keySet().toString(),
+                    form.getPresenter().getInvalidFields().isEmpty());
             saved.set(activity.currentJsonState());
         });
         action.setJsonPayload(saved.get());
