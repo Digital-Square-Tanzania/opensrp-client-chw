@@ -306,12 +306,17 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             if (exit != null && exit.needsConfirmation()) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
-                net.zetetic.database.sqlcipher.SQLiteDatabase db =
-                        ChwApplication.getInstance().getRepository().getReadableDatabase();
-                MotherMentorChildEidRepository.State child = MotherMentorChildEidRepository.getState(db, baseEntityID, null);
-                boolean motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(
-                        db, child.getMotherId(), baseEntityID);
-                MotherMentorChildEidClosureDialog.show(this, exit, child.isDirectEnrollment(), motherContinues, () -> {
+                boolean directEnrollment = false;
+                boolean motherContinues = false;
+                if (baseEntityID != null) {
+                    net.zetetic.database.sqlcipher.SQLiteDatabase db =
+                            ChwApplication.getInstance().getRepository().getReadableDatabase();
+                    MotherMentorChildEidRepository.State child =
+                            MotherMentorChildEidRepository.getState(db, baseEntityID, null);
+                    directEnrollment = child.isDirectEnrollment();
+                    motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(db, child.getMotherId(), baseEntityID);
+                }
+                MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, motherContinues, () -> {
                     closureConfirmationOpen = false;
                     submitConfirmedVisit();
                 }, this::resetSubmission);

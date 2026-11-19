@@ -1717,7 +1717,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 if (exit != null && exit.needsConfirmation()) {
                     String childId = memberObject.getBaseEntityId();
                     MotherMentorChildEidRepository.State child = loadChildEidState(childId);
-                    boolean motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(
+                    boolean motherContinues = !TextUtils.isEmpty(child.getMotherId())
+                            && MotherMentorMotherClosureRepository.hasOpenSibling(
                             ChwApplication.getInstance().getRepository().getReadableDatabase(), child.getMotherId(), childId);
                     MotherMentorChildEidClosureDialog.show(this, exit, child.isDirectEnrollment(), motherContinues,
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
