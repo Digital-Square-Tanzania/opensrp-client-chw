@@ -416,19 +416,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     private boolean blockClosedCard() {
-        boolean motherClosed = isMotherCardClosed();
-        String historyVisitId = historyVisitId();
-        if (historyVisitId != null && Boolean.TRUE.equals(isEditMode) && !isFollowUpVisit()) {
-            Visit latest = MotherMentorLibrary.getInstance().visitRepository().getLatestVisit(
-                    baseEntityID, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
-            if (latest != null && historyVisitId.equals(latest.getVisitId())
-                    && (!motherClosed || MotherMentorMotherClosureRepository.isSameDayClosingVisit(
-                            ChwApplication.getInstance().getRepository().getReadableDatabase(), latest, LocalDate.now()))) {
-                return false;
-            }
-        } else if (!motherClosed && !isFollowUpCardClosed()) {
-            return false;
-        }
+        if (!isCardReadOnly()) return false;
         resetSubmission();
         displayToast(getString(isFollowUpVisit()
                         && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
@@ -436,6 +424,19 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 : org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_message));
         lockMotherVisitSubmit();
         return true;
+    }
+
+    private boolean isCardReadOnly() {
+        boolean motherClosed = isMotherCardClosed();
+        String historyVisitId = historyVisitId();
+        if (historyVisitId == null || !Boolean.TRUE.equals(isEditMode) || isFollowUpVisit()) {
+            return motherClosed || isFollowUpCardClosed();
+        }
+        Visit latest = MotherMentorLibrary.getInstance().visitRepository().getLatestVisit(
+                baseEntityID, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        return latest == null || !historyVisitId.equals(latest.getVisitId())
+                || (motherClosed && !MotherMentorMotherClosureRepository.isSameDayClosingVisit(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(), latest, LocalDate.now()));
     }
 
     private String historyVisitId() {
@@ -473,7 +474,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     public void redrawVisitUI() {
-        if (isMotherCardClosed() || isFollowUpCardClosed()) {
+        if (isCardReadOnly()) {
             lockMotherVisitSubmit();
             return;
         }
@@ -508,7 +509,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     public void displayToast(String message) {
         resetSubmission();
         super.displayToast(message);
-        if (isMotherCardClosed() || isFollowUpCardClosed()) lockMotherVisitSubmit();
+        if (isCardReadOnly()) lockMotherVisitSubmit();
     }
 
     boolean isFollowUpVisit() {

@@ -213,11 +213,17 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             if ("pending".equals(answers.getConfirmationResult())) confirmation.check(R.id.mama_results_confirmation_pending);
         }
         restoredForm = null;
-        result.setOnCheckedChangeListener((group, checked) -> updateConfirmation());
+        result.setOnCheckedChangeListener((group, checked) -> updateResultFields());
         confirmationDone.setOnCheckedChangeListener((group, checked) -> updateConfirmation());
-        updateConfirmation();
+        updateResultFields();
         updateDate();
         setSaving(false);
+    }
+
+    private void updateResultFields() {
+        findViewById(R.id.mama_results_receipt_section).setVisibility(
+                result.getCheckedRadioButtonId() == -1 ? View.GONE : View.VISIBLE);
+        updateConfirmation();
     }
 
     private void updateConfirmation() {
@@ -249,6 +255,12 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
 
     private void submit() {
         if (entry == null || saving) return;
+        String selected = testAnswer(result.getCheckedRadioButtonId(),
+                R.id.mama_results_answer_positive, R.id.mama_results_answer_negative);
+        if (selected.isEmpty()) {
+            toast(R.string.mama_results_select_answers);
+            return;
+        }
         LocalDate today = LocalDate.now();
         if (!MotherMentorHeiSchedule.validDate(receivedDate, entry.getSample().getTestDate(), today)) {
             toast(R.string.mama_results_select_date_error);
@@ -256,9 +268,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
         }
         int done = confirmationDone.getCheckedRadioButtonId();
         int confirmed = confirmation.getCheckedRadioButtonId();
-        Answers answers = new Answers(
-                testAnswer(result.getCheckedRadioButtonId(), R.id.mama_results_answer_positive, R.id.mama_results_answer_negative),
-                receivedDate, done == R.id.mama_results_confirmation_yes ? "yes"
+        Answers answers = new Answers(selected, receivedDate, done == R.id.mama_results_confirmation_yes ? "yes"
                         : done == R.id.mama_results_confirmation_no ? "no" : "",
                 confirmed == R.id.mama_results_confirmation_pending ? "pending"
                         : testAnswer(confirmed, R.id.mama_results_confirmation_positive, R.id.mama_results_confirmation_negative));

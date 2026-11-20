@@ -91,6 +91,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         MotherMentorChildEidRepository.State childEid = childEidState();
         followUpClosed = closure.isClosed() || isChildEidClosed(childEid);
         if (visits == null || visits.isEmpty()) {
+            processVisit(Collections.emptyList(), context, Collections.emptyList());
             showIitClosure(context, closure);
             showChildEidClosure(context, childEid);
             return;
@@ -184,17 +185,19 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     }
 
     protected void processVisit(List<List<Row>> history, Context context, List<Visit> visits) {
-        if (history == null || history.isEmpty()) return;
+        List<Entry> results = new ArrayList<>(motherResultHistory());
+        if (history.isEmpty() && results.isEmpty()) return;
+        results.sort(Comparator.comparingLong(Entry::getRecordedAt));
+        LocalDate today = LocalDate.now();
         SimpleDateFormat dateFormat =
                 new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
-        List<Entry> results = motherResultHistory();
         int nextResult = 0;
         for (int i = 0; i < history.size(); i++) {
             List<Row> rows = history.get(i);
             Visit visit = visits.get(i);
             while (nextResult < results.size() && results.get(nextResult).getRecordedAt() <= visit.getDate().getTime()) {
-                addResultHistoryRow(context, results.get(nextResult++));
+                addResultHistoryRow(context, results.get(nextResult++), today);
             }
             View view = inflater.inflate(R.layout.medical_history_visit, null);
             view.findViewById(R.id.title).setVisibility(View.GONE);
@@ -240,19 +243,17 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             linearLayoutHealthFacilityVisitDetails.addView(view, 0);
         }
         while (nextResult < results.size()) {
-            addResultHistoryRow(context, results.get(nextResult++));
+            addResultHistoryRow(context, results.get(nextResult++), today);
         }
     }
 
-    private List<Entry> motherResultHistory() {
+    List<Entry> motherResultHistory() {
         if (followUpType != null || StringUtils.isBlank(baseEntityId)) return Collections.emptyList();
-        List<Entry> results = new ArrayList<>(MotherMentorMotherResultEvent.history(
-                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityId, LocalDate.now()));
-        results.sort(Comparator.comparingLong(Entry::getRecordedAt));
-        return results;
+        return MotherMentorMotherResultEvent.history(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityId, LocalDate.now());
     }
 
-    private void addResultHistoryRow(Context context, Entry entry) {
+    private void addResultHistoryRow(Context context, Entry entry, LocalDate today) {
         View view = inflater.inflate(R.layout.medical_history_visit, linearLayoutHealthFacilityVisitDetails, false);
         view.findViewById(R.id.title).setVisibility(View.GONE);
         TextView service = view.findViewById(R.id.type_of_service);
@@ -272,7 +273,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         summary.setText(text);
         details.addView(summary);
         TextView edit = view.findViewById(R.id.textview_edit);
-        if (LocalDate.now().equals(entry.getRecordedDate())) {
+        if (today.equals(entry.getRecordedDate())) {
             edit.setText(R.string.mama_results_edit);
             edit.setVisibility(View.VISIBLE);
             edit.setOnClickListener(ignored -> MotherMentorTestResultsActivity.editFromHistory(

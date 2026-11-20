@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
@@ -33,10 +34,14 @@ import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
@@ -269,6 +274,80 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
             assertEquals(entry.getValue(), row.getText().toString().trim());
         }
         assertNull(details.findViewWithTag("mama_first_visit_assessment"));
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void standaloneResultsAreOrderedWithVisitsAndHaveTheirOwnDatesAndEditLinks() {
+        Activity activity = activity();
+        LocalDate today = LocalDate.now();
+        LocalDate testDate = today.minusDays(4);
+        LocalDate screeningReceipt = today.minusDays(3);
+        LocalDate confirmationReceipt = today.minusDays(2);
+        Visit first = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        first.setDate(testDate.toDate());
+        Visit latest = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        latest.setDate(today.toDate());
+
+        Entry screening = result("screening", false, false, testDate, screeningReceipt, today.minusDays(2));
+        Entry confirmation = result("confirmation", true, true, testDate, confirmationReceipt, today);
+        Mockito.when(confirmation.getRecordedAt()).thenReturn(today.toDateTimeAtStartOfDay().plusHours(1).getMillis());
+        MotherMentorMedicalHistoryActivityFlv flavor = new MotherMentorMedicalHistoryActivityFlv(null, "mother") {
+            @Override
+            List<Entry> motherResultHistory() {
+                return Arrays.asList(confirmation, screening);
+            }
+        };
+        LinearLayout cards = renderHistory(activity, flavor, first, latest);
+        assertEquals(4, cards.getChildCount());
+
+        View corrected = cards.getChildAt(0);
+        TextView title = corrected.findViewById(R.id.type_of_service);
+        assertTrue(title.getText().toString().contains("Kipimo cha uthibitisho"));
+        assertTrue(title.getText().toString().contains("Hasi"));
+        assertResultDates(corrected, testDate, confirmationReceipt, today);
+        LinearLayout correctedDetails = corrected.findViewById(R.id.visit_details_layout);
+        TextView correctedSummary = (TextView) correctedDetails.getChildAt(0);
+        assertTrue(correctedSummary.getText().toString().contains("Yamehaririwa"));
+        assertEquals(View.VISIBLE, edit(corrected).getVisibility());
+        assertTrue(edit(corrected).performClick());
+        Intent intent = Shadows.shadowOf(activity).getNextStartedActivity();
+        assertEquals(MotherMentorTestResultsActivity.class.getName(), intent.getComponent().getClassName());
+
+        TextView latestNumber = cards.getChildAt(1).findViewWithTag(DBConstants.KEY.VISIT_NUMBER);
+        TextView firstNumber = cards.getChildAt(3).findViewWithTag(DBConstants.KEY.VISIT_NUMBER);
+        assertTrue(latestNumber.getText().toString().trim().endsWith("2"));
+        assertTrue(firstNumber.getText().toString().trim().endsWith("1"));
+        View original = cards.getChildAt(2);
+        TextView originalTitle = original.findViewById(R.id.type_of_service);
+        assertTrue(originalTitle.getText().toString().contains("Chanya"));
+        assertResultDates(original, testDate, screeningReceipt, today.minusDays(2));
+        assertEquals(View.GONE, edit(original).getVisibility());
+    }
+
+    private Entry result(String id, boolean confirmation, boolean corrected, LocalDate testDate,
+            LocalDate receipt, LocalDate recorded) {
+        Entry entry = Mockito.mock(Entry.class);
+        PendingTest sample = Mockito.mock(PendingTest.class);
+        Mockito.when(sample.getStage()).thenReturn(Stage.SIX_WEEKS);
+        Mockito.when(sample.isAwaitingConfirmation()).thenReturn(confirmation);
+        Mockito.when(sample.getTestDate()).thenReturn(testDate);
+        Mockito.when(entry.getId()).thenReturn(id);
+        Mockito.when(entry.getSample()).thenReturn(sample);
+        Mockito.when(entry.getAnswers()).thenReturn(new Answers(confirmation ? "negative" : "positive", receipt, "", ""));
+        Mockito.when(entry.getRecordedDate()).thenReturn(recorded);
+        Mockito.when(entry.getRecordedAt()).thenReturn(recorded.toDate().getTime());
+        Mockito.when(entry.isCorrected()).thenReturn(corrected);
+        return entry;
+    }
+
+    private void assertResultDates(View card, LocalDate test, LocalDate receipt, LocalDate recorded) {
+        LinearLayout details = card.findViewById(R.id.visit_details_layout);
+        String summary = ((TextView) details.getChildAt(0)).getText().toString();
+        assertTrue(summary.contains("Tarehe ya Kipimo: " + MotherMentorTestResultsActivity.dateLabel(test)));
+        assertTrue(summary.contains("Tarehe majibu yalipopokelewa kituoni: "
+                + MotherMentorTestResultsActivity.dateLabel(receipt)));
+        assertTrue(summary.contains("Tarehe ya kurekodi: " + MotherMentorTestResultsActivity.dateLabel(recorded)));
     }
 
     @Test
