@@ -13,27 +13,19 @@
     <string name="mama_results_edit_today">Yanaweza kuhaririwa hadi mwisho wa siku ya leo</string>
     <string name="mama_results_closed_result_today">Majibu yanaweza kuhaririwa kwenye Historia ya Tembeleo hadi mwisho wa siku ya leo. Baada ya hapo mteja ataondolewa kwenye moduli.</string>
     <string name="mama_results_closed_visit_today">Tembeleo linaweza kuhaririwa kwenye Historia ya Tembeleo hadi mwisho wa siku ya leo. Baada ya hapo mteja ataondolewa kwenye moduli.</string>
-    <string name="mama_results_save">Hifadhi</string>
     <string name="mama_results_saved">Majibu yamehifadhiwa</string>
     <string name="mama_results_save_error">Majibu hayajahifadhiwa. Jaribu tena.</string>
     <string name="mama_results_unavailable">Majibu haya hayawezi kurekodiwa au kuhaririwa tena.</string>
     <string name="mama_results_select_answers">Chagua majibu na ujibu maswali yote ya uthibitisho yanayohitajika.</string>
-    <string name="mama_results_select_date_error">Chagua tarehe kati ya tarehe ya kipimo na leo.</string>
     <string name="mama_results_date">Tarehe ya Kipimo</string>
     <string name="mama_results_type">Aina ya Kipimo</string>
     <string name="mama_results_received">Tarehe majibu yalipopokelewa kituoni</string>
-    <string name="mama_results_select_date">Chagua tarehe</string>
     <string name="mama_results_recorded">Tarehe ya kurekodi</string>
-    <string name="mama_results_question">Majibu ya kipimo cha %1$s *</string>
-    <string name="mama_results_received_required">Tarehe majibu yalipopokelewa kituoni *</string>
+    <string name="mama_results_question">Majibu ya kipimo cha %1$s</string>
     <string name="mama_results_result">Majibu</string>
     <string name="mama_results_positive">Chanya</string>
     <string name="mama_results_negative">Hasi</string>
     <string name="mama_results_pending">Inasubiri majibu</string>
-    <string name="mama_results_yes">Ndiyo</string>
-    <string name="mama_results_no">Hapana</string>
-    <string name="mama_results_confirmation_done">Kipimo cha uthibitisho kimefanyika? *</string>
-    <string name="mama_results_confirmation_result">Majibu ya kipimo cha uthibitisho *</string>
     <string name="mama_results_confirmation_type">%1$s · Kipimo cha uthibitisho</string>
     <string name="mama_results_birth">Wakati wa kuzaliwa</string>
     <string name="mama_results_week_six">Wiki 6</string>
@@ -47,5 +39,4 @@
     <string name="mama_results_history_entry">Majibu ya kipimo — %1$s: %2$s</string>
     <string name="mama_results_field_value">%1$s: %2$s</string>
     <string name="mama_results_back">Rudi</string>
-    <string name="mama_results_close">Funga</string>
 </resources>

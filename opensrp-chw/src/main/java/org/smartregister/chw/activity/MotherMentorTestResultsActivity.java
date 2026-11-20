@@ -1,35 +1,42 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.MTOTO_RESULT_RECEIVED_DATE;
+
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.joda.time.LocalDate;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.util.AppExecutors;
+import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
+import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorProfileResultForm;
 import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -37,24 +44,18 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     static final int EDIT_FROM_HISTORY = 1207;
     private static final String MOTHER_ID = "mother_id";
     private static final String SAMPLE_ID = "sample_id";
+    private static final int REQUEST_NATIVE_RESULT = 1209;
     private static final String REVISION = "revision";
-    private static final String RESULT = "result";
-    private static final String DATE = "date";
-    private static final String CONFIRMATION_DONE = "confirmation_done";
-    private static final String CONFIRMATION = "confirmation";
+    private static final String SUBMITTED_FORM = "submitted_form";
 
     private final AppExecutors executors = new AppExecutors();
     private String motherId;
     private String sampleId;
-    private Bundle restoredForm;
     private LinearLayout content;
-    private Entry entry;
-    private RadioGroup result;
-    private RadioGroup confirmationDone;
-    private RadioGroup confirmation;
-    private Button dateButton;
-    private LocalDate receivedDate;
-    private boolean saving;
+    private Long expectedRevision;
+    private String submittedForm;
+    private boolean loading;
+    private boolean reviewing;
 
     static void startMe(Activity activity, String motherId) {
         activity.startActivity(new Intent(activity, MotherMentorTestResultsActivity.class)
@@ -72,7 +73,10 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        restoredForm = savedInstanceState;
+        if (savedInstanceState != null && savedInstanceState.containsKey(REVISION)) {
+            expectedRevision = savedInstanceState.getLong(REVISION);
+            submittedForm = savedInstanceState.getString(SUBMITTED_FORM);
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -88,14 +92,6 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
         content = findViewById(R.id.mama_results_content);
         ImageButton navigation = findViewById(R.id.mama_results_navigation);
         navigation.setOnClickListener(view -> finish());
-        if (sampleId != null) {
-            navigation.setImageResource(org.smartregister.chw.core.R.mipmap.ic_cross_white);
-            navigation.setContentDescription(getText(R.string.mama_results_close));
-            findViewById(R.id.mama_results_toolbar).setBackgroundColor(Color.rgb(32, 45, 61));
-            View save = findViewById(R.id.mama_results_save_top);
-            save.setVisibility(View.VISIBLE);
-            save.setOnClickListener(view -> submit());
-        }
     }
 
     @Override
@@ -110,11 +106,14 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
                     failedToLoad(error);
                 }
             });
-        } else if (entry == null) {
+        } else if (submittedForm != null) {
+            reviewResult();
+        } else if (expectedRevision == null && !loading) {
+            loading = true;
             executors.diskIO().execute(() -> {
                 try {
-                    Entry editable = MotherMentorMotherResultEvent.editable(database(), motherId, sampleId, LocalDate.now());
-                    executors.mainThread().execute(() -> renderForm(editable));
+                    Entry entry = MotherMentorMotherResultEvent.editable(database(), motherId, sampleId, LocalDate.now());
+                    executors.mainThread().execute(() -> openNativeForm(entry));
                 } catch (RuntimeException error) {
                     failedToLoad(error);
                 }
@@ -125,12 +124,9 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     @Override
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
-        if (entry == null || result == null) return;
-        state.putLong(REVISION, entry.getRevision());
-        state.putInt(RESULT, result.getCheckedRadioButtonId());
-        state.putString(DATE, receivedDate == null ? "" : receivedDate.toString());
-        state.putInt(CONFIRMATION_DONE, confirmationDone.getCheckedRadioButtonId());
-        state.putInt(CONFIRMATION, confirmation.getCheckedRadioButtonId());
+        if (expectedRevision == null) return;
+        state.putLong(REVISION, expectedRevision);
+        state.putString(SUBMITTED_FORM, submittedForm);
     }
 
     private SQLiteDatabase database() {
@@ -175,118 +171,99 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
         }
     }
 
-    private void renderForm(Entry editable) {
+    private void openNativeForm(Entry entry) {
         if (isFinishing() || isDestroyed()) return;
-        if (editable == null || (restoredForm != null && restoredForm.containsKey(REVISION)
-                && editable.getRevision() != restoredForm.getLong(REVISION))) {
+        if (entry == null) {
             unavailable();
             return;
         }
-        if (entry != null) return;
-        entry = editable;
-        findViewById(R.id.mama_results_loading).setVisibility(View.GONE);
-        ((TextView) findViewById(R.id.mama_results_heading)).setText(
-                entry.isRecorded() ? R.string.mama_results_edit : R.string.mama_results_record);
-        getLayoutInflater().inflate(R.layout.mothermentor_test_result_form, content, true);
-        ((TextView) findViewById(R.id.mama_results_question)).setText(
-                getString(R.string.mama_results_question, testLabel(this, entry.getSample())));
-        result = findViewById(R.id.mama_results_answers);
-        confirmationDone = findViewById(R.id.mama_results_confirmation_done);
-        confirmation = findViewById(R.id.mama_results_confirmation_answers);
-        dateButton = findViewById(R.id.mama_results_date_picker);
-        dateButton.setOnClickListener(view -> chooseDate());
-        findViewById(R.id.mama_results_save_bottom).setOnClickListener(view -> submit());
-        if (restoredForm != null && restoredForm.containsKey(REVISION)) {
-            result.check(restoredForm.getInt(RESULT, -1));
-            receivedDate = MotherMentorHeiSchedule.parseDate(restoredForm.getString(DATE));
-            confirmationDone.check(restoredForm.getInt(CONFIRMATION_DONE, -1));
-            confirmation.check(restoredForm.getInt(CONFIRMATION, -1));
-        } else if (entry.isRecorded()) {
-            Answers answers = entry.getAnswers();
-            result.check("positive".equals(answers.getResult())
-                    ? R.id.mama_results_answer_positive : R.id.mama_results_answer_negative);
-            receivedDate = answers.getReceivedDate();
-            if ("yes".equals(answers.getConfirmationDone())) confirmationDone.check(R.id.mama_results_confirmation_yes);
-            if ("no".equals(answers.getConfirmationDone())) confirmationDone.check(R.id.mama_results_confirmation_no);
-            if ("positive".equals(answers.getConfirmationResult())) confirmation.check(R.id.mama_results_confirmation_positive);
-            if ("negative".equals(answers.getConfirmationResult())) confirmation.check(R.id.mama_results_confirmation_negative);
-            if ("pending".equals(answers.getConfirmationResult())) confirmation.check(R.id.mama_results_confirmation_pending);
+        try {
+            expectedRevision = entry.getRevision();
+            PendingTest sample = entry.getSample();
+            JSONObject form = FormUtils.getFormUtils().getFormJson(MotherMentorChildEidResultForm.FORM_NAME);
+            MotherMentorProfileResultForm.prepare(form, this, motherId, sample.getStage(),
+                    sample.getTestDate(), sample.getState(), entry.getAnswers());
+            ((TextView) findViewById(R.id.mama_results_heading)).setText(
+                    entry.isRecorded() ? R.string.mama_results_edit : R.string.mama_results_record);
+            launchNativeForm(form);
+        } catch (Exception error) {
+            failedToLoad(error);
         }
-        restoredForm = null;
-        result.setOnCheckedChangeListener((group, checked) -> updateResultFields());
-        confirmationDone.setOnCheckedChangeListener((group, checked) -> updateConfirmation());
-        updateResultFields();
-        updateDate();
-        setSaving(false);
     }
 
-    private void updateResultFields() {
-        findViewById(R.id.mama_results_receipt_section).setVisibility(
-                result.getCheckedRadioButtonId() == -1 ? View.GONE : View.VISIBLE);
-        updateConfirmation();
+    private void launchNativeForm(JSONObject form) {
+        if (isFinishing() || isDestroyed()) return;
+        submittedForm = null;
+        reviewing = false;
+        startActivityForResult(MotherMentorFormWizardUtils.getFormIntent(this, form), REQUEST_NATIVE_RESULT);
     }
 
-    private void updateConfirmation() {
-        boolean show = !entry.getSample().isAwaitingConfirmation()
-                && result.getCheckedRadioButtonId() == R.id.mama_results_answer_positive;
-        if (!show && confirmationDone.getCheckedRadioButtonId() != -1) confirmationDone.clearCheck();
-        boolean showResult = show && confirmationDone.getCheckedRadioButtonId() == R.id.mama_results_confirmation_yes;
-        if (!showResult && confirmation.getCheckedRadioButtonId() != -1) confirmation.clearCheck();
-        findViewById(R.id.mama_results_confirmation_section).setVisibility(show ? View.VISIBLE : View.GONE);
-        findViewById(R.id.mama_results_confirmation_answers_section).setVisibility(showResult ? View.VISIBLE : View.GONE);
-    }
-
-    private void chooseDate() {
-        LocalDate today = LocalDate.now();
-        LocalDate selected = receivedDate == null ? today : receivedDate;
-        DatePickerDialog picker = new DatePickerDialog(this, (view, year, month, day) -> {
-            receivedDate = new LocalDate(year, month + 1, day);
-            updateDate();
-        }, selected.getYear(), selected.getMonthOfYear() - 1, selected.getDayOfMonth());
-        picker.getDatePicker().setMinDate(entry.getSample().getTestDate().toDate().getTime());
-        picker.getDatePicker().setMaxDate(today.toDate().getTime());
-        picker.show();
-    }
-
-    private void updateDate() {
-        if (receivedDate == null) dateButton.setText(R.string.mama_results_select_date);
-        else dateButton.setText(dateLabel(receivedDate));
-    }
-
-    private void submit() {
-        if (entry == null || saving) return;
-        String selected = testAnswer(result.getCheckedRadioButtonId(),
-                R.id.mama_results_answer_positive, R.id.mama_results_answer_negative);
-        if (selected.isEmpty()) {
-            toast(R.string.mama_results_select_answers);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != REQUEST_NATIVE_RESULT || isFinishing()) return;
+        if (resultCode != RESULT_OK || data == null) {
+            finish();
             return;
         }
-        LocalDate today = LocalDate.now();
-        if (!MotherMentorHeiSchedule.validDate(receivedDate, entry.getSample().getTestDate(), today)) {
-            toast(R.string.mama_results_select_date_error);
+        submittedForm = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+        if (submittedForm == null) {
+            unavailable();
             return;
         }
-        int done = confirmationDone.getCheckedRadioButtonId();
-        int confirmed = confirmation.getCheckedRadioButtonId();
-        Answers answers = new Answers(selected, receivedDate, done == R.id.mama_results_confirmation_yes ? "yes"
-                        : done == R.id.mama_results_confirmation_no ? "no" : "",
-                confirmed == R.id.mama_results_confirmation_pending ? "pending"
-                        : testAnswer(confirmed, R.id.mama_results_confirmation_positive, R.id.mama_results_confirmation_negative));
-        if (!answers.isValid(entry.getSample(), today)) {
-            toast(R.string.mama_results_select_answers);
+        reviewResult();
+    }
+
+    private void reviewResult() {
+        if (reviewing || expectedRevision == null) return;
+        reviewing = true;
+        String payload = submittedForm;
+        long revision = expectedRevision;
+        executors.diskIO().execute(() -> {
+            try {
+                LocalDate day = LocalDate.now();
+                Entry entry = MotherMentorMotherResultEvent.editable(database(), motherId, sampleId, day);
+                JSONObject form = new JSONObject(payload);
+                Map<String, String> values = MotherMentorMotherChildUtils.values(form);
+                if (entry == null || entry.getRevision() != revision
+                        || !MotherMentorProfileResultForm.matches(form, values, motherId, entry.getSample())) {
+                    executors.mainThread().execute(() -> {
+                        if (!isFinishing() && !isDestroyed()) unavailable();
+                    });
+                    return;
+                }
+                executors.mainThread().execute(() -> reviewAnswers(entry, form, values, day));
+            } catch (Exception error) {
+                failedToLoad(error);
+            }
+        });
+    }
+
+    private void reviewAnswers(Entry entry, JSONObject form, Map<String, String> values, LocalDate day) {
+        if (isFinishing() || isDestroyed()) return;
+        PendingTest sample = entry.getSample();
+        int dateError = MotherMentorChildEidResultForm.receiptDateError(values, sample.getTestDate());
+        if (dateError != 0) {
+            MotherMentorMotherChildUtils.put(form, MTOTO_RESULT_RECEIVED_DATE, "");
+            retryForm(form, dateError);
             return;
         }
-        setSaving(true);
-        if (answers.closesFollowUp(entry.getSample(), today)) {
-            MotherMentorMotherClosureDialog.show(this, MotherMentorMotherClosure.active()
-                    .advance(MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE, today.toString()),
-                    () -> save(answers), () -> setSaving(false));
+        Answers answers = MotherMentorProfileResultForm.readAnswers(values, sample.isAwaitingConfirmation());
+        if (!answers.isValid(sample, day)) {
+            retryForm(form, R.string.mama_results_select_answers);
+            return;
+        }
+        Runnable save = () -> save(entry, answers, form);
+        if (answers.closesFollowUp(sample, day)) {
+            MotherMentorMotherClosureDialog.show(this, MotherMentorMotherClosure.active().advance(
+                    MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE, day.toString()),
+                    save, () -> launchNativeForm(form));
         } else {
-            save(answers);
+            save.run();
         }
     }
 
-    private void save(Answers answers) {
+    private void save(Entry entry, Answers answers, JSONObject form) {
         executors.diskIO().execute(() -> {
             try {
                 boolean saved = MotherMentorMotherResultEvent.save(database(), motherId, sampleId,
@@ -303,22 +280,18 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
                 });
             } catch (Exception error) {
                 Timber.e(error, "Unable to save the Mama Kadi result");
-                executors.mainThread().execute(() -> {
-                    if (isFinishing() || isDestroyed()) return;
-                    toast(R.string.mama_results_save_error);
-                    setSaving(false);
-                });
+                executors.mainThread().execute(() -> retryForm(form, R.string.mama_results_save_error));
             }
         });
     }
 
-    private void setSaving(boolean saving) {
-        this.saving = saving;
-        findViewById(R.id.mama_results_save_top).setEnabled(!saving);
-        findViewById(R.id.mama_results_save_bottom).setEnabled(!saving);
+    private void retryForm(JSONObject form, int message) {
+        if (isFinishing() || isDestroyed()) return;
+        toast(message);
+        launchNativeForm(form);
     }
 
-    private void failedToLoad(RuntimeException error) {
+    private void failedToLoad(Exception error) {
         Timber.e(error, "Unable to load Mama Kadi test results");
         executors.mainThread().execute(() -> {
             if (!isFinishing() && !isDestroyed()) unavailable();
@@ -332,12 +305,6 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
 
     private void toast(int text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
-
-    private static String testAnswer(int selected, int positive, int negative) {
-        if (selected == positive) return "positive";
-        if (selected == negative) return "negative";
-        return "";
     }
 
     static String testLabel(Context context, PendingTest sample) {

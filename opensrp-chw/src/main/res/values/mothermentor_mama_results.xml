@@ -13,27 +13,19 @@
     <string name="mama_results_edit_today">Can be edited until the end of today</string>
     <string name="mama_results_closed_result_today">The result can be edited from the visit history until the end of today. After that the client leaves the module.</string>
     <string name="mama_results_closed_visit_today">The visit can be edited from the visit history until the end of today. After that the client leaves the module.</string>
-    <string name="mama_results_save">Save</string>
     <string name="mama_results_saved">Result saved</string>
     <string name="mama_results_save_error">Could not save the result. Try again.</string>
     <string name="mama_results_unavailable">This result is no longer available to record or edit.</string>
     <string name="mama_results_select_answers">Select a result and answer all required confirmation questions.</string>
-    <string name="mama_results_select_date_error">Select a received date between the test date and today.</string>
     <string name="mama_results_date">Test Date</string>
     <string name="mama_results_type">Test Type</string>
     <string name="mama_results_received">Date the result was received at the facility</string>
-    <string name="mama_results_select_date">Select date</string>
     <string name="mama_results_recorded">Date recorded</string>
-    <string name="mama_results_question">%1$s test result *</string>
-    <string name="mama_results_received_required">Date the result was received at the facility *</string>
+    <string name="mama_results_question">%1$s test result</string>
     <string name="mama_results_result">Result</string>
     <string name="mama_results_positive">Positive</string>
     <string name="mama_results_negative">Negative</string>
     <string name="mama_results_pending">Awaiting result</string>
-    <string name="mama_results_yes">Yes</string>
-    <string name="mama_results_no">No</string>
-    <string name="mama_results_confirmation_done">Was a confirmation test done? *</string>
-    <string name="mama_results_confirmation_result">Confirmation test result *</string>
     <string name="mama_results_confirmation_type">%1$s · Confirmation test</string>
     <string name="mama_results_birth">Birth</string>
     <string name="mama_results_week_six">Week 6</string>
@@ -47,5 +39,4 @@
     <string name="mama_results_history_entry">Test result — %1$s: %2$s</string>
     <string name="mama_results_field_value">%1$s: %2$s</string>
     <string name="mama_results_back">Back</string>
-    <string name="mama_results_close">Close</string>
 </resources>
