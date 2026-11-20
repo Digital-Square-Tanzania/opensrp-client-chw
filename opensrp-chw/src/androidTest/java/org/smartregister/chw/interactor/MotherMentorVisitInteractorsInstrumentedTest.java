@@ -273,6 +273,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 LocalDate receipt = LocalDate.now().minusDays(2);
                 JSONObject form = profileResultForm(Stage.AT_BIRTH, sample,
                         MotherMentorChildEidReturnVisit.AWAITING_RESULT, null);
+                AtomicReference<Map<String, String>> submitted = new AtomicReference<>();
                 withProfileResult(form, wizard -> {
                     onMain(() -> {
                         assertNull(visibleDate(wizard, MTOTO_RESULT_RECEIVED_DATE));
@@ -281,13 +282,14 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                     select(wizard, MTOTO_RECEIVED_RESULT, "negative");
                     onMain(() -> assertSaveBlocked(wizard, MTOTO_RESULT_RECEIVED_DATE));
                     setDate(wizard, MTOTO_RESULT_RECEIVED_DATE, receipt);
-                    Map<String, String> returned = saveProfileResult(wizard);
-                    assertEquals(Stage.AT_BIRTH.getCode(), returned.get(MTOTO_PENDING_TEST));
-                    assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
-                    Answers answers = MotherMentorProfileResultForm.readAnswers(returned, false);
-                    assertEquals("negative", answers.getResult());
-                    assertEquals(receipt, answers.getReceivedDate());
+                    submitted.set(saveProfileResult(wizard));
                 });
+                Map<String, String> returned = submitted.get();
+                assertEquals(Stage.AT_BIRTH.getCode(), returned.get(MTOTO_PENDING_TEST));
+                assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
+                Answers answers = MotherMentorProfileResultForm.readAnswers(returned, false);
+                assertEquals("negative", answers.getResult());
+                assertEquals(receipt, answers.getReceivedDate());
             }
         } finally {
             LangUtils.saveLanguage(context, original);
@@ -322,14 +324,14 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 onView(withId(android.R.id.button2)).perform(click());
                 onMain(() -> assertTrue(wizard.isFinishing()));
             });
-            withProfileResult(form, wizard -> {
-                Map<String, String> returned = saveProfileResult(wizard);
-                Answers answers = MotherMentorProfileResultForm.readAnswers(returned, true);
-                assertEquals("negative", answers.getResult());
-                assertEquals(receipt, answers.getReceivedDate());
-                assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
-                assertEquals(MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, returned.get(MTOTO_RUFAA_STATE_BEFORE));
-            });
+            AtomicReference<Map<String, String>> submitted = new AtomicReference<>();
+            withProfileResult(form, wizard -> submitted.set(saveProfileResult(wizard)));
+            Map<String, String> returned = submitted.get();
+            Answers answers = MotherMentorProfileResultForm.readAnswers(returned, true);
+            assertEquals("negative", answers.getResult());
+            assertEquals(receipt, answers.getReceivedDate());
+            assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
+            assertEquals(MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, returned.get(MTOTO_RUFAA_STATE_BEFORE));
         } finally {
             LangUtils.saveLanguage(context, original);
         }
