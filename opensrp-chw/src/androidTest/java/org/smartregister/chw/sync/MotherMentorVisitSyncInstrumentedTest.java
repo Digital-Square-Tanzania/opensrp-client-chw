@@ -30,6 +30,8 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
@@ -306,6 +308,43 @@ public class MotherMentorVisitSyncInstrumentedTest {
             assertTrue(row.moveToFirst());
             assertEquals("negative", row.getString(0));
         }
+
+        Entry due = MotherMentorMotherResultEvent.visible(database, mother, today).get(0);
+        assertEquals(Stage.SIX_WEEKS, due.getSample().getStage());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, due.getId(), due.getRevision(),
+                new Answers("positive", visitDay, "no", "")));
+        Entry confirmation = MotherMentorMotherResultEvent.visible(database, mother, today).get(0);
+        assertTrue(confirmation.getSample().isAwaitingConfirmation());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, confirmation.getId(),
+                confirmation.getRevision(), new Answers("positive", today, "", "")));
+        assertTrue(MotherMentorMotherClosureRepository.isClosed(database, mother));
+
+        List<Entry> history = MotherMentorMotherResultEvent.history(database, mother, today);
+        assertEquals(3, history.size());
+        assertEquals(Stage.AT_BIRTH, history.get(0).getSample().getStage());
+        assertEquals(today, history.get(0).getAnswers().getReceivedDate());
+        assertEquals(visitDay, history.get(1).getAnswers().getReceivedDate());
+        Entry recorded = history.get(2);
+        assertEquals(today, recorded.getAnswers().getReceivedDate());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, recorded.getId(), recorded.getRevision(),
+                new Answers("negative", today, "", "")));
+        MotherMentorMotherResultEvent.rebuild(database, mother);
+
+        history = MotherMentorMotherResultEvent.history(database, mother, today);
+        assertEquals(3, history.size());
+        Entry corrected = history.get(2);
+        assertEquals(recorded.getId(), corrected.getId());
+        assertEquals(recorded.getRecordedAt(), corrected.getRecordedAt());
+        assertEquals(today, corrected.getRecordedDate());
+        assertEquals(visitDay, corrected.getSample().getTestDate());
+        assertEquals(today, corrected.getAnswers().getReceivedDate());
+        assertEquals("negative", corrected.getAnswers().getResult());
+        assertTrue(corrected.isCorrected());
+        assertEquals(visitDay, history.get(1).getAnswers().getReceivedDate());
+        assertEquals("positive", history.get(1).getAnswers().getResult());
+        assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
+        assertEquals(3, count("event", EVENT_BASE_ENTITY_ID, mother));
+        assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
     }
 
     @Test
