@@ -7,7 +7,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
 
-import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,7 +18,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -275,10 +273,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 LocalDate receipt = LocalDate.now().minusDays(2);
                 JSONObject form = profileResultForm(Stage.AT_BIRTH, sample,
                         MotherMentorChildEidReturnVisit.AWAITING_RESULT, null);
-                try (ActivityScenario<FamilyWizardFormActivity> scenario = launchProfileResult(form)) {
-                    AtomicReference<FamilyWizardFormActivity> launched = new AtomicReference<>();
-                    scenario.onActivity(launched::set);
-                    FamilyWizardFormActivity wizard = launched.get();
+                withProfileResult(form, wizard -> {
                     onMain(() -> {
                         assertNull(visibleDate(wizard, MTOTO_RESULT_RECEIVED_DATE));
                         assertSaveBlocked(wizard, MTOTO_RECEIVED_RESULT);
@@ -286,13 +281,13 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                     select(wizard, MTOTO_RECEIVED_RESULT, "negative");
                     onMain(() -> assertSaveBlocked(wizard, MTOTO_RESULT_RECEIVED_DATE));
                     setDate(wizard, MTOTO_RESULT_RECEIVED_DATE, receipt);
-                    Map<String, String> returned = saveProfileResult(scenario);
+                    Map<String, String> returned = saveProfileResult(wizard);
                     assertEquals(Stage.AT_BIRTH.getCode(), returned.get(MTOTO_PENDING_TEST));
                     assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
                     Answers answers = MotherMentorProfileResultForm.readAnswers(returned, false);
                     assertEquals("negative", answers.getResult());
                     assertEquals(receipt, answers.getReceivedDate());
-                }
+                });
             }
         } finally {
             LangUtils.saveLanguage(context, original);
@@ -300,7 +295,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
     }
 
     @Test
-    public void mamaKadiProfileEditPrefillsConfirmationAndCancelReturnsNoResult() throws Exception {
+    public void mamaKadiProfileEditPrefillsConfirmationAndCancelClosesForm() throws Exception {
         String original = LangUtils.getLanguage(context);
         try {
             LangUtils.saveLanguage(context, "sw");
@@ -309,8 +304,8 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             LocalDate receipt = LocalDate.now().minusDays(1);
             JSONObject form = profileResultForm(Stage.SIX_WEEKS, sample,
                     MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, new Answers("negative", receipt, "", ""));
-            try (ActivityScenario<FamilyWizardFormActivity> scenario = launchProfileResult(form)) {
-                scenario.onActivity(wizard -> {
+            withProfileResult(form, wizard -> {
+                onMain(() -> {
                     View root = wizard.getWindow().getDecorView();
                     assertNull(visibleRadio(root, MTOTO_RECEIVED_RESULT, "negative"));
                     assertNull(visibleRadio(root, MTOTO_CONFIRMATORY_RESULT, "pending"));
@@ -325,18 +320,16 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                     wizard.onBackPressed();
                 });
                 onView(withId(android.R.id.button2)).perform(click());
-                Instrumentation.ActivityResult result = scenario.getResult();
-                assertEquals(Activity.RESULT_CANCELED, result.getResultCode());
-                assertNull(result.getResultData());
-            }
-            try (ActivityScenario<FamilyWizardFormActivity> scenario = launchProfileResult(form)) {
-                Map<String, String> returned = saveProfileResult(scenario);
+                onMain(() -> assertTrue(wizard.isFinishing()));
+            });
+            withProfileResult(form, wizard -> {
+                Map<String, String> returned = saveProfileResult(wizard);
                 Answers answers = MotherMentorProfileResultForm.readAnswers(returned, true);
                 assertEquals("negative", answers.getResult());
                 assertEquals(receipt, answers.getReceivedDate());
                 assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
                 assertEquals(MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, returned.get(MTOTO_RUFAA_STATE_BEFORE));
-            }
+            });
         } finally {
             LangUtils.saveLanguage(context, original);
         }
@@ -353,31 +346,37 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private ActivityScenario<FamilyWizardFormActivity> launchProfileResult(JSONObject form) throws Exception {
+    private void withProfileResult(JSONObject form, java.util.function.Consumer<FamilyWizardFormActivity> verify) {
         Intent intent = MotherMentorFormWizardUtils.getFormIntent(context, form);
         assertEquals(FamilyWizardFormActivity.class.getName(), intent.getComponent().getClassName());
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        FamilyWizardFormActivity wizard = (FamilyWizardFormActivity) instrumentation.startActivitySync(intent);
         try {
-            return (ActivityScenario<FamilyWizardFormActivity>) ActivityScenario.class
-                    .getMethod("launchActivityForResult", Intent.class).invoke(null, intent);
-        } catch (NoSuchMethodException olderTestCore) {
-            return ActivityScenario.launch(intent);
+            instrumentation.waitForIdleSync();
+            verify.accept(wizard);
+        } finally {
+            onMain(wizard::finish);
         }
     }
 
-    private Map<String, String> saveProfileResult(ActivityScenario<FamilyWizardFormActivity> scenario)
-            throws Exception {
-        scenario.onActivity(wizard -> {
+    private Map<String, String> saveProfileResult(FamilyWizardFormActivity wizard) {
+        AtomicReference<String> result = new AtomicReference<>();
+        onMain(() -> {
             JsonFormFragment form = fragment(wizard);
             assertTrue(form.save(false));
             assertTrue(form.getPresenter().getInvalidFields().keySet().toString(),
                     form.getPresenter().getInvalidFields().isEmpty());
+            assertTrue(wizard.isFinishing());
+            result.set(wizard.currentJsonState());
         });
-        Instrumentation.ActivityResult result = scenario.getResult();
-        assertEquals(Activity.RESULT_OK, result.getResultCode());
-        JSONObject returned = new JSONObject(result.getResultData().getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
-        assertEquals("synthetic-mother", returned.getString("entity_id"));
-        return MotherMentorMotherChildUtils.values(returned);
+        try {
+            JSONObject returned = new JSONObject(result.get());
+            assertEquals("synthetic-mother", returned.getString("entity_id"));
+            return MotherMentorMotherChildUtils.values(returned);
+        } catch (org.json.JSONException error) {
+            throw new AssertionError("Unable to read the native result form", error);
+        }
     }
 
     @Test
