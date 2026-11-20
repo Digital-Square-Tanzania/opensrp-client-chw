@@ -1,0 +1,42 @@
+<resources>
+    <plurals name="mama_results_title">
+        <item quantity="one">Majibu ya Kipimo</item>
+        <item quantity="other">Majibu ya Vipimo</item>
+    </plurals>
+    <plurals name="mama_results_subtitle">
+        <item quantity="one">Angalia majibu ya kipimo</item>
+        <item quantity="other">Angalia majibu ya vipimo</item>
+    </plurals>
+    <string name="mama_results_record">Rekodi Majibu</string>
+    <string name="mama_results_edit">Hariri Majibu</string>
+    <string name="mama_results_edit_visit">Hariri Tembeleo</string>
+    <string name="mama_results_edit_today">Yanaweza kuhaririwa hadi mwisho wa siku ya leo</string>
+    <string name="mama_results_closed_result_today">Majibu yanaweza kuhaririwa kwenye Historia ya Tembeleo hadi mwisho wa siku ya leo. Baada ya hapo mteja ataondolewa kwenye moduli.</string>
+    <string name="mama_results_closed_visit_today">Tembeleo linaweza kuhaririwa kwenye Historia ya Tembeleo hadi mwisho wa siku ya leo. Baada ya hapo mteja ataondolewa kwenye moduli.</string>
+    <string name="mama_results_saved">Majibu yamehifadhiwa</string>
+    <string name="mama_results_save_error">Majibu hayajahifadhiwa. Jaribu tena.</string>
+    <string name="mama_results_unavailable">Majibu haya hayawezi kurekodiwa au kuhaririwa tena.</string>
+    <string name="mama_results_select_answers">Chagua majibu na ujibu maswali yote ya uthibitisho yanayohitajika.</string>
+    <string name="mama_results_date">Tarehe ya Kipimo</string>
+    <string name="mama_results_type">Aina ya Kipimo</string>
+    <string name="mama_results_received">Tarehe majibu yalipopokelewa kituoni</string>
+    <string name="mama_results_recorded">Tarehe ya kurekodi</string>
+    <string name="mama_results_question">Majibu ya kipimo cha %1$s</string>
+    <string name="mama_results_result">Majibu</string>
+    <string name="mama_results_positive">Chanya</string>
+    <string name="mama_results_negative">Hasi</string>
+    <string name="mama_results_pending">Inasubiri majibu</string>
+    <string name="mama_results_confirmation_type">%1$s · Kipimo cha uthibitisho</string>
+    <string name="mama_results_birth">Wakati wa kuzaliwa</string>
+    <string name="mama_results_week_six">Wiki 6</string>
+    <string name="mama_results_month_nine">Miezi 9</string>
+    <string name="mama_results_month_fifteen">Miezi 15</string>
+    <string name="mama_results_month_eighteen">Miezi 18</string>
+    <string name="mama_results_overdue">⚠ Majibu yamechelewa</string>
+    <string name="mama_results_page">Ukurasa 1 ya 1</string>
+    <string name="mama_results_edited">Yamehaririwa</string>
+    <string name="mama_results_no_entries">Hakuna majibu ya kurekodi au kuhariri.</string>
+    <string name="mama_results_history_entry">Majibu ya kipimo — %1$s: %2$s</string>
+    <string name="mama_results_field_value">%1$s: %2$s</string>
+    <string name="mama_results_back">Rudi</string>
+</resources>
