@@ -120,11 +120,6 @@ final class MotherMentorMotherResultUi {
             form.put("encounter_type", MotherMentorMotherResultEvent.EVENT_TYPE);
             MotherMentorChildEidResultForm.prepare(form, profile, test.getStage().getCode(),
                     test.getTestDate(), test.getState());
-            if (test.isAwaitingConfirmation()) {
-                JSONObject receipt = MotherMentorMotherChildUtils.field(form, MTOTO_RESULT_RECEIVED_DATE);
-                receipt.put("type", "hidden");
-                receipt.remove("v_required");
-            }
             launch(form);
         } catch (Exception error) {
             failure(error);
@@ -166,8 +161,7 @@ final class MotherMentorMotherResultUi {
             return;
         }
         if (!MotherMentorMotherResultEvent.isComplete(test, answers, day)) {
-            int dateError = test.isAwaitingConfirmation() ? 0
-                    : MotherMentorChildEidResultForm.receiptDateError(answers, test.getTestDate());
+            int dateError = MotherMentorChildEidResultForm.receiptDateError(answers, test.getTestDate());
             if (dateError != 0) MotherMentorMotherChildUtils.put(form, MTOTO_RESULT_RECEIVED_DATE, "");
             message(dateError == 0 ? R.string.mothermentor_eid_result_required : dateError);
             launch(form);
