@@ -31,8 +31,10 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.mothermentor.dao.MotherMentorChildEidDao;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
@@ -372,6 +374,27 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         assertVisitIntent(intent, MotherMentorVisitActivity.class);
         assertFalse(intent.getBooleanExtra(MotherMentorVisitActivity.EXTRA_FOLLOW_UP_VISIT, true));
         assertTrue(activity.isFinishing());
+    }
+
+    @Test
+    public void historyHidesExpiredSiblingClosingEditEvenWhenTheMotherIsActive() {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        visit.setVisitId("sibling-closing");
+        org.smartregister.chw.mothermentor.domain.Visit closingEvidence =
+                new org.smartregister.chw.mothermentor.domain.Visit();
+        try (MockedStatic<MotherMentorChildEidDao> visits = Mockito.mockStatic(MotherMentorChildEidDao.class);
+                MockedStatic<MotherMentorMotherChildRepository> children =
+                        Mockito.mockStatic(MotherMentorMotherChildRepository.class)) {
+            visits.when(() -> MotherMentorChildEidDao.findVisit(Mockito.any(), Mockito.eq("sibling-closing")))
+                    .thenReturn(closingEvidence);
+            children.when(() -> MotherMentorMotherChildRepository.isEarlierSiblingClosingVisit(
+                    Mockito.any(), Mockito.same(closingEvidence), Mockito.any(LocalDate.class))).thenReturn(true);
+            Activity activity = activity();
+            View edit = edit(render(activity, null, visit).getChildAt(0));
+            assertEquals(View.GONE, edit.getVisibility());
+            edit.performClick();
+            assertNull(Shadows.shadowOf(activity).getNextStartedActivity());
+        }
     }
 
     @Test

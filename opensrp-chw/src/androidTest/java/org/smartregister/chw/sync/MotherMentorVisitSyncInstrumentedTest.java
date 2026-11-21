@@ -25,6 +25,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import com.google.gson.JsonObject;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -37,7 +39,13 @@ import org.junit.runner.RunWith;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
+import org.smartregister.chw.mothermentor.contract.BaseMotherMentorVisitContract;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
+import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.mothermentor.domain.Visit;
+import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
+import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
@@ -48,12 +56,14 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEve
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
+import org.smartregister.chw.mothermentor.util.AppExecutors;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils.TerminalOutcome;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
@@ -67,9 +77,11 @@ import org.smartregister.util.JsonFormUtils;
 
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -268,6 +280,180 @@ public class MotherMentorVisitSyncInstrumentedTest {
             assertTrue(row.moveToFirst());
             assertEquals(expected, row.getInt(0) == 1);
         }
+    }
+
+    @Test
+    public void sameDayHistoryCorrectionReopensAfterSyncReplaysTheClosingVisit() throws Exception {
+        String mother = UUID.randomUUID().toString();
+        syntheticClients.add(mother);
+        LocalDate day = LocalDate.now();
+        LocalDate dob = day.minusDays(60);
+        LocalDate sampleDate = day.minusDays(15);
+        ContentValues enrollment = new ContentValues();
+        enrollment.put(BASE_ENTITY_ID, mother);
+        enrollment.put(PREGNANCY_STATUS, "breast_feeding");
+        enrollment.put(CHILD_DOB, dob.toString());
+        enrollment.put(IS_CLOSED, 0);
+        database.insertOrThrow(Constants.TABLES.MOTHERMENTOR_ENROLLMENT, null, enrollment);
+
+        String submission = UUID.randomUUID().toString();
+        JSONArray observations = new JSONArray();
+        observation(observations, ATTENDANCE_TYPE, "repeat");
+        observation(observations, FOLLOW_UP_STATUS, "found");
+        observation(observations, MOTHERMENTOR_VISIT_DATE, day.toString());
+        observation(observations, MAMA_TAREHE_KUJIFUNGUA, dob.toString());
+        observation(observations, MAMA_ENROLLMENT_ID,
+                MotherMentorMotherVisitDao.getContext(database, mother).getEnrollmentId());
+        observation(observations, MotherMentorDeliveryChildren.SECTIONS, "true");
+        observation(observations, MotherMentorDeliveryChildren.VISITED, "1");
+        for (String[] field : new String[][] {
+                {MotherMentorDeliveryChildren.SEX, "female"}, {MAMA_CHILD_STATUS, "alive"},
+                {MAMA_BREASTFEEDING_STATUS, "breastfeeding"}, {MAMA_HEI_TEST_DONE, "yes"},
+                {MAMA_HEI_TEST_TYPE, Stage.SIX_WEEKS.getCode()}, {MAMA_HEI_TEST_DATE, sampleDate.toString()},
+                {MAMA_HEI_TEST_RESULT, "pending"}}) {
+            observation(observations, MotherMentorDeliveryChildren.observationKey(1, field[0]), field[1]);
+        }
+        JSONObject initial = new JSONObject().put(EVENT_BASE_ENTITY_ID, mother)
+                .put(EVENT_TYPE, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES)
+                .put(EVENT_FORM_SUBMISSION_ID, submission).put("version", 1)
+                .put("entityType", Constants.TABLES.MOTHERMENTOR_SERVICES)
+                .put(EVENT_DATE_TIMESTAMP, DateTime.now().minusMinutes(1).toString()).put("obs", observations);
+        Event visitEvent = JsonFormUtils.gson.fromJson(initial.toString(), Event.class);
+        process(new EventClient(visitEvent));
+        String id = assertCompletedVisit(visitEvent);
+        VisitRepository visits = MotherMentorLibrary.getInstance().visitRepository();
+
+        Entry pending = MotherMentorMotherResultEvent.visible(database, mother, day).get(0);
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, pending.getId(), pending.getRevision(),
+                new Answers("positive", day.minusDays(1), "no", "")));
+        Entry confirmation = MotherMentorMotherResultEvent.visible(database, mother, day).stream()
+                .filter(entry -> !entry.isRecorded()).findFirst().get();
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, confirmation.getId(),
+                confirmation.getRevision(), Answers.confirmation("yes", "positive", day)));
+        Entry recorded = MotherMentorMotherResultEvent.history(database, mother, day).stream()
+                .filter(entry -> entry.getSample().isAwaitingConfirmation()).findFirst().get();
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, recorded.getId(), recorded.getRevision(),
+                Answers.confirmation("yes", "negative", day)));
+        assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
+
+        JSONArray closure = new JSONArray();
+        String childPrefix = MotherMentorDeliveryChildren.observationKey(1, "");
+        for (int i = 0; i < observations.length(); i++) {
+            JSONObject field = observations.getJSONObject(i);
+            if (!field.getString("fieldCode").startsWith(childPrefix)) closure.put(field);
+        }
+        observation(closure, childPrefix + MotherMentorDeliveryChildren.SEX, "female");
+        observation(closure, childPrefix + MAMA_CHILD_STATUS, "deceased");
+        observation(closure, childPrefix + MAMA_TAREHE_MTOTO_ALIFARIKI, day.toString());
+        observation(closure, MotherMentorDeliveryChildren.ALL_FINISHED, "true");
+        JSONObject closedEvent = new JSONObject(initial.toString()).put("version", 2).put("obs", closure);
+        process(new EventClient(JsonFormUtils.gson.fromJson(closedEvent.toString(), Event.class)));
+        assertTrue(MotherMentorMotherClosureRepository.isClosed(database, mother));
+        Visit closed = visits.getVisitByVisitId(id);
+        assertTrue(MotherMentorMotherClosureRepository.isSameDayClosingVisit(database, closed, day));
+        assertFalse(MotherMentorMotherClosureRepository.isSameDayClosingVisit(database, closed, day.plusDays(1)));
+
+        HistoryEditor reopen = new HistoryEditor(id);
+        Map<String, BaseMotherMentorVisitAction> correcting = reopen.load(mother);
+        setVisitAnswers(correcting, "mothermentor_visit_child", MAMA_CHILD_STATUS, "alive",
+                MAMA_TAREHE_MTOTO_ALIFARIKI, "", MAMA_BREASTFEEDING_STATUS, "breastfeeding",
+                MAMA_HEI_TEST_DONE, "yes", MAMA_HEI_TEST_TYPE, Stage.SIX_WEEKS.getCode(),
+                MAMA_HEI_TEST_DATE, sampleDate.toString("dd-MM-yyyy"), MAMA_HEI_TEST_RESULT, "pending");
+        setVisitAnswers(correcting, "mothermentor_visit_group_linkage",
+                HAS_BEEN_LINKED_TO_PSYCHOSOCIAL_SUPPORT_GROUP, "no", HAS_BEEN_LINKED_TO_IGA_GROUP, "no");
+        setVisitAnswers(correcting, "mothermentor_visit_education_provided", EDUCATION_PROVIDED, "no");
+        setVisitAnswers(correcting, "mothermentor_visit_referal", REFERRAL_GIVEN, "no");
+        setVisitAnswers(correcting, "mothermentor_next_visit_date",
+                NEXT_APPOINTMENT_DATE, day.plusDays(1).toString("dd-MM-yyyy"));
+        for (BaseMotherMentorVisitAction action : correcting.values()) {
+            if (action.isValid() && !action.isOptional()) {
+                assertEquals(action.getFormName(), BaseMotherMentorVisitAction.Status.COMPLETED, action.getActionStatus());
+            }
+        }
+
+        JSONObject synced = new JSONObject(closed.getJson()).put("serverVersion", System.currentTimeMillis())
+                .put("eventId", UUID.randomUUID().toString());
+        process(new EventClient(JsonFormUtils.gson.fromJson(synced.toString(), Event.class)));
+        Visit replayed = visits.getVisitByVisitId(id);
+        assertFalse("Sync should refresh the saved envelope while the editor is open",
+                closed.getJson().equals(replayed.getJson()));
+        assertEquals("Replay must keep the saved observations",
+                JsonFormUtils.gson.fromJson(closed.getJson(), JsonObject.class).get("obs"),
+                JsonFormUtils.gson.fromJson(replayed.getJson(), JsonObject.class).get("obs"));
+        assertTrue(MotherMentorMotherClosureRepository.isSameDayClosingVisit(database, replayed, day));
+        assertTrue("Same-day history correction did not save after sync", reopen.save(mother, correcting));
+        assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
+        Visit corrected = visits.getVisitByVisitId(id);
+        assertEquals(submission, corrected.getFormSubmissionId());
+        assertTrue(corrected.getProcessed());
+        assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
+        assertFalse("A stale editor must reject the now-changed clinical observations", reopen.save(mother, correcting));
+        assertEquals(corrected.getJson(), visits.getVisitByVisitId(id).getJson());
+        List<Entry> results = MotherMentorMotherResultEvent.history(database, mother, day);
+        assertEquals(2, results.size());
+        for (Entry entry : results) {
+            assertEquals(sampleDate, entry.getSample().getTestDate());
+            assertEquals(entry.getSample().isAwaitingConfirmation() ? day : day.minusDays(1),
+                    entry.getAnswers().getReceivedDate());
+        }
+    }
+
+    private static void setVisitAnswers(Map<String, BaseMotherMentorVisitAction> actions,
+            String formName, String... answers) throws Exception {
+        BaseMotherMentorVisitAction action = actions.values().stream()
+                .filter(candidate -> formName.equals(candidate.getFormName())).findFirst().get();
+        JSONObject form = new JSONObject(action.getJsonPayload());
+        for (int i = 0; i < answers.length; i += 2) {
+            assertNotNull("Missing " + answers[i], MotherMentorMotherChildUtils.field(form, answers[i]));
+            MotherMentorMotherChildUtils.put(form, answers[i], answers[i + 1]);
+        }
+        action.setJsonPayload(form.toString());
+    }
+
+    private static final class HistoryEditor extends MotherMentorServiceVisitInteractor
+            implements BaseMotherMentorVisitContract.InteractorCallBack {
+        private Map<String, BaseMotherMentorVisitAction> actions;
+
+        HistoryEditor(String visitId) {
+            super(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES, visitId);
+            // Load the real forms on the same thread as the rolled-back fixture.
+            appExecutors = new AppExecutors(Runnable::run, Runnable::run, Runnable::run);
+        }
+
+        Map<String, BaseMotherMentorVisitAction> load(String mother) {
+            Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+            MemberObject member = new MemberObject();
+            member.setBaseEntityId(mother);
+            Class<BaseMotherMentorVisitContract.View> type = BaseMotherMentorVisitContract.View.class;
+            BaseMotherMentorVisitContract.View view = (BaseMotherMentorVisitContract.View)
+                    Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] {type},
+                            (proxy, method, args) -> {
+                                switch (method.getName()) {
+                                    case "getContext":
+                                    case "getMyContext": return context;
+                                    case "getEditMode": return true;
+                                    default: return null;
+                                }
+                            });
+            calculateActions(view, member, this);
+            return actions;
+        }
+
+        boolean save(String mother, Map<String, BaseMotherMentorVisitAction> forms) throws Exception {
+            Map<String, BaseMotherMentorVisitAction> visible = new LinkedHashMap<>();
+            forms.forEach((name, action) -> {
+                if (action.isValid()) visible.put(name, action);
+            });
+            // Execute the production transaction synchronously within the test fixture.
+            return super.submitVisit(true, mother, visible, "") != null;
+        }
+
+        @Override public void preloadActions(LinkedHashMap<String, BaseMotherMentorVisitAction> map) {
+            actions = map;
+        }
+        @Override public void onSubmitted(String json) { }
+        @Override public void onRegistrationSaved(boolean edit) { }
+        @Override public void onMemberDetailsReloaded(MemberObject member) { }
     }
 
     @Test

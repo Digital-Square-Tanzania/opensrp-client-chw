@@ -1,8 +1,10 @@
 package org.smartregister.chw.interactor;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static androidx.test.espresso.matcher.ViewMatchers.withResourceName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
@@ -68,6 +70,7 @@ import java.util.Locale;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.UUID;
@@ -232,6 +235,9 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 setDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE, dob);
                 onMain(() -> assertEquals("Tarehe ya kupokea majibu haiwezi kuwa kabla ya tarehe ya kipimo",
                         visibleDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE).getError().toString()));
+                setDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE, today.plusDays(1));
+                onMain(() -> assertEquals("Weka tarehe sahihi ya kupokea majibu ambayo haipo katika siku zijazo",
+                        visibleDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE).getError().toString()));
                 setDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE, birthSample);
                 select(activity, MAMA_BIRTH_TEST_RESULT, "pending");
                 onMain(() -> assertNull(visibleDate(activity, MAMA_BIRTH_TEST_RECEIVED_DATE)));
@@ -254,10 +260,17 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today.plusDays(1));
                 onMain(() -> assertEquals("Weka tarehe sahihi ya kupokea majibu ambayo haipo katika siku zijazo",
                         visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE).getError().toString()));
+                setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today.minusDays(2));
+                onMain(() -> assertEquals("Tarehe ya kupokea majibu haiwezi kuwa kabla ya tarehe ya kipimo",
+                        visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE).getError().toString()));
                 setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today);
                 select(activity, MAMA_HEI_TEST_RESULT, "pending");
-                onMain(() -> assertNull(visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE)));
+                onMain(() -> {
+                    assertNull(visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE));
+                    assertTrue(showsFollowUpPrompt(activity));
+                });
                 select(activity, MAMA_HEI_TEST_RESULT, "negative");
+                onMain(() -> assertFalse(showsFollowUpPrompt(activity)));
                 onMain(() -> assertSaveBlocked(activity, MAMA_HEI_TEST_RECEIVED_DATE));
                 setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today);
                 save(activity, child);
@@ -290,6 +303,24 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                     });
                     select(wizard, MTOTO_RECEIVED_RESULT, "negative");
                     onMain(() -> assertSaveBlocked(wizard, MTOTO_RESULT_RECEIVED_DATE));
+                    if ("sw".equals(language)) {
+                        onMain(() -> assertTrue(visibleDate(wizard, MTOTO_RESULT_RECEIVED_DATE).performClick()));
+                        onView(withResourceName("date_picker")).check((view, missing) -> {
+                            assertNotNull(view);
+                            DatePicker picker = (DatePicker) view;
+                            assertEquals(sample, new LocalDate(picker.getMinDate()));
+                            assertEquals(LocalDate.now(), new LocalDate(picker.getMaxDate()));
+                        });
+                        pressBack();
+
+                        Map<String, String> invalid = new HashMap<>();
+                        invalid.put(MTOTO_RESULT_RECEIVED_DATE, sample.minusDays(1).toString());
+                        assertEquals("Tarehe ya kupokea majibu haiwezi kuwa kabla ya tarehe ya kipimo",
+                                wizard.getString(MotherMentorChildEidResultForm.receiptDateError(invalid, sample)));
+                        invalid.put(MTOTO_RESULT_RECEIVED_DATE, LocalDate.now().plusDays(1).toString());
+                        assertEquals("Weka tarehe sahihi ya kupokea majibu ambayo haipo katika siku zijazo",
+                                wizard.getString(MotherMentorChildEidResultForm.receiptDateError(invalid, sample)));
+                    }
                     setDate(wizard, MTOTO_RESULT_RECEIVED_DATE, receipt);
                     submitted.set(saveProfileResult(wizard));
                 });
@@ -371,8 +402,10 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 select(activity, MAMA_HEI_TEST_DONE, "yes");
                 setDate(activity, MAMA_HEI_TEST_DATE, day);
                 select(activity, MAMA_HEI_TEST_RESULT, "positive");
-                onMain(() -> assertNull(visibleRadio(activity.getWindow().getDecorView(),
-                        MAMA_HEI_TEST_RESULT, "pending")));
+                onMain(() -> {
+                    assertNull(visibleRadio(activity.getWindow().getDecorView(), MAMA_HEI_TEST_RESULT, "pending"));
+                    assertFalse(showsFollowUpPrompt(activity));
+                });
                 select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "yes");
                 onMain(() -> {
                     View root = activity.getWindow().getDecorView();
@@ -407,6 +440,12 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                     select(wizard, MTOTO_CONFIRMATORY_TEST_DONE, "yes");
                     onMain(() -> assertSaveBlocked(wizard, MTOTO_CONFIRMATORY_RESULT));
                     if (stage == Stage.AT_BIRTH) {
+                        select(wizard, MTOTO_CONFIRMATORY_RESULT, "negative");
+                        setDate(wizard, MTOTO_RESULT_RECEIVED_DATE, day);
+                        select(wizard, MTOTO_CONFIRMATORY_RESULT, "pending");
+                        onMain(() -> assertNull(visibleDate(wizard, MTOTO_RESULT_RECEIVED_DATE)));
+                        select(wizard, MTOTO_CONFIRMATORY_RESULT, "negative");
+                        onMain(() -> assertSaveBlocked(wizard, MTOTO_RESULT_RECEIVED_DATE));
                         select(wizard, MTOTO_CONFIRMATORY_RESULT, "pending");
                     } else {
                         onMain(() -> assertNull(visibleRadio(wizard.getWindow().getDecorView(),
@@ -765,6 +804,13 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             field.setText(day.toString("dd/MM/yyyy"));
         });
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+    }
+
+    private boolean showsFollowUpPrompt(FamilyWizardFormActivity activity) {
+        java.util.ArrayList<View> matches = new java.util.ArrayList<>();
+        activity.getWindow().getDecorView().findViewsWithText(matches, "Fuatilia majibu kituoni.",
+                View.FIND_VIEWS_WITH_TEXT);
+        return matches.stream().anyMatch(View::isShown);
     }
 
     private EditText visibleDate(FamilyWizardFormActivity activity, String key) {

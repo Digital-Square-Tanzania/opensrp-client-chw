@@ -34,6 +34,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.model.MotherMentorClientRegisterModel;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragment;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.ArrayList;
@@ -274,6 +275,43 @@ public class MotherMentorClientRegisterProviderTest {
                 metadata.getSpans(0, metadata.length(), ForegroundColorSpan.class);
         assertEquals(1, spans.length);
         assertEquals("Not pregnant".length(), metadata.getSpanEnd(spans[0]));
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void singletonUsesSampleDateBoundariesAndKeepsTheOtherWarningAfterSave() {
+        Map<String, String> columns = clientColumns("breast_feeding", "1");
+        String pending = MotherMentorDeliveryChildren.PENDING_TESTS;
+        columns.put(pending, "[[1,\"at_birth\",\"2026-10-16\"],[1,\"six_weeks\",\"2026-10-09\"]]");
+        MotherMentorClientRegisterProvider.ClientViewHolder holder = bind(client("singleton", columns));
+        assertFalse(holder.metadata.getText().toString().contains("Majibu yamechelewa"));
+
+        columns.put(pending, "[[1,\"at_birth\",\"2026-10-15\"],[1,\"six_weeks\",\"2026-10-08\"]]");
+        provider.getView(null, client("singleton", columns), holder);
+        String overdue = holder.metadata.getText().toString();
+        assertTrue(overdue.contains("Wakati wa kuzaliwa · Majibu yamechelewa"));
+        assertTrue(overdue.contains("Wiki 6 · Majibu yamechelewa"));
+        assertFalse(overdue.contains("Mtoto wa 1"));
+
+        columns.put(pending, "[[1,\"six_weeks\",\"2026-10-08\"]]");
+        provider.getView(null, client("singleton", columns), holder);
+        assertFalse(holder.metadata.getText().toString().contains("Wakati wa kuzaliwa"));
+        assertTrue(holder.metadata.getText().toString().contains("Wiki 6 · Majibu yamechelewa"));
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void siblingWarningsNameOnlyTheOverdueSampleOwnerAndNeverFlagMieziEighteen() {
+        Map<String, String> columns = clientColumns("breast_feeding", "1");
+        columns.put(MotherMentorDeliveryChildren.FOLLOWED_COUNT, "2");
+        columns.put(MotherMentorDeliveryChildren.PENDING_TESTS,
+                "[[1,\"nine_months\",\"2026-10-08\"],[2,\"nine_months\",\"2026-10-09\"],"
+                + "[2,\"three_months_after_weaning\",\"2026-10-08\"],[2,\"eighteen_months\",\"2026-09-01\"]]");
+        String metadata = bind(client("siblings", columns)).metadata.getText().toString();
+        assertTrue(metadata.contains("Mtoto wa 1 · Miezi 9 · Majibu yamechelewa"));
+        assertTrue(metadata.contains("Mtoto wa 2 · Miezi 3 baada ya kuacha kunyonyeshwa · Majibu yamechelewa"));
+        assertFalse(metadata.contains("Mtoto wa 2 · Miezi 9"));
+        assertFalse(metadata.contains("Miezi 18"));
     }
 
     @Test

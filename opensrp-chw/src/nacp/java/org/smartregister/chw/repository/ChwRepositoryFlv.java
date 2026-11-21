@@ -264,6 +264,7 @@ public class ChwRepositoryFlv {
                     break;
                 case 73:
                 case 74:
+                case 75:
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
                     break;
                 default:
