@@ -15,12 +15,16 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.ayp.dao.AypDao;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
+import org.smartregister.chw.mothermentor.dao.MotherMentorPartnerFollowUpDao;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.provider.OpdRegisterProvider;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.util.Constants;
 import org.smartregister.opd.utils.OpdDbConstants;
+
+import java.util.Date;
 
 public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     public static final String REGISTER_TYPE = "register_type";
@@ -67,6 +71,15 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
             registerType = AYP_REGISTER_TAG;
             commonPersonObjectClient.getDetails().put(REGISTER_TYPE, registerType);
             commonPersonObjectClient.getColumnmaps().put(OpdDbConstants.KEY.REGISTER_TYPE, registerType);
+        }
+
+        if (CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_PARTNER.equals(registerType)) {
+            MotherMentorPartnerFollowUpDao.Context state = MotherMentorPartnerFollowUpDao.getContext(
+                    baseEntityId, null, new Date());
+            if (state != null && !TextUtils.isEmpty(state.getLinkageId()) && !state.isActive()) {
+                filterandSortExecute(countBundle());
+                return;
+            }
         }
 
         Bundle bundle = new Bundle();
@@ -118,6 +131,18 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                     break;
                 case CoreConstants.REGISTER_TYPE.AYP_OUT_SCHOOL:
                     AllClientsUtils.goToAypProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR:
+                    AllClientsUtils.goToMotherMentorProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_IIT:
+                    AllClientsUtils.goToMotherMentorFollowUpProfile(this.getActivity(), commonPersonObjectClient, MotherMentorFollowUpType.MOTHER_IIT);
+                    break;
+                case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_PARTNER:
+                    AllClientsUtils.goToMotherMentorFollowUpProfile(this.getActivity(), commonPersonObjectClient, MotherMentorFollowUpType.PARTNER);
+                    break;
+                case CoreConstants.REGISTER_TYPE.MOTHER_MENTOR_CHILD_EID:
+                    AllClientsUtils.goToMotherMentorFollowUpProfile(this.getActivity(), commonPersonObjectClient, MotherMentorFollowUpType.CHILD_EID);
                     break;
                 case CoreConstants.REGISTER_TYPE.SBC:
                     AllClientsUtils.goToSbcProfile(this.getActivity(), commonPersonObjectClient);

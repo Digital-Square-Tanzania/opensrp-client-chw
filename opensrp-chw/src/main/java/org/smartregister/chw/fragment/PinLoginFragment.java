@@ -106,7 +106,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
     private void initializeBuildDetails(View view) {
         TextView buildDetailsTextView = view.findViewById(org.smartregister.R.id.login_build_text_view);
         try {
-            buildDetailsTextView.setText(String.format(getString(org.smartregister.R.string.app_version), Utils.getVersion(ChwApplication.getInstance()
+            buildDetailsTextView.setText(String.format(getString(R.string.app_version), Utils.getVersion(ChwApplication.getInstance()
                     .getApplicationContext()), Utils.getBuildDate(true)));
         } catch (Exception e) {
             Timber.e(e);

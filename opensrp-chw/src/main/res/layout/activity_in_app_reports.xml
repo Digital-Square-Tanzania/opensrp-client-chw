@@ -67,7 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                app:constraint_referenced_ids="hps_reports,cbhs_summary, mother_champion_reports, cdp_reports,agyw_reports,iccm_reports,sbc_reports, harm_reduction_reports, harm_reduction_sober_house_reports,  asrh_reports, cecap_reports, tb_leprosy_reports, ayp_out_school_report, kvp_reports, ecd_reports"
+                app:constraint_referenced_ids="hps_reports,cbhs_summary, mother_mentor_reports, cdp_reports,agyw_reports,iccm_reports,sbc_reports, harm_reduction_reports, harm_reduction_sober_house_reports,  asrh_reports, cecap_reports, tb_leprosy_reports, ayp_out_school_report, kvp_reports, ecd_reports"
                 app:flow_horizontalAlign="center"
                 app:flow_horizontalGap="20dp"
                 app:flow_horizontalStyle="packed"
@@ -199,7 +199,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mother_champion_reports"
+                android:id="@+id/mother_mentor_reports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -212,12 +212,12 @@
                 app:layout_constraintTop_toBottomOf="@id/cbhs_summary">
 
                 <ImageView
-                    android:id="@+id/iv_mother_champion_report"
+                    android:id="@+id/iv_mother_mentor_report"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:contentDescription="Mother Champion Report Icon"
+                    android:contentDescription="@string/mother_mentor_reports"
                     android:padding="20dp"
                     android:src="@drawable/ic_pmtct_cohort_report"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -225,35 +225,35 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textViewTitle_motherChampion"
+                    android:id="@+id/textViewTitle_motherMentor"
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/mother_champion_reports"
+                    android:text="@string/mother_mentor_reports"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="22sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textViewSubtitle_motherChampion"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewSubtitle_motherMentor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/iv_mother_champion_report"
+                    app:layout_constraintStart_toEndOf="@+id/iv_mother_mentor_report"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textViewSubtitle_motherChampion"
+                    android:id="@+id/textViewSubtitle_motherMentor"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/mother_champion_reports_subtitle"
+                    android:text="@string/mother_mentor_reports_subtitle"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/iv_mother_champion_report"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle_motherChampion" />
+                    app:layout_constraintStart_toEndOf="@+id/iv_mother_mentor_report"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTitle_motherMentor" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -267,7 +267,7 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mother_champion_reports">
+                app:layout_constraintTop_toBottomOf="@id/mother_mentor_reports">
 
                 <ImageView
                     android:id="@+id/iv_cdp"

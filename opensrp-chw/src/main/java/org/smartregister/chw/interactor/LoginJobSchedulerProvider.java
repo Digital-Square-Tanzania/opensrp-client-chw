@@ -97,7 +97,9 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
             P2pServiceJob.scheduleJobImmediately(P2pServiceJob.TAG);
         }
 
-        CloseAsrhMemberServiceJob.scheduleJobImmediately(CloseAsrhMemberServiceJob.TAG);
+        if (ChwApplication.getApplicationFlavor().hasAsrh()) {
+            CloseAsrhMemberServiceJob.scheduleJobImmediately(CloseAsrhMemberServiceJob.TAG);
+        }
         CloseSoberHouseMemberServiceJob.scheduleJobImmediately(CloseSoberHouseMemberServiceJob.TAG);
     }
 

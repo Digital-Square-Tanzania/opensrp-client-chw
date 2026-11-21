@@ -4,6 +4,7 @@ import static org.smartregister.chw.activity.FamilyOtherMemberProfileActivity.co
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.truncateTimeFromDate;
+import static org.smartregister.chw.mothermentor.util.Constants.FORMS.MOTHERMENTOR_ENROLL_IIT;
 import static org.smartregister.family.util.Utils.metadata;
 import static org.smartregister.util.Utils.getValue;
 
@@ -77,6 +78,7 @@ import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
 import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.AllClientsUtils;
@@ -344,6 +346,10 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
         int age = memberObject.getAge();
 
         String gender = memberObject.getGender();
+        menu.findItem(R.id.action_mother_mentor_enrollment)
+                .setVisible(canEnrollInMotherMentor());
+        menu.findItem(R.id.action_mother_mentor_enroll_iit)
+                .setVisible(canAccessMotherMentorServices());
         menu.findItem(R.id.action_location_info).setVisible(true);
         if (ChwApplication.getApplicationFlavor().hasHIV()) {
             menu.findItem(R.id.action_cbhs_registration).setVisible(true);
@@ -435,6 +441,26 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
         return true;
     }
 
+    private boolean canEnrollInMotherMentor() {
+        return canAccessMotherMentorServices()
+                && !MotherMentorDao.isRegisteredForMotherMentor(memberObject.getBaseEntityId());
+    }
+
+    private String getMotherMentorFamilyBaseEntityId() {
+        String familyBaseEntityId = memberObject.getFamilyBaseEntityId();
+        if (StringUtils.isBlank(familyBaseEntityId)) {
+            return UpdateDetailsUtil.getFamilyBaseEntityId(
+                    org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient(
+                            memberObject.getBaseEntityId()));
+        }
+        return familyBaseEntityId;
+    }
+
+    private boolean canAccessMotherMentorServices() {
+        return ChwApplication.getApplicationFlavor().hasMotherMentor()
+                && "Female".equalsIgnoreCase(memberObject.getGender());
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
@@ -458,6 +484,27 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_iccm_registration) {
             MemberProfileUtils.startIntegratedCommunityCaseManagementEnrollment(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+            return true;
+        } else if (i == R.id.action_mother_mentor_enrollment) {
+            if (canEnrollInMotherMentor()) {
+                MotherMentorRegisterActivity.startRegistration(
+                        this,
+                        memberObject.getBaseEntityId(),
+                        getMotherMentorFamilyBaseEntityId(),
+                        memberObject.getGender(),
+                        memberObject.getAge());
+            }
+            return true;
+        } else if (i == R.id.action_mother_mentor_enroll_iit) {
+            if (canAccessMotherMentorServices()) {
+                MotherMentorRegisterActivity.startRegistration(
+                        this,
+                        memberObject.getBaseEntityId(),
+                        getMotherMentorFamilyBaseEntityId(),
+                        memberObject.getGender(),
+                        memberObject.getAge(),
+                        MOTHERMENTOR_ENROLL_IIT);
+            }
             return true;
         } else if (i == org.smartregister.chw.core.R.id.action_vmmc_registration) {
             MemberProfileUtils.startVmmcRegister(HpsMemberProfileActivity.this, memberObject.getBaseEntityId(), memberObject.getPhoneNumber(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());

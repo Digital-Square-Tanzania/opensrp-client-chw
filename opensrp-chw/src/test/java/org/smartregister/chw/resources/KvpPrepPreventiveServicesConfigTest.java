@@ -3,6 +3,7 @@ package org.smartregister.chw.resources;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.smartregister.chw.BuildConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -58,7 +59,7 @@ public class KvpPrepPreventiveServicesConfigTest {
     }
 
     @Test
-    public void branchTestDatesAreMappedAndMigratedAtDatabaseVersion50() throws Exception {
+    public void branchTestDatesAreMappedAndSupportedByCurrentDatabaseVersion() throws Exception {
         JSONObject clientFields = new JSONObject(readText("src/nacp/assets/ec_client_fields.json"));
         JSONArray tables = clientFields.getJSONArray("bindobjects");
         JSONArray columns = null;
@@ -77,13 +78,10 @@ public class KvpPrepPreventiveServicesConfigTest {
         assertEquals(1, columnCount(columns, "branch_b_test_date"));
         assertEquals(1, columnCount(columns, "test_date"));
 
-        String repository = readText("src/nacp/java/org/smartregister/chw/repository/ChwRepositoryFlv.java");
-        assertTrue(repository.contains("case 50:"));
-        assertTrue(repository.contains("upgradeToVersion50(db)"));
-        assertTrue(repository.contains("addColumnIfMissing(db, \"ec_kvp_prep_followup\", \"branch_a_test_date\")"));
-        assertTrue(repository.contains("addColumnIfMissing(db, \"ec_kvp_prep_followup\", \"branch_b_test_date\")"));
-        assertTrue(readText("build.gradle").contains(
-                "buildConfigField \"int\", \"DATABASE_VERSION\", '50'"));
+        // MotherMentorDevelopmentMigrationTest verifies actual column creation and data
+        // preservation from both development and Mother Mentor upgrade histories.
+        assertTrue("The configured database must include the branch test-date schema",
+                BuildConfig.DATABASE_VERSION >= 50);
     }
 
     private JSONObject form(String formPath) throws Exception {

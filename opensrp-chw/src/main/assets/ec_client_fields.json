@@ -797,6 +797,111 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_mothermentor_household_enrolment",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "household_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "household_id"
+          }
+        },
+        {
+          "column_name": "consent",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "consent"
+          }
+        },
+        {
+          "column_name": "enrollment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "enrollment_date"
+          }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "entity_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "entityType"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "kaya_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kaya_status"
+          }
+        },
+        {
+          "column_name": "kaya_tarehe_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kaya_tarehe_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "kaya_sababu_ya_kufungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kaya_sababu_ya_kufungwa"
+          }
+        },
+        {
+          "column_name": "kaya_counter_nyumba_imefungwa",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kaya_counter_nyumba_imefungwa"
+          }
+        },
+        {
+          "column_name": "kaya_counter_nyingine",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kaya_counter_nyingine"
+          }
+        },
+        {
+          "column_name": "kaya_counter_haijapatikana",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kaya_counter_haijapatikana"
+          }
+        }
+      ]
     }
   ]
 }

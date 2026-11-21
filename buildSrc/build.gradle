@@ -1,0 +1,48 @@
+plugins {
+    id 'java-gradle-plugin'
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+configurations {
+    legacyAlarmFixtures
+}
+
+dependencies {
+    // The convention plugin is loaded from buildSrc before the app's buildscript classloader.
+    implementation 'com.android.tools.build:gradle-api:8.13.2'
+    implementation 'org.ow2.asm:asm:9.7.1'
+    testImplementation 'junit:junit:4.13.2'
+    legacyAlarmFixtures('com.evernote:android-job:1.4.3@aar') { transitive = false }
+    legacyAlarmFixtures('com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1@aar') { transitive = false }
+}
+
+gradlePlugin {
+    plugins {
+        legacyAlarmCompatibility {
+            id = 'org.smartregister.legacy-alarm-compatibility'
+            implementationClass = 'org.smartregister.gradlecompat.LegacyAlarmCompatibilityPlugin'
+        }
+    }
+}
+
+test {
+    inputs.files(configurations.legacyAlarmFixtures)
+    doFirst {
+        configurations.legacyAlarmFixtures.files.each { fixture ->
+            if (fixture.name.startsWith('android-job-')) {
+                systemProperty 'legacy.fixture.androidJob', fixture.absolutePath
+            } else if (fixture.name.startsWith('mapbox-android-telemetry-')) {
+                systemProperty 'legacy.fixture.mapboxTelemetry', fixture.absolutePath
+            }
+        }
+    }
+}

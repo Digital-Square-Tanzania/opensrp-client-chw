@@ -40,10 +40,10 @@ import timber.log.Timber;
 public class KvpPrEPMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
     static final String[] HIV_PREP_HISTORY_FIELDS = {
             "hiv_tested_within_last_3_months", "hiv_result_recent", "ctc_number_a",
-            "on_prep", "prep_facility_a", "linked_to_prep_recent",
+            "on_prep", "prep_type_a", "prep_facility_a", "linked_to_prep_recent",
             "referred_for_hiv_test", "tested_for_hiv", "testing_location",
             "facility_name", "test_date", "hiv_result", "ctc_number_b",
-            "prep_follow_up", "prep_facility_b", "linked_to_prep"
+            "prep_follow_up", "prep_type_b", "prep_facility_b", "linked_to_prep"
     };
     static final String[] SCHEDULE_HISTORY_FIELDS = {"next_visit_date"};
     static final String[] PROTECTIVE_SERVICES_HISTORY_FIELDS = {
