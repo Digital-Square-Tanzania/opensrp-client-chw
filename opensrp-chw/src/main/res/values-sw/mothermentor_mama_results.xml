@@ -39,4 +39,5 @@
     <string name="mama_results_history_entry">Majibu ya kipimo — %1$s: %2$s</string>
     <string name="mama_results_field_value">%1$s: %2$s</string>
     <string name="mama_results_back">Rudi</string>
+    <string name="mama_results_confirm_from_child_card">Mtoto wa sampuli hii hajatambulika. Hakiki taarifa za watoto waliounganishwa kabla ya kuhifadhi majibu chanya ya kipimo cha uthibitisho.</string>
 </resources>

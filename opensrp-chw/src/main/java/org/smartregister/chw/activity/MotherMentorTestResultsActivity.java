@@ -235,8 +235,12 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
                     });
                     return;
                 }
-                boolean motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(database(), motherId, null);
-                executors.mainThread().execute(() -> reviewAnswers(entry, form, values, day, motherContinues));
+                PendingTest sample = entry.getSample();
+                boolean needsChildIdentity = MotherMentorMotherResultEvent.needsChildIdentity(database(), motherId, sample);
+                boolean motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(
+                        database(), motherId, sample.getChildId());
+                executors.mainThread().execute(() -> reviewAnswers(
+                        entry, form, values, day, needsChildIdentity, motherContinues));
             } catch (Exception error) {
                 failedToLoad(error);
             }
@@ -244,7 +248,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     }
 
     private void reviewAnswers(Entry entry, JSONObject form, Map<String, String> values, LocalDate day,
-            boolean motherContinues) {
+            boolean needsChildIdentity, boolean motherContinues) {
         if (isFinishing() || isDestroyed()) return;
         PendingTest sample = entry.getSample();
         int dateError = MotherMentorChildEidResultForm.receiptDateError(values, sample.getTestDate());
@@ -259,10 +263,13 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             return;
         }
         Runnable save = () -> save(entry, answers, form);
-        if (answers.closesFollowUp(sample, day) && motherContinues) {
+        boolean confirmedPositive = answers.closesFollowUp(sample, day);
+        if (confirmedPositive && needsChildIdentity) {
+            retryForm(form, R.string.mama_results_confirm_from_child_card);
+        } else if (confirmedPositive && motherContinues) {
             MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, true,
                     save, () -> launchNativeForm(form));
-        } else if (answers.closesFollowUp(sample, day)) {
+        } else if (confirmedPositive) {
             MotherMentorMotherClosureDialog.show(this, MotherMentorMotherClosure.active().advance(
                     MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE, day.toString()),
                     save, () -> launchNativeForm(form));

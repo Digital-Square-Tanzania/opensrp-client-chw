@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
@@ -384,6 +385,106 @@ public class MotherMentorVisitSyncInstrumentedTest {
         assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
         assertEquals(4, count("event", EVENT_BASE_ENTITY_ID, mother));
         assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
+    }
+
+    @Test
+    public void standalonePositiveClosesTheSampleChildAndKeepsTheManuallyLinkedSiblingActive() throws Exception {
+        String mother = UUID.randomUUID().toString();
+        syntheticClients.add(mother);
+        LocalDate day = LocalDate.now();
+        LocalDate sampleDay = day.minusDays(2);
+        LocalDate dob = sampleDay.minusMonths(18);
+        ContentValues enrollment = new ContentValues();
+        enrollment.put(BASE_ENTITY_ID, mother);
+        enrollment.put(PREGNANCY_STATUS, "breast_feeding");
+        enrollment.put(CHILD_DOB, dob.toString());
+        enrollment.put(IS_CLOSED, 0);
+        database.insertOrThrow(Constants.TABLES.MOTHERMENTOR_ENROLLMENT, null, enrollment);
+
+        String child = manualChildEidLink(mother, dob, sampleDay.minusDays(1));
+        JSONArray answers = new JSONArray();
+        observation(answers, MOTHERMENTOR_VISIT_DATE, sampleDay.toString());
+        observation(answers, MAMA_ENROLLMENT_ID, MotherMentorMotherVisitDao.getContext(database, mother).getEnrollmentId());
+        observation(answers, ATTENDANCE_TYPE, "repeat");
+        observation(answers, FOLLOW_UP_STATUS, "found");
+        observation(answers, MAMA_TAREHE_KUJIFUNGUA, dob.toString());
+        observation(answers, MAMA_CHILD_STATUS, "alive");
+        observation(answers, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+        observation(answers, MAMA_HEI_TEST_DONE, "yes");
+        observation(answers, MAMA_HEI_TEST_TYPE, Stage.EIGHTEEN_MONTHS.getCode());
+        observation(answers, MAMA_HEI_TEST_DATE, sampleDay.toString());
+        observation(answers, MAMA_HEI_TEST_RECEIVED_DATE, sampleDay.toString());
+        observation(answers, MAMA_HEI_TEST_RESULT, "positive");
+        observation(answers, MAMA_HEI_CONFIRMATORY_TEST_DONE, "no");
+        String source = UUID.randomUUID().toString();
+        ContentValues visit = new ContentValues();
+        visit.put(VISIT_ID, UUID.randomUUID().toString());
+        visit.put(BASE_ENTITY_ID, mother);
+        visit.put(FORM_SUBMISSION_ID, source);
+        visit.put(VISIT_TYPE, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        visit.put(PROCESSED, 1);
+        visit.put(VISIT_DATE, sampleDay.toDateTimeAtStartOfDay().getMillis());
+        visit.put(VISIT_JSON, new JSONObject().put(EVENT_FORM_SUBMISSION_ID, source)
+                .put(EVENT_DATE_TIMESTAMP, sampleDay + "T12:00:00.000+03:00").put("obs", answers).toString());
+        database.insertOrThrow(VisitRepository.VISIT_TABLE, null, visit);
+        String sibling = manualChildEidLink(mother, dob.plusDays(4), day.minusDays(1));
+
+        Entry pending = MotherMentorMotherResultEvent.visible(database, mother, day).get(0);
+        assertEquals(child, pending.getSample().getChildId());
+        assertTrue(MotherMentorMotherClosureRepository.hasOpenSibling(database, mother, child));
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, pending.getId(), pending.getRevision(),
+                Answers.confirmation("yes", "positive", day)));
+        assertTrue(MotherMentorChildEidRepository.getState(database, child, null).isClosed());
+        assertFalse(MotherMentorChildEidRepository.getState(database, sibling, null).isClosed());
+        assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
+        assertChildEidProjection(child, true);
+        assertChildEidProjection(sibling, false);
+
+        Entry recorded = MotherMentorMotherResultEvent.history(database, mother, day).get(0);
+        assertEquals(child, recorded.getSample().getChildId());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, recorded.getId(), recorded.getRevision(),
+                Answers.confirmation("yes", "negative", day)));
+        assertFalse(MotherMentorChildEidRepository.getState(database, child, null).isClosed());
+        assertChildEidProjection(child, false);
+        assertChildEidProjection(sibling, false);
+    }
+
+    private String manualChildEidLink(String mother, LocalDate birth, LocalDate linkDay) throws Exception {
+        String child = UUID.randomUUID().toString();
+        syntheticClients.add(child);
+        ContentValues enrollment = new ContentValues();
+        enrollment.put(BASE_ENTITY_ID, child);
+        enrollment.put(MOTHER_BASE_ENTITY_ID, mother);
+        enrollment.put(CHILD_DOB, birth.toString());
+        enrollment.put(IS_CLOSED, 0);
+        database.insertOrThrow(Constants.TABLES.MOTHERMENTOR_ENROLL_CHILD_EID, null, enrollment);
+        JSONArray fields = new JSONArray();
+        observation(fields, MOTHER_BASE_ENTITY_ID, mother);
+        observation(fields, CHILD_LINKING, "yes");
+        observation(fields, CHILD_DOB, birth.toString());
+        String id = UUID.randomUUID().toString();
+        String date = linkDay + "T10:00:00.000+03:00";
+        String eventType = Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID;
+        JSONObject event = new JSONObject().put(EVENT_FORM_SUBMISSION_ID, id).put(EVENT_TYPE, eventType)
+                .put(EVENT_BASE_ENTITY_ID, child).put(EVENT_DATE_TIMESTAMP, date).put("obs", fields);
+        ContentValues row = new ContentValues();
+        row.put(EVENT_FORM_SUBMISSION_ID, id);
+        row.put(EVENT_BASE_ENTITY_ID, child);
+        row.put(EVENT_TYPE, eventType);
+        row.put(EVENT_DATE_TIMESTAMP, date);
+        row.put(EVENT_JSON, event.toString());
+        database.insertOrThrow("event", null, row);
+        return child;
+    }
+
+    private void assertChildEidProjection(String child, boolean closed) {
+        try (Cursor row = database.rawQuery("SELECT " + IS_CLOSED + ", " + MTOTO_EID_STATUS
+                + " FROM " + Constants.TABLES.MOTHERMENTOR_ENROLL_CHILD_EID + " WHERE " + BASE_ENTITY_ID + " = ?",
+                new String[] {child})) {
+            assertTrue(row.moveToFirst());
+            assertEquals(closed ? 1 : 0, row.getInt(0));
+            assertEquals(closed ? "E4" : "active", row.getString(1));
+        }
     }
 
     @Test

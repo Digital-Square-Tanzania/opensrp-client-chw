@@ -39,4 +39,5 @@
     <string name="mama_results_history_entry">Test result — %1$s: %2$s</string>
     <string name="mama_results_field_value">%1$s: %2$s</string>
     <string name="mama_results_back">Back</string>
+    <string name="mama_results_confirm_from_child_card">The child for this sample could not be identified. Check the linked child records before saving a positive confirmation.</string>
 </resources>
