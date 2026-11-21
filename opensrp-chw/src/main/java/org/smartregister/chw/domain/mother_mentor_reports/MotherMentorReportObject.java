@@ -7,6 +7,8 @@ import org.smartregister.chw.domain.ReportObject;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdCounsellingDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 
@@ -85,8 +87,49 @@ public class MotherMentorReportObject extends ReportObject {
         putCommunityIndicators(result);
         putHouseholdCounsellingIndicator(result);
         putTracingCoverage(result);
+        putLiveBirths(result);
         result.put("query-errors", failedQueries);
         return result;
+    }
+
+    private void putLiveBirths(JSONObject result) throws JSONException {
+        putUnavailable(result, "mm-live-births");
+        List<String> columns = Arrays.asList("total", "male_total", "female_total");
+        Map<String, Integer> counts = query(buildLiveBirthsQuery(), columns);
+        if (counts == null) return;
+        for (String column : columns) result.put(jsonKey("mm-live-births", column), value(counts, column));
+    }
+
+    String buildLiveBirthsQuery() {
+        String type = Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES;
+        String delivery = normalizeDate(detail(DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA));
+        String count = detail(MotherMentorDeliveryChildren.COUNT);
+        String enrollment = detail(DBConstants.KEY.MAMA_ENROLLMENT_ID);
+        String visits = "WITH ranked AS (SELECT v.*, " + delivery + " AS delivery_date, "
+                + "row_number() OVER (PARTITION BY v.base_entity_id, coalesce(nullif(" + enrollment + ", ''), "
+                + delivery + ") ORDER BY " + serviceDate() + ", v.visit_date, v.visit_id) AS delivery_row"
+                + " FROM visits v WHERE v.visit_type = '" + type + "' AND v.processed = 1"
+                + " AND " + detail(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME) + " IN ('delivered', 'preterm')"
+                + " AND coalesce(" + detail(DBConstants.KEY.MAMA_CARRIED_DELIVERY) + ", '') <> 'true'"
+                + " AND " + validDate(delivery) + " AND " + delivery + " <= " + serviceDate()
+                + " AND " + validDate(serviceDate()) + ")";
+        StringBuilder births = new StringBuilder();
+        for (int number = 1; number <= MotherMentorDeliveryChildren.MAX_COUNT; number++) {
+            if (number > 1) births.append(" UNION ALL ");
+            String status = detail(MotherMentorDeliveryChildren.observationKey(number, DBConstants.KEY.MAMA_CHILD_STATUS));
+            if (number == 1) {
+                status = "CASE WHEN " + detail(MotherMentorDeliveryChildren.SECTIONS) + " = 'true' THEN " + status
+                        + " ELSE " + detail(DBConstants.KEY.MAMA_CHILD_STATUS) + " END";
+            }
+            births.append("SELECT ").append(detail(MotherMentorDeliveryChildren.observationKey(
+                            number, MotherMentorDeliveryChildren.SEX))).append(" AS sex FROM ranked v")
+                    .append(" WHERE v.delivery_row = 1 AND ").append(inMonth("v.delivery_date"))
+                    .append(" AND ").append(status).append(" IN ('alive', 'deceased')");
+            if (number > 1) births.append(" AND CAST(").append(count).append(" AS INTEGER) >= ").append(number);
+        }
+        return visits + ", births AS (" + births + ") SELECT count(*) AS total,"
+                + " count(CASE WHEN sex = 'male' THEN 1 END) AS male_total,"
+                + " count(CASE WHEN sex = 'female' THEN 1 END) AS female_total FROM births";
     }
 
     private void putPartnerReferralIndicator(JSONObject result) throws JSONException {

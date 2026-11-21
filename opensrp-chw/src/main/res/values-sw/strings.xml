@@ -1175,4 +1175,9 @@
     <string name="member_removal_reason_missing">Tafadhali chagua sababu ya kumuondoa mwanakaya na ujaribu tena.</string>
     <string name="immunization_save_retry">Chanjo hazijahifadhiwa. Taarifa ulizoingiza bado zipo kwenye ukurasa huu. Subiri ziara ipakiwe, kisha bonyeza Hifadhi tena.</string>
     <string name="immunization_restore_failed">Fomu hii ya chanjo haikuweza kurejeshwa. Hakuna kilichohifadhiwa. Rudi kwenye ziara na ufungue tena Rekodi chanjo.</string>
+    <string name="mama_child_ending_stillbirth">%1$s atarekodiwa kama mtoto aliyezaliwa mfu. Kadi ya Mama inaendelea kwa ajili ya watoto wengine.</string>
+    <string name="mama_child_ending_deceased">Ufuatiliaji wa %1$s utafungwa kwa sababu mtoto amefariki. Kadi ya Mama inaendelea kwa ajili ya watoto wengine.</string>
+    <string name="mama_child_ending_positive">%1$s amethibitika kuwa na VVU. Hakikisha ameunganishwa na huduma za CTC. Kadi ya Mama inaendelea kwa ajili ya watoto wengine.</string>
+    <string name="mama_child_ending_graduated">%1$s atakuwa amehitimu kwa majibu ya mwisho. Kadi ya Mama inaendelea kwa ajili ya watoto wengine.</string>
+    <string name="mama_kinara_children_followed">watoto %1$d</string>
 </resources>

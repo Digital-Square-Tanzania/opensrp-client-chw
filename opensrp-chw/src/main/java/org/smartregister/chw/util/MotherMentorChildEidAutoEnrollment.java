@@ -19,9 +19,14 @@ public final class MotherMentorChildEidAutoEnrollment {
 
     public static void process(SQLiteDatabase db, String motherId, ECSyncHelper sync,
             ClientProcessorForJava processor) throws Exception {
-        MotherMentorChildEidRepository.EnrollmentPlan plan =
-                MotherMentorChildEidRepository.getPendingEnrollmentPlan(db, motherId);
-        if (plan == null) return;
+        for (MotherMentorChildEidRepository.EnrollmentPlan plan :
+                MotherMentorChildEidRepository.getPendingEnrollmentPlans(db, motherId)) {
+            processPlan(db, sync, processor, plan);
+        }
+    }
+
+    private static void processPlan(SQLiteDatabase db, ECSyncHelper sync,
+            ClientProcessorForJava processor, MotherMentorChildEidRepository.EnrollmentPlan plan) throws Exception {
         JSONObject clientJson = sync.getClient(plan.getChildId());
         if (clientJson == null) return;
         Client client = CoreJsonFormUtils.gson.fromJson(clientJson.toString(), Client.class);

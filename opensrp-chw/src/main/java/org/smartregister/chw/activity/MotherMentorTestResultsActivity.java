@@ -21,6 +21,9 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils.TerminalOutcome;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
@@ -183,6 +186,12 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             JSONObject form = FormUtils.getFormUtils().getFormJson(MotherMentorChildEidResultForm.FORM_NAME);
             MotherMentorProfileResultForm.prepare(form, this, motherId, sample.getStage(),
                     sample.getTestDate(), sample.getState(), entry.getAnswers());
+            if (sample.hasSiblings()) {
+                form.put(MotherMentorDeliveryChildren.NUMBER, sample.getChildNumber());
+                JSONObject step = form.getJSONObject("step1");
+                step.put("title", MotherMentorDeliveryChildren.label(this, sample.getChildNumber(), "")
+                        + " · " + step.getString("title"));
+            }
             ((TextView) findViewById(R.id.mama_results_heading)).setText(
                     entry.isRecorded() ? R.string.mama_results_edit : R.string.mama_results_record);
             launchNativeForm(form);
@@ -232,14 +241,21 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
                     });
                     return;
                 }
-                executors.mainThread().execute(() -> reviewAnswers(entry, form, values, day));
+                PendingTest sample = entry.getSample();
+                Answers answers = MotherMentorProfileResultForm.readAnswers(values, sample.isAwaitingConfirmation());
+                TerminalOutcome outcome = MotherMentorMotherResultEvent.terminalOutcome(sample, answers, day);
+                MotherMentorMotherClosure closure = outcome == TerminalOutcome.NONE ? MotherMentorMotherClosure.active()
+                        : MotherMentorMotherClosureRepository.previewResult(
+                                database(), motherId, sample.getChildNumber(), outcome, day);
+                executors.mainThread().execute(() -> reviewAnswers(entry, form, values, day, answers, outcome, closure));
             } catch (Exception error) {
                 failedToLoad(error);
             }
         });
     }
 
-    private void reviewAnswers(Entry entry, JSONObject form, Map<String, String> values, LocalDate day) {
+    private void reviewAnswers(Entry entry, JSONObject form, Map<String, String> values, LocalDate day,
+            Answers answers, TerminalOutcome outcome, MotherMentorMotherClosure closure) {
         if (isFinishing() || isDestroyed()) return;
         PendingTest sample = entry.getSample();
         int dateError = MotherMentorChildEidResultForm.receiptDateError(values, sample.getTestDate());
@@ -248,15 +264,16 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             retryForm(form, dateError);
             return;
         }
-        Answers answers = MotherMentorProfileResultForm.readAnswers(values, sample.isAwaitingConfirmation());
         if (!answers.isValid(sample, day)) {
             retryForm(form, R.string.mama_results_select_answers);
             return;
         }
         Runnable save = () -> save(entry, answers, form);
-        if (answers.closesFollowUp(sample, day)) {
-            MotherMentorMotherClosureDialog.show(this, MotherMentorMotherClosure.active().advance(
-                    MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE, day.toString()),
+        if (closure.isClosed()) {
+            MotherMentorMotherClosureDialog.show(this, closure, save, () -> launchNativeForm(form));
+        } else if (outcome != TerminalOutcome.NONE) {
+            MotherMentorVisitActivity.showChildEndingConfirmation(this,
+                    MotherMentorVisitActivity.childEndingText(this, sample.getChildNumber(), outcome),
                     save, () -> launchNativeForm(form));
         } else {
             save.run();
@@ -309,7 +326,10 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
 
     static String testLabel(Context context, PendingTest sample) {
         String stage = stageLabel(context, sample.getStage());
-        return sample.isAwaitingConfirmation() ? context.getString(R.string.mama_results_confirmation_type, stage) : stage;
+        String test = sample.isAwaitingConfirmation()
+                ? context.getString(R.string.mama_results_confirmation_type, stage) : stage;
+        return sample.hasSiblings() ? MotherMentorDeliveryChildren.label(context, sample.getChildNumber(), "")
+                + " · " + test : test;
     }
 
     static String stageLabel(Context context, MotherMentorHeiSchedule.Stage stage) {

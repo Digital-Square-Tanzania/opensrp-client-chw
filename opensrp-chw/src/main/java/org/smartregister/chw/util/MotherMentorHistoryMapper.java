@@ -15,6 +15,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
 
@@ -71,6 +72,7 @@ public final class MotherMentorHistoryMapper {
     private static final Set<String> INTERNAL_FIELDS =
             new HashSet<>(
                     Arrays.asList(
+                            MotherMentorDeliveryChildren.SECTIONS, MotherMentorDeliveryChildren.LINK,
                             "visit_number", "visit_completion_state", "visit_id", "visit_type",
                             "entity_id", "base_entity_id", "relational_id", "mother_base_entity_id",
                             "start", "end", "today", "deviceid", "subscriberid", "simserial",
@@ -159,10 +161,26 @@ public final class MotherMentorHistoryMapper {
         List<Row> rows = new ArrayList<>();
         Row comments = addFormRows(rows, fields, recorded);
         addHistoricalRows(rows, fields, ignored, recorded);
+        if (Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType())) {
+            addChildRows(rows, fields, recorded);
+        }
         addClosureRows(rows, recorded);
         addHouseholdClosureRows(rows, recorded);
         if (comments != null) rows.add(comments);
         return rows;
+    }
+
+    private void addChildRows(List<Row> rows, Map<String, Field> fields, Map<String, List<VisitDetail>> recorded) {
+        for (int child = 1; child <= MotherMentorDeliveryChildren.MAX_COUNT; child++) {
+            for (Field field : fields.values()) {
+                String key = MotherMentorDeliveryChildren.observationKey(child, field.key);
+                List<String> answers = values(field, recorded.get(key));
+                if (!answers.isEmpty()) {
+                    rows.add(new Row(key, MotherMentorDeliveryChildren.label(context, child, "")
+                            + " · " + field.label, answers, field.multiple));
+                }
+            }
+        }
     }
 
     private void addHouseholdClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {

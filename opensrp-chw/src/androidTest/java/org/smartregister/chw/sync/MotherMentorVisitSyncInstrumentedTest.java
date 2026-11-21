@@ -38,6 +38,7 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEve
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
@@ -376,6 +377,86 @@ public class MotherMentorVisitSyncInstrumentedTest {
         assertEquals("positive", history.get(1).getAnswers().getResult());
         assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
         assertEquals(3, count("event", EVENT_BASE_ENTITY_ID, mother));
+        assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
+    }
+
+    @Test
+    public void sameBirthdayTwinsKeepDifferentMiezi18ResultsAndOriginalSampleDates() throws Exception {
+        String mother = UUID.randomUUID().toString();
+        syntheticClients.add(mother);
+        LocalDate today = LocalDate.now();
+        LocalDate sample = today.minusDays(1);
+        LocalDate dob = today.minusMonths(18).minusDays(3);
+        ContentValues enrollment = new ContentValues();
+        enrollment.put(BASE_ENTITY_ID, mother);
+        enrollment.put(PREGNANCY_STATUS, "pregnant");
+        enrollment.put(CHILD_DOB, dob.toString());
+        enrollment.put(IS_CLOSED, 0);
+        database.insertOrThrow(Constants.TABLES.MOTHERMENTOR_ENROLLMENT, null, enrollment);
+        JSONArray answers = new JSONArray();
+        observation(answers, MOTHERMENTOR_VISIT_DATE, today.toString());
+        observation(answers, MAMA_ENROLLMENT_ID, MotherMentorMotherVisitDao.getContext(database, mother).getEnrollmentId());
+        observation(answers, MAMA_ENROLLMENT_PREGNANCY_STATUS, "pregnant");
+        observation(answers, ATTENDANCE_TYPE, "repeat");
+        observation(answers, FOLLOW_UP_STATUS, "found");
+        observation(answers, VISIT_PREGNANCY_STATUS, "not_pregnant");
+        observation(answers, MAMA_PREGNANCY_OUTCOME, "delivered");
+        observation(answers, MAMA_TAREHE_KUJIFUNGUA, dob.toString());
+        observation(answers, MotherMentorDeliveryChildren.COUNT, "2");
+        observation(answers, MotherMentorDeliveryChildren.SECTIONS, "true");
+        observation(answers, MotherMentorDeliveryChildren.VISITED, "1,2");
+        for (int child = 1; child <= 2; child++) {
+            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MotherMentorDeliveryChildren.SEX),
+                    child == 1 ? "female" : "male");
+            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_CHILD_STATUS), "alive");
+            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_BREASTFEEDING_STATUS), "breastfeeding");
+            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_DONE), "yes");
+            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_TYPE), "eighteen_months");
+            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_DATE), sample.toString());
+            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_RESULT), "pending");
+        }
+        String source = UUID.randomUUID().toString();
+        ContentValues visit = new ContentValues();
+        visit.put(VISIT_ID, UUID.randomUUID().toString());
+        visit.put(BASE_ENTITY_ID, mother);
+        visit.put(FORM_SUBMISSION_ID, source);
+        visit.put(VISIT_TYPE, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        visit.put(PROCESSED, 1);
+        visit.put(VISIT_DATE, System.currentTimeMillis() - 3000);
+        visit.put(VISIT_JSON, new JSONObject().put(EVENT_FORM_SUBMISSION_ID, source)
+                .put(EVENT_DATE_TIMESTAMP, DateTime.now(DateTimeZone.UTC).toString())
+                .put("obs", answers).toString());
+        database.insertOrThrow(VisitRepository.VISIT_TABLE, null, visit);
+
+        List<Entry> pending = MotherMentorMotherResultEvent.visible(database, mother, today);
+        assertEquals(2, pending.size());
+        assertFalse(pending.get(0).getId().equals(pending.get(1).getId()));
+        assertEquals(1, pending.get(0).getSample().getChildNumber());
+        assertEquals(2, pending.get(1).getSample().getChildNumber());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, pending.get(0).getId(), 0,
+                new Answers("negative", today, "", "")));
+        assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, pending.get(1).getId(), 0,
+                new Answers("positive", today, "yes", "positive")));
+        assertEquals("graduated", MotherMentorMotherClosureRepository.getState(database, mother, null).getStatus());
+
+        List<Entry> history = MotherMentorMotherResultEvent.history(database, mother, today);
+        assertEquals(2, history.size());
+        Entry first = MotherMentorMotherResultEvent.editable(database, mother, history.get(0).getId(), today);
+        Entry second = MotherMentorMotherResultEvent.editable(database, mother, history.get(1).getId(), today);
+        assertEquals("negative", first.getAnswers().getResult());
+        assertEquals("positive", second.getAnswers().getResult());
+        assertEquals(sample, first.getSample().getTestDate());
+        assertEquals(sample, second.getSample().getTestDate());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, second.getId(), second.getRevision(),
+                new Answers("positive", sample, "yes", "positive")));
+        Entry corrected = MotherMentorMotherResultEvent.editable(database, mother, second.getId(), today);
+        assertTrue(corrected.isCorrected());
+        assertEquals(sample, corrected.getSample().getTestDate());
+        assertEquals(sample, corrected.getAnswers().getReceivedDate());
+        assertEquals(today, MotherMentorMotherResultEvent.editable(database, mother, first.getId(), today)
+                .getAnswers().getReceivedDate());
+        assertEquals(2, count("event", EVENT_BASE_ENTITY_ID, mother));
         assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
     }
 

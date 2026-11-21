@@ -311,7 +311,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Hamlet"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Hamlet"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "int", "DATABASE_VERSION", '73'
+            buildConfigField "int", "DATABASE_VERSION", '74'
             // Gates the app-owned manual referral follow-up action in the Referral register.
             // NOTE: the chw-referral library reads its OWN BuildConfig field of the same name;
             // this one only controls NacpReferralRegisterProvider / ReferralRegisterFragment.
@@ -381,7 +381,7 @@ dependencies {
     }
 
     // CHW Core exports the Mother Mentor library and controls its version.
-    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-41-MOH-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-45-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         // Pull opensrp-chw-ncd directly (below) instead of the version chw-core resolves to,

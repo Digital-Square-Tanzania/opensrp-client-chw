@@ -263,6 +263,7 @@ public class ChwRepositoryFlv {
                     MotherMentorPartnerWorkflowMigration.upgradeReferralSchema(db);
                     break;
                 case 73:
+                case 74:
                     org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository.upgrade(db);
                     break;
                 default:

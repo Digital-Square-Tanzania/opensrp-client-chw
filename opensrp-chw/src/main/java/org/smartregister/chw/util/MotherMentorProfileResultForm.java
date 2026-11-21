@@ -23,6 +23,7 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEve
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidReturnVisit;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
 
@@ -60,6 +61,7 @@ public final class MotherMentorProfileResultForm {
     public static boolean matches(JSONObject form, Map<String, String> values, String motherId, PendingTest sample) {
         return motherId.equals(form.optString(ENTITY_ID))
                 && MotherMentorMotherResultEvent.EVENT_TYPE.equals(form.optString("encounter_type"))
+                && (!sample.hasSiblings() || sample.getChildNumber() == form.optInt(MotherMentorDeliveryChildren.NUMBER))
                 && sample.getStage() == Stage.fromCode(values.get(MTOTO_PENDING_TEST))
                 && sample.getTestDate().equals(MotherMentorHeiSchedule.parseDate(values.get(MTOTO_PENDING_TEST_DATE)))
                 && sample.getState().equals(values.get(MTOTO_RUFAA_STATE_BEFORE));

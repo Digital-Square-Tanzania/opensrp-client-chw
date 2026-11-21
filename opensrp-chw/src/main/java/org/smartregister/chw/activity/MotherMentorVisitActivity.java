@@ -42,7 +42,8 @@ import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
-import org.smartregister.chw.mothermentor.util.MotherMentorMotherVisitUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
@@ -57,6 +58,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -269,6 +271,15 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 }, this::resetSubmission);
                 return;
             }
+            String childEndings = childEndingMessage();
+            if (!childEndings.isEmpty()) {
+                closureConfirmationOpen = true;
+                showChildEndingConfirmation(this, childEndings, () -> {
+                    closureConfirmationOpen = false;
+                    submitConfirmedVisit();
+                }, this::resetSubmission);
+                return;
+            }
         } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
             MotherMentorIitState preview = getIitClosurePreview();
             if (preview.requiresConfirmation()) {
@@ -387,13 +398,54 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         for (BaseMotherMentorVisitAction action : actionList.values()) {
             if (!action.isValid() || TextUtils.isEmpty(action.getJsonPayload())) continue;
             try {
-                answers.putAll(MotherMentorMotherVisitUtils.formValues(
+                answers.putAll(MotherMentorDeliveryChildren.actionValues(
                         new JSONObject(action.getJsonPayload())));
             } catch (Exception e) {
                 Timber.e(e, "Unable to read Mother Mentor answers for closure confirmation");
             }
         }
         return answers;
+    }
+
+    private String childEndingMessage() {
+        Map<String, String> answers = stagedAnswers();
+        if (!MotherMentorDeliveryChildren.hasSections(answers)) return "";
+        int count = MotherMentorDeliveryChildren.count(answers);
+        List<String> endings = new java.util.ArrayList<>();
+        LocalDate day = LocalDate.now();
+        for (int number = 1; number <= count; number++) {
+            Map<String, String> child = MotherMentorDeliveryChildren.childVisit(answers, number);
+            MotherMentorMotherChildUtils.TerminalOutcome outcome =
+                    MotherMentorMotherChildUtils.terminalOutcome(child, day);
+            if (outcome == MotherMentorMotherChildUtils.TerminalOutcome.NONE) continue;
+            endings.add(childEndingText(this, number, outcome));
+        }
+        return TextUtils.join("\n\n", endings);
+    }
+
+    static String childEndingText(Context context, int number,
+            MotherMentorMotherChildUtils.TerminalOutcome outcome) {
+        String label = MotherMentorDeliveryChildren.label(context, number, "");
+        int text;
+        switch (outcome) {
+            case STILLBIRTH: text = org.smartregister.chw.R.string.mama_child_ending_stillbirth; break;
+            case CHILD_DECEASED: text = org.smartregister.chw.R.string.mama_child_ending_deceased; break;
+            case CHILD_CONFIRMED_POSITIVE: text = org.smartregister.chw.R.string.mama_child_ending_positive; break;
+            case GRADUATED: text = org.smartregister.chw.R.string.mama_child_ending_graduated; break;
+            default: return "";
+        }
+        return context.getString(text, label);
+    }
+
+    static void showChildEndingConfirmation(Context context, String message, Runnable save, Runnable cancel) {
+        new AlertDialog.Builder(context)
+                .setMessage(message)
+                .setPositiveButton(org.smartregister.chw.mothermentor.R.string.mothermentor_household_close_confirm,
+                        (dialog, which) -> save.run())
+                .setNegativeButton(org.smartregister.chw.mothermentor.R.string.mothermentor_household_close_cancel,
+                        (dialog, which) -> cancel.run())
+                .setOnCancelListener(dialog -> cancel.run())
+                .show();
     }
 
     protected boolean isMotherCardClosed() {
