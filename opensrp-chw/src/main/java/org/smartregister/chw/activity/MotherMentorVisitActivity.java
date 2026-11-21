@@ -33,6 +33,7 @@ import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresent
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
@@ -493,7 +494,9 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         displayToast(getString(isFollowUpVisit()
                         && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
                 ? org.smartregister.chw.mothermentor.R.string.mothermentor_child_eid_closed_message
-                : org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_message));
+                : historyVisitId() != null && !isMotherCardClosed()
+                        ? org.smartregister.chw.R.string.mama_results_visit_edit_expired
+                        : org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_message));
         lockMotherVisitSubmit();
         return true;
     }
@@ -506,9 +509,12 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         }
         Visit latest = MotherMentorLibrary.getInstance().visitRepository().getLatestVisit(
                 baseEntityID, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
-        return latest == null || !historyVisitId.equals(latest.getVisitId())
-                || (motherClosed && !MotherMentorMotherClosureRepository.isSameDayClosingVisit(
-                        ChwApplication.getInstance().getRepository().getReadableDatabase(), latest, LocalDate.now()));
+        if (latest == null || !historyVisitId.equals(latest.getVisitId())) return true;
+        SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+        LocalDate today = LocalDate.now();
+        return motherClosed
+                ? !MotherMentorMotherClosureRepository.isSameDayClosingVisit(db, latest, today)
+                : MotherMentorMotherChildRepository.isEarlierSiblingClosingVisit(db, latest, today);
     }
 
     private String historyVisitId() {

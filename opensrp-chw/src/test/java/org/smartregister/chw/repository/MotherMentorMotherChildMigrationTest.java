@@ -39,6 +39,18 @@ public class MotherMentorMotherChildMigrationTest {
     }
 
     @Test
+    public void upgradeFromAlpha46RebuildsThePendingTestProjectionOnce() {
+        SQLiteDatabase db = mock(SQLiteDatabase.class);
+        try (MockedStatic<MotherMentorMotherChildRepository> migration =
+                mockStatic(MotherMentorMotherChildRepository.class)) {
+            ChwRepositoryFlv.onUpgrade(null, db, 74, 75);
+            ChwRepositoryFlv.onUpgrade(null, db, 75, 75);
+            migration.verify(() -> MotherMentorMotherChildRepository.upgrade(db), times(1));
+            assertTrue(BuildConfig.DATABASE_VERSION >= 75);
+        }
+    }
+
+    @Test
     public void explicitTableCreationAlsoInitializesChildProjection() throws Exception {
         SQLiteDatabase db = mock(SQLiteDatabase.class);
         // Other composed projection upgrades see no enrolled clients in this dispatch fixture.

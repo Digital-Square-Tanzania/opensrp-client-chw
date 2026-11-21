@@ -78,9 +78,11 @@ public class MotherMentorClientRegisterProvider
                 metadata,
                 childAge.isEmpty() ? sexLabel(value(columns, DBConstants.KEY.GENDER)) : childAge);
         addNonEmpty(metadata, value(columns, DBConstants.KEY.VILLAGE_TOWN));
-        if (!closed && !followed.isEmpty()) {
-            addOverdueChildren(metadata, value(columns, MotherMentorDeliveryChildren.PENDING_TESTS));
-        } else if (!closed && "pending".equals(value(columns, DBConstants.KEY.MAMA_BIRTH_TEST_RESULT))
+        String pending = value(columns, MotherMentorDeliveryChildren.PENDING_TESTS);
+        if (!closed && !pending.isEmpty()) {
+            addOverdueTests(metadata, pending, !followed.isEmpty());
+        } else if (!closed && followed.isEmpty()
+                && "pending".equals(value(columns, DBConstants.KEY.MAMA_BIRTH_TEST_RESULT))
                 && MotherMentorChildEidResultOverdue.isOverdue(MotherMentorHeiSchedule.Stage.AT_BIRTH,
                         MotherMentorHeiSchedule.parseDate(value(columns, DBConstants.KEY.MAMA_BIRTH_TEST_DATE)),
                         LocalDate.now())) {
@@ -118,18 +120,20 @@ public class MotherMentorClientRegisterProvider
                         }));
     }
 
-    private void addOverdueChildren(List<String> metadata, String pending) {
+    private void addOverdueTests(List<String> metadata, String pending, boolean multipleChildren) {
         try {
             JSONArray tests = new JSONArray(pending);
             LocalDate today = LocalDate.now();
             for (int i = 0; i < tests.length(); i++) {
                 JSONArray sample = tests.getJSONArray(i);
-                int child = sample.getInt(0);
                 MotherMentorHeiSchedule.Stage stage = MotherMentorHeiSchedule.Stage.fromCode(sample.getString(1));
                 LocalDate date = MotherMentorHeiSchedule.parseDate(sample.getString(2));
                 if (stage != null && MotherMentorChildEidResultOverdue.isOverdue(stage, date, today)) {
-                    metadata.add(MotherMentorDeliveryChildren.label(context, child, "") + " · "
-                            + MotherMentorMotherChildUi.label(context, stage) + " · "
+                    String test = MotherMentorMotherChildUi.label(context, stage);
+                    if (multipleChildren) {
+                        test = MotherMentorDeliveryChildren.label(context, sample.getInt(0), "") + " · " + test;
+                    }
+                    metadata.add(test + " · "
                             + context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_eid_result_overdue));
                 }
             }

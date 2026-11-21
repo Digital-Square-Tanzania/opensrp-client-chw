@@ -31,6 +31,7 @@ import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
@@ -212,7 +213,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
                     i == visits.size() - 1 && !legacyFollowUp
                             && !isReadOnlyLegacyHousehold(visit)
                             && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit) && !followUpClosed
-                            && (closingMotherVisit || !isMotherCardClosed(visit)) && !isEarlierIitEnrollment(visit)
+                            && (closingMotherVisit || !isMotherCardClosed(visit))
+                            && !isEarlierSiblingClosingVisit(visit) && !isEarlierIitEnrollment(visit)
                             ? View.VISIBLE : View.GONE);
             edit.setOnClickListener(ignored -> editVisit((Activity) context, visit));
             service.setText(String.format("%s - %s", getVisitType(context, visit.getVisitType()),
@@ -294,7 +296,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
                 || isHouseholdReadOnly(visit) || isPartnerClosed(visit) || iitState().isClosed()
                 || isChildEidClosed(childEidState())
                 || (motherClosed && !canEditClosingMotherVisit(visit))
-                || isEarlierIitEnrollment(visit)) return;
+                || isEarlierSiblingClosingVisit(visit) || isEarlierIitEnrollment(visit)) return;
         if (isMotherVisit(visit)) {
             if (!motherClosed) activity.finish();
             MotherMentorVisitActivity.editFromHistory(activity, visit.getBaseEntityId(), visit.getVisitId());
@@ -332,6 +334,14 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         net.zetetic.database.sqlcipher.SQLiteDatabase db =
                 ChwApplication.getInstance().getRepository().getReadableDatabase();
         return MotherMentorMotherClosureRepository.isSameDayClosingVisit(
+                db, MotherMentorChildEidDao.findVisit(db, visit.getVisitId()), LocalDate.now());
+    }
+
+    private boolean isEarlierSiblingClosingVisit(Visit visit) {
+        if (!isMotherVisit(visit)) return false;
+        net.zetetic.database.sqlcipher.SQLiteDatabase db =
+                ChwApplication.getInstance().getRepository().getReadableDatabase();
+        return MotherMentorMotherChildRepository.isEarlierSiblingClosingVisit(
                 db, MotherMentorChildEidDao.findVisit(db, visit.getVisitId()), LocalDate.now());
     }
 

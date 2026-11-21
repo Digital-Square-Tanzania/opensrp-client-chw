@@ -9,6 +9,7 @@
     </plurals>
     <string name="mama_results_record">Rekodi Majibu</string>
     <string name="mama_results_edit">Hariri Majibu</string>
+    <string name="mama_results_visit_edit_expired">Tembeleo hili haliwezi kuhaririwa tena.</string>
     <string name="mama_results_edit_visit">Hariri Tembeleo</string>
     <string name="mama_results_edit_today">Yanaweza kuhaririwa hadi mwisho wa siku ya leo</string>
     <string name="mama_results_closed_result_today">Majibu yanaweza kuhaririwa kwenye Historia ya Tembeleo hadi mwisho wa siku ya leo. Baada ya hapo mteja ataondolewa kwenye moduli.</string>
