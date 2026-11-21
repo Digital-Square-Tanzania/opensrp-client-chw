@@ -15,6 +15,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 
@@ -52,6 +53,23 @@ public class MotherMentorHistoryMapperTest {
         assertEquals("Sababu", row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getLabel());
         assertEquals(Collections.singletonList("Amehamia kituo kingine"),
                 row(rows, DBConstants.KEY.MAMA_NOT_FOUND_REASON).getValues());
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void siblingResultsUseDistinctLocalizedRowsInOneVisit() {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        String first = MotherMentorDeliveryChildren.observationKey(1, DBConstants.KEY.MAMA_HEI_TEST_RESULT);
+        String second = MotherMentorDeliveryChildren.observationKey(2, DBConstants.KEY.MAMA_HEI_TEST_RESULT);
+        answer(visit, first, "negative", "");
+        answer(visit, second, "positive", "");
+
+        List<Row> rows = mapper().map(visit);
+        assertTrue(row(rows, first).getLabel().startsWith("Mtoto wa 1 · "));
+        assertEquals(Collections.singletonList("Hasi"), row(rows, first).getValues());
+        assertTrue(row(rows, second).getLabel().startsWith("Mtoto wa 2 · "));
+        assertEquals(Collections.singletonList("Chanya"), row(rows, second).getValues());
     }
 
     private List<Row> newMotherEntryHistory() {

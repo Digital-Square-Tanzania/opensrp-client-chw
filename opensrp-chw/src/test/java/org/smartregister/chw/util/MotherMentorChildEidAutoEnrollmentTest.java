@@ -33,7 +33,7 @@ public class MotherMentorChildEidAutoEnrollmentTest {
         when(sync.getClient("real-child")).thenReturn(new JSONObject("{\"baseEntityId\":\"real-child\",\"firstName\":\"Simulated\"}"));
         when(plan.getStoredEventJson(db)).thenReturn(event("original-snapshot"));
         try (MockedStatic<MotherMentorChildEidRepository> repo = mockStatic(MotherMentorChildEidRepository.class)) {
-            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlan(db, "mother")).thenReturn(plan);
+            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlans(db, "mother")).thenReturn(java.util.Collections.singletonList(plan));
             MotherMentorChildEidAutoEnrollment.process(db, "mother", sync, processor);
         }
         ArgumentCaptor<List> batch = ArgumentCaptor.forClass(List.class);
@@ -60,7 +60,7 @@ public class MotherMentorChildEidAutoEnrollmentTest {
         when(plan.toEvent()).thenReturn(org.smartregister.chw.core.utils.CoreJsonFormUtils.gson.fromJson(
                 event("new-source").toString(), org.smartregister.clientandeventmodel.Event.class));
         try (MockedStatic<MotherMentorChildEidRepository> repo = mockStatic(MotherMentorChildEidRepository.class)) {
-            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlan(db, "mother")).thenReturn(plan);
+            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlans(db, "mother")).thenReturn(java.util.Collections.singletonList(plan));
             MotherMentorChildEidAutoEnrollment.process(db, "mother", sync, processor);
         }
         org.mockito.InOrder order = inOrder(sync, processor);
@@ -82,7 +82,7 @@ public class MotherMentorChildEidAutoEnrollmentTest {
         when(plan.toEvent()).thenReturn(org.smartregister.chw.core.utils.CoreJsonFormUtils.gson.fromJson(
                 event("new-source").toString(), org.smartregister.clientandeventmodel.Event.class));
         try (MockedStatic<MotherMentorChildEidRepository> repo = mockStatic(MotherMentorChildEidRepository.class)) {
-            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlan(db, "mother")).thenReturn(plan);
+            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlans(db, "mother")).thenReturn(java.util.Collections.singletonList(plan));
             try {
                 MotherMentorChildEidAutoEnrollment.process(db, "mother", sync, processor);
                 fail("A missing durable event must stop projection processing");
@@ -103,7 +103,7 @@ public class MotherMentorChildEidAutoEnrollmentTest {
         MotherMentorChildEidRepository.EnrollmentPlan plan = mock(MotherMentorChildEidRepository.EnrollmentPlan.class);
         when(plan.getChildId()).thenReturn("real-child");
         try (MockedStatic<MotherMentorChildEidRepository> repo = mockStatic(MotherMentorChildEidRepository.class)) {
-            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlan(db, "mother")).thenReturn(plan);
+            repo.when(() -> MotherMentorChildEidRepository.getPendingEnrollmentPlans(db, "mother")).thenReturn(java.util.Collections.singletonList(plan));
             MotherMentorChildEidAutoEnrollment.process(db, "mother", sync, processor);
             when(sync.getClient("real-child")).thenReturn(new JSONObject("{\"baseEntityId\":\"other-child\"}"));
             MotherMentorChildEidAutoEnrollment.process(db, "mother", sync, processor);

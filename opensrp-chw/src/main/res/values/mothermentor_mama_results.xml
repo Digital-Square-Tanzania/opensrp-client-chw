@@ -39,4 +39,7 @@
     <string name="mama_results_history_entry">Test result — %1$s: %2$s</string>
     <string name="mama_results_field_value">%1$s: %2$s</string>
     <string name="mama_results_back">Back</string>
+    <string name="mama_results_confirm_from_child_card">The child for this sample could not be identified. Check the linked child records before saving a positive confirmation.</string>
+    <string name="mama_results_positive_with_graduated_sibling">%1$s has a confirmed HIV-positive result. Link this child to CTC care. The Mama card will close as Graduated because a sibling’s final 18-month test was negative.</string>
+    <string name="mama_results_sample_child">This child</string>
 </resources>

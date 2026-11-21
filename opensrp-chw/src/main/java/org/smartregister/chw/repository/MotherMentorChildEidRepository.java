@@ -22,6 +22,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorUtil;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
 import org.smartregister.chw.util.MotherMentorChildEidFormUtils;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -299,6 +300,12 @@ public class MotherMentorChildEidRepository {
                         preferences, form.toString(), TABLE);
         if (event == null || !childId.equals(event.getBaseEntityId()))
             throw new IllegalStateException("Invalid child event");
+        String episode = MotherMentorMotherVisitDao.getContext(database, motherId).getEnrollmentId();
+        if (!episode.isEmpty()) {
+            String key = DBConstants.KEY.MTOTO_MOTHER_ENROLLMENT_ID;
+            event.addObs(new Obs("concept", "text", key, "", new ArrayList<>(Collections.singletonList(episode)),
+                    new ArrayList<>(), null, key));
+        }
         MotherMentorUtil.processEvent(preferences, event);
         if (!motherId.equals(
                 existingEnrollment(childId).get(DBConstants.KEY.MOTHER_BASE_ENTITY_ID))) {

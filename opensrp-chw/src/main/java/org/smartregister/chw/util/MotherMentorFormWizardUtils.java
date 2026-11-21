@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import org.smartregister.chw.activity.MotherMentorVisitWizardActivity;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.Utils;
 import java.util.Map;
@@ -23,11 +25,10 @@ public final class MotherMentorFormWizardUtils {
     }
 
     public static Intent getFormIntent(Context context, JSONObject jsonForm) {
-        Map<String, String> values = org.smartregister.chw.mothermentor.util
-                .MotherMentorMotherChildUtils.values(jsonForm);
+        Map<String, String> values = MotherMentorMotherChildUtils.values(jsonForm);
         boolean motherVisit = "Mother Mentor Visit Type".equals(jsonForm.optString("encounter_type"))
-                && org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
-                        .field(jsonForm, DBConstants.KEY.MAMA_CHILD_STATUS) != null;
+                && (MotherMentorDeliveryChildren.hasSections(values)
+                        || MotherMentorMotherChildUtils.field(jsonForm, DBConstants.KEY.MAMA_CHILD_STATUS) != null);
         boolean childHei = "Mother Mentor Child EID HEI".equals(jsonForm.optString("encounter_type"))
                 && "3".equals(values.get(DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA));
         Intent intent = new Intent(context, motherVisit || childHei ? MotherMentorVisitWizardActivity.class

@@ -39,4 +39,7 @@
     <string name="mama_results_history_entry">Majibu ya kipimo — %1$s: %2$s</string>
     <string name="mama_results_field_value">%1$s: %2$s</string>
     <string name="mama_results_back">Rudi</string>
+    <string name="mama_results_confirm_from_child_card">Mtoto wa sampuli hii hajatambulika. Hakiki taarifa za watoto waliounganishwa kabla ya kuhifadhi majibu chanya ya kipimo cha uthibitisho.</string>
+    <string name="mama_results_positive_with_graduated_sibling">%1$s ana majibu chanya ya VVU yaliyothibitishwa. Hakikisha mtoto huyu ameunganishwa na huduma za CTC. Kadi ya Mama itafungwa kwa sababu ya Amehitimu kwa kuwa kipimo cha mwisho cha miezi 18 cha mtoto mwingine kilikuwa hasi.</string>
+    <string name="mama_results_sample_child">Mtoto huyu</string>
 </resources>

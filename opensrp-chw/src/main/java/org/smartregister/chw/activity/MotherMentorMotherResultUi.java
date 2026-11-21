@@ -59,8 +59,11 @@ final class MotherMentorMotherResultUi {
     private int closureNotice(SQLiteDatabase db, String motherId, List<Entry> entries, LocalDate today) {
         MotherMentorMotherClosure closure = MotherMentorMotherClosureRepository.getState(db, motherId, null);
         if (!today.toString().equals(closure.getClosedDate())) return 0;
-        if (entries.stream().anyMatch(entry -> entry.isRecorded()
-                && entry.getAnswers().closesFollowUp(entry.getSample(), today))) {
+        String status = closure.getStatus();
+        if ((MotherMentorMotherClosure.CHILD_CONFIRMED_POSITIVE.equals(status)
+                || MotherMentorMotherClosure.GRADUATED.equals(status))
+                && entries.stream().anyMatch(entry -> entry.isRecorded()
+                    && entry.getAnswers().closesFollowUp(entry.getSample(), today))) {
             return R.string.mama_results_closed_result_today;
         }
         return MotherMentorMotherClosureRepository.isSameDayClosingVisit(db, profile.getServiceVisit(), today)

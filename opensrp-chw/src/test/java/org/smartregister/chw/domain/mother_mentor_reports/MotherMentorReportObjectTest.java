@@ -22,6 +22,7 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultE
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -61,6 +62,36 @@ public class MotherMentorReportObjectTest {
     public void tearDown() {
         if (reportDao != null) reportDao.close();
         if (database != null) database.close();
+    }
+
+    @Test
+    public void countsLiveBirthsByChildAndSexOnceOnTheDeliveryDate() throws Exception {
+        liveBirthVisit("delivery", "2026-04-21", true, false);
+        liveBirthVisit("duplicate", "2026-04-22", true, false);
+        liveBirthVisit("follow-up", "2026-04-23", true, true);
+        liveBirthVisit("draft", "2026-04-17", false, false);
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(2, counts.getInt("mm-live-births"));
+        assertEquals(1, counts.getInt("mm-live-births-male-total"));
+        assertEquals(1, counts.getInt("mm-live-births-female-total"));
+    }
+
+    private void liveBirthVisit(String id, String day, boolean saved, boolean carried) {
+        database.execSQL("INSERT INTO visits VALUES (?, 'mother', 'MotherMentor Services', ?, 0, '', ?)",
+                new Object[] {id, saved ? 1 : 0, id});
+        detail(id, "mothermentor_visit_date", day);
+        detail(id, "mama_enrollment_id", "enrollment");
+        detail(id, "mama_pregnancy_outcome", "preterm");
+        detail(id, "mama_tarehe_kujifungua", "19-04-2026");
+        detail(id, "mama_carried_delivery", Boolean.toString(carried));
+        detail(id, MotherMentorDeliveryChildren.SECTIONS, "true");
+        detail(id, MotherMentorDeliveryChildren.COUNT, "3");
+        for (int child = 1; child <= 3; child++) {
+            detail(id, MotherMentorDeliveryChildren.observationKey(child, "mama_child_status"),
+                    child == 1 ? "deceased" : child == 2 ? "alive" : "stillbirth");
+            detail(id, MotherMentorDeliveryChildren.observationKey(child, MotherMentorDeliveryChildren.SEX),
+                    child == 1 ? "male" : "female");
+        }
     }
 
     @Test

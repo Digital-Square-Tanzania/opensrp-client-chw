@@ -914,4 +914,9 @@
     <string name="member_removal_reason_missing">Please select the reason for removing this member and try again.</string>
     <string name="immunization_save_retry">Vaccinations have not been saved. Your entries are still on this screen. Wait for the visit to load, then tap Save again.</string>
     <string name="immunization_restore_failed">This vaccination form could not be restored. Nothing was saved. Return to the visit and reopen Record vaccinations.</string>
+    <string name="mama_child_ending_stillbirth">%1$s will be recorded as stillborn. The mother card stays open for the other children.</string>
+    <string name="mama_child_ending_deceased">Follow-up for %1$s will end because the child has died. The mother card stays open for the other children.</string>
+    <string name="mama_child_ending_positive">HIV has been confirmed for %1$s. Link the child to CTC care. The mother card stays open for the other children.</string>
+    <string name="mama_child_ending_graduated">%1$s will graduate based on the final result. The mother card stays open for the other children.</string>
+    <string name="mama_kinara_children_followed">%1$d children</string>
 </resources>

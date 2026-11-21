@@ -80,6 +80,7 @@ public class MotherMentorVisitActionWiringTest {
     public void everyActionUsesItsOwnTopLevelLibraryHelper() throws Exception {
         try (MockedStatic<MotherMentorLibrary> library = mockLibrary()) {
             Set<Class<?>> helpers = new HashSet<>();
+            Set<Object> instances = new HashSet<>();
             BaseMotherMentorServiceVisitInteractor[] workflows = {
                 new MotherMentorServiceVisitInteractor("services"),
                 new MotherMentorHouseholdVisitInteractor("household", "ec_family"),
@@ -87,7 +88,7 @@ public class MotherMentorVisitActionWiringTest {
                 new PartnerFollowUpVisitInteractor("partner"),
                 new ChildEidFollowUpVisitInteractor("eid")
             };
-            int[] actionCounts = {7, 5, 4, 5, 2};
+            int[] actionCounts = {10, 5, 4, 5, 2};
             for (int i = 0; i < workflows.length; i++) {
                 assertEquals(
                         "org.smartregister.chw.mothermentor.interactor",
@@ -106,8 +107,9 @@ public class MotherMentorVisitActionWiringTest {
                             "org.smartregister.chw.mothermentor.actionhelper",
                             helper.getPackage().getName());
                     assertFalse(helper.isMemberClass());
-                    assertTrue(
-                            "Helper reused by different actions: " + helper, helpers.add(helper));
+                    assertTrue(instances.add(action.getMotherMentorVisitActionHelper()));
+                    if ("mothermentor_visit_child".equals(action.getFormName())) helpers.add(helper);
+                    else assertTrue("Helper reused by different actions: " + helper, helpers.add(helper));
                 }
             }
             assertEquals(24, helpers.size());
