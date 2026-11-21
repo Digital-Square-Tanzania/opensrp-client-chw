@@ -375,7 +375,8 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, day);
                 save(activity, attendance);
             });
-            completed(attendance);
+            assertEquals(attendance.getFormName(), BaseMotherMentorVisitAction.Status.COMPLETED,
+                    attendance.getActionStatus());
         } finally {
             LangUtils.saveLanguage(context, original);
         }
@@ -391,25 +392,28 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             for (Stage stage : Arrays.asList(Stage.AT_BIRTH, Stage.EIGHTEEN_MONTHS)) {
                 JSONObject form = profileResultForm(stage, day.minusDays(2),
                         MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, null);
+                AtomicReference<Map<String, String>> submitted = new AtomicReference<>();
                 withProfileResult(form, wizard -> {
                     onMain(() -> assertSaveBlocked(wizard, MTOTO_CONFIRMATORY_TEST_DONE));
                     select(wizard, MTOTO_CONFIRMATORY_TEST_DONE, "yes");
                     onMain(() -> assertSaveBlocked(wizard, MTOTO_CONFIRMATORY_RESULT));
                     if (stage == Stage.AT_BIRTH) {
                         select(wizard, MTOTO_CONFIRMATORY_RESULT, "pending");
-                        Map<String, String> returned = saveProfileResult(wizard);
-                        assertEquals("pending", returned.get(MTOTO_CONFIRMATORY_RESULT));
                     } else {
                         onMain(() -> assertNull(visibleRadio(wizard.getWindow().getDecorView(),
                                 MTOTO_CONFIRMATORY_RESULT, "pending")));
                         select(wizard, MTOTO_CONFIRMATORY_RESULT, "negative");
                         onMain(() -> assertSaveBlocked(wizard, MTOTO_RESULT_RECEIVED_DATE));
                         setDate(wizard, MTOTO_RESULT_RECEIVED_DATE, day);
-                        Map<String, String> returned = saveProfileResult(wizard);
-                        assertEquals("negative", returned.get(MTOTO_CONFIRMATORY_RESULT));
-                        assertEquals(day, MotherMentorProfileResultForm.readAnswers(returned, true).getReceivedDate());
                     }
+                    submitted.set(saveProfileResult(wizard));
                 });
+                Map<String, String> returned = submitted.get();
+                assertEquals(stage == Stage.AT_BIRTH ? "pending" : "negative",
+                        returned.get(MTOTO_CONFIRMATORY_RESULT));
+                if (stage == Stage.EIGHTEEN_MONTHS) {
+                    assertEquals(day, MotherMentorProfileResultForm.readAnswers(returned, true).getReceivedDate());
+                }
             }
         } finally {
             LangUtils.saveLanguage(context, original);

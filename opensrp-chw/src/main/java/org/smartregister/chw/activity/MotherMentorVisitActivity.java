@@ -320,7 +320,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 boolean directEnrollment = false;
                 boolean motherContinues = false;
                 if (baseEntityID != null) {
-                    net.zetetic.database.sqlcipher.SQLiteDatabase db =
+                    SQLiteDatabase db =
                             ChwApplication.getInstance().getRepository().getReadableDatabase();
                     MotherMentorChildEidRepository.State child =
                             MotherMentorChildEidRepository.getState(db, baseEntityID, null);
