@@ -17,6 +17,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +32,8 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Entry;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
@@ -250,7 +254,8 @@ public class MotherMentorVisitSyncInstrumentedTest {
         String mother = UUID.randomUUID().toString();
         syntheticClients.add(mother);
         LocalDate today = LocalDate.now();
-        LocalDate visitDay = today.minusDays(1);
+        LocalDate visitDay = today;
+        LocalDate dueSample = today.minusDays(1);
         LocalDate dob = today.minusDays(49);
         ContentValues enrollment = new ContentValues();
         enrollment.put(BASE_ENTITY_ID, mother);
@@ -273,7 +278,7 @@ public class MotherMentorVisitSyncInstrumentedTest {
         observation(answers, MAMA_BIRTH_TEST_RESULT, "pending");
         observation(answers, MAMA_HEI_TEST_DONE, "yes");
         observation(answers, MAMA_HEI_TEST_TYPE, "six_weeks");
-        observation(answers, MAMA_HEI_TEST_DATE, visitDay.toString());
+        observation(answers, MAMA_HEI_TEST_DATE, dueSample.toString());
         observation(answers, MAMA_HEI_TEST_RESULT, "pending");
         String source = UUID.randomUUID().toString();
         ContentValues visit = new ContentValues();
@@ -282,9 +287,10 @@ public class MotherMentorVisitSyncInstrumentedTest {
         visit.put(FORM_SUBMISSION_ID, source);
         visit.put(VISIT_TYPE, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
         visit.put(PROCESSED, 1);
-        visit.put(VISIT_DATE, visitDay.toDate().getTime());
+        visit.put(VISIT_DATE, System.currentTimeMillis() - 3000);
         visit.put(VISIT_JSON, new JSONObject().put(EVENT_FORM_SUBMISSION_ID, source)
-                .put(EVENT_DATE_TIMESTAMP, visitDay.toString()).put("obs", answers).toString());
+                .put(EVENT_DATE_TIMESTAMP, DateTime.now(DateTimeZone.UTC).plusHours(3).toString())
+                .put("obs", answers).toString());
         database.insertOrThrow(VisitRepository.VISIT_TABLE, null, visit);
 
         List<PendingTest> pending = MotherMentorMotherResultEvent.pending(database, mother, today);
@@ -294,7 +300,9 @@ public class MotherMentorVisitSyncInstrumentedTest {
         assertTrue(birth.isOverdue(today));
         Map<String, String> returned = new HashMap<>();
         returned.put(MTOTO_RECEIVED_RESULT, "negative");
-        returned.put(MTOTO_RESULT_RECEIVED_DATE, today.toString());
+        LocalDate birthReceipt = today.minusDays(2);
+        LocalDate correctedBirthReceipt = today.minusDays(1);
+        returned.put(MTOTO_RESULT_RECEIVED_DATE, birthReceipt.toString());
         assertTrue(MotherMentorMotherResultEvent.save(database, mother, birth, returned, today));
         pending = MotherMentorMotherResultEvent.pending(database, mother, today);
         assertEquals(1, pending.size());
@@ -306,6 +314,76 @@ public class MotherMentorVisitSyncInstrumentedTest {
             assertTrue(row.moveToFirst());
             assertEquals("negative", row.getString(0));
         }
+
+        List<Entry> reopened = MotherMentorMotherResultEvent.visible(database, mother, today);
+        assertEquals(2, reopened.size());
+        Entry recordedBirth = reopened.get(1);
+        assertTrue(recordedBirth.isRecorded());
+        assertEquals(Stage.AT_BIRTH, recordedBirth.getSample().getStage());
+        assertEquals(birthReceipt, recordedBirth.getAnswers().getReceivedDate());
+        assertEquals(1, count("event", EVENT_BASE_ENTITY_ID, mother));
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, recordedBirth.getId(),
+                recordedBirth.getRevision(), new Answers("negative", correctedBirthReceipt, "", "")));
+
+        // Process the persisted revision as the sync pipeline would after importing it.
+        try (Cursor row = database.rawQuery("SELECT " + EVENT_JSON + " FROM event WHERE "
+                + EVENT_FORM_SUBMISSION_ID + " = ?", new String[] {recordedBirth.getId()})) {
+            assertTrue(row.moveToFirst());
+            Event event = JsonFormUtils.gson.fromJson(row.getString(0), Event.class);
+            process(new EventClient(event));
+            process(new EventClient(event));
+        }
+        List<Entry> birthHistory = MotherMentorMotherResultEvent.history(database, mother, today);
+        assertEquals(1, birthHistory.size());
+        assertEquals(recordedBirth.getId(), birthHistory.get(0).getId());
+        assertTrue(birthHistory.get(0).isCorrected());
+        assertEquals(correctedBirthReceipt, birthHistory.get(0).getAnswers().getReceivedDate());
+        assertEquals(1, count("event", EVENT_BASE_ENTITY_ID, mother));
+        assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
+
+        Entry due = MotherMentorMotherResultEvent.visible(database, mother, today).get(0);
+        assertEquals(Stage.SIX_WEEKS, due.getSample().getStage());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, due.getId(), due.getRevision(),
+                new Answers("positive", dueSample, "no", "")));
+        Entry confirmation = MotherMentorMotherResultEvent.visible(database, mother, today).get(0);
+        assertTrue(confirmation.getSample().isAwaitingConfirmation());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, confirmation.getId(),
+                confirmation.getRevision(), Answers.confirmation("yes", "pending", null)));
+        assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
+        confirmation = MotherMentorMotherResultEvent.visible(database, mother, today).get(0);
+        assertTrue(confirmation.getSample().isAwaitingConfirmation());
+        assertFalse(confirmation.isRecorded());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, confirmation.getId(),
+                confirmation.getRevision(), new Answers("positive", today, "", "")));
+        assertTrue(MotherMentorMotherClosureRepository.isClosed(database, mother));
+
+        List<Entry> history = MotherMentorMotherResultEvent.history(database, mother, today);
+        assertEquals(4, history.size());
+        assertEquals(Stage.AT_BIRTH, history.get(0).getSample().getStage());
+        assertEquals(correctedBirthReceipt, history.get(0).getAnswers().getReceivedDate());
+        assertEquals(dueSample, history.get(1).getAnswers().getReceivedDate());
+        assertEquals("pending", history.get(2).getAnswers().getResult());
+        Entry recorded = history.get(3);
+        assertEquals(today, recorded.getAnswers().getReceivedDate());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, recorded.getId(), recorded.getRevision(),
+                new Answers("negative", today, "", "")));
+        MotherMentorMotherResultEvent.rebuild(database, mother);
+
+        history = MotherMentorMotherResultEvent.history(database, mother, today);
+        assertEquals(4, history.size());
+        Entry corrected = history.get(3);
+        assertEquals(recorded.getId(), corrected.getId());
+        assertEquals(recorded.getRecordedAt(), corrected.getRecordedAt());
+        assertEquals(today, corrected.getRecordedDate());
+        assertEquals(dueSample, corrected.getSample().getTestDate());
+        assertEquals(today, corrected.getAnswers().getReceivedDate());
+        assertEquals("negative", corrected.getAnswers().getResult());
+        assertTrue(corrected.isCorrected());
+        assertEquals(dueSample, history.get(1).getAnswers().getReceivedDate());
+        assertEquals("positive", history.get(1).getAnswers().getResult());
+        assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
+        assertEquals(4, count("event", EVENT_BASE_ENTITY_ID, mother));
+        assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
     }
 
     @Test

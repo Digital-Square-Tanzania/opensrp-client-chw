@@ -62,6 +62,7 @@ import timber.log.Timber;
 
 public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     static final String EXTRA_FOLLOW_UP_VISIT = "extra_follow_up_visit";
+    private static final String HISTORY_VISIT_ID = "history_visit_id";
     private static final String PARTNER_STARTED_ACTION = "partner_started_action";
     private boolean partnerFormOpened;
     private boolean submitting;
@@ -71,6 +72,16 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     public static void startMotherMentorVisitActivity(
             Activity activity, String baseEntityId, Boolean editMode) {
         startMotherMentorVisitActivity(activity, baseEntityId, editMode, false);
+    }
+
+    static void editFromHistory(Activity activity, String motherId, String visitId) {
+        Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, motherId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, true);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, false);
+        intent.putExtra(HISTORY_VISIT_ID, visitId);
+        activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
 
     public static void startMotherMentorFollowUpVisitActivity(
@@ -119,7 +130,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         MotherMentorFollowUpType followUpType = getFollowUpType();
         presenter = new BaseMotherMentorVisitPresenter(memberObject, this,
                 !isFollowUpVisit() ? new MotherMentorServiceVisitInteractor(
-                                             Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES)
+                                             Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES, historyVisitId())
                         : followUpType == MotherMentorFollowUpType.PARTNER
                         ? new PartnerFollowUpVisitInteractor(followUpType.getEventType())
                         : followUpType == MotherMentorFollowUpType.CHILD_EID
@@ -425,7 +436,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     private boolean blockClosedCard() {
-        if (!isMotherCardClosed() && !isFollowUpCardClosed()) return false;
+        if (!isCardReadOnly()) return false;
         resetSubmission();
         displayToast(getString(isFollowUpVisit()
                         && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
@@ -433,6 +444,23 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 : org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_message));
         lockMotherVisitSubmit();
         return true;
+    }
+
+    private boolean isCardReadOnly() {
+        boolean motherClosed = isMotherCardClosed();
+        String historyVisitId = historyVisitId();
+        if (historyVisitId == null || !Boolean.TRUE.equals(isEditMode) || isFollowUpVisit()) {
+            return motherClosed || isFollowUpCardClosed();
+        }
+        Visit latest = MotherMentorLibrary.getInstance().visitRepository().getLatestVisit(
+                baseEntityID, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        return latest == null || !historyVisitId.equals(latest.getVisitId())
+                || (motherClosed && !MotherMentorMotherClosureRepository.isSameDayClosingVisit(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(), latest, LocalDate.now()));
+    }
+
+    private String historyVisitId() {
+        return getIntent() == null ? null : getIntent().getStringExtra(HISTORY_VISIT_ID);
     }
 
     private boolean blockDuplicateIitVisit() {
@@ -466,7 +494,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     public void redrawVisitUI() {
-        if (isMotherCardClosed() || isFollowUpCardClosed()) {
+        if (isCardReadOnly()) {
             lockMotherVisitSubmit();
             return;
         }
@@ -501,7 +529,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     public void displayToast(String message) {
         resetSubmission();
         super.displayToast(message);
-        if (isMotherCardClosed() || isFollowUpCardClosed()) lockMotherVisitSubmit();
+        if (isCardReadOnly()) lockMotherVisitSubmit();
     }
 
     boolean isFollowUpVisit() {
@@ -539,6 +567,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     protected MemberObject getMemberObject(String baseEntityId) {
+        if (historyVisitId() != null) return MotherMentorDao.getPrimaryMemberForHistory(baseEntityId);
         MemberObject memberObject = MotherMentorDao.getMember(baseEntityId);
         if (memberObject != null) {
             return memberObject;

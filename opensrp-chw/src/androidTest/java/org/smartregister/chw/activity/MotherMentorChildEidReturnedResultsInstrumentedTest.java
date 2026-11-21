@@ -35,9 +35,6 @@ import org.smartregister.chw.util.MotherMentorChildEidFormUtils;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.JsonFormUtils;
-import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
-import org.smartregister.chw.mothermentor.util.MotherMentorChildEidReturnVisit;
-import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
@@ -70,95 +67,6 @@ public class MotherMentorChildEidReturnedResultsInstrumentedTest {
     @Test
     public void swahiliReturnedResultsGateValidatesAndClearsSavedAnswers() throws Exception {
         verifyLanguage("sw", "json.form-sw");
-    }
-
-    @Test
-    public void mamaKadiRequiresConfirmationAndOmitsBothPendingOptionsAtEighteenMonths() throws Exception {
-        String originalLanguage = LangUtils.getLanguage(context);
-        try {
-            LangUtils.saveLanguage(context, "sw");
-            LocalDate day = LocalDate.now();
-            for (String stage : new String[] {"six_weeks", "eighteen_months"}) {
-                JSONObject form = readForm("json.form-sw/mothermentor_visit_type.json");
-                LocalDate dob = "six_weeks".equals(stage) ? day.minusDays(49) : day.minusMonths(18);
-                setValues(form, ATTENDANCE_TYPE, "repeat", FOLLOW_UP_STATUS, "found",
-                        MAMA_ENROLLMENT_PREGNANCY_STATUS, "breast_feeding",
-                        MAMA_TAREHE_KUJIFUNGUA, dob.toString("dd-MM-yyyy"), MAMA_CHILD_PATH, "true",
-                        MAMA_CHILD_STATUS, "alive", MAMA_BREASTFEEDING_STATUS, "breastfeeding",
-                        MAMA_HEI_ASSESSMENT_DATE, day.toString(), MAMA_HEI_DUE_TESTS, "[\"" + stage + "\"]",
-                        MAMA_HEI_TEST_DONE, "yes", MAMA_HEI_TEST_DATE, day.toString("dd-MM-yyyy"));
-                try (ActivityScenario<JsonFormActivity> scenario = launch(form, "sw")) {
-                    String[] options = "six_weeks".equals(stage) ? new String[] {"negative", "positive", "pending"}
-                            : new String[] {"negative", "positive"};
-                    awaitOptions(scenario, MAMA_HEI_TEST_RESULT, options);
-                    select(scenario, MAMA_HEI_TEST_RESULT, "positive");
-                    awaitOptions(scenario, MAMA_HEI_CONFIRMATORY_TEST_DONE, "yes", "no");
-                    onActivity(scenario, activity -> {
-                        fragment(activity).next();
-                        assertInvalidField(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE);
-                    });
-                    select(scenario, MAMA_HEI_CONFIRMATORY_TEST_DONE, "yes");
-                    awaitOptions(scenario, MAMA_HEI_CONFIRMATORY_RESULT, options);
-                    onActivity(scenario, activity -> {
-                        fragment(activity).next();
-                        assertInvalidField(activity, MAMA_HEI_CONFIRMATORY_RESULT);
-                    });
-                    select(scenario, MAMA_HEI_CONFIRMATORY_RESULT, "positive");
-                    capture("sw", "mama-confirmation-" + stage);
-                    select(scenario, MAMA_HEI_CONFIRMATORY_TEST_DONE, "no");
-                    awaitClearedAndHidden(scenario, MAMA_HEI_CONFIRMATORY_RESULT);
-                }
-            }
-        } finally {
-            LangUtils.saveLanguage(context, originalLanguage);
-        }
-    }
-
-    @Test
-    public void pendingConfirmationResultUsesTheTwoQuestionsWithNoConfirmationReceiptDate() throws Exception {
-        String originalLanguage = LangUtils.getLanguage(context);
-        try {
-            LangUtils.saveLanguage(context, "sw");
-            Context localized = LangUtils.setAppLocale(context, "sw");
-            for (String stage : new String[] {"at_birth", "eighteen_months"}) {
-                JSONObject form = readForm("json.form-sw/" + MotherMentorChildEidResultForm.FORM_NAME + ".json");
-                MotherMentorChildEidResultForm.prepare(form, localized, stage, LocalDate.now().minusDays(2),
-                        MotherMentorChildEidReturnVisit.AWAITING_CONFIRM);
-                try (ActivityScenario<JsonFormActivity> scenario = launch(form, "sw")) {
-                    awaitOptions(scenario, MTOTO_CONFIRMATORY_TEST_DONE, "yes", "no");
-                    onActivity(scenario, activity -> {
-                        fragment(activity).next();
-                        assertInvalidField(activity, MTOTO_CONFIRMATORY_TEST_DONE);
-                        assertFalse(fragment(activity).getPresenter().getInvalidFields().keySet().stream()
-                                .anyMatch(key -> key.endsWith(MTOTO_RESULT_RECEIVED_DATE)));
-                    });
-                    select(scenario, MTOTO_CONFIRMATORY_TEST_DONE, "yes");
-                    awaitOptions(scenario, MTOTO_CONFIRMATORY_RESULT, "at_birth".equals(stage)
-                            ? new String[] {"negative", "positive", "pending"} : new String[] {"negative", "positive"});
-                    capture("sw", "result-confirmation-" + stage);
-                }
-            }
-        } finally {
-            LangUtils.saveLanguage(context, originalLanguage);
-        }
-    }
-
-    private void awaitOptions(ActivityScenario<JsonFormActivity> scenario, String key, String... options) {
-        Set<String> expected = new HashSet<>(Arrays.asList(options));
-        await(scenario, "Expected " + key + " options " + expected,
-                activity -> expected.equals(visibleOptions(activity, key)));
-    }
-
-    private JSONObject readForm(String asset) throws Exception {
-        try (Scanner scanner = new Scanner(context.getAssets().open(asset), "UTF-8").useDelimiter("\\A")) {
-            return new JSONObject(scanner.next());
-        }
-    }
-
-    private static void setValues(JSONObject form, String... values) {
-        for (int index = 0; index < values.length; index += 2) {
-            MotherMentorMotherChildUtils.put(form, values[index], values[index + 1]);
-        }
     }
 
     private void verifyLanguage(String language, String directory) throws Exception {

@@ -33,6 +33,8 @@ import org.junit.runner.RunWith;
 import org.smartregister.chw.activity.MotherMentorVisitWizardActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorProfileResultForm;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.contract.BaseMotherMentorVisitContract;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
@@ -49,8 +51,12 @@ import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidReturnVisit;
+import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
+import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.util.LangUtils;
 
 import java.io.InputStream;
@@ -204,7 +210,10 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             Map<String, BaseMotherMentorVisitAction> actions =
                     actions(new MotherServiceFixture("breast_feeding", dob.toString()), 7);
             BaseMotherMentorVisitAction attendance = byForm(actions, "mothermentor_visit_type");
-            answer(attendance, ATTENDANCE_TYPE, "new");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "new");
+                save(activity, attendance);
+            });
             BaseMotherMentorVisitAction child = byForm(actions, "mothermentor_visit_child");
             assertTrue(child.isValid());
 
@@ -231,7 +240,13 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 setDate(activity, MAMA_HEI_TEST_DATE, today.minusDays(1));
                 onMain(() -> assertNull(visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE)));
                 select(activity, MAMA_HEI_TEST_RESULT, "positive");
-                select(activity, HEI_CHANYA_IMETHIBITISHWA, "no");
+                onMain(() -> assertSaveBlocked(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE));
+                select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "yes");
+                onMain(() -> assertSaveBlocked(activity, MAMA_HEI_CONFIRMATORY_RESULT));
+                select(activity, MAMA_HEI_CONFIRMATORY_RESULT, "pending");
+                select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "no");
+                onMain(() -> assertNull(visibleRadio(activity.getWindow().getDecorView(),
+                        MAMA_HEI_CONFIRMATORY_RESULT, "pending")));
                 onMain(() -> assertSaveBlocked(activity, MAMA_HEI_TEST_RECEIVED_DATE));
                 setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today.plusDays(1));
                 onMain(() -> assertEquals("Weka tarehe sahihi ya kupokea majibu ambayo haipo katika siku zijazo",
@@ -250,6 +265,198 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             assertEquals(today.toString("dd-MM-yyyy"), answers.get(MAMA_HEI_TEST_RECEIVED_DATE));
         } finally {
             LangUtils.saveLanguage(context, originalLanguage);
+        }
+    }
+
+    @Test
+    public void mamaKadiProfileRecordsBirthInTheLocalizedNativeWizard() throws Exception {
+        String original = LangUtils.getLanguage(context);
+        try {
+            for (String language : Arrays.asList("sw", "en")) {
+                LangUtils.saveLanguage(context, language);
+                useLanguage(language);
+                LocalDate sample = LocalDate.now().minusDays(42);
+                LocalDate receipt = LocalDate.now().minusDays(2);
+                JSONObject form = profileResultForm(Stage.AT_BIRTH, sample,
+                        MotherMentorChildEidReturnVisit.AWAITING_RESULT, null);
+                AtomicReference<Map<String, String>> submitted = new AtomicReference<>();
+                withProfileResult(form, wizard -> {
+                    onMain(() -> {
+                        assertNull(visibleDate(wizard, MTOTO_RESULT_RECEIVED_DATE));
+                        assertSaveBlocked(wizard, MTOTO_RECEIVED_RESULT);
+                    });
+                    select(wizard, MTOTO_RECEIVED_RESULT, "negative");
+                    onMain(() -> assertSaveBlocked(wizard, MTOTO_RESULT_RECEIVED_DATE));
+                    setDate(wizard, MTOTO_RESULT_RECEIVED_DATE, receipt);
+                    submitted.set(saveProfileResult(wizard));
+                });
+                Map<String, String> returned = submitted.get();
+                assertEquals(Stage.AT_BIRTH.getCode(), returned.get(MTOTO_PENDING_TEST));
+                assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
+                Answers answers = MotherMentorProfileResultForm.readAnswers(returned, false);
+                assertEquals("negative", answers.getResult());
+                assertEquals(receipt, answers.getReceivedDate());
+            }
+        } finally {
+            LangUtils.saveLanguage(context, original);
+        }
+    }
+
+    @Test
+    public void mamaKadiProfileEditPrefillsConfirmationAndCancelClosesForm() throws Exception {
+        String original = LangUtils.getLanguage(context);
+        try {
+            LangUtils.saveLanguage(context, "sw");
+            useLanguage("sw");
+            LocalDate sample = LocalDate.now().minusDays(4);
+            LocalDate receipt = LocalDate.now().minusDays(1);
+            JSONObject form = profileResultForm(Stage.SIX_WEEKS, sample,
+                    MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, new Answers("negative", receipt, "", ""));
+            withProfileResult(form, wizard -> {
+                onMain(() -> {
+                    View root = wizard.getWindow().getDecorView();
+                    assertNull(visibleRadio(root, MTOTO_RECEIVED_RESULT, "negative"));
+                    assertNotNull(visibleRadio(root, MTOTO_CONFIRMATORY_RESULT, "pending"));
+                     assertTrue(visibleRadio(root, MTOTO_CONFIRMATORY_TEST_DONE, "yes").isChecked());
+                    RadioButton saved = visibleRadio(root, MTOTO_CONFIRMATORY_RESULT, "negative");
+                    assertNotNull(saved);
+                    assertTrue(saved.isChecked());
+                    EditText field = visibleDate(wizard, MTOTO_RESULT_RECEIVED_DATE);
+                    assertNotNull(field);
+                    assertEquals(receipt.toString("dd-MM-yyyy"),
+                            field.getTag(com.vijay.jsonwizard.R.id.locale_independent_value));
+                    visibleRadio(root, MTOTO_CONFIRMATORY_RESULT, "positive").performClick();
+                    wizard.onBackPressed();
+                });
+                onView(withId(android.R.id.button2)).perform(click());
+                onMain(() -> assertTrue(wizard.isFinishing()));
+            });
+            AtomicReference<Map<String, String>> submitted = new AtomicReference<>();
+            withProfileResult(form, wizard -> submitted.set(saveProfileResult(wizard)));
+            Map<String, String> returned = submitted.get();
+            Answers answers = MotherMentorProfileResultForm.readAnswers(returned, true);
+            assertEquals("negative", answers.getResult());
+            assertEquals(receipt, answers.getReceivedDate());
+            assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
+            assertEquals(MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, returned.get(MTOTO_RUFAA_STATE_BEFORE));
+        } finally {
+            LangUtils.saveLanguage(context, original);
+        }
+    }
+
+    @Test
+    public void mamaKadiMieziEighteenOmitsPendingFromBothVisitQuestions() throws Exception {
+        String original = LangUtils.getLanguage(context);
+        try {
+            LangUtils.saveLanguage(context, "sw");
+            useLanguage("sw");
+            LocalDate day = LocalDate.now();
+            LocalDate dob = day.minusMonths(18);
+            BaseMotherMentorVisitAction attendance = byForm(
+                    actions(new MotherServiceFixture("breast_feeding", dob.toString()), 7), "mothermentor_visit_type");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "repeat");
+                select(activity, FOLLOW_UP_STATUS, "found");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                select(activity, MAMA_HEI_TEST_DONE, "yes");
+                setDate(activity, MAMA_HEI_TEST_DATE, day);
+                select(activity, MAMA_HEI_TEST_RESULT, "positive");
+                onMain(() -> assertNull(visibleRadio(activity.getWindow().getDecorView(),
+                        MAMA_HEI_TEST_RESULT, "pending")));
+                select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "yes");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertNotNull(visibleRadio(root, MAMA_HEI_CONFIRMATORY_RESULT, "negative"));
+                    assertNotNull(visibleRadio(root, MAMA_HEI_CONFIRMATORY_RESULT, "positive"));
+                    assertNull(visibleRadio(root, MAMA_HEI_CONFIRMATORY_RESULT, "pending"));
+                });
+                select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "no");
+                setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, day);
+                save(activity, attendance);
+            });
+            completed(attendance);
+        } finally {
+            LangUtils.saveLanguage(context, original);
+        }
+    }
+
+    @Test
+    public void mamaKadiStandaloneConfirmationUsesBothQuestionsAndKeepsReceiptValidation() throws Exception {
+        String original = LangUtils.getLanguage(context);
+        try {
+            LangUtils.saveLanguage(context, "sw");
+            useLanguage("sw");
+            LocalDate day = LocalDate.now();
+            for (Stage stage : Arrays.asList(Stage.AT_BIRTH, Stage.EIGHTEEN_MONTHS)) {
+                JSONObject form = profileResultForm(stage, day.minusDays(2),
+                        MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, null);
+                withProfileResult(form, wizard -> {
+                    onMain(() -> assertSaveBlocked(wizard, MTOTO_CONFIRMATORY_TEST_DONE));
+                    select(wizard, MTOTO_CONFIRMATORY_TEST_DONE, "yes");
+                    onMain(() -> assertSaveBlocked(wizard, MTOTO_CONFIRMATORY_RESULT));
+                    if (stage == Stage.AT_BIRTH) {
+                        select(wizard, MTOTO_CONFIRMATORY_RESULT, "pending");
+                        Map<String, String> returned = saveProfileResult(wizard);
+                        assertEquals("pending", returned.get(MTOTO_CONFIRMATORY_RESULT));
+                    } else {
+                        onMain(() -> assertNull(visibleRadio(wizard.getWindow().getDecorView(),
+                                MTOTO_CONFIRMATORY_RESULT, "pending")));
+                        select(wizard, MTOTO_CONFIRMATORY_RESULT, "negative");
+                        onMain(() -> assertSaveBlocked(wizard, MTOTO_RESULT_RECEIVED_DATE));
+                        setDate(wizard, MTOTO_RESULT_RECEIVED_DATE, day);
+                        Map<String, String> returned = saveProfileResult(wizard);
+                        assertEquals("negative", returned.get(MTOTO_CONFIRMATORY_RESULT));
+                        assertEquals(day, MotherMentorProfileResultForm.readAnswers(returned, true).getReceivedDate());
+                    }
+                });
+            }
+        } finally {
+            LangUtils.saveLanguage(context, original);
+        }
+    }
+
+    private JSONObject profileResultForm(Stage stage, LocalDate sample, String state, Answers saved)
+            throws Exception {
+        String asset = formFolder + "/" + MotherMentorChildEidResultForm.FORM_NAME + ".json";
+        try (InputStream input = context.getAssets().open(asset);
+                Scanner scanner = new Scanner(input, "UTF-8").useDelimiter("\\A")) {
+            JSONObject form = new JSONObject(scanner.next());
+            MotherMentorProfileResultForm.prepare(form, context, "synthetic-mother", stage, sample, state, saved);
+            return form;
+        }
+    }
+
+    private void withProfileResult(JSONObject form, java.util.function.Consumer<FamilyWizardFormActivity> verify) {
+        Intent intent = MotherMentorFormWizardUtils.getFormIntent(context, form);
+        assertEquals(FamilyWizardFormActivity.class.getName(), intent.getComponent().getClassName());
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        FamilyWizardFormActivity wizard = (FamilyWizardFormActivity) instrumentation.startActivitySync(intent);
+        try {
+            instrumentation.waitForIdleSync();
+            verify.accept(wizard);
+        } finally {
+            onMain(wizard::finish);
+        }
+    }
+
+    private Map<String, String> saveProfileResult(FamilyWizardFormActivity wizard) {
+        AtomicReference<String> result = new AtomicReference<>();
+        onMain(() -> {
+            JsonFormFragment form = fragment(wizard);
+            assertTrue(form.save(false));
+            assertTrue(form.getPresenter().getInvalidFields().keySet().toString(),
+                    form.getPresenter().getInvalidFields().isEmpty());
+            assertTrue(wizard.isFinishing());
+            result.set(wizard.currentJsonState());
+        });
+        try {
+            JSONObject returned = new JSONObject(result.get());
+            assertEquals("synthetic-mother", returned.getString("entity_id"));
+            return MotherMentorMotherChildUtils.values(returned);
+        } catch (org.json.JSONException error) {
+            throw new AssertionError("Unable to read the native result form", error);
         }
     }
 
@@ -417,7 +624,10 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 select(activity, MAMA_HEI_TEST_DONE, "no");
                 save(activity, attendance);
             });
-            completed(attendance);
+            assertEquals(
+                    attendance.getFormName(),
+                    BaseMotherMentorVisitAction.Status.COMPLETED,
+                    attendance.getActionStatus());
         } finally {
             LangUtils.saveLanguage(context, originalLanguage);
         }
@@ -454,7 +664,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         }
     }
 
-    private void select(MotherMentorVisitWizardActivity activity, String key, String value) {
+    private void select(FamilyWizardFormActivity activity, String key, String value) {
         onMain(() -> {
             RadioButton option = visibleRadio(activity.getWindow().getDecorView(), key, value);
             assertNotNull(key + "=" + value, option);
@@ -463,7 +673,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
-    private void setDate(MotherMentorVisitWizardActivity activity, String key, LocalDate day) {
+    private void setDate(FamilyWizardFormActivity activity, String key, LocalDate day) {
         onMain(() -> {
             EditText field = visibleDate(activity, key);
             assertNotNull(key, field);
@@ -473,7 +683,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
-    private EditText visibleDate(MotherMentorVisitWizardActivity activity, String key) {
+    private EditText visibleDate(FamilyWizardFormActivity activity, String key) {
         for (View view : activity.getFormDataViews()) {
             if (view instanceof EditText && view.isShown()
                     && key.equals(view.getTag(com.vijay.jsonwizard.R.id.key))) return (EditText) view;
@@ -493,7 +703,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         action.setJsonPayload(saved.get());
     }
 
-    private void assertSaveBlocked(MotherMentorVisitWizardActivity activity, String key) {
+    private void assertSaveBlocked(FamilyWizardFormActivity activity, String key) {
         JsonFormFragment form = fragment(activity);
         form.save(false);
         assertTrue(key, form.getPresenter().getInvalidFields().keySet().stream()
@@ -528,7 +738,7 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
         return null;
     }
 
-    private JsonFormFragment fragment(MotherMentorVisitWizardActivity activity) {
+    private JsonFormFragment fragment(FamilyWizardFormActivity activity) {
         return (JsonFormFragment) activity.getSupportFragmentManager()
                 .findFragmentById(com.vijay.jsonwizard.R.id.container);
     }
