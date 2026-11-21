@@ -47,7 +47,9 @@ public final class MotherMentorProfileResultForm {
         }
         if (saved == null) return;
         if (confirmation) {
-            put(form, MTOTO_CONFIRMATORY_RESULT, saved.getResult());
+            String done = saved.getConfirmationDone();
+            put(form, MTOTO_CONFIRMATORY_TEST_DONE, done.isEmpty() ? "yes" : done);
+            put(form, MTOTO_CONFIRMATORY_RESULT, done.isEmpty() ? saved.getResult() : saved.getConfirmationResult());
         } else {
             put(form, MTOTO_RECEIVED_RESULT, saved.getResult());
             put(form, MTOTO_CONFIRMATORY_TEST_DONE, saved.getConfirmationDone());
@@ -69,7 +71,8 @@ public final class MotherMentorProfileResultForm {
 
     public static Answers readAnswers(Map<String, String> values, boolean confirmation) {
         LocalDate receipt = MotherMentorHeiSchedule.parseDate(values.get(MTOTO_RESULT_RECEIVED_DATE));
-        if (confirmation) return new Answers(values.get(MTOTO_CONFIRMATORY_RESULT), receipt, "", "");
+        if (confirmation) return Answers.confirmation(values.get(MTOTO_CONFIRMATORY_TEST_DONE),
+                values.get(MTOTO_CONFIRMATORY_RESULT), receipt);
         return new Answers(values.get(MTOTO_RECEIVED_RESULT), receipt,
                 values.get(MTOTO_CONFIRMATORY_TEST_DONE), values.get(MTOTO_CONFIRMATORY_RESULT));
     }

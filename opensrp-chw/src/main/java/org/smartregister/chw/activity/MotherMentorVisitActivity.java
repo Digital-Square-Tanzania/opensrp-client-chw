@@ -262,7 +262,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 || blockNewChildEidVisitWhilePending()) return;
         if (!isFollowUpVisit()) {
             MotherMentorMotherClosure preview = getMotherClosurePreview();
-            if (preview.isClosed()) {
+            boolean confirmedPositive = MotherMentorMotherClosureRepository.outcome(stagedAnswers())
+                    == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE;
+            if (preview.isClosed() && (!confirmedPositive
+                    || MotherMentorMotherClosure.CHILD_CONFIRMED_POSITIVE.equals(preview.getStatus()))) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
                 MotherMentorMotherClosureDialog.show(this, preview, () -> {
@@ -278,6 +281,16 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                     closureConfirmationOpen = false;
                     submitConfirmedVisit();
                 }, this::resetSubmission);
+                return;
+            }
+            if (confirmedPositive) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false,
+                        !preview.isClosed(), () -> {
+                            closureConfirmationOpen = false;
+                            submitConfirmedVisit();
+                        }, this::resetSubmission);
                 return;
             }
         } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
@@ -315,10 +328,17 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             if (exit != null && exit.needsConfirmation()) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
-                boolean directEnrollment = baseEntityID != null && MotherMentorChildEidRepository.getState(
-                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
-                        baseEntityID, null).isDirectEnrollment();
-                MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, () -> {
+                boolean directEnrollment = false;
+                boolean motherContinues = false;
+                if (baseEntityID != null) {
+                    SQLiteDatabase db =
+                            ChwApplication.getInstance().getRepository().getReadableDatabase();
+                    MotherMentorChildEidRepository.State child =
+                            MotherMentorChildEidRepository.getState(db, baseEntityID, null);
+                    directEnrollment = child.isDirectEnrollment();
+                    motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(db, child.getMotherId(), baseEntityID);
+                }
+                MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, motherContinues, () -> {
                     closureConfirmationOpen = false;
                     submitConfirmedVisit();
                 }, this::resetSubmission);

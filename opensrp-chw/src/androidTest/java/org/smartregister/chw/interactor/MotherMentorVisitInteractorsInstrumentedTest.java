@@ -243,7 +243,13 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 setDate(activity, MAMA_HEI_TEST_DATE, today.minusDays(1));
                 onMain(() -> assertNull(visibleDate(activity, MAMA_HEI_TEST_RECEIVED_DATE)));
                 select(activity, MAMA_HEI_TEST_RESULT, "positive");
-                select(activity, HEI_CHANYA_IMETHIBITISHWA, "no");
+                onMain(() -> assertSaveBlocked(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE));
+                select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "yes");
+                onMain(() -> assertSaveBlocked(activity, MAMA_HEI_CONFIRMATORY_RESULT));
+                select(activity, MAMA_HEI_CONFIRMATORY_RESULT, "pending");
+                select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "no");
+                onMain(() -> assertNull(visibleRadio(activity.getWindow().getDecorView(),
+                        MAMA_HEI_CONFIRMATORY_RESULT, "pending")));
                 onMain(() -> assertSaveBlocked(activity, MAMA_HEI_TEST_RECEIVED_DATE));
                 setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, today.plusDays(1));
                 onMain(() -> assertEquals("Weka tarehe sahihi ya kupokea majibu ambayo haipo katika siku zijazo",
@@ -313,7 +319,8 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
                 onMain(() -> {
                     View root = wizard.getWindow().getDecorView();
                     assertNull(visibleRadio(root, MTOTO_RECEIVED_RESULT, "negative"));
-                    assertNull(visibleRadio(root, MTOTO_CONFIRMATORY_RESULT, "pending"));
+                    assertNotNull(visibleRadio(root, MTOTO_CONFIRMATORY_RESULT, "pending"));
+                     assertTrue(visibleRadio(root, MTOTO_CONFIRMATORY_TEST_DONE, "yes").isChecked());
                     RadioButton saved = visibleRadio(root, MTOTO_CONFIRMATORY_RESULT, "negative");
                     assertNotNull(saved);
                     assertTrue(saved.isChecked());
@@ -335,6 +342,88 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             assertEquals(receipt, answers.getReceivedDate());
             assertEquals(sample.toString(), returned.get(MTOTO_PENDING_TEST_DATE));
             assertEquals(MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, returned.get(MTOTO_RUFAA_STATE_BEFORE));
+        } finally {
+            LangUtils.saveLanguage(context, original);
+        }
+    }
+
+    @Test
+    public void mamaKadiMieziEighteenOmitsPendingFromBothVisitQuestions() throws Exception {
+        String original = LangUtils.getLanguage(context);
+        try {
+            LangUtils.saveLanguage(context, "sw");
+            useLanguage("sw");
+            LocalDate day = LocalDate.now();
+            LocalDate dob = day.minusMonths(18);
+            Map<String, BaseMotherMentorVisitAction> actions =
+                    actions(new MotherServiceFixture("breast_feeding", dob.toString()), 10);
+            BaseMotherMentorVisitAction attendance = byForm(actions, "mothermentor_visit_type");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "repeat");
+                select(activity, FOLLOW_UP_STATUS, "found");
+                save(activity, attendance);
+            });
+            BaseMotherMentorVisitAction child = byForm(actions, "mothermentor_visit_child");
+            withWizard(child, activity -> {
+                select(activity, MotherMentorDeliveryChildren.SEX, "female");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                select(activity, MAMA_HEI_TEST_DONE, "yes");
+                setDate(activity, MAMA_HEI_TEST_DATE, day);
+                select(activity, MAMA_HEI_TEST_RESULT, "positive");
+                onMain(() -> assertNull(visibleRadio(activity.getWindow().getDecorView(),
+                        MAMA_HEI_TEST_RESULT, "pending")));
+                select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "yes");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertNotNull(visibleRadio(root, MAMA_HEI_CONFIRMATORY_RESULT, "negative"));
+                    assertNotNull(visibleRadio(root, MAMA_HEI_CONFIRMATORY_RESULT, "positive"));
+                    assertNull(visibleRadio(root, MAMA_HEI_CONFIRMATORY_RESULT, "pending"));
+                });
+                select(activity, MAMA_HEI_CONFIRMATORY_TEST_DONE, "no");
+                setDate(activity, MAMA_HEI_TEST_RECEIVED_DATE, day);
+                save(activity, child);
+            });
+            completed(attendance);
+            completed(child);
+        } finally {
+            LangUtils.saveLanguage(context, original);
+        }
+    }
+
+    @Test
+    public void mamaKadiStandaloneConfirmationUsesBothQuestionsAndKeepsReceiptValidation() throws Exception {
+        String original = LangUtils.getLanguage(context);
+        try {
+            LangUtils.saveLanguage(context, "sw");
+            useLanguage("sw");
+            LocalDate day = LocalDate.now();
+            for (Stage stage : Arrays.asList(Stage.AT_BIRTH, Stage.EIGHTEEN_MONTHS)) {
+                JSONObject form = profileResultForm(stage, day.minusDays(2),
+                        MotherMentorChildEidReturnVisit.AWAITING_CONFIRM, null);
+                AtomicReference<Map<String, String>> submitted = new AtomicReference<>();
+                withProfileResult(form, wizard -> {
+                    onMain(() -> assertSaveBlocked(wizard, MTOTO_CONFIRMATORY_TEST_DONE));
+                    select(wizard, MTOTO_CONFIRMATORY_TEST_DONE, "yes");
+                    onMain(() -> assertSaveBlocked(wizard, MTOTO_CONFIRMATORY_RESULT));
+                    if (stage == Stage.AT_BIRTH) {
+                        select(wizard, MTOTO_CONFIRMATORY_RESULT, "pending");
+                    } else {
+                        onMain(() -> assertNull(visibleRadio(wizard.getWindow().getDecorView(),
+                                MTOTO_CONFIRMATORY_RESULT, "pending")));
+                        select(wizard, MTOTO_CONFIRMATORY_RESULT, "negative");
+                        onMain(() -> assertSaveBlocked(wizard, MTOTO_RESULT_RECEIVED_DATE));
+                        setDate(wizard, MTOTO_RESULT_RECEIVED_DATE, day);
+                    }
+                    submitted.set(saveProfileResult(wizard));
+                });
+                Map<String, String> returned = submitted.get();
+                assertEquals(stage == Stage.AT_BIRTH ? "pending" : "negative",
+                        returned.get(MTOTO_CONFIRMATORY_RESULT));
+                if (stage == Stage.EIGHTEEN_MONTHS) {
+                    assertEquals(day, MotherMentorProfileResultForm.readAnswers(returned, true).getReceivedDate());
+                }
+            }
         } finally {
             LangUtils.saveLanguage(context, original);
         }
@@ -840,19 +929,24 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
     }
 
     @Test
-    public void childEidFollowUpIncludesTestStageAndClearsHiddenAnswers() throws Exception {
-        for (String language : new String[] {"en", "sw"}) {
-            useLanguage(language);
-        followUp(
-                new ChildEidFollowUpVisitInteractor(
-                        MotherMentorFollowUpType.CHILD_EID.getEventType()),
-                "mothermentor_child_eid_",
-                CHILD_EID_NON_ATTENDANCE_REASON,
-                CHILD_EID_NON_ATTENDANCE_REASON_OTHER,
-                CHILD_EID_EXPECTED_FACILITY_VISIT_DATE,
-                CHILD_EID_ARRIVED_AT_FACILITY,
-                CHILD_EID_FACILITY_ARRIVAL_DATE,
-                true);
+    public void childEidFollowUpShowsHeiOnlyAfterFoundAliveStatusIsSaved() throws Exception {
+        String original = LangUtils.getLanguage(context);
+        try {
+            for (String language : new String[] {"en", "sw"}) {
+                LangUtils.saveLanguage(context, language);
+                useLanguage(language);
+                Map<String, BaseMotherMentorVisitAction> actions = actions(new ChildEidFollowUpVisitInteractor(
+                        MotherMentorFollowUpType.CHILD_EID.getEventType()), 2);
+                BaseMotherMentorVisitAction status = byForm(actions, "mothermentor_child_eid_follow_up_status");
+                answer(status, FOLLOW_UP_STATUS, "found", MAMA_CHILD_STATUS, "alive");
+                completed(status);
+                pending(byForm(actions, "mothermentor_child_eid_hei"));
+                answer(status, FOLLOW_UP_STATUS, "not_found", MTOTO_NOT_FOUND_REASON, "moved_area");
+                completed(status);
+                assertEquals(2, actions.size());
+            }
+        } finally {
+            LangUtils.saveLanguage(context, original);
         }
     }
 

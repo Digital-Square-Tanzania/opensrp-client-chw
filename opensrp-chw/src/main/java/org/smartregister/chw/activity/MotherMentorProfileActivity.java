@@ -802,13 +802,16 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 return;
             }
             MotherMentorChildEidExit exit = MotherMentorChildEidResultEvent.preview(db, sample, answers, day);
-            boolean directEnrollment = exit != null && exit.needsConfirmation()
-                    && MotherMentorChildEidRepository.getState(db, childId, null).isDirectEnrollment();
+            MotherMentorChildEidRepository.State child = exit != null && exit.needsConfirmation()
+                    ? MotherMentorChildEidRepository.getState(db, childId, null) : null;
+            boolean directEnrollment = child != null && child.isDirectEnrollment();
+            boolean motherContinues = child != null
+                    && MotherMentorMotherClosureRepository.hasOpenSibling(db, child.getMotherId(), childId);
             childProfileExecutors.mainThread().execute(() -> {
                 if (isFinishing() || isDestroyed() || !matchesChildEidProfile(childId)) return;
                 Runnable save = () -> saveChildEidResult(sample, answers, day, exit);
                 if (exit != null && exit.needsConfirmation()) {
-                    MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, save,
+                    MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, motherContinues, save,
                             () -> retryChildEidResult(form, source, 0));
                 } else {
                     save.run();
@@ -1702,8 +1705,18 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         try {
             if (!isFollowUpProfile()) {
                 MotherMentorMotherClosure preview = getSavedMotherClosurePreview(visit);
-                if (preview.isClosed()) {
+                Map<String, String> values = MotherMentorVisitCompletion.observationValues(
+                        MotherMentorChildEidDao.json(visit).optJSONArray("obs"));
+                boolean confirmedPositive = MotherMentorMotherClosureRepository.outcome(values)
+                        == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE;
+                if (preview.isClosed() && (!confirmedPositive
+                        || MotherMentorMotherClosure.CHILD_CONFIRMED_POSITIVE.equals(preview.getStatus()))) {
                     MotherMentorMotherClosureDialog.show(this, preview,
+                            () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
+                    return;
+                }
+                if (confirmedPositive) {
+                    MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, !preview.isClosed(),
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }
@@ -1717,8 +1730,12 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             } else if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
                 MotherMentorChildEidExit exit = getSavedChildEidClosurePreview(visit);
                 if (exit != null && exit.needsConfirmation()) {
-                    boolean directEnrollment = loadChildEidState(memberObject.getBaseEntityId()).isDirectEnrollment();
-                    MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment,
+                    String childId = memberObject.getBaseEntityId();
+                    MotherMentorChildEidRepository.State child = loadChildEidState(childId);
+                    boolean motherContinues = !TextUtils.isEmpty(child.getMotherId())
+                            && MotherMentorMotherClosureRepository.hasOpenSibling(
+                            ChwApplication.getInstance().getRepository().getReadableDatabase(), child.getMotherId(), childId);
+                    MotherMentorChildEidClosureDialog.show(this, exit, child.isDirectEnrollment(), motherContinues,
                             () -> finalizeSavedMotherVisit(visit), this::resetManualVisitCompletion);
                     return;
                 }

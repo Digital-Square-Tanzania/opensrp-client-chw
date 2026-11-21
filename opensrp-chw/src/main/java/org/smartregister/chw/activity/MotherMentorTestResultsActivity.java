@@ -20,8 +20,8 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.FormUtils;
-import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent;
 import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils.TerminalOutcome;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
@@ -31,6 +31,8 @@ import org.smartregister.chw.mothermentor.util.AppExecutors;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidClosureDialog;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
@@ -246,8 +248,11 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
                 TerminalOutcome outcome = MotherMentorMotherResultEvent.terminalOutcome(sample, answers, day);
                 MotherMentorMotherClosure closure = outcome == TerminalOutcome.NONE ? MotherMentorMotherClosure.active()
                         : MotherMentorMotherClosureRepository.previewResult(
-                                database(), motherId, sample.getChildNumber(), outcome, day);
-                executors.mainThread().execute(() -> reviewAnswers(entry, form, values, day, answers, outcome, closure));
+                                database(), motherId, sample, outcome, day);
+                boolean needsChildIdentity = outcome == TerminalOutcome.CHILD_CONFIRMED_POSITIVE
+                        && MotherMentorMotherResultEvent.needsChildIdentity(database(), motherId, sample);
+                executors.mainThread().execute(() -> reviewAnswers(
+                        entry, form, values, day, answers, outcome, closure, needsChildIdentity));
             } catch (Exception error) {
                 failedToLoad(error);
             }
@@ -255,7 +260,8 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
     }
 
     private void reviewAnswers(Entry entry, JSONObject form, Map<String, String> values, LocalDate day,
-            Answers answers, TerminalOutcome outcome, MotherMentorMotherClosure closure) {
+
+            Answers answers, TerminalOutcome outcome, MotherMentorMotherClosure closure, boolean needsChildIdentity) {
         if (isFinishing() || isDestroyed()) return;
         PendingTest sample = entry.getSample();
         int dateError = MotherMentorChildEidResultForm.receiptDateError(values, sample.getTestDate());
@@ -269,8 +275,13 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             return;
         }
         Runnable save = () -> save(entry, answers, form);
-        if (closure.isClosed()) {
+        if (needsChildIdentity) {
+            retryForm(form, R.string.mama_results_confirm_from_child_card);
+        } else if (closure.isClosed()) {
             MotherMentorMotherClosureDialog.show(this, closure, save, () -> launchNativeForm(form));
+        } else if (outcome == TerminalOutcome.CHILD_CONFIRMED_POSITIVE && !sample.hasSiblings()) {
+            MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, true,
+                    save, () -> launchNativeForm(form));
         } else if (outcome != TerminalOutcome.NONE) {
             MotherMentorVisitActivity.showChildEndingConfirmation(this,
                     MotherMentorVisitActivity.childEndingText(this, sample.getChildNumber(), outcome),
