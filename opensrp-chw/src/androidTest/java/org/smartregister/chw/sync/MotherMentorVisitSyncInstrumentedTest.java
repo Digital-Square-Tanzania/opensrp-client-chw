@@ -392,8 +392,9 @@ public class MotherMentorVisitSyncInstrumentedTest {
         String mother = UUID.randomUUID().toString();
         syntheticClients.add(mother);
         LocalDate day = LocalDate.now();
-        LocalDate sampleDay = day.minusDays(2);
-        LocalDate dob = sampleDay.minusMonths(18);
+        DateTime sampleTime = DateTime.now(DateTimeZone.UTC).minusSeconds(1);
+        LocalDate sampleDay = day;
+        LocalDate dob = day.minusMonths(18);
         ContentValues enrollment = new ContentValues();
         enrollment.put(BASE_ENTITY_ID, mother);
         enrollment.put(PREGNANCY_STATUS, "breast_feeding");
@@ -401,7 +402,7 @@ public class MotherMentorVisitSyncInstrumentedTest {
         enrollment.put(IS_CLOSED, 0);
         database.insertOrThrow(Constants.TABLES.MOTHERMENTOR_ENROLLMENT, null, enrollment);
 
-        String child = manualChildEidLink(mother, dob, sampleDay.minusDays(1));
+        String child = manualChildEidLink(mother, dob, sampleTime.minusSeconds(1));
         JSONArray answers = new JSONArray();
         observation(answers, MOTHERMENTOR_VISIT_DATE, sampleDay.toString());
         observation(answers, MAMA_ENROLLMENT_ID, MotherMentorMotherVisitDao.getContext(database, mother).getEnrollmentId());
@@ -423,11 +424,27 @@ public class MotherMentorVisitSyncInstrumentedTest {
         visit.put(FORM_SUBMISSION_ID, source);
         visit.put(VISIT_TYPE, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
         visit.put(PROCESSED, 1);
-        visit.put(VISIT_DATE, sampleDay.toDateTimeAtStartOfDay().getMillis());
+        visit.put(VISIT_DATE, sampleTime.getMillis());
         visit.put(VISIT_JSON, new JSONObject().put(EVENT_FORM_SUBMISSION_ID, source)
-                .put(EVENT_DATE_TIMESTAMP, sampleDay + "T12:00:00.000+03:00").put("obs", answers).toString());
+                .put(EVENT_DATE_TIMESTAMP, sampleTime.plusHours(3).toString()).put("obs", answers).toString());
         database.insertOrThrow(VisitRepository.VISIT_TABLE, null, visit);
-        String sibling = manualChildEidLink(mother, dob.plusDays(4), day.minusDays(1));
+
+        Entry waiting = MotherMentorMotherResultEvent.visible(database, mother, day).get(0);
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, waiting.getId(), waiting.getRevision(),
+                Answers.confirmation("no", "", null)));
+        Entry screening = MotherMentorMotherResultEvent.visible(database, mother, day).get(0);
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, screening.getId(), screening.getRevision(),
+                Answers.confirmation("yes", "negative", day)));
+        assertTrue(MotherMentorMotherResultEvent.pending(database, mother, day).isEmpty());
+        Entry negative = MotherMentorMotherResultEvent.history(database, mother, day).stream()
+                .filter(entry -> "negative".equals(entry.getAnswers().getResult())).findFirst().get();
+        assertEquals(day, negative.getAnswers().getReceivedDate());
+        assertTrue(MotherMentorMotherResultEvent.save(database, mother, negative.getId(), negative.getRevision(),
+                Answers.confirmation("no", "", null)));
+        assertEquals(1, MotherMentorMotherResultEvent.pending(database, mother, day).size());
+        String sibling = manualChildEidLink(mother, dob, DateTime.now(DateTimeZone.UTC));
+        assertFalse(MotherMentorChildEidRepository.getState(database, child, null).isClosed());
+        assertFalse(MotherMentorChildEidRepository.getState(database, sibling, null).isClosed());
 
         Entry pending = MotherMentorMotherResultEvent.visible(database, mother, day).get(0);
         assertEquals(child, pending.getSample().getChildId());
@@ -440,7 +457,8 @@ public class MotherMentorVisitSyncInstrumentedTest {
         assertChildEidProjection(child, true);
         assertChildEidProjection(sibling, false);
 
-        Entry recorded = MotherMentorMotherResultEvent.history(database, mother, day).get(0);
+        Entry recorded = MotherMentorMotherResultEvent.history(database, mother, day).stream()
+                .filter(entry -> "positive".equals(entry.getAnswers().getResult())).findFirst().get();
         assertEquals(child, recorded.getSample().getChildId());
         assertTrue(MotherMentorMotherResultEvent.save(database, mother, recorded.getId(), recorded.getRevision(),
                 Answers.confirmation("yes", "negative", day)));
@@ -449,7 +467,7 @@ public class MotherMentorVisitSyncInstrumentedTest {
         assertChildEidProjection(sibling, false);
     }
 
-    private String manualChildEidLink(String mother, LocalDate birth, LocalDate linkDay) throws Exception {
+    private String manualChildEidLink(String mother, LocalDate birth, DateTime linkedAt) throws Exception {
         String child = UUID.randomUUID().toString();
         syntheticClients.add(child);
         ContentValues enrollment = new ContentValues();
@@ -463,7 +481,7 @@ public class MotherMentorVisitSyncInstrumentedTest {
         observation(fields, CHILD_LINKING, "yes");
         observation(fields, CHILD_DOB, birth.toString());
         String id = UUID.randomUUID().toString();
-        String date = linkDay + "T10:00:00.000+03:00";
+        String date = linkedAt.toString();
         String eventType = Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLL_CHILD_EID;
         JSONObject event = new JSONObject().put(EVENT_FORM_SUBMISSION_ID, id).put(EVENT_TYPE, eventType)
                 .put(EVENT_BASE_ENTITY_ID, child).put(EVENT_DATE_TIMESTAMP, date).put("obs", fields);
