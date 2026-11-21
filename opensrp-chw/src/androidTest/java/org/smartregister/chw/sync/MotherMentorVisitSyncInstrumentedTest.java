@@ -4,14 +4,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.smartregister.chw.anc.util.Constants.EVENT_TYPE.DELETE_EVENT;
 import static org.smartregister.chw.anc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.mothermentor.util.DBConstants.KEY.*;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
+import android.view.ContextThemeWrapper;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -26,7 +34,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
 import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
@@ -39,11 +49,16 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEve
 import org.smartregister.chw.mothermentor.repository.VisitDetailsRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils.TerminalOutcome;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
+import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
+import org.smartregister.chw.util.MotherMentorProfileResultForm;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
@@ -56,8 +71,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /** Exercises the real app processor and shared visit cache using rolled-back UUID fixtures only. */
 @RunWith(AndroidJUnit4.class)
@@ -537,11 +555,9 @@ public class MotherMentorVisitSyncInstrumentedTest {
         }
     }
 
-    @Test
-    public void sameBirthdayTwinsKeepDifferentMiezi18ResultsAndOriginalSampleDates() throws Exception {
+    private Miezi18Twins seedMiezi18TwinDelivery(LocalDate today, boolean firstGraduates) throws Exception {
         String mother = UUID.randomUUID().toString();
         syntheticClients.add(mother);
-        LocalDate today = LocalDate.now();
         LocalDate sample = today.minusDays(1);
         LocalDate dob = today.minusMonths(18).minusDays(3);
         ContentValues enrollment = new ContentValues();
@@ -574,9 +590,13 @@ public class MotherMentorVisitSyncInstrumentedTest {
             observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_DONE), "yes");
             observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_TYPE), "eighteen_months");
             observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_DATE), sample.toString());
-            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_RESULT), "positive");
+            boolean graduates = firstGraduates && child == 1;
+            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_RESULT),
+                    graduates ? "negative" : "positive");
             observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_TEST_RECEIVED_DATE), today.toString());
-            observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_CONFIRMATORY_TEST_DONE), "no");
+            if (!graduates) {
+                observation(answers, MotherMentorDeliveryChildren.observationKey(child, MAMA_HEI_CONFIRMATORY_TEST_DONE), "no");
+            }
         }
         String source = UUID.randomUUID().toString();
         ContentValues visit = new ContentValues();
@@ -590,6 +610,34 @@ public class MotherMentorVisitSyncInstrumentedTest {
                 .put(EVENT_DATE_TIMESTAMP, DateTime.now(DateTimeZone.UTC).toString())
                 .put("obs", answers).toString());
         database.insertOrThrow(VisitRepository.VISIT_TABLE, null, visit);
+        return new Miezi18Twins(mother, dob, sample, twins, visit);
+    }
+
+    private static final class Miezi18Twins {
+        final String mother;
+        final LocalDate dob;
+        final LocalDate sample;
+        final String[] children;
+        final ContentValues visit;
+
+        Miezi18Twins(String mother, LocalDate dob, LocalDate sample, String[] children, ContentValues visit) {
+            this.mother = mother;
+            this.dob = dob;
+            this.sample = sample;
+            this.children = children;
+            this.visit = visit;
+        }
+    }
+
+    @Test
+    public void sameBirthdayTwinsKeepDifferentMiezi18ResultsAndOriginalSampleDates() throws Exception {
+        LocalDate today = LocalDate.now();
+        Miezi18Twins fixture = seedMiezi18TwinDelivery(today, false);
+        String mother = fixture.mother;
+        LocalDate dob = fixture.dob;
+        LocalDate sample = fixture.sample;
+        String[] twins = fixture.children;
+        ContentValues visit = fixture.visit;
 
         List<Entry> pending = MotherMentorMotherResultEvent.visible(database, mother, today);
         assertEquals(2, pending.size());
@@ -653,6 +701,83 @@ public class MotherMentorVisitSyncInstrumentedTest {
         assertChildEidProjection(twins[1], true);
         assertEquals(MotherMentorMotherClosure.CHILD_CONFIRMED_POSITIVE,
                 MotherMentorMotherClosureRepository.getState(database, mother, null).getClosureReason());
+    }
+
+    @Test
+    public void lastPositiveConsentNamesTheChildAndCtcWhileMamaClosesAsGraduated() throws Exception {
+        LocalDate today = LocalDate.now();
+        for (String language : new String[] {"en", "sw"}) {
+            Miezi18Twins fixture = seedMiezi18TwinDelivery(today, true);
+            String mother = fixture.mother;
+            MotherMentorChildEidRepository.rebuildForMother(database, mother);
+            assertEquals("graduated", MotherMentorChildEidRepository.getState(
+                    database, fixture.children[0], null).getClosedStatus());
+            assertFalse(MotherMentorMotherClosureRepository.isClosed(database, mother));
+            List<Entry> pending = MotherMentorMotherResultEvent.visible(database, mother, today);
+            assertEquals(1, pending.size());
+            Entry last = pending.get(0);
+            PendingTest sample = last.getSample();
+            assertEquals(2, sample.getChildNumber());
+            assertEquals(fixture.children[1], sample.getChildId());
+            Answers answers = Answers.confirmation("yes", "positive", today);
+            TerminalOutcome outcome = MotherMentorMotherResultEvent.terminalOutcome(sample, answers, today);
+            assertEquals(TerminalOutcome.CHILD_CONFIRMED_POSITIVE, outcome);
+            MotherMentorMotherClosure preview = MotherMentorMotherClosureRepository.previewResult(
+                    database, mother, sample, outcome, today);
+            assertEquals(MotherMentorMotherClosure.GRADUATED, preview.getClosureReason());
+
+            Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+            Context context = instrumentation.getTargetContext();
+            JSONObject form = FormUtils.getFormUtils().getFormJson(MotherMentorChildEidResultForm.FORM_NAME);
+            MotherMentorProfileResultForm.prepare(form, context, mother, sample.getStage(),
+                    sample.getTestDate(), sample.getState(), last.getAnswers());
+            Intent host = MotherMentorFormWizardUtils.getFormIntent(context, form)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Activity activity = instrumentation.startActivitySync(host);
+            AtomicBoolean confirmed = new AtomicBoolean();
+            try {
+                FutureTask<Void> tapConsent = new FutureTask<>(() -> {
+                    Configuration configuration = new Configuration(activity.getResources().getConfiguration());
+                    configuration.setLocale(Locale.forLanguageTag(language));
+                    ContextThemeWrapper localized = new ContextThemeWrapper(activity, R.style.ChwTheme);
+                    localized.applyOverrideConfiguration(configuration);
+                    AlertDialog dialog = MotherMentorMotherClosureDialog.showForResult(
+                            localized, preview, sample, outcome, () -> confirmed.set(true),
+                            () -> fail("Unexpected consent cancellation"));
+                    String message = ((TextView) dialog.findViewById(android.R.id.message)).getText().toString();
+                    boolean swahili = "sw".equals(language);
+                    assertTrue(message, message.contains(swahili ? "Mtoto wa 2" : "Child 2"));
+                    assertTrue(message, message.contains(swahili ? "majibu chanya" : "HIV-positive"));
+                    assertTrue(message, message.contains("CTC"));
+                    assertTrue(message, message.contains(swahili ? "Amehitimu" : "Graduated"));
+                    assertTrue(message, message.contains(swahili ? "mtoto mwingine" : "a sibling"));
+                    assertFalse(confirmed.get());
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+                }, null);
+                instrumentation.runOnMainSync(tapConsent);
+                tapConsent.get();
+                instrumentation.waitForIdleSync();
+                assertTrue(confirmed.get());
+            } finally {
+                instrumentation.runOnMainSync(activity::finish);
+            }
+            // Keep the save on the test thread so the fixture and result are rolled back together.
+            assertTrue(MotherMentorMotherResultEvent.save(database, mother, last.getId(), last.getRevision(), answers));
+            List<Entry> history = MotherMentorMotherResultEvent.history(database, mother, today);
+            assertEquals(1, history.size());
+            Entry reopened = MotherMentorMotherResultEvent.editable(database, mother, history.get(0).getId(), today);
+            assertNotNull(reopened);
+            assertEquals("positive", reopened.getAnswers().getResult());
+            assertEquals(today, reopened.getAnswers().getReceivedDate());
+            assertEquals(fixture.sample, reopened.getSample().getTestDate());
+            assertEquals(fixture.children[1], reopened.getSample().getChildId());
+            assertChildEidProjection(fixture.children[1], true);
+            assertEquals("graduated", MotherMentorChildEidRepository.getState(
+                    database, fixture.children[0], null).getClosedStatus());
+            assertEquals(MotherMentorMotherClosure.GRADUATED,
+                    MotherMentorMotherClosureRepository.getState(database, mother, null).getClosureReason());
+            assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
+        }
     }
 
     @Test

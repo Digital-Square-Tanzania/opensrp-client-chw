@@ -278,7 +278,8 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
         if (needsChildIdentity) {
             retryForm(form, R.string.mama_results_confirm_from_child_card);
         } else if (closure.isClosed()) {
-            MotherMentorMotherClosureDialog.show(this, closure, save, () -> launchNativeForm(form));
+            MotherMentorMotherClosureDialog.showForResult(this, closure, sample, outcome,
+                    save, () -> launchNativeForm(form));
         } else if (outcome == TerminalOutcome.CHILD_CONFIRMED_POSITIVE && !sample.hasSiblings()) {
             MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false, true,
                     save, () -> launchNativeForm(form));
