@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_iit_summary_missed_label">Miadi aliyokosa</string>
+    <string name="mothermentor_iit_summary_date_unavailable">Tarehe haipatikani</string>
+    <plurals name="mothermentor_iit_summary_missed_value">
+        <item quantity="one">%1$s · siku %2$d iliyopita</item>
+        <item quantity="other">%1$s · siku %2$d zilizopita</item>
+    </plurals>
+</resources>

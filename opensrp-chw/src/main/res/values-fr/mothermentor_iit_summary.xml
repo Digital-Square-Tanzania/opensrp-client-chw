@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_iit_summary_missed_label">Rendez-vous manqué</string>
+    <string name="mothermentor_iit_summary_date_unavailable">Date indisponible</string>
+    <plurals name="mothermentor_iit_summary_missed_value">
+        <item quantity="one">%1$s · il y a %2$d jour</item>
+        <item quantity="other">%1$s · il y a %2$d jours</item>
+    </plurals>
+</resources>

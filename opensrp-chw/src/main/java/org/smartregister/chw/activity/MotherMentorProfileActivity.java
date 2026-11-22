@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -139,8 +140,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     private final AppExecutors deathRecordExecutors = new AppExecutors();
     private boolean deathRecordInProgress;
     private TextView iitRiskTag;
-    private TextView iitDetailsView;
-    private TextView iitClosureBanner;
+    private View iitSummary;
     private TextView pregnancyWeekView;
     private TextView followUpRoleView;
     private TextView motherClosureBanner;
@@ -1376,8 +1376,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         if (profile == null) return;
         MotherMentorIitState state = loadIitState(null);
         updateIitStatusPill(state);
-        updateIitDetails(profile, state);
-        updateIitClosureBanner(profile, state);
+        updateIitSummary(profile, state);
     }
 
     private void updateIitStatusPill(MotherMentorIitState state) {
@@ -1392,41 +1391,40 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         showIitRiskTag(getString(label), getResources().getColor(color));
     }
 
-    private void updateIitDetails(LinearLayout profile, MotherMentorIitState state) {
-        if (iitDetailsView == null) {
-            iitDetailsView = new TextView(this);
-            iitDetailsView.setTextSize(14);
-            iitDetailsView.setPadding(dpToPx(12), dpToPx(8), dpToPx(12), dpToPx(8));
-            iitDetailsView.setTextColor(Color.DKGRAY);
-            iitDetailsView.setBackground(createRiskTagBackground(0xffeef3f8));
-            profile.addView(iitDetailsView, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    private void updateIitSummary(LinearLayout profile, MotherMentorIitState state) {
+        if (iitSummary == null) {
+            iitSummary = getLayoutInflater().inflate(R.layout.mothermentor_iit_summary, profile, false);
+            View actionBar = (View) textViewRecordMotherMentor.getParent();
+            ViewGroup.MarginLayoutParams actionParams =
+                    (ViewGroup.MarginLayoutParams) textViewRecordMotherMentor.getLayoutParams();
+            LinearLayout.LayoutParams summaryParams =
+                    (LinearLayout.LayoutParams) iitSummary.getLayoutParams();
+            summaryParams.leftMargin = actionBar.getPaddingLeft() + actionParams.leftMargin
+                    - profile.getPaddingLeft();
+            summaryParams.rightMargin = actionBar.getPaddingRight() + actionParams.rightMargin
+                    - profile.getPaddingRight();
+            profile.addView(iitSummary, summaryParams);
         }
-        iitDetailsView.setText(MotherMentorIitText.missedAppointmentDetails(this,
-                state.getMissedAppointmentDate(), new LocalDate(getVisitAvailabilityDate())));
-    }
 
-    private void updateIitClosureBanner(LinearLayout profile, MotherMentorIitState state) {
-        if (!state.isClosed()) {
-            if (iitClosureBanner != null) iitClosureBanner.setVisibility(View.GONE);
-            return;
+        TextView missedValue = iitSummary.findViewById(R.id.iit_summary_missed_value);
+        LocalDate missedDate = parseDate(state.getMissedAppointmentDate());
+        if (missedDate == null) {
+            missedValue.setText(R.string.mothermentor_iit_summary_date_unavailable);
+        } else {
+            int elapsedDays = Math.max(0, Days.daysBetween(missedDate,
+                    new LocalDate(getVisitAvailabilityDate())).getDays());
+            missedValue.setText(getResources().getQuantityString(
+                    R.plurals.mothermentor_iit_summary_missed_value, elapsedDays,
+                    displayDate(missedDate), elapsedDays));
         }
-        if (iitClosureBanner == null) {
-            iitClosureBanner = new TextView(this);
-            iitClosureBanner.setTextColor(Color.WHITE);
-            iitClosureBanner.setTextSize(14);
-            iitClosureBanner.setTypeface(Typeface.DEFAULT_BOLD);
-            iitClosureBanner.setPadding(dpToPx(12), dpToPx(8), dpToPx(12), dpToPx(8));
-            profile.addView(iitClosureBanner, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        }
-        iitClosureBanner.setVisibility(View.VISIBLE);
-        int color = MotherMentorIitState.RETURNED_TO_CARE.equals(state.getStatus())
-                ? R.color.mothermentor_risk_low : R.color.mothermentor_risk_high;
-        iitClosureBanner.setBackground(createRiskTagBackground(getResources().getColor(color)));
+
+        View closure = iitSummary.findViewById(R.id.iit_summary_closure);
+        closure.setVisibility(state.isClosed() ? View.VISIBLE : View.GONE);
+        if (!state.isClosed()) return;
+        TextView closureValue = closure.findViewById(R.id.iit_summary_closure_value);
         String reason = MotherMentorIitText.reason(this, state.getStatus());
         String closedDate = displayDate(parseDate(state.getClosedDate()));
-        iitClosureBanner.setText(closedDate.isEmpty() ? reason
+        closureValue.setText(closedDate.isEmpty() ? reason
                 : getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed_banner,
                         reason, closedDate));
     }
