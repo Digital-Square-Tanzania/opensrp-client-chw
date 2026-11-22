@@ -1,5 +1,9 @@
 # Changelog
 
+## Mother Mentor Alpha 51 local candidate — 2026-11-22
+
+- Use CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-51-UCSW-92-LOCAL-MOH-SNAPSHOT` for the first-visit delivery count after breastfeeding enrollment in NACP Beta.10 (UCSW-92).
+
 ## Mother Mentor Alpha 50 — 2026-11-22
 
 - Use CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-50-MOH-SNAPSHOT` to bring the first-visit delivery count and child sections to the Mother Mentor app (UCSW-92).
