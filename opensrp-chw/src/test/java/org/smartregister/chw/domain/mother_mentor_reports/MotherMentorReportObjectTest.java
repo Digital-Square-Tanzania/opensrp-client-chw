@@ -99,6 +99,39 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void reopenedNovemberExcludesDecemberBirthAndDecemberCountsItOnce() throws Exception {
+        SimpleDateFormat dates = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        primary("mother", "Female", "1997-03-01");
+        motherVisit("november-visit", "mother", "2026-11-30", "repeat", "");
+
+        assertEquals(0, new MotherMentorReportObject(dates.parse("2026-11-01"))
+                .getIndicatorData().getInt("mm-7"));
+
+        deliveryVisit("december-delivery", "mother", "2026-12-04", "01-12-2026", 1);
+        detail("december-delivery", MotherMentorDeliveryChildren.SECTIONS, "true");
+        detail("december-delivery", MotherMentorDeliveryChildren.COUNT, "1");
+        child("december-delivery", 1, "alive", "female");
+        motherVisit("december-repeat", "mother", "2026-12-18", "repeat", "");
+
+        JSONObject reopenedNovember = new MotherMentorReportObject(dates.parse("2026-11-01")).getIndicatorData();
+        JSONObject december = new MotherMentorReportObject(dates.parse("2026-12-01")).getIndicatorData();
+        assertEquals(0, reopenedNovember.getInt("mm-7"));
+        assertEquals(1, december.getInt("mm-7"));
+        assertEquals(1, december.getInt("mm-7-female-total"));
+    }
+
+    @Test
+    public void reopenedNovemberIncludesMonthEndBirthRecordedInDecember() throws Exception {
+        primary("mother", "Female", "1997-03-01");
+        motherVisit("november-visit", "mother", "2026-11-25", "repeat", "");
+        deliveryVisit("december-entry", "mother", "2026-12-04", "30/11/2026", 1);
+        detail("december-entry", DBConstants.KEY.MAMA_CHILD_STATUS, "alive");
+
+        report = new MotherMentorReportObject(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse("2026-11-01"));
+        assertEquals(1, report.getIndicatorData().getInt("mm-7"));
+    }
+
+    @Test
     public void ignoresMothersWithoutAFinalizedMamaVisitInThePeriod() throws Exception {
         for (String mother : new String[]{"earlier-visit", "draft-only", "voided-only", "tracing-only"}) {
             primary(mother, "Female", "1997-03-01");

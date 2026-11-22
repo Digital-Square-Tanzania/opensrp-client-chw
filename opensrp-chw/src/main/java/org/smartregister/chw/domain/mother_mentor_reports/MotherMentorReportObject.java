@@ -103,7 +103,7 @@ public class MotherMentorReportObject extends ReportObject {
         String delivery = normalizeDate(detail(DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA));
         String count = detail(MotherMentorDeliveryChildren.COUNT);
         String enrollment = detail(DBConstants.KEY.MAMA_ENROLLMENT_ID);
-        // Report months select mothers by visit date. Recorded deliveries can come from other months.
+        // Select mothers by visit month and use actual delivery dates for the month-end cutoff.
         String visits = "WITH visited_mothers AS (" + visitedMothers + "), ranked AS (SELECT v.*, "
                 + "row_number() OVER (PARTITION BY v.base_entity_id, coalesce(nullif(" + enrollment + ", ''), "
                 + delivery + ") ORDER BY " + serviceDate() + ", v.visit_date, v.visit_id) AS delivery_row"
@@ -112,6 +112,7 @@ public class MotherMentorReportObject extends ReportObject {
                 + " AND " + detail(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME) + " IN ('delivered', 'preterm')"
                 + " AND coalesce(" + detail(DBConstants.KEY.MAMA_CARRIED_DELIVERY) + ", '') <> 'true'"
                 + " AND " + validDate(delivery) + " AND " + delivery + " <= " + serviceDate()
+                + " AND " + delivery + " < date('" + monthStart() + "', '+1 month')"
                 + " AND " + validDate(serviceDate()) + ")";
         StringBuilder births = new StringBuilder();
         for (int number = 1; number <= MotherMentorDeliveryChildren.MAX_COUNT; number++) {
