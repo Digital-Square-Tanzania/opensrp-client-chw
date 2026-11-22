@@ -102,7 +102,7 @@ public class MotherMentorReportObject extends ReportObject {
         String type = Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES;
         String visitedMothers = "SELECT DISTINCT v.base_entity_id FROM visits v WHERE "
                 + finalizedVisitInMonth(type) + " AND " + notVoided()
-                + " AND " + primaryAt(serviceDate())
+                + " AND " + primaryAt(serviceDate(), PRIMARY_ENROLLMENT_EVENTS)
                 + " AND " + hasDetail(DBConstants.KEY.ATTENDANCE_TYPE, "d.details IN ('new', 'repeat')");
         String delivery = normalizeDate(detail(DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA));
         String count = detail(MotherMentorDeliveryChildren.COUNT);

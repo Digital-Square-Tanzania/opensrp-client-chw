@@ -86,6 +86,29 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void countsLiveBirthsFromBothPrimaryEnrollmentEventNames() throws Exception {
+        primary("mother", "Female", "1997-03-01", "MotherMentor Enrollment");
+        for (String id : new String[]{"delivery", "repeat-delivery"}) {
+            deliveryVisit(id, "mother", "2026-04-11", "2026-04-09", 1);
+            detail(id, MotherMentorDeliveryChildren.SECTIONS, "true");
+            detail(id, MotherMentorDeliveryChildren.COUNT, "3");
+            child(id, 1, "alive", "male");
+            child(id, 2, "deceased", "female");
+            child(id, 3, "stillbirth", "female");
+        }
+        primary("current-mother", "Female", "1997-03-01");
+        deliveryVisit("current-delivery", "current-mother", "2026-04-11", "2026-04-09", 1);
+        detail("current-delivery", MotherMentorDeliveryChildren.SECTIONS, "true");
+        detail("current-delivery", MotherMentorDeliveryChildren.COUNT, "1");
+        child("current-delivery", 1, "alive", "female");
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(3, counts.getInt("mm-7"));
+        assertEquals(1, counts.getInt("mm-7-boys-male-under-1m"));
+        assertEquals(2, counts.getInt("mm-7-girls-female-under-1m"));
+    }
+
+    @Test
     public void lateRecordedLegacyLiveBirthWithUnknownSexCountsInTheVisitMonth() throws Exception {
         primary("mother", "Female", "1997-03-01");
         deliveryVisit("late-delivery", "mother", "2026-04-10", "19-03-2026", 1);
