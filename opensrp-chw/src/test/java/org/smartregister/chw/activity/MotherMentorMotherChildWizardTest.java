@@ -16,7 +16,10 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorTestAssets;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.Utils;
@@ -26,6 +29,24 @@ import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorMotherChildWizardTest {
+    @Test
+    public void packagedFirstVisitFormPassesLockedDeliveryAndEditableCountToTheWizard() throws Exception {
+        for (String locale : new String[] {"json.form", "json.form-sw"}) {
+            JSONObject entry = MotherMentorTestAssets.form(locale, "mothermentor_visit_type.json");
+            MotherMentorMotherPregnancyUtils.restoreContext(entry, "not_pregnant", "01-08-2026");
+            MotherMentorMotherPregnancyUtils.prepareEnrollmentDelivery(entry, true);
+            assertLaunch(entry, MotherMentorVisitWizardActivity.class);
+            JSONObject outcome = com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(
+                    entry, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME);
+            JSONObject count = com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(
+                    entry, MotherMentorDeliveryChildren.COUNT);
+            assertEquals("delivered", outcome.getString("value"));
+            assertTrue(outcome.getBoolean("read_only"));
+            assertEquals("native_radio", count.getString("type"));
+            assertFalse(count.optBoolean("read_only"));
+        }
+    }
+
     @Test
     public void onlyCurrentMotherAndChildAssessmentFormsUseTheirLibraryWizardDelegates() throws Exception {
         FamilyMetadata family = new FamilyMetadata(JsonWizardFormActivity.class,

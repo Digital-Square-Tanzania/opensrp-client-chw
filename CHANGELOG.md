@@ -1,5 +1,17 @@
 # Changelog
 
+## Mother Mentor Alpha 53 integration candidate — 2026-11-22
+
+- Resolve the authenticated repository when Mother Mentor opens a service visit. Use CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-53-UCSW-92-ENTRY-INTEGRATION-MOH-SNAPSHOT` to retain the first-visit delivery assessment for both feeding choices in NACP Beta.10 (UCSW-91 and UCSW-92).
+
+## Mother Mentor Alpha 51 local candidate — 2026-11-22
+
+- Use CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-51-UCSW-92-LOCAL-MOH-SNAPSHOT` for the first-visit delivery count after breastfeeding enrollment in NACP Beta.10 (UCSW-92).
+
+## Mother Mentor Alpha 50 — 2026-11-22
+
+- Use CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-50-MOH-SNAPSHOT` to bring the first-visit delivery count and child sections to the Mother Mentor app (UCSW-92).
+
 ## Mother Mentor Alpha 49 — 2026-11-22
 
 - Show results and receipt dates from Mama Kadi follow-up in visit history. CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-49-MOH-SNAPSHOT` supplies Mother Mentor `0.1.49-SNAPSHOT` and the questions about awaited HEI results. [CHW #1209](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1209)

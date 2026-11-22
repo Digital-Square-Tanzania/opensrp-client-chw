@@ -343,7 +343,9 @@ public class ChwApplication extends CoreChwApplication {
             TbLeprosyLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
-        MotherMentorLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        MotherMentorLibrary.init(context,
+                new DelegatingRepository(getApplicationContext(), context.session(), this::getRepository),
+                BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         if (flavor.hasHarmReduction() || flavor.hasHarmReductionSoberHouse()) {
             HarmReductionLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
