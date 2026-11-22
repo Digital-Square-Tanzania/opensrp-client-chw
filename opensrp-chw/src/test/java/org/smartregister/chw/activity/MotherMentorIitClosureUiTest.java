@@ -1,8 +1,11 @@
 package org.smartregister.chw.activity;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -24,6 +27,9 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
+
+import java.util.Date;
+import java.util.Locale;
 
 public class MotherMentorIitClosureUiTest extends BaseUnitTest {
     @Test
@@ -61,9 +67,14 @@ public class MotherMentorIitClosureUiTest extends BaseUnitTest {
     }
 
     @Test
-    public void iitSummaryRowsAlignWithFollowUpButtonInActiveAndReturnedStates() {
+    @Config(qualifiers = "sw-w320dp")
+    public void flatSummaryAlignsAndAllowsWrappingInActiveAndReturnedStates() {
         MotherMentorProfileActivity activity =
-                Robolectric.buildActivity(MotherMentorProfileActivity.class).get();
+                Robolectric.buildActivity(IitProfileActivity.class).get();
+        Configuration config = new Configuration(activity.getResources().getConfiguration());
+        config.fontScale = 1.5f;
+        config.setLocale(new Locale("sw"));
+        activity.getResources().updateConfiguration(config, activity.getResources().getDisplayMetrics());
         activity.setTheme(R.style.ChwTheme);
         ViewGroup root = (ViewGroup) LayoutInflater.from(activity).inflate(
                 org.smartregister.chw.mothermentor.R.layout.activity_mothermentor_profile, null);
@@ -74,31 +85,48 @@ public class MotherMentorIitClosureUiTest extends BaseUnitTest {
         ReflectionHelpers.setField(activity, "textViewRecordMotherMentor", action);
         MotherMentorIitState active =
                 MotherMentorIitState.active("episode", "2026-10-20", "mother", 0);
-        ReflectionHelpers.ClassParameter<LinearLayout> header =
-                ReflectionHelpers.ClassParameter.from(LinearLayout.class, profile);
-        ReflectionHelpers.callInstanceMethod(activity, "updateIitDetails", header,
-                ReflectionHelpers.ClassParameter.from(MotherMentorIitState.class, active));
-        TextView details = ReflectionHelpers.getField(activity, "iitDetailsView");
+        updateSummary(activity, profile, active);
+        View summary = profile.findViewById(R.id.iit_summary);
+        View closure = summary.findViewById(R.id.iit_summary_closure);
+        TextView missed = summary.findViewById(R.id.iit_summary_missed_value);
 
         layout(root);
-        assertHorizontalEdges(root, action, details);
+        assertHorizontalEdges(root, action, summary);
+        assertEquals(View.GONE, closure.getVisibility());
+        assertEquals("20-10-2026 · siku 17 zilizopita", missed.getText().toString());
+        assertFalse(summary.isClickable());
+        assertNull(summary.getBackground());
 
         action.setEnabled(false);
         MotherMentorIitState returned = active.close(
                 MotherMentorIitState.RETURNED_TO_CARE, new LocalDate(2026, 11, 6), "");
-        ReflectionHelpers.callInstanceMethod(activity, "updateIitClosureBanner", header,
-                ReflectionHelpers.ClassParameter.from(MotherMentorIitState.class, returned));
-        TextView banner = ReflectionHelpers.getField(activity, "iitClosureBanner");
+        updateSummary(activity, profile, returned);
+        TextView reason = closure.findViewById(R.id.iit_summary_closure_value);
 
         layout(root);
-        assertHorizontalEdges(root, action, details);
-        assertHorizontalEdges(root, action, banner);
-        assertEquals(details.getPaddingStart(), banner.getPaddingStart());
-        assertEquals(details.getPaddingEnd(), banner.getPaddingEnd());
+        assertHorizontalEdges(root, action, summary);
+        assertHorizontalEdges(root, action, missed);
+        assertHorizontalEdges(root, action, reason);
+        assertEquals(View.VISIBLE, closure.getVisibility());
+        assertEquals("Amerudi kwenye huduma · 06-11-2026", reason.getText().toString());
+        assertFalse(action.isEnabled());
+        for (TextView value : new TextView[] {missed, reason}) {
+            assertTrue(value.getMaxLines() > 1);
+            assertNull(value.getEllipsize());
+            assertFalse(value.isClickable());
+            assertNull(value.getBackground());
+        }
+    }
+
+    private void updateSummary(MotherMentorProfileActivity activity, LinearLayout profile,
+            MotherMentorIitState state) {
+        ReflectionHelpers.callInstanceMethod(activity, "updateIitSummary",
+                ReflectionHelpers.ClassParameter.from(LinearLayout.class, profile),
+                ReflectionHelpers.ClassParameter.from(MotherMentorIitState.class, state));
     }
 
     private void layout(View root) {
-        root.measure(View.MeasureSpec.makeMeasureSpec(420, View.MeasureSpec.EXACTLY),
+        root.measure(View.MeasureSpec.makeMeasureSpec(320, View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(900, View.MeasureSpec.EXACTLY));
         root.layout(0, 0, root.getMeasuredWidth(), root.getMeasuredHeight());
     }
@@ -119,6 +147,13 @@ public class MotherMentorIitClosureUiTest extends BaseUnitTest {
         activity.prepare(MotherMentorIitState.active("episode", "2026-10-20", "mother", 0)
                 .close(status, new LocalDate(2026, 11, 6), ""));
         return activity;
+    }
+
+    public static class IitProfileActivity extends MotherMentorProfileActivity {
+        @Override
+        Date getVisitAvailabilityDate() {
+            return new LocalDate(2026, 11, 6).toDate();
+        }
     }
 
     public static class ConfirmationActivity extends MotherMentorVisitActivity {
