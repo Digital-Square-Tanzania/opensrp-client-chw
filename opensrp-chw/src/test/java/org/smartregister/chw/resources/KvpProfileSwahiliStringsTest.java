@@ -27,7 +27,7 @@ public class KvpProfileSwahiliStringsTest {
         String strings = readText(STRINGS_PATH);
 
         assertTrue(strings.contains(
-                "<string name=\"dominant_kvp_group\">Kundi kuu la KVP: %1$s</string>"));
+                "<string name=\"dominant_kvp_group\">Kundi kuu la MARP: %1$s</string>"));
         for (Map.Entry<String, String> group : EXPECTED_GROUPS.entrySet()) {
             assertTrue("Missing Swahili profile translation for " + group.getKey(),
                     strings.contains("<string name=\"kvp_" + group.getKey() + "\">"

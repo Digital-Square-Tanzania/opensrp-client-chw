@@ -100,7 +100,7 @@
                 "openmrs_entity_parent": "",
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_group_female",
-                "label": "Chagua Kundi la Mteja       ",
+                "label": "Chagua kundi la MARP la mteja",
                 "text_color": "#000000",
                 "type": "native_radio",
                 "options": [
@@ -157,7 +157,7 @@
                 "openmrs_entity_parent": "",
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_group_male",
-                "label": "chagua Kundi la Mteja       ",
+                "label": "Chagua kundi la MARP la mteja",
                 "text_color": "#000000",
                 "type": "native_radio",
                 "options": [

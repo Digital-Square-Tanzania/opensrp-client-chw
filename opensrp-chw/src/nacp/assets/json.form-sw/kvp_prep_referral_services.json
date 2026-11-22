@@ -85,7 +85,7 @@
           },
           {
             "key": "addressing_gbv",
-            "text": "Ukatili wa kijinsia dhidi ya makundi maalum ",
+            "text": "Kukabiliana na ukatili wa kijinsia dhidi ya watu katika makundi ya MARP",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_gbv"
           },
@@ -103,7 +103,7 @@
           },
           {
             "key": "social_support",
-            "text": "Msaada wa kijamii kwa makundi maalum",
+            "text": "Msaada wa kijamii kwa watu katika makundi ya MARP",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "social_support"
           },
@@ -188,7 +188,7 @@
           },
           {
             "key": "addressing_gbv",
-            "text": "Ukatili wa kijinsia dhidi ya makundi maalum ",
+            "text": "Kukabiliana na ukatili wa kijinsia dhidi ya watu katika makundi ya MARP",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_gbv"
           },
@@ -206,7 +206,7 @@
           },
           {
             "key": "social_support",
-            "text": "Msaada wa kijamii kwa makundi maalum",
+            "text": "Msaada wa kijamii kwa watu katika makundi ya MARP",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "social_support"
           },

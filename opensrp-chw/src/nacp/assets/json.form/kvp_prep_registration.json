@@ -43,7 +43,7 @@
   },
   "global": {},
   "step1": {
-    "title": "KVP Enrollment",
+    "title": "MARP Enrollment",
     "fields": [
       {
         "key": "hotspot_name",
@@ -76,7 +76,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_group_female_10_24",
-        "label": "Select the client KVP Group",
+        "label": "Select the client's MARP group",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -168,7 +168,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_group_female",
-        "label": "Select the client KVP Group",
+        "label": "Select the client's MARP group",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -253,7 +253,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_group_male",
-        "label": "Select the client KVP Group",
+        "label": "Select the client's MARP group",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

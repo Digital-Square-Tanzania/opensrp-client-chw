@@ -85,7 +85,7 @@
           },
           {
             "key": "education_on_addressing_gbv",
-            "text": "Education Addressing GBV against KVPs",
+            "text": "Education on addressing GBV against people in MARP groups",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_addressing_gbv"
           },
