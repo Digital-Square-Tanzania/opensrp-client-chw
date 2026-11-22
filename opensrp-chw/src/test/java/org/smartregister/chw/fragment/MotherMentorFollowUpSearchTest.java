@@ -13,7 +13,11 @@ import static org.mockito.Mockito.when;
 import android.app.Application;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.loader.content.CursorLoader;
@@ -26,6 +30,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.chw.R;
 import org.smartregister.chw.model.MotherMentorRegisterFragmentModel;
 import org.smartregister.chw.mothermentor.contract.MotherMentorRegisterFragmentContract;
 import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
@@ -65,6 +70,8 @@ public class MotherMentorFollowUpSearchTest {
             database.execSQL("INSERT INTO " + table + " VALUES "
                     + "(1, 'client-a', 0, '3', ''), (2, 'client-b', 0, '4', ''), (3, 'closed', 1, '5', '')");
             if (PARTNER.equals(table)) {
+                database.execSQL("ALTER TABLE " + table + " ADD COLUMN "
+                        + DBConstants.KEY.PARTNER_NEXT_FOLLOW_UP_PHASE + " TEXT");
                 for (String column : MotherMentorPartnerClosureRepository.CLOSURE_COLUMNS) {
                     database.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column
                             + (MotherMentorPartnerClosureRepository.COUNTER_COLUMNS.contains(column)
@@ -115,6 +122,28 @@ public class MotherMentorFollowUpSearchTest {
             fragment.setSharedSearchText("");
             assertRowsAndCount(fragment, 2);
         }
+    }
+
+    @Test
+    public void sharedFieldShowsTypedTextInBlackAndClearEmptiesIt() {
+        FragmentActivity activity = Robolectric.buildActivity(FragmentActivity.class).get();
+        activity.setTheme(R.style.ChwTheme);
+        View register = LayoutInflater.from(activity).inflate(
+                R.layout.base_register_search_bar, null);
+        MotherMentorSecondaryEnrollmentsFragment fragment =
+                new MotherMentorSecondaryEnrollmentsFragment();
+        ReflectionHelpers.callInstanceMethod(fragment, "setupSearchBar",
+                ReflectionHelpers.ClassParameter.from(View.class, register));
+        EditText search = register.findViewById(R.id.edt_search);
+        View clear = register.findViewById(R.id.btn_search_cancel);
+
+        search.setText("Neema");
+        assertEquals(Color.BLACK, search.getCurrentTextColor());
+        assertEquals(View.VISIBLE, clear.getVisibility());
+
+        clear.performClick();
+        assertEquals("", search.getText().toString());
+        assertEquals(View.GONE, clear.getVisibility());
     }
 
     private void verifySearch(String table, String term, int expected) {

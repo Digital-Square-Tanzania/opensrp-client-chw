@@ -1394,13 +1394,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
 
     private void updateIitDetails(LinearLayout profile, MotherMentorIitState state) {
         if (iitDetailsView == null) {
-            iitDetailsView = new TextView(this);
-            iitDetailsView.setTextSize(14);
-            iitDetailsView.setPadding(dpToPx(12), dpToPx(8), dpToPx(12), dpToPx(8));
+            iitDetailsView = addIitSummaryRow(profile);
             iitDetailsView.setTextColor(Color.DKGRAY);
             iitDetailsView.setBackground(createRiskTagBackground(0xffeef3f8));
-            profile.addView(iitDetailsView, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
         iitDetailsView.setText(MotherMentorIitText.missedAppointmentDetails(this,
                 state.getMissedAppointmentDate(), new LocalDate(getVisitAvailabilityDate())));
@@ -1412,13 +1408,9 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             return;
         }
         if (iitClosureBanner == null) {
-            iitClosureBanner = new TextView(this);
+            iitClosureBanner = addIitSummaryRow(profile);
             iitClosureBanner.setTextColor(Color.WHITE);
-            iitClosureBanner.setTextSize(14);
             iitClosureBanner.setTypeface(Typeface.DEFAULT_BOLD);
-            iitClosureBanner.setPadding(dpToPx(12), dpToPx(8), dpToPx(12), dpToPx(8));
-            profile.addView(iitClosureBanner, new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
         iitClosureBanner.setVisibility(View.VISIBLE);
         int color = MotherMentorIitState.RETURNED_TO_CARE.equals(state.getStatus())
@@ -1429,6 +1421,24 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
         iitClosureBanner.setText(closedDate.isEmpty() ? reason
                 : getString(org.smartregister.chw.mothermentor.R.string.mothermentor_iit_closed_banner,
                         reason, closedDate));
+    }
+
+    private TextView addIitSummaryRow(LinearLayout profile) {
+        TextView row = new TextView(this);
+        row.setTextSize(14);
+        row.setPadding(dpToPx(12), dpToPx(8), dpToPx(12), dpToPx(8));
+
+        View actionBar = (View) textViewRecordMotherMentor.getParent();
+        ViewGroup.MarginLayoutParams actionParams =
+                (ViewGroup.MarginLayoutParams) textViewRecordMotherMentor.getLayoutParams();
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rowParams.leftMargin = actionBar.getPaddingLeft() + actionParams.leftMargin
+                - profile.getPaddingLeft();
+        rowParams.rightMargin = actionBar.getPaddingRight() + actionParams.rightMargin
+                - profile.getPaddingRight();
+        profile.addView(row, rowParams);
+        return row;
     }
 
     protected MotherMentorPartnerClosure loadPartnerClosure() {

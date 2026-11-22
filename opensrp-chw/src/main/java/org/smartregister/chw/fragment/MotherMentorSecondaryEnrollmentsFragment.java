@@ -1,5 +1,6 @@
 package org.smartregister.chw.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -223,6 +224,7 @@ public class MotherMentorSecondaryEnrollmentsFragment extends Fragment {
         View searchCancelView = view.findViewById(R.id.btn_search_cancel);
         if (searchView != null) {
             searchView.setBackgroundResource(R.color.white);
+            searchView.setTextColor(Color.BLACK);
             searchView.setHint(R.string.mothermentor_search_hint);
             searchView.setCompoundDrawablesWithIntrinsicBounds(org.smartregister.chw.mothermentor.R.drawable.ic_action_search, 0, 0, 0);
             searchView.addTextChangedListener(new TextWatcher() {
