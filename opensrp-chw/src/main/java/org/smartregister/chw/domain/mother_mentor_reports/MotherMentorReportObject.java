@@ -522,7 +522,7 @@ public class MotherMentorReportObject extends ReportObject {
                 + detail(DBConstants.KEY.ATTENDANCE_TYPE) + " AS attendance_type, "
                 + detail(DBConstants.KEY.TYPE_OF_REFERRAL_GIVEN) + " AS referral_services"
                 + " FROM visits v WHERE " + finalizedVisitInMonth() + " AND " + notVoided()
-                + " AND " + primaryAt(serviceDate());
+                + " AND " + primaryAt(serviceDate(), PRIMARY_ENROLLMENT_EVENTS);
         String newClients = "SELECT * FROM (" + visits + ") WHERE attendance_type = 'new'";
         String returning = "SELECT r.* FROM (" + visits + ") r WHERE r.attendance_type = 'repeat'"
                 + " AND NOT EXISTS (SELECT 1 FROM (" + newClients + ") n WHERE n.base_entity_id = r.base_entity_id)";

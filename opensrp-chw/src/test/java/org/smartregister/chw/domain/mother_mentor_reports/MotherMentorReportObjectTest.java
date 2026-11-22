@@ -734,6 +734,29 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
+    public void countsNewRepeatAndReferralVisitsForEitherEnrollmentEventName() throws Exception {
+        primary("new-mother", "Female", "1996-01-01", "MotherMentor Enrollment");
+        event("new-mother", "Mother Mentor Enrollment", "2026-04-10 09:00:00");
+        primary("returning-mother", "Female", "1997-03-01", "MotherMentor Enrollment");
+        primary("current-mother", "Female", "1998-01-01");
+        primary("future-mother", "Female", "1998-01-01", "Unrelated Enrollment");
+        event("future-mother", "MotherMentor Enrollment", "2026-05-01 03:00:00");
+
+        motherVisit("first", "new-mother", "2026-04-01", "new", "");
+        detail("first", "new_pmtct_art_initiation", "no");
+        motherVisit("repeat-new", "new-mother", "2026-04-15", "repeat", "");
+        motherVisit("referral-one", "returning-mother", "2026-04-05", "repeat", "[nutrition]");
+        motherVisit("referral-two", "returning-mother", "2026-04-12", "repeat", "[nutrition]");
+        motherVisit("current-first", "current-mother", "2026-04-05", "new", "");
+        motherVisit("too-early", "future-mother", "2026-04-05", "new", "[nutrition]");
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(2, counts.getInt("mm-1"));
+        assertEquals(1, counts.getInt("mm-2"));
+        assertEquals(1, counts.getInt("mm-6"));
+    }
+
+    @Test
     public void childFollowUpUsesActualTestDateAndIgnoresMaternalVisitsAndAttendanceOnly() throws Exception {
         eid("boy", "Male", "2026-03-01");
         eid("girl", "Female", "2025-07-01");
