@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Use MARP wording in the Afya Jamii MARP/PrEP drawer, client screens, enrollment, services, and referrals in English and Kiswahili. [CHW #1229](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1229) (UCSW-97).
+- Display MARP/PrEP on enrolled All Clients rows in English and Kiswahili. [CHW #1229](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1229) (UCSW-97).
 
 ## Mother Mentor Alpha 53 integration candidate — 2026-11-22
 

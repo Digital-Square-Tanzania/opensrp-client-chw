@@ -82,6 +82,8 @@ public class OpdRegisterProvider extends org.smartregister.opd.provider.OpdRegis
             return context.getString(R.string.menu_independent);
         } else if (registerType.equalsIgnoreCase(HARM_REDUCTION_SOBER_HOUSE_REGISTER_TYPE)) {
             return context.getString(R.string.harm_reduction_sober_house);
+        } else if (registerType.equalsIgnoreCase(CoreConstants.REGISTER_TYPE.KVP_PrEP)) {
+            return context.getString(R.string.menu_kvp_prep);
         } else if (registerType.equalsIgnoreCase(CoreConstants.REGISTER_TYPE.CECAP)) {
             return context.getString(R.string.menu_cecap);
         } else if (registerType.equalsIgnoreCase(CoreConstants.REGISTER_TYPE.MOTHER_MENTOR)) {
