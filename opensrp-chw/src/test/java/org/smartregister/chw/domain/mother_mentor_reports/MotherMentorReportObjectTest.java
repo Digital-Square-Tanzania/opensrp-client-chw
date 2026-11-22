@@ -63,33 +63,87 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
-    public void countsLiveBirthsByChildAndSexOnceOnTheDeliveryDate() throws Exception {
-        liveBirthVisit("delivery", "2026-04-21", true, false);
-        liveBirthVisit("duplicate", "2026-04-22", true, false);
-        liveBirthVisit("follow-up", "2026-04-23", true, true);
-        liveBirthVisit("draft", "2026-04-17", false, false);
+    public void countsOlderLiveBornSiblingsOnceDespiteRepeatedVisits() throws Exception {
+        primary("mother", "Female", "1997-03-01");
+        deliveryVisit("delivery", "mother", "2026-03-21", "19-03-2026", 1);
+        deliveryVisit("duplicate", "mother", "2026-03-22", "19-03-2026", 1);
+        deliveryVisit("carried", "mother", "2026-04-01", "19-03-2026", 1);
+        detail("carried", DBConstants.KEY.MAMA_CARRIED_DELIVERY, "true");
+        for (String id : new String[]{"delivery", "duplicate", "carried"}) {
+            detail(id, MotherMentorDeliveryChildren.SECTIONS, "true");
+            detail(id, MotherMentorDeliveryChildren.COUNT, "3");
+            child(id, 1, "deceased", "male");
+            child(id, 2, "alive", "female");
+            child(id, 3, "stillbirth", "female");
+        }
+        motherVisit("follow-up", "mother", "2026-04-30", "repeat", "");
+
         JSONObject counts = report.getIndicatorData();
         assertEquals(2, counts.getInt("mm-7"));
-        assertEquals(1, counts.getInt("mm-7-male-total"));
-        assertEquals(1, counts.getInt("mm-7-female-total"));
+        assertEquals(1, counts.getInt("mm-7-boys-male-under-1m"));
+        assertEquals(1, counts.getInt("mm-7-girls-female-under-1m"));
+        assertEquals(0, counts.getInt("mm-7-unknown-sex"));
     }
 
-    private void liveBirthVisit(String id, String day, boolean saved, boolean carried) {
-        database.execSQL("INSERT INTO visits VALUES (?, 'mother', 'MotherMentor Services', ?, 0, '', ?)",
-                new Object[] {id, saved ? 1 : 0, id});
-        detail(id, "mothermentor_visit_date", day);
-        detail(id, "mama_enrollment_id", "enrollment");
-        detail(id, "mama_pregnancy_outcome", "preterm");
-        detail(id, "mama_tarehe_kujifungua", "19-04-2026");
-        detail(id, "mama_carried_delivery", Boolean.toString(carried));
-        detail(id, MotherMentorDeliveryChildren.SECTIONS, "true");
-        detail(id, MotherMentorDeliveryChildren.COUNT, "3");
-        for (int child = 1; child <= 3; child++) {
-            detail(id, MotherMentorDeliveryChildren.observationKey(child, "mama_child_status"),
-                    child == 1 ? "deceased" : child == 2 ? "alive" : "stillbirth");
-            detail(id, MotherMentorDeliveryChildren.observationKey(child, MotherMentorDeliveryChildren.SEX),
-                    child == 1 ? "male" : "female");
+    @Test
+    public void lateRecordedLegacyLiveBirthWithUnknownSexCountsInTheVisitMonth() throws Exception {
+        primary("mother", "Female", "1997-03-01");
+        deliveryVisit("late-delivery", "mother", "2026-04-10", "19-03-2026", 1);
+        detail("late-delivery", DBConstants.KEY.MAMA_CHILD_STATUS, "alive");
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(1, counts.getInt("mm-7"));
+        assertEquals(0, counts.getInt("mm-7-male-total"));
+        assertEquals(0, counts.getInt("mm-7-female-total"));
+        assertEquals(1, counts.getInt("mm-7-unknown-sex"));
+    }
+
+    @Test
+    public void ignoresMothersWithoutAFinalizedMamaVisitInThePeriod() throws Exception {
+        for (String mother : new String[]{"earlier-visit", "draft-only", "voided-only", "tracing-only"}) {
+            primary(mother, "Female", "1997-03-01");
+            String delivery = mother + "-delivery";
+            deliveryVisit(delivery, mother, "2026-03-21", "19-03-2026", 1);
+            detail(delivery, DBConstants.KEY.MAMA_CHILD_STATUS, "alive");
         }
+        visit("draft", "draft-only", "2026-04-17", 0);
+        detail("draft", DBConstants.KEY.ATTENDANCE_TYPE, "repeat");
+        motherVisit("voided", "voided-only", "2026-04-17", "repeat", "");
+        database.execSQL("UPDATE visits SET visit_json = ? WHERE visit_id = 'voided'",
+                new String[]{"{\"voided\":true}"});
+        visit("legacy-tracing", "tracing-only", "2026-04-17", 1);
+        detail("legacy-tracing", DBConstants.KEY.IIT_TRACING_VISIT, "yes");
+
+        JSONObject counts = report.getIndicatorData();
+        assertEquals(0, counts.getInt("mm-7"));
+        assertEquals(0, counts.getInt("mm-7-unknown-sex"));
+    }
+
+    @Test
+    public void ignoresDraftAndVoidedDeliveriesForVisitedMothers() throws Exception {
+        primary("mother", "Female", "1997-03-01");
+        deliveryVisit("draft-delivery", "mother", "2026-03-20", "19-03-2026", 0);
+        deliveryVisit("voided-delivery", "mother", "2026-03-21", "19-03-2026", 1);
+        detail("draft-delivery", DBConstants.KEY.MAMA_CHILD_STATUS, "alive");
+        detail("voided-delivery", DBConstants.KEY.MAMA_CHILD_STATUS, "alive");
+        database.execSQL("UPDATE visits SET visit_json = ? WHERE visit_id = 'voided-delivery'",
+                new String[]{"{\"voided\":true}"});
+        motherVisit("follow-up", "mother", "2026-04-17", "repeat", "");
+
+        assertEquals(0, report.getIndicatorData().getInt("mm-7"));
+    }
+
+    private void deliveryVisit(String id, String mother, String visitDate, String birthDate, int processed) {
+        visit(id, mother, visitDate, processed);
+        detail(id, DBConstants.KEY.ATTENDANCE_TYPE, "repeat");
+        detail(id, DBConstants.KEY.MAMA_ENROLLMENT_ID, mother + "-enrollment");
+        detail(id, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, "preterm");
+        detail(id, DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA, birthDate);
+    }
+
+    private void child(String visit, int number, String status, String sex) {
+        detail(visit, MotherMentorDeliveryChildren.observationKey(number, DBConstants.KEY.MAMA_CHILD_STATUS), status);
+        detail(visit, MotherMentorDeliveryChildren.observationKey(number, MotherMentorDeliveryChildren.SEX), sex);
     }
 
     @Test
@@ -298,7 +352,7 @@ public class MotherMentorReportObjectTest {
     }
 
     @Test
-    public void mixedLegacyAndRoleVisitsKeepTheFullTotalAndOnlyKnownLegacySexCounts() throws Exception {
+    public void mixedLegacyAndRoleVisitsShowFullTotalAndUnavailableSexSubtotals() throws Exception {
         roleHouseholdVisit("roles", "[mother, child]", "2", null, null, null, null);
         visit("legacy", "family", "2026-04-15", 1);
         detail("legacy", "purpose_of_visit", "routine");
@@ -306,6 +360,8 @@ public class MotherMentorReportObjectTest {
         detail("legacy", "counselled_female", "3");
         JSONObject counts = report.getIndicatorData();
         assertEquals(8, counts.getInt("mm-15"));
+        assertEquals(8, counts.getInt("mm-15-known-total"));
+        assertEquals(0, counts.getInt("mm-15-missing-records"));
         assertEquals(1, counts.getInt("mm-14"));
         assertEquals("—", counts.getString("mm-15-male-total"));
         assertEquals("—", counts.getString("mm-15-female-total"));

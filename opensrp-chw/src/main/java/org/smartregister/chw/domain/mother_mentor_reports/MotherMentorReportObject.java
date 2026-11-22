@@ -96,13 +96,19 @@ public class MotherMentorReportObject extends ReportObject {
 
     String buildLiveBirthsQuery() {
         String type = Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES;
+        String visitedMothers = "SELECT DISTINCT v.base_entity_id FROM visits v WHERE "
+                + finalizedVisitInMonth(type) + " AND " + notVoided()
+                + " AND " + primaryAt(serviceDate())
+                + " AND " + hasDetail(DBConstants.KEY.ATTENDANCE_TYPE, "d.details IN ('new', 'repeat')");
         String delivery = normalizeDate(detail(DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA));
         String count = detail(MotherMentorDeliveryChildren.COUNT);
         String enrollment = detail(DBConstants.KEY.MAMA_ENROLLMENT_ID);
-        String visits = "WITH ranked AS (SELECT v.*, " + delivery + " AS delivery_date, "
+        // Report months select mothers by visit date. Recorded deliveries can come from other months.
+        String visits = "WITH visited_mothers AS (" + visitedMothers + "), ranked AS (SELECT v.*, "
                 + "row_number() OVER (PARTITION BY v.base_entity_id, coalesce(nullif(" + enrollment + ", ''), "
                 + delivery + ") ORDER BY " + serviceDate() + ", v.visit_date, v.visit_id) AS delivery_row"
-                + " FROM visits v WHERE v.visit_type = '" + type + "' AND v.processed = 1"
+                + " FROM visits v JOIN visited_mothers m ON m.base_entity_id = v.base_entity_id"
+                + " WHERE v.visit_type = '" + type + "' AND v.processed = 1 AND " + notVoided()
                 + " AND " + detail(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME) + " IN ('delivered', 'preterm')"
                 + " AND coalesce(" + detail(DBConstants.KEY.MAMA_CARRIED_DELIVERY) + ", '') <> 'true'"
                 + " AND " + validDate(delivery) + " AND " + delivery + " <= " + serviceDate()
@@ -117,7 +123,7 @@ public class MotherMentorReportObject extends ReportObject {
             }
             births.append("SELECT ").append(detail(MotherMentorDeliveryChildren.observationKey(
                             number, MotherMentorDeliveryChildren.SEX))).append(" AS sex FROM ranked v")
-                    .append(" WHERE v.delivery_row = 1 AND ").append(inMonth("v.delivery_date"))
+                    .append(" WHERE v.delivery_row = 1")
                     .append(" AND ").append(status).append(" IN ('alive', 'deceased')");
             if (number > 1) births.append(" AND CAST(").append(count).append(" AS INTEGER) >= ").append(number);
         }
