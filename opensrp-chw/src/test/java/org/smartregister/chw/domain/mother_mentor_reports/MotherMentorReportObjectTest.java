@@ -875,9 +875,13 @@ public class MotherMentorReportObjectTest {
     }
 
     private void primary(String id, String gender, String dob) {
+        primary(id, gender, dob, "Mother Mentor Enrollment");
+    }
+
+    private void primary(String id, String gender, String dob, String enrollmentEvent) {
         member(id, gender, dob);
         database.execSQL("INSERT INTO ec_mothermentor_enrollment (base_entity_id, is_closed) VALUES (?, 0)", new Object[]{id});
-        event(id, "Mother Mentor Enrollment", "2026-03-01 03:00:00");
+        event(id, enrollmentEvent, "2026-03-01 03:00:00");
     }
 
     private void member(String id, String gender, String dob) {

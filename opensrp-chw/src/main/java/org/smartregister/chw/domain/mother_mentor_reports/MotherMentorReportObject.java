@@ -24,6 +24,10 @@ public class MotherMentorReportObject extends ReportObject {
     private int failedQueries;
     private static final String NOT_CAPTURED = "—";
     private static final String LEGACY_SERVICE = "MotherMentor Services";
+    private static final String PRIMARY_ENROLLMENT_EVENT = "Mother Mentor Enrollment";
+    private static final String[] PRIMARY_ENROLLMENT_EVENTS = {
+        PRIMARY_ENROLLMENT_EVENT, Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT
+    };
     private static final String[] AGE_BANDS = {
         "under-1m", "1-11m", "12-23m", "2-4", "5-9", "10-14", "15-19", "20-24", "25-59", "60-plus"
     };
@@ -457,7 +461,7 @@ public class MotherMentorReportObject extends ReportObject {
         return null;
     }
 
-    private String enrollmentDate(String id, String eventType) {
+    private String enrollmentDate(String id, String... eventTypes) {
         // eventDate can be an ISO timestamp with an offset. Enrollment is a recorded local
         // calendar date; converting to UTC can incorrectly move first-day events to last month.
         String date = "substr(e." + DBConstants.KEY.EVENT_DATE_TIMESTAMP + ", 1, 10)";
@@ -469,22 +473,23 @@ public class MotherMentorReportObject extends ReportObject {
                 + id
                 + " AND e."
                 + DBConstants.KEY.EVENT_TYPE
-                + " = '"
-                + eventType
-                + "' AND "
+                + " IN ('"
+                + android.text.TextUtils.join("', '", eventTypes)
+                + "') AND "
                 + validDate(date)
                 + " AND date(e."
                 + DBConstants.KEY.EVENT_DATE_TIMESTAMP
                 + ") IS NOT NULL)";
     }
 
-    private String primaryAt(String date) {
+    private String primaryAt(String date, String... enrollmentEvents) {
         return "EXISTS (SELECT 1 FROM ec_mothermentor_enrollment e WHERE e."
                 + DBConstants.KEY.BASE_ENTITY_ID
                 + " = v."
                 + DBConstants.KEY.BASE_ENTITY_ID
                 + ") AND "
-                + enrollmentDate("v." + DBConstants.KEY.BASE_ENTITY_ID, "Mother Mentor Enrollment")
+                + enrollmentDate("v." + DBConstants.KEY.BASE_ENTITY_ID,
+                        enrollmentEvents.length == 0 ? new String[]{PRIMARY_ENROLLMENT_EVENT} : enrollmentEvents)
                 + " <= "
                 + date;
     }
