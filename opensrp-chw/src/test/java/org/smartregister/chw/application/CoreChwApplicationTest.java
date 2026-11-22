@@ -9,6 +9,8 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
+import org.smartregister.chw.repository.DelegatingRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.reporting.ReportingLibrary;
@@ -25,6 +27,11 @@ public class CoreChwApplicationTest extends BaseUnitTest {
     @Test
     public void reportingLibraryIsInitialisedOnStart() {
         Assert.assertNotNull(ReportingLibrary.getInstance());
+    }
+
+    @Test
+    public void motherMentorResolvesTheCurrentRepositoryAfterSignIn() {
+        Assert.assertTrue(MotherMentorLibrary.getInstance().getRepository() instanceof DelegatingRepository);
     }
 
     @Test

@@ -20,6 +20,7 @@ public class DelegatingRepositoryTest extends BaseUnitTest {
         SQLiteDatabase initialDatabase = Mockito.mock(SQLiteDatabase.class);
         SQLiteDatabase authenticatedDatabase = Mockito.mock(SQLiteDatabase.class);
         Mockito.when(initialRepository.getWritableDatabase()).thenReturn(initialDatabase);
+        Mockito.when(authenticatedRepository.getReadableDatabase()).thenReturn(authenticatedDatabase);
         Mockito.when(authenticatedRepository.getWritableDatabase()).thenReturn(authenticatedDatabase);
 
         AtomicReference<Repository> currentRepository =
@@ -29,10 +30,12 @@ public class DelegatingRepositoryTest extends BaseUnitTest {
                 org.smartregister.Context.getInstance().session(),
                 currentRepository::get);
 
+        Assert.assertNull(delegatingRepository.getReadableDatabase());
         Assert.assertSame(initialDatabase, delegatingRepository.getWritableDatabase());
 
         currentRepository.set(authenticatedRepository);
 
+        Assert.assertSame(authenticatedDatabase, delegatingRepository.getReadableDatabase());
         Assert.assertSame(authenticatedDatabase, delegatingRepository.getWritableDatabase());
         Mockito.verify(initialRepository).getWritableDatabase();
         Mockito.verify(authenticatedRepository).getWritableDatabase();

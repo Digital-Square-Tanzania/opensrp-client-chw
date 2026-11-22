@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fix opening and saving an existing Mother Mentor service visit after sign-in by using the current database repository (UCSW-91). The local candidate uses Core `2.2.0-MOTHER-MENTOR-ALPHA-50-UCSW-91-LOCAL-MOH-SNAPSHOT`.
+
 ## Mother Mentor Alpha 49 — 2026-11-22
 
 - Show results and receipt dates from Mama Kadi follow-up in visit history. CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-49-MOH-SNAPSHOT` supplies Mother Mentor `0.1.49-SNAPSHOT` and the questions about awaited HEI results. [CHW #1209](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1209)

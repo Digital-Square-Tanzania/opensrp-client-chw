@@ -302,6 +302,7 @@ public class MotherMentorVisitSyncInstrumentedTest {
         observation(observations, FOLLOW_UP_STATUS, "found");
         observation(observations, MOTHERMENTOR_VISIT_DATE, day.toString());
         observation(observations, MAMA_TAREHE_KUJIFUNGUA, dob.toString());
+        observation(observations, COMMENTS, "Original synthetic comment");
         observation(observations, MAMA_ENROLLMENT_ID,
                 MotherMentorMotherVisitDao.getContext(database, mother).getEnrollmentId());
         observation(observations, MotherMentorDeliveryChildren.SECTIONS, "true");
@@ -355,6 +356,9 @@ public class MotherMentorVisitSyncInstrumentedTest {
 
         HistoryEditor reopen = new HistoryEditor(id);
         Map<String, BaseMotherMentorVisitAction> correcting = reopen.load(mother);
+        assertEquals("Original synthetic comment",
+                visitAnswer(correcting, "mothermentor_visit_comment", COMMENTS));
+        setVisitAnswers(correcting, "mothermentor_visit_comment", COMMENTS, "Updated synthetic comment");
         setVisitAnswers(correcting, "mothermentor_visit_child", MAMA_CHILD_STATUS, "alive",
                 MAMA_TAREHE_MTOTO_ALIFARIKI, "", MAMA_BREASTFEEDING_STATUS, "breastfeeding",
                 MAMA_HEI_TEST_DONE, "yes", MAMA_HEI_TEST_TYPE, Stage.SIX_WEEKS.getCode(),
@@ -386,6 +390,11 @@ public class MotherMentorVisitSyncInstrumentedTest {
         Visit corrected = visits.getVisitByVisitId(id);
         assertEquals(submission, corrected.getFormSubmissionId());
         assertTrue(corrected.getProcessed());
+        assertEquals(day, MotherMentorMotherVisitDao.getServiceDate(corrected));
+        Map<String, BaseMotherMentorVisitAction> savedActions = new HistoryEditor(id).load(mother);
+        assertEquals("Updated synthetic comment",
+                visitAnswer(savedActions, "mothermentor_visit_comment", COMMENTS));
+        assertEquals("found", visitAnswer(savedActions, "mothermentor_visit_type", FOLLOW_UP_STATUS));
         assertEquals(1, count(VisitRepository.VISIT_TABLE, BASE_ENTITY_ID, mother));
         assertFalse("A stale editor must reject the now-changed clinical observations", reopen.save(mother, correcting));
         assertEquals(corrected.getJson(), visits.getVisitByVisitId(id).getJson());
@@ -408,6 +417,14 @@ public class MotherMentorVisitSyncInstrumentedTest {
             MotherMentorMotherChildUtils.put(form, answers[i], answers[i + 1]);
         }
         action.setJsonPayload(form.toString());
+    }
+
+    private static String visitAnswer(Map<String, BaseMotherMentorVisitAction> actions,
+            String formName, String key) throws Exception {
+        BaseMotherMentorVisitAction action = actions.values().stream()
+                .filter(candidate -> formName.equals(candidate.getFormName())).findFirst().get();
+        return MotherMentorMotherChildUtils.field(new JSONObject(action.getJsonPayload()), key)
+                .getString("value");
     }
 
     private static final class HistoryEditor extends MotherMentorServiceVisitInteractor
