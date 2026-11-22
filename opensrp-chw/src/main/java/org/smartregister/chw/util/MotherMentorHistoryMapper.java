@@ -15,6 +15,9 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
+import org.smartregister.chw.mothermentor.util.MotherMentorAwaitedResults;
+import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUi;
 import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
@@ -180,7 +183,49 @@ public final class MotherMentorHistoryMapper {
                             + " · " + field.label, answers, field.multiple));
                 }
             }
+            addAwaitedResults(rows, recorded, child);
         }
+    }
+
+    private void addAwaitedResults(List<Row> rows, Map<String, List<VisitDetail>> recorded, int child) {
+        String prefix = MotherMentorDeliveryChildren.label(context, child, "") + " · ";
+        for (Stage stage : Stage.values()) {
+            String received = awaitedValue(recorded, child, stage, MotherMentorAwaitedResults.RECEIVED);
+            if (!"yes".equals(received)) continue;
+            String name = MotherMentorMotherChildUi.label(context, stage);
+            String resultLabel = context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_awaited_result, name);
+            String result = awaitedValue(recorded, child, stage, MotherMentorAwaitedResults.RESULT);
+            String confirmation = awaitedValue(recorded, child, stage, MotherMentorAwaitedResults.CONFIRMATION);
+            addAwaitedOutcome(rows, child, stage, MotherMentorAwaitedResults.RESULT, prefix + resultLabel, result);
+            String confirmationTitle = context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_awaited_confirmation_result);
+            addAwaitedOutcome(rows, child, stage, MotherMentorAwaitedResults.CONFIRMATION,
+                    prefix + (result.isEmpty() ? resultLabel + " · " : "") + confirmationTitle, confirmation);
+            String receipt = awaitedKey(child, stage, MotherMentorAwaitedResults.RECEIPT);
+            List<String> dates = values(new Field(receipt, "", false, true), recorded.get(receipt));
+            if (!dates.isEmpty()) {
+                rows.add(new Row(receipt, prefix + name + " · "
+                        + context.getString(org.smartregister.chw.mothermentor.R.string.mothermentor_awaited_receipt), dates, false));
+            }
+        }
+    }
+
+    private void addAwaitedOutcome(List<Row> rows, int child, Stage stage, String field, String label, String result) {
+        boolean positive = "positive".equals(result);
+        if (!positive && !"negative".equals(result)) return;
+        int text = positive ? org.smartregister.chw.mothermentor.R.string.mothermentor_eid_positive
+                : org.smartregister.chw.mothermentor.R.string.mothermentor_eid_negative;
+        rows.add(new Row(awaitedKey(child, stage, field), label,
+                Collections.singletonList(context.getString(text)), false));
+    }
+
+    private String awaitedValue(Map<String, List<VisitDetail>> recorded, int child, Stage stage, String field) {
+        String key = awaitedKey(child, stage, field);
+        List<String> answers = values(new Field(key, "", false, false), recorded.get(key));
+        return answers.isEmpty() ? "" : answers.get(0);
+    }
+
+    private static String awaitedKey(int child, Stage stage, String field) {
+        return MotherMentorDeliveryChildren.observationKey(child, MotherMentorAwaitedResults.key(stage, field));
     }
 
     private void addHouseholdClosureRows(List<Row> rows, Map<String, List<VisitDetail>> recorded) {

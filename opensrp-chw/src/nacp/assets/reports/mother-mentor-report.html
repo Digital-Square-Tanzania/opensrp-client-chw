@@ -71,13 +71,11 @@
         </thead>
         <tbody id="report_body"></tbody>
     </table>
-    <p class="legend"><span class="legend-swatch" aria-hidden="true"></span> = Haihusiki (N/A). Watoto (Ind. 9-11): WANAUME = Wavulana, WANAWAKE = Wasichana.</p>
+    <p class="legend"><span class="legend-swatch" aria-hidden="true"></span> = Haihusiki (N/A). Watoto (Ind. 7–10): WANAUME = Wavulana, WANAWAKE = Wasichana.</p>
     <p class="legend">— = Haipatikani / Unavailable. 0 = Hakuna / None.</p>
-    <p class="legend">Ziara zilizokamilishwa pekee ndizo zinahesabiwa. Kamilisha ziara kwa “Process visit” kabla ya kufungua ripoti. / Only finalized visits are included. Select “Process visit” before opening the report.</p>
-    <p class="legend">Ind. 3: kuandikishwa Mama Kinara na kuanza ART ndani ya mwezi huu. Ind. 4/18: matokeo ya mwisho ya ufuatiliaji kwa kila mteja ndani ya mwezi. / Enrollment and ART initiation must both occur in the report month; tracing uses the latest outcome that month.</p>
-    <p class="legend">Ind. 6 huhesabu mada kwa kila shughuli. Ind. 14/16/17 hujumlisha idadi zilizorekodiwa kwa shughuli/ziara; mtu anaweza kuhesabiwa tena akihudhuria shughuli nyingine. Mgawanyo wa umri haujakusanywa. / Topics count per activity; attendance/referral aggregates can include repeat participants and have no age breakdown.</p>
-    <p class="legend">Ind. 8: kipimo cha kwanza cha kila aina kwa mwenza katika ujauzito husika; mwezi hutumia tarehe ya ziara ya ufuatiliaji. Jumla huhesabu wenza, si jumla ya vipimo vitatu. / First qualifying test of each type per partner and pregnancy; reporting uses the follow-up visit date. The summary counts partners, not the sum of test rows.</p>
-    <p class="legend">Ind. 11: jumla huhesabu watoto waliounganishwa kufika kituoni kwa kipimo cha miezi 18; matokeo chanya/hasi huhitaji uthibitisho. Matokeo yanayosubiri yanaonyeshwa kando. Ind. 12 huhesabu kila mwenza aliyeelimishwa mara moja kwa mada ndani ya mwezi. / Child linkage totals include recorded pending results; positive/negative rows require confirmed final results. Partner education counts each partner once per topic in the month.</p>
+    <p class="legend">Ziara zilizokamilishwa pekee ndizo zinahesabiwa. / Only finalized visits are included.</p>
+    <p id="counting_notes" class="legend">Ind. 11: tumia matokeo ya tembeleo la mwisho la ufuatiliaji la mwezi kwa kila mteja. Ind. 13: kila mwenza aliyeelimishwa huhesabiwa mara moja kwenye jumla na mara moja kwa kila mada aliyofundishwa. / Indicator 11 uses each client's last follow-up outcome of the month. Indicator 13 counts each educated partner once overall and once per topic taught.</p>
+    <p class="legend">Ind. 16 huhesabu mada kwa kila shughuli. Kwa Ind. 15, 18 na 19, umri haujakusanywa. / Indicator 16 counts topics per activity. Indicators 15, 18 and 19 do not capture ages.</p>
     <p id="coverage_note" class="legend" hidden></p>
     <p id="unclassified_note" class="legend" hidden></p>
     <table class="signatures" aria-label="Uthibitisho wa taarifa">
@@ -89,7 +87,7 @@
     </table>
 </main>
 <script>
-    // Applicability and row labels follow Taarifa ya Mwezi!B8:AA49 in the source workbook.
+    // Applicability and row labels follow the approved Taarifa ya Mwezi indicator order.
     const breakdownColumns = ["total", "male-total", "male-under-1m", "male-1-11m", "male-12-23m", "male-2-4", "male-5-9", "male-10-14", "male-15-19", "male-20-24", "male-25-59", "male-60-plus", "female-total", "female-under-1m", "female-1-11m", "female-12-23m", "female-2-4", "female-5-9", "female-10-14", "female-15-19", "female-20-24", "female-25-59", "female-60-plus"];
     const columns1 = ["total", "male-total", "male-10-14", "male-15-19", "male-20-24", "male-25-59", "male-60-plus", "female-total", "female-10-14", "female-15-19", "female-20-24", "female-25-59", "female-60-plus"];
     const columns2 = ["total"];
@@ -101,45 +99,49 @@
     const columns8 = ["total", "male-total", "male-1-11m"];
     const columns9 = ["total", "female-total", "female-1-11m"];
     const columns10 = ["total", "male-total", "male-1-11m", "male-12-23m", "female-total", "female-1-11m", "female-12-23m"];
-    const columns13 = ["total", "male-total", "male-under-1m", "male-1-11m", "male-12-23m", "male-2-4", "male-5-9", "male-10-14", "male-15-19", "male-20-24", "male-25-59", "male-60-plus", "female-total", "female-under-1m", "female-1-11m", "female-12-23m", "female-2-4", "female-5-9", "female-10-14", "female-15-19", "female-20-24", "female-25-59", "female-60-plus"];
+    const totalsColumns = ["total", "male-total", "female-total"];
+    const birthBoyColumns = ["total", "male-total", "male-under-1m"];
+    const birthGirlColumns = ["total", "female-total", "female-under-1m"];
+    const birthColumns = [...birthBoyColumns, ...birthGirlColumns.slice(1)];
+    const adultColumns = columns1.filter(column => !column.endsWith("-10-14"));
+    const partnerReferralColumns = columns3.filter(column => !column.endsWith("-10-14"));
     const reportRows = [
-        [1, "mm-1", "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya msaada wa kisaikolojia (PSG)", columns1, false],
-        [2, "mm-2", "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya ujasiriamali (IGA) ili kukuza kipato", columns1, false],
-        [3, "mm-3", "Idadi ya wateja wapya wa PMTCT waliounganishwa na Mama Kinara na kuanza kutumia dawa (ART)", columns1, false],
-        [4, "mm-4", "Idadi ya wateja wa PMTCT waliopotea (IIT) na kufuatiliwa na Mama Kinara", columns1, true],
-        ["", "mm-4-returned", "Amerudi", columns1, false],
-        ["", "mm-4-not-found", "Hajapatikana", columns1, false],
-        ["", "mm-4-died", "Amefariki", columns1, false],
-        ["", "mm-4-refused", "Amekataa", columns1, false],
-        [5, "mm-5", "Idadi ya wateja wa PMTCT waliopotea (IIT) na kurudishwa kwenye matibabu na Mama Kinara", columns1, false],
-        [6, "mm-6", "Idadi ya mada za elimu ya afya zilizofundishwa na Mama Kinara kwenye jamii", columns2, false],
-        [7, "mm-7", "Idadi ya wateja wa PMTCT walioelimishwa na Mama Kinara", columns1, false],
-        [8, "mm-8", "Idadi ya wenza waliofuatiliwa na kupewa rufaa ya upimaji", columns3, true],
-        [9, "mm-9", "Idadi ya Watoto waliofuatiliwa kufika kituoni kwa ukusanyaji wa DBS – Umri wa Wiki 6", columns4, true],
-        ["", "mm-9-boys", "Wavulana (Boys)", columns5, false],
-        ["", "mm-9-girls", "Wasichana (Girls)", columns6, false],
-        [10, "mm-10", "Idadi ya Watoto waliofuatiliwa kufika kituoni kwa ukusanyaji wa DBS – Umri wa Miezi 9", columns7, true],
-        ["", "mm-10-boys", "Wavulana (Boys)", columns8, false],
-        ["", "mm-10-girls", "Wasichana (Girls)", columns9, false],
-        [11, "mm-11", "Idadi ya Watoto waliounganishwa na Mama Kinara kupata kipimo cha mwisho cha uthibitisho wa VVU (Miezi 18)", columns10, true],
-        ["", "mm-11-positive", "Chanya (Positive)", columns10, false],
-        ["", "mm-11-negative", "Hasi (Negative)", columns10, false],
-        [12, "mm-12", "Idadi ya wenza wa wajawazito walioelimishwa na Mama Kinara (jamii) kuhusu huduma za kuzuia PMTCT", columns3, true],
-        ["", "mm-12-hiv", "VVU", columns3, false],
-        ["", "mm-12-syphilis", "Kaswende", columns3, false],
-        ["", "mm-12-hepatitis-b", "Homa ya Ini aina B", columns3, false],
-        [13, "mm-13", "Idadi ya kaya za akina mama wanaoishi na VVU zilizotembelewa na Mama Kinara", columns2, false],
-        [14, "mm-14", "Idadi ya wanakaya waliopewa unasihi wakati wa ziara za nyumbani za Mama Kinara", columns13, false],
-        [15, "mm-15", "Idadi ya shughuli za kijamii alizoshiriki Mama Kinara na kutoa elimu ya kuzuia PMTCT", columns2, false],
-        [16, "mm-16", "Idadi ya wateja waliopewa elimu ya kuzuia PMTCT katika shughuli za kijamii za Mama Kinara", columns1, false],
-        [17, "mm-17", "Idadi ya wateja waliopewa rufaa kwenda kituoni kupata huduma za kuzuia PMTCT", columns1, false],
-        [18, "mm-18", "Idadi ya wateja waliopotea kwenye ufuatiliaji (LTFU/IIT) waliofuatiliwa na Mama Kinara", columns1, true],
-        ["", "mm-18-returned", "Amerudi", columns1, false],
-        ["", "mm-18-not-found", "Hajapatikana", columns1, false],
-        ["", "mm-18-died", "Amefariki", columns1, false],
-        ["", "mm-18-transferred", "Amehamishwa", columns1, false],
-        ["", "mm-18-refused", "Amekataa", columns1, false],
-        ["", "mm-live-births", "Idadi ya watoto waliozaliwa hai", ["total", "male-total", "female-total"], false]
+        [1, "mm-1", "Idadi ya wateja wapya waliounganishwa kwenye huduma za Mama Kinara", columns1, false],
+        [2, "mm-2", "Idadi ya wateja wa marudio waliotembelewa na Mama Kinara", columns1, false],
+        [3, "mm-3", "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya msaada wa kisaikolojia (PSG)", columns1, false],
+        [4, "mm-4", "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya ujasiriamali (IGA) ili kukuza kipato", columns1, false],
+        [5, "mm-5", "Idadi ya wateja wa PMTCT walioelimishwa na Mama Kinara", columns1, false],
+        [6, "mm-6", "Idadi ya wateja wa Mama Kinara waliopewa rufaa kwenda kituoni kupata huduma", columns1, false],
+        [7, "mm-7", "Idadi ya watoto waliozaliwa na wanamama wanaoishi na VVU waliofuatiliwa na Mama Kinara", birthColumns, true],
+        ["a", "mm-7-boys", "Wavulana", birthBoyColumns, false],
+        ["b", "mm-7-girls", "Wasichana", birthGirlColumns, false],
+        [8, "mm-8", "Idadi ya Watoto waliofuatiliwa kufika kituoni kwa ukusanyaji wa DBS – Umri wa Wiki 6", columns4, true],
+        ["a", "mm-8-boys", "Wavulana", columns5, false],
+        ["b", "mm-8-girls", "Wasichana", columns6, false],
+        [9, "mm-9", "Idadi ya Watoto waliofuatiliwa kufika kituoni kwa ukusanyaji wa DBS – Umri wa Miezi 9", columns7, true],
+        ["a", "mm-9-boys", "Wavulana", columns8, false],
+        ["b", "mm-9-girls", "Wasichana", columns9, false],
+        [10, "mm-10", "Idadi ya Watoto waliounganishwa na Mama Kinara kupata kipimo cha mwisho cha uthibitisho wa VVU (Miezi 18)", columns10, true],
+        ["a", "mm-10-positive", "Chanya", columns10, false],
+        ["b", "mm-10-negative", "Hasi", columns10, false],
+        [11, "mm-11", "Idadi ya wateja wa PMTCT waliokosa miadi au kupotea (MissApp/IIT) na kufuatiliwa na Mama Kinara", adultColumns, true],
+        ["a", "mm-11-returned", "Amerudi kwenye huduma", adultColumns, false],
+        ["b", "mm-11-agreed", "Amekubali kurudi — bado hajarudi", adultColumns, false],
+        ["c", "mm-11-refused", "Amekataa kurudi", adultColumns, false],
+        ["d", "mm-11-not-found", "Hajapatikana (amesafiri / nyingine)", adultColumns, false],
+        ["e", "mm-11-died", "Amefariki", adultColumns, false],
+        ["f", "mm-11-transferred", "Amehama eneo / amehamia kituo kingine", adultColumns, false],
+        [12, "mm-12", "Idadi ya wenza waliofuatiliwa na kupewa rufaa ya upimaji (wenzi wa wajawazito na wanaonyonyesha waliofuatiliwa na Mama Kinara)", partnerReferralColumns, false],
+        [13, "mm-13", "Idadi ya wenzi wa wajawazito walioelimishwa na Mama Kinara (jamii) kuhusu huduma za PMTCT", columns3, true],
+        ["a", "mm-13-hiv", "VVU", columns3, false],
+        ["b", "mm-13-syphilis", "Kaswende", columns3, false],
+        ["c", "mm-13-hepatitis-b", "Homa ya Ini aina B", columns3, false],
+        [14, "mm-14", "Idadi ya kaya za akina mama wanaoishi na VVU zilizotembelewa na Mama Kinara", columns2, false],
+        [15, "mm-15", "Idadi ya wanakaya waliopewa unasihi wakati wa ziara za nyumbani za Mama Kinara", totalsColumns, false],
+        [16, "mm-16", "Idadi ya mada za elimu ya afya zilizofundishwa na Mama Kinara kwenye jamii", columns2, false],
+        [17, "mm-17", "Idadi ya shughuli za kijamii alizoshiriki Mama Kinara na kutoa elimu ya PMTCT", columns2, false],
+        [18, "mm-18", "Idadi ya wateja waliopewa elimu ya PMTCT katika shughuli za kijamii za Mama Kinara", columns1, false],
+        [19, "mm-19", "Idadi ya wanajamii waliopewa rufaa na Mama Kinara kwenda kituoni kupata huduma za PMTCT wakati wa shughuli za kijamii (uhamasishaji)", totalsColumns, false]
     ];
 
     function renderReportRows() {
@@ -149,7 +151,7 @@
         }
         reportRows.forEach((definition) => {
             const row = document.createElement("tr");
-            row.className = definition[4] ? "summary-row" : (definition[0] === "" ? "sub-row" : "");
+            row.className = definition[4] ? "summary-row" : (typeof definition[0] === "string" ? "sub-row" : "");
             const number = document.createElement("td");
             number.className = "number-cell";
             number.textContent = definition[0];
@@ -196,17 +198,12 @@
                 }
             });
             const coverage = [];
-            [4, 5, 8, 9, 10, 11, 12, 14, 16, 17, 18].forEach((indicator) => {
+            [8, 9, 10, 11, 12, 13, 15, 18, 19].forEach((indicator) => {
                 const missing = values["mm-" + indicator + "-missing-records"];
                 if (missing > 0) coverage.push("Ind. " + indicator + ": rekodi " + missing + " hazina taarifa zote / records missing required data");
             });
-            if (values["mm-14-role-visits"] > 0) coverage.push("Ind. 14: ziara " + values["mm-14-role-visits"] + " zimehesabu washiriki kwa nafasi zao; jumla inapatikana bila mgawanyo kamili wa jinsia au umri / visits counted participants by role; totals have no complete sex or age breakdown");
-            if (values["mm-11-pending-results"] > 0) coverage.push("Ind. 11: watoto " + values["mm-11-pending-results"] + " wanasubiri matokeo ya mwisho / children with final test results recorded as pending");
-            [4, 18].forEach((indicator) => {
-                const other = values["mm-" + indicator + "-other-outcomes"];
-                if (other > 0) coverage.push("Ind. " + indicator + ": wateja " + other + " wana matokeo yasiyo na mstari kwenye fomu / outcomes outside the workbook subrows");
-            });
-            if (values["mm-17-household-referral-visits"] > 0) coverage.push("Ind. 17: rufaa za kaya zimeandikwa bila idadi ya watu; jumla haiwezi kukamilishwa / household referrals do not capture recipient counts");
+            if (values["mm-7-unknown-sex"] > 0) coverage.push("Ind. 7: watoto " + values["mm-7-unknown-sex"] + " hawana jinsia iliyorekodiwa / children without recorded sex");
+            if (values["mm-15-role-visits"] > 0) coverage.push("Ind. 15: ziara " + values["mm-15-role-visits"] + " zimehesabu washiriki kwa nafasi zao / visits counted participants by role");
             if (coverage.length) {
                 const coverageNote = document.getElementById("coverage_note");
                 coverageNote.hidden = false;
@@ -217,7 +214,7 @@
                 error.hidden = false;
                 error.textContent = "Baadhi ya taarifa hazikuweza kusomwa. / Some report data could not be read.";
             }
-            const unclassified = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 18].filter((indicator) => values["mm-" + indicator + "-unclassified"] > 0)
+            const unclassified = [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13].filter((indicator) => values["mm-" + indicator + "-unclassified"] > 0)
                 .map((indicator) => "kiashiria " + indicator + ": " + values["mm-" + indicator + "-unclassified"]);
             if (unclassified.length > 0) {
                 const note = document.getElementById("unclassified_note");

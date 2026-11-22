@@ -280,6 +280,29 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
 
     @Test
     @Config(qualifiers = "sw")
+    public void awaitedResultAndReceiptAppearInsideTheVisitThatRecordedThem() {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        String basis = "mama_child_2_mama_awaited_six_weeks_";
+        add(visit, basis + "received", "yes", "");
+        add(visit, basis + "result", "negative", "");
+        add(visit, basis + "receipt", "2026-11-18", "");
+        add(visit, "mama_child_1_mama_awaited_at_birth_received", "no", "");
+        LinearLayout cards = render(activity(), null, visit);
+
+        assertEquals(1, cards.getChildCount());
+        LinearLayout details = cards.getChildAt(0).findViewById(R.id.visit_details_layout);
+        TextView result = details.findViewWithTag(basis + "result");
+        TextView receipt = details.findViewWithTag(basis + "receipt");
+        assertNotNull(result);
+        assertNotNull(receipt);
+        assertTrue(result.getText().toString().contains("Mtoto wa 2"));
+        assertTrue(result.getText().toString().contains("Hasi"));
+        assertTrue(receipt.getText().toString().contains("Tarehe majibu yalipopokelewa kituoni"));
+        assertNull(details.findViewWithTag("mama_child_1_mama_awaited_at_birth_result"));
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
     public void standaloneResultsAreOrderedWithVisitsAndHaveTheirOwnDatesAndEditLinks() {
         Activity activity = activity();
         LocalDate today = LocalDate.now();

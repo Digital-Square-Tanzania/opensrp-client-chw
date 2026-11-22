@@ -37,6 +37,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.chw.util.MotherMentorProfileResultForm;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.Answers;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherResultEvent.PendingTest;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.contract.BaseMotherMentorVisitContract;
 import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
@@ -53,6 +54,7 @@ import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
 import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
 import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorAwaitedResults;
 import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidReturnVisit;
@@ -201,6 +203,77 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
             completed(child);
         } finally {
             LangUtils.saveLanguage(context, originalLanguage);
+        }
+    }
+
+    @Test
+    public void mamaKadiFollowUpRequiresEachAwaitedResultInTheNativeWizard() throws Exception {
+        String original = LangUtils.getLanguage(context);
+        try {
+            LangUtils.saveLanguage(context, "sw");
+            useLanguage("sw");
+            LocalDate day = LocalDate.now();
+            LocalDate dob = day.minusDays(49);
+            Map<String, BaseMotherMentorVisitAction> actions =
+                    actions(new MotherServiceFixture("breast_feeding", dob.toString()), 10);
+            BaseMotherMentorVisitAction attendance = byForm(actions, "mothermentor_visit_type");
+            withWizard(attendance, activity -> {
+                select(activity, ATTENDANCE_TYPE, "new");
+                save(activity, attendance);
+            });
+            BaseMotherMentorVisitAction child = byForm(actions, "mothermentor_visit_child");
+            JSONObject form = new JSONObject(child.getJsonPayload());
+            java.lang.reflect.Constructor<PendingTest> constructor = PendingTest.class.getDeclaredConstructor(
+                    String.class, Stage.class, LocalDate.class, boolean.class);
+            constructor.setAccessible(true);
+            PendingTest birth = constructor.newInstance("fixture-source", Stage.AT_BIRTH, dob, false);
+            PendingTest routine = constructor.newInstance("fixture-source", Stage.SIX_WEEKS, day.minusDays(5), false);
+            MotherMentorMotherChildUtils.put(form, MAMA_BIRTH_TEST_ANSWERED_DOB, dob.toString("dd-MM-yyyy"));
+            Map<Stage, org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.TestRecord> history = new HashMap<>();
+            history.put(Stage.SIX_WEEKS, new org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.TestRecord(
+                    "pending", routine.getTestDate(), false, routine.getTestDate()));
+            MotherMentorMotherChildUtils.put(form, MAMA_HEI_TEST_HISTORY, MotherMentorMotherChildUtils.serializeTests(history));
+            JSONArray fields = form.getJSONObject("step1").getJSONArray("fields");
+            for (int index = 0; index < fields.length(); index++) {
+                if (MotherMentorAwaitedResults.WORKFLOW.equals(fields.getJSONObject(index).optString("key"))) {
+                    fields.remove(index);
+                    break;
+                }
+            }
+            MotherMentorAwaitedResults.append(context, form, Arrays.asList(birth, routine),
+                    java.util.Collections.emptyMap(), day);
+
+            String birthQuestion = MotherMentorAwaitedResults.key(Stage.AT_BIRTH, MotherMentorAwaitedResults.RECEIVED);
+            String routineQuestion = MotherMentorAwaitedResults.key(Stage.SIX_WEEKS, MotherMentorAwaitedResults.RECEIVED);
+            String result = MotherMentorAwaitedResults.key(Stage.SIX_WEEKS, MotherMentorAwaitedResults.RESULT);
+            String receipt = MotherMentorAwaitedResults.key(Stage.SIX_WEEKS, MotherMentorAwaitedResults.RECEIPT);
+            withWizard(form, activity -> {
+                select(activity, MotherMentorDeliveryChildren.SEX, "female");
+                select(activity, MAMA_CHILD_STATUS, "alive");
+                select(activity, MAMA_BREASTFEEDING_STATUS, "breastfeeding");
+                onMain(() -> {
+                    View root = activity.getWindow().getDecorView();
+                    assertNull(visibleRadio(root, MAMA_BIRTH_TEST_DONE, "yes"));
+                    assertNull(visibleRadio(root, MAMA_HEI_TEST_DONE, "yes"));
+                    assertSaveBlocked(activity, birthQuestion);
+                });
+                select(activity, birthQuestion, "no");
+                onMain(() -> {
+                    assertTrue(showsFollowUpPrompt(activity));
+                    assertSaveBlocked(activity, routineQuestion);
+                });
+                select(activity, routineQuestion, "yes");
+                select(activity, result, "negative");
+                onMain(() -> assertSaveBlocked(activity, receipt));
+                setDate(activity, receipt, day);
+                save(activity, child);
+            });
+            Map<String, String> saved = MotherMentorMotherChildUtils.values(new JSONObject(child.getJsonPayload()));
+            assertEquals("no", saved.get(birthQuestion));
+            assertEquals("negative", saved.get(result));
+            assertEquals(day.toString("dd-MM-yyyy"), saved.get(receipt));
+        } finally {
+            LangUtils.saveLanguage(context, original);
         }
     }
 
@@ -773,7 +846,12 @@ public class MotherMentorVisitInteractorsInstrumentedTest {
 
     private void withWizard(BaseMotherMentorVisitAction action,
             java.util.function.Consumer<MotherMentorVisitWizardActivity> verify) throws Exception {
-        Intent intent = MotherMentorFormWizardUtils.getFormIntent(context, new JSONObject(action.getJsonPayload()));
+        withWizard(new JSONObject(action.getJsonPayload()), verify);
+    }
+
+    private void withWizard(JSONObject form,
+            java.util.function.Consumer<MotherMentorVisitWizardActivity> verify) {
+        Intent intent = MotherMentorFormWizardUtils.getFormIntent(context, form);
         assertEquals(MotherMentorVisitWizardActivity.class.getName(), intent.getComponent().getClassName());
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
