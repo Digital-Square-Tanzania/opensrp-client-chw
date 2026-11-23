@@ -85,7 +85,7 @@
           },
           {
             "key": "addressing_gbv",
-            "text": "Addressing GBV against KVPs",
+            "text": "Addressing GBV against people in MARP groups",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_gbv"
           },
@@ -103,7 +103,7 @@
           },
           {
             "key": "social_support",
-            "text": "Social Support For KVPs",
+            "text": "Social support for people in MARP groups",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "social_support"
           },
@@ -188,7 +188,7 @@
           },
           {
             "key": "addressing_gbv",
-            "text": "Addressing GBV against KVPs",
+            "text": "Addressing GBV against people in MARP groups",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_gbv"
           },
@@ -206,7 +206,7 @@
           },
           {
             "key": "social_support",
-            "text": "Social Support For KVPs",
+            "text": "Social support for people in MARP groups",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "social_support"
           },

@@ -62,7 +62,7 @@ public class KvpPrEPRegisterFragment extends CoreKvpRegisterFragment implements 
 
     @Override
     protected int getTitleString() {
-        return R.string.menu_kvp;
+        return R.string.kvp_clients;
     }
 
     @Override

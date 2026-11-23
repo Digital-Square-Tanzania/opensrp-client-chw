@@ -212,6 +212,21 @@
     <string name="pnc_cord_care">Essential Newborn Care: Cord Care ({0})</string>
 
     <!---KVP/PrEP Strings -->
+    <string name="kvp_prep_registration">MARP/PrEP Enrollment</string>
+    <string name="kvp_registration">MARP Screening</string>
+    <string name="menu_kvp">MARP</string>
+    <string name="menu_kvp_prep">MARP/PrEP</string>
+    <string name="kvp_clients">MARP Clients</string>
+    <string name="return_to_kvp_clients">Return to all MARP Clients</string>
+    <string name="return_to_kvp_prep_clients">@string/return_to_kvp_clients</string>
+    <string name="dominant_kvp_group">Dominant MARP Group: %1$s</string>
+    <string name="other_kvp_groups">Other MARP Groups: %1$s</string>
+    <string name="record_kvp">Provide MARP Service</string>
+    <string name="call_kvp_client">MARP/PrEP Client</string>
+    <string name="kvp">MARP</string>
+    <string name="kvp_client">MARP Client</string>
+    <string name="kvp_positive">MARP positive</string>
+    <string name="view_kvp_test_result">View MARP test results</string>
     <string name="kvp_prep_visit_type">Visit Type</string>
     <string name="kvp_prep_sbcc_services">SBCC Services</string>
     <string name="kvp_prep_preventive_services">Preventive Services</string>
@@ -226,7 +241,7 @@
     <string name="cbhs_last_visit_n_days_ago">Last visit was  %1$s days ago</string>
     <string name="cbhs_visit">CBHS Visits</string>
     <string name="mother_champion_visit_title">Mother Champion Visit {0}: {1}</string>
-    <string name="kvp_visit_title">KVP Visit {0}: {1}</string>
+    <string name="kvp_visit_title">MARP Visit {0}: {1}</string>
     <string name="mother_champion_type_of_service">Type of Service:</string>
     <string name="mother_champion_linked_to_psychosocial_group">Linked to Psychosocial Group:</string>
     <string name="mother_champion_counselling_given">Counselling Given:</string>
@@ -494,10 +509,10 @@
 
 
     <!--    KVP Community-->
-    <string name="kvp_visit">KVP Visits</string>
+    <string name="kvp_visit">MARP Visits</string>
     <string name="ayp_visit">AYP Visits</string>
     <string name="kvp_visit_type">Visit Type:</string>
-    <string name="kvp_prep_followup_visit">Kvp PrEP Follow-up Visit</string>
+    <string name="kvp_prep_followup_visit">MARP/PrEP Follow-up Visit</string>
     <string name="ayp_followup_visit">Ayp Service Provision</string>
     <string name="kvp_client_hiv_status">Client\'s HIV status:</string>
     <string name="new_visit">New Visit</string>
@@ -548,10 +563,10 @@
     <string name="income_generation_activities">Income Generation Activities (IGA)</string>
     <string name="addressing_stigma_and_discrimination">Addressing Stigma and Discrimination</string>
     <string name="child_protection">Child Protection</string>
-    <string name="addressing_gbv">Addressing GBV against KVPs</string>
+    <string name="addressing_gbv">Addressing GBV against people in MARP groups</string>
     <string name="startup_kits">Startup Kits</string>
     <string name="legal_support">Legal Aid Support</string>
-    <string name="social_support">Social Support For KVPs</string>
+    <string name="social_support">Social support for people in MARP groups</string>
     <string name="chk_others">Other</string>
     <string name="chk_none">None</string>
     <string name="kvp_sbcc_services_offered">SBCC Topics Provided</string>
@@ -910,7 +925,7 @@
     <string name="education_on_income_generation_activities">Education on Income Generation Activities (IGA)</string>
     <string name="flyers_on_income_generation_activities">Provided Flyers on Income Generation Activities (IGA)</string>
     <string name="community_empowerment">Community Empowerment</string>
-    <string name="education_on_addressing_gbv">Education Addressing GBV against KVPs</string>
+    <string name="education_on_addressing_gbv">Education on addressing GBV against people in MARP groups</string>
     <string name="provision_of_business_skills">Provision of Entrepreneurship and Business skills</string>
     <string name="last_restock_date">Last restock date on: %s</string>
     <string name="restock_history">Restock History</string>
@@ -1072,9 +1087,9 @@
     <string name="cecap_reports_title">Reproductive Cancers Report</string>
     <string name="cecap_other_reports_title">Reproductive Cancers Other Report</string>
     <string name="cecap_reports_subtitle">View Reproductive Cancers Report</string>
-    <string name="kvp_reports_title">KVP Report</string>
-    <string name="kvp_reports">KVP REPORTS</string>
-    <string name="kvp_reports_subtitle">View Reports For KVP</string>
+    <string name="kvp_reports_title">MARP Report</string>
+    <string name="kvp_reports">MARP Reports</string>
+    <string name="kvp_reports_subtitle">View MARP reports</string>
     <string name="ayp_out_school_reports">Ayp Out School REPORTS</string>
     <string name="ayp_out_school_reports_subtitle">View Reports For Ayp Out School</string>
 

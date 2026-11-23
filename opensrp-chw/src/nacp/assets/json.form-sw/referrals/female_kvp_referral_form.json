@@ -54,7 +54,7 @@
   },
   "steps": [
     {
-      "title": "Huduma rafiki kwa makundi maalum",
+      "title": "Rufaa kwa huduma za MARP",
       "fields": [
         {
           "name": "problem",
@@ -150,7 +150,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify reason for KVP services referral",
+          "required_status": "yes:Tafadhali eleza sababu ya rufaa kwa huduma za MARP",
           "dependent_calculations": [
             "referral_date",
             "referral_time",

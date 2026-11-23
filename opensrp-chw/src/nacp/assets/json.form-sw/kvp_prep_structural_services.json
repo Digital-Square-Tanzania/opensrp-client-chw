@@ -85,7 +85,7 @@
           },
           {
             "key": "education_on_addressing_gbv",
-            "text": "Elimu ya ukatili wa kijinsia dhidi ya makundi maalum",
+            "text": "Elimu ya kukabiliana na ukatili wa kijinsia dhidi ya watu katika makundi ya MARP",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_addressing_gbv"
           },

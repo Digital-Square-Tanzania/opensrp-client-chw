@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Use MARP wording in the Afya Jamii MARP/PrEP drawer, client screens, enrollment, services, and referrals in English and Kiswahili. [CHW #1229](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1229) (UCSW-97).
+- Display MARP/PrEP on enrolled All Clients rows in English and Kiswahili. [CHW #1229](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1229) (UCSW-97).
+
 ## Mother Mentor Alpha 53 integration candidate — 2026-11-22
 
 - Resolve the authenticated repository when Mother Mentor opens a service visit. Use CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-53-UCSW-92-ENTRY-INTEGRATION-MOH-SNAPSHOT` to retain the first-visit delivery assessment for both feeding choices in NACP Beta.10 (UCSW-91 and UCSW-92).
