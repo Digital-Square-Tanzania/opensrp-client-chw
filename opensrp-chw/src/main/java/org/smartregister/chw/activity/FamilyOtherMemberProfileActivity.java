@@ -39,7 +39,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.R;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
@@ -117,8 +116,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         AllClientsUtils.updateOptionsMenu(menu, commonPersonObject);
-        AllClientsUtils.addMotherMentorMenuItem(menu, baseEntityId);
-        AllClientsUtils.addMotherMentorIitMenuItem(menu, ChwApplication.getApplicationFlavor().hasMotherMentor());
+        AllClientsUtils.addMotherMentorMenuItem(menu, commonPersonObject);
         try {
             int count = headedFamilies != null ? headedFamilies.size() : 0;
 

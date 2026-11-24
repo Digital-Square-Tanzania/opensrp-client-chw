@@ -457,8 +457,7 @@ public class HpsMemberProfileActivity extends CoreHpsProfileActivity implements 
     }
 
     private boolean canAccessMotherMentorServices() {
-        return ChwApplication.getApplicationFlavor().hasMotherMentor()
-                && "Female".equalsIgnoreCase(memberObject.getGender());
+        return AllClientsUtils.canOfferMotherMentorEnrollment(memberObject.getGender(), memberObject.getAge());
     }
 
     @Override
