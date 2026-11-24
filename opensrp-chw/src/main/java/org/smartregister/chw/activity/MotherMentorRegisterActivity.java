@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.Menu;
 
 import androidx.annotation.MenuRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -17,8 +18,6 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
-import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
-import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdEligibilityDao;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,9 +30,12 @@ import org.smartregister.chw.fragment.MotherMentorContactRegisterFragment;
 import org.smartregister.chw.fragment.MotherMentorMobilizationFragment;
 import org.smartregister.chw.fragment.MotherMentorRegisterFragment;
 import org.smartregister.chw.fragment.MotherMentorSecondaryEnrollmentsFragment;
+import org.smartregister.chw.mothermentor.dao.MotherMentorHouseholdEligibilityDao;
 import org.smartregister.chw.mothermentor.repository.MotherMentorReportingRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils;
 import org.smartregister.chw.util.LocalDayRegisterRefresh;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.clientandeventmodel.Event;
@@ -111,8 +113,7 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             org.smartregister.chw.mothermentor.util.Constants.TABLES
                     .MAMA_KINARA_HOUSEHOLD_ENROLMENT;
     private static final String CONSENT_YES = "ndiyo";
-    private static final String CHILD_OVER_18_MONTHS_MESSAGE =
-            "Mother not enrolled — child is over 18 months of follow-up";
+    private static final String PREGNANCY_STATUS_SELECTION = "pregnancy_status_selection";
 
 
     public static void startRegistration(
@@ -320,8 +321,7 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
-                if (isMotherMentorEnrollment(form) && !isEligibleMother(form)) {
-                    displayToast(CHILD_OVER_18_MONTHS_MESSAGE);
+                if (isMotherMentorEnrollment(form) && !validateMotherEnrollment(form)) {
                     return;
                 }
                 if (EVENT_MAMA_KINARA_HOUSEHOLD_ENROLMENT.equals(
@@ -387,12 +387,40 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
                 || Constants.EVENT_TYPE.MOTHER_MENTOR_ENROLLMENT.equals(encounterType);
     }
 
-    private boolean isEligibleMother(JSONObject form) {
-        return MotherMentorEligibility.isEligibleMother(
+    private boolean validateMotherEnrollment(JSONObject form) {
+        int error = motherEnrollmentError(form, LocalDate.now());
+        if (error == 0) return true;
+        if (error == R.string.mothermentor_enrollment_child_over_age) {
+            new AlertDialog.Builder(this)
+                    .setMessage(error)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> finish())
+                    .setOnCancelListener(dialog -> finish())
+                    .show();
+        } else {
+            displayToast(getString(error));
+        }
+        return false;
+    }
+
+    static int motherEnrollmentError(JSONObject form, LocalDate today) {
+        String status = org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
+                form, PREGNANCY_STATUS_SELECTION);
+        if (status.isEmpty()) {
+            status = MotherMentorMotherPregnancyUtils.normalizeStatus(
+                    org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
+                            form, DBConstants.KEY.PREGNANCY_STATUS));
+        }
+        if ("pregnant".equals(status)) return 0;
+
+        LocalDate birthDate = MotherMentorMotherPregnancyUtils.parseDate(
                 org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
-                        form, DBConstants.KEY.PREGNANCY_STATUS),
-                org.smartregister.chw.mothermentor.util.JsonFormUtils.getValue(
-                        form, DBConstants.KEY.CHILD_DOB), LocalDate.now());
+                        form, DBConstants.KEY.CHILD_DOB));
+        if (!("not_pregnant".equals(status) || "breast_feeding".equals(status))
+                || birthDate == null || birthDate.isAfter(today)) {
+            return org.smartregister.chw.mothermentor.R.string.error_unable_to_save_form;
+        }
+        return MotherMentorEligibility.isWithinChildEnrollmentAge(birthDate, today)
+                ? 0 : R.string.mothermentor_enrollment_child_over_age;
     }
 
     private boolean saveHouseholdEnrollment(JSONObject form) throws Exception {

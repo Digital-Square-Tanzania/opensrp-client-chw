@@ -17,17 +17,18 @@ import static org.junit.Assert.*;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = android.app.Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorChildEidFormUtilsTest {
-    @Test public void eligibilityExcludesEighteenthMonthBirthdayAndAllowsNewborns() {
-        LocalDate today = new LocalDate(2026, 10, 16);
-        assertTrue(MotherMentorChildEidFormUtils.isEligibleChildOn("2026-10-16", today));
-        assertTrue(MotherMentorChildEidFormUtils.isEligibleChildOn("2025-04-17T00:00:00.000+03:00", today));
-        assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn("2025-04-16", today));
-        assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn("2026-10-17", today));
+    @Test public void linkingIncludesNineteenMonthAnniversaryAndAllowsNewborns() {
+        LocalDate today = new LocalDate(2026, 11, 24);
+        assertTrue(MotherMentorChildEidFormUtils.isEligibleChildOn("2026-11-24", today));
+        assertTrue(MotherMentorChildEidFormUtils.isEligibleChildOn("2025-04-25T00:00:00.000+03:00", today));
+        assertTrue(MotherMentorChildEidFormUtils.isEligibleChildOn("2025-04-24T00:00:00.000+03:00", today));
+        assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn("2025-04-23", today));
+        assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn("2024-11-24", today));
+        assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn("2026-11-25", today));
         assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn(null, today));
         assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn("2026-02-31", today));
-        // August 31 reaches its 18-month anniversary on February 28.
-        assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn("2024-08-31", new LocalDate(2026, 2, 28)));
-        assertTrue(MotherMentorChildEidFormUtils.isEligibleChildOn("2024-08-31", new LocalDate(2026, 2, 27)));
+        assertTrue(MotherMentorChildEidFormUtils.isEligibleChildOn("2024-07-31", new LocalDate(2026, 2, 28)));
+        assertFalse(MotherMentorChildEidFormUtils.isEligibleChildOn("2024-07-31", new LocalDate(2026, 3, 1)));
     }
 
     @Test public void estimatedBirthdatesCannotEstablishEligibility() {
@@ -50,7 +51,7 @@ public class MotherMentorChildEidFormUtilsTest {
     @Test public void registrationRequiresDobAndRetainsBothSexesInBothLocales() throws Exception {
         for (String locale : new String[]{"json.form", "json.form-sw"}) {
             JSONObject form = MotherMentorTestAssets.form(locale, "all_clients_registration_form.json");
-            MotherMentorChildEidFormUtils.configureNewClientForm(form, "Child must be younger than 18 months");
+            MotherMentorChildEidFormUtils.configureNewClientForm(form, "Enter the child's date of birth");
             assertEquals("today", field(form, "dob").getString("max_date"));
             String minimum = field(form, "dob").getString("min_date");
             LocalDate earliest = LocalDate.parse(minimum, org.joda.time.format.DateTimeFormat.forPattern("dd-MM-yyyy"));
@@ -84,7 +85,7 @@ public class MotherMentorChildEidFormUtilsTest {
     @Test
     public void missingAndIneligibleDeliveryDatesLeaveManualEntryAvailable() throws Exception {
         for (LocalDate delivery : new LocalDate[] {null, LocalDate.now().plusDays(1),
-                LocalDate.now().minusMonths(19)}) {
+                LocalDate.now().minusMonths(19).minusDays(1)}) {
             JSONObject form = MotherMentorTestAssets.form("json.form", "all_clients_registration_form.json");
             MotherMentorChildEidFormUtils.configureNewClientForm(form, "Invalid age", delivery);
             assertEquals("", field(form, "dob").optString("value"));

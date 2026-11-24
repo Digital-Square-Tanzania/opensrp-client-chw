@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -26,11 +27,13 @@ public final class MotherMentorChildEidFormUtils {
     }
 
     static boolean isEligibleChildOn(String dob, LocalDate today) {
-        return isUnderMonths(dob, today, 18);
+        return MotherMentorEligibility.isWithinChildEnrollmentAge(clientBirthDate(dob), today);
     }
 
     public static boolean isEligibleForDirectEnrollment(String dob, String approximate, LocalDate today) {
-        return hasExactBirthDate(approximate) && isUnderMonths(dob, today, 24);
+        LocalDate birthDate = clientBirthDate(dob);
+        return hasExactBirthDate(approximate) && birthDate != null && !birthDate.isAfter(today)
+                && today.isBefore(birthDate.plusMonths(24));
     }
 
     private static boolean hasExactBirthDate(String approximate) {
@@ -38,13 +41,12 @@ public final class MotherMentorChildEidFormUtils {
                 && !DBConstants.KEY.DOB_UNKNOWN.equalsIgnoreCase(approximate);
     }
 
-    private static boolean isUnderMonths(String dob, LocalDate today, int months) {
-        if (dob == null || dob.length() < 10) return false;
+    private static LocalDate clientBirthDate(String dob) {
+        if (dob == null || dob.length() < 10) return null;
         try {
-            LocalDate birthDate = LocalDate.parse(dob.substring(0, 10));
-            return !birthDate.isAfter(today) && today.isBefore(birthDate.plusMonths(months));
+            return LocalDate.parse(dob.substring(0, 10));
         } catch (IllegalArgumentException e) {
-            return false;
+            return null;
         }
     }
 
@@ -56,20 +58,17 @@ public final class MotherMentorChildEidFormUtils {
     public static void configureNewClientForm(JSONObject form, String ageError, LocalDate delivery)
             throws JSONException {
         LocalDate today = LocalDate.now();
-        LocalDate earliestBirthDate = today.minusMonths(18).plusDays(1);
-        while (!isEligibleChildOn(earliestBirthDate.toString(), today)) {
-            earliestBirthDate = earliestBirthDate.plusDays(1);
-        }
+        LocalDate earliestBirthDate = MotherMentorEligibility.earliestEligibleChildBirthDate(today);
         JSONObject dob = field(form, DBConstants.KEY.DOB);
         dob.put("min_date", earliestBirthDate.toString("dd-MM-yyyy"));
         dob.put("max_date", "today");
         dob.remove("relevance");
         dob.put("v_required", new JSONObject().put("value", true).put("err", ageError));
         if (dob.optString("value").trim().isEmpty()
-                && delivery != null && isEligibleChildOn(delivery.toString(), today)) {
+                && MotherMentorEligibility.isWithinChildEnrollmentAge(delivery, today)) {
             dob.put("value", delivery.toString("dd-MM-yyyy"));
         }
-        // An age rounded to years cannot establish the under-18-month boundary.
+        // Linking requires an exact birth date for the 19-month boundary.
         JSONObject unknown = field(form, DBConstants.KEY.DOB_UNKNOWN);
         unknown.put("type", "hidden");
         unknown.put("value", "false");

@@ -13,6 +13,9 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.joda.time.LocalDate;
+import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
+import org.smartregister.chw.util.MotherMentorTestAssets;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.*;
 
@@ -45,11 +48,13 @@ public class MotherMentorChildEidRepositoryTest {
         assertEquals(Arrays.asList("household", "legacy"), ids(repository.candidates("mother", "family", true)));
         assertEquals(Arrays.asList("household", "legacy", "other"), ids(repository.candidates("mother", "family", false)));
     }
-    @Test public void candidatesAllowBothSexesButExcludeEighteenMonthsFutureUnknownAndApproximateDob() {
+    @Test public void candidatesIncludeTheAgeBoundaryAndExcludeOlderFutureUnknownAndApproximateDob() {
         add("female", "family", 0); add("too-old", "family", 0); add("future", "family", 0);
         add("unknown", "family", 0); add("invalid", "family", 0); add("approximate", "family", 0);
+        LocalDate earliest = MotherMentorEligibility.earliestEligibleChildBirthDate(LocalDate.now());
         db.execSQL("UPDATE ec_family_member SET gender='Female' WHERE base_entity_id='female'");
-        db.execSQL("UPDATE ec_family_member SET dob=? WHERE base_entity_id='too-old'", new Object[]{org.joda.time.LocalDate.now().minusMonths(18).toString()});
+        db.execSQL("UPDATE ec_family_member SET dob=? WHERE base_entity_id='female'", new Object[]{earliest.toString()});
+        db.execSQL("UPDATE ec_family_member SET dob=? WHERE base_entity_id='too-old'", new Object[]{earliest.minusDays(1).toString()});
         db.execSQL("UPDATE ec_family_member SET dob=? WHERE base_entity_id='future'", new Object[]{org.joda.time.LocalDate.now().plusDays(1).toString()});
         db.execSQL("UPDATE ec_family_member SET dob=NULL WHERE base_entity_id='unknown'");
         db.execSQL("UPDATE ec_family_member SET dob='2026-02-31' WHERE base_entity_id='invalid'");
@@ -81,13 +86,21 @@ public class MotherMentorChildEidRepositoryTest {
         db.execSQL("UPDATE ec_family_member SET gender='Female' WHERE base_entity_id='other'");
         assertTrue(repository.canEnrollChild("other"));
         db.execSQL("UPDATE ec_family_member SET dob=? WHERE base_entity_id='other'",
-                new Object[]{org.joda.time.LocalDate.now().minusMonths(18).toString()});
+                new Object[]{LocalDate.now().minusMonths(19).minusDays(1).toString()});
         assertFalse(repository.canEnrollChild("other"));
     }
     @Test(expected = IllegalArgumentException.class) public void savingRechecksAgeAfterSelection() throws Exception {
         db.execSQL("UPDATE ec_family_member SET dob=? WHERE base_entity_id='household'",
-                new Object[]{org.joda.time.LocalDate.now().minusMonths(18).toString()});
+                new Object[]{LocalDate.now().minusMonths(19).minusDays(1).toString()});
         repository.save(null, "mother", "household", null);
+    }
+    @Test public void theOldestEligibleChildCanOpenTheLinkForm() throws Exception {
+        LocalDate earliest = MotherMentorEligibility.earliestEligibleChildBirthDate(LocalDate.now());
+        db.execSQL("UPDATE ec_family_member SET dob=? WHERE base_entity_id='household'",
+                new Object[]{earliest.toString()});
+        assertEquals("household", repository.prepareForm(
+                MotherMentorTestAssets.form("json.form", "mothermentor_enroll_child_eid.json"),
+                "mother", "household").getString("entity_id"));
     }
     @Test public void newLinkImmediatelyRemovesCandidate() {
         db.execSQL("UPDATE ec_mothermentor_enroll_child_eid SET mother_base_entity_id = 'mother' WHERE base_entity_id = 'legacy'");
