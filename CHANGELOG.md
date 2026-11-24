@@ -3,6 +3,7 @@
 ## Mother Mentor Alpha 55 integration candidate — 2026-11-24
 
 - Apply the profile death action to the correct household member after a Mother Mentor death visit. Hide the deceased row's due dot and service entry while preserving visit history. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-55-UCSW-129-HOUSEHOLD-DEATH-STATUS-MOH-SNAPSHOT`. [CHW #1238](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1238)
+- Exclude removed household members from the Members list when their death date is recorded. Keep the child's closed Mtoto EID record and visit history available. [CHW #1238](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1238)
 
 ## Mother Mentor Alpha 54 integration candidate — 2026-11-24
 
