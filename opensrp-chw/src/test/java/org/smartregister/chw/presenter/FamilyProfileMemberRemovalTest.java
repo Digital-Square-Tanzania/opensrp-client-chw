@@ -2,6 +2,8 @@ package org.smartregister.chw.presenter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
 import android.app.Application;
 import android.database.Cursor;
@@ -19,7 +21,8 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 public class FamilyProfileMemberRemovalTest {
     @Test
     public void membersAndCountExcludeBothRecordedAndProfileDeaths() {
-        FamilyProfileMemberModel model = new FamilyProfileMemberModel();
+        FamilyProfileMemberModel model = spy(new FamilyProfileMemberModel());
+        doReturn(null).when(model).defaultRegisterConfiguration();
         FamilyProfileMemberPresenter presenter =
                 new FamilyProfileMemberPresenter(null, model, null, "household", "mother", null);
         String condition = presenter.getMainCondition();
