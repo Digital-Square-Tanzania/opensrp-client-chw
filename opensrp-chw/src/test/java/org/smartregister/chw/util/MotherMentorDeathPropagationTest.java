@@ -16,6 +16,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.mothermentor.dao.MotherMentorChildEidDao;
 import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.util.DBConstants.KEY;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.domain.Event;
 import org.smartregister.util.JsonFormUtils;
@@ -73,7 +74,8 @@ public class MotherMentorDeathPropagationTest {
                 + "\",\"baseEntityId\":\"child\",\"formSubmissionId\":\"synthetic-visit\","
                 + "\"obs\":[{\"fieldCode\":\"follow_up_status\",\"values\":[\"" + status + "\"]},"
                 + "{\"fieldCode\":\"mama_child_status\",\"values\":[\"" + childStatus + "\"]},"
-                + "{\"fieldCode\":\"mtoto_tarehe_alifariki\",\"values\":[\"02-06-2025\"]}]}";
+                + "{\"fieldCode\":\"" + KEY.MAMA_TAREHE_MTOTO_ALIFARIKI
+                + "\",\"values\":[\"02-06-2025\"]}]}";
         return JsonFormUtils.gson.fromJson(json, Event.class);
     }
 }
