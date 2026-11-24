@@ -74,9 +74,7 @@ public class MotherMentorIitRegisterProvider extends MotherMentorFollowUpRegiste
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.metadata.setText(metadata);
         } else {
-            String status = MotherMentorIitText.returnState(context, state);
-            String counters = MotherMentorIitText.counters(context, state);
-            holder.metadata.setText(counters.isEmpty() ? status : status + " · " + counters);
+            holder.metadata.setText(MotherMentorIitText.returnState(context, state));
         }
         holder.pregnancy.setText(MotherMentorIitText.missedAppointment(context,
                 state.getMissedAppointmentDate(), LocalDate.now()));
