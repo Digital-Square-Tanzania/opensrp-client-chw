@@ -381,14 +381,61 @@ public class MotherMentorMotherClosureUiTest extends BaseUnitTest {
     }
 
     @Test
-    public void childSuccessAndStrikeOutcomesFinalizeWithoutAConfirmation() {
+    public void childSuccessOutcomesFinalizeWithoutAConfirmation() {
         for (MotherMentorChildEidExit exit : new MotherMentorChildEidExit[] {
-                MotherMentorChildEidExit.E1, MotherMentorChildEidExit.E2,
-                MotherMentorChildEidExit.E8, MotherMentorChildEidExit.E9, MotherMentorChildEidExit.E10}) {
+                MotherMentorChildEidExit.E1, MotherMentorChildEidExit.E2}) {
             ConfirmationVisitActivity activity = childVisit(exit);
+            AlertDialog previous = (AlertDialog) ShadowAlertDialog.getLatestDialog();
             activity.submitVisit();
+            assertSame(previous, ShadowAlertDialog.getLatestDialog());
             verify(activity.submitter).submitVisit();
         }
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void childStrikeExitsWaitForReasonOnlyConfirmation() {
+        LangUtils.saveLanguage(RuntimeEnvironment.getApplication(), "en");
+        checkChildStrikeExit(MotherMentorChildEidExit.E8, "Caregiver refused.");
+        checkChildStrikeExit(MotherMentorChildEidExit.E9, "Agreed but did not attend");
+        checkChildStrikeExit(MotherMentorChildEidExit.E10, "Not found — Other.");
+    }
+
+    private void checkChildStrikeExit(MotherMentorChildEidExit exit, String reason) {
+        ConfirmationVisitActivity activity = childVisit(exit);
+        BaseMotherMentorVisitAction answer = mock(BaseMotherMentorVisitAction.class);
+        when(answer.getJsonPayload()).thenReturn("staged child follow-up answers");
+        activity.answer(answer);
+
+        activity.submitVisit();
+        AlertDialog dialog = (AlertDialog) ShadowAlertDialog.getLatestDialog();
+        assertTrue(dialog.isShowing());
+        assertEquals("This record will close after saving. Reason: " + reason,
+                ((TextView) dialog.findViewById(android.R.id.message)).getText().toString());
+        assertEquals("Cancel", dialog.getButton(AlertDialog.BUTTON_NEGATIVE).getText().toString());
+        assertEquals("Save and close", dialog.getButton(AlertDialog.BUTTON_POSITIVE).getText().toString());
+        verifyNoInteractions(activity.submitter);
+        activity.submitVisit();
+        assertSame(dialog, ShadowAlertDialog.getLatestDialog());
+
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick();
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        verifyNoInteractions(activity.submitter);
+        assertTrue(activity.submitButton().isEnabled());
+        assertSame(answer, activity.getMotherMentorVisitActions().get("entry"));
+        assertEquals("staged child follow-up answers", answer.getJsonPayload());
+        verify(answer, never()).setJsonPayload(anyString());
+
+        activity.submitVisit();
+        AlertDialog retry = (AlertDialog) ShadowAlertDialog.getLatestDialog();
+        assertNotSame(dialog, retry);
+        verifyNoInteractions(activity.submitter);
+        retry.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+        retry.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        activity.submitVisit();
+        verify(activity.submitter).submitVisit();
+        verifyNoMoreInteractions(activity.submitter);
     }
 
     private ConfirmationVisitActivity childVisit(MotherMentorChildEidExit exit) {

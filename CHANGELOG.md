@@ -4,6 +4,7 @@
 
 - Exclude removed household members from the Members list when their death date is recorded. Keep the child's closed Mtoto EID record and visit history available. [CHW #1238](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1238)
 - Confirm before saving a third consecutive event that closes a Kaya, Mtoto EID, Mwenzi, or Mama IIT record. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-57-UCSW-131-THIRD-EVENT-SAVE-CONFIRMATION-MOH-SNAPSHOT`. [CHW #1240](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1240)
+- Verify direct saves for successful Mtoto EID exits and reason-only confirmation for third-strike exits. [CHW #1240](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1240)
 
 ## Mother Mentor Alpha 56 integration candidate — 2026-11-24
 
