@@ -1,5 +1,16 @@
 # Changelog
 
+## Mother Mentor Alpha 55 integration candidate — 2026-11-24
+
+- Apply the profile death action to the correct household member after a Mother
+  Mentor death visit. Hide the deceased row's due dot and service entry while
+  preserving visit history. Use Core
+  `2.2.0-MOTHER-MENTOR-ALPHA-55-UCSW-129-HOUSEHOLD-DEATH-STATUS-MOH-SNAPSHOT` .
+  [CHW #1238][m8]
+- Exclude removed household members from the Members list when their death date
+  is recorded. Keep the child's closed Mtoto EID record and visit history
+  available. [CHW #1238][m8]
+
 ## Mother Mentor Alpha 54 integration candidate — 2026-11-24
 
 - Apply the inclusive 19-month child age limit when saving a new Not pregnant
@@ -11,6 +22,7 @@
 
 [m6]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1236
 [m7]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1237
+[m8]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1238
 
 ## Mother Mentor Alpha 53 integration candidate — 2026-11-22
 

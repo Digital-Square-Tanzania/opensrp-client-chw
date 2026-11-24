@@ -42,20 +42,20 @@ public final class MarkClientAsDeceasedHelper {
                                       String firstName, String middleName, String lastName,
                                       String gender, String dateOfDeath) throws Exception {
         markAsDeceased(context, baseEntityId, firstName, middleName, lastName, gender,
-                dateOfDeath, false);
+                dateOfDeath, false, null);
     }
 
     public static void markChildAsDeceased(Context context, String baseEntityId,
                                            String firstName, String middleName, String lastName,
                                            String gender, String dateOfDeath) throws Exception {
         markAsDeceased(context, baseEntityId, firstName, middleName, lastName, gender,
-                dateOfDeath, true);
+                dateOfDeath, true, null);
     }
 
-    private static void markAsDeceased(Context context, String baseEntityId,
-                                       String firstName, String middleName, String lastName,
-                                       String gender, String dateOfDeath,
-                                       boolean child) throws Exception {
+    static void markAsDeceased(Context context, String baseEntityId,
+                               String firstName, String middleName, String lastName,
+                               String gender, String dateOfDeath,
+                               boolean child, String sourceRemovalId) throws Exception {
         if (StringUtils.isBlank(baseEntityId)) {
             throw new IllegalArgumentException("Client is required");
         }
@@ -81,10 +81,10 @@ public final class MarkClientAsDeceasedHelper {
         populateForm(form, firstName, middleName, lastName, gender,
                 normalizedDateOfBirth, normalizedDateOfDeath);
 
-        String eventType = Utils.removeUser(
-                null,
-                form,
-                Utils.context().allSharedPreferences().fetchRegisteredANM());
+        String providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
+        String eventType = sourceRemovalId == null
+                ? Utils.removeUser(null, form, providerId)
+                : Utils.removeUser(null, form, providerId, sourceRemovalId);
         if (!expectedEventType.equalsIgnoreCase(eventType)) {
             throw new IllegalStateException("Mark as Deceased did not create " + expectedEventType);
         }
