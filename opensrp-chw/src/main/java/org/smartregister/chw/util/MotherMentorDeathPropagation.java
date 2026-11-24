@@ -14,6 +14,7 @@ import org.smartregister.chw.mothermentor.repository.MotherMentorMotherDeliveryR
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants.KEY;
 import org.smartregister.chw.mothermentor.util.MotherMentorDeceasedVisitUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
@@ -30,10 +31,9 @@ public final class MotherMentorDeathPropagation {
 
     public static void process(Context context, Event event) throws Exception {
         String type = event.getEventType();
-        boolean maternal = MotherMentorMotherDeliveryRepository.isMotherEvent(event);
+        boolean services = Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(type);
         boolean childEid = MotherMentorFollowUpType.CHILD_EID.getEventType().equals(type);
-        if (!maternal && !childEid
-                && !Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(type)
+        if (!services && !childEid
                 && !Constants.EVENT_TYPE.MOTHER_MENTOR_RECORD_VISIT.equals(type)
                 && !MotherMentorFollowUpType.MOTHER_IIT.getEventType().equals(type)
                 && !MotherMentorFollowUpType.PARTNER.getEventType().equals(type)) return;
@@ -43,10 +43,12 @@ public final class MotherMentorDeathPropagation {
         JSONObject visit = new JSONObject(json);
         if (visit.optBoolean(KEY.EVENT_VOIDED)) return;
         boolean clientDeath = MotherMentorDeceasedVisitUtils.isDeceased(json);
-        if (!maternal && !clientDeath) return;
+        Map<String, String> answers = MotherMentorVisitCompletion.observationValues(visit.optJSONArray("obs"));
+        boolean maternalChildDeath = services && hasMaternalChildDeath(answers)
+                && MotherMentorMotherDeliveryRepository.isMotherEvent(event);
+        if (!maternalChildDeath && !clientDeath) return;
 
         SQLiteDatabase db = ChwApplication.getInstance().getRepository().getWritableDatabase();
-        Map<String, String> answers = MotherMentorVisitCompletion.observationValues(visit.optJSONArray("obs"));
         Date recordedDate = MotherMentorDeceasedVisitUtils.getRecordedDate(json,
                 event.getEventDate() == null ? null : Long.toString(event.getEventDate().getMillis()));
         LocalDate day = recordedDate == null ? null : LocalDate.fromDateFields(recordedDate);
@@ -55,7 +57,7 @@ public final class MotherMentorDeathPropagation {
             if (clientDeath && day != null) {
                 record(context, db, event, event.getBaseEntityId(), day, childEid);
             }
-            if (maternal) {
+            if (maternalChildDeath) {
                 for (Map.Entry<String, LocalDate> death : MotherMentorDeceasedVisitUtils
                         .linkedChildDeaths(db, event.getBaseEntityId(), answers, day).entrySet()) {
                     record(context, db, event, death.getKey(), death.getValue(), true);
@@ -65,6 +67,15 @@ public final class MotherMentorDeathPropagation {
         } finally {
             db.endTransaction();
         }
+    }
+
+    private static boolean hasMaternalChildDeath(Map<String, String> answers) {
+        if ("deceased".equals(answers.get(KEY.MAMA_CHILD_STATUS))) return true;
+        for (int child = 1; child <= MotherMentorDeliveryChildren.MAX_COUNT; child++) {
+            if ("deceased".equals(answers.get(
+                    MotherMentorDeliveryChildren.observationKey(child, KEY.MAMA_CHILD_STATUS)))) return true;
+        }
+        return false;
     }
 
     private static void record(Context context, SQLiteDatabase db, Event visit, String personId,
