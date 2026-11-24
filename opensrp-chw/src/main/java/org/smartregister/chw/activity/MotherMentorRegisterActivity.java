@@ -58,6 +58,7 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
     public static final int TAB_INDEX_IIT = 0;
     public static final int TAB_INDEX_PARTNER = 1;
     public static final int TAB_INDEX_CHILD_EID = 2;
+    private static final String PREGNANCY_STATUS_SELECTION = "pregnancy_status_selection";
 
     private final LocalDayRegisterRefresh dayRefresh = new LocalDayRegisterRefresh(
             this, () -> LocalDayRegisterRefresh.refreshAttachedRegisters(getSupportFragmentManager()));
@@ -113,7 +114,6 @@ public class MotherMentorRegisterActivity extends CoreMotherMentorRegisterActivi
             org.smartregister.chw.mothermentor.util.Constants.TABLES
                     .MAMA_KINARA_HOUSEHOLD_ENROLMENT;
     private static final String CONSENT_YES = "ndiyo";
-    private static final String PREGNANCY_STATUS_SELECTION = "pregnancy_status_selection";
 
 
     public static void startRegistration(
