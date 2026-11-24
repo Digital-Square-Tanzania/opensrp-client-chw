@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_consecutive_closure_message">Rekodi hii itafungwa baada ya kuhifadhi. Sababu: %1$s</string>
+    <string name="mothermentor_consecutive_closure_save">Hifadhi na funga</string>
+    <string name="mothermentor_consecutive_closure_cancel">Ghairi</string>
+    <string name="mothermentor_consecutive_closure_household_other">Haijapatikana — Nyingine</string>
+    <string name="mothermentor_consecutive_closure_lost_to_follow_up">Kutopatikana wakati wa ufuatiliaji</string>
+</resources>

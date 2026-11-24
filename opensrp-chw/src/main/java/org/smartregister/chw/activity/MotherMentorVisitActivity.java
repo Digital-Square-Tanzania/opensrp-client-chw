@@ -40,18 +40,22 @@ import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidClosureDialog;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitText;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
+import org.smartregister.chw.util.MotherMentorConsecutiveClosureDialog;
 import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.chw.util.MotherMentorIitClosureDialog;
 import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
+import org.smartregister.chw.util.MotherMentorPartnerClosureText;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;
 
@@ -71,6 +75,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     private boolean submitting;
     private boolean closureConfirmationOpen;
     private boolean childEidSuccess;
+    private PartnerFollowUpVisitInteractor partnerInteractor;
 
     public static void startMotherMentorVisitActivity(
             Activity activity, String baseEntityId, Boolean editMode) {
@@ -131,11 +136,14 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             return;
         }
         MotherMentorFollowUpType followUpType = getFollowUpType();
+        if (isFollowUpVisit() && followUpType == MotherMentorFollowUpType.PARTNER) {
+            partnerInteractor = new PartnerFollowUpVisitInteractor(followUpType.getEventType());
+        }
         presenter = new BaseMotherMentorVisitPresenter(memberObject, this,
                 !isFollowUpVisit() ? new MotherMentorServiceVisitInteractor(
                                              Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES, historyVisitId())
                         : followUpType == MotherMentorFollowUpType.PARTNER
-                        ? new PartnerFollowUpVisitInteractor(followUpType.getEventType())
+                        ? partnerInteractor
                         : followUpType == MotherMentorFollowUpType.CHILD_EID
                         ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType())
                         : iitInteractor());
@@ -296,6 +304,12 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             }
         } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
             MotherMentorIitState preview = getIitClosurePreview();
+            if (preview.isConsecutiveClosure()) {
+                String status = preview.getStatus();
+                confirmConsecutiveClosure(MotherMentorIitState.LOST_TO_FOLLOW_UP.equals(status)
+                        ? consecutiveLostToFollowUpReason() : MotherMentorIitText.reason(this, status));
+                return;
+            }
             if (preview.requiresConfirmation()) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
@@ -306,6 +320,13 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 return;
             }
         } else if (getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+            MotherMentorPartnerClosure preview = getPartnerClosurePreview();
+            if (preview.isConsecutiveClosure()) {
+                String status = preview.getStatus();
+                confirmConsecutiveClosure(MotherMentorPartnerClosure.LOST_TO_FOLLOW_UP.equals(status)
+                        ? consecutiveLostToFollowUpReason() : MotherMentorPartnerClosureText.reason(this, status));
+                return;
+            }
             if (requiresPartnerAttendanceConfirmation()) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
@@ -326,6 +347,10 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         } else if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
             MotherMentorChildEidExit exit = getChildEidClosurePreview();
             childEidSuccess = exit != null && exit.isSuccess();
+            if (exit != null && exit.isStrikeExit()) {
+                confirmConsecutiveClosure(MotherMentorChildEidLabels.closedReason(this, exit.getStatus()));
+                return;
+            }
             if (exit != null && exit.needsConfirmation()) {
                 closureConfirmationOpen = true;
                 if (tvSubmit != null) tvSubmit.setEnabled(false);
@@ -351,20 +376,26 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     private boolean requiresPartnerAttendanceConfirmation() {
         Map<String, String> answers = stagedAnswers();
-        String attended = answers.get(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY);
-        if ("yes".equals(attended)) {
-            return MotherMentorPartnerFollowUpVisitUtils.validRecordedDate(
-                    answers.get(DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE));
-        }
-        if (!"no".equals(attended)) return false;
-        Visit editing = Boolean.TRUE.equals(isEditMode)
-                ? MotherMentorLibrary.getInstance().visitRepository().getLatestVisit(
-                        baseEntityID, MotherMentorFollowUpType.PARTNER.getEventType())
-                : null;
-        MotherMentorPartnerClosure closure = MotherMentorPartnerClosureRepository.getState(
-                ChwApplication.getInstance().getRepository().getReadableDatabase(),
-                baseEntityID, editing == null ? null : editing.getVisitId());
-        return closure.getNonAttendanceCount() >= 2;
+        return "yes".equals(answers.get(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY))
+                && MotherMentorPartnerFollowUpVisitUtils.validRecordedDate(
+                        answers.get(DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE));
+    }
+
+    protected MotherMentorPartnerClosure getPartnerClosurePreview() {
+        return partnerInteractor == null ? MotherMentorPartnerClosure.active() : partnerInteractor.previewClosure();
+    }
+
+    private String consecutiveLostToFollowUpReason() {
+        return getString(org.smartregister.chw.R.string.mothermentor_consecutive_closure_lost_to_follow_up);
+    }
+
+    private void confirmConsecutiveClosure(String reason) {
+        closureConfirmationOpen = true;
+        if (tvSubmit != null) tvSubmit.setEnabled(false);
+        MotherMentorConsecutiveClosureDialog.show(this, reason, () -> {
+            closureConfirmationOpen = false;
+            submitConfirmedVisit();
+        }, this::resetSubmission);
     }
 
     protected MotherMentorChildEidExit getChildEidClosurePreview() {

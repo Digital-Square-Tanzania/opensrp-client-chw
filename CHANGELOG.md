@@ -1,5 +1,18 @@
 # Changelog
 
+## Mother Mentor Alpha 57 integration candidate — 2026-11-24
+
+Core snapshot
+2.2.0-MOTHER-MENTOR-ALPHA-57-UCSW-131-THIRD-EVENT-SAVE-CONFIRMATION-MOH-SNAPSHOT
+
+- Exclude removed household members from the Members list when their death date
+  is recorded. Keep the child's closed Mtoto EID record and visit history
+  available. [CHW #1238][m8]
+- Confirm before saving a third consecutive event that closes a Kaya, Mtoto EID,
+  Mwenzi, or Mama IIT record. [CHW #1240][m0]
+- Verify direct saves for successful Mtoto EID exits and reason-only
+  confirmation for third-strike exits. [CHW #1240][m0]
+
 ## Mother Mentor Alpha 56 integration candidate — 2026-11-24
 
 - Show count-free Mother Mentor follow-up statuses and use Core
@@ -13,9 +26,6 @@
   preserving visit history. Use Core
   `2.2.0-MOTHER-MENTOR-ALPHA-55-UCSW-129-HOUSEHOLD-DEATH-STATUS-MOH-SNAPSHOT` .
   [CHW #1238][m8]
-- Exclude removed household members from the Members list when their death date
-  is recorded. Keep the child's closed Mtoto EID record and visit history
-  available. [CHW #1238][m8]
 
 ## Mother Mentor Alpha 54 integration candidate — 2026-11-24
 
@@ -26,6 +36,7 @@
 - Offer Mama Kinara and Mama IIT enrollment from client profiles to female
   clients aged 10 or older, with no upper age limit. [CHW #1237][m7]
 
+[m0]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1240
 [m6]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1236
 [m7]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1237
 [m8]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1238
