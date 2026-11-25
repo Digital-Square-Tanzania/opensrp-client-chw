@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
+import org.mockito.stubbing.Answer;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -29,13 +30,17 @@ import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.hps.domain.HpsDeathRegisterModel;
+import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.mothermentor.MotherMentorLibrary;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.presenter.FamilyProfileMemberPresenter;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -43,6 +48,7 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Table;
@@ -99,16 +105,16 @@ public class MotherMentorDeceasedDeathRegisterTest {
     }
 
     @Test
-    public void englishMotherMentorDeathsAppearInIcchwDeathRegisterWithoutDuplicates() throws Exception {
-        assertStandardDeathProjection("json.form");
+    public void finalizedMwenziDeathUsesTheOrdinaryMemberAndIcchwDeathProjection() throws Exception {
+        assertStandardDeathProjection("json.form", true);
     }
 
     @Test
     public void swahiliMotherMentorDeathsAppearInIcchwDeathRegisterWithoutDuplicates() throws Exception {
-        assertStandardDeathProjection("json.form-sw");
+        assertStandardDeathProjection("json.form-sw", false);
     }
 
-    private void assertStandardDeathProjection(String formDirectory) throws Exception {
+    private void assertStandardDeathProjection(String formDirectory, boolean projectPartnerVisit) throws Exception {
         org.smartregister.Context context = mock(org.smartregister.Context.class, RETURNS_DEEP_STUBS);
         AllSharedPreferences preferences = mock(AllSharedPreferences.class);
         when(context.allSharedPreferences()).thenReturn(preferences);
@@ -135,6 +141,8 @@ public class MotherMentorDeceasedDeathRegisterTest {
         when(cipher.update(anyString(), any(ContentValues.class), anyString(), any(String[].class)))
                 .thenAnswer(call -> data.update(call.getArgument(0), call.getArgument(1),
                         call.getArgument(2), call.getArgument(3)));
+        when(cipher.delete(anyString(), anyString(), any(String[].class)))
+                .thenAnswer(call -> data.delete(call.getArgument(0), call.getArgument(1), call.getArgument(2)));
         ReflectionHelpers.setStaticField(AbstractDao.class, "repository", repository);
 
         ClientField mappings = org.smartregister.util.JsonFormUtils.gson.fromJson(
@@ -162,11 +170,24 @@ public class MotherMentorDeceasedDeathRegisterTest {
             data.execSQL("CREATE TABLE " + CommonFtsObject.searchTableName(table) + " ("
                     + CommonFtsObject.idColumn + " TEXT, is_closed INTEGER, date_removed TEXT)");
         }
+        data.execSQL("ALTER TABLE ec_family_member ADD COLUMN dob TEXT");
+        data.execSQL("ALTER TABLE ec_family_member ADD COLUMN first_name TEXT");
+        data.execSQL("ALTER TABLE ec_family_member ADD COLUMN middle_name TEXT");
+        data.execSQL("ALTER TABLE ec_family_member ADD COLUMN last_name TEXT");
+        data.execSQL("ALTER TABLE ec_family_member ADD COLUMN gender TEXT");
+        data.execSQL("ALTER TABLE ec_family_member ADD COLUMN relational_id TEXT DEFAULT 'household'");
+        data.execSQL("CREATE TABLE ec_family (base_entity_id TEXT, family_head TEXT)");
+        data.execSQL("INSERT INTO ec_family VALUES ('household', 'living-mother')");
+        data.execSQL("INSERT INTO ec_family_member (base_entity_id, is_closed) VALUES"
+                + " ('living-mother', 0), ('living-relative', 0)");
+        data.execSQL("CREATE TABLE visits (base_entity_id TEXT, visit_type TEXT, visit_json TEXT)");
+        data.execSQL(ScheduleRepository.CREATE_TABLE_SQL);
 
         CoreLibrary core = mock(CoreLibrary.class);
         when(core.context()).thenReturn(context);
         when(core.getEcClientFieldsFile()).thenReturn("ec_client_fields.json");
         when(core.getSyncConfiguration()).thenReturn(mock(SyncConfiguration.class));
+        when(core.isPeerToPeerProcessing()).thenReturn(true);
         FamilyLibrary family = mock(FamilyLibrary.class);
         when(family.context()).thenReturn(context);
         MotherMentorLibrary motherMentor = mock(MotherMentorLibrary.class);
@@ -181,8 +202,17 @@ public class MotherMentorDeceasedDeathRegisterTest {
             }
         };
         ChwClientProcessor appProcessor = mock(ChwClientProcessor.class, CALLS_REAL_METHODS);
+        doAnswer(call -> projection.processEvent(call.getArgument(0), call.getArgument(1), classification))
+                .when(appProcessor).processEvent(any(Event.class), any(Client.class), eq(classification));
         CoreChwApplication application = mock(CoreChwApplication.class);
         when(application.getRepository()).thenReturn(repository);
+        ScheduleRepository schedules = new ScheduleRepository() {
+            @Override
+            public net.zetetic.database.sqlcipher.SQLiteDatabase getWritableDatabase() {
+                return cipher;
+            }
+        };
+        when(application.getScheduleRepository()).thenReturn(schedules);
         when(application.getAllCommonsRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER))
                 .thenReturn(mock(AllCommonsRepository.class));
         when(application.getAllCommonsRepository(CoreConstants.TABLE_NAME.CHILD))
@@ -206,45 +236,53 @@ public class MotherMentorDeceasedDeathRegisterTest {
             appStatic.when(CoreChwApplication::getInstance).thenReturn(application);
             contextStatic.when(org.smartregister.Context::getInstance).thenReturn(context);
 
+            Answer<String> projectRemoval = call -> {
+                JSONObject form = call.getArgument(1);
+                Triple<Pair<Date, String>, String,
+                        List<org.smartregister.clientandeventmodel.Event>> result =
+                        CoreJsonFormUtils.processRemoveMemberEvent(null, preferences, form, "test-provider");
+                assertNotNull("The standard form must create a removal event", result);
+                String expectedEventType = form.getString("entity_id").endsWith("-3")
+                        ? CoreConstants.EventType.REMOVE_CHILD : CoreConstants.EventType.REMOVE_MEMBER;
+                assertEquals(expectedEventType, result.getLeft().second);
+                assertEquals(1, result.getRight().size());
+                Event event = org.smartregister.util.JsonFormUtils.gson.fromJson(
+                        CoreJsonFormUtils.gson.toJson(result.getRight().get(0)), Event.class);
+                assertEquals(form.getString("entity_id"), event.getBaseEntityId());
+                // Replay through the real classification and upsert to check for duplicate entries.
+                for (int replay = 0; replay < 2; replay++) {
+                    if (call.getArguments().length == 4) {
+                        appProcessor.processEvents(classification, null, null,
+                                new EventClient(event, new Client(event.getBaseEntityId())), event, event.getEventType());
+                        continue;
+                    }
+                    assertEquals(Boolean.TRUE, projection.processEvent(
+                            event, new Client(event.getBaseEntityId()), classification));
+                    if (CoreConstants.EventType.REMOVE_CHILD.equals(event.getEventType())) {
+                        ReflectionHelpers.callInstanceMethod(appProcessor, "processRemoveChild",
+                                ClassParameter.from(String.class, event.getBaseEntityId()),
+                                ClassParameter.from(Event.class, event));
+                    }
+                    ReflectionHelpers.callInstanceMethod(appProcessor, "processRemoveMember",
+                            ClassParameter.from(String.class, event.getBaseEntityId()),
+                            ClassParameter.from(Event.class, event));
+                }
+                return expectedEventType;
+            };
             utilities.when(() -> Utils.removeUser(isNull(), any(JSONObject.class), eq("test-provider")))
-                    .thenAnswer(call -> {
-                        JSONObject form = call.getArgument(1);
-                        Triple<Pair<Date, String>, String,
-                                List<org.smartregister.clientandeventmodel.Event>> result =
-                                CoreJsonFormUtils.processRemoveMemberEvent(
-                                        null, preferences, form, "test-provider");
-                        assertNotNull("The standard form must create a removal event", result);
-                        String expectedEventType = form.getString("entity_id").endsWith("-3")
-                                ? CoreConstants.EventType.REMOVE_CHILD
-                                : CoreConstants.EventType.REMOVE_MEMBER;
-                        assertEquals(expectedEventType, result.getLeft().second);
-                        assertEquals(1, result.getRight().size());
-                        Event event = org.smartregister.util.JsonFormUtils.gson.fromJson(
-                                CoreJsonFormUtils.gson.toJson(result.getRight().get(0)), Event.class);
-                        assertEquals(form.getString("entity_id"), event.getBaseEntityId());
-                        // Replay the same canonical event through the real classification and
-                        // CommonRepository upsert; this must retain one death entry per client.
-                        for (int replay = 0; replay < 2; replay++) {
-                            assertEquals(Boolean.TRUE, projection.processEvent(
-                                    event, new Client(event.getBaseEntityId()), classification));
-                            if (CoreConstants.EventType.REMOVE_CHILD.equals(event.getEventType())) {
-                                ReflectionHelpers.callInstanceMethod(appProcessor, "processRemoveChild",
-                                        ClassParameter.from(String.class, event.getBaseEntityId()),
-                                        ClassParameter.from(Event.class, event));
-                            }
-                            ReflectionHelpers.callInstanceMethod(appProcessor, "processRemoveMember",
-                                    ClassParameter.from(String.class, event.getBaseEntityId()),
-                                    ClassParameter.from(Event.class, event));
-                        }
-                        return expectedEventType;
-                    });
+                    .thenAnswer(projectRemoval);
+            utilities.when(() -> Utils.removeUser(isNull(), any(JSONObject.class), eq("test-provider"), anyString()))
+                    .thenAnswer(projectRemoval);
 
             for (int role = 0; role < MOTHER_MENTOR_TABLES.length; role++) {
                 String clientId = "mother-mentor-death-role-" + role;
                 data.execSQL("INSERT INTO " + MOTHER_MENTOR_TABLES[role] + " VALUES (?, 0)",
                         new Object[] {clientId});
-                data.execSQL("INSERT INTO " + CoreConstants.TABLE_NAME.FAMILY_MEMBER
-                        + " VALUES (?, 0, NULL, NULL)", new Object[] {clientId});
+                String[] client = CLIENTS[role];
+                data.execSQL("INSERT INTO ec_family_member"
+                                + " (base_entity_id, is_closed, first_name, middle_name, last_name, gender, dob)"
+                                + " VALUES (?, 0, ?, ?, ?, ?, ?)",
+                        new Object[] {clientId, client[0], client[1], client[2], client[3], client[4]});
                 data.execSQL("INSERT INTO " + CommonFtsObject.searchTableName(
                         CoreConstants.TABLE_NAME.FAMILY_MEMBER) + " VALUES (?, 0, NULL)",
                         new Object[] {clientId});
@@ -255,9 +293,41 @@ public class MotherMentorDeceasedDeathRegisterTest {
                             CoreConstants.TABLE_NAME.CHILD) + " VALUES (?, 0, NULL)",
                             new Object[] {clientId});
                 }
-                String[] client = CLIENTS[role];
                 personStatic.when(() -> PersonDao.getDob(clientId)).thenReturn(client[4]);
-                if (role == 3) {
+                if (role == 2 && projectPartnerVisit) {
+                    data.execSQL("INSERT INTO schedule_service (base_entity_id) VALUES (?), ('living-relative')",
+                            new String[] {clientId});
+                    Event prior = MotherMentorDeathPropagationTest.partnerVisit(clientId, "living-mother",
+                            "other", "2026-10-27");
+                    Event visit = MotherMentorDeathPropagationTest.partnerVisit(clientId, "living-mother",
+                            "deceased", "2026-10-28");
+                    for (Event saved : new Event[] {prior, visit}) {
+                        data.execSQL("INSERT INTO visits VALUES (?, ?, ?)", new Object[] {
+                                saved.getBaseEntityId(), saved.getEventType(),
+                                org.smartregister.util.JsonFormUtils.gson.toJson(saved)});
+                    }
+                    assertTrue(isInHouseholdMembers(clientId));
+                    MotherMentorDeathPropagation.process(RuntimeEnvironment.application, prior);
+                    MotherMentorDeathPropagation.process(RuntimeEnvironment.application, visit);
+                    MotherMentorDeathPropagation.process(RuntimeEnvironment.application, visit);
+                    assertFalse(isInHouseholdMembers(clientId));
+                    assertTrue(isInHouseholdMembers("living-mother"));
+                    assertTrue(isInHouseholdMembers("living-relative"));
+                    try (Cursor pending = data.rawQuery("SELECT base_entity_id FROM schedule_service", null)) {
+                        assertEquals(1, pending.getCount());
+                        assertTrue(pending.moveToFirst());
+                        assertEquals("living-relative", pending.getString(0));
+                    }
+                    try (Cursor history = data.rawQuery("SELECT visit_json FROM visits WHERE "
+                            + "base_entity_id = ? AND visit_type = ? ORDER BY rowid", new String[] {
+                                    clientId, MotherMentorFollowUpType.PARTNER.getEventType()})) {
+                        assertEquals(2, history.getCount());
+                        assertTrue(history.moveToNext());
+                        assertEquals(org.smartregister.util.JsonFormUtils.gson.toJson(prior), history.getString(0));
+                        assertTrue(history.moveToNext());
+                        assertEquals(org.smartregister.util.JsonFormUtils.gson.toJson(visit), history.getString(0));
+                    }
+                } else if (role == 3) {
                     MarkClientAsDeceasedHelper.markChildAsDeceased(RuntimeEnvironment.application,
                             clientId, client[0], client[1], client[2], client[3], "2026-10-28");
                 } else {
@@ -273,6 +343,12 @@ public class MotherMentorDeceasedDeathRegisterTest {
                 }
                 assertSharedClientClosed(CoreConstants.TABLE_NAME.FAMILY_MEMBER, clientId);
                 if (role == 3) assertSharedClientClosed(CoreConstants.TABLE_NAME.CHILD, clientId);
+            }
+            try (Cursor living = data.rawQuery("SELECT COUNT(*) FROM ec_family_member WHERE "
+                    + "base_entity_id IN ('living-mother', 'living-relative') AND is_closed = 0"
+                    + " AND date_removed IS NULL AND dod IS NULL", null)) {
+                assertTrue(living.moveToFirst());
+                assertEquals(2, living.getInt(0));
             }
 
             List<HpsDeathRegisterModel> records = HpsDao.getHpsDeathRegisterRecords();
@@ -296,7 +372,22 @@ public class MotherMentorDeceasedDeathRegisterTest {
                 assertEquals(MOTHER_MENTOR_TABLES.length, cursor.getInt(0));
             }
             utilities.verify(() -> Utils.removeUser(isNull(), any(JSONObject.class),
-                    eq("test-provider")), times(MOTHER_MENTOR_TABLES.length));
+                    eq("test-provider")), times(MOTHER_MENTOR_TABLES.length - (projectPartnerVisit ? 1 : 0)));
+            if (projectPartnerVisit) {
+                utilities.verify(() -> Utils.removeUser(isNull(), any(JSONObject.class),
+                        eq("test-provider"), anyString()));
+            }
+        }
+    }
+
+    private boolean isInHouseholdMembers(String baseEntityId) {
+        FamilyProfileMemberModel model = mock(FamilyProfileMemberModel.class);
+        FamilyProfileMemberPresenter presenter = new FamilyProfileMemberPresenter(
+                null, model, null, "household", "living-mother", null);
+        try (Cursor row = data.rawQuery("SELECT ec_family_member.base_entity_id FROM ec_family_member"
+                + " LEFT JOIN ec_child USING (base_entity_id) WHERE " + presenter.getMainCondition()
+                + " AND ec_family_member.base_entity_id = ?", new String[] {baseEntityId})) {
+            return row.moveToFirst();
         }
     }
 
