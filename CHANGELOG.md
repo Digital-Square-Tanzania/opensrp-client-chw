@@ -1,5 +1,12 @@
 # Changelog
 
+## Mother Mentor Alpha 61 integration candidate — 2026-11-25
+
+- Record a finalized Mwenzi tracing death on the linked adult household
+  member and retain the partner's completed visits in Closed History. Use Core
+  `2.2.0-MOTHER-MENTOR-ALPHA-61-UCSW-151-MWENZI-DEATH-MOH-SNAPSHOT`.
+  [CHW #1238][m8]
+
 ## Mother Mentor Alpha 57 integration candidate — 2026-11-24
 
 Core snapshot
