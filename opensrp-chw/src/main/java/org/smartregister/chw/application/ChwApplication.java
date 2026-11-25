@@ -395,6 +395,8 @@ public class ChwApplication extends CoreChwApplication {
         NcdLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+        MotherMentorLibrary.getInstance().setClientProcessorForJava(
+                ChwClientProcessor.getInstance(getApplicationContext()));
 
         // Set display date format for date pickers in native forms
         Form form = new Form();

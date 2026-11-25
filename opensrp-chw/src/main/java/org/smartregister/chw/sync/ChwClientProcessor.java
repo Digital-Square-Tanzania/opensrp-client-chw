@@ -43,6 +43,7 @@ import org.smartregister.chw.repository.AypOutSchoolGroupMembersRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.MotherMentorDeathPropagation;
 import org.smartregister.chw.util.NcdAutoConfirmationHelper;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
@@ -111,7 +112,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case CoreConstants.EventType.REMOVE_MEMBER:
                     ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
                 case CoreConstants.EventType.REMOVE_CHILD:
-                    if (!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+                    if (isDeathRemoval(event) || (!CoreLibrary.getInstance().isPeerToPeerProcessing()
+                            && !SyncStatusBroadcastReceiver.getInstance().isSyncing())) {
                         ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
                     }
                     break;
@@ -379,6 +381,12 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 default:
                     break;
             }
+        }
+
+        try {
+            MotherMentorDeathPropagation.process(ChwApplication.getInstance(), event);
+        } finally {
+            currentEventType = eventType;
         }
 
         if (org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(eventType)
