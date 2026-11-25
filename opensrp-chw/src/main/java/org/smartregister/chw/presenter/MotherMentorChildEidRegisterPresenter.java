@@ -29,7 +29,9 @@ public class MotherMentorChildEidRegisterPresenter extends ChwAllClientRegisterP
             List<OpdEventClient> clients = model.processRegistration(json, params.getFormTag());
             pendingChildId = registeredMemberId(clients);
             if (pendingChildId == null) throw new IllegalArgumentException("No registered child identity");
-            if (!eligibleRegisteredMember(clients)) throw new IllegalArgumentException("Child must be younger than 18 months with a known date of birth");
+            if (!eligibleRegisteredMember(clients)) {
+                throw new IllegalArgumentException("Child must be 19 months old or younger with a known date of birth");
+            }
             interactor.saveRegistration(clients, json, params, this);
         } catch (Exception e) {
             pendingChildId = null;

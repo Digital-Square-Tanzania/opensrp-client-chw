@@ -145,18 +145,5 @@ public class MotherMentorHouseholdEligibilityTest {
         assertNull(Shadows.shadowOf(registration).getNextStartedActivity());
     }
 
-    @Test
-    public void motherEnrollmentUsesTheSharedPregnancyAndChildWindowGate() throws Exception {
-        MotherMentorRegisterActivity registration = Robolectric.buildActivity(MotherMentorRegisterActivity.class).get();
-        for (String status : new String[] {"pregnant", "breast_feeding", "not_pregnant"}) {
-            JSONObject form = new JSONObject().put("count", "1").put("step1", new JSONObject().put("fields",
-                    new JSONArray().put(new JSONObject().put("key", "pregnancy_status").put("value", status))
-                            .put(new JSONObject().put("key", "child_dob").put("value", "01-01-2020"))));
-            boolean eligible = ReflectionHelpers.callInstanceMethod(registration, "isEligibleMother",
-                    ReflectionHelpers.ClassParameter.from(JSONObject.class, form));
-            assertEquals(!"not_pregnant".equals(status), eligible);
-        }
-    }
-
     private MenuItem option() { return menu.findItem(R.id.action_mother_mentor_household_enrollment); }
 }

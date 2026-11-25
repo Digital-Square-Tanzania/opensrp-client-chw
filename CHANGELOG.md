@@ -1,5 +1,14 @@
 # Changelog
 
+## Mother Mentor Alpha 54 integration candidate — 2026-11-24
+
+- Apply the inclusive 19-month child age limit when saving a new Not pregnant
+  Mama Kinara enrollment or linking a child in Mtoto EID. Use CHW Core
+  `2.2.0-MOTHER-MENTOR-ALPHA-54-UCSW-127-19-MONTH-CUTOFF-MOH-SNAPSHOT` .
+  [CHW #1236][m6]
+
+[m6]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1236
+
 ## Mother Mentor Alpha 53 integration candidate — 2026-11-22
 
 - Resolve the authenticated repository when Mother Mentor opens a service visit. Use CHW Core `2.2.0-MOTHER-MENTOR-ALPHA-53-UCSW-92-ENTRY-INTEGRATION-MOH-SNAPSHOT` to retain the first-visit delivery assessment for both feeding choices in NACP Beta.10 (UCSW-91 and UCSW-92).

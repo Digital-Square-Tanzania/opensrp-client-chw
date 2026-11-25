@@ -1,7 +1,9 @@
 package org.smartregister.chw.presenter;
 
 import org.junit.Test;
+import org.joda.time.LocalDate;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.opd.pojo.OpdEventClient;
 import java.util.Arrays;
@@ -24,9 +26,10 @@ public class MotherMentorChildEidRegisterPresenterTest {
         org.smartregister.clientandeventmodel.Client person = mock(org.smartregister.clientandeventmodel.Client.class);
         when(member.getClient()).thenReturn(person);
         when(person.getGender()).thenReturn("Male");
-        when(person.getBirthdate()).thenReturn(org.joda.time.LocalDate.now().minusMonths(6).toDate());
+        LocalDate earliest = MotherMentorEligibility.earliestEligibleChildBirthDate(LocalDate.now());
+        when(person.getBirthdate()).thenReturn(earliest.toDate());
         assertTrue(MotherMentorChildEidRegisterPresenter.eligibleRegisteredMember(Collections.singletonList(member)));
-        when(person.getBirthdate()).thenReturn(org.joda.time.LocalDate.now().minusMonths(18).toDate());
+        when(person.getBirthdate()).thenReturn(earliest.minusDays(1).toDate());
         assertFalse(MotherMentorChildEidRegisterPresenter.eligibleRegisteredMember(Collections.singletonList(member)));
         when(person.getGender()).thenReturn("Female");
         when(person.getBirthdate()).thenReturn(org.joda.time.LocalDate.now().minusMonths(6).toDate());
