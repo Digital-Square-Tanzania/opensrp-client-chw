@@ -1,5 +1,11 @@
 # Changelog
 
+## Mother Mentor Alpha 56 integration candidate — 2026-11-24
+
+- Show count-free Mother Mentor follow-up statuses and use Core
+  `2.2.0-MOTHER-MENTOR-ALPHA-56-UCSW-130-HIDE-DEVELOPER-NOTES-MOH-SNAPSHOT` for
+  the form cleanup. [CHW #1239][m9]
+
 ## Mother Mentor Alpha 55 integration candidate — 2026-11-24
 
 - Apply the profile death action to the correct household member after a Mother
@@ -23,6 +29,7 @@
 [m6]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1236
 [m7]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1237
 [m8]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1238
+[m9]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1239
 
 ## Mother Mentor Alpha 53 integration candidate — 2026-11-22
 
