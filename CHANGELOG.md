@@ -12,6 +12,8 @@ Core snapshot
   Mwenzi, or Mama IIT record. [CHW #1240][m0]
 - Verify direct saves for successful Mtoto EID exits and reason-only
   confirmation for third-strike exits. [CHW #1240][m0]
+- Require the separate Mama IIT death confirmation before saving a staged death
+  when the closure preview is still active. [CHW #1239][m9] · [CHW #1240][m0]
 
 ## Mother Mentor Alpha 56 integration candidate — 2026-11-24
 

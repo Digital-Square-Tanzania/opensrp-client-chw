@@ -440,9 +440,17 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                 : null;
         LocalDate serviceDate = editing == null
                 ? LocalDate.now() : MotherMentorMotherVisitDao.getServiceDate(editing);
-        return MotherMentorIitRepository.preview(
+        Map<String, String> answers = stagedAnswers();
+        MotherMentorIitState preview = MotherMentorIitRepository.preview(
                 ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
-                editing == null ? null : editing.getVisitId(), stagedAnswers(), serviceDate);
+                editing == null ? null : editing.getVisitId(), answers, serviceDate);
+        // A staged death still needs consent when replay cannot place the prospective visit.
+        if (!preview.isClosed()
+                && "not_found".equals(answers.get(DBConstants.KEY.FOLLOW_UP_STATUS))
+                && "deceased".equals(answers.get(DBConstants.KEY.IIT_NOT_FOUND_REASON))) {
+            return preview.close(MotherMentorIitState.DECEASED, serviceDate, "");
+        }
+        return preview;
     }
 
     private Map<String, String> stagedAnswers() {
