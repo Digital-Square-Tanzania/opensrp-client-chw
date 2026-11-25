@@ -6,8 +6,11 @@
   Mama Kinara enrollment or linking a child in Mtoto EID. Use CHW Core
   `2.2.0-MOTHER-MENTOR-ALPHA-54-UCSW-127-19-MONTH-CUTOFF-MOH-SNAPSHOT` .
   [CHW #1236][m6]
+- Offer Mama Kinara and Mama IIT enrollment from client profiles to female
+  clients aged 10 or older, with no upper age limit. [CHW #1237][m7]
 
 [m6]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1236
+[m7]: https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1237
 
 ## Mother Mentor Alpha 53 integration candidate — 2026-11-22
 

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doNothing;
@@ -87,6 +88,8 @@ public class HpsMotherMentorEnrollmentTest {
         application.when(ChwApplication::getApplicationFlavor).thenReturn(flavor);
         motherMentor = mockStatic(MotherMentorDao.class);
         allClients = mockStatic(AllClientsUtils.class);
+        allClients.when(() -> AllClientsUtils.canOfferMotherMentorEnrollment(any(), anyInt()))
+                .thenCallRealMethod();
     }
 
     @After
@@ -121,6 +124,19 @@ public class HpsMotherMentorEnrollmentTest {
         MenuBuilder menu = menu();
         assertFalse(enrollment(menu).isVisible());
         assertFalse(iitEnrollment(menu).isVisible());
+    }
+
+    @Test
+    public void femaleClientUnderTenCannotOpenEitherEnrollment() {
+        MenuBuilder menu = menu();
+        when(member.getAge()).thenReturn(9);
+
+        MenuBuilder updatedMenu = menu();
+        assertFalse(enrollment(updatedMenu).isVisible());
+        assertFalse(iitEnrollment(updatedMenu).isVisible());
+        activity.onOptionsItemSelected(enrollment(menu));
+        activity.onOptionsItemSelected(iitEnrollment(menu));
+        verify(activity, never()).startActivity(any(Intent.class));
     }
 
     @Test

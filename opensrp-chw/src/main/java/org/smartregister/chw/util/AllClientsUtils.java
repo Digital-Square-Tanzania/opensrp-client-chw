@@ -318,6 +318,11 @@ public class AllClientsUtils {
         } else {
             updateDefaultMenu(menu, baseEntityId, commonPersonObject, flavor, gender, age, isFemaleOfReproductiveAge);
         }
+
+        boolean offerMotherMentorEnrollment = canOfferMotherMentorEnrollment(gender, age);
+        setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, offerMotherMentorEnrollment);
+        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_iit,
+                R.string.mother_mentor_enroll_iit, offerMotherMentorEnrollment);
     }
 
     private static void updateIccmMenu(Menu menu, String baseEntityId, FamilyOtherMemberProfileActivity.Flavor flavor) {
@@ -423,12 +428,11 @@ public class AllClientsUtils {
             setMenuItemVisibility(menu, R.id.action_ayp_parental_enrollment, !AypDao.isRegisteredForAypParentalServices(baseEntityId) && age >= 25);
             setMenuItemVisibility(menu, R.id.action_ayp_out_school_enrollment, !AypDao.isRegisteredForAypOutSchoolServices(baseEntityId) && age >= 10 && age < 25);
         }
+    }
 
-        if (ChwApplication.getApplicationFlavor().hasMotherMentor()) {
-            addMotherMentorIitMenuItem(menu, true);
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, gender.equalsIgnoreCase("Female"));
-            setMenuItemVisibility(menu, R.id.action_mother_mentor_enroll_iit, gender.equalsIgnoreCase("Female"));
-        }
+    public static boolean canOfferMotherMentorEnrollment(String gender, int age) {
+        return ChwApplication.getApplicationFlavor().hasMotherMentor()
+                && "Female".equalsIgnoreCase(gender) && age >= 10;
     }
 
     public static void addTbLeprosyMenuItem(Menu menu, String baseEntityId) {
@@ -443,18 +447,12 @@ public class AllClientsUtils {
         tbLeprosyMenu.setVisible(showItem);
     }
 
-    public static void addMotherMentorMenuItem(Menu menu, String baseEntityId) {
-        MenuItem motherMentorMenu = menu.findItem(R.id.action_mother_mentor_registration);
-        if (motherMentorMenu == null) {
-            motherMentorMenu = menu.add(Menu.NONE, R.id.action_mother_mentor_registration, Menu.NONE, R.string.mother_mentor_registration);
-            motherMentorMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        }
-
-        motherMentorMenu.setVisible(!MotherMentorDao.isRegisteredForMotherMentor(baseEntityId));
-    }
-
-    public static void addMotherMentorIitMenuItem(Menu menu, boolean visible) {
-        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_iit, R.string.mother_mentor_enroll_iit, visible);
+    public static void addMotherMentorMenuItem(Menu menu, CommonPersonObjectClient client) {
+        String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, false);
+        boolean visible = canOfferMotherMentorEnrollment(gender, getPersonAge(client))
+                && !MotherMentorDao.isRegisteredForMotherMentor(client.entityId());
+        addMenuItemIfMissing(menu, R.id.action_mother_mentor_registration,
+                R.string.mother_mentor_registration, visible);
     }
 
     private static void addMenuItemIfMissing(Menu menu, int itemId, int titleRes, boolean visible) {
