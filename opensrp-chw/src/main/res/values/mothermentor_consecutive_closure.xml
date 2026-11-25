@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mothermentor_consecutive_closure_message">This record will close after saving. Reason: %1$s</string>
+    <string name="mothermentor_consecutive_closure_save">Save and close</string>
+    <string name="mothermentor_consecutive_closure_cancel">Cancel</string>
+    <string name="mothermentor_consecutive_closure_household_other">Not found — Other</string>
+    <string name="mothermentor_consecutive_closure_lost_to_follow_up">Lost to follow-up</string>
+</resources>
