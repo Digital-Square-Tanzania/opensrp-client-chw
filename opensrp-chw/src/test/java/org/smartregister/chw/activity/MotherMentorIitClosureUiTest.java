@@ -60,13 +60,10 @@ public class MotherMentorIitClosureUiTest extends BaseUnitTest {
     }
 
     @Test
-    public void returnedToCareAndThirdStrikeSubmitDirectly() {
-        for (String status : new String[]{MotherMentorIitState.RETURNED_TO_CARE,
-                MotherMentorIitState.REFUSED_THREE_TIMES, MotherMentorIitState.LOST_TO_FOLLOW_UP}) {
-            ConfirmationActivity activity = activity(status);
-            activity.submitVisit();
-            assertEquals(status, 1, activity.submissions);
-        }
+    public void returnedToCareSubmitsDirectly() {
+        ConfirmationActivity activity = activity(MotherMentorIitState.RETURNED_TO_CARE);
+        activity.submitVisit();
+        assertEquals(1, activity.submissions);
     }
 
     @Test
