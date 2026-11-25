@@ -14,12 +14,16 @@ import org.smartregister.chw.mothermentor.interactor.MotherMentorHouseholdVisitI
 import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
 import org.smartregister.chw.mothermentor.repository.MotherMentorHouseholdClosureRepository;
 import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
+import org.smartregister.chw.util.MotherMentorConsecutiveClosureDialog;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
 public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitActivity {
+    private MotherMentorHouseholdVisitInteractor interactor;
+    private boolean closureConfirmationOpen;
     private boolean submitting;
 
     public static void startMotherMentorHouseholdVisitActivity(
@@ -38,6 +42,36 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
 
     @Override
     public void submitVisit() {
+        if (submitting || closureConfirmationOpen) return;
+        MotherMentorHouseholdClosure preview = getClosurePreview();
+        if (preview.isConsecutiveClosure()) {
+            closureConfirmationOpen = true;
+            if (tvSubmit != null) tvSubmit.setEnabled(false);
+            MotherMentorConsecutiveClosureDialog.show(this, consecutiveClosureReason(preview), () -> {
+                closureConfirmationOpen = false;
+                submitConfirmedVisit();
+            }, this::onSubmissionCancelled);
+            return;
+        }
+        submitConfirmedVisit();
+    }
+
+    protected MotherMentorHouseholdClosure getClosurePreview() {
+        return interactor == null ? MotherMentorHouseholdClosure.active() : interactor.previewClosure();
+    }
+
+    private String consecutiveClosureReason(MotherMentorHouseholdClosure preview) {
+        switch (preview.getClosureReason()) {
+            case MotherMentorHouseholdClosure.HOUSE_CLOSED_3:
+                return getString(org.smartregister.chw.mothermentor.R.string.mothermentor_household_missing_house_closed);
+            case MotherMentorHouseholdClosure.OTHER_3:
+                return getString(org.smartregister.chw.R.string.mothermentor_consecutive_closure_household_other);
+            default:
+                return getString(org.smartregister.chw.R.string.mothermentor_consecutive_closure_lost_to_follow_up);
+        }
+    }
+
+    private void submitConfirmedVisit() {
         if (submitting) return;
         submitting = true;
         if (tvSubmit != null) tvSubmit.setEnabled(false);
@@ -46,6 +80,7 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
 
     @Override
     protected void onSubmissionCancelled() {
+        closureConfirmationOpen = false;
         submitting = false;
         super.onSubmissionCancelled();
     }
@@ -59,13 +94,9 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
 
     @Override
     protected void registerPresenter() {
-        presenter =
-                new BaseMotherMentorVisitPresenter(
-                        memberObject,
-                        this,
-                        new MotherMentorHouseholdVisitInteractor(
-                                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES,
-                                Utils.metadata().familyRegister.tableName));
+        interactor = new MotherMentorHouseholdVisitInteractor(
+                Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES, Utils.metadata().familyRegister.tableName);
+        presenter = new BaseMotherMentorVisitPresenter(memberObject, this, interactor);
     }
 
     @Override

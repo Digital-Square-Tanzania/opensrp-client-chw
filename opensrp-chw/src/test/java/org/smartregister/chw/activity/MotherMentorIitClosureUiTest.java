@@ -25,8 +25,11 @@ import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitText;
+import org.smartregister.chw.util.MotherMentorPartnerClosureText;
 
 import java.util.Date;
 import java.util.Locale;
@@ -57,12 +60,36 @@ public class MotherMentorIitClosureUiTest extends BaseUnitTest {
     }
 
     @Test
-    public void returnedToCareAndThirdStrikeSubmitDirectly() {
-        for (String status : new String[]{MotherMentorIitState.RETURNED_TO_CARE,
-                MotherMentorIitState.REFUSED_THREE_TIMES, MotherMentorIitState.LOST_TO_FOLLOW_UP}) {
-            ConfirmationActivity activity = activity(status);
-            activity.submitVisit();
-            assertEquals(status, 1, activity.submissions);
+    public void returnedToCareSubmitsDirectly() {
+        ConfirmationActivity activity = activity(MotherMentorIitState.RETURNED_TO_CARE);
+        activity.submitVisit();
+        assertEquals(1, activity.submissions);
+    }
+
+    @Test
+    public void followUpRowStatusesKeepTheLocalizedReasonWithoutStrikeCounts() {
+        ConfirmationActivity activity = activity(MotherMentorIitState.DECEASED);
+        LocalDate day = new LocalDate(2026, 11, 24);
+        MotherMentorIitState active = MotherMentorIitState.active();
+        MotherMentorIitState refused = active.advance(MotherMentorIitState.Outcome.REFUSED, day, "", 0);
+        MotherMentorIitState waiting = active.advance(MotherMentorIitState.Outcome.AGREED, day, "", 0)
+                .advance(MotherMentorIitState.Outcome.NOT_RETURNED, day.plusDays(1), "", 0);
+
+        for (String language : new String[] {"en", "sw"}) {
+            Configuration config = new Configuration(activity.getResources().getConfiguration());
+            config.setLocale(new Locale(language));
+            android.content.Context context = activity.createConfigurationContext(config);
+            boolean swahili = "sw".equals(language);
+            assertEquals(swahili ? "Amekataa kurudi" : "Refused to return",
+                    MotherMentorIitText.returnState(context, refused));
+            assertEquals(swahili ? "Amekubali kurudi — inasubiri" : "Agreed to return — pending",
+                    MotherMentorIitText.returnState(context, waiting));
+            assertEquals(swahili ? "Hajarudi baada ya kukubali" : "Agreed but did not return",
+                    MotherMentorIitText.reason(context, MotherMentorIitState.NOT_RETURNED_THREE_TIMES));
+            assertEquals(swahili ? "Amekataa" : "Refused",
+                    MotherMentorPartnerClosureText.reason(context, "refused_3"));
+            assertEquals(swahili ? "Hajafika baada ya kukubali" : "Agreed but did not attend",
+                    MotherMentorChildEidLabels.closedReason(context, "nonattendance_3"));
         }
     }
 
