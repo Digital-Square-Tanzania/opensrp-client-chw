@@ -216,6 +216,7 @@ public class MotherMentorFormWizardLaunchTest {
         MotherMentorChildEidRepository repository = mock(MotherMentorChildEidRepository.class);
         Map<String, String> child = person("child");
         child.put("gender", gender);
+        child.put("dob", "2026-08-14T23:30:00-05:00");
         when(repository.prepareForm(any(JSONObject.class), eq("mother"), eq("child")))
                 .thenAnswer(
                         call -> {
@@ -243,6 +244,9 @@ public class MotherMentorFormWizardLaunchTest {
         assertEquals(expectedSex, sex.getString("value"));
         assertTrue(sex.getBoolean("read_only"));
         assertFalse(sex.has("editable"));
+        JSONObject dob = com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(launched, "child_dob");
+        assertEquals("14-08-2026", dob.getString("value"));
+        assertTrue(dob.getBoolean("read_only"));
         assertLaunch(activity, activity.launch, form);
     }
 

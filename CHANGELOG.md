@@ -10,6 +10,9 @@
   Core `2.2.0-MOTHER-MENTOR-ALPHA-64-UCSW-139-MWENZI-EXIT-ALIGNMENT-MOH-SNAPSHOT`. [CHW #1242](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1242)
 - Show the child's sex in the app language during HEI registration while preserving
   the stored sex value. [CHW #1243](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1243)
+- Format the HEI birth date and closed Mwenzi date as DD-MM-YYYY, show the
+  localized breastfeeding status in Mama Kadi history, and use the localized
+  Kaya title with a location-only profile subtitle. [CHW #1244](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1244)
 
 ## Mother Mentor Alpha 62 integration candidate — 2026-11-25
 

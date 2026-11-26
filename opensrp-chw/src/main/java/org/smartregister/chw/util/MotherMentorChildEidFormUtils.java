@@ -1,5 +1,8 @@
 package org.smartregister.chw.util;
 
+import static org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.parseBirthDate;
+import static org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils.displayDate;
+
 import android.content.Context;
 
 import org.joda.time.LocalDate;
@@ -176,6 +179,14 @@ public final class MotherMentorChildEidFormUtils {
             sex.put("value", context.getString(R.string.mothermentor_hei_sex_female));
         } else if ("male".equalsIgnoreCase(storedSex)) {
             sex.put("value", context.getString(R.string.mothermentor_hei_sex_male));
+        }
+    }
+
+    public static void formatDobForDisplay(JSONObject form) throws JSONException {
+        JSONObject dob = field(form, DBConstants.KEY.CHILD_DOB);
+        LocalDate date = parseBirthDate(dob.optString("value"));
+        if (date != null) {
+            dob.put("value", displayDate(date));
         }
     }
 

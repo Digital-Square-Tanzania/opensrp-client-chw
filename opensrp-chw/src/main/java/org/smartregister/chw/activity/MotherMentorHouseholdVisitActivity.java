@@ -17,6 +17,7 @@ import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
 import org.smartregister.chw.util.MotherMentorConsecutiveClosureDialog;
 import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorHouseholdTitle;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
@@ -101,7 +102,7 @@ public class MotherMentorHouseholdVisitActivity extends BaseMotherMentorVisitAct
 
     @Override
     public void redrawHeader(MemberObject memberObject) {
-        tvTitle.setText(memberObject.getFullName());
+        tvTitle.setText(MotherMentorHouseholdTitle.format(this, memberObject.getFirstName()));
     }
 
     @Override

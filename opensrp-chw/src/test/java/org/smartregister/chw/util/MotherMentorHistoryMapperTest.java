@@ -31,6 +31,33 @@ import java.util.Locale;
 public class MotherMentorHistoryMapperTest {
     @Test
     @Config(qualifiers = "en")
+    public void recordedBreastfeedingPregnancyStatusShowsEnglishLabel() {
+        assertBreastfeedingPregnancyStatus("Pregnancy status", "Breastfeeding");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void recordedBreastfeedingPregnancyStatusShowsSwahiliLabel() {
+        assertBreastfeedingPregnancyStatus("Hali ya ujauzito", "Ananyonyesha");
+    }
+
+    private void assertBreastfeedingPregnancyStatus(String label, String expected) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        String key = DBConstants.KEY.VISIT_PREGNANCY_STATUS;
+        answer(visit, key, "[\"breast_feeding\"]", "");
+        VisitDetail recorded = visit.getVisitDetails().get(key).get(0);
+
+        Row pregnancyStatus = row(mapper().map(visit), key);
+
+        assertEquals(label, pregnancyStatus.getLabel());
+        assertEquals(Collections.singletonList(expected), pregnancyStatus.getValues());
+        assertEquals("[\"breast_feeding\"]", recorded.getDetails());
+        assertEquals("", recorded.getHumanReadable());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
     public void newMotherEntryHistoryUsesItsReasonAndHidesInternalContext() {
         List<Row> rows = newMotherEntryHistory();
         assertEquals("Visit type", row(rows, DBConstants.KEY.ATTENDANCE_TYPE).getLabel());

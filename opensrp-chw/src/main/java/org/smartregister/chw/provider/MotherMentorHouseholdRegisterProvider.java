@@ -11,6 +11,7 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.util.MotherMentorHouseholdTitle;
 import org.smartregister.chw.mothermentor.fragment.BaseMotherMentorRegisterFragment;
 import org.smartregister.chw.mothermentor.provider.MotherMentorRegisterProvider;
 import org.smartregister.chw.mothermentor.util.DBConstants;
@@ -53,11 +54,8 @@ public class MotherMentorHouseholdRegisterProvider extends MotherMentorRegisterP
     public void getView(
             Cursor cursor, SmartRegisterClient smartRegisterClient, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) smartRegisterClient;
-        String householdName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-        if (!TextUtils.isEmpty(householdName)) {
-            viewHolder.patientName.setText(
-                    context.getString(R.string.household_register_row_title, householdName));
-        }
+        String householdName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+        viewHolder.patientName.setText(MotherMentorHouseholdTitle.format(context, householdName));
         String reason = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.KAYA_SABABU_YA_KUFUNGWA, true);
         String closedDate = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.KAYA_TAREHE_YA_KUFUNGWA, true);
         boolean closed = !TextUtils.isEmpty(reason);

@@ -263,6 +263,7 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
                                 if (directChildId == null) {
                                     repository.prepareForm(form, motherId, id);
                                     MotherMentorChildEidFormUtils.localizeSexForDisplay(this, form);
+                                    MotherMentorChildEidFormUtils.formatDobForDisplay(form);
                                 } else {
                                     repository.prepareDirectForm(this, form, directChildId);
                                 }

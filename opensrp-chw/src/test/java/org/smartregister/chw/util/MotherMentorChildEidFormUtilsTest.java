@@ -142,6 +142,8 @@ public class MotherMentorChildEidFormUtilsTest {
     public void heiEnrollmentEventRestoresStoredSexAfterLocalizedDisplay() throws Exception {
         Map<String, String> mother = person("mother", "family", "Test Mother");
         Map<String, String> child = person("child", "family", "Test Child");
+        String storedDob = "2026-08-14T23:30:00-05:00";
+        child.put(DBConstants.KEY.DOB, storedDob);
         for (String language : new String[] {"en", "sw"}) {
             String directory = "sw".equals(language) ? "json.form-sw" : "json.form";
             Context application = RuntimeEnvironment.getApplication();
@@ -154,6 +156,8 @@ public class MotherMentorChildEidFormUtilsTest {
                 JSONObject form = MotherMentorTestAssets.form(directory, MotherMentorChildEidFormUtils.FORM + ".json");
                 MotherMentorChildEidFormUtils.bindIdentity(form, mother, child);
                 MotherMentorChildEidFormUtils.localizeSexForDisplay(context, form);
+                MotherMentorChildEidFormUtils.formatDobForDisplay(form);
+                assertEquals("14-08-2026", value(form, DBConstants.KEY.CHILD_DOB));
                 if ("unknown".equals(storedSex) || storedSex.isEmpty()) {
                     assertEquals(storedSex, value(form, "child_sex"));
                     continue;
@@ -176,6 +180,11 @@ public class MotherMentorChildEidFormUtilsTest {
                 assertEquals("child_sex", sexObservation.getFieldCode());
                 assertEquals(Collections.singletonList(storedSex), sexObservation.getValues());
                 assertEquals(storedSex, child.get("gender"));
+                Obs dobObservation = event.getObs().stream()
+                        .filter(obs -> "child_dob".equals(obs.getFormSubmissionField()))
+                        .findFirst().orElseThrow(() -> new AssertionError("Missing child DOB observation"));
+                assertEquals(Collections.singletonList("2026-08-14"), dobObservation.getValues());
+                assertEquals(storedDob, child.get(DBConstants.KEY.DOB));
             }
         }
     }

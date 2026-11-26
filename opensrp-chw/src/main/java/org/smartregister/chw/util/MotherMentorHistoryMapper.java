@@ -458,6 +458,9 @@ public final class MotherMentorHistoryMapper {
         if (DBConstants.KEY.FOLLOW_UP_STATUS.equals(field.key)) {
             addHistoricalAlias(field, "lost_to_follow_up");
         }
+        if (DBConstants.KEY.VISIT_PREGNANCY_STATUS.equals(field.key)) {
+            addHistoricalAlias(field, "breast_feeding");
+        }
     }
 
     private void addHistoricalAlias(Field field, String key) {

@@ -1,5 +1,8 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.parseBirthDate;
+import static org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils.displayDate;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.text.SpannableString;
@@ -85,7 +88,8 @@ public class MotherMentorFollowUpRegisterProvider
             if (closed) risk = "";
             String metadata = closed
                     ? join(MotherMentorPartnerClosureText.reason(context, status),
-                            Utils.getValue(person.getColumnmaps(), DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, false),
+                            displayDate(parseBirthDate(Utils.getValue(person.getColumnmaps(),
+                                    DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA, false))),
                             village, id)
                     : join(risk, partnerReferralStatus(person), village, id);
             SpannableString styled = new SpannableString(metadata);
