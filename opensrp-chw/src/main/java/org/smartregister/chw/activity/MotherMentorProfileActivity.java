@@ -736,7 +736,7 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
             JSONObject form = FormUtils.getFormUtils().getFormJson(MotherMentorChildEidResultForm.FORM_NAME);
             form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, sample.getChildId());
             MotherMentorChildEidResultForm.prepare(form, this, sample.getStage().getCode(),
-                    sample.getSampleDate(), sample.getState());
+                    sample.getSampleDate(), sample.getState(), sample.getConfirmationSampleDate());
             launchChildEidResultForm(form, childEidResultSource(sample));
         } catch (Exception error) {
             childEidResultFailed(error);
@@ -744,9 +744,10 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
     }
 
     private static String[] childEidResultSource(PendingSample sample) {
+        LocalDate confirmationDate = sample.getConfirmationSampleDate();
         return new String[] {sample.getChildId(), sample.getEnrollmentId(), sample.getParentSubmissionId(),
                 sample.getSampleSubmissionId(), sample.getStage().getCode(), sample.getSampleDate().toString(),
-                sample.getState()};
+                sample.getState(), confirmationDate == null ? "" : confirmationDate.toString()};
     }
 
     private boolean matchesChildEidProfile(String childId) {
@@ -789,7 +790,8 @@ public class MotherMentorProfileActivity extends CoreMotherMentorProfileActivity
                 return;
             }
             Map<String, String> answers = MotherMentorMotherChildUtils.values(form);
-            int dateError = MotherMentorChildEidResultForm.receiptDateError(answers, sample.getSampleDate());
+            int dateError = MotherMentorChildEidResultForm.receiptDateError(
+                    answers, sample.getSampleDate(), sample.getConfirmationSampleDate());
             if (dateError != 0) {
                 MotherMentorMotherChildUtils.put(form, DBConstants.KEY.MTOTO_RESULT_RECEIVED_DATE, "");
                 childProfileExecutors.mainThread().execute(() -> retryChildEidResult(form, source, dateError));
