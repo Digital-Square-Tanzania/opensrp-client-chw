@@ -346,7 +346,7 @@
           "err": "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         },
         "v_regex": {
-          "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
+          "value": "(0[6-7][0-9][0-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         }
       },
@@ -367,7 +367,7 @@
           "err": "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         },
         "v_regex": {
-          "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
+          "value": "(0[6-7][0-9][0-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         }
       },
@@ -581,6 +581,25 @@
         }
       },
       {
+        "key": "insurance_provider_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Other_Health_Insurance_Type",
+        "type": "edit_text",
+        "hint": "Chagua bima ya afya",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua bima ya afya"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "wra",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -784,18 +803,6 @@
             "openmrs_entity_id": "chk_fisherman"
           },
           {
-            "key": "chk_miner",
-            "text": "Kazi eneo la madini",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_miner"
-          },
-          {
-            "key": "chk_truck_driver",
-            "text": "Dereva wa malori",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_truck_driver"
-          },
-          {
             "key": "chk_bus_driver",
             "text": "Dereva wa mabasi",
             "openmrs_entity": "concept",
@@ -810,7 +817,6 @@
           {
             "key": "chk_business_person",
             "text": "Mfanyabiashara",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_business_person"
           },
@@ -846,7 +852,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
+              "rules-file": "family_member_relevance.yml"
             }
           }
         }
@@ -865,7 +871,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
+              "rules-file": "family_member_relevance.yml"
             }
           }
         }
