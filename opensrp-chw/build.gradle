@@ -345,13 +345,16 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 }
 
 dependencies {
-    // The source compatibility adapter targets exactly these upstream implementations.
     constraints {
+        // The source compatibility adapter targets exactly these upstream implementations.
         implementation('com.evernote:android-job:1.4.3') {
             version { strictly '1.4.3' }
         }
         implementation('com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1') {
             version { strictly '4.5.1' }
+        }
+        implementation('org.smartregister:opensrp-chw-mother-mentor:0.1.69-UCSW-149-HEI-BREASTFEEDING-SNAPSHOT') {
+            because 'the app uses Child EID and visit closure APIs introduced after the version declared by CHW Core 2.2.3'
         }
     }
 
@@ -380,8 +383,8 @@ dependencies {
         implementation 'com.github.lecho:hellocharts-android:1.5.8'
     }
 
-    // CHW Core exports the Mother Mentor library and controls its version.
-    implementation('org.smartregister:opensrp-client-chw-core:2.2.0-MOTHER-MENTOR-ALPHA-69-UCSW-149-HEI-BREASTFEEDING-MOH-SNAPSHOT@aar') {
+    // CHW Core exports the Mother Mentor library.
+    implementation('org.smartregister:opensrp-client-chw-core:2.2.3-MOTHER-MENTOR-ALPHA-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-plan-evaluator'
         // Pull opensrp-chw-ncd directly (below) instead of the version chw-core resolves to,
