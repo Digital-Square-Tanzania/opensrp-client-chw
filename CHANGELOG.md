@@ -4,6 +4,12 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+## Mother Mentor Closed partner register — 2026-11-26
+
+- Use finalized partner visit evidence for the Closed register when the enrollment
+  summary lags, and show the saved closure date with the localized status.
+  [CHW #1244](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1244)
+
 ## Mother Mentor Child EID visit draft — 2026-11-25
 
 - Preserve saved tracing and HEI section answers when Android recreates an open Child EID visit. Apply the returning section to the restored visit before the CHW saves it. [CHW #1248](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1248)
