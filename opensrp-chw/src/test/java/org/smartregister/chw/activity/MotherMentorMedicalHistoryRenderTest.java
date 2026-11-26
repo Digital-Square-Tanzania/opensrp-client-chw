@@ -191,8 +191,7 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     public void childHistoryEditRemainsAvailableUntilClosure() {
         try (MockedStatic<MotherMentorChildEidRepository> repository =
                      Mockito.mockStatic(MotherMentorChildEidRepository.class)) {
-            MotherMentorChildEidRepository.State active =
-                    Mockito.mock(MotherMentorChildEidRepository.State.class);
+            MotherMentorChildEidRepository.State active = childEidWithoutWeaningVisit();
             MotherMentorChildEidRepository.State closed = closedChildEid();
             repository.when(() -> MotherMentorChildEidRepository.getState(
                     Mockito.any(), Mockito.eq("mother-mentor-client"), Mockito.isNull()))
@@ -217,12 +216,17 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
     }
 
     private MotherMentorChildEidRepository.State closedChildEid() {
-        MotherMentorChildEidRepository.State closed =
-                Mockito.mock(MotherMentorChildEidRepository.State.class);
+        MotherMentorChildEidRepository.State closed = childEidWithoutWeaningVisit();
         Mockito.when(closed.isClosed()).thenReturn(true);
         Mockito.when(closed.getClosedStatus()).thenReturn("tested_negative");
         Mockito.when(closed.getClosedDate()).thenReturn("2026-11-08");
         return closed;
+    }
+
+    private MotherMentorChildEidRepository.State childEidWithoutWeaningVisit() {
+        MotherMentorChildEidRepository.State state = Mockito.mock(MotherMentorChildEidRepository.State.class);
+        Mockito.when(state.getClinicalState()).thenReturn(new MotherMentorMotherChildRepository.State(null));
+        return state;
     }
 
     private MockedStatic<MotherMentorPartnerFollowUpDao> partnerContext;
