@@ -22,6 +22,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.joda.time.LocalDate;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +36,10 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.chw.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.repository.MotherMentorPartnerRepository;
 import org.smartregister.chw.util.MotherMentorChildEidFormUtils;
@@ -53,6 +57,7 @@ import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /** Exercises actual form launch methods without adding a manifest-only test activity. */
@@ -330,15 +335,28 @@ public class MotherMentorFormWizardLaunchTest {
     private void assertLaunch(Context context, Launch launch, JSONObject form) throws Exception {
         assertNotNull(launch.intent);
         assertEquals(JsonFormUtils.REQUEST_CODE_GET_JSON, launch.requestCode);
-        boolean childAssessment = "Mother Mentor Visit Type".equals(form.optString("encounter_type"))
-                && org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
-                        .field(form, org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_CHILD_STATUS) != null;
-        childAssessment = childAssessment || "Mother Mentor Child EID HEI".equals(form.optString("encounter_type"))
-                && "3".equals(org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
-                        .values(form).get(org.smartregister.chw.mothermentor.util.DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA));
-        assertEquals((childAssessment ? MotherMentorVisitWizardActivity.class
+        String encounterType = form.optString("encounter_type");
+        Map<String, String> values = MotherMentorMotherChildUtils.values(form);
+        boolean childAssessment = "Mother Mentor Visit Type".equals(encounterType)
+                && (MotherMentorDeliveryChildren.hasSections(values)
+                        || MotherMentorMotherChildUtils.field(form, DBConstants.KEY.MAMA_CHILD_STATUS) != null);
+        childAssessment = childAssessment || "Mother Mentor Child EID HEI".equals(encounterType)
+                && "3".equals(values.get(DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA));
+        assertEquals(encounterType, (childAssessment ? MotherMentorVisitWizardActivity.class
                 : FamilyWizardFormActivity.class).getName(), launch.intent.getComponent().getClassName());
-        assertEquals(form.toString(), launchedJson(launch).toString());
+        JSONObject launched = launchedJson(launch);
+        for (Iterator<String> steps = form.keys(); steps.hasNext(); ) {
+            String stepName = steps.next();
+            if (!stepName.startsWith("step")) continue;
+            JSONArray sourceFields = form.getJSONObject(stepName).getJSONArray("fields");
+            JSONArray launchedFields = launched.getJSONObject(stepName).getJSONArray("fields");
+            for (int i = 0; i < sourceFields.length(); i++) {
+                JSONObject sourceField = sourceFields.getJSONObject(i);
+                JSONObject launchedField = launchedFields.getJSONObject(i);
+                if (!sourceField.has("v_max_length")) launchedField.remove("v_max_length");
+            }
+        }
+        assertEquals(form.toString(), launched.toString());
         assertNavigation(context, config(launch.intent));
     }
 

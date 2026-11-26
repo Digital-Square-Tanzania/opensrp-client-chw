@@ -4,6 +4,12 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+
+## Mother Mentor specify fields — 2026-11-25
+
+- Limit text entered or pasted into Mother Mentor specify fields to 100 characters,
+  with a live counter and Save validation. [CHW #1249](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1249)
+
 ## Mother Mentor Alpha 68 integration candidate — 2026-11-25
 
 - Open documented pending confirmation samples on the confirmation result form
