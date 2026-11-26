@@ -4,6 +4,11 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+## Mother Mentor Alpha 65 integration candidate — 2026-11-25
+
+- Leave the Mtoto EID due-test display blank until the weaning date is available
+  when breastfeeding has stopped. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-65-UCSW-140-MTOTO-EID-DUE-TEST-MOH-SNAPSHOT`. [CHW #1245](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1245)
+
 ## Mother Mentor Alpha 64 integration candidate — 2026-11-25
 
 - Record not-found outcomes on open post-acceptance Mwenzi visits with reason-specific closure using
