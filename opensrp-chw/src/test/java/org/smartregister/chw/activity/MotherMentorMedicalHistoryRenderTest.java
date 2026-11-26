@@ -154,6 +154,55 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
 
     @Test
     @Config(qualifiers = "en")
+    public void motherHistoryRendersSavedOutcomeDatesImmediatelyAfterCurrentStatusInEnglish() {
+        assertMotherOutcomeDate("delivered", "Current status", "Delivered", "Date of delivery",
+                "2026-10-04", "04-10-2026");
+        assertMotherOutcomeDate("preterm", "Current status", "Delivered preterm", "Date of delivery",
+                "05-10-2026", "05-10-2026");
+        assertMotherOutcomeDate("pregnancy_loss", "Current status", "Pregnancy loss (miscarriage)",
+                "Date of pregnancy loss", "2026-10-06", "06-10-2026");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void motherHistoryRendersSavedOutcomeDatesImmediatelyAfterCurrentStatusInSwahili() {
+        assertMotherOutcomeDate("delivered", "Hali ya sasa", "Amejifungua", "Tarehe ya kujifungua",
+                "2026-10-04", "04-10-2026");
+        assertMotherOutcomeDate("preterm", "Hali ya sasa", "Amejifungua kabla ya wakati (njiti)",
+                "Tarehe ya kujifungua", "05-10-2026", "05-10-2026");
+        assertMotherOutcomeDate("pregnancy_loss", "Hali ya sasa", "Mimba imeharibika",
+                "Tarehe mimba ilipoharibika", "2026-10-06", "06-10-2026");
+    }
+
+    private void assertMotherOutcomeDate(String outcome, String statusLabel, String status,
+            String dateLabel, String savedDate, String expectedDate) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        boolean loss = "pregnancy_loss".equals(outcome);
+        String savedDateKey = loss ? DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE
+                : DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA;
+        String dateRowKey = loss ? DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE
+                : ("preterm".equals(outcome) ? DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT
+                        : DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT);
+        add(visit, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        add(visit, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, outcome, "");
+        add(visit, savedDateKey, savedDate, "");
+        if (!loss) add(visit, "mama_delivery_child_count", "1", "");
+
+        View card = render(activity(), null, visit).getChildAt(0);
+        LinearLayout details = card.findViewById(R.id.visit_details_layout);
+        TextView statusRow = details.findViewWithTag(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME);
+        TextView dateRow = details.findViewWithTag(dateRowKey);
+
+        assertNotNull(statusRow);
+        assertNotNull(dateRow);
+        assertEquals(statusLabel + "\n" + status + "\n", statusRow.getText().toString());
+        assertEquals(dateLabel + "\n" + expectedDate + "\n", dateRow.getText().toString());
+        assertEquals(details.indexOfChild(statusRow) + 1, details.indexOfChild(dateRow));
+        assertEquals(savedDate, visit.getVisitDetails().get(savedDateKey).get(0).getDetails());
+    }
+
+    @Test
+    @Config(qualifiers = "en")
     public void closedChildHistoryShowsEnglishReasonAndDateWithoutEdit() {
         assertClosedChildHistory("Tested — back on the HEI schedule\nClosed on 08-11-2026");
     }

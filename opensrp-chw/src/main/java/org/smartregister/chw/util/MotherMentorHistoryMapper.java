@@ -248,13 +248,19 @@ public final class MotherMentorHistoryMapper {
             Map<String, Field> fields,
             Map<String, List<VisitDetail>> recorded) {
         Row comments = null;
+        String pregnancyOutcomeDateKey = null;
         for (Field field : fields.values()) {
+            if (pregnancyOutcomeDateKey != null && isPregnancyOutcomeDateField(field.key)) continue;
             List<String> values = values(field, recordedAnswers(
                     recorded, field, field.key, DBConstants.KEY.MAMA_HEI_TEST_TYPE));
             if (values.isEmpty()) continue;
             Row row = new Row(field.key, field.label, values, field.multiple);
             if (DBConstants.KEY.COMMENTS.equals(field.key)) comments = row;
             else rows.add(row);
+            if (DBConstants.KEY.MAMA_PREGNANCY_OUTCOME.equals(field.key)) {
+                pregnancyOutcomeDateKey = outcomeDateKey(field, values.get(values.size() - 1));
+                addOutcomeDateRow(rows, fields.get(pregnancyOutcomeDateKey), recorded);
+            }
         }
         return comments;
     }
@@ -269,6 +275,40 @@ public final class MotherMentorHistoryMapper {
             }
         }
         return recorded.get(displayKey);
+    }
+
+    private static boolean isPregnancyOutcomeDateField(String key) {
+        return DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT.equals(key)
+                || DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT.equals(key)
+                || DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE.equals(key);
+    }
+
+    private static String outcomeDateKey(Field outcome, String label) {
+        if (label.equals(outcome.option("delivered"))) return DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT;
+        if (label.equals(outcome.option("preterm"))) return DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT;
+        if (label.equals(outcome.option("pregnancy_loss"))) return DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE;
+        return null;
+    }
+
+    private void addOutcomeDateRow(List<Row> rows, Field field, Map<String, List<VisitDetail>> recorded) {
+        if (field == null) return;
+        // Delivery aliases are form inputs. Current visits save the normalized delivery observation.
+        String date = DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE.equals(field.key)
+                ? "" : outcomeDate(recorded.get(DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA));
+        if (date.isEmpty()) date = outcomeDate(recorded.get(field.key));
+        if (!date.isEmpty()) rows.add(new Row(field.key, field.label, Collections.singletonList(date), false));
+    }
+
+    private String outcomeDate(List<VisitDetail> details) {
+        if (details == null) return "";
+        for (int i = details.size() - 1; i >= 0; i--) {
+            VisitDetail detail = details.get(i);
+            if (detail == null) continue;
+            String value = firstAnswer(scalar(detail.getDetails()), scalar(detail.getHumanReadable()));
+            String date = displayDate(parseBirthDate(value));
+            if (!date.isEmpty()) return date;
+        }
+        return "";
     }
 
     private void addHistoricalRows(

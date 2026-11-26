@@ -22,6 +22,7 @@ import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -778,6 +779,69 @@ public class MotherMentorHistoryMapperTest {
         visit.setVisitType(type);
         visit.setVisitDetails(new LinkedHashMap<>());
         return visit;
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void outcomeDatesUseSavedObservationsAndPreserveTheirRawValues() {
+        Visit delivery = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(delivery, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, "[\"delivered\"]", "Amejifungua");
+        String savedDate = "2026-10-04T23:30:00-03:00";
+        String storedKey = "step1:" + DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA;
+        answer(delivery, storedKey, savedDate, "");
+        answer(delivery, DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT, "05-10-2026", "");
+
+        List<Row> deliveryRows = mapper().map(delivery);
+        assertEquals(Arrays.asList(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME,
+                DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT), keys(deliveryRows));
+        assertEquals(Collections.singletonList("04-10-2026"), deliveryRows.get(1).getValues());
+        assertEquals(savedDate, delivery.getVisitDetails().get(storedKey).get(0).getDetails());
+        assertEquals("05-10-2026", delivery.getVisitDetails().get(DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT)
+                .get(0).getDetails());
+
+        Visit loss = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(loss, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, "pregnancy_loss", "");
+        answer(loss, DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE, "2026-10-06", "");
+        answer(loss, DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA, "2026-10-09", "");
+
+        List<Row> lossRows = mapper().map(loss);
+        assertEquals(Arrays.asList(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME,
+                DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE), keys(lossRows));
+        assertEquals(Collections.singletonList("06-10-2026"), lossRows.get(1).getValues());
+        assertEquals("2026-10-06", loss.getVisitDetails().get(DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE)
+                .get(0).getDetails());
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void legacyPretermOutcomeUsesItsOwnSavedDateAliasAndLocalizedCaption() {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, "", "Delivered preterm");
+        answer(visit, DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT, "07/10/2026", "");
+        answer(visit, DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT, "08-10-2026", "");
+
+        List<Row> rows = mapper().map(visit);
+
+        assertEquals(Arrays.asList(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME,
+                DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT), keys(rows));
+        assertEquals(Collections.singletonList("Amejifungua kabla ya wakati (njiti)"), rows.get(0).getValues());
+        assertEquals("Tarehe ya kujifungua", rows.get(1).getLabel());
+        assertEquals(Collections.singletonList("07-10-2026"), rows.get(1).getValues());
+    }
+
+    @Test
+    public void legacyOutcomesWithoutTheirOwnRecordedDateHaveNoOutcomeDateRow() {
+        for (String outcome : Arrays.asList("delivered", "preterm", "pregnancy_loss")) {
+            Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+            visit.setDate(new Date(1_800_000_000_000L));
+            answer(visit, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, outcome, "");
+            if ("pregnancy_loss".equals(outcome)) {
+                answer(visit, DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE, "[]", "");
+                answer(visit, DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA, "2026-10-09", "");
+            }
+            assertEquals(outcome, Collections.singletonList(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME),
+                    keys(mapper().map(visit)));
+        }
     }
 
     private void answer(Visit visit, String key, String raw, String readable) {
