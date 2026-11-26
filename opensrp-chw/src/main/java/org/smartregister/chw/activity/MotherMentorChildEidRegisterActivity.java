@@ -260,8 +260,13 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
                                 JSONObject form =
                                         FormUtils.getFormUtils()
                                                 .getFormJson(MotherMentorChildEidFormUtils.FORM);
-                                if (directChildId == null) repository.prepareForm(form, motherId, id);
-                                else repository.prepareDirectForm(this, form, directChildId);
+                                if (directChildId == null) {
+                                    repository.prepareForm(form, motherId, id);
+                                    MotherMentorChildEidFormUtils.localizeSexForDisplay(this, form);
+                                    MotherMentorChildEidFormUtils.formatDobForDisplay(form);
+                                } else {
+                                    repository.prepareDirectForm(this, form, directChildId);
+                                }
                                 form.getJSONObject("metadata")
                                         .put(
                                                 "encounter_location",
@@ -292,6 +297,7 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
     private void launchEnrollmentForm(JSONObject form) {
         Intent intent = Utils.formActivityIntent(this, form.toString());
         directFormLaunched = directChildId != null;
+        if (directFormLaunched) intent.setClass(this, MotherMentorVisitWizardActivity.class);
         startActivityForResult(MotherMentorFormWizardUtils.configureIntent(this, intent),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }

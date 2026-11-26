@@ -71,6 +71,14 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     static final String EXTRA_FOLLOW_UP_VISIT = "extra_follow_up_visit";
     private static final String HISTORY_VISIT_ID = "history_visit_id";
     private static final String PARTNER_STARTED_ACTION = "partner_started_action";
+    private static final String CHILD_EID_OPEN_SECTION = "child_eid_open_section";
+    private static final String CHILD_EID_SECTION_ANSWERS = "child_eid_section_answers";
+    private static final String CHILD_EID_STATUS_FORM = "mothermentor_child_eid_follow_up_status";
+    private static final String CHILD_EID_HEI_FORM = "mothermentor_child_eid_hei";
+    private static final String CHILD_EID_COMMENT_FORM = "mothermentor_child_eid_follow_up_comment";
+    private Bundle childEidSectionAnswers = new Bundle();
+    private String childEidOpenSection;
+    private boolean restoreChildEidSections;
     private boolean partnerFormOpened;
     private boolean submitting;
     private boolean closureConfirmationOpen;
@@ -82,12 +90,16 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         startMotherMentorVisitActivity(activity, baseEntityId, editMode, false);
     }
 
-    static void editFromHistory(Activity activity, String motherId, String visitId) {
+    static void editFromHistory(Activity activity, String memberId, String visitId,
+            MotherMentorFollowUpType followUpType) {
         Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, motherId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, true);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
-        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, false);
+        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, followUpType != null);
+        if (followUpType != null) {
+            intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
+        }
         intent.putExtra(HISTORY_VISIT_ID, visitId);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
@@ -145,7 +157,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                         : followUpType == MotherMentorFollowUpType.PARTNER
                         ? partnerInteractor
                         : followUpType == MotherMentorFollowUpType.CHILD_EID
-                        ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType())
+                        ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType(), historyVisitId())
                         : iitInteractor());
     }
 
@@ -178,6 +190,11 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
             partnerFormOpened = true;
             current_action = savedInstanceState.getString(PARTNER_STARTED_ACTION);
         }
+        if (savedInstanceState != null && savedInstanceState.containsKey(CHILD_EID_SECTION_ANSWERS)) {
+            childEidOpenSection = savedInstanceState.getString(CHILD_EID_OPEN_SECTION);
+            childEidSectionAnswers = savedInstanceState.getBundle(CHILD_EID_SECTION_ANSWERS);
+            restoreChildEidSections = true;
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -185,11 +202,23 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (partnerFormOpened) outState.putString(PARTNER_STARTED_ACTION, current_action);
+        if (childEidOpenSection != null || !childEidSectionAnswers.isEmpty()) {
+            outState.putString(CHILD_EID_OPEN_SECTION, childEidOpenSection);
+            outState.putBundle(CHILD_EID_SECTION_ANSWERS, new Bundle(childEidSectionAnswers));
+        }
     }
 
     @Override
     public void initializeActions(LinkedHashMap<String, BaseMotherMentorVisitAction> actions) {
         super.initializeActions(actions);
+        if (restoreChildEidSections && childEidSection(CHILD_EID_STATUS_FORM) != null) {
+            // Applying tracing answers can synchronously rebuild the list and add the HEI row.
+            restoreChildEidSections = false;
+            applyChildEidSection(CHILD_EID_STATUS_FORM);
+            applyChildEidSection(CHILD_EID_HEI_FORM);
+            applyChildEidSection(CHILD_EID_COMMENT_FORM);
+            redrawVisitUI();
+        }
         if (partnerFormOpened || isFinishing() || !isFollowUpVisit()
                 || getFollowUpType() != MotherMentorFollowUpType.PARTNER
                 || Boolean.TRUE.equals(isEditMode)) return;
@@ -399,10 +428,14 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     protected MotherMentorChildEidExit getChildEidClosurePreview() {
-        Visit editing = Boolean.TRUE.equals(isEditMode)
-                ? MotherMentorLibrary.getInstance().visitRepository()
-                        .getLatestVisit(baseEntityID, MotherMentorFollowUpType.CHILD_EID.getEventType())
-                : null;
+        Visit editing = null;
+        if (Boolean.TRUE.equals(isEditMode)) {
+            String selected = historyVisitId();
+            editing = selected == null
+                    ? MotherMentorLibrary.getInstance().visitRepository()
+                            .getLatestVisit(baseEntityID, MotherMentorFollowUpType.CHILD_EID.getEventType())
+                    : MotherMentorLibrary.getInstance().visitRepository().getVisitByVisitId(selected);
+        }
         return MotherMentorChildEidRepository.previewExit(
                 ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
                 editing == null ? null : editing.getVisitId(), stagedAnswers(),
@@ -607,7 +640,50 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
 
     @Override
     public void startForm(BaseMotherMentorVisitAction action) {
-        if (!blockClosedCard()) super.startForm(action);
+        if (blockClosedCard()) return;
+        if (childEidSection(CHILD_EID_STATUS_FORM) != null) {
+            childEidOpenSection = action.getFormName();
+        }
+        super.startForm(action);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != Constants.REQUEST_CODE_GET_JSON || childEidOpenSection == null) {
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+
+        String section = childEidOpenSection;
+        childEidOpenSection = null;
+        if (resultCode != RESULT_OK || data == null) return;
+        String payload = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+        if (TextUtils.isEmpty(payload)) return;
+        childEidSectionAnswers.putString(section, payload);
+        if (childEidSection(CHILD_EID_STATUS_FORM) == null) {
+            // Android can deliver the result before the asynchronous action load finishes.
+            restoreChildEidSections = true;
+            return;
+        }
+        applyChildEidSection(section);
+        redrawVisitUI();
+    }
+
+    private BaseMotherMentorVisitAction childEidSection(String form) {
+        for (BaseMotherMentorVisitAction action : getMotherMentorVisitActions().values()) {
+            if (form.equals(action.getFormName())) return action;
+        }
+        return null;
+    }
+
+    private void applyChildEidSection(String form) {
+        BaseMotherMentorVisitAction action = childEidSection(form);
+        String answers = childEidSectionAnswers.getString(form);
+        if (action == null || answers == null) return;
+        action.setJsonPayload(answers);
+        if (CHILD_EID_STATUS_FORM.equals(form) && childEidSection(CHILD_EID_HEI_FORM) == null) {
+            childEidSectionAnswers.remove(CHILD_EID_HEI_FORM);
+        }
     }
 
     @Override

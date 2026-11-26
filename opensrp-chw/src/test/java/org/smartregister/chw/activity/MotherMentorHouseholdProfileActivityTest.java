@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -68,6 +69,73 @@ public class MotherMentorHouseholdProfileActivityTest extends BaseUnitTest {
     @After
     public void closeHouseholdClosureFixture() {
         closureRepository.close();
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void englishHouseholdHeaderShowsOnlyAvailableLocation() {
+        assertHouseholdHeader("Jaribio Family", "Household");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliHouseholdHeaderShowsOnlyAvailableLocation() {
+        assertHouseholdHeader("Kaya ya Jaribio", "Kaya");
+    }
+
+    private void assertHouseholdHeader(String title, String fallback) {
+        MotherMentorHouseholdProfileActivity activity = householdProfile();
+        activity.setContentView(org.smartregister.chw.mothermentor.R.layout.activity_mothermentor_profile);
+        TextView name = activity.findViewById(org.smartregister.chw.mothermentor.R.id.textview_name);
+        TextView gender = activity.findViewById(org.smartregister.chw.mothermentor.R.id.textview_gender);
+        TextView address = activity.findViewById(org.smartregister.chw.mothermentor.R.id.textview_address);
+        TextView id = activity.findViewById(org.smartregister.chw.mothermentor.R.id.textview_id);
+        ReflectionHelpers.setField(activity, "textViewName", name);
+        ReflectionHelpers.setField(activity, "textViewGender", gender);
+        ReflectionHelpers.setField(activity, "textViewLocation", address);
+        ReflectionHelpers.setField(activity, "textViewUniqueID", id);
+        MemberObject household = ReflectionHelpers.getField(activity, "memberObject");
+        household.setFirstName("jaribio");
+        household.setLastName("Family");
+        household.setUniqueId("synthetic_family");
+        household.setAddress(" Example Village ");
+
+        activity.setProfileViewWithData();
+
+        assertEquals(title, name.getText().toString());
+        assertEquals("Example Village", address.getText().toString());
+        ViewGroup subtitle = (ViewGroup) address.getParent();
+        assertEquals(View.VISIBLE, subtitle.getVisibility());
+        for (int i = 0; i < subtitle.getChildCount(); i++) {
+            View child = subtitle.getChildAt(i);
+            assertEquals(child == address ? View.VISIBLE : View.GONE, child.getVisibility());
+        }
+        assertEquals("synthetic_family", household.getUniqueId());
+        assertEquals("jaribio", household.getFirstName());
+        assertEquals(" Example Village ", household.getAddress());
+
+        MotherMentorHouseholdVisitActivity visit =
+                Robolectric.buildActivity(MotherMentorHouseholdVisitActivity.class).get();
+        TextView visitTitle = new TextView(visit);
+        ReflectionHelpers.setField(visit, "tvTitle", visitTitle);
+        visit.redrawHeader(household);
+        assertEquals(title, visitTitle.getText().toString());
+
+        activity.openMedicalHistory();
+        Intent historyIntent = Shadows.shadowOf(activity).getNextStartedActivity();
+        MotherMentorMedicalHistoryActivity history =
+                Robolectric.buildActivity(MotherMentorMedicalHistoryActivity.class, historyIntent).get();
+        history.setContentView(org.smartregister.chw.opensrp_chw_anc.R.layout.activity_base_anc_medical_history);
+        history.setUpView();
+        TextView historyTitle = history.findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
+        assertEquals(history.getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, title),
+                historyTitle.getText().toString());
+
+        household.setFirstName(null);
+        household.setAddress(" ");
+        activity.setProfileViewWithData();
+        assertEquals(fallback, name.getText().toString());
+        assertEquals(View.GONE, subtitle.getVisibility());
     }
 
     @Test

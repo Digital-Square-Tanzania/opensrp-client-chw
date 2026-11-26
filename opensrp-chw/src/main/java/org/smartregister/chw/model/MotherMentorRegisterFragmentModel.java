@@ -5,10 +5,13 @@ import androidx.annotation.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.mothermentor.model.BaseMotherMentorRegisterFragmentModel;
+import org.smartregister.chw.mothermentor.repository.VisitRepository;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,8 +20,34 @@ public class MotherMentorRegisterFragmentModel extends BaseMotherMentorRegisterF
     @NonNull
     @Override
     public String mainSelect(@NonNull String tableName, @NonNull String mainCondition) {
+        return select(tableName, mainCondition, mainColumns(tableName));
+    }
+
+    public String partnerCandidates(String indexedCondition, boolean closed, String filter, String order) {
+        String table = MotherMentorFollowUpType.PARTNER.getEnrollmentTable();
+        // Finalized visits can support a closure even when the derived enrollment or EC row lags.
+        String replay = "coalesce(nullif(trim(" + table + "." + DBConstants.KEY.MWENZI_STATUS
+                + "), ''), 'active') = 'active' AND EXISTS (SELECT 1 FROM "
+                + VisitRepository.VISIT_TABLE + " partner_evidence WHERE partner_evidence."
+                + DBConstants.KEY.BASE_ENTITY_ID + " = " + table + "." + DBConstants.KEY.BASE_ENTITY_ID
+                + " AND partner_evidence." + DBConstants.KEY.PROCESSED + " = 1 AND partner_evidence."
+                + DBConstants.KEY.VISIT_TYPE + " IN ('" + MotherMentorFollowUpType.PARTNER.getEventType()
+                + "', '" + org.smartregister.chw.mothermentor.util.Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES
+                + "'))";
+        String[] columns = mainColumns(table);
+        int size = columns.length;
+        columns = Arrays.copyOf(columns, size + 2);
+        columns[size] = "CASE WHEN " + indexedCondition + " THEN 1 ELSE 0 END AS partner_indexed_match";
+        columns[size + 1] = "(" + replay + ") AS partner_replay_closure";
+        String condition = closed ? "((" + indexedCondition + ") OR (" + replay + "))" : indexedCondition;
+        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder(select(table, condition, columns));
+        if (filter != null && !filter.isEmpty()) queryBuilder.addCondition("AND " + filter);
+        return queryBuilder.orderbyCondition(order);
+    }
+
+    private String select(String tableName, String mainCondition, String[] columns) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName));
+        queryBuilder.selectInitiateMainTable(tableName, columns);
         queryBuilder.customJoin(
                 "INNER JOIN "
                         + Constants.TABLE_NAME.FAMILY_MEMBER

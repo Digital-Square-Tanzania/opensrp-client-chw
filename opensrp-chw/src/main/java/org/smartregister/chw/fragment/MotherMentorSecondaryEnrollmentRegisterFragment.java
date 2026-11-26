@@ -15,6 +15,7 @@ import org.smartregister.chw.presenter.MotherMentorSecondaryEnrollmentRegisterFr
 import org.smartregister.chw.provider.MotherMentorFollowUpRegisterProvider;
 import org.smartregister.chw.provider.MotherMentorIitRegisterProvider;
 import org.smartregister.chw.provider.MotherMentorChildEidRegisterProvider;
+import org.smartregister.chw.repository.MotherMentorPartnerRegisterPage;
 import org.smartregister.chw.mothermentor.dao.MotherMentorChildEidDao;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.commonregistry.CommonRepository;
@@ -36,7 +37,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
     private static final String ARG_FOLLOW_UP_TYPE = "follow_up_type";
     private String sharedSearchText = "";
     private boolean historyMode;
-    private long childLoaderGeneration;
+    private long followUpLoaderGeneration;
     private final MotherMentorRegisterFragmentModel registerModel =
             new MotherMentorRegisterFragmentModel();
 
@@ -122,6 +123,7 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
                                 + " LIKE '%"
                                 + term
                                 + "%')";
+        if (isPartner()) clientAdapter.setCurrentoffset(0);
         filterandSortExecute(countBundle());
     }
 
@@ -153,7 +155,12 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
                 String count = args != null && args.getBoolean("count_execute")
                         ? MotherMentorChildEidDao.countQuery(sharedSearchText, historyMode) : null;
                 return new ChildCursorLoader(getActivity(), commonRepository(),
-                        ++childLoaderGeneration, page, count);
+                        ++followUpLoaderGeneration, page, count);
+            }
+            if (isPartner()) {
+                return new PartnerCursorLoader(getActivity(), commonRepository(),
+                        ++followUpLoaderGeneration, partnerCandidates(), historyMode,
+                        clientAdapter.getCurrentoffset(), clientAdapter.getCurrentlimit());
             }
             return new CursorLoader(getActivity()) {
                 @Override
@@ -188,6 +195,13 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
                     MotherMentorChildEidDao.countQuery(sharedSearchText, historyMode))) {
                 if (cursor.moveToFirst()) clientAdapter.setTotalcount(cursor.getInt(0));
             }
+            return;
+        }
+        if (isPartner()) {
+            MotherMentorPartnerRegisterPage page = MotherMentorPartnerRegisterPage.read(
+                    commonRepository(), partnerCandidates(), historyMode, 0, 0);
+            page.rows.close();
+            clientAdapter.setTotalcount(page.count);
             return;
         }
         Cursor cursor = null;
@@ -243,43 +257,58 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
         return getFollowUpType() == MotherMentorFollowUpType.CHILD_EID;
     }
 
+    private boolean isPartner() {
+        return getFollowUpType() == MotherMentorFollowUpType.PARTNER;
+    }
+
+    private String partnerCandidates() {
+        return registerModel.partnerCandidates(presenter().getMainCondition(), historyMode, filters, Sortqueries);
+    }
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (isChildEid()) {
-            if (!(loader instanceof ChildCursorLoader)) return;
-            ChildCursorLoader child = (ChildCursorLoader) loader;
-            if (child.generation != childLoaderGeneration) return;
-            if (child.total != null) clientAdapter.setTotalcount(child.total);
+        if (isChildEid() || isPartner()) {
+            if (!(loader instanceof FollowUpCursorLoader)) return;
+            FollowUpCursorLoader followUp = (FollowUpCursorLoader) loader;
+            if (followUp.generation != followUpLoaderGeneration) return;
+            if (followUp.total != null) clientAdapter.setTotalcount(followUp.total);
         }
         super.onLoadFinished(loader, data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        if (isChildEid() && (!(loader instanceof ChildCursorLoader)
-                || ((ChildCursorLoader) loader).generation != childLoaderGeneration)) return;
+        if ((isChildEid() || isPartner()) && (!(loader instanceof FollowUpCursorLoader)
+                || ((FollowUpCursorLoader) loader).generation != followUpLoaderGeneration)) return;
         super.onLoaderReset(loader);
     }
 
     @Override
     public void onDestroyView() {
-        if (isChildEid()) childLoaderGeneration++;
+        if (isChildEid() || isPartner()) followUpLoaderGeneration++;
         super.onDestroyView();
     }
 
     /** A loader owns its query snapshot and cursor; obsolete callbacks never touch a new view. */
-    private static final class ChildCursorLoader extends CursorLoader {
-        private final CommonRepository repository;
-        private final long generation;
-        private final String pageQuery;
-        private final String countQuery;
-        private volatile Integer total;
+    private abstract static class FollowUpCursorLoader extends CursorLoader {
+        final CommonRepository repository;
+        final long generation;
+        volatile Integer total;
 
-        ChildCursorLoader(android.content.Context context, CommonRepository repository,
-                long generation, String pageQuery, String countQuery) {
+        FollowUpCursorLoader(android.content.Context context, CommonRepository repository, long generation) {
             super(context);
             this.repository = repository;
             this.generation = generation;
+        }
+    }
+
+    private static final class ChildCursorLoader extends FollowUpCursorLoader {
+        private final String pageQuery;
+        private final String countQuery;
+
+        ChildCursorLoader(android.content.Context context, CommonRepository repository,
+                long generation, String pageQuery, String countQuery) {
+            super(context, repository, generation);
             this.pageQuery = pageQuery;
             this.countQuery = countQuery;
         }
@@ -292,6 +321,30 @@ public class MotherMentorSecondaryEnrollmentRegisterFragment extends MotherMento
                 }
             }
             return repository.rawCustomQueryForAdapter(pageQuery);
+        }
+    }
+
+    private static final class PartnerCursorLoader extends FollowUpCursorLoader {
+        private final String query;
+        private final boolean closed;
+        private final int offset;
+        private final int limit;
+
+        PartnerCursorLoader(android.content.Context context, CommonRepository repository,
+                long generation, String query, boolean closed, int offset, int limit) {
+            super(context, repository, generation);
+            this.query = query;
+            this.closed = closed;
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        @Override
+        public Cursor loadInBackground() {
+            MotherMentorPartnerRegisterPage page =
+                    MotherMentorPartnerRegisterPage.read(repository, query, closed, offset, limit);
+            total = page.count;
+            return page.rows;
         }
     }
 }

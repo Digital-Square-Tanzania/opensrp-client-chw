@@ -14,9 +14,11 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -33,6 +35,7 @@ import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosure;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdClosureLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorVisitsUtil;
 import org.smartregister.chw.mothermentor.util.MotherMentorHouseholdVisitUtils;
+import org.smartregister.chw.util.MotherMentorHouseholdTitle;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
@@ -156,11 +159,17 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
             return;
         }
 
-        String name = Utils.getName(memberObject.getFirstName(), memberObject.getLastName());
-        textViewName.setText(TextUtils.isEmpty(name) ? getString(R.string.mothermentor) : name);
-        textViewGender.setText("");
-        textViewLocation.setText(memberObject.getAddress());
-        textViewUniqueID.setText(memberObject.getUniqueId());
+        textViewName.setText(MotherMentorHouseholdTitle.format(this, memberObject.getFirstName()));
+        String location = StringUtils.trimToNull(memberObject.getAddress());
+        ViewGroup subtitle = findViewById(
+                org.smartregister.chw.mothermentor.R.id.mothermentor_profile_demographics);
+        textViewLocation.setText(location);
+        subtitle.setVisibility(location == null ? View.GONE : View.VISIBLE);
+        // The shared profile layout interleaves static separators with person fields.
+        for (int i = 0; i < subtitle.getChildCount(); i++) {
+            View child = subtitle.getChildAt(i);
+            child.setVisibility(child == textViewLocation ? View.VISIBLE : View.GONE);
+        }
         findViewById(R.id.primary_mothermentor_caregiver).setVisibility(View.GONE);
         findViewById(R.id.family_mothermentor_head).setVisibility(View.GONE);
     }
@@ -232,7 +241,7 @@ public class MotherMentorHouseholdProfileActivity extends CoreMotherMentorProfil
 
     @Override
     public void openMedicalHistory() {
-        MotherMentorMedicalHistoryActivity.startMe(this, memberObject);
+        MotherMentorMedicalHistoryActivity.startHouseholdHistory(this, memberObject);
     }
 
     @Override

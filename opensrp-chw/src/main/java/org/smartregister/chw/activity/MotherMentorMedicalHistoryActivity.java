@@ -14,11 +14,13 @@ import org.smartregister.chw.interactor.MotherMentorMedicalHistoryInteractor;
 import org.smartregister.chw.mothermentor.domain.MemberObject;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.util.MotherMentorHouseholdTitle;
 
 import java.util.List;
 
 public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
     private static final String HISTORY_MEMBER = "mother_mentor_history_member";
+    private static final String HISTORY_HOUSEHOLD = "mother_mentor_history_household";
     private Flavor flavor;
     private ProgressBar progressBar;
 
@@ -27,8 +29,18 @@ public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryAct
     }
 
     public static void startMe(Activity activity, MemberObject memberObject, MotherMentorFollowUpType followUpType) {
+        startHistory(activity, memberObject, followUpType, false);
+    }
+
+    public static void startHouseholdHistory(Activity activity, MemberObject household) {
+        startHistory(activity, household, null, true);
+    }
+
+    private static void startHistory(Activity activity, MemberObject memberObject,
+            MotherMentorFollowUpType followUpType, boolean household) {
         Intent intent = new Intent(activity, MotherMentorMedicalHistoryActivity.class);
         intent.putExtra(HISTORY_MEMBER, memberObject);
+        intent.putExtra(HISTORY_HOUSEHOLD, household);
         if (followUpType != null) {
             intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
         }
@@ -64,7 +76,11 @@ public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryAct
         progressBar = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.progressBarMedicalHistory);
 
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
-        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, historyMember().getFullName()));
+        MemberObject member = historyMember();
+        String title = getIntent().getBooleanExtra(HISTORY_HOUSEHOLD, false)
+                ? MotherMentorHouseholdTitle.format(this, member.getFirstName())
+                : member.getFullName();
+        tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, title));
 
         ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.visits_history));
     }
@@ -77,7 +93,9 @@ public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryAct
         flavor.processViewData(visits, this);
         displayLoadingState(false);
         TextView visitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
-        visitTitle.setText(R.string.mothermentor_visit_history_title);
+        visitTitle.setText(getFollowUpType() == MotherMentorFollowUpType.PARTNER
+                ? R.string.mothermentor_partner_visit_history_title
+                : R.string.mothermentor_visit_history_title);
         return view;
     }
 

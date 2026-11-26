@@ -86,9 +86,16 @@ public class MotherMentorDeathPropagationTest {
     }
 
     static Event partnerVisit(String partnerId, String motherId, String reason, String day) throws Exception {
+        return partnerVisit(partnerId, motherId, reason, day, "tracing");
+    }
+
+    static Event partnerVisit(String partnerId, String motherId, String reason, String day, String phase)
+            throws Exception {
+        String formName = "attendance".equals(phase)
+                ? "mothermentor_partner_arrival" : "mothermentor_partner_follow_up_status";
         JSONObject form;
         try (Scanner input = new Scanner(RuntimeEnvironment.getApplication().getAssets()
-                .open("json.form/mothermentor_partner_follow_up_status.json"), "UTF-8")) {
+                .open("json.form/" + formName + ".json"), "UTF-8")) {
             form = new JSONObject(input.useDelimiter("\\A").next());
         }
         com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(form, KEY.FOLLOW_UP_STATUS)
@@ -105,7 +112,7 @@ public class MotherMentorDeathPropagationTest {
         event.setEventDate(new LocalDate(day).toDate());
         addObservation(event, KEY.FOLLOW_UP_CATEGORY, type.getValue());
         addObservation(event, KEY.PARTNER_FOLLOW_UP_SCHEMA, MotherMentorPartnerFollowUpVisitUtils.REFERRAL_SCHEMA);
-        addObservation(event, KEY.PARTNER_FOLLOW_UP_PHASE, "tracing");
+        addObservation(event, KEY.PARTNER_FOLLOW_UP_PHASE, phase);
         addObservation(event, KEY.MOTHER_BASE_ENTITY_ID, motherId);
         addObservation(event, KEY.MOTHERMENTOR_VISIT_DATE, day);
         addObservation(event, KEY.PARTNER_FOLLOW_UP_END, "deceased".equals(reason) ? reason : "");

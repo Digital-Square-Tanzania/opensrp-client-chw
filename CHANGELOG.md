@@ -1,5 +1,78 @@
 # Changelog
 
+## Mother Mentor Batch 2 publication preparation
+
+- Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
+
+## Mother Mentor Beta 12 · Batch 2
+
+- Build the #1241–#1252 release candidate with the Child EID visit recreation and Closed partner register repairs. Keep Core Alpha 69 and app version code 72. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
+
+## Mother Mentor Closed partner register — 2026-11-26
+
+- Use finalized partner visit evidence for the Closed register when the enrollment
+  summary lags, and show the saved closure date with the localized status.
+  [CHW #1244](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1244)
+
+## Mother Mentor Child EID visit draft — 2026-11-25
+
+- Preserve saved tracing and HEI section answers when Android recreates an open Child EID visit. Apply the returning section to the restored visit before the CHW saves it. [CHW #1248](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1248)
+
+## Mother Mentor Alpha 69 integration candidate — 2026-11-25
+
+- Use the same breastfeeding questions and answers on both Mtoto EID enrolment routes. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-69-UCSW-149-HEI-BREASTFEEDING-MOH-SNAPSHOT`. [CHW #1252](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1252)
+
+## Mother Mentor partner visit history — 2026-11-25
+
+- Label Mwenzi visit sections and dated cards as partner visits in English
+  and Kiswahili. [CHW #1251](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1251)
+
+## Mother Mentor outcome dates in visit history — 2026-11-25
+
+- Show the saved delivery, preterm delivery or loss date below the corresponding
+  pregnancy outcome. [CHW #1250](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1250)
+
+## Mother Mentor specify fields — 2026-11-25
+
+- Limit text entered or pasted into Mother Mentor specify fields to 100 characters,
+  with a live counter and Save validation. [CHW #1249](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1249)
+
+## Mother Mentor Alpha 68 integration candidate — 2026-11-25
+
+- Open documented pending confirmation samples on the confirmation result form
+  using Core `2.2.0-MOTHER-MENTOR-ALPHA-68-UCSW-147-CONFIRMATION-RESULT-MOH-SNAPSHOT`. [CHW #1248](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1248)
+
+## Mother Mentor Alpha 67 integration candidate — 2026-11-25
+
+- Localize child-sex captions in HEI registration, child lists and visit
+  History, including older saved answers. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-67-UCSW-148-CHILD-SEX-CAPTIONS-MOH-SNAPSHOT`. [CHW #1247](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1247)
+
+## Mother Mentor Alpha 66 integration candidate — 2026-11-25
+
+- Use the same localized post-weaning test name in Mother Mentor forms, lists
+  and History. Apply the after-nine-month eligibility rule in Core
+  `2.2.0-MOTHER-MENTOR-ALPHA-66-UCSW-146-POST-WEANING-CUTOFF-MOH-SNAPSHOT`. [CHW #1246](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1246)
+
+## Mother Mentor Alpha 65 integration candidate — 2026-11-25
+
+- Leave the Mtoto EID due-test display blank until the weaning date is available
+  when breastfeeding has stopped. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-65-UCSW-140-MTOTO-EID-DUE-TEST-MOH-SNAPSHOT`. [CHW #1245](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1245)
+
+## Mother Mentor Alpha 64 integration candidate — 2026-11-25
+
+- Record not-found outcomes on open post-acceptance Mwenzi visits with reason-specific closure using
+  Core `2.2.0-MOTHER-MENTOR-ALPHA-64-UCSW-139-MWENZI-EXIT-ALIGNMENT-MOH-SNAPSHOT`. [CHW #1242](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1242)
+- Show the child's sex in the app language during HEI registration while preserving
+  the stored sex value. [CHW #1243](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1243)
+- Format the HEI birth date and closed Mwenzi date as DD-MM-YYYY, show the
+  localized breastfeeding status in Mama Kadi history, and use the localized
+  Kaya title with a location-only profile subtitle. [CHW #1244](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1244)
+
+## Mother Mentor Alpha 62 integration candidate — 2026-11-25
+
+- Open the selected Mtoto EID visit in History to correct its weaning date
+  while preserving visit order. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-62-UCSW-142-WEANING-DATE-RECONCILED-MOH-SNAPSHOT`. [CHW #1241](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1241)
+
 ## Mother Mentor Alpha 61 integration candidate — 2026-11-25
 
 - Record a finalized Mwenzi tracing death on the linked adult household

@@ -14,6 +14,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorAwaitedResults;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
@@ -177,7 +178,8 @@ public final class MotherMentorHistoryMapper {
         for (int child = 1; child <= MotherMentorDeliveryChildren.MAX_COUNT; child++) {
             for (Field field : fields.values()) {
                 String key = MotherMentorDeliveryChildren.observationKey(child, field.key);
-                List<String> answers = values(field, recorded.get(key));
+                List<String> answers = values(field, recordedAnswers(recorded, field, key,
+                        MotherMentorDeliveryChildren.observationKey(child, DBConstants.KEY.MAMA_HEI_TEST_TYPE)));
                 if (!answers.isEmpty()) {
                     rows.add(new Row(key, MotherMentorDeliveryChildren.label(context, child, "")
                             + " · " + field.label, answers, field.multiple));
@@ -246,14 +248,67 @@ public final class MotherMentorHistoryMapper {
             Map<String, Field> fields,
             Map<String, List<VisitDetail>> recorded) {
         Row comments = null;
+        String pregnancyOutcomeDateKey = null;
         for (Field field : fields.values()) {
-            List<String> values = values(field, recorded.get(field.key));
+            if (pregnancyOutcomeDateKey != null && isPregnancyOutcomeDateField(field.key)) continue;
+            List<String> values = values(field, recordedAnswers(
+                    recorded, field, field.key, DBConstants.KEY.MAMA_HEI_TEST_TYPE));
             if (values.isEmpty()) continue;
             Row row = new Row(field.key, field.label, values, field.multiple);
             if (DBConstants.KEY.COMMENTS.equals(field.key)) comments = row;
             else rows.add(row);
+            if (DBConstants.KEY.MAMA_PREGNANCY_OUTCOME.equals(field.key)) {
+                pregnancyOutcomeDateKey = outcomeDateKey(field, values.get(values.size() - 1));
+                addOutcomeDateRow(rows, fields.get(pregnancyOutcomeDateKey), recorded);
+            }
         }
         return comments;
+    }
+
+    private List<VisitDetail> recordedAnswers(Map<String, List<VisitDetail>> recorded, Field field,
+            String displayKey, String savedTestKey) {
+        if (DBConstants.KEY.MAMA_HEI_TEST_TYPE_CHOICE.equals(field.key)) {
+            List<VisitDetail> savedTest = recorded.get(savedTestKey);
+            if (savedTest != null && savedTest.stream().anyMatch(detail -> detail != null
+                    && Stage.fromCode(scalar(detail.getDetails())) == Stage.AFTER_WEANING)) {
+                return savedTest;
+            }
+        }
+        return recorded.get(displayKey);
+    }
+
+    private static boolean isPregnancyOutcomeDateField(String key) {
+        return DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT.equals(key)
+                || DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT.equals(key)
+                || DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE.equals(key);
+    }
+
+    private static String outcomeDateKey(Field outcome, String label) {
+        if (label.equals(outcome.option("delivered"))) return DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT;
+        if (label.equals(outcome.option("preterm"))) return DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT;
+        if (label.equals(outcome.option("pregnancy_loss"))) return DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE;
+        return null;
+    }
+
+    private void addOutcomeDateRow(List<Row> rows, Field field, Map<String, List<VisitDetail>> recorded) {
+        if (field == null) return;
+        // Delivery aliases are form inputs. Current visits save the normalized delivery observation.
+        String date = DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE.equals(field.key)
+                ? "" : outcomeDate(recorded.get(DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA));
+        if (date.isEmpty()) date = outcomeDate(recorded.get(field.key));
+        if (!date.isEmpty()) rows.add(new Row(field.key, field.label, Collections.singletonList(date), false));
+    }
+
+    private String outcomeDate(List<VisitDetail> details) {
+        if (details == null) return "";
+        for (int i = details.size() - 1; i >= 0; i--) {
+            VisitDetail detail = details.get(i);
+            if (detail == null) continue;
+            String value = firstAnswer(scalar(detail.getDetails()), scalar(detail.getHumanReadable()));
+            String date = displayDate(parseBirthDate(value));
+            if (!date.isEmpty()) return date;
+        }
+        return "";
     }
 
     private void addHistoricalRows(
@@ -458,6 +513,9 @@ public final class MotherMentorHistoryMapper {
         if (DBConstants.KEY.FOLLOW_UP_STATUS.equals(field.key)) {
             addHistoricalAlias(field, "lost_to_follow_up");
         }
+        if (DBConstants.KEY.VISIT_PREGNANCY_STATUS.equals(field.key)) {
+            addHistoricalAlias(field, "breast_feeding");
+        }
     }
 
     private void addHistoricalAlias(Field field, String key) {
@@ -560,6 +618,11 @@ public final class MotherMentorHistoryMapper {
     }
 
     private String singleValue(Field field, VisitDetail detail) {
+        if (MotherMentorDeliveryChildren.SEX.equals(field.key) || DBConstants.KEY.CHILD_SEX.equals(field.key)) {
+            String label = MotherMentorChildEidLabels.sex(context, scalar(detail.getDetails()));
+            if (label.isEmpty()) label = MotherMentorChildEidLabels.sex(context, scalar(detail.getHumanReadable()));
+            if (!label.isEmpty()) return label;
+        }
         if (field.options.isEmpty()) {
             String answer = firstAnswer(detail.getDetails(), detail.getHumanReadable());
             return field.date ? formatRecordedDate(answer) : answer;

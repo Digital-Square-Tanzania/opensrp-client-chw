@@ -309,7 +309,7 @@ public class MotherMentorClientRegisterProviderTest {
                 + "[2,\"three_months_after_weaning\",\"2026-10-08\"],[2,\"eighteen_months\",\"2026-09-01\"]]");
         String metadata = bind(client("siblings", columns)).metadata.getText().toString();
         assertTrue(metadata.contains("Mtoto wa 1 · Miezi 9 · Majibu yamechelewa"));
-        assertTrue(metadata.contains("Mtoto wa 2 · Miezi 3 baada ya kuacha kunyonyeshwa · Majibu yamechelewa"));
+        assertTrue(metadata.contains("Mtoto wa 2 · Miezi 3 baada ya kuacha kunyonya · Majibu yamechelewa"));
         assertFalse(metadata.contains("Mtoto wa 2 · Miezi 9"));
         assertFalse(metadata.contains("Miezi 18"));
     }

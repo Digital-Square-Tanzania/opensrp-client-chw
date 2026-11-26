@@ -1,10 +1,16 @@
 package org.smartregister.chw.util;
 
+import static org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.parseBirthDate;
+import static org.smartregister.chw.mothermentor.util.MotherMentorMotherPregnancyUtils.displayDate;
+
+import android.content.Context;
+
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
 
 import java.util.Iterator;
@@ -163,6 +169,21 @@ public final class MotherMentorChildEidFormUtils {
                 dob != null && dob.length() >= 10 ? dob.substring(0, 10) : dob,
                 true);
         normalizeLastTestResult(form);
+    }
+
+    public static void localizeSexForDisplay(Context context, JSONObject form) throws JSONException {
+        JSONObject sex = field(form, DBConstants.KEY.CHILD_SEX);
+        String caption = MotherMentorChildEidLabels.sex(context, sex.optString("value"));
+        // The native text widget displays value. Saving rebinds the trusted value from the child.
+        if (!caption.isEmpty()) sex.put("value", caption);
+    }
+
+    public static void formatDobForDisplay(JSONObject form) throws JSONException {
+        JSONObject dob = field(form, DBConstants.KEY.CHILD_DOB);
+        LocalDate date = parseBirthDate(dob.optString("value"));
+        if (date != null) {
+            dob.put("value", displayDate(date));
+        }
     }
 
     public static void prefillRegistrationLocation(JSONObject form, Map<String, String> location)

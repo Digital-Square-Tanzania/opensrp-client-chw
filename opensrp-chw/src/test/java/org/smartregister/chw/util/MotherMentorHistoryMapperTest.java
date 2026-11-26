@@ -22,6 +22,7 @@ import org.smartregister.chw.util.MotherMentorHistoryMapper.Row;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +30,66 @@ import java.util.Locale;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = Application.class, sdk = 28, manifest = Config.NONE)
 public class MotherMentorHistoryMapperTest {
+    @Test
+    @Config(qualifiers = "en")
+    public void englishHistoryReadsTheSavedPostWeaningStageInBothWorkflows() {
+        assertPostWeaningHistory("3 months after stopping breastfeeding");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliHistoryReadsTheSavedPostWeaningStageInBothWorkflows() {
+        assertPostWeaningHistory("Miezi 3 baada ya kuacha kunyonya");
+    }
+
+    private void assertPostWeaningHistory(String label) {
+        Visit mother = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(mother, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        String sample = MotherMentorDeliveryChildren.observationKey(2, DBConstants.KEY.MAMA_HEI_TEST_TYPE);
+        String displayed = MotherMentorDeliveryChildren.observationKey(2, DBConstants.KEY.MAMA_HEI_TEST_TYPE_CHOICE);
+        answer(mother, sample, "three_months_after_weaning", "Miezi 15");
+        assertEquals(Collections.singletonList(label), row(mapper().map(mother), displayed).getValues());
+        assertEquals("three_months_after_weaning", mother.getVisitDetails().get(sample).get(0).getDetails());
+
+        for (String schema : new String[] {"2", "3"}) {
+            Visit child = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+            answer(child, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, schema, "");
+            for (String code : new String[] {"three_months_after_weaning", "miezi15"}) {
+                answer(child, DBConstants.KEY.CHILD_EID_TEST_TYPE, code, "Miezi 15");
+                assertEquals(Collections.singletonList(label),
+                        row(mapper().map(child), DBConstants.KEY.CHILD_EID_TEST_TYPE).getValues());
+                assertEquals(code, child.getVisitDetails().get(DBConstants.KEY.CHILD_EID_TEST_TYPE).get(0).getDetails());
+            }
+        }
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void recordedBreastfeedingPregnancyStatusShowsEnglishLabel() {
+        assertBreastfeedingPregnancyStatus("Pregnancy status", "Breastfeeding");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void recordedBreastfeedingPregnancyStatusShowsSwahiliLabel() {
+        assertBreastfeedingPregnancyStatus("Hali ya ujauzito", "Ananyonyesha");
+    }
+
+    private void assertBreastfeedingPregnancyStatus(String label, String expected) {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        String key = DBConstants.KEY.VISIT_PREGNANCY_STATUS;
+        answer(visit, key, "[\"breast_feeding\"]", "");
+        VisitDetail recorded = visit.getVisitDetails().get(key).get(0);
+
+        Row pregnancyStatus = row(mapper().map(visit), key);
+
+        assertEquals(label, pregnancyStatus.getLabel());
+        assertEquals(Collections.singletonList(expected), pregnancyStatus.getValues());
+        assertEquals("[\"breast_feeding\"]", recorded.getDetails());
+        assertEquals("", recorded.getHumanReadable());
+    }
+
     @Test
     @Config(qualifiers = "en")
     public void newMotherEntryHistoryUsesItsReasonAndHidesInternalContext() {
@@ -574,6 +635,42 @@ public class MotherMentorHistoryMapperTest {
         assertNewChildHistory("Hali ya mtoto", "Mtoto yupo hai");
     }
 
+    @Test
+    @Config(qualifiers = "en")
+    public void englishChildSexHistoryDisplaysCurrentAndLegacyAnswers() {
+        assertChildSexHistory("Male", "Female", "Sex");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliChildSexHistoryDisplaysCurrentAndLegacyAnswers() {
+        assertChildSexHistory("Wa kiume", "Wa kike", "Jinsi");
+    }
+
+    private void assertChildSexHistory(String male, String female, String label) {
+        String sex = MotherMentorDeliveryChildren.SEX;
+        String second = MotherMentorDeliveryChildren.observationKey(2, sex);
+        Visit mama = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(mama, sex, "male", "Female (Girl)");
+        answer(mama, second, "[\"Ke (Msichana)\"]", "");
+        List<Row> rows = mapper().map(mama);
+        assertEquals(Collections.singletonList(male), row(rows, sex).getValues());
+        assertEquals(Collections.singletonList(female), row(rows, second).getValues());
+        assertEquals("male", mama.getVisitDetails().get(sex).get(0).getDetails());
+        assertEquals("Female (Girl)", mama.getVisitDetails().get(sex).get(0).getHumanReadable());
+        assertEquals("[\"Ke (Msichana)\"]", mama.getVisitDetails().get(second).get(0).getDetails());
+
+        Visit hei = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+        answer(hei, DBConstants.KEY.CHILD_SEX, "", "Me (Mvulana)");
+        Row child = row(mapper().map(hei), DBConstants.KEY.CHILD_SEX);
+        assertEquals(label, child.getLabel());
+        assertEquals(Collections.singletonList(male), child.getValues());
+        assertEquals("Me (Mvulana)", hei.getVisitDetails().get(DBConstants.KEY.CHILD_SEX).get(0).getHumanReadable());
+        answer(hei, DBConstants.KEY.CHILD_SEX, "female", "");
+        assertEquals(Collections.singletonList(female),
+                row(mapper().map(hei), DBConstants.KEY.CHILD_SEX).getValues());
+    }
+
     private void assertNewChildHistory(String label, String expectedValue) {
         Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
         answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3", "");
@@ -609,6 +706,33 @@ public class MotherMentorHistoryMapperTest {
     public void childHeiHistoryUsesSwahiliQuestionsAndRetainsTheSavedAgreement() {
         assertChildHeiHistory("Hali ya unyonyeshaji", "Ananyonyeshwa", "Hali ya rufaa ya kipimo",
                 "Mlezi amekubali kumpeleka mtoto kituoni");
+    }
+
+    @Test @Config(qualifiers = "en")
+    public void mtotoEidHistoryDistinguishesNeverBreastfedFromStoppedInEnglish() {
+        assertMtotoEidFeeding("Breastfeeding status", "Never breastfed", "Stopped breastfeeding");
+    }
+
+    @Test @Config(qualifiers = "sw")
+    public void mtotoEidHistoryDistinguishesNeverBreastfedFromStoppedInSwahili() {
+        assertMtotoEidFeeding("Hali ya unyonyeshaji", "Hajawahi kunyonyeshwa", "Ameacha kunyonyeshwa");
+    }
+
+    private void assertMtotoEidFeeding(String label, String neverBreastfed, String stopped) {
+        Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+        answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3", "");
+        answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, "found", "");
+        answer(visit, DBConstants.KEY.MAMA_CHILD_STATUS, "alive", "");
+        answer(visit, DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE, "none", "");
+        String key = DBConstants.KEY.MAMA_BREASTFEEDING_STATUS;
+        for (String code : Arrays.asList("never_breastfed", "not_breastfeeding")) {
+            answer(visit, key, code, "legacy caption");
+            Row feeding = row(mapper().map(visit), key);
+            assertEquals(label, feeding.getLabel());
+            assertEquals(Collections.singletonList("never_breastfed".equals(code) ? neverBreastfed : stopped),
+                    feeding.getValues());
+            assertEquals(code, visit.getVisitDetails().get(key).get(0).getDetails());
+        }
     }
 
     @Test @Config(qualifiers = "en")
@@ -682,6 +806,69 @@ public class MotherMentorHistoryMapperTest {
         visit.setVisitType(type);
         visit.setVisitDetails(new LinkedHashMap<>());
         return visit;
+    }
+
+    @Test
+    @Config(qualifiers = "en")
+    public void outcomeDatesUseSavedObservationsAndPreserveTheirRawValues() {
+        Visit delivery = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(delivery, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, "[\"delivered\"]", "Amejifungua");
+        String savedDate = "2026-10-04T23:30:00-03:00";
+        String storedKey = "step1:" + DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA;
+        answer(delivery, storedKey, savedDate, "");
+        answer(delivery, DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT, "05-10-2026", "");
+
+        List<Row> deliveryRows = mapper().map(delivery);
+        assertEquals(Arrays.asList(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME,
+                DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT), keys(deliveryRows));
+        assertEquals(Collections.singletonList("04-10-2026"), deliveryRows.get(1).getValues());
+        assertEquals(savedDate, delivery.getVisitDetails().get(storedKey).get(0).getDetails());
+        assertEquals("05-10-2026", delivery.getVisitDetails().get(DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT)
+                .get(0).getDetails());
+
+        Visit loss = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(loss, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, "pregnancy_loss", "");
+        answer(loss, DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE, "2026-10-06", "");
+        answer(loss, DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA, "2026-10-09", "");
+
+        List<Row> lossRows = mapper().map(loss);
+        assertEquals(Arrays.asList(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME,
+                DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE), keys(lossRows));
+        assertEquals(Collections.singletonList("06-10-2026"), lossRows.get(1).getValues());
+        assertEquals("2026-10-06", loss.getVisitDetails().get(DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE)
+                .get(0).getDetails());
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void legacyPretermOutcomeUsesItsOwnSavedDateAliasAndLocalizedCaption() {
+        Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(visit, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, "", "Delivered preterm");
+        answer(visit, DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT, "07/10/2026", "");
+        answer(visit, DBConstants.KEY.MAMA_DELIVERY_DATE_INPUT, "08-10-2026", "");
+
+        List<Row> rows = mapper().map(visit);
+
+        assertEquals(Arrays.asList(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME,
+                DBConstants.KEY.MAMA_PRETERM_DELIVERY_DATE_INPUT), keys(rows));
+        assertEquals(Collections.singletonList("Amejifungua kabla ya wakati (njiti)"), rows.get(0).getValues());
+        assertEquals("Tarehe ya kujifungua", rows.get(1).getLabel());
+        assertEquals(Collections.singletonList("07-10-2026"), rows.get(1).getValues());
+    }
+
+    @Test
+    public void legacyOutcomesWithoutTheirOwnRecordedDateHaveNoOutcomeDateRow() {
+        for (String outcome : Arrays.asList("delivered", "preterm", "pregnancy_loss")) {
+            Visit visit = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+            visit.setDate(new Date(1_800_000_000_000L));
+            answer(visit, DBConstants.KEY.MAMA_PREGNANCY_OUTCOME, outcome, "");
+            if ("pregnancy_loss".equals(outcome)) {
+                answer(visit, DBConstants.KEY.MAMA_PREGNANCY_LOSS_DATE, "[]", "");
+                answer(visit, DBConstants.KEY.MAMA_TAREHE_KUJIFUNGUA, "2026-10-09", "");
+            }
+            assertEquals(outcome, Collections.singletonList(DBConstants.KEY.MAMA_PREGNANCY_OUTCOME),
+                    keys(mapper().map(visit)));
+        }
     }
 
     private void answer(Visit visit, String key, String raw, String readable) {

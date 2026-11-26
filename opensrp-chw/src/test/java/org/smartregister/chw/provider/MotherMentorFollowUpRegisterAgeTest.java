@@ -67,6 +67,37 @@ public class MotherMentorFollowUpRegisterAgeTest {
 
     @Test
     @Config(qualifiers = "en")
+    public void englishClosedRowFormatsTheDateAndPreservesTheStatus() {
+        assertClosedRowDate("Attended the facility");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliClosedRowFormatsTheDateAndPreservesTheStatus() {
+        assertClosedRowDate("Amehudhuria kituoni");
+    }
+
+    private void assertClosedRowDate(String statusLabel) {
+        CommonPersonObjectClient person = client("synthetic-partner", "1996-10-26");
+        Map<String, String> columns = person.getColumnmaps();
+        columns.put(DBConstants.KEY.MWENZI_STATUS, "attended");
+        String dateKey = DBConstants.KEY.MWENZI_TAREHE_YA_KUFUNGWA;
+        MotherMentorFollowUpRegisterProvider.Holder holder = bind("1996-10-26");
+        for (String recorded : Arrays.asList("2026-11-04", "04-11-2026", "2026-11-04T23:30:00-05:00")) {
+            columns.put(dateKey, recorded);
+            provider.getView(null, person, holder);
+            assertEquals(statusLabel + " · 04-11-2026 · Mikocheni · 1095",
+                    holder.metadata.getText().toString());
+            assertEquals(recorded, columns.get(dateKey));
+        }
+        columns.remove(dateKey);
+        provider.getView(null, person, holder);
+        assertEquals(statusLabel + " · Mikocheni · 1095", holder.metadata.getText().toString());
+        assertEquals("attended", columns.get(DBConstants.KEY.MWENZI_STATUS));
+    }
+
+    @Test
+    @Config(qualifiers = "en")
     public void englishNewbornRowShowsDays() {
         assertEquals("Amina Jaribio Mtoto, 10 days", bind("2026-10-16").name.getText().toString());
     }

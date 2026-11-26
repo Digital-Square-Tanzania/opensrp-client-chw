@@ -54,6 +54,39 @@ public class MotherMentorConsecutiveClosureUiTest extends BaseUnitTest {
         assertFalse(ShadowAlertDialog.getLatestDialog().isShowing());
     }
 
+    @Test
+    public void postAcceptanceThirdNotFoundAndMissedAttendanceUseLocalizedSaveDialogs() {
+        for (boolean swahili : new boolean[] {false, true}) {
+            LangUtils.saveLanguage(RuntimeEnvironment.getApplication(), swahili ? "sw" : "en");
+            checkPostAcceptanceSaves(swahili, swahili ? "Hajahudhuria baada ya kukubali"
+                    : "Agreed but did not attend", null, null, null);
+            checkPostAcceptanceSaves(swahili, swahili ? "Amesafiri" : "Travelled",
+                    "travelled", "travelled", "travelled");
+            checkPostAcceptanceSaves(swahili, swahili ? "Hajapatikana — Nyingine" : "Not found — Other",
+                    "other", "other", "other");
+            checkPostAcceptanceSaves(swahili, lostContact(swahili), "travelled", "other", "travelled");
+        }
+    }
+
+    private void checkPostAcceptanceSaves(boolean swahili, String label, String... notFoundReasons) {
+        MotherMentorPartnerClosure preview = MotherMentorPartnerClosure.active();
+        for (int index = 0; index < notFoundReasons.length; index++) {
+            String reason = notFoundReasons[index];
+            Map<String, String> answers = partnerAnswers(reason == null ? "found" : "not_found",
+                    null, reason, reason == null ? "no" : null);
+            answers.put(DBConstants.KEY.PARTNER_FOLLOW_UP_PHASE, "attendance");
+            answers.put(DBConstants.KEY.PARTNER_FOLLOW_UP_SCHEMA, "3");
+            if ("other".equals(reason)) {
+                answers.put(DBConstants.KEY.PARTNER_NOT_FOUND_REASON_OTHER, "Synthetic explanation");
+            }
+            int strike = index + 1;
+            preview = preview.advance(answers, DAY.plusDays(strike).toString());
+            FollowUpVisit visit = followUpVisit(MotherMentorFollowUpType.PARTNER);
+            visit.partner = preview;
+            checkSave(visit, strike, swahili, label);
+        }
+    }
+
     private void checkSaveFlows(boolean swahili) {
         LangUtils.saveLanguage(RuntimeEnvironment.getApplication(), swahili ? "sw" : "en");
 

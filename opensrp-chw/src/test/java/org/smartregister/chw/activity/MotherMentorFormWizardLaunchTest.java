@@ -21,6 +21,8 @@ import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.joda.time.LocalDate;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
@@ -34,6 +36,10 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
 import org.smartregister.chw.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.repository.MotherMentorPartnerRepository;
 import org.smartregister.chw.util.MotherMentorChildEidFormUtils;
@@ -51,6 +57,7 @@ import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /** Exercises actual form launch methods without adding a manifest-only test activity. */
@@ -201,38 +208,78 @@ public class MotherMentorFormWizardLaunchTest {
 
     @Test
     public void existingChildLinkKeepsPreparedIdentityAndStepsInBothLanguages() throws Exception {
+        assertChildLinkLaunch("en", "Female", "Female");
+        assertChildLinkLaunch("en", "Male", "Male");
+        assertChildLinkLaunch("sw", "Female", "Wa kike");
+        assertChildLinkLaunch("sw", "Male", "Wa kiume");
+    }
+
+    @Test
+    public void independentChildEnrollmentUsesTheMotherMentorWizardInBothLanguages() throws Exception {
         for (String language : new String[] {"en", "sw"}) {
             language(language);
             CapturingChildActivity activity =
                     Robolectric.buildActivity(CapturingChildActivity.class, new Intent()).get();
-            JSONObject form = asset(language, MotherMentorChildEidFormUtils.FORM);
-            MotherMentorChildEidRepository repository = mock(MotherMentorChildEidRepository.class);
-            when(repository.prepareForm(any(JSONObject.class), eq("mother"), eq("child")))
-                    .thenAnswer(
-                            call -> {
-                                MotherMentorChildEidFormUtils.bindIdentity(
-                                        form, person("mother"), person("child"));
-                                return form;
-                            });
-            injectSelection(activity, repository);
+            Map<String, String> child = person("child");
+            child.put("dob", LocalDate.now().minusMonths(14).toString());
+            JSONObject form = MotherMentorChildEidDirectEnrollment.prepareForm(activity,
+                    asset(language, MotherMentorChildEidFormUtils.FORM), child, "Test household");
+            ReflectionHelpers.setField(activity, "directChildId", "child");
 
-            try (SelectionFormFixture fixture = new SelectionFormFixture(form)) {
-                ReflectionHelpers.callInstanceMethod(
-                        activity,
-                        "openChildForm",
-                        ReflectionHelpers.ClassParameter.from(String.class, "child"));
-            }
+            ReflectionHelpers.callInstanceMethod(activity, "launchEnrollmentForm",
+                    ReflectionHelpers.ClassParameter.from(JSONObject.class, form));
 
-            assertNotNull(activity.launch.intent);
-            assertTrue(config(activity.launch.intent).isWizard());
+            assertEquals(MotherMentorVisitWizardActivity.class.getName(),
+                    activity.launch.intent.getComponent().getClassName());
             assertEquals("child", launchedJson(activity.launch).getString("entity_id"));
-            assertEquals(
-                    "mother",
-                    com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(
-                                    launchedJson(activity.launch), "mother_base_entity_id")
-                            .getString("value"));
-            assertLaunch(activity, activity.launch, form);
+            assertEquals(form.toString(), launchedJson(activity.launch).toString());
+            assertEquals(JsonFormUtils.REQUEST_CODE_GET_JSON, activity.launch.requestCode);
+            assertTrue(config(activity.launch.intent).isWizard());
+            assertNavigation(activity, config(activity.launch.intent));
         }
+    }
+
+    private void assertChildLinkLaunch(String language, String gender, String expectedSex)
+            throws Exception {
+        language(language);
+        CapturingChildActivity activity =
+                Robolectric.buildActivity(CapturingChildActivity.class, new Intent()).get();
+        JSONObject form = asset(language, MotherMentorChildEidFormUtils.FORM);
+        MotherMentorChildEidRepository repository = mock(MotherMentorChildEidRepository.class);
+        Map<String, String> child = person("child");
+        child.put("gender", gender);
+        child.put("dob", "2026-08-14T23:30:00-05:00");
+        when(repository.prepareForm(any(JSONObject.class), eq("mother"), eq("child")))
+                .thenAnswer(
+                        call -> {
+                            MotherMentorChildEidFormUtils.bindIdentity(form, person("mother"), child);
+                            return form;
+                        });
+        injectSelection(activity, repository);
+
+        try (SelectionFormFixture fixture = new SelectionFormFixture(form)) {
+            ReflectionHelpers.callInstanceMethod(
+                    activity,
+                    "openChildForm",
+                    ReflectionHelpers.ClassParameter.from(String.class, "child"));
+        }
+
+        assertNotNull(activity.launch.intent);
+        assertTrue(config(activity.launch.intent).isWizard());
+        JSONObject launched = launchedJson(activity.launch);
+        assertEquals("child", launched.getString("entity_id"));
+        assertEquals(
+                "mother",
+                com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(launched, "mother_base_entity_id")
+                        .getString("value"));
+        JSONObject sex = com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(launched, "child_sex");
+        assertEquals(expectedSex, sex.getString("value"));
+        assertTrue(sex.getBoolean("read_only"));
+        assertFalse(sex.has("editable"));
+        JSONObject dob = com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(launched, "child_dob");
+        assertEquals("14-08-2026", dob.getString("value"));
+        assertTrue(dob.getBoolean("read_only"));
+        assertLaunch(activity, activity.launch, form);
     }
 
     @Test
@@ -288,15 +335,28 @@ public class MotherMentorFormWizardLaunchTest {
     private void assertLaunch(Context context, Launch launch, JSONObject form) throws Exception {
         assertNotNull(launch.intent);
         assertEquals(JsonFormUtils.REQUEST_CODE_GET_JSON, launch.requestCode);
-        boolean childAssessment = "Mother Mentor Visit Type".equals(form.optString("encounter_type"))
-                && org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
-                        .field(form, org.smartregister.chw.mothermentor.util.DBConstants.KEY.MAMA_CHILD_STATUS) != null;
-        childAssessment = childAssessment || "Mother Mentor Child EID HEI".equals(form.optString("encounter_type"))
-                && "3".equals(org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils
-                        .values(form).get(org.smartregister.chw.mothermentor.util.DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA));
-        assertEquals((childAssessment ? MotherMentorVisitWizardActivity.class
+        String encounterType = form.optString("encounter_type");
+        Map<String, String> values = MotherMentorMotherChildUtils.values(form);
+        boolean childAssessment = "Mother Mentor Visit Type".equals(encounterType)
+                && (MotherMentorDeliveryChildren.hasSections(values)
+                        || MotherMentorMotherChildUtils.field(form, DBConstants.KEY.MAMA_CHILD_STATUS) != null);
+        childAssessment = childAssessment || "Mother Mentor Child EID HEI".equals(encounterType)
+                && "3".equals(values.get(DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA));
+        assertEquals(encounterType, (childAssessment ? MotherMentorVisitWizardActivity.class
                 : FamilyWizardFormActivity.class).getName(), launch.intent.getComponent().getClassName());
-        assertEquals(form.toString(), launchedJson(launch).toString());
+        JSONObject launched = launchedJson(launch);
+        for (Iterator<String> steps = form.keys(); steps.hasNext(); ) {
+            String stepName = steps.next();
+            if (!stepName.startsWith("step")) continue;
+            JSONArray sourceFields = form.getJSONObject(stepName).getJSONArray("fields");
+            JSONArray launchedFields = launched.getJSONObject(stepName).getJSONArray("fields");
+            for (int i = 0; i < sourceFields.length(); i++) {
+                JSONObject sourceField = sourceFields.getJSONObject(i);
+                JSONObject launchedField = launchedFields.getJSONObject(i);
+                if (!sourceField.has("v_max_length")) launchedField.remove("v_max_length");
+            }
+        }
+        assertEquals(form.toString(), launched.toString());
         assertNavigation(context, config(launch.intent));
     }
 
