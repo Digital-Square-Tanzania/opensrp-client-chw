@@ -151,17 +151,21 @@ public class MotherMentorChildEidFormUtilsTest {
             configuration.setLocale(new Locale(language));
             Context context = application.createConfigurationContext(configuration);
 
-            for (String storedSex : new String[] {"Female", "Male", "female", " male ", "unknown", ""}) {
+            String[] storedValues = {"Female", "Male", "female", " male ", "Me (Mvulana)",
+                    "Ke (Msichana)", "unknown", ""};
+            String female = "sw".equals(language) ? "Wa kike" : "Female";
+            String male = "sw".equals(language) ? "Wa kiume" : "Male";
+            String[] captions = {female, male, female, male, male, female, "unknown", ""};
+            for (int i = 0; i < storedValues.length; i++) {
+                String storedSex = storedValues[i];
                 child.put("gender", storedSex);
                 JSONObject form = MotherMentorTestAssets.form(directory, MotherMentorChildEidFormUtils.FORM + ".json");
                 MotherMentorChildEidFormUtils.bindIdentity(form, mother, child);
                 MotherMentorChildEidFormUtils.localizeSexForDisplay(context, form);
+                assertEquals(captions[i], value(form, "child_sex"));
                 MotherMentorChildEidFormUtils.formatDobForDisplay(form);
                 assertEquals("14-08-2026", value(form, DBConstants.KEY.CHILD_DOB));
-                if ("unknown".equals(storedSex) || storedSex.isEmpty()) {
-                    assertEquals(storedSex, value(form, "child_sex"));
-                    continue;
-                }
+                if ("unknown".equals(storedSex) || storedSex.isEmpty()) continue;
 
                 JSONObject returned = new JSONObject(form.toString());
                 MotherMentorChildEidFormUtils.bindIdentity(returned, mother, child);

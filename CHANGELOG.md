@@ -4,6 +4,11 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+## Mother Mentor Alpha 67 integration candidate — 2026-11-25
+
+- Localize child-sex captions in HEI registration, child lists and visit
+  History, including older saved answers. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-67-UCSW-148-CHILD-SEX-CAPTIONS-MOH-SNAPSHOT`. [CHW #1247](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1247)
+
 ## Mother Mentor Alpha 66 integration candidate — 2026-11-25
 
 - Use the same localized post-weaning test name in Mother Mentor forms, lists

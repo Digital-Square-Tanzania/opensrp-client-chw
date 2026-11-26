@@ -14,6 +14,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorAwaitedResults;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule.Stage;
@@ -577,6 +578,11 @@ public final class MotherMentorHistoryMapper {
     }
 
     private String singleValue(Field field, VisitDetail detail) {
+        if (MotherMentorDeliveryChildren.SEX.equals(field.key) || DBConstants.KEY.CHILD_SEX.equals(field.key)) {
+            String label = MotherMentorChildEidLabels.sex(context, scalar(detail.getDetails()));
+            if (label.isEmpty()) label = MotherMentorChildEidLabels.sex(context, scalar(detail.getHumanReadable()));
+            if (!label.isEmpty()) return label;
+        }
         if (field.options.isEmpty()) {
             String answer = firstAnswer(detail.getDetails(), detail.getHumanReadable());
             return field.date ? formatRecordedDate(answer) : answer;

@@ -9,8 +9,8 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.R;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
 
 import java.util.Iterator;
@@ -173,13 +173,9 @@ public final class MotherMentorChildEidFormUtils {
 
     public static void localizeSexForDisplay(Context context, JSONObject form) throws JSONException {
         JSONObject sex = field(form, DBConstants.KEY.CHILD_SEX);
-        String storedSex = sex.optString("value").trim();
+        String caption = MotherMentorChildEidLabels.sex(context, sex.optString("value"));
         // The native text widget displays value. Saving rebinds the trusted value from the child.
-        if ("female".equalsIgnoreCase(storedSex)) {
-            sex.put("value", context.getString(R.string.mothermentor_hei_sex_female));
-        } else if ("male".equalsIgnoreCase(storedSex)) {
-            sex.put("value", context.getString(R.string.mothermentor_hei_sex_male));
-        }
+        if (!caption.isEmpty()) sex.put("value", caption);
     }
 
     public static void formatDobForDisplay(JSONObject form) throws JSONException {

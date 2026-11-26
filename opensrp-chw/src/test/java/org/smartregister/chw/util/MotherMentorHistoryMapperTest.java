@@ -634,6 +634,42 @@ public class MotherMentorHistoryMapperTest {
         assertNewChildHistory("Hali ya mtoto", "Mtoto yupo hai");
     }
 
+    @Test
+    @Config(qualifiers = "en")
+    public void englishChildSexHistoryDisplaysCurrentAndLegacyAnswers() {
+        assertChildSexHistory("Male", "Female", "Sex");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliChildSexHistoryDisplaysCurrentAndLegacyAnswers() {
+        assertChildSexHistory("Wa kiume", "Wa kike", "Jinsi");
+    }
+
+    private void assertChildSexHistory(String male, String female, String label) {
+        String sex = MotherMentorDeliveryChildren.SEX;
+        String second = MotherMentorDeliveryChildren.observationKey(2, sex);
+        Visit mama = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(mama, sex, "male", "Female (Girl)");
+        answer(mama, second, "[\"Ke (Msichana)\"]", "");
+        List<Row> rows = mapper().map(mama);
+        assertEquals(Collections.singletonList(male), row(rows, sex).getValues());
+        assertEquals(Collections.singletonList(female), row(rows, second).getValues());
+        assertEquals("male", mama.getVisitDetails().get(sex).get(0).getDetails());
+        assertEquals("Female (Girl)", mama.getVisitDetails().get(sex).get(0).getHumanReadable());
+        assertEquals("[\"Ke (Msichana)\"]", mama.getVisitDetails().get(second).get(0).getDetails());
+
+        Visit hei = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+        answer(hei, DBConstants.KEY.CHILD_SEX, "", "Me (Mvulana)");
+        Row child = row(mapper().map(hei), DBConstants.KEY.CHILD_SEX);
+        assertEquals(label, child.getLabel());
+        assertEquals(Collections.singletonList(male), child.getValues());
+        assertEquals("Me (Mvulana)", hei.getVisitDetails().get(DBConstants.KEY.CHILD_SEX).get(0).getHumanReadable());
+        answer(hei, DBConstants.KEY.CHILD_SEX, "female", "");
+        assertEquals(Collections.singletonList(female),
+                row(mapper().map(hei), DBConstants.KEY.CHILD_SEX).getValues());
+    }
+
     private void assertNewChildHistory(String label, String expectedValue) {
         Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
         answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3", "");

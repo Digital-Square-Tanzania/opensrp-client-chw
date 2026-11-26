@@ -57,7 +57,8 @@ public class MotherMentorChildEidRegisterProvider extends MotherMentorFollowUpRe
         String status = closed
                 ? MotherMentorChildEidLabels.closedReason(context, value(values, DBConstants.KEY.MTOTO_STATUS))
                 : MotherMentorChildEidLabels.referral(context, state, referredTest);
-        holder.metadata.setText(join(status, value(values, DBConstants.KEY.VILLAGE_TOWN)));
+        String sex = MotherMentorChildEidLabels.sex(context, value(values, DBConstants.KEY.GENDER));
+        holder.metadata.setText(join(status, sex, value(values, DBConstants.KEY.VILLAGE_TOWN)));
         holder.closedTag.setVisibility(closed ? View.VISIBLE : View.GONE);
         if (closed) {
             boolean success = MotherMentorChildEidLabels.isSuccessfulClose(value(values, DBConstants.KEY.MTOTO_STATUS));

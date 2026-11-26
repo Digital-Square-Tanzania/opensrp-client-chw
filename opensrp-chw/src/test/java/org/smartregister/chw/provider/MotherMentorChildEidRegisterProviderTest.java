@@ -82,6 +82,33 @@ public class MotherMentorChildEidRegisterProviderTest {
         assertPostWeaningStage("Miezi 3 baada ya kuacha kunyonya");
     }
 
+    @Test
+    @Config(qualifiers = "en")
+    public void englishRowsDisplayKnownChildSex() {
+        assertChildSex("Male", "Female");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliRowsDisplayKnownChildSex() {
+        assertChildSex("Wa kiume", "Wa kike");
+    }
+
+    private void assertChildSex(String male, String female) {
+        Map<String, String> values = values();
+        values.put(DBConstants.KEY.GENDER, "male");
+        MotherMentorChildEidRegisterProvider.ChildHolder holder = bind(client("first", values));
+        assertTrue(holder.metadata.getText().toString().contains(" · " + male + " · "));
+        assertTrue(holder.row.getContentDescription().toString().contains(male));
+        values.put(DBConstants.KEY.GENDER, "Ke (Msichana)");
+        provider.getView(null, client("second", values), holder);
+        assertTrue(holder.metadata.getText().toString().contains(" · " + female + " · "));
+        assertEquals("Ke (Msichana)", values.get(DBConstants.KEY.GENDER));
+        values.remove(DBConstants.KEY.GENDER);
+        provider.getView(null, client("third", values), holder);
+        assertFalse(holder.metadata.getText().toString().contains(female));
+    }
+
     private void assertPostWeaningStage(String label) {
         Map<String, String> values = values();
         values.put(DBConstants.KEY.MTOTO_RUFAA_STATE, "referred");

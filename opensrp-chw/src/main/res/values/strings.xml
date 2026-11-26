@@ -539,6 +539,7 @@
     <string name="mothermentor_household_no_results">No households found</string>
     <string name="mothermentor_household_title_unnamed">Household</string>
     <string name="mothermentor_history_breast_feeding">Breastfeeding</string>
+    <string name="mothermentor_history_child_sex">Sex</string>
     <string name="mothermentor_child_follow_up_wait_for_result">Record the pending test result before starting another follow-up visit.</string>
     <string name="all_families">All Households</string>
     <string name="anc_health_facility_counselling_subtitle">Health facility counselling</string>

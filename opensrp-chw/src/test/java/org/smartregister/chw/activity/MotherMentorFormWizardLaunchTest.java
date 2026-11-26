@@ -205,8 +205,8 @@ public class MotherMentorFormWizardLaunchTest {
     public void existingChildLinkKeepsPreparedIdentityAndStepsInBothLanguages() throws Exception {
         assertChildLinkLaunch("en", "Female", "Female");
         assertChildLinkLaunch("en", "Male", "Male");
-        assertChildLinkLaunch("sw", "Female", "Ke (Msichana)");
-        assertChildLinkLaunch("sw", "Male", "Me (Mvulana)");
+        assertChildLinkLaunch("sw", "Female", "Wa kike");
+        assertChildLinkLaunch("sw", "Male", "Wa kiume");
     }
 
     @Test
