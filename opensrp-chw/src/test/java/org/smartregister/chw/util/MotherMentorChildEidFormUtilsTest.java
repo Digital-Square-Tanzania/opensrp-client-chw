@@ -1,15 +1,26 @@
 package org.smartregister.chw.util;
 
+import android.content.Context;
+import android.content.res.Configuration;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.domain.tag.FormTag;
+import org.smartregister.util.JsonFormUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -124,6 +135,48 @@ public class MotherMentorChildEidFormUtilsTest {
             assertEquals("child", form.getString("entity_id"));
             assertEquals("child-family", value(form, "relational_id"));
             assertEquals("waiting", value(form, "last_test_result"));
+        }
+    }
+
+    @Test
+    public void heiEnrollmentEventRestoresStoredSexAfterLocalizedDisplay() throws Exception {
+        Map<String, String> mother = person("mother", "family", "Test Mother");
+        Map<String, String> child = person("child", "family", "Test Child");
+        for (String language : new String[] {"en", "sw"}) {
+            String directory = "sw".equals(language) ? "json.form-sw" : "json.form";
+            Context application = RuntimeEnvironment.getApplication();
+            Configuration configuration = new Configuration(application.getResources().getConfiguration());
+            configuration.setLocale(new Locale(language));
+            Context context = application.createConfigurationContext(configuration);
+
+            for (String storedSex : new String[] {"Female", "Male", "female", " male ", "unknown", ""}) {
+                child.put("gender", storedSex);
+                JSONObject form = MotherMentorTestAssets.form(directory, MotherMentorChildEidFormUtils.FORM + ".json");
+                MotherMentorChildEidFormUtils.bindIdentity(form, mother, child);
+                MotherMentorChildEidFormUtils.localizeSexForDisplay(context, form);
+                if ("unknown".equals(storedSex) || storedSex.isEmpty()) {
+                    assertEquals(storedSex, value(form, "child_sex"));
+                    continue;
+                }
+
+                JSONObject returned = new JSONObject(form.toString());
+                MotherMentorChildEidFormUtils.bindIdentity(returned, mother, child);
+                MotherMentorChildEidFormUtils.bindHeiNumber(returned, mother);
+                MotherMentorChildEidFormUtils.prepareForEvent(returned);
+                FormTag tag = new FormTag();
+                tag.providerId = "synthetic-provider";
+                Event event = JsonFormUtils.createEvent(JsonFormUtils.fields(returned),
+                        returned.getJSONObject("metadata"), tag, returned.getString("entity_id"),
+                        returned.getString("encounter_type"), Constants.TABLES.MOTHERMENTOR_ENROLL_CHILD_EID);
+                assertNotNull(event);
+                assertEquals("child", event.getBaseEntityId());
+                Obs sexObservation = event.getObs().stream()
+                        .filter(obs -> "child_sex".equals(obs.getFormSubmissionField()))
+                        .findFirst().orElseThrow(() -> new AssertionError("Missing child sex observation"));
+                assertEquals("child_sex", sexObservation.getFieldCode());
+                assertEquals(Collections.singletonList(storedSex), sexObservation.getValues());
+                assertEquals(storedSex, child.get("gender"));
+            }
         }
     }
 

@@ -201,38 +201,49 @@ public class MotherMentorFormWizardLaunchTest {
 
     @Test
     public void existingChildLinkKeepsPreparedIdentityAndStepsInBothLanguages() throws Exception {
-        for (String language : new String[] {"en", "sw"}) {
-            language(language);
-            CapturingChildActivity activity =
-                    Robolectric.buildActivity(CapturingChildActivity.class, new Intent()).get();
-            JSONObject form = asset(language, MotherMentorChildEidFormUtils.FORM);
-            MotherMentorChildEidRepository repository = mock(MotherMentorChildEidRepository.class);
-            when(repository.prepareForm(any(JSONObject.class), eq("mother"), eq("child")))
-                    .thenAnswer(
-                            call -> {
-                                MotherMentorChildEidFormUtils.bindIdentity(
-                                        form, person("mother"), person("child"));
-                                return form;
-                            });
-            injectSelection(activity, repository);
+        assertChildLinkLaunch("en", "Female", "Female");
+        assertChildLinkLaunch("en", "Male", "Male");
+        assertChildLinkLaunch("sw", "Female", "Ke (Msichana)");
+        assertChildLinkLaunch("sw", "Male", "Me (Mvulana)");
+    }
 
-            try (SelectionFormFixture fixture = new SelectionFormFixture(form)) {
-                ReflectionHelpers.callInstanceMethod(
-                        activity,
-                        "openChildForm",
-                        ReflectionHelpers.ClassParameter.from(String.class, "child"));
-            }
+    private void assertChildLinkLaunch(String language, String gender, String expectedSex)
+            throws Exception {
+        language(language);
+        CapturingChildActivity activity =
+                Robolectric.buildActivity(CapturingChildActivity.class, new Intent()).get();
+        JSONObject form = asset(language, MotherMentorChildEidFormUtils.FORM);
+        MotherMentorChildEidRepository repository = mock(MotherMentorChildEidRepository.class);
+        Map<String, String> child = person("child");
+        child.put("gender", gender);
+        when(repository.prepareForm(any(JSONObject.class), eq("mother"), eq("child")))
+                .thenAnswer(
+                        call -> {
+                            MotherMentorChildEidFormUtils.bindIdentity(form, person("mother"), child);
+                            return form;
+                        });
+        injectSelection(activity, repository);
 
-            assertNotNull(activity.launch.intent);
-            assertTrue(config(activity.launch.intent).isWizard());
-            assertEquals("child", launchedJson(activity.launch).getString("entity_id"));
-            assertEquals(
-                    "mother",
-                    com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(
-                                    launchedJson(activity.launch), "mother_base_entity_id")
-                            .getString("value"));
-            assertLaunch(activity, activity.launch, form);
+        try (SelectionFormFixture fixture = new SelectionFormFixture(form)) {
+            ReflectionHelpers.callInstanceMethod(
+                    activity,
+                    "openChildForm",
+                    ReflectionHelpers.ClassParameter.from(String.class, "child"));
         }
+
+        assertNotNull(activity.launch.intent);
+        assertTrue(config(activity.launch.intent).isWizard());
+        JSONObject launched = launchedJson(activity.launch);
+        assertEquals("child", launched.getString("entity_id"));
+        assertEquals(
+                "mother",
+                com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(launched, "mother_base_entity_id")
+                        .getString("value"));
+        JSONObject sex = com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(launched, "child_sex");
+        assertEquals(expectedSex, sex.getString("value"));
+        assertTrue(sex.getBoolean("read_only"));
+        assertFalse(sex.has("editable"));
+        assertLaunch(activity, activity.launch, form);
     }
 
     @Test

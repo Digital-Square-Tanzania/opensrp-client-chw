@@ -260,8 +260,12 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
                                 JSONObject form =
                                         FormUtils.getFormUtils()
                                                 .getFormJson(MotherMentorChildEidFormUtils.FORM);
-                                if (directChildId == null) repository.prepareForm(form, motherId, id);
-                                else repository.prepareDirectForm(this, form, directChildId);
+                                if (directChildId == null) {
+                                    repository.prepareForm(form, motherId, id);
+                                    MotherMentorChildEidFormUtils.localizeSexForDisplay(this, form);
+                                } else {
+                                    repository.prepareDirectForm(this, form, directChildId);
+                                }
                                 form.getJSONObject("metadata")
                                         .put(
                                                 "encounter_location",

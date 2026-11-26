@@ -1,9 +1,12 @@
 package org.smartregister.chw.util;
 
+import android.content.Context;
+
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.mothermentor.util.DBConstants;
 import org.smartregister.chw.mothermentor.util.MotherMentorEligibility;
 
@@ -163,6 +166,17 @@ public final class MotherMentorChildEidFormUtils {
                 dob != null && dob.length() >= 10 ? dob.substring(0, 10) : dob,
                 true);
         normalizeLastTestResult(form);
+    }
+
+    public static void localizeSexForDisplay(Context context, JSONObject form) throws JSONException {
+        JSONObject sex = field(form, DBConstants.KEY.CHILD_SEX);
+        String storedSex = sex.optString("value").trim();
+        // The native text widget displays value. Saving rebinds the trusted value from the child.
+        if ("female".equalsIgnoreCase(storedSex)) {
+            sex.put("value", context.getString(R.string.mothermentor_hei_sex_female));
+        } else if ("male".equalsIgnoreCase(storedSex)) {
+            sex.put("value", context.getString(R.string.mothermentor_hei_sex_male));
+        }
     }
 
     public static void prefillRegistrationLocation(JSONObject form, Map<String, String> location)

@@ -8,6 +8,8 @@
 
 - Record not-found outcomes on open post-acceptance Mwenzi visits with reason-specific closure using
   Core `2.2.0-MOTHER-MENTOR-ALPHA-64-UCSW-139-MWENZI-EXIT-ALIGNMENT-MOH-SNAPSHOT`. [CHW #1242](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1242)
+- Show the child's sex in the app language during HEI registration while preserving
+  the stored sex value. [CHW #1243](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1243)
 
 ## Mother Mentor Alpha 62 integration candidate — 2026-11-25
 
