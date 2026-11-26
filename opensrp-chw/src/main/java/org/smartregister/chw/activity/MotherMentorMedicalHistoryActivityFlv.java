@@ -60,6 +60,7 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     private final MotherMentorFollowUpType followUpType;
     private final String baseEntityId;
     private boolean followUpClosed;
+    private String childEidWeaningVisitId;
 
     public MotherMentorMedicalHistoryActivityFlv() {
         this(null);
@@ -91,6 +92,8 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
         MotherMentorIitState closure = iitState();
         MotherMentorChildEidRepository.State childEid = childEidState();
         followUpClosed = closure.isClosed() || isChildEidClosed(childEid);
+        childEidWeaningVisitId = childEid == null ? null
+                : childEid.getClinicalState().getChildEidWeaningVisitId();
         if (visits == null || visits.isEmpty()) {
             processVisit(Collections.emptyList(), context, Collections.emptyList());
             showIitClosure(context, closure);
@@ -208,9 +211,11 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
             boolean legacyFollowUp = followUpType != null
                     && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visit.getVisitType());
             boolean closingMotherVisit = i == visits.size() - 1 && canEditClosingMotherVisit(visit);
+            boolean recordedWeaning = childEidWeaningVisitId != null
+                    && childEidWeaningVisitId.equals(visit.getVisitId());
             if (isMotherVisit(visit)) edit.setText(R.string.mama_results_edit_visit);
             edit.setVisibility(
-                    i == visits.size() - 1 && !legacyFollowUp
+                    (i == visits.size() - 1 || recordedWeaning) && !legacyFollowUp
                             && !isReadOnlyLegacyHousehold(visit)
                             && !isHouseholdReadOnly(visit) && !isPartnerClosed(visit) && !followUpClosed
                             && (closingMotherVisit || !isMotherCardClosed(visit))
@@ -299,11 +304,14 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
                 || isEarlierSiblingClosingVisit(visit) || isEarlierIitEnrollment(visit)) return;
         if (isMotherVisit(visit)) {
             if (!motherClosed) activity.finish();
-            MotherMentorVisitActivity.editFromHistory(activity, visit.getBaseEntityId(), visit.getVisitId());
+            MotherMentorVisitActivity.editFromHistory(activity, visit.getBaseEntityId(), visit.getVisitId(), null);
             return;
         }
         activity.finish();
-        if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
+        if (MotherMentorFollowUpType.CHILD_EID.getEventType().equals(visit.getVisitType())) {
+            MotherMentorVisitActivity.editFromHistory(activity, visit.getBaseEntityId(), visit.getVisitId(),
+                    MotherMentorFollowUpType.CHILD_EID);
+        } else if (MotherMentorHistoryMapper.isHouseholdVisit(visit)) {
             MotherMentorHouseholdVisitActivity.startMotherMentorHouseholdVisitActivity(
                     activity, visit.getBaseEntityId(), true);
         } else if (isFollowUpVisit(visit.getVisitType())) {

@@ -82,12 +82,16 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
         startMotherMentorVisitActivity(activity, baseEntityId, editMode, false);
     }
 
-    static void editFromHistory(Activity activity, String motherId, String visitId) {
+    static void editFromHistory(Activity activity, String memberId, String visitId,
+            MotherMentorFollowUpType followUpType) {
         Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, motherId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, true);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
-        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, false);
+        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, followUpType != null);
+        if (followUpType != null) {
+            intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
+        }
         intent.putExtra(HISTORY_VISIT_ID, visitId);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
@@ -145,7 +149,7 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
                         : followUpType == MotherMentorFollowUpType.PARTNER
                         ? partnerInteractor
                         : followUpType == MotherMentorFollowUpType.CHILD_EID
-                        ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType())
+                        ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType(), historyVisitId())
                         : iitInteractor());
     }
 
@@ -399,10 +403,14 @@ public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
     }
 
     protected MotherMentorChildEidExit getChildEidClosurePreview() {
-        Visit editing = Boolean.TRUE.equals(isEditMode)
-                ? MotherMentorLibrary.getInstance().visitRepository()
-                        .getLatestVisit(baseEntityID, MotherMentorFollowUpType.CHILD_EID.getEventType())
-                : null;
+        Visit editing = null;
+        if (Boolean.TRUE.equals(isEditMode)) {
+            String selected = historyVisitId();
+            editing = selected == null
+                    ? MotherMentorLibrary.getInstance().visitRepository()
+                            .getLatestVisit(baseEntityID, MotherMentorFollowUpType.CHILD_EID.getEventType())
+                    : MotherMentorLibrary.getInstance().visitRepository().getVisitByVisitId(selected);
+        }
         return MotherMentorChildEidRepository.previewExit(
                 ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
                 editing == null ? null : editing.getVisitId(), stagedAnswers(),

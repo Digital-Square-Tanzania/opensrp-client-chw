@@ -1,5 +1,14 @@
 # Changelog
 
+## Mother Mentor Batch 2 publication preparation
+
+- Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
+
+## Mother Mentor Alpha 62 integration candidate — 2026-11-25
+
+- Open the selected Mtoto EID visit in History to correct its weaning date
+  while preserving visit order. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-62-UCSW-142-WEANING-DATE-RECONCILED-MOH-SNAPSHOT`. [CHW #1241](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1241)
+
 ## Mother Mentor Alpha 61 integration candidate — 2026-11-25
 
 - Record a finalized Mwenzi tracing death on the linked adult household
