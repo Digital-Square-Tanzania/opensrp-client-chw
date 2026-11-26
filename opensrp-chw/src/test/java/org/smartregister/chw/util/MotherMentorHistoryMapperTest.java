@@ -709,6 +709,33 @@ public class MotherMentorHistoryMapperTest {
     }
 
     @Test @Config(qualifiers = "en")
+    public void mtotoEidHistoryDistinguishesNeverBreastfedFromStoppedInEnglish() {
+        assertMtotoEidFeeding("Breastfeeding status", "Never breastfed", "Stopped breastfeeding");
+    }
+
+    @Test @Config(qualifiers = "sw")
+    public void mtotoEidHistoryDistinguishesNeverBreastfedFromStoppedInSwahili() {
+        assertMtotoEidFeeding("Hali ya unyonyeshaji", "Hajawahi kunyonyeshwa", "Ameacha kunyonyeshwa");
+    }
+
+    private void assertMtotoEidFeeding(String label, String neverBreastfed, String stopped) {
+        Visit visit = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+        answer(visit, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, "3", "");
+        answer(visit, DBConstants.KEY.FOLLOW_UP_STATUS, "found", "");
+        answer(visit, DBConstants.KEY.MAMA_CHILD_STATUS, "alive", "");
+        answer(visit, DBConstants.KEY.MTOTO_RUFAA_STATE_BEFORE, "none", "");
+        String key = DBConstants.KEY.MAMA_BREASTFEEDING_STATUS;
+        for (String code : Arrays.asList("never_breastfed", "not_breastfeeding")) {
+            answer(visit, key, code, "legacy caption");
+            Row feeding = row(mapper().map(visit), key);
+            assertEquals(label, feeding.getLabel());
+            assertEquals(Collections.singletonList("never_breastfed".equals(code) ? neverBreastfed : stopped),
+                    feeding.getValues());
+            assertEquals(code, visit.getVisitDetails().get(key).get(0).getDetails());
+        }
+    }
+
+    @Test @Config(qualifiers = "en")
     public void mamaKadiHistoryDistinguishesNeverBreastfedFromStoppedInEnglish() {
         assertMamaKadiFeedingAnswer("never_breastfed", "Never breastfed");
         assertMamaKadiFeedingAnswer("not_breastfeeding", "Stopped breastfeeding");

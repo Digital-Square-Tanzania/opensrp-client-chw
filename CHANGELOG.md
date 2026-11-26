@@ -4,6 +4,10 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+## Mother Mentor Alpha 69 integration candidate — 2026-11-25
+
+- Use the same breastfeeding questions and answers on both Mtoto EID enrolment routes. Use Core `2.2.0-MOTHER-MENTOR-ALPHA-69-UCSW-149-HEI-BREASTFEEDING-MOH-SNAPSHOT`. [CHW #1252](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1252)
+
 ## Mother Mentor partner visit history — 2026-11-25
 
 - Label Mwenzi visit sections and dated cards as partner visits in English
