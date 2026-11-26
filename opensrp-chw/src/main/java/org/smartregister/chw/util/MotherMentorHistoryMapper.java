@@ -177,7 +177,8 @@ public final class MotherMentorHistoryMapper {
         for (int child = 1; child <= MotherMentorDeliveryChildren.MAX_COUNT; child++) {
             for (Field field : fields.values()) {
                 String key = MotherMentorDeliveryChildren.observationKey(child, field.key);
-                List<String> answers = values(field, recorded.get(key));
+                List<String> answers = values(field, recordedAnswers(recorded, field, key,
+                        MotherMentorDeliveryChildren.observationKey(child, DBConstants.KEY.MAMA_HEI_TEST_TYPE)));
                 if (!answers.isEmpty()) {
                     rows.add(new Row(key, MotherMentorDeliveryChildren.label(context, child, "")
                             + " · " + field.label, answers, field.multiple));
@@ -247,13 +248,26 @@ public final class MotherMentorHistoryMapper {
             Map<String, List<VisitDetail>> recorded) {
         Row comments = null;
         for (Field field : fields.values()) {
-            List<String> values = values(field, recorded.get(field.key));
+            List<String> values = values(field, recordedAnswers(
+                    recorded, field, field.key, DBConstants.KEY.MAMA_HEI_TEST_TYPE));
             if (values.isEmpty()) continue;
             Row row = new Row(field.key, field.label, values, field.multiple);
             if (DBConstants.KEY.COMMENTS.equals(field.key)) comments = row;
             else rows.add(row);
         }
         return comments;
+    }
+
+    private List<VisitDetail> recordedAnswers(Map<String, List<VisitDetail>> recorded, Field field,
+            String displayKey, String savedTestKey) {
+        if (DBConstants.KEY.MAMA_HEI_TEST_TYPE_CHOICE.equals(field.key)) {
+            List<VisitDetail> savedTest = recorded.get(savedTestKey);
+            if (savedTest != null && savedTest.stream().anyMatch(detail -> detail != null
+                    && Stage.fromCode(scalar(detail.getDetails())) == Stage.AFTER_WEANING)) {
+                return savedTest;
+            }
+        }
+        return recorded.get(displayKey);
     }
 
     private void addHistoricalRows(

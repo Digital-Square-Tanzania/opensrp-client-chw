@@ -31,6 +31,7 @@ import org.smartregister.chw.mothermentor.util.AppExecutors;
 import org.smartregister.chw.mothermentor.util.Constants;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidResultForm;
 import org.smartregister.chw.mothermentor.util.MotherMentorHeiSchedule;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidClosureDialog;
 import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
 import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
@@ -349,7 +350,7 @@ public class MotherMentorTestResultsActivity extends SecuredActivity {
             case AT_BIRTH: return context.getString(R.string.mama_results_birth);
             case SIX_WEEKS: return context.getString(R.string.mama_results_week_six);
             case NINE_MONTHS: return context.getString(R.string.mama_results_month_nine);
-            case AFTER_WEANING: return context.getString(R.string.mama_results_month_fifteen);
+            case AFTER_WEANING: return MotherMentorChildEidLabels.test(context, stage.getCode());
             case EIGHTEEN_MONTHS: return context.getString(R.string.mama_results_month_eighteen);
             default: throw new IllegalArgumentException("Unknown test type");
         }

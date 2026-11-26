@@ -4,6 +4,12 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+## Mother Mentor Alpha 66 integration candidate — 2026-11-25
+
+- Use the same localized post-weaning test name in Mother Mentor forms, lists
+  and History. Apply the after-nine-month eligibility rule in Core
+  `2.2.0-MOTHER-MENTOR-ALPHA-66-UCSW-146-POST-WEANING-CUTOFF-MOH-SNAPSHOT`. [CHW #1246](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1246)
+
 ## Mother Mentor Alpha 65 integration candidate — 2026-11-25
 
 - Leave the Mtoto EID due-test display blank until the weaning date is available

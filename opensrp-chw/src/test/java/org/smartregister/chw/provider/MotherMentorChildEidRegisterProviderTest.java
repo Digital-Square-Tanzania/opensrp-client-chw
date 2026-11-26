@@ -71,6 +71,28 @@ public class MotherMentorChildEidRegisterProviderTest {
     }
 
     @Test
+    @Config(qualifiers = "en")
+    public void englishRowNamesTheStoredPostWeaningStage() {
+        assertPostWeaningStage("3 months after stopping breastfeeding");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliRowNamesTheStoredPostWeaningStage() {
+        assertPostWeaningStage("Miezi 3 baada ya kuacha kunyonya");
+    }
+
+    private void assertPostWeaningStage(String label) {
+        Map<String, String> values = values();
+        values.put(DBConstants.KEY.MTOTO_RUFAA_STATE, "referred");
+        values.put(DBConstants.KEY.MTOTO_RUFAA_TEST, "miezi15");
+        values.put(DBConstants.KEY.MTOTO_MISSED_TEST, "miezi15");
+        MotherMentorChildEidRegisterProvider.ChildHolder holder = bind(client("child", values));
+        assertTrue(holder.metadata.getText().toString().contains(label));
+        assertTrue(holder.missed.getText().toString().contains(label));
+    }
+
+    @Test
     public void closedHistoryRemainsClickableAndRecycledRowClearsPriorChildDetails() {
         Map<String, String> values = values();
         values.put(DBConstants.KEY.MTOTO_IS_CLOSED, "1");

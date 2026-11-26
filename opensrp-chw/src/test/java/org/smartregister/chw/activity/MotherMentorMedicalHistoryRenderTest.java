@@ -320,6 +320,8 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
 
         Entry screening = result("screening", false, false, testDate, screeningReceipt, today.minusDays(2));
         Entry confirmation = result("confirmation", true, true, testDate, confirmationReceipt, today);
+        Mockito.when(screening.getSample().getStage()).thenReturn(Stage.AFTER_WEANING);
+        Mockito.when(confirmation.getSample().getStage()).thenReturn(Stage.AFTER_WEANING);
         Mockito.when(confirmation.getRecordedAt()).thenReturn(today.toDateTimeAtStartOfDay().plusHours(1).getMillis());
         MotherMentorMedicalHistoryActivityFlv flavor = new MotherMentorMedicalHistoryActivityFlv(null, "mother") {
             @Override
@@ -333,6 +335,7 @@ public class MotherMentorMedicalHistoryRenderTest extends BaseUnitTest {
         View corrected = cards.getChildAt(0);
         TextView title = corrected.findViewById(R.id.type_of_service);
         assertTrue(title.getText().toString().contains("Kipimo cha uthibitisho"));
+        assertTrue(title.getText().toString().contains("Miezi 3 baada ya kuacha kunyonya"));
         assertTrue(title.getText().toString().contains("Hasi"));
         assertResultDates(corrected, testDate, confirmationReceipt, today);
         LinearLayout correctedDetails = corrected.findViewById(R.id.visit_details_layout);

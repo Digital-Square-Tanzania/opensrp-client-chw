@@ -21,6 +21,7 @@ import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
@@ -34,6 +35,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidDirectEnrollment;
 import org.smartregister.chw.repository.MotherMentorChildEidRepository;
 import org.smartregister.chw.repository.MotherMentorPartnerRepository;
 import org.smartregister.chw.util.MotherMentorChildEidFormUtils;
@@ -205,6 +207,31 @@ public class MotherMentorFormWizardLaunchTest {
         assertChildLinkLaunch("en", "Male", "Male");
         assertChildLinkLaunch("sw", "Female", "Ke (Msichana)");
         assertChildLinkLaunch("sw", "Male", "Me (Mvulana)");
+    }
+
+    @Test
+    public void independentChildEnrollmentUsesTheMotherMentorWizardInBothLanguages() throws Exception {
+        for (String language : new String[] {"en", "sw"}) {
+            language(language);
+            CapturingChildActivity activity =
+                    Robolectric.buildActivity(CapturingChildActivity.class, new Intent()).get();
+            Map<String, String> child = person("child");
+            child.put("dob", LocalDate.now().minusMonths(14).toString());
+            JSONObject form = MotherMentorChildEidDirectEnrollment.prepareForm(activity,
+                    asset(language, MotherMentorChildEidFormUtils.FORM), child, "Test household");
+            ReflectionHelpers.setField(activity, "directChildId", "child");
+
+            ReflectionHelpers.callInstanceMethod(activity, "launchEnrollmentForm",
+                    ReflectionHelpers.ClassParameter.from(JSONObject.class, form));
+
+            assertEquals(MotherMentorVisitWizardActivity.class.getName(),
+                    activity.launch.intent.getComponent().getClassName());
+            assertEquals("child", launchedJson(activity.launch).getString("entity_id"));
+            assertEquals(form.toString(), launchedJson(activity.launch).toString());
+            assertEquals(JsonFormUtils.REQUEST_CODE_GET_JSON, activity.launch.requestCode);
+            assertTrue(config(activity.launch.intent).isWizard());
+            assertNavigation(activity, config(activity.launch.intent));
+        }
     }
 
     private void assertChildLinkLaunch(String language, String gender, String expectedSex)

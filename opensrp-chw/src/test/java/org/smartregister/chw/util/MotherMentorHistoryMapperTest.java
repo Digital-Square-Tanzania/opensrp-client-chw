@@ -31,6 +31,39 @@ import java.util.Locale;
 public class MotherMentorHistoryMapperTest {
     @Test
     @Config(qualifiers = "en")
+    public void englishHistoryReadsTheSavedPostWeaningStageInBothWorkflows() {
+        assertPostWeaningHistory("3 months after stopping breastfeeding");
+    }
+
+    @Test
+    @Config(qualifiers = "sw")
+    public void swahiliHistoryReadsTheSavedPostWeaningStageInBothWorkflows() {
+        assertPostWeaningHistory("Miezi 3 baada ya kuacha kunyonya");
+    }
+
+    private void assertPostWeaningHistory(String label) {
+        Visit mother = visit(Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        answer(mother, DBConstants.KEY.ATTENDANCE_TYPE, "repeat", "");
+        String sample = MotherMentorDeliveryChildren.observationKey(2, DBConstants.KEY.MAMA_HEI_TEST_TYPE);
+        String displayed = MotherMentorDeliveryChildren.observationKey(2, DBConstants.KEY.MAMA_HEI_TEST_TYPE_CHOICE);
+        answer(mother, sample, "three_months_after_weaning", "Miezi 15");
+        assertEquals(Collections.singletonList(label), row(mapper().map(mother), displayed).getValues());
+        assertEquals("three_months_after_weaning", mother.getVisitDetails().get(sample).get(0).getDetails());
+
+        for (String schema : new String[] {"2", "3"}) {
+            Visit child = visit(MotherMentorFollowUpType.CHILD_EID.getEventType());
+            answer(child, DBConstants.KEY.CHILD_EID_FOLLOW_UP_SCHEMA, schema, "");
+            for (String code : new String[] {"three_months_after_weaning", "miezi15"}) {
+                answer(child, DBConstants.KEY.CHILD_EID_TEST_TYPE, code, "Miezi 15");
+                assertEquals(Collections.singletonList(label),
+                        row(mapper().map(child), DBConstants.KEY.CHILD_EID_TEST_TYPE).getValues());
+                assertEquals(code, child.getVisitDetails().get(DBConstants.KEY.CHILD_EID_TEST_TYPE).get(0).getDetails());
+            }
+        }
+    }
+
+    @Test
+    @Config(qualifiers = "en")
     public void recordedBreastfeedingPregnancyStatusShowsEnglishLabel() {
         assertBreastfeedingPregnancyStatus("Pregnancy status", "Breastfeeding");
     }

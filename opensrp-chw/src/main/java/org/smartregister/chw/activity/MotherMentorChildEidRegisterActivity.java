@@ -297,6 +297,7 @@ public class MotherMentorChildEidRegisterActivity extends AppCompatActivity
     private void launchEnrollmentForm(JSONObject form) {
         Intent intent = Utils.formActivityIntent(this, form.toString());
         directFormLaunched = directChildId != null;
+        if (directFormLaunched) intent.setClass(this, MotherMentorVisitWizardActivity.class);
         startActivityForResult(MotherMentorFormWizardUtils.configureIntent(this, intent),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
