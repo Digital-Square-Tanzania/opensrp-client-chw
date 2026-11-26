@@ -93,7 +93,9 @@ public class MotherMentorMedicalHistoryActivity extends CoreAncMedicalHistoryAct
         flavor.processViewData(visits, this);
         displayLoadingState(false);
         TextView visitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
-        visitTitle.setText(R.string.mothermentor_visit_history_title);
+        visitTitle.setText(getFollowUpType() == MotherMentorFollowUpType.PARTNER
+                ? R.string.mothermentor_partner_visit_history_title
+                : R.string.mothermentor_visit_history_title);
         return view;
     }
 

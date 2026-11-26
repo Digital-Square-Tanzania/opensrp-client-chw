@@ -406,6 +406,11 @@ public class MotherMentorMedicalHistoryActivityFlv extends DefaultAncMedicalHist
     }
 
     private String getVisitType(Context context, String visitType) {
+        if (MotherMentorFollowUpType.PARTNER.getEventType().equals(visitType)
+                || (followUpType == MotherMentorFollowUpType.PARTNER
+                        && Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visitType))) {
+            return context.getString(R.string.mothermentor_partner_visit_history_title);
+        }
         if (Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES.equals(visitType)
                 || Constants.EVENT_TYPE.MOTHERMENTOR_CONTACT_VISIT.equals(visitType)
                 || isFollowUpVisit(visitType)) {

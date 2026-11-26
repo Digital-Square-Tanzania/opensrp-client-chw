@@ -4,6 +4,11 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+## Mother Mentor partner visit history — 2026-11-25
+
+- Label Mwenzi visit sections and dated cards as partner visits in English
+  and Kiswahili. [CHW #1251](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1251)
+
 ## Mother Mentor outcome dates in visit history — 2026-11-25
 
 - Show the saved delivery, preterm delivery or loss date below the corresponding
