@@ -1,0 +1,759 @@
+package org.smartregister.chw.activity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.text.TextUtils;
+
+import androidx.appcompat.app.AlertDialog;
+
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Months;
+import org.json.JSONObject;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.mothermentor.MotherMentorLibrary;
+import org.smartregister.chw.mothermentor.activity.BaseMotherMentorVisitActivity;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorMotherVisitDao;
+import org.smartregister.chw.mothermentor.domain.MemberObject;
+import org.smartregister.chw.mothermentor.domain.Visit;
+import org.smartregister.chw.mothermentor.interactor.ChildEidFollowUpVisitInteractor;
+import org.smartregister.chw.mothermentor.interactor.MotherMentorFollowUpVisitInteractor;
+import org.smartregister.chw.mothermentor.interactor.BaseMotherMentorFollowUpVisitInteractor;
+import org.smartregister.chw.mothermentor.interactor.MotherMentorIitVisitInteractor;
+import org.smartregister.chw.mothermentor.interactor.MotherMentorServiceVisitInteractor;
+import org.smartregister.chw.mothermentor.interactor.PartnerFollowUpVisitInteractor;
+import org.smartregister.chw.mothermentor.model.BaseMotherMentorVisitAction;
+import org.smartregister.chw.mothermentor.presenter.BaseMotherMentorVisitPresenter;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorChildEidResultEvent;
+import org.smartregister.chw.mothermentor.repository.MotherMentorIitRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherChildRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorMotherClosureRepository;
+import org.smartregister.chw.mothermentor.repository.MotherMentorPartnerClosureRepository;
+import org.smartregister.chw.mothermentor.util.Constants;
+import org.smartregister.chw.mothermentor.util.DBConstants;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidClosureDialog;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidExit;
+import org.smartregister.chw.mothermentor.util.MotherMentorChildEidLabels;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitState;
+import org.smartregister.chw.mothermentor.util.MotherMentorIitText;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorDeliveryChildren;
+import org.smartregister.chw.mothermentor.util.MotherMentorMotherChildUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerClosure;
+import org.smartregister.chw.mothermentor.util.MotherMentorPartnerFollowUpVisitUtils;
+import org.smartregister.chw.mothermentor.util.MotherMentorVisitCompletion;
+import org.smartregister.chw.util.MotherMentorConsecutiveClosureDialog;
+import org.smartregister.chw.util.MotherMentorFollowUpVisitUtils;
+import org.smartregister.chw.util.MotherMentorFormWizardUtils;
+import org.smartregister.chw.util.MotherMentorIitClosureDialog;
+import org.smartregister.chw.util.MotherMentorMotherClosureDialog;
+import org.smartregister.chw.util.MotherMentorPartnerClosureText;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.util.LangUtils;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.List;
+
+import timber.log.Timber;
+
+public class MotherMentorVisitActivity extends BaseMotherMentorVisitActivity {
+    static final String EXTRA_FOLLOW_UP_VISIT = "extra_follow_up_visit";
+    private static final String HISTORY_VISIT_ID = "history_visit_id";
+    private static final String PARTNER_STARTED_ACTION = "partner_started_action";
+    private static final String CHILD_EID_OPEN_SECTION = "child_eid_open_section";
+    private static final String CHILD_EID_SECTION_ANSWERS = "child_eid_section_answers";
+    private static final String CHILD_EID_STATUS_FORM = "mothermentor_child_eid_follow_up_status";
+    private static final String CHILD_EID_HEI_FORM = "mothermentor_child_eid_hei";
+    private static final String CHILD_EID_COMMENT_FORM = "mothermentor_child_eid_follow_up_comment";
+    private Bundle childEidSectionAnswers = new Bundle();
+    private String childEidOpenSection;
+    private boolean restoreChildEidSections;
+    private boolean partnerFormOpened;
+    private boolean submitting;
+    private boolean closureConfirmationOpen;
+    private boolean childEidSuccess;
+    private PartnerFollowUpVisitInteractor partnerInteractor;
+
+    public static void startMotherMentorVisitActivity(
+            Activity activity, String baseEntityId, Boolean editMode) {
+        startMotherMentorVisitActivity(activity, baseEntityId, editMode, false);
+    }
+
+    static void editFromHistory(Activity activity, String memberId, String visitId,
+            MotherMentorFollowUpType followUpType) {
+        Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, true);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, followUpType != null);
+        if (followUpType != null) {
+            intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
+        }
+        intent.putExtra(HISTORY_VISIT_ID, visitId);
+        activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
+    }
+
+    public static void startMotherMentorFollowUpVisitActivity(
+            Activity activity, String baseEntityId, Boolean editMode) {
+        startMotherMentorFollowUpVisitActivity(
+                activity, baseEntityId, editMode, MotherMentorFollowUpType.MOTHER_IIT);
+    }
+
+    public static void startMotherMentorFollowUpVisitActivity(Activity activity,
+            String baseEntityId, Boolean editMode, MotherMentorFollowUpType followUpType) {
+        startMotherMentorVisitActivity(activity, baseEntityId, editMode, true, followUpType);
+    }
+
+    private static void startMotherMentorVisitActivity(
+            Activity activity, String baseEntityId, Boolean editMode, boolean followUpVisit) {
+        startMotherMentorVisitActivity(activity, baseEntityId, editMode, followUpVisit,
+                MotherMentorFollowUpType.MOTHER_IIT);
+    }
+
+    private static void startMotherMentorVisitActivity(
+            Activity activity,
+            String baseEntityId,
+            Boolean editMode,
+            boolean followUpVisit,
+            MotherMentorFollowUpType followUpType) {
+        if (followUpVisit && followUpType == MotherMentorFollowUpType.PARTNER
+                && MotherMentorPartnerClosureRepository.getState(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityId, null).isClosed()) return;
+        Intent intent = new Intent(activity, MotherMentorVisitActivity.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE,
+                Constants.PROFILE_TYPES.MOTHERMENTOR_PROFILE);
+        intent.putExtra(EXTRA_FOLLOW_UP_VISIT, followUpVisit);
+        intent.putExtra(MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE, followUpType.getValue());
+        activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    protected void registerPresenter() {
+        if (blockClosedCard() || blockDuplicateIitVisit() || blockNewChildEidVisitWhilePending()) {
+            finish();
+            return;
+        }
+        MotherMentorFollowUpType followUpType = getFollowUpType();
+        if (isFollowUpVisit() && followUpType == MotherMentorFollowUpType.PARTNER) {
+            partnerInteractor = new PartnerFollowUpVisitInteractor(followUpType.getEventType());
+        }
+        presenter = new BaseMotherMentorVisitPresenter(memberObject, this,
+                !isFollowUpVisit() ? new MotherMentorServiceVisitInteractor(
+                                             Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES, historyVisitId())
+                        : followUpType == MotherMentorFollowUpType.PARTNER
+                        ? partnerInteractor
+                        : followUpType == MotherMentorFollowUpType.CHILD_EID
+                        ? new ChildEidFollowUpVisitInteractor(followUpType.getEventType(), historyVisitId())
+                        : iitInteractor());
+    }
+
+    private BaseMotherMentorFollowUpVisitInteractor iitInteractor() {
+        MotherMentorFollowUpType iit = MotherMentorFollowUpType.MOTHER_IIT;
+        if (Boolean.TRUE.equals(isEditMode)) {
+            Visit latest = MotherMentorLibrary.getInstance().visitRepository()
+                    .getLatestVisit(baseEntityID, iit.getEventType());
+            if (latest != null && !isCurrentIitSchema(latest)) {
+                return new MotherMentorFollowUpVisitInteractor(iit.getEventType(), iit.getValue());
+            }
+        }
+        return new MotherMentorIitVisitInteractor();
+    }
+
+    static boolean isCurrentIitSchema(Visit visit) {
+        try {
+            Map<String, String> values = MotherMentorVisitCompletion.observationValues(
+                    new JSONObject(visit.getJson()).optJSONArray("obs"));
+            return "2".equals(values.get(DBConstants.KEY.IIT_FOLLOW_UP_SCHEMA));
+        } catch (Exception e) {
+            Timber.e(e, "Unable to read saved IIT workflow schema");
+            return false;
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(PARTNER_STARTED_ACTION)) {
+            partnerFormOpened = true;
+            current_action = savedInstanceState.getString(PARTNER_STARTED_ACTION);
+        }
+        if (savedInstanceState != null && savedInstanceState.containsKey(CHILD_EID_SECTION_ANSWERS)) {
+            childEidOpenSection = savedInstanceState.getString(CHILD_EID_OPEN_SECTION);
+            childEidSectionAnswers = savedInstanceState.getBundle(CHILD_EID_SECTION_ANSWERS);
+            restoreChildEidSections = true;
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (partnerFormOpened) outState.putString(PARTNER_STARTED_ACTION, current_action);
+        if (childEidOpenSection != null || !childEidSectionAnswers.isEmpty()) {
+            outState.putString(CHILD_EID_OPEN_SECTION, childEidOpenSection);
+            outState.putBundle(CHILD_EID_SECTION_ANSWERS, new Bundle(childEidSectionAnswers));
+        }
+    }
+
+    @Override
+    public void initializeActions(LinkedHashMap<String, BaseMotherMentorVisitAction> actions) {
+        super.initializeActions(actions);
+        if (restoreChildEidSections && childEidSection(CHILD_EID_STATUS_FORM) != null) {
+            // Applying tracing answers can synchronously rebuild the list and add the HEI row.
+            restoreChildEidSections = false;
+            applyChildEidSection(CHILD_EID_STATUS_FORM);
+            applyChildEidSection(CHILD_EID_HEI_FORM);
+            applyChildEidSection(CHILD_EID_COMMENT_FORM);
+            redrawVisitUI();
+        }
+        if (partnerFormOpened || isFinishing() || !isFollowUpVisit()
+                || getFollowUpType() != MotherMentorFollowUpType.PARTNER
+                || Boolean.TRUE.equals(isEditMode)) return;
+        for (BaseMotherMentorVisitAction action : actions.values()) {
+            String form = action.getFormName();
+            if (action.isValid() && ("mothermentor_partner_testing_referral".equals(form)
+                    || "mothermentor_partner_arrival".equals(form))) {
+                partnerFormOpened = true;
+                startForm(action);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void setUpView() {
+        super.setUpView();
+        if (isFollowUpVisit()) {
+            tvSubmit.setText(org.smartregister.chw.R.string.mothermentor_save);
+        }
+    }
+
+    @Override
+    public void redrawHeader(MemberObject member) {
+        if (!isFollowUpVisit()) {
+            super.redrawHeader(member);
+            return;
+        }
+        int savedVisits = MotherMentorFollowUpVisitUtils
+                                  .getVisits(member.getBaseEntityId(), getFollowUpType())
+                                  .size();
+        int visitNumber =
+                Boolean.TRUE.equals(isEditMode) ? Math.max(1, savedVisits) : savedVisits + 1;
+        if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+            tvTitle.setText(
+                    getString(org.smartregister.chw.R.string.mothermentor_child_visit_header,
+                            member.getFullName(), childAge(member.getBaseEntityId()), visitNumber));
+        } else {
+            tvTitle.setText(getString(org.smartregister.chw.R.string.mothermentor_visit_header,
+                    member.getFullName(), member.getAge(), visitNumber));
+        }
+    }
+
+    private String childAge(String baseEntityId) {
+        try {
+            SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+            try (Cursor cursor = db.rawQuery("SELECT " + DBConstants.KEY.DOB
+                                 + " FROM ec_family_member WHERE "
+                                 + DBConstants.KEY.BASE_ENTITY_ID + " = ? LIMIT 1",
+                         new String[] {baseEntityId})) {
+                if (cursor.moveToFirst() && !cursor.isNull(0)) {
+                    DateTime dob = new DateTime(cursor.getString(0));
+                    int totalMonths = Math.max(0,
+                            Months.monthsBetween(dob.withTimeAtStartOfDay(),
+                                          DateTime.now().withTimeAtStartOfDay())
+                                    .getMonths());
+                    int years = totalMonths / 12;
+                    int months = totalMonths % 12;
+                    if (years == 0)
+                        return getString(
+                                org.smartregister.chw.R.string.mothermentor_child_age_months,
+                                months);
+                    if (months == 0)
+                        return getString(
+                                org.smartregister.chw.R.string.mothermentor_child_age_years, years);
+                    return getString(
+                            org.smartregister.chw.R.string.mothermentor_child_age_years_months,
+                            years, months);
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return String.valueOf(memberObject.getAge());
+    }
+
+    @Override
+    public void submitVisit() {
+        if (submitting || closureConfirmationOpen || blockClosedCard() || blockDuplicateIitVisit()
+                || blockNewChildEidVisitWhilePending()) return;
+        if (!isFollowUpVisit()) {
+            MotherMentorMotherClosure preview = getMotherClosurePreview();
+            boolean confirmedPositive = MotherMentorMotherClosureRepository.outcome(stagedAnswers())
+                    == MotherMentorMotherClosure.VisitOutcome.CHILD_CONFIRMED_POSITIVE;
+            if (preview.isClosed() && (!confirmedPositive
+                    || MotherMentorMotherClosure.CHILD_CONFIRMED_POSITIVE.equals(preview.getStatus()))) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                MotherMentorMotherClosureDialog.show(this, preview, () -> {
+                    closureConfirmationOpen = false;
+                    submitConfirmedVisit();
+                }, this::resetSubmission);
+                return;
+            }
+            String childEndings = childEndingMessage();
+            if (!childEndings.isEmpty()) {
+                closureConfirmationOpen = true;
+                showChildEndingConfirmation(this, childEndings, () -> {
+                    closureConfirmationOpen = false;
+                    submitConfirmedVisit();
+                }, this::resetSubmission);
+                return;
+            }
+            if (confirmedPositive) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                MotherMentorChildEidClosureDialog.show(this, MotherMentorChildEidExit.E4, false,
+                        !preview.isClosed(), () -> {
+                            closureConfirmationOpen = false;
+                            submitConfirmedVisit();
+                        }, this::resetSubmission);
+                return;
+            }
+        } else if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
+            MotherMentorIitState preview = getIitClosurePreview();
+            if (preview.isConsecutiveClosure()) {
+                String status = preview.getStatus();
+                confirmConsecutiveClosure(MotherMentorIitState.LOST_TO_FOLLOW_UP.equals(status)
+                        ? consecutiveLostToFollowUpReason() : MotherMentorIitText.reason(this, status));
+                return;
+            }
+            if (preview.requiresConfirmation()) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                MotherMentorIitClosureDialog.show(this, preview, () -> {
+                    closureConfirmationOpen = false;
+                    submitConfirmedVisit();
+                }, this::resetSubmission);
+                return;
+            }
+        } else if (getFollowUpType() == MotherMentorFollowUpType.PARTNER) {
+            MotherMentorPartnerClosure preview = getPartnerClosurePreview();
+            if (preview.isConsecutiveClosure()) {
+                String status = preview.getStatus();
+                confirmConsecutiveClosure(MotherMentorPartnerClosure.LOST_TO_FOLLOW_UP.equals(status)
+                        ? consecutiveLostToFollowUpReason() : MotherMentorPartnerClosureText.reason(this, status));
+                return;
+            }
+            if (requiresPartnerAttendanceConfirmation()) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                new AlertDialog.Builder(this)
+                        .setTitle(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_close_confirmation_title)
+                        .setMessage(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_close_confirmation_message)
+                        .setPositiveButton(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_close_confirm,
+                                (dialog, which) -> {
+                                    closureConfirmationOpen = false;
+                                    submitConfirmedVisit();
+                                })
+                        .setNegativeButton(org.smartregister.chw.mothermentor.R.string.mothermentor_partner_close_cancel,
+                                (dialog, which) -> resetSubmission())
+                        .setCancelable(false)
+                        .show();
+                return;
+            }
+        } else if (getFollowUpType() == MotherMentorFollowUpType.CHILD_EID) {
+            MotherMentorChildEidExit exit = getChildEidClosurePreview();
+            childEidSuccess = exit != null && exit.isSuccess();
+            if (exit != null && exit.isStrikeExit()) {
+                confirmConsecutiveClosure(MotherMentorChildEidLabels.closedReason(this, exit.getStatus()));
+                return;
+            }
+            if (exit != null && exit.needsConfirmation()) {
+                closureConfirmationOpen = true;
+                if (tvSubmit != null) tvSubmit.setEnabled(false);
+                boolean directEnrollment = false;
+                boolean motherContinues = false;
+                if (baseEntityID != null) {
+                    SQLiteDatabase db =
+                            ChwApplication.getInstance().getRepository().getReadableDatabase();
+                    MotherMentorChildEidRepository.State child =
+                            MotherMentorChildEidRepository.getState(db, baseEntityID, null);
+                    directEnrollment = child.isDirectEnrollment();
+                    motherContinues = MotherMentorMotherClosureRepository.hasOpenSibling(db, child.getMotherId(), baseEntityID);
+                }
+                MotherMentorChildEidClosureDialog.show(this, exit, directEnrollment, motherContinues, () -> {
+                    closureConfirmationOpen = false;
+                    submitConfirmedVisit();
+                }, this::resetSubmission);
+                return;
+            }
+        }
+        submitConfirmedVisit();
+    }
+
+    private boolean requiresPartnerAttendanceConfirmation() {
+        Map<String, String> answers = stagedAnswers();
+        return "yes".equals(answers.get(DBConstants.KEY.PARTNER_ARRIVED_AT_FACILITY))
+                && MotherMentorPartnerFollowUpVisitUtils.validRecordedDate(
+                        answers.get(DBConstants.KEY.PARTNER_FACILITY_ARRIVAL_DATE));
+    }
+
+    protected MotherMentorPartnerClosure getPartnerClosurePreview() {
+        return partnerInteractor == null ? MotherMentorPartnerClosure.active() : partnerInteractor.previewClosure();
+    }
+
+    private String consecutiveLostToFollowUpReason() {
+        return getString(org.smartregister.chw.R.string.mothermentor_consecutive_closure_lost_to_follow_up);
+    }
+
+    private void confirmConsecutiveClosure(String reason) {
+        closureConfirmationOpen = true;
+        if (tvSubmit != null) tvSubmit.setEnabled(false);
+        MotherMentorConsecutiveClosureDialog.show(this, reason, () -> {
+            closureConfirmationOpen = false;
+            submitConfirmedVisit();
+        }, this::resetSubmission);
+    }
+
+    protected MotherMentorChildEidExit getChildEidClosurePreview() {
+        Visit editing = null;
+        if (Boolean.TRUE.equals(isEditMode)) {
+            String selected = historyVisitId();
+            editing = selected == null
+                    ? MotherMentorLibrary.getInstance().visitRepository()
+                            .getLatestVisit(baseEntityID, MotherMentorFollowUpType.CHILD_EID.getEventType())
+                    : MotherMentorLibrary.getInstance().visitRepository().getVisitByVisitId(selected);
+        }
+        return MotherMentorChildEidRepository.previewExit(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
+                editing == null ? null : editing.getVisitId(), stagedAnswers(),
+                editing == null ? LocalDate.now() : MotherMentorMotherVisitDao.getServiceDate(editing));
+    }
+
+    protected void submitConfirmedVisit() {
+        if (submitting || blockClosedCard() || blockDuplicateIitVisit()
+                || blockNewChildEidVisitWhilePending()) return;
+        submitting = true;
+        if (tvSubmit != null) tvSubmit.setEnabled(false);
+        super.submitVisit();
+    }
+
+    protected MotherMentorMotherClosure getMotherClosurePreview() {
+        Map<String, String> answers = stagedAnswers();
+        Visit editing = Boolean.TRUE.equals(isEditMode)
+                ? org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance()
+                          .visitRepository()
+                          .getLatestVisit(baseEntityID, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES)
+                : null;
+        LocalDate serviceDate = editing == null
+                ? LocalDate.now()
+                : MotherMentorMotherVisitDao.getServiceDate(editing);
+        return MotherMentorMotherClosureRepository.preview(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
+                editing == null ? null : editing.getVisitId(), answers, serviceDate);
+    }
+
+    protected MotherMentorIitState getIitClosurePreview() {
+        Visit editing = Boolean.TRUE.equals(isEditMode)
+                ? org.smartregister.chw.mothermentor.MotherMentorLibrary.getInstance()
+                          .visitRepository().getLatestVisit(baseEntityID,
+                                  MotherMentorFollowUpType.MOTHER_IIT.getEventType())
+                : null;
+        LocalDate serviceDate = editing == null
+                ? LocalDate.now() : MotherMentorMotherVisitDao.getServiceDate(editing);
+        Map<String, String> answers = stagedAnswers();
+        MotherMentorIitState preview = MotherMentorIitRepository.preview(
+                ChwApplication.getInstance().getRepository().getReadableDatabase(), baseEntityID,
+                editing == null ? null : editing.getVisitId(), answers, serviceDate);
+        // A staged death still needs consent when replay cannot place the prospective visit.
+        if (!preview.isClosed()
+                && "not_found".equals(answers.get(DBConstants.KEY.FOLLOW_UP_STATUS))
+                && "deceased".equals(answers.get(DBConstants.KEY.IIT_NOT_FOUND_REASON))) {
+            return preview.close(MotherMentorIitState.DECEASED, serviceDate, "");
+        }
+        return preview;
+    }
+
+    private Map<String, String> stagedAnswers() {
+        Map<String, String> answers = new HashMap<>();
+        for (BaseMotherMentorVisitAction action : actionList.values()) {
+            if (!action.isValid() || TextUtils.isEmpty(action.getJsonPayload())) continue;
+            try {
+                answers.putAll(MotherMentorDeliveryChildren.actionValues(
+                        new JSONObject(action.getJsonPayload())));
+            } catch (Exception e) {
+                Timber.e(e, "Unable to read Mother Mentor answers for closure confirmation");
+            }
+        }
+        return answers;
+    }
+
+    private String childEndingMessage() {
+        Map<String, String> answers = stagedAnswers();
+        if (!MotherMentorDeliveryChildren.hasSections(answers)) return "";
+        int count = MotherMentorDeliveryChildren.count(answers);
+        List<String> endings = new java.util.ArrayList<>();
+        LocalDate day = LocalDate.now();
+        for (int number = 1; number <= count; number++) {
+            Map<String, String> child = MotherMentorDeliveryChildren.childVisit(answers, number);
+            MotherMentorMotherChildUtils.TerminalOutcome outcome =
+                    MotherMentorMotherChildUtils.terminalOutcome(child, day);
+            if (outcome == MotherMentorMotherChildUtils.TerminalOutcome.NONE) continue;
+            endings.add(childEndingText(this, number, outcome));
+        }
+        return TextUtils.join("\n\n", endings);
+    }
+
+    static String childEndingText(Context context, int number,
+            MotherMentorMotherChildUtils.TerminalOutcome outcome) {
+        String label = MotherMentorDeliveryChildren.label(context, number, "");
+        int text;
+        switch (outcome) {
+            case STILLBIRTH: text = org.smartregister.chw.R.string.mama_child_ending_stillbirth; break;
+            case CHILD_DECEASED: text = org.smartregister.chw.R.string.mama_child_ending_deceased; break;
+            case CHILD_CONFIRMED_POSITIVE: text = org.smartregister.chw.R.string.mama_child_ending_positive; break;
+            case GRADUATED: text = org.smartregister.chw.R.string.mama_child_ending_graduated; break;
+            default: return "";
+        }
+        return context.getString(text, label);
+    }
+
+    static void showChildEndingConfirmation(Context context, String message, Runnable save, Runnable cancel) {
+        new AlertDialog.Builder(context)
+                .setMessage(message)
+                .setPositiveButton(org.smartregister.chw.mothermentor.R.string.mothermentor_household_close_confirm,
+                        (dialog, which) -> save.run())
+                .setNegativeButton(org.smartregister.chw.mothermentor.R.string.mothermentor_household_close_cancel,
+                        (dialog, which) -> cancel.run())
+                .setOnCancelListener(dialog -> cancel.run())
+                .show();
+    }
+
+    protected boolean isMotherCardClosed() {
+        return !isFollowUpVisit() && baseEntityID != null
+                && MotherMentorMotherClosureRepository.isClosed(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityID);
+    }
+
+    protected boolean isFollowUpCardClosed() {
+        if (!isFollowUpVisit() || baseEntityID == null) return false;
+        if (getFollowUpType() == MotherMentorFollowUpType.MOTHER_IIT) {
+            return MotherMentorIitRepository.getState(
+                    ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                    baseEntityID, null).isClosed();
+        }
+        return MotherMentorMotherClosureRepository.isFollowUpEnrollmentClosed(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityID, getFollowUpType());
+    }
+
+    private boolean blockClosedCard() {
+        if (!isCardReadOnly()) return false;
+        resetSubmission();
+        displayToast(getString(isFollowUpVisit()
+                        && getFollowUpType() == MotherMentorFollowUpType.CHILD_EID
+                ? org.smartregister.chw.mothermentor.R.string.mothermentor_child_eid_closed_message
+                : historyVisitId() != null && !isMotherCardClosed()
+                        ? org.smartregister.chw.R.string.mama_results_visit_edit_expired
+                        : org.smartregister.chw.mothermentor.R.string.mothermentor_mother_closed_message));
+        lockMotherVisitSubmit();
+        return true;
+    }
+
+    private boolean isCardReadOnly() {
+        boolean motherClosed = isMotherCardClosed();
+        String historyVisitId = historyVisitId();
+        if (historyVisitId == null || !Boolean.TRUE.equals(isEditMode) || isFollowUpVisit()) {
+            return motherClosed || isFollowUpCardClosed();
+        }
+        Visit latest = MotherMentorLibrary.getInstance().visitRepository().getLatestVisit(
+                baseEntityID, Constants.EVENT_TYPE.MOTHER_MENTOR_SERVICES);
+        if (latest == null || !historyVisitId.equals(latest.getVisitId())) return true;
+        SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+        LocalDate today = LocalDate.now();
+        return motherClosed
+                ? !MotherMentorMotherClosureRepository.isSameDayClosingVisit(db, latest, today)
+                : MotherMentorMotherChildRepository.isEarlierSiblingClosingVisit(db, latest, today);
+    }
+
+    private String historyVisitId() {
+        return getIntent() == null ? null : getIntent().getStringExtra(HISTORY_VISIT_ID);
+    }
+
+    private boolean blockDuplicateIitVisit() {
+        if (!isFollowUpVisit() || getFollowUpType() != MotherMentorFollowUpType.MOTHER_IIT
+                || Boolean.TRUE.equals(isEditMode)
+                || !MotherMentorFollowUpVisitUtils.hasCompletedIitVisitToday(baseEntityID, new Date())) {
+            return false;
+        }
+        displayToast(getString(org.smartregister.chw.mothermentor.R.string.mothermentor_visit_conducted));
+        finish();
+        return true;
+    }
+
+    private boolean blockNewChildEidVisitWhilePending() {
+        if (!isFollowUpVisit() || getFollowUpType() != MotherMentorFollowUpType.CHILD_EID
+                || Boolean.TRUE.equals(isEditMode) || baseEntityID == null
+                || MotherMentorChildEidResultEvent.pending(
+                        ChwApplication.getInstance().getRepository().getReadableDatabase(),
+                        baseEntityID) == null) return false;
+        displayToast(getString(org.smartregister.chw.R.string.mothermentor_child_follow_up_wait_for_result));
+        finish();
+        return true;
+    }
+
+    private void lockMotherVisitSubmit() {
+        if (tvSubmit != null) {
+            tvSubmit.setEnabled(false);
+            tvSubmit.setOnClickListener(null);
+        }
+    }
+
+    @Override
+    public void redrawVisitUI() {
+        if (isCardReadOnly()) {
+            lockMotherVisitSubmit();
+            return;
+        }
+        super.redrawVisitUI();
+    }
+
+    private void resetSubmission() {
+        closureConfirmationOpen = false;
+        submitting = false;
+        childEidSuccess = false;
+        if (tvSubmit != null) tvSubmit.setEnabled(true);
+    }
+
+    @Override
+    public void startForm(BaseMotherMentorVisitAction action) {
+        if (blockClosedCard()) return;
+        if (childEidSection(CHILD_EID_STATUS_FORM) != null) {
+            childEidOpenSection = action.getFormName();
+        }
+        super.startForm(action);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != Constants.REQUEST_CODE_GET_JSON || childEidOpenSection == null) {
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+
+        String section = childEidOpenSection;
+        childEidOpenSection = null;
+        if (resultCode != RESULT_OK || data == null) return;
+        String payload = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+        if (TextUtils.isEmpty(payload)) return;
+        childEidSectionAnswers.putString(section, payload);
+        if (childEidSection(CHILD_EID_STATUS_FORM) == null) {
+            // Android can deliver the result before the asynchronous action load finishes.
+            restoreChildEidSections = true;
+            return;
+        }
+        applyChildEidSection(section);
+        redrawVisitUI();
+    }
+
+    private BaseMotherMentorVisitAction childEidSection(String form) {
+        for (BaseMotherMentorVisitAction action : getMotherMentorVisitActions().values()) {
+            if (form.equals(action.getFormName())) return action;
+        }
+        return null;
+    }
+
+    private void applyChildEidSection(String form) {
+        BaseMotherMentorVisitAction action = childEidSection(form);
+        String answers = childEidSectionAnswers.getString(form);
+        if (action == null || answers == null) return;
+        action.setJsonPayload(answers);
+        if (CHILD_EID_STATUS_FORM.equals(form) && childEidSection(CHILD_EID_HEI_FORM) == null) {
+            childEidSectionAnswers.remove(CHILD_EID_HEI_FORM);
+        }
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        blockClosedCard();
+    }
+
+    @Override
+    protected void onSubmissionCancelled() {
+        submitting = false;
+        super.onSubmissionCancelled();
+    }
+
+    @Override
+    public void displayToast(String message) {
+        resetSubmission();
+        super.displayToast(message);
+        if (isCardReadOnly()) lockMotherVisitSubmit();
+    }
+
+    boolean isFollowUpVisit() {
+        return getIntent() != null && getIntent().getBooleanExtra(EXTRA_FOLLOW_UP_VISIT, false);
+    }
+
+    MotherMentorFollowUpType getFollowUpType() {
+        return MotherMentorFollowUpType.fromValue(getIntent() == null
+                        ? null
+                        : getIntent().getStringExtra(
+                                  MotherMentorFollowUpType.EXTRA_FOLLOW_UP_TYPE));
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        if (blockClosedCard()) return;
+        Intent intent = MotherMentorFormWizardUtils.getFormIntent(this, jsonForm);
+        intent.putExtra(
+                org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog,
+                false);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void submittedAndClose(String results) {
+        if (childEidSuccess) {
+            displayToast(getString(
+                    org.smartregister.chw.mothermentor.R.string.mothermentor_eid_exit_success_toast));
+        }
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(Constants.JSON_FORM_EXTRA.JSON, results);
+        setResult(Activity.RESULT_OK, returnIntent);
+        close();
+    }
+
+    @Override
+    protected MemberObject getMemberObject(String baseEntityId) {
+        if (historyVisitId() != null) return MotherMentorDao.getPrimaryMemberForHistory(baseEntityId);
+        MemberObject memberObject = MotherMentorDao.getMember(baseEntityId);
+        if (memberObject != null) {
+            return memberObject;
+        }
+
+        memberObject = MotherMentorDao.getContact(baseEntityId);
+        return memberObject != null ? memberObject
+                                    : MotherMentorDao.getSecondaryEnrollmentMember(baseEntityId);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        String lang = LangUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(LangUtils.setAppLocale(base, lang));
+    }
+}

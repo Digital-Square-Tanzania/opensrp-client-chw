@@ -16,6 +16,7 @@ import org.smartregister.chw.fragment.AllClientsRegisterFragment;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.presenter.ChwAllClientRegisterPresenter;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.LocalDayRegisterRefresh;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
@@ -27,6 +28,20 @@ import timber.log.Timber;
 public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity {
 
     private boolean clientPickerMode;
+    private final LocalDayRegisterRefresh dayRefresh = new LocalDayRegisterRefresh(
+            this, () -> LocalDayRegisterRefresh.refreshAttachedRegisters(getSupportFragmentManager()));
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        dayRefresh.start();
+    }
+
+    @Override
+    protected void onPause() {
+        dayRefresh.stop();
+        super.onPause();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

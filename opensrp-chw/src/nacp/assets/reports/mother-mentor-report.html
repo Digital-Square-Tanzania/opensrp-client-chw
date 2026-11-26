@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama Kinara Community Report</title>
+    <style>
+        body { margin: 0; padding: 8px; font-family: "Times New Roman", serif; color: #000; }
+        h1, h2 { margin: 0; padding: 10px; text-align: center; font-size: 1.1rem; }
+        h1 { background: #1f3864; color: #fff; }
+        h2 { background: #2e75b6; color: #fff; font-size: 1rem; }
+        .report-table { min-width: 2100px; }
+        .metadata { display: flex; flex-wrap: wrap; gap: 12px 36px; padding: 12px 0; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #000; padding: 6px; vertical-align: middle; font-size: 0.8rem; }
+        thead th { background: #2e75b6; color: #fff; text-align: center; }
+        .number-cell { width: 28px; text-align: center; }
+        .indicator-cell { min-width: 360px; width: 360px; text-align: left; }
+        .value-cell { min-width: 55px; text-align: center; }
+        tbody td, tbody th { background: #deeaf1; }
+        .summary-row td, .summary-row th { background: #bdd7ee; font-weight: bold; }
+        .sub-row .indicator-cell { padding-left: 22px; font-weight: normal; }
+        .not-applicable, .summary-row .not-applicable { background: #d9d9d9; }
+        .unavailable { color: #4d4d4d; }
+        .legend { margin: 12px 0; font-size: 0.9rem; }
+        .legend-swatch { display: inline-block; width: 14px; height: 14px; background: #d9d9d9; border: 1px solid #666; vertical-align: middle; }
+        .signatures { margin-top: 20px; }
+        .signatures th, .signatures td { width: 25%; text-align: left; background: #fff; }
+        .signatures td { height: 30px; }
+        .error { color: #9b1c1c; font-weight: bold; }
+        @media print {
+            @page { size: A3 landscape; margin: 8mm; }
+            body { padding: 0; }
+            .report-table { min-width: 0; }
+            th, td { padding: 3px; font-size: 7pt; }
+            .indicator-cell { min-width: 0; width: 23%; }
+            .value-cell { min-width: 0; }
+            thead { display: table-header-group; }
+            tr { break-inside: avoid; }
+            * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body onload="loadData()">
+<main class="report">
+    <h1>MAMA KINARA COMMUNITY REPORT</h1>
+    <h2>FOMU YA KUTOLEA TAARIFA YA MWEZI</h2>
+    <div class="metadata">
+        <span>Mwezi/Mwaka: <strong id="report_period"></strong></span>
+        <span>Kituo: <strong id="reporting_facility"></strong></span>
+    </div>
+    <p id="report_error" class="error" role="alert" hidden></p>
+    <table class="report-table" aria-label="Mama Kinara monthly report">
+        <thead>
+        <tr>
+            <th rowspan="3" class="number-cell">Na</th>
+            <th rowspan="3" class="indicator-cell">Kiashiria</th>
+            <th rowspan="3">JUMLA<br>(ME+KE)</th>
+            <th colspan="11">WANAUME</th>
+            <th colspan="11">WANAWAKE</th>
+        </tr>
+        <tr>
+            <th rowspan="2">JUMLA<br>(ME)</th><th colspan="10">Umri</th>
+            <th rowspan="2">JUMLA<br>(KE)</th><th colspan="10">Umri</th>
+        </tr>
+        <tr>
+            <th>Chini ya Mwezi 1</th><th>Mwezi 1 hadi 11</th><th>Miezi 12 hadi 23</th><th>2-4</th><th>5-9</th><th>10-14</th><th>15-19</th><th>20-24</th><th>25-59</th><th>60+</th>
+            <th>Chini ya Mwezi 1</th><th>Mwezi 1 hadi 11</th><th>Miezi 12 hadi 23</th><th>2-4</th><th>5-9</th><th>10-14</th><th>15-19</th><th>20-24</th><th>25-59</th><th>60+</th>
+        </tr>
+        </thead>
+        <tbody id="report_body"></tbody>
+    </table>
+    <p class="legend"><span class="legend-swatch" aria-hidden="true"></span> = Haihusiki (N/A). Watoto (Ind. 7–10): WANAUME = Wavulana, WANAWAKE = Wasichana.</p>
+    <p class="legend">— = Haipatikani / Unavailable. 0 = Hakuna / None.</p>
+    <p class="legend">Ziara zilizokamilishwa pekee ndizo zinahesabiwa. / Only finalized visits are included.</p>
+    <p id="counting_notes" class="legend">Ind. 11: tumia matokeo ya tembeleo la mwisho la ufuatiliaji la mwezi kwa kila mteja. Ind. 13: kila mwenza aliyeelimishwa huhesabiwa mara moja kwenye jumla na mara moja kwa kila mada aliyofundishwa. / Indicator 11 uses each client's last follow-up outcome of the month. Indicator 13 counts each educated partner once overall and once per topic taught.</p>
+    <p class="legend">Ind. 16 huhesabu mada kwa kila shughuli. Kwa Ind. 15, 18 na 19, umri haujakusanywa. / Indicator 16 counts topics per activity. Indicators 15, 18 and 19 do not capture ages.</p>
+    <p id="coverage_note" class="legend" hidden></p>
+    <p id="unclassified_note" class="legend" hidden></p>
+    <table class="signatures" aria-label="Uthibitisho wa taarifa">
+        <tr><th>Jina la Mama Kinara</th><th>Tarehe</th><th>Sahihi ya Mama Kinara</th><th>Simu</th></tr>
+        <tr><td>……………………………………….</td><td>……………………………………….</td><td>……………………………………….</td><td>……………………………………….</td></tr>
+        <tr><th colspan="4">UTHIBITISHO:</th></tr>
+        <tr><th>Jina la Msimamizi</th><th>Tarehe</th><th>Sahihi ya Msimamizi</th><th>Simu</th></tr>
+        <tr><td>……………………………………….</td><td>……………………………………….</td><td>……………………………………….</td><td>……………………………………….</td></tr>
+    </table>
+</main>
+<script>
+    // Applicability and row labels follow the approved Taarifa ya Mwezi indicator order.
+    const breakdownColumns = ["total", "male-total", "male-under-1m", "male-1-11m", "male-12-23m", "male-2-4", "male-5-9", "male-10-14", "male-15-19", "male-20-24", "male-25-59", "male-60-plus", "female-total", "female-under-1m", "female-1-11m", "female-12-23m", "female-2-4", "female-5-9", "female-10-14", "female-15-19", "female-20-24", "female-25-59", "female-60-plus"];
+    const columns1 = ["total", "male-total", "male-10-14", "male-15-19", "male-20-24", "male-25-59", "male-60-plus", "female-total", "female-10-14", "female-15-19", "female-20-24", "female-25-59", "female-60-plus"];
+    const columns2 = ["total"];
+    const columns3 = ["total", "male-total", "male-10-14", "male-15-19", "male-20-24", "male-25-59", "male-60-plus"];
+    const columns4 = ["total", "male-total", "male-under-1m", "male-1-11m", "female-total", "female-under-1m", "female-1-11m"];
+    const columns5 = ["total", "male-total", "male-under-1m", "male-1-11m"];
+    const columns6 = ["total", "female-total", "female-under-1m", "female-1-11m"];
+    const columns7 = ["total", "male-total", "male-1-11m", "female-total", "female-1-11m"];
+    const columns8 = ["total", "male-total", "male-1-11m"];
+    const columns9 = ["total", "female-total", "female-1-11m"];
+    const columns10 = ["total", "male-total", "male-1-11m", "male-12-23m", "female-total", "female-1-11m", "female-12-23m"];
+    const totalsColumns = ["total", "male-total", "female-total"];
+    const birthBoyColumns = ["total", "male-total", "male-under-1m"];
+    const birthGirlColumns = ["total", "female-total", "female-under-1m"];
+    const birthColumns = [...birthBoyColumns, ...birthGirlColumns.slice(1)];
+    const adultColumns = columns1.filter(column => !column.endsWith("-10-14"));
+    const partnerReferralColumns = columns3.filter(column => !column.endsWith("-10-14"));
+    const reportRows = [
+        [1, "mm-1", "Idadi ya wateja wapya waliounganishwa kwenye huduma za Mama Kinara", columns1, false],
+        [2, "mm-2", "Idadi ya wateja wa marudio waliotembelewa na Mama Kinara", columns1, false],
+        [3, "mm-3", "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya msaada wa kisaikolojia (PSG)", columns1, false],
+        [4, "mm-4", "Idadi ya wateja wa PMTCT waliounganishwa kwenye vikundi vya ujasiriamali (IGA) ili kukuza kipato", columns1, false],
+        [5, "mm-5", "Idadi ya wateja wa PMTCT walioelimishwa na Mama Kinara", columns1, false],
+        [6, "mm-6", "Idadi ya wateja wa Mama Kinara waliopewa rufaa kwenda kituoni kupata huduma", columns1, false],
+        [7, "mm-7", "Idadi ya watoto waliozaliwa na wanamama wanaoishi na VVU waliofuatiliwa na Mama Kinara", birthColumns, true],
+        ["a", "mm-7-boys", "Wavulana", birthBoyColumns, false],
+        ["b", "mm-7-girls", "Wasichana", birthGirlColumns, false],
+        [8, "mm-8", "Idadi ya Watoto waliofuatiliwa kufika kituoni kwa ukusanyaji wa DBS – Umri wa Wiki 6", columns4, true],
+        ["a", "mm-8-boys", "Wavulana", columns5, false],
+        ["b", "mm-8-girls", "Wasichana", columns6, false],
+        [9, "mm-9", "Idadi ya Watoto waliofuatiliwa kufika kituoni kwa ukusanyaji wa DBS – Umri wa Miezi 9", columns7, true],
+        ["a", "mm-9-boys", "Wavulana", columns8, false],
+        ["b", "mm-9-girls", "Wasichana", columns9, false],
+        [10, "mm-10", "Idadi ya Watoto waliounganishwa na Mama Kinara kupata kipimo cha mwisho cha uthibitisho wa VVU (Miezi 18)", columns10, true],
+        ["a", "mm-10-positive", "Chanya", columns10, false],
+        ["b", "mm-10-negative", "Hasi", columns10, false],
+        [11, "mm-11", "Idadi ya wateja wa PMTCT waliokosa miadi au kupotea (MissApp/IIT) na kufuatiliwa na Mama Kinara", adultColumns, true],
+        ["a", "mm-11-returned", "Amerudi kwenye huduma", adultColumns, false],
+        ["b", "mm-11-agreed", "Amekubali kurudi — bado hajarudi", adultColumns, false],
+        ["c", "mm-11-refused", "Amekataa kurudi", adultColumns, false],
+        ["d", "mm-11-not-found", "Hajapatikana (amesafiri / nyingine)", adultColumns, false],
+        ["e", "mm-11-died", "Amefariki", adultColumns, false],
+        ["f", "mm-11-transferred", "Amehama eneo / amehamia kituo kingine", adultColumns, false],
+        [12, "mm-12", "Idadi ya wenza waliofuatiliwa na kupewa rufaa ya upimaji (wenzi wa wajawazito na wanaonyonyesha waliofuatiliwa na Mama Kinara)", partnerReferralColumns, false],
+        [13, "mm-13", "Idadi ya wenzi wa wajawazito walioelimishwa na Mama Kinara (jamii) kuhusu huduma za PMTCT", columns3, true],
+        ["a", "mm-13-hiv", "VVU", columns3, false],
+        ["b", "mm-13-syphilis", "Kaswende", columns3, false],
+        ["c", "mm-13-hepatitis-b", "Homa ya Ini aina B", columns3, false],
+        [14, "mm-14", "Idadi ya kaya za akina mama wanaoishi na VVU zilizotembelewa na Mama Kinara", columns2, false],
+        [15, "mm-15", "Idadi ya wanakaya waliopewa unasihi wakati wa ziara za nyumbani za Mama Kinara", totalsColumns, false],
+        [16, "mm-16", "Idadi ya mada za elimu ya afya zilizofundishwa na Mama Kinara kwenye jamii", columns2, false],
+        [17, "mm-17", "Idadi ya shughuli za kijamii alizoshiriki Mama Kinara na kutoa elimu ya PMTCT", columns2, false],
+        [18, "mm-18", "Idadi ya wateja waliopewa elimu ya PMTCT katika shughuli za kijamii za Mama Kinara", columns1, false],
+        [19, "mm-19", "Idadi ya wanajamii waliopewa rufaa na Mama Kinara kwenda kituoni kupata huduma za PMTCT wakati wa shughuli za kijamii (uhamasishaji)", totalsColumns, false]
+    ];
+
+    function renderReportRows() {
+        const tbody = document.getElementById("report_body");
+        if (tbody.children.length > 0) {
+            return;
+        }
+        reportRows.forEach((definition) => {
+            const row = document.createElement("tr");
+            row.className = definition[4] ? "summary-row" : (typeof definition[0] === "string" ? "sub-row" : "");
+            const number = document.createElement("td");
+            number.className = "number-cell";
+            number.textContent = definition[0];
+            row.appendChild(number);
+            const label = document.createElement("th");
+            label.scope = "row";
+            label.className = "indicator-cell";
+            label.textContent = definition[2];
+            row.appendChild(label);
+            breakdownColumns.forEach((column) => {
+                const cell = document.createElement("td");
+                cell.className = "value-cell";
+                if (definition[3].indexOf(column) === -1) {
+                    cell.className += " not-applicable";
+                    cell.setAttribute("aria-label", "Haihusiki / Not applicable");
+                } else {
+                    cell.id = definition[1] + (column === "total" ? "" : "-" + column);
+                    cell.setAttribute("data-indicator", cell.id);
+                    cell.textContent = "—";
+                }
+                row.appendChild(cell);
+            });
+            tbody.appendChild(row);
+        });
+    }
+
+    function loadData() {
+        renderReportRows();
+        try {
+            document.getElementById("report_period").textContent = Android.getDataPeriod() || "";
+            document.getElementById("reporting_facility").textContent = Android.getReportingFacility() || "";
+            const data = JSON.parse(Android.getDataForReport());
+            const values = data.nameValuePairs;
+            if (!values || typeof values !== "object") {
+                throw new Error("Invalid report data");
+            }
+            document.querySelectorAll("[data-indicator]").forEach((cell) => {
+                const value = values[cell.id];
+                const available = typeof value === "number" && Number.isFinite(value);
+                cell.textContent = available ? value : "—";
+                if (!available) {
+                    cell.className += " unavailable";
+                    cell.title = "Haipatikani / Unavailable";
+                }
+            });
+            const coverage = [];
+            [8, 9, 10, 11, 12, 13, 15, 18, 19].forEach((indicator) => {
+                const missing = values["mm-" + indicator + "-missing-records"];
+                if (missing > 0) coverage.push("Ind. " + indicator + ": rekodi " + missing + " hazina taarifa zote / records missing required data");
+            });
+            if (values["mm-7-unknown-sex"] > 0) coverage.push("Ind. 7: watoto " + values["mm-7-unknown-sex"] + " hawana jinsia iliyorekodiwa / children without recorded sex");
+            if (values["mm-15-role-visits"] > 0) coverage.push("Ind. 15: ziara " + values["mm-15-role-visits"] + " zimehesabu washiriki kwa nafasi zao / visits counted participants by role");
+            if (coverage.length) {
+                const coverageNote = document.getElementById("coverage_note");
+                coverageNote.hidden = false;
+                coverageNote.textContent = coverage.join(". ") + ".";
+            }
+            if (values["query-errors"] > 0) {
+                const error = document.getElementById("report_error");
+                error.hidden = false;
+                error.textContent = "Baadhi ya taarifa hazikuweza kusomwa. / Some report data could not be read.";
+            }
+            const unclassified = [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13].filter((indicator) => values["mm-" + indicator + "-unclassified"] > 0)
+                .map((indicator) => "kiashiria " + indicator + ": " + values["mm-" + indicator + "-unclassified"]);
+            if (unclassified.length > 0) {
+                const note = document.getElementById("unclassified_note");
+                note.hidden = false;
+                note.textContent = "Wateja wasiojumuishwa kwenye mgawanyo kwa umri/jinsi: " + unclassified.join("; ") + ".";
+            }
+        } catch (error) {
+            const message = document.getElementById("report_error");
+            message.hidden = false;
+            message.textContent = "Taarifa haikupatikana. Fungua tena ripoti. / Report could not be loaded. Please reopen it.";
+        }
+    }
+</script>
+</body>
+</html>

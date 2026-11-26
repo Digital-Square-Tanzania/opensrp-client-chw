@@ -164,6 +164,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean prepared = super.onPrepareOptionsMenu(menu);
+        MotherMentorChildEidRegisterActivity.updateDirectEnrollmentMenu(this, menu, childBaseEntityId);
+        return prepared;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_malaria_registration:

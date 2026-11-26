@@ -4,10 +4,39 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.dao.AbstractDao;
 
 import java.util.List;
+import java.util.Map;
 
 public class ChwHpsDao extends AbstractDao {
 
     private static final double BLOOD_GLUCOSE_THRESHOLD = 7.0;
+
+    public static boolean hasCompleteDeathRegisterRecord(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) return false;
+
+        String sql = "SELECT base_entity_id FROM ec_hps_death_register " +
+                "WHERE base_entity_id = ? " +
+                "AND TRIM(IFNULL(dod, '')) <> '' " +
+                "AND TRIM(IFNULL(dob, '')) <> '' LIMIT 1";
+        List<Map<String, Object>> results = readData(sql, new String[]{baseEntityId});
+        return results != null && !results.isEmpty();
+    }
+
+    public static String getRecordedDateOfDeath(String baseEntityId) {
+        if (StringUtils.isBlank(baseEntityId)) return null;
+
+        String dateOfDeath = getDateOfDeath("ec_hps_death_register", baseEntityId);
+        return dateOfDeath != null ? dateOfDeath : getDateOfDeath("ec_family_member", baseEntityId);
+    }
+
+    private static String getDateOfDeath(String tableName, String baseEntityId) {
+        String sql = "SELECT dod FROM " + tableName + " WHERE base_entity_id = ? " +
+                "AND TRIM(IFNULL(dod, '')) <> '' LIMIT 1";
+        List<Map<String, Object>> results = readData(sql, new String[]{baseEntityId});
+        if (results == null || results.isEmpty()) return null;
+
+        Object dateOfDeath = results.get(0).get("dod");
+        return dateOfDeath == null ? null : StringUtils.trimToNull(dateOfDeath.toString());
+    }
 
     public static boolean isBloodPressureAboveThreshold(String baseEntityId) {
         if (StringUtils.isBlank(baseEntityId)) return false;

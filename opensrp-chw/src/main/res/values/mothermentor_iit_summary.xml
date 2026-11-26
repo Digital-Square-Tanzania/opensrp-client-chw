@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MotherMentorIitSummaryText" parent="@android:style/Widget.TextView">
+        <item name="fontVariant">regular</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/register_member_village_size</item>
+    </style>
+
+    <style name="MotherMentorIitSummaryText.Label">
+        <item name="fontVariant">medium</item>
+    </style>
+
+    <string name="mothermentor_iit_summary_missed_label">Missed appointment</string>
+    <string name="mothermentor_iit_summary_date_unavailable">Date unavailable</string>
+    <plurals name="mothermentor_iit_summary_missed_value">
+        <item quantity="one">%1$s · %2$d day ago</item>
+        <item quantity="other">%1$s · %2$d days ago</item>
+    </plurals>
+</resources>

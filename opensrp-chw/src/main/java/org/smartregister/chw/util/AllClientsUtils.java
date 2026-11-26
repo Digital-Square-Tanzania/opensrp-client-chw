@@ -36,6 +36,7 @@ import org.smartregister.chw.activity.HpsMemberProfileActivity;
 import org.smartregister.chw.activity.IccmProfileActivity;
 import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
+import org.smartregister.chw.activity.MotherMentorProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.activity.SbcMemberProfileActivity;
 import org.smartregister.chw.activity.TbLeprosyProfileActivity;
@@ -56,6 +57,8 @@ import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hps.dao.HpsDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.IccmDao;
+import org.smartregister.chw.mothermentor.dao.MotherMentorDao;
+import org.smartregister.chw.mothermentor.util.MotherMentorFollowUpType;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tbleprosy.dao.TbLeprosyDao;
@@ -135,6 +138,15 @@ public class AllClientsUtils {
 
     public static void goToAypProfile(Activity activity, CommonPersonObjectClient client) {
         AypOutSchoolMemberProfileActivity.startProfileActivity(activity, client.getCaseId());
+    }
+
+    public static void goToMotherMentorProfile(Activity activity, CommonPersonObjectClient client) {
+        MotherMentorProfileActivity.startMe(activity, client.getCaseId());
+    }
+
+    public static void goToMotherMentorFollowUpProfile(Activity activity, CommonPersonObjectClient client,
+                                                     MotherMentorFollowUpType followUpType) {
+        MotherMentorProfileActivity.startFollowUpProfile(activity, client.getCaseId(), followUpType);
     }
 
     public static void goToTbLeprosyProfile(Activity activity, CommonPersonObjectClient client) {
@@ -306,6 +318,11 @@ public class AllClientsUtils {
         } else {
             updateDefaultMenu(menu, baseEntityId, commonPersonObject, flavor, gender, age, isFemaleOfReproductiveAge);
         }
+
+        boolean offerMotherMentorEnrollment = canOfferMotherMentorEnrollment(gender, age);
+        setMenuItemVisibility(menu, R.id.action_mother_mentor_enrollment, offerMotherMentorEnrollment);
+        addMenuItemIfMissing(menu, R.id.action_mother_mentor_enroll_iit,
+                R.string.mother_mentor_enroll_iit, offerMotherMentorEnrollment);
     }
 
     private static void updateIccmMenu(Menu menu, String baseEntityId, FamilyOtherMemberProfileActivity.Flavor flavor) {
@@ -413,6 +430,11 @@ public class AllClientsUtils {
         }
     }
 
+    public static boolean canOfferMotherMentorEnrollment(String gender, int age) {
+        return ChwApplication.getApplicationFlavor().hasMotherMentor()
+                && "Female".equalsIgnoreCase(gender) && age >= 10;
+    }
+
     public static void addTbLeprosyMenuItem(Menu menu, String baseEntityId) {
         MenuItem tbLeprosyMenu = menu.findItem(R.id.action_tbleprosy_screening);
         if (tbLeprosyMenu == null) {
@@ -423,6 +445,23 @@ public class AllClientsUtils {
         boolean showItem = ChwApplication.getApplicationFlavor().hasTbLeprosy()
                 && !TbLeprosyDao.isRegisteredForTbLeprosy(baseEntityId);
         tbLeprosyMenu.setVisible(showItem);
+    }
+
+    public static void addMotherMentorMenuItem(Menu menu, CommonPersonObjectClient client) {
+        String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, false);
+        boolean visible = canOfferMotherMentorEnrollment(gender, getPersonAge(client))
+                && !MotherMentorDao.isRegisteredForMotherMentor(client.entityId());
+        addMenuItemIfMissing(menu, R.id.action_mother_mentor_registration,
+                R.string.mother_mentor_registration, visible);
+    }
+
+    private static void addMenuItemIfMissing(Menu menu, int itemId, int titleRes, boolean visible) {
+        MenuItem item = menu.findItem(itemId);
+        if (item == null) {
+            item = menu.add(Menu.NONE, itemId, Menu.NONE, titleRes);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
+        item.setVisible(visible);
     }
 
     public static void setMenuItemVisibility(Menu menu, int itemId, boolean visible) {

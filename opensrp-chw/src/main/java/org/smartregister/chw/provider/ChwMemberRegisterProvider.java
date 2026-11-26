@@ -139,9 +139,15 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
 
             View nextArrow = viewHolder.nextArrow;
             attachNextArrowOnclickListener(nextArrow, client);
+            updateDueColumn(viewHolder, baseEntityId);
+        } else {
+            viewHolder.patientColumn.setOnClickListener(null);
+            viewHolder.patientColumn.setTag(null);
+            viewHolder.nextArrow.setOnClickListener(null);
+            viewHolder.nextArrow.setTag(null);
+            viewHolder.status.setVisibility(View.INVISIBLE);
+            viewHolder.statusLayout.setVisibility(View.INVISIBLE);
         }
-
-        updateDueColumn(viewHolder, baseEntityId);
 
     }
 

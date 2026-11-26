@@ -37,6 +37,11 @@ import timber.log.Timber;
 
 public class IccmRegisterActivity extends CoreMalariaRegisterActivity {
 
+    @Override
+    protected String getDrawerMenu() {
+        return CoreConstants.DrawerMenu.ICCM;
+    }
+
     public static void startIccmRegistrationActivity(Activity activity, String baseEntityID, @Nullable String familyBaseEntityID) {
         Intent intent = new Intent(activity, IccmRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
