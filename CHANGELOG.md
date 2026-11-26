@@ -4,6 +4,10 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+## Mother Mentor Beta 12 · Batch 2
+
+- Build the #1241–#1252 release candidate with the Child EID visit recreation and Closed partner register repairs. Keep Core Alpha 69 and app version code 72. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
+
 ## Mother Mentor Closed partner register — 2026-11-26
 
 - Use finalized partner visit evidence for the Closed register when the enrollment
