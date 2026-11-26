@@ -4,6 +4,11 @@
 
 - Read Mapbox download credentials from local Gradle properties. Remove the tracked assignment from this release lineage. [UCSW-201](https://multica.ai/ucs-workspace/issues/UCSW-201)
 
+## Mother Mentor Alpha 64 integration candidate — 2026-11-25
+
+- Record not-found outcomes on open post-acceptance Mwenzi visits with reason-specific closure using
+  Core `2.2.0-MOTHER-MENTOR-ALPHA-64-UCSW-139-MWENZI-EXIT-ALIGNMENT-MOH-SNAPSHOT`. [CHW #1242](https://github.com/Digital-Square-Tanzania/opensrp-client-chw/issues/1242)
+
 ## Mother Mentor Alpha 62 integration candidate — 2026-11-25
 
 - Open the selected Mtoto EID visit in History to correct its weaning date

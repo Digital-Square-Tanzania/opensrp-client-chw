@@ -106,15 +106,21 @@ public class MotherMentorDeceasedDeathRegisterTest {
 
     @Test
     public void finalizedMwenziDeathUsesTheOrdinaryMemberAndIcchwDeathProjection() throws Exception {
-        assertStandardDeathProjection("json.form", true);
+        assertStandardDeathProjection("json.form", "tracing");
+    }
+
+    @Test
+    public void finalizedPostAcceptanceDeathUsesTheOrdinaryMemberAndIcchwDeathProjection() throws Exception {
+        assertStandardDeathProjection("json.form", "attendance");
     }
 
     @Test
     public void swahiliMotherMentorDeathsAppearInIcchwDeathRegisterWithoutDuplicates() throws Exception {
-        assertStandardDeathProjection("json.form-sw", false);
+        assertStandardDeathProjection("json.form-sw", null);
     }
 
-    private void assertStandardDeathProjection(String formDirectory, boolean projectPartnerVisit) throws Exception {
+    private void assertStandardDeathProjection(String formDirectory, String partnerPhase) throws Exception {
+        boolean projectPartnerVisit = partnerPhase != null;
         org.smartregister.Context context = mock(org.smartregister.Context.class, RETURNS_DEEP_STUBS);
         AllSharedPreferences preferences = mock(AllSharedPreferences.class);
         when(context.allSharedPreferences()).thenReturn(preferences);
@@ -300,7 +306,7 @@ public class MotherMentorDeceasedDeathRegisterTest {
                     Event prior = MotherMentorDeathPropagationTest.partnerVisit(clientId, "living-mother",
                             "other", "2026-10-27");
                     Event visit = MotherMentorDeathPropagationTest.partnerVisit(clientId, "living-mother",
-                            "deceased", "2026-10-28");
+                            "deceased", "2026-10-28", partnerPhase);
                     for (Event saved : new Event[] {prior, visit}) {
                         data.execSQL("INSERT INTO visits VALUES (?, ?, ?)", new Object[] {
                                 saved.getBaseEntityId(), saved.getEventType(),
